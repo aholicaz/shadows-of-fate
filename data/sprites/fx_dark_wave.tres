@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/effects/dark_wave.png" id="1_tex"]
+
+[sub_resource type="AtlasTexture" id="wave_0"]
+atlas = ExtResource("1_tex")
+region = Rect2(0, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="wave_1"]
+atlas = ExtResource("1_tex")
+region = Rect2(192, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="wave_2"]
+atlas = ExtResource("1_tex")
+region = Rect2(384, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="wave_3"]
+atlas = ExtResource("1_tex")
+region = Rect2(576, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="wave_4"]
+atlas = ExtResource("1_tex")
+region = Rect2(768, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="wave_5"]
+atlas = ExtResource("1_tex")
+region = Rect2(960, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="wave_6"]
+atlas = ExtResource("1_tex")
+region = Rect2(1152, 0, 192, 160)
+
+[sub_resource type="AtlasTexture" id="wave_7"]
+atlas = ExtResource("1_tex")
+region = Rect2(1344, 0, 192, 160)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("wave_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("wave_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("wave_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("wave_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("wave_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("wave_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("wave_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("wave_7")
+}],
+"loop": true,
+"name": &"wave",
+"speed": 14.0
+}]

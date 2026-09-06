@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/placeholder/forge_golem_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/forge_golem_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_forge_golem_0"]
 script = ExtResource("2_drop")
@@ -37,7 +37,7 @@ chance = 0.66
 
 [resource]
 script = ExtResource("1_monster")
-sprite_frames = ExtResource("3_frames")
+sprite_frames = ExtResource("frames_new")
 id = &"forge_golem"
 display_name = "โกเลมเตาหลอม"
 hitbox_size = Vector2(60, 64)

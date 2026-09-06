@@ -1036,14 +1036,14 @@ autoplay = "Idle"
 frame_progress = 0.21823835
 
 [node name="SavePoint" parent="NPCs" unique_id=1149238899 instance=ExtResource("npc")]
-position = Vector2(3241, 590)
+position = Vector2(3245, 545)
 npc_name = "เสาวาปแห่งธอร์"
 type = 4
 dialog = "เสาวาปโบราณ · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
 quest_talk_names = Array[StringName]([&"ศิลาสลักแห่งธอร์"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/SavePoint" unique_id=1114171629]
-position = Vector2(12, -88)
+position = Vector2(2, -25)
 scale = Vector2(0.5643275, 0.5643275)
 sprite_frames = SubResource("SpriteFrames_d0u6y")
 animation = &"Idle"

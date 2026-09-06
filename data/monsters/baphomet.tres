@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" uid="uid://dl7uxyyudy0av" path="res://data/sprites/monsters/baphomet_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_baphomet_0"]
 script = ExtResource("2_drop")
@@ -51,12 +52,13 @@ chance = 50.0
 script = ExtResource("1_monster")
 id = &"baphomet"
 display_name = "บาฟโฟเมท"
+sprite_frames = ExtResource("frames_new")
 sprite_scale = Vector2(1.4, 1.4)
 hitbox_size = Vector2(70, 90)
 hp_bar_offset_y = -120.0
 display_height = 340.0
 level = 50
-max_hp = 14000
+max_hp = 25000
 atk_min = 320
 atk_max = 430
 def = 55
@@ -93,4 +95,18 @@ drops = Array[ExtResource("2_drop")]([SubResource("Drop_baphomet_0"), SubResourc
 is_boss = true
 boss_title = "ราชาปีศาจบาฟโฟเมท"
 intro_video = "res://Sprites/video/boss_intro_baphomet.ogv"
+skill_name = "เคียวเงามรณะ"
+skill_anim = &"Skill"
+skill_range = 560.0
+skill_damage_mult = 2.0
+skill_windup = 0.5
+skill_duration = 1.2
+skill_cooldown = 8.0
+skill_chance = 0.7
+skill_knockback = 380.0
+skill_wave_count = 2
+skill_wave_both_sides = true
+skill_wave_interval = 0.38
+skill_wave_max_hits = 3
+skill_wave_height = 350.0
 respawn_time = 120.0

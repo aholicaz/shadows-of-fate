@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://bq4d88cglhnd1"]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3 uid="uid://bq4d88cglhnd1"]
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/placeholder/silent_wraith_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/silent_wraith_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_silent_wraith_0"]
 script = ExtResource("2_drop")
@@ -34,7 +34,7 @@ chance = 0.64
 script = ExtResource("1_monster")
 id = &"silent_wraith"
 display_name = "ภูตไร้เสียง"
-sprite_frames = ExtResource("3_frames")
+sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(36, 50)
 hp_bar_offset_y = -72.2
 display_height = 190.0

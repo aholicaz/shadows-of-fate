@@ -321,6 +321,43 @@ enum AIType {
 @export var skill_bolt_sfx: String = "thunder_strike"
 @export var skill_bolt_z: int = 70
 
+# =========================================================
+# ★★ รอบ 78 — สกิล "คลื่นเคียวมืด" วิ่งไปตามพื้น (บาฟโฟเมท) ★★
+#
+# ใส่ Skill Wave Count มากกว่า 0 = ตอนร่ายสกิล จะมี "คลื่นเงามืด" พุ่งออกจากเท้ามอน
+# วิ่งไปตามพื้นข้างหน้า (และข้างหลังด้วยถ้าติ๊ก Both Sides) จนสุดระยะแล้วสลาย
+# ★ วิธีหลบต่างจากสายฟ้า ★ สายฟ้า = วิ่งออกจากวงเตือน · คลื่น = **กระโดดข้าม** หรือพุ่งหลบทะลุ
+# (คลื่นเตี้ย — โดนเฉพาะตอนเท้าอยู่ต่ำกว่า Skill Wave Hit Height จากพื้น)
+# ดาเมจใช้ Skill Damage Mult (หรือตั้งแยกที่ Skill Wave Damage Mult)
+# =========================================================
+@export_group("สกิล — คลื่นเคียวมืดวิ่งบนพื้น")
+## จำนวนคลื่นต่อการร่าย 1 ครั้ง (0 = ไม่ใช้ระบบนี้)
+@export var skill_wave_count: int = 0
+## ปล่อยทั้งข้างหน้าและข้างหลังพร้อมกันไหม (บอส: กันผู้เล่นแอบตีข้างหลัง)
+@export var skill_wave_both_sides: bool = false
+## ความเร็วคลื่น (พิกเซล/วินาที)
+@export var skill_wave_speed: float = 540.0
+## วิ่งได้ไกลสุดกี่พิกเซลแล้วสลาย
+@export var skill_wave_range: float = 900.0
+## เว้นกี่วินาทีระหว่างคลื่นแต่ละลูก
+@export var skill_wave_interval: float = 0.35
+## หน่วงกี่วินาทีหลังเริ่มท่าสกิลถึงจะปล่อยลูกแรก (ตั้งให้ตรงจังหวะฟันเคียว)
+@export var skill_wave_delay: float = 0.45
+## โซนที่โดน — ครึ่งความกว้าง / ความสูงจากพื้นขึ้นไป (เท้าผู้เล่นสูงกว่านี้ = ข้ามได้)
+@export var skill_wave_hit_width: float = 42.0
+@export var skill_wave_hit_height: float = 72.0
+## ผู้เล่นโดนได้สูงสุดกี่ลูกต่อการร่าย 1 ครั้ง (0 = ไม่จำกัด)
+@export var skill_wave_max_hits: int = 1
+## ตัวคูณดาเมจต่อลูก (0 = ใช้ Skill Damage Mult)
+@export var skill_wave_damage_mult: float = 0.0
+## ความสูงของภาพคลื่นบนจอ (พิกเซล)
+@export var skill_wave_height: float = 150.0
+## SpriteFrames ของคลื่น (เว้นว่าง = ใช้ res://data/sprites/fx_dark_wave.tres)
+@export var skill_wave_frames: SpriteFrames
+## ชื่อไฟล์เสียงตอนปล่อยคลื่น (ไม่มีไฟล์ = เงียบ) — วางที่ Sprites/sfx/<ชื่อ>.ogg
+@export var skill_wave_sfx: String = "dark_wave"
+@export var skill_wave_z: int = 70
+
 @export_group("ท่าตาย")
 ## ★ ให้ท่าตายเล่นนานกี่วินาที ★ 0 = คิดจากจำนวนเฟรม/ความเร็วของอนิเมชันเอง
 ## (ชื่ออนิเมชันจะตั้งเป็น Death / Die / Dead / Dying ก็ได้ พิมพ์เล็ก-ใหญ่ไม่สำคัญ)
@@ -369,7 +406,7 @@ func job_exp() -> int:
 
 ## มอนตัวนี้มีสกิลไหม
 func has_skill() -> bool:
-	return skill_name != "" or skill_anim != &"" or skill_bolt_count > 0
+	return skill_name != "" or skill_anim != &"" or skill_bolt_count > 0 or skill_wave_count > 0
 
 
 ## ★ รอบ 69 ★ เฟรมที่ทำดาเมจทั้งหมด เรียงจากน้อยไปมาก

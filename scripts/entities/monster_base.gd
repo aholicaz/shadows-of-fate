@@ -630,6 +630,11 @@ func _cast_skill() -> void:
 	if data.skill_bolt_count > 0:
 		LightningStrike.cast(data, self, facing)
 
+	# ★ คลื่นเคียวมืดวิ่งบนพื้น (รอบ 78 · บาฟโฟเมท) ★ ตั้ง Skill Wave Count > 0
+	# ตัวมันปล่อยทีละลูก/ไล่พื้น/คิดดาเมจเอง (กระโดดข้ามหรือพุ่งหลบทะลุได้)
+	if data.skill_wave_count > 0:
+		DarkWave.cast(data, self, facing)
+
 	await get_tree().create_timer(data.skill_windup).timeout
 	if state == State.DEAD or not is_instance_valid(self):
 		return
@@ -640,8 +645,8 @@ func _cast_skill() -> void:
 		if _player != null and is_instance_valid(_player):
 			target = _player.foot_position() if _player.has_method("foot_position") else _player.global_position
 		MonsterProjectile.fire_lob(data, self, target)
-	elif data.skill_bolt_count <= 0:
-		# ★ สายฟ้าคิดดาเมจเองทีละเส้นแล้ว ★ ไม่ต้องทำดาเมจรอบตัวซ้ำอีก
+	elif data.skill_bolt_count <= 0 and data.skill_wave_count <= 0:
+		# ★ สายฟ้า/คลื่นคิดดาเมจเองทีละลูกแล้ว ★ ไม่ต้องทำดาเมจรอบตัวซ้ำอีก
 		_skill_hit()
 
 	await get_tree().create_timer(maxf(0.05, data.skill_duration - data.skill_windup)).timeout

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/placeholder/rune_watcher_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/rune_watcher_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_rune_watcher_0"]
 script = ExtResource("2_drop")
@@ -37,7 +37,7 @@ chance = 0.62
 
 [resource]
 script = ExtResource("1_monster")
-sprite_frames = ExtResource("3_frames")
+sprite_frames = ExtResource("frames_new")
 id = &"rune_watcher"
 display_name = "ผู้เฝ้ารูน"
 hitbox_size = Vector2(56, 60)

@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://060ft8qpolib"]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3 uid="uid://060ft8qpolib"]
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/placeholder/pitman_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/pitman_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_pitman_0"]
 script = ExtResource("2_drop")
@@ -36,7 +36,7 @@ chance = 0.75
 script = ExtResource("1_monster")
 id = &"pitman"
 display_name = "พิตแมน"
-sprite_frames = ExtResource("3_frames")
+sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(30, 30)
 hp_bar_offset_y = -57.0
 display_height = 150.0

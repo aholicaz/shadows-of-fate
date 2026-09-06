@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://23kkjqbhxvqx"]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=11 format=3 uid="uid://23kkjqbhxvqx"]
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/placeholder/forge_guardian_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/forge_guardian_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_forge_guardian_0"]
 script = ExtResource("2_drop")
@@ -45,7 +45,7 @@ chance = 2.12
 script = ExtResource("1_monster")
 id = &"forge_guardian"
 display_name = "ผู้พิทักษ์เตาหลอม"
-sprite_frames = ExtResource("3_frames")
+sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(80, 90)
 hp_bar_offset_y = -121.6
 display_height = 320.0

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/placeholder/ember_bat_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/ember_bat_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_ember_bat_0"]
 script = ExtResource("2_drop")
@@ -32,7 +32,7 @@ chance = 0.7
 
 [resource]
 script = ExtResource("1_monster")
-sprite_frames = ExtResource("3_frames")
+sprite_frames = ExtResource("frames_new")
 id = &"ember_bat"
 display_name = "ค้างคาวถ่านไฟ"
 hitbox_size = Vector2(34, 30)
