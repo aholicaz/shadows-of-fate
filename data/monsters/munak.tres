@@ -404,6 +404,7 @@ jump_interval = 1.0
 attack_windup = 0.35
 attack_cooldown = 1.6
 knockback_force = 160.0
+attack_hit_frames = null
 exp_reward = 280
 zeny_min = 90
 zeny_max = 180

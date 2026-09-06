@@ -74,6 +74,7 @@ wander_look_chance = 0.4
 jump_interval = 0.45
 attack_cooldown = 0.9
 knockback_force = 90.0
+attack_hit_frames = null
 exp_reward = 62
 zeny_min = 18
 zeny_max = 42

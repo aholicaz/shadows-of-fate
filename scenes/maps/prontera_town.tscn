@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
 [sub_resource type="RectangleShape2D" id="Rect_0"]
-size = Vector2(3620, 48)
+size = Vector2(7234, 39)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bhb5w"]
 animations = [{
@@ -616,7 +616,7 @@ animations = [{
 "speed": 3.0
 }]
 
-[node name="Map" type="Node2D" unique_id=983589772]
+[node name="Map2" type="Node2D" unique_id=983589772]
 script = ExtResource("map_base")
 map_id = &"prontera_town"
 display_name = "พรอนเทรา นครแห่งสายฟ้า"
@@ -626,12 +626,14 @@ player_scene = ExtResource("player")
 [node name="Background" type="Node2D" parent="." unique_id=587235148]
 
 [node name="Sky" type="Polygon2D" parent="Background" unique_id=1489541874]
+visible = false
 z_index = -100
 position = Vector2(1200, 450)
 color = Color(0.36, 0.55, 0.78, 1)
 polygon = PackedVector2Array(-2636, -450, 1200, -450, 1200, 450, -1200, 450, -2639, 451)
 
 [node name="FarLayer" type="Polygon2D" parent="Background" unique_id=2025305551]
+visible = false
 z_index = -90
 position = Vector2(481.99997, 718)
 scale = Vector2(1.5949999, 1)
@@ -650,10 +652,11 @@ position = Vector2(1200, 720)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground0" unique_id=1171894742]
-position = Vector2(-426, 15)
+position = Vector2(-428, 19.5)
 shape = SubResource("Rect_0")
 
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground0" unique_id=1532239276]
+visible = false
 position = Vector2(-426, 289)
 scale = Vector2(1.508333, 1)
 color = Color(0.41960785, 0.36078432, 0.3019608, 1)
@@ -662,7 +665,7 @@ polygon = PackedVector2Array(-1200, -80, 1200, -80, 1200, 80, -1200, 80, -1200.0
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=386314343]
 
 [node name="default" type="Marker2D" parent="SpawnPoints" unique_id=744531472]
-position = Vector2(300, 600)
+position = Vector2(3244, 549)
 
 [node name="from_field" type="Marker2D" parent="SpawnPoints" unique_id=118970678]
 position = Vector2(2198, 569)
@@ -670,13 +673,13 @@ position = Vector2(2198, 569)
 [node name="Portals" type="Node2D" parent="." unique_id=706764151]
 
 [node name="ToField" parent="Portals" unique_id=2006643713 instance=ExtResource("portal")]
-position = Vector2(2347, 578)
+position = Vector2(4210, 665)
 target_map = &"prontera_field"
 target_spawn_point = &"from_town"
 label_text = "→ ทุ่งวิหาร"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Portals" unique_id=33424744]
-position = Vector2(2328, 676)
+position = Vector2(4188, 692)
 scale = Vector2(0.6286982, 0.6286982)
 sprite_frames = SubResource("SpriteFrames_bhb5w")
 animation = &"Idle"
@@ -685,7 +688,7 @@ autoplay = "Idle"
 [node name="NPCs" type="Node2D" parent="." unique_id=524951142]
 
 [node name="Merchant" parent="NPCs" unique_id=1565733649 instance=ExtResource("npc")]
-position = Vector2(-70, 590)
+position = Vector2(1608, 608)
 npc_name = "พ่อค้าโทนี่"
 dialog = "มีของดีมาขายนะ
 
@@ -703,7 +706,7 @@ sprite_frames = SubResource("SpriteFrames_3gngh")
 autoplay = "default"
 
 [node name="Blacksmith" parent="NPCs" unique_id=1359939436 instance=ExtResource("npc")]
-position = Vector2(453, 575)
+position = Vector2(-902, 575)
 npc_name = "ช่างตีเหล็กฮันส์"
 type = 2
 dialog = "อยากให้อาวุธแกร่งขึ้นไหม
@@ -723,7 +726,7 @@ autoplay = "Idle"
 frame_progress = 0.46044508
 
 [node name="Healer" parent="NPCs" unique_id=981804629 instance=ExtResource("npc")]
-position = Vector2(1099, 590)
+position = Vector2(2825, 605)
 npc_name = "นักบวชหญิงมาเรีย"
 type = 3
 dialog = "บาดแผลของเจ้าจะหายดี จงขอบคุณธอร์เถิด"
@@ -739,7 +742,7 @@ autoplay = "Idle"
 frame_progress = 0.21823835
 
 [node name="SavePoint" parent="NPCs" unique_id=1149238899 instance=ExtResource("npc")]
-position = Vector2(1650, 590)
+position = Vector2(3241, 590)
 npc_name = "เสาวาปแห่งธอร์"
 type = 4
 dialog = "เสาวาปโบราณ · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
@@ -753,7 +756,7 @@ autoplay = "Idle"
 frame_progress = 0.12460094
 
 [node name="Guide" parent="NPCs" unique_id=1727980527 instance=ExtResource("npc")]
-position = Vector2(1988, 571)
+position = Vector2(3898, 571)
 npc_name = "ทหารยามเอริค"
 type = 0
 dialog = "เด็กใหม่สินะ ข้าเอริค ยามประตูเมืองนี้
@@ -776,7 +779,7 @@ frame = 4
 frame_progress = 0.0011229648
 
 [node name="HighPriest" parent="NPCs" unique_id=1318346366 instance=ExtResource("npc")]
-position = Vector2(1380, 590)
+position = Vector2(2364, 604)
 npc_name = "นักบวชสูงสุดวาลเดอร์"
 type = 0
 dialog = "เจ้ามาถูกที่แล้ว ลูกเอ๋ย
@@ -804,7 +807,7 @@ autoplay = "Idle"
 frame_progress = 0.6362185
 
 [node name="OldMan" parent="NPCs" unique_id=1084804787 instance=ExtResource("npc")]
-position = Vector2(-330, 590)
+position = Vector2(-2489, 590)
 npc_name = "ตาแก่กุนนาร์"
 type = 0
 dialog = "เด็กใหม่สินะ...
@@ -841,7 +844,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Ingrid" parent="NPCs" unique_id=1434718339 instance=ExtResource("npc")]
-position = Vector2(830, 590)
+position = Vector2(95, 590)
 npc_name = "อิงกริด"
 type = 0
 dialog = "พ่อของข้าเข้าป่าไปเมื่อสิบวันก่อน
@@ -859,7 +862,7 @@ sprite_frames = SubResource("SpriteFrames_5s0fj")
 autoplay = "default"
 
 [node name="GuildMaster" parent="NPCs" unique_id=907818509 instance=ExtResource("npc")]
-position = Vector2(-800, 582)
+position = Vector2(-1630, 582)
 npc_name = "หัวหน้ากิลด์บียอร์น"
 type = 0
 dialog = "กิลด์นักผจญภัยพรอนเทรา ยินดีต้อนรับ

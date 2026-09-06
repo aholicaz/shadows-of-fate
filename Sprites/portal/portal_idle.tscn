@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpriteFrames" path="portal_idle.tres" id="1_idle"]
+
+[node name="PortalIdle" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+sprite_frames = ExtResource("1_idle")
+animation = &"idle"
+autoplay = "idle"
+centered = false
+offset = Vector2(-261, -323)

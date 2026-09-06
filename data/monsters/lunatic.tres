@@ -304,6 +304,7 @@ jump_interval = 0.85
 attack_windup = 0.35
 attack_duration = 0.45
 attack_cooldown = 2.4
+attack_hit_frames = null
 exp_reward = 155
 job_exp_reward = 165
 zeny_min = 27

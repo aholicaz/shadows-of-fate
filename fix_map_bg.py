@@ -43,6 +43,10 @@ apply = "--apply" in sys.argv
 # =========================================================
 # ★ แมพที่จะจัดใหม่ ★ เพิ่มแมพอื่นได้ถ้าเปลี่ยนภาพฉากหลัง
 # =========================================================
+# "fit" มี 2 แบบ
+#   "map" = ★ ย่อภาพให้พอดีแมพ ★ ขนาดแมพ/พื้น/ประตู/จุดเกิด ไม่เปลี่ยนเลย (ปลอดภัยสุด)
+#   "art" = ★ ขยายแมพให้เท่าภาพ ★ ภาพคมสุด 1 พิกเซล = 1 พิกเซล แต่แมพกว้างขึ้น
+#           (สคริปต์จะยืดกล่องชนพื้นให้เองด้วย)
 MAPS = {
     "thunder_scar": {
         "node": "Sky",           # ชื่อโหนด Polygon2D ที่แปะภาพ
@@ -57,6 +61,34 @@ MAPS = {
         # ความกว้าง/ขอบซ้ายของแมพ (คงเดิม)
         "left": -100,
         "width": 3000,
+        "fit": "map",
+    },
+    "iron_road": {
+        "node": "Sky",
+        "ground_row": 880,      # ขอบบนของถนนหิน (วัดจากภาพ 5600x1300)
+        "ground_world_y": None,
+        "fix_ground_span": True,
+        "left": -100,
+        "width": 5000,
+        "fit": "map",
+    },
+    "dark_forest_2": {
+        "node": "Sky",
+        "ground_row": 884,      # ขอบบนของทางเดินหินมอส (ภาพ 5600x1300)
+        "ground_world_y": None,
+        "fix_ground_span": True,
+        "left": -100,
+        "width": 4400,
+        "fit": "map",
+    },
+    "nidavellir_town": {
+        "node": "Sky",
+        "ground_row": 893,      # ขอบบนของถนนหินในเมือง (ภาพ 3600x1200 = เท่าแมพพอดี)
+        "ground_world_y": None,
+        "fix_ground_span": True,
+        "left": -100,
+        "width": 3600,
+        "fit": "map",
     },
 }
 
@@ -181,17 +213,21 @@ def fix(map_id, cfg):
         print("\n  (อ่านพื้นชนจากฉาก: ขอบบนอยู่ที่ y = %.0f · หนา %.0f)" % (gy, gh))
 
     # ---------- คำนวณ ----------
-    k = cfg["width"] / float(iw)              # ย่อขยายเท่ากันทั้งสองแกน
+    width = cfg["width"]
+    if cfg.get("fit") == "art":
+        width = iw                            # ★ ขยายแมพให้เท่าภาพ ★ 1 พิกเซล = 1 พิกเซล
+    k = width / float(iw)                     # ย่อขยายเท่ากันทั้งสองแกน
     h = int(round(ih * k))
     top = want_gy - cfg["ground_row"] * k
     top = int(round(top))
 
     print("\n★ %s ★  ภาพ %dx%d  (%s)" % (map_id, iw, ih, img))
-    print("    ย่อขยาย x%.4f  → กรอบ %d x %d" % (k, cfg["width"], h))
+    print("    ย่อขยาย x%.4f  → กรอบ %d x %d%s"
+          % (k, width, h, "  ★ ขยายแมพจาก %d เป็น %d ★" % (cfg["width"], width) if width != cfg["width"] else ""))
     print("    เส้นพื้นในภาพ y=%d → ในแมพ y=%.0f (พื้นชนจริงอยู่ที่ %d)"
           % (cfg["ground_row"], top + cfg["ground_row"] * k, want_gy))
     print("    กรอบภาพในแมพ: x %d..%d · y %d..%d"
-          % (cfg["left"], cfg["left"] + cfg["width"], top, top + h))
+          % (cfg["left"], cfg["left"] + width, top, top + h))
 
     new_blk = blk
     sm = re.search(r'^scale = Vector2\(([^)]*)\)$', new_blk, re.M)
@@ -203,7 +239,7 @@ def fix(map_id, cfg):
     if "position = " not in new_blk:
         new_blk = "position = Vector2(%d, %d)\n" % (cfg["left"], top) + new_blk
     new_blk = re.sub(r'^polygon = PackedVector2Array\([^)]*\)$',
-                     "polygon = " + rect_array(0, 0, cfg["width"], h), new_blk, count=1, flags=re.M)
+                     "polygon = " + rect_array(0, 0, width, h), new_blk, count=1, flags=re.M)
     new_blk = re.sub(r'^uv = PackedVector2Array\([^)]*\)$',
                      "uv = " + rect_array(0, 0, iw, ih), new_blk, count=1, flags=re.M)
 
@@ -213,10 +249,27 @@ def fix(map_id, cfg):
     bm = re.search(r'^map_bounds = Rect2\(([^)]*)\)$', out, re.M)
     if bm:
         old = bm.group(1)
-        new = "%d, %d, %d, %d" % (cfg["left"], top, cfg["width"], h)
+        new = "%d, %d, %d, %d" % (cfg["left"], top, width, h)
         if old.replace(" ", "") != new.replace(" ", ""):
             print("    map_bounds: Rect2(%s) → Rect2(%s)" % (old, new))
             out = out[:bm.start()] + "map_bounds = Rect2(%s)" % new + out[bm.end():]
+
+    # ---------- แมพกว้างขึ้น = ยืดกล่องชนพื้นตาม ----------
+    if width != cfg["width"]:
+        want_cx = cfg["left"] + width * 0.5
+        want_w = width + 200
+        bm2 = re.search(r'(\[node name="Ground" type="StaticBody2D"[^\]]*\]\n)((?:(?!\[node)[^\n]*\n)*)', out)
+        if bm2:
+            gb = bm2.group(2)
+            pm2 = re.search(r'^position = Vector2\(([-\d.]+),\s*([-\d.]+)\)$', gb, re.M)
+            if pm2 and abs(float(pm2.group(1)) - want_cx) > 0.5:
+                print("    ★ ย้ายกึ่งกลางพื้นชน %s → %.0f (ตามแมพที่กว้างขึ้น) ★" % (pm2.group(1), want_cx))
+                gb = gb[:pm2.start()] + "position = Vector2(%.0f, %s)" % (want_cx, pm2.group(2)) + gb[pm2.end():]
+                out = out[:bm2.start()] + bm2.group(1) + gb + out[bm2.end():]
+        sm2 = re.search(r'(\[sub_resource type="RectangleShape2D" id="Rect_ground"\]\nsize = Vector2\()([-\d.]+)(,\s*[-\d.]+\))', out)
+        if sm2 and abs(float(sm2.group(2)) - want_w) > 0.5:
+            print("    ★ ยืดกล่องชนพื้น %s → %d px ★" % (sm2.group(2), want_w))
+            out = out[:sm2.start()] + sm2.group(1) + str(want_w) + sm2.group(3) + out[sm2.end():]
 
     # ---------- พื้นชนต้องกว้างคลุมทั้งแมพ ----------
     if cfg.get("fix_ground_span"):

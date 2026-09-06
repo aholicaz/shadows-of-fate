@@ -43,7 +43,7 @@ position = Vector2(2800, 1070)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground0" unique_id=431717409]
-position = Vector2(-895, -342.25)
+position = Vector2(-895, -475.25)
 shape = SubResource("Rect_0")
 
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground0" unique_id=799359278]
@@ -64,7 +64,7 @@ position = Vector2(224, 546)
 position = Vector2(3590, 519)
 
 [node name="from_thunder_scar" type="Marker2D" parent="SpawnPoints" unique_id=274964488]
-position = Vector2(2350, 560)
+position = Vector2(1924, 511)
 
 [node name="from_dark_forest_2" type="Marker2D" parent="SpawnPoints" unique_id=26729369]
 position = Vector2(3590, 519)
@@ -79,21 +79,21 @@ monster_scene = ExtResource("monster_scene")
 [node name="Portals" type="Node2D" parent="." unique_id=1378185495]
 
 [node name="ToField" parent="Portals" unique_id=2104942923 instance=ExtResource("portal")]
-position = Vector2(98, 612)
+position = Vector2(103, 452)
 target_map = &"asgard_forest_2"
 target_spawn_point = &"from_dark_forest"
 label_text = "← ป่าสนธยา"
 destination_name = "ป่าสนธยา"
 
 [node name="ToDarkForest2" parent="Portals" unique_id=406754322 instance=ExtResource("portal")]
-position = Vector2(3596, 597)
+position = Vector2(3596, 464)
 target_map = &"dark_forest_2"
 target_spawn_point = &"from_dark_forest"
 label_text = "→ ป่าเงาลึกชั้นใน"
 destination_name = "ป่าเงาลึกชั้นใน"
 
 [node name="ToThunderScar" parent="Portals" unique_id=737107434 instance=ExtResource("portal")]
-position = Vector2(2346, 591)
+position = Vector2(1904, 405)
 target_map = &"thunder_scar"
 target_spawn_point = &"from_dark_forest"
 label_text = "⚡ รอยสายฟ้า"
@@ -104,7 +104,7 @@ locked_text = "ลึกเข้าไปมีเสียงฟ้าคำ�
 [node name="Lore38" type="Node2D" parent="." unique_id=1359772072]
 
 [node name="HunterCamp" parent="Lore38" unique_id=155981846 instance=ExtResource("lore38")]
-position = Vector2(3100, 620)
+position = Vector2(3015, 483)
 lore_id = &"hunter_camp"
 title = "แคมป์ร้าง"
 text = "กองไฟดับไปนานแล้ว ข้าวของกระจัดกระจาย

@@ -453,6 +453,7 @@ attack_duration = 0.7
 attack_cooldown = 1.0
 knockback_force = 180.0
 attack_hit_frame = 11
+attack_hit_frames = null
 attack_follow_anim = true
 exp_reward = 980
 zeny_min = 350

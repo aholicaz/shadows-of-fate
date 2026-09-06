@@ -40,3 +40,4 @@ cutscene_text = "ทั้งเมืองก้มหัว ยกมือ�
 มือทั้งสองข้างไม่ได้ยกขึ้นเลย"
 reward_zeny = 300
 reward_exp = 800
+video_on_complete = "res://Sprites/video/m6_ceremony.ogv"

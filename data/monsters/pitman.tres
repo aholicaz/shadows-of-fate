@@ -67,6 +67,7 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 160.0
+attack_hit_frames = null
 exp_reward = 300
 job_exp_reward = 210
 zeny_min = 100

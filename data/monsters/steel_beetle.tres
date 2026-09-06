@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://bjpatjdgq6tdv"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/placeholder/steel_beetle_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_steel_beetle_0"]
@@ -32,9 +32,9 @@ chance = 0.73
 
 [resource]
 script = ExtResource("1_monster")
-sprite_frames = ExtResource("3_frames")
 id = &"steel_beetle"
 display_name = "ด้วงเหล็ก"
+sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(40, 34)
 hp_bar_offset_y = -60.8
 display_height = 160.0
@@ -46,29 +46,26 @@ def = 30
 mdef = 8
 hit = 36
 flee = 12
-crit = 1
 element = 3
 race = 4
-size = 1
-ai_type = 0
 move_speed = 80.0
 jump_force = -280.0
 jump_while_chasing = false
-detect_range = 250.0
 attack_range = 110.0
 leash_range = 750.0
 wander_range = 260.0
 hop_while_wandering = false
-wander_pause_chance = 0.70
-wander_pause_min = 3.50
-wander_pause_max = 5.50
-wander_walk_min = 1.50
-wander_walk_max = 2.50
-wander_look_chance = 0.50
+wander_pause_chance = 0.7
+wander_pause_min = 3.5
+wander_pause_max = 5.5
+wander_walk_min = 1.5
+wander_walk_max = 2.5
+wander_look_chance = 0.5
 attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 160.0
+attack_hit_frames = null
 exp_reward = 400
 job_exp_reward = 280
 zeny_min = 130

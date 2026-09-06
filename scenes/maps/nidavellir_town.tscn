@@ -20,18 +20,18 @@ map_id = &"nidavellir_town"
 display_name = "นิดาเวลลิร์ นครเตาหลอม"
 chapter = 2
 region = "สวาร์ทัลฟ์เฮม"
-map_bounds = Rect2(-100, -200, 3600, 1200)
+map_bounds = Rect2(-100, -13, 3600, 1200)
 player_scene = ExtResource("player")
 
 [node name="Background" type="Node2D" parent="."]
 
 [node name="Sky" type="Polygon2D" parent="Background"]
 z_index = -100
-position = Vector2(-100, -200)
+position = Vector2(-100, -13)
 color = Color(1, 1, 1, 1)
 texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 3600, 0, 3600, 1200, 0, 1200)
-uv = PackedVector2Array(0, 0, 1800, 0, 1800, 650, 0, 650)
+uv = PackedVector2Array(0, 0, 3600, 0, 3600, 1200, 0, 1200)
 
 [node name="FarLayer" type="Polygon2D" parent="Background"]
 visible = false

@@ -310,6 +310,7 @@ wander_walk_min = 1.4
 wander_walk_max = 2.6
 wander_look_chance = 0.6
 jump_interval = 0.6
+attack_hit_frames = null
 exp_reward = 34
 zeny_min = 10
 zeny_max = 28

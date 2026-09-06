@@ -928,6 +928,11 @@ func _die() -> void:
 		return
 	sprite.pause()
 
+	# ★ รอบ 75 — วิดีโอคัทซีนตอนตาย ★ (เล่นหลังท่าตายเล่นจบ ก่อนกลายเป็นศพ/จางหาย)
+	await _play_death_video()
+	if not is_instance_valid(self):
+		return
+
 	# ★ รอบ 59 — บอส (คูลดาวน์ข้ามแมพ): ค้าง "เฟรมสุดท้ายของท่าตาย" ไว้ + นับถอยหลังเกิดใหม่ ★
 	# เช่น คิงโพริงตายเหลือมงกุฎตกอยู่กับพื้น แล้วมีป้ายบอกว่าอีกกี่วินาทีจะเกิด
 	if data.uses_persistent_respawn():
@@ -1121,3 +1126,20 @@ func _check_boss_intro() -> void:
 	_intro_done = true
 	PlayerState.set_flag(intro_flag)
 	UI.play_video(data.intro_video)
+
+
+# =========================================================
+# ★ วิดีโอคัทซีนตอนตาย (รอบ 75) ★
+# เล่นหลังท่าตายเล่นจบ — ผู้เล่นเห็นมอนล้มก่อน แล้วค่อยตัดเข้าคลิป
+# (อสูรสายฟ้าตาย → แสงไหลลงดินไปทางเหนือ · คิงโพริงตาย → เศษแก้วในตัว)
+# จำด้วยธง seen_death_<id> เก็บลงเซฟ — ฟาร์มบอสซ้ำไม่ต้องดูคลิปทุกรอบ
+# =========================================================
+func _play_death_video() -> void:
+	if data == null or data.death_video == "" or not ResourceLoader.exists(data.death_video):
+		return
+	var flag := StringName("seen_death_" + String(data.id))
+	if data.death_video_once:
+		if PlayerState.has_flag(flag):
+			return
+		PlayerState.set_flag(flag)
+	await UI.play_video(data.death_video)

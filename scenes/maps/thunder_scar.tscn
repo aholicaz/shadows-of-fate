@@ -23,14 +23,14 @@ size = Vector2(300, 32)
 script = ExtResource("map_base")
 map_id = &"thunder_scar"
 display_name = "รอยสายฟ้า"
-map_bounds = Rect2(-100, -151, 3000, 1299)
+map_bounds = Rect2(-100, -137, 3000, 1299)
 player_scene = ExtResource("player")
 
 [node name="Background" type="Node2D" parent="." unique_id=1484933660]
 
 [node name="Sky" type="Polygon2D" parent="Background" unique_id=896803395]
 z_index = -100
-position = Vector2(-100, -151)
+position = Vector2(-100, -137)
 texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 3000, 0, 3000, 1299, 0, 1299)
 uv = PackedVector2Array(0, 0, 1905, 0, 1905, 825, 0, 825)
@@ -53,7 +53,7 @@ position = Vector2(1400, 1000)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1205039409]
-position = Vector2(0, -196.5)
+position = Vector2(8, -172)
 shape = SubResource("Rect_ground")
 
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=413531001]
@@ -108,7 +108,7 @@ spawn_width = 160
 [node name="Portals" type="Node2D" parent="." unique_id=1920469522]
 
 [node name="ToDarkForest" parent="Portals" unique_id=1921414820 instance=ExtResource("portal")]
-position = Vector2(232, 658)
+position = Vector2(229, 666)
 target_map = &"dark_forest"
 target_spawn_point = &"from_thunder_scar"
 label_text = "← ป่าเงาลึก"
@@ -117,7 +117,7 @@ destination_name = "ป่าเงาลึก"
 [node name="Lore" type="Node2D" parent="." unique_id=431706212]
 
 [node name="ScarCenter" parent="Lore" unique_id=658907719 instance=ExtResource("lore")]
-position = Vector2(2111, 627)
+position = Vector2(2220, 635)
 lore_id = &"thunder_scar_center"
 title = "รอยแผลบนผืนดิน"
 text = "ดินตรงนี้ไหม้เป็นแนวยาว เหมือนโดนสายฟ้าฟาดซ้ำ ๆ นับร้อยครั้ง

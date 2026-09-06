@@ -44,6 +44,7 @@ wander_walk_min = 1.4
 wander_walk_max = 2.6
 wander_look_chance = 0.6
 jump_interval = 0.55
+attack_hit_frames = null
 exp_reward = 10
 zeny_max = 12
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_poring_2"), SubResource("Drop_poring_card"), SubResource("Drop_poring_junk_poring_core"), SubResource("Drop_poring_eq_wooden_sword")])
