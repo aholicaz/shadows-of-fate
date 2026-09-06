@@ -108,14 +108,14 @@ despawn_distance = 0.0
 [node name="Portals" type="Node2D" parent="." unique_id=1498973762]
 
 [node name="ToForest1" parent="Portals" unique_id=532989640 instance=ExtResource("portal")]
-position = Vector2(96, 478)
+position = Vector2(98, 522)
 target_map = &"prontera_field"
 target_spawn_point = &"from_forest_2"
 label_text = "← ทุ่งวิหาร"
 destination_name = "ทุ่งวิหาร"
 
 [node name="ToTown" parent="Portals" unique_id=177933821 instance=ExtResource("portal")]
-position = Vector2(3245, 477)
+position = Vector2(3245, 516)
 target_map = &"dark_forest"
 target_spawn_point = &"from_forest_2"
 label_text = "→ ป่าเงาลึก"

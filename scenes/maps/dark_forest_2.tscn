@@ -90,14 +90,14 @@ spawn_width = 160
 [node name="Portals" type="Node2D" parent="." unique_id=771676892]
 
 [node name="ToDarkForest" parent="Portals" unique_id=593534440 instance=ExtResource("portal")]
-position = Vector2(75, 554)
+position = Vector2(84, 604)
 target_map = &"dark_forest"
 target_spawn_point = &"from_dark_forest_2"
 label_text = "← ป่าเงาลึก"
 destination_name = "ป่าเงาลึก"
 
 [node name="ToIronRoad" parent="Portals" unique_id=1080945976 instance=ExtResource("portal")]
-position = Vector2(4155, 528)
+position = Vector2(4136, 608)
 target_map = &"iron_road"
 target_spawn_point = &"from_forest"
 label_text = "→ ทางเหล็ก"

@@ -85,6 +85,16 @@ enum NPCType { DIALOG, SHOP, REFINER, HEALER, SAVE_POINT, QUEST }
 ## ใส่ได้กับ NPC ทุกแบบ ไม่ใช่แค่แบบ QUEST — คุยแล้วจะถามเรื่องเควสก่อน แล้วค่อยเปิดร้าน
 @export var quest_ids: Array[StringName] = []
 
+## ★★ รอบ 76 — ชื่ออื่นที่ของชิ้นนี้ "รับทำพิธี/รับเงื่อนไขคุยด้วย" ★★
+##
+## ใช้ตอนเปลี่ยนชื่อของในฉาก แต่เควสเก่ายังอ้างชื่อเดิม
+## (เสาหินกลางพรอนเทรา รอบ 57 เปลี่ยนชื่อจาก «ศิลาสลักแห่งธอร์» → «เสาวาปแห่งธอร์»
+##  แต่เควส M2 ยังสั่งให้ไปทำพิธีที่ «ศิลาสลักแห่งธอร์» → เควสค้าง ทำต่อไม่ได้)
+##
+## ต่างจากชื่อจริงตรงที่ **ไม่นับให้อัตโนมัติตอนกดคุย** — จะโผล่เป็น "ปุ่มทำพิธี" ในเมนูแทน
+## (ตามข้อความของเงื่อนไขในสมุดเควส) ผู้เล่นเลือกเองถึงจะนับ
+@export var quest_talk_names: Array[StringName] = []
+
 ## ★★ รอบ 47 — เครื่องหมายเควสเหนือหัว ! ? ★★
 ## ใหญ่ขึ้น มีวงป้ายรองให้เห็นชัดบนฉากหลังทุกสี และลอยอยู่ "เหนือป้ายชื่อ" ไม่ทับตัวละคร
 const MARK_SIZE := 74.0        # ขนาดวงป้าย (พิกเซล)
@@ -171,18 +181,25 @@ func _process(_delta: float) -> void:
 func _refresh_mark() -> void:
 	if _mark == null:
 		return
-	if quest_ids.is_empty() or PlayerState.quests == null:
+	if PlayerState.quests == null:
 		_mark.hide()
 		return
-	var log := PlayerState.quests
+	# ★ รอบ 76 ★ ของที่ "ทำพิธีได้ตอนนี้" ก็ขึ้นเครื่องหมายให้หาเจอ (เช่น เสาหินของ M2)
+	if not pending_ritual().is_empty():
+		_show_mark("!", Color("#7dc4ff"))       # พิธี/จุดที่ต้องไปทำ = ฟ้า
+		return
+	if quest_ids.is_empty():
+		_mark.hide()
+		return
+	var qlog := PlayerState.quests
 	var lv: int = PlayerState.stats.level if PlayerState.stats != null else 1
 
 	for qid in quest_ids:
-		if log.is_ready(qid):
+		if qlog.is_ready(qid):
 			_show_mark("?", Color("#7dffa8"))   # เอาไปส่งได้แล้ว = เขียว
 			return
 	for qid in quest_ids:
-		if log.can_accept(qid, lv):
+		if qlog.can_accept(qid, lv):
 			_show_mark("!", Color("#ffe14a"))   # มีเควสให้รับ = เหลือง
 			return
 	_mark.hide()
@@ -273,6 +290,9 @@ func interact() -> void:
 
 	# ★★ รอบ 45 — เมนูก่อนคุย: พูดคุย / ซื้อขาย / ไม่คุย ★★
 	var options: Array = [MENU_TALK]
+	var ritual := pending_ritual()               # ★ รอบ 76 ★ ปุ่มทำพิธีของเควส (ถ้ามี)
+	if not ritual.is_empty():
+		options.push_front(String(ritual["text"]))
 	if has_shop_menu():
 		options.append(MENU_SHOP)
 	if has_refine_menu():
@@ -285,6 +305,9 @@ func interact() -> void:
 		return
 	var chosen: String = options[pick]
 	if chosen == MENU_LEAVE:
+		return
+	if not ritual.is_empty() and chosen == String(ritual["text"]):
+		do_ritual(ritual)
 		return
 	if chosen == MENU_SHOP:
 		open_shop()
@@ -376,6 +399,10 @@ func warp_options() -> Array:
 func open_warp_menu() -> void:
 	var targets := warp_options()
 	var options: Array = []
+	# ★ รอบ 76 ★ ปุ่มทำพิธีของเควสมาก่อนเสมอ (เช่น M2 «ทำพิธีที่ศิลาสลักแห่งธอร์»)
+	var ritual := pending_ritual()
+	if not ritual.is_empty():
+		options.append(String(ritual["text"]))
 	for t in targets:
 		options.append("ไป %s" % String(t["name"]))
 	if warp_saves_game:
@@ -392,13 +419,61 @@ func open_warp_menu() -> void:
 	var chosen: String = options[pick]
 	if chosen == MENU_LEAVE:
 		return
+	if not ritual.is_empty():
+		if chosen == String(ritual["text"]):
+			do_ritual(ritual)
+			return
+		pick -= 1                     # ตัดปุ่มพิธีออกจากลำดับ แล้วค่อยเทียบกับรายการปลายทาง
 	if chosen == MENU_SAVE:
 		SaveManager.save_game(0)
 		return
-	if pick < targets.size():
+	if pick >= 0 and pick < targets.size():
 		var dest: StringName = targets[pick]["id"]
 		Events.say("กำลังวาปไป %s..." % String(targets[pick]["name"]))
 		await Game.change_map(dest, warp_spawn_point)
+
+
+# =========================================================
+# ★★ รอบ 76 — "ปุ่มทำพิธี" ของเควสชนิดคุยด้วย ★★
+#
+# ปัญหา: เควส M2 สั่งให้ไปทำพิธีที่ «ศิลาสลักแห่งธอร์» แต่เสาหินในฉากถูกเปลี่ยนชื่อ
+#        เป็น «เสาวาปแห่งธอร์» ตั้งแต่รอบ 57 → กดคุยยังไงเควสก็ไม่ขยับ ทำต่อไม่ได้
+# แก้:   NPC/ของชิ้นไหนใส่ Quest Talk Names ไว้ ถ้ามีเควสที่กำลังทำต้องการชื่อนั้น
+#        จะมี "ปุ่มทำพิธี" โผล่ในเมนู (ข้อความ = ข้อความของเงื่อนไขในสมุดเควส)
+#        เลือกแล้วถึงนับให้ — ไม่แอบนับตอนเดินผ่าน
+# =========================================================
+## เงื่อนไขเควสที่ของชิ้นนี้ทำให้ได้ตอนนี้ — คืน {"name": ชื่อเป้าหมาย, "text": ข้อความปุ่ม}
+## ไม่มี = คืน {} (Dictionary ว่าง)
+func pending_ritual() -> Dictionary:
+	if quest_talk_names.is_empty() or PlayerState == null or PlayerState.quests == null:
+		return {}
+	var qlog := PlayerState.quests
+	for qid in qlog.active:
+		var q := GameData.get_quest(qid)
+		if q == null:
+			continue
+		var list := q.steps()
+		for i in range(list.size()):
+			var o := list[i]
+			if o.kind != ObjectiveData.Kind.TALK or o.is_live():
+				continue
+			if not (o.target in quest_talk_names):
+				continue
+			if qlog.count_of(qid, i) >= o.need():
+				continue
+			var label := o.text.strip_edges()
+			if label == "":
+				label = "ทำพิธีที่ %s" % String(o.target)
+			return {"name": o.target, "text": label, "quest": q.title}
+	return {}
+
+
+## กดปุ่มทำพิธี — นับเงื่อนไขให้ แล้วบอกผู้เล่นว่าเกิดอะไรขึ้น
+func do_ritual(ritual: Dictionary) -> void:
+	if ritual.is_empty() or PlayerState.quests == null:
+		return
+	PlayerState.quests.on_talked_to(String(ritual["name"]))
+	Events.say("[เควส] %s" % String(ritual["text"]))
 
 
 func open_shop() -> void:
@@ -439,28 +514,28 @@ func current_dialog_key() -> String:
 func _handle_quests() -> bool:
 	if quest_ids.is_empty():
 		return false
-	var log := PlayerState.quests
+	var qlog := PlayerState.quests
 	var lv: int = PlayerState.stats.level
 
 	# 1) มีเควสที่ทำครบแล้ว -> ส่งเควส
 	for qid in quest_ids:
-		if log.is_ready(qid):
+		if qlog.is_ready(qid):
 			await _ask_turn_in(GameData.get_quest(qid))
 			return true
 
 	# 2) มีเควสที่รับไว้แล้วแต่ยังไม่ครบ -> บอกความคืบหน้า
 	for qid in quest_ids:
-		if log.is_active(qid):
+		if qlog.is_active(qid):
 			var q := GameData.get_quest(qid)
 			if q == null:
 				continue
 			await UI.talk([line(q.dialog_progress,
-				"ความคืบหน้า: %s" % q.objective_text(log.count_of(qid)), [], String(qid) + "_progress")])
+				"ความคืบหน้า: %s" % q.objective_text(qlog.count_of(qid)), [], String(qid) + "_progress")])
 			return true
 
 	# 3) มีเควสใหม่ให้รับ -> ถามว่ารับไหม
 	for qid in quest_ids:
-		if log.can_accept(qid, lv):
+		if qlog.can_accept(qid, lv):
 			await _ask_accept(GameData.get_quest(qid))
 			return true
 
