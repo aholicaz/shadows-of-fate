@@ -46,7 +46,7 @@ func _build() -> void:
 	_art = TextureRect.new()
 	_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	_art.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_art_frame.add_child(_art)
 

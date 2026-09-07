@@ -128,22 +128,36 @@ func body_size() -> Vector2:
 	if sprite != null and sprite.sprite_frames != null:
 		var info: Dictionary = _fit_frames(sprite.animation)
 		if not info.is_empty():
-			# ★ รอบ 83 ★ ใช้ความสูงของท่าอ้างอิง กรอบตัวจะได้ไม่โตตามอาวุธที่ยกขึ้นตอนตี
-			var t: float = float(info.tallest)
-			if data != null and data.fit_uniform_scale:
-				var ref := _reference_tallest()
-				if ref > 0.0:
-					t = ref
+			# ★ รอบ 83/86 ★ ใช้ "ความสูงที่ใช้คิดสเกล" ของท่านั้น กรอบตัวจะได้นิ่ง
+			# ไม่โตตามอาวุธที่ยกขึ้นตอนตี และไม่เพี้ยนตอนถอยไปย่อแยกท่า
+			var t: float = float(info.get("fit_from", info.tallest))
 			h = maxf(h, t * absf(sprite.scale.y))
 	# ตัวสูงแต่กล่องชนแคบมาก ๆ ให้กว้างขึ้นหน่อย ไม่งั้นฟันยาก
 	w = maxf(w, h * 0.35)
 	return Vector2(w, h)
 
 
+## ★★ รอบ 87 — ความกว้างของ "กรอบโดนตี" ★★
+## วัดจากภาพจริงของท่าที่กำลังเล่น (ไม่ใช่กล่องชนพื้นที่แคบกว่าตัวมาก)
+## ใช้เฉพาะตอนผู้เล่นฟันโดนเท่านั้น — ระยะที่ "มอนตีเรา" ยังใช้ body_size() เหมือนเดิม
+func hit_width() -> float:
+	var w := body_size().x
+	if data == null or not data.hit_box_from_sprite:
+		return w
+	if sprite == null or sprite.sprite_frames == null:
+		return w
+	var info: Dictionary = _fit_frames(sprite.animation)
+	if info.is_empty():
+		return w
+	var drawn: float = float(info.get("widest", 0.0)) * absf(sprite.scale.x)
+	return maxf(w, drawn * data.hit_box_width_ratio)
+
+
 ## ★ กรอบตัวมอนในพิกัดโลก ★ (เท้าอยู่ขอบล่าง)
 func body_rect() -> Rect2:
 	var f := foot_position()
 	var s := body_size()
+	s.x = hit_width()
 	# ★ รอบ 54: มอนบิน — กรอบโดนฟันลอยขึ้นตามภาพ (ฟันที่พื้นจะไม่โดน ต้องฟันที่ตัวมัน) ★
 	return Rect2(f.x - s.x * 0.5, f.y - s.y - hover_lift(), s.x, s.y)
 
@@ -215,14 +229,18 @@ func _fit_frames(anim: StringName) -> Dictionary:
 	var scale_from: float = tallest
 	if data.fit_uniform_scale:
 		var ref := _reference_tallest()
-		if ref > 0.0:
+		# ★ รอบ 86 ★ ใช้สเกลของท่าอ้างอิงเฉพาะตอนที่ท่านี้สูงกว่าไม่มาก
+		# ชีทบางท่า (Run ของออร์ค/มูนัค/อสูรสายฟ้า) วาดตัวมอนใหญ่กว่า Idle ถึง 2.2 เท่า
+		# ถ้าใช้สเกลเดียวกันตัวจะบวมเป็น 2 เท่าทั้งตัว → กรณีนั้นถอยกลับไปย่อแยกทีละท่า
+		if ref > 0.0 and tallest <= ref * data.fit_max_overshoot:
 			scale_from = ref
 
 	var k: float = data.sprite_scale.y
 	if data.display_height > 0.0:
 		k = data.display_height / maxf(1.0, scale_from)
 
-	var info := {"scale": k, "frames": list, "tallest": tallest}
+	var info := {"scale": k, "frames": list, "tallest": tallest, "fit_from": scale_from,
+		"widest": float(base.get("widest", 0.0))}
 	_fit_cache[anim] = info
 	return info
 
@@ -339,6 +357,15 @@ func _physics_process(delta: float) -> void:
 
 	# มอนดุ = เห็นแล้วไล่เลย / มอนใจดี = ไล่เฉพาะตอนถูกตี
 	var hostile: bool = _aggro or data.ai_type == MonsterData.AIType.AGGRESSIVE
+	# ★★ รอบ 87 — บอสไล่ทั่วสนาม ★★
+	# เดิมบอสรอให้ผู้เล่นเข้าระยะ Detect Range ก่อน ระหว่างนั้นเดินวนอยู่ในวง Wander Range
+	# ของตัวเอง (อสูรสายฟ้า detect 420 · wander 260) → ดูเหมือน "วิ่งวนอยู่กับที่"
+	# ตอนนี้บอสล็อกเป้าทันทีที่ผู้เล่นยังไม่ตายและอยู่ในแมพเดียวกัน
+	if data.is_boss and data.boss_arena_aggro and not _aggro_locked \
+			and data.ai_type != MonsterData.AIType.STATIONARY \
+			and _player != null and is_instance_valid(_player) and not PlayerState.is_dead():
+		_set_aggro()
+		hostile = true
 	# ★ รอบ 44 — มอนดุที่ "เห็น" ผู้เล่นครั้งแรก (เข้าระยะ detect) = ล็อกเป้าทันที ★
 	if hostile and not _aggro_locked and distance <= data.detect_range \
 			and data.ai_type != MonsterData.AIType.STATIONARY:
@@ -395,8 +422,23 @@ func _physics_process(delta: float) -> void:
 		_do_wander(delta)
 
 	_want_vx = velocity.x
+	_sync_run_anim_speed()
 	move_and_slide()
 	_check_stuck(delta)
+
+
+## ★ รอบ 87 ★ เล่นท่าวิ่งช้าลงตามความเร็วที่ขยับจริง
+## เดินเตร่ (wander_speed 50) แต่เล่นท่า Run ที่วาดไว้สำหรับวิ่ง 390 = ดูเหมือนวิ่งอยู่กับที่
+func _sync_run_anim_speed() -> void:
+	if sprite == null or data == null:
+		return
+	var real := _real_anim("Run")
+	if real == "" or sprite.animation != StringName(real):
+		if not is_equal_approx(sprite.speed_scale, 1.0):
+			sprite.speed_scale = 1.0
+		return
+	var top: float = maxf(1.0, data.move_speed)
+	sprite.speed_scale = clampf(absf(velocity.x) / top, 0.35, 1.0)
 
 
 ## มีพื้นอยู่ข้างหน้าไหม (กันมอนเดินตกขอบแมพ/ตกแท่น)
@@ -404,8 +446,13 @@ func _has_ground_ahead(dir: int) -> bool:
 	if dir == 0 or not is_on_floor():
 		return true
 	var space := get_world_2d().direct_space_state
-	var ahead := global_position + Vector2(dir * (data.hitbox_size.x * 0.5 + 14.0), -4.0)
-	var query := PhysicsRayQueryParameters2D.create(ahead, ahead + Vector2(0, 110.0))
+	# ★★ รอบ 87 — ยิงเรย์จาก "ปลายเท้า" ★★
+	# เดิมยิงจาก global_position (จุดกำเนิด) ซึ่งอยู่กลางตัว — มอนตัวสูง (บอสสูง 300 px)
+	# จุดกำเนิดอยู่เหนือพื้นเกิน 110 px เรย์เลยไม่เคยเจอพื้น = คิดว่าข้างหน้าเป็นเหวตลอด
+	# ผลคือบอสหยุดเดินดื้อ ๆ ทั้งที่พื้นเรียบ ("วิ่งวนไม่ขยับไปไหน")
+	var foot := foot_position()
+	var ahead := foot + Vector2(dir * (data.hitbox_size.x * 0.5 + 14.0), -10.0)
+	var query := PhysicsRayQueryParameters2D.create(ahead, ahead + Vector2(0, 120.0))
 	query.collision_mask = 1
 	query.exclude = [get_rid()]
 	return not space.intersect_ray(query).is_empty()
@@ -594,11 +641,25 @@ func _play(anim: String, restart: bool = false) -> String:
 			# ★ รอบ 54 — กับดัก 82 ★ มอนที่มีท่าเดียว (เช่นฮอร์เน็ต มีแค่ Idle): ตอนใส่ SpriteFrames
 			# Godot จะตั้ง sprite.animation เป็นท่านั้นให้เอง "แต่ไม่เล่น" → เช็คแค่ชื่อไม่พอ ต้องเช็ค is_playing ด้วย
 			# (ท่าที่ไม่วนซ้ำแล้วเล่นจบ เช่น Attack/Death ไม่ต้องเริ่มใหม่ ไม่งั้นจะกระตุกวนไปเรื่อย)
+			var switched := false
 			if restart:
 				sprite.play(real)
 				sprite.set_frame_and_progress(0, 0.0)
+				switched = true
 			elif sprite.animation != real or (not sprite.is_playing() and sprite.sprite_frames.get_animation_loop(real)):
 				sprite.play(real)
+				switched = true
+			if switched:
+				# ★★ รอบ 88 ★★ (1) ความเร็วภาพของท่าวิ่ง (รอบ 87) ต้องไม่ติดมากับท่าอื่น
+				# เดิม _sync_run_anim_speed() ถูกเรียกท้าย _physics_process ซึ่งสถานะ ATTACK/HURT
+				# return ออกก่อนถึง → มอนที่เดินเตร่อยู่ (ภาพ 0.35×) พอเริ่มตี/โดนตี ท่านั้นเล่นช้า 3 เท่า
+				# จังหวะดาเมจของ attack_follow_anim เลื่อนตาม = "ท่าเพี้ยน"
+				if String(real).to_lower() != "run":
+					sprite.speed_scale = 1.0
+				# (2) จัดสเกล/ตำแหน่งให้ท่าใหม่ทันที ไม่รอ _process รอบถัดไป
+				# ท่าที่ใช้สเกลต่างกัน (ชีท Run ของออร์ควาดใหญ่กว่า Idle 2.2 เท่า) จะได้ไม่มีเฟรม
+				# ที่ภาพใหม่ถูกวาดด้วยสเกลของท่าเก่า (ตัวกระพริบใหญ่/เล็กวูบเดียวตอนเปลี่ยนท่า)
+				_apply_fit()
 			return real
 	return ""
 
@@ -1120,6 +1181,9 @@ func _spawn_drops() -> void:
 # หลอดเลือด
 # =========================================================
 func _create_hp_bar() -> void:
+	# ★ รอบ 87 ★ บอสที่ใช้หลอดใหญ่กลางจอ ไม่ต้องมีหลอดเล็กเหนือหัวอีก
+	if data != null and data.is_boss and data.use_boss_bar:
+		return
 	_hp_bar = ProgressBar.new()
 	_hp_bar.name = "HPBar"
 	_hp_bar.max_value = data.max_hp

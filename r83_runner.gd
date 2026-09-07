@@ -138,6 +138,71 @@ func run() -> void:
 	check.call("แก้แล้วท่า Attack ใหญ่ขึ้นจริง", gain > 5.0, "%.1f%%" % gain)
 
 	# =========================================================
+	# 4.5) ★ รอบ 86 ★ ชีทที่วาดตัวคนละขนาด ต้องไม่ทำให้ตัวบวม
+	# =========================================================
+	print("\n-- 4.5) กันตัวบวม (ชีทวาดคนละขนาด) --")
+	check.call("มีเพดานกันบวมตั้งไว้", d.fit_max_overshoot >= 1.0, "%f" % d.fit_max_overshoot)
+	# หามอนที่มีท่าสูงกว่าท่าอ้างอิงเกินเพดาน (ในเกมจริงคือ Run ของออร์ค/มูนัค/อสูรสายฟ้า)
+	var swollen := 0
+	var checked_sw := 0
+	for mid in GameData.monsters.keys():
+		var md: MonsterData = GameData.monsters[mid]
+		if md.sprite_frames == null or md.display_height <= 0.0 or not md.fit_uniform_scale:
+			continue
+		var names := md.sprite_frames.get_animation_names()
+		var ref := 0.0
+		for want in ["Idle", "Stand", "Run", "Walk"]:
+			for nm in names:
+				if String(nm).to_lower() == want.to_lower() and md.sprite_frames.get_frame_count(nm) > 0:
+					ref = float(SpriteFit.measure(md.sprite_frames, StringName(nm)).get("tallest", 0.0))
+					break
+			if ref > 0.0:
+				break
+		if ref <= 0.0:
+			continue
+		checked_sw += 1
+		for nm in names:
+			if md.sprite_frames.get_frame_count(nm) <= 0:
+				continue
+			var t := float(SpriteFit.measure(md.sprite_frames, nm).get("tallest", 0.0))
+			if t <= 0.0:
+				continue
+			# สเกลที่ระบบจะใช้จริงหลังใส่เพดานแล้ว
+			var from: float = ref if t <= ref * md.fit_max_overshoot else t
+			var on_screen: float = t * (md.display_height / from)
+			if on_screen > md.display_height * md.fit_max_overshoot + 1.0:
+				swollen += 1
+				print("    (%s ท่า %s สูงบนจอ %.0f · Display Height %.0f)" % [mid, nm, on_screen, md.display_height])
+	check.call("★ มอน %d ตัว — ไม่มีท่าไหนสูงเกินเพดาน %.2f เท่าของ Display Height ★"
+		% [checked_sw, d.fit_max_overshoot], swollen == 0, "%d ท่า" % swollen)
+
+	# มอนจำลอง: ท่า Run ถูกวาดใหญ่กว่า Idle 2.2 เท่า → ต้องถอยไปย่อแยกท่า ไม่ใช่บวม
+	var fake := _fake_frames(200, 440)      # Idle สูง 200 · Run สูง 440 (2.2 เท่า)
+	var d3: MonsterData = d.duplicate()
+	d3.sprite_frames = fake
+	d3.display_height = 200.0
+	var mob3 = load("res://scenes/monsters/monster.tscn").instantiate()
+	mob3.data = d3
+	mob3.global_position = Vector2(2000, 700)
+	map.add_child(mob3)
+	mob3.set_home(mob3.global_position)
+	await get_tree().create_timer(0.6).timeout
+	mob3.set_physics_process(false)
+	var on := {}
+	for a in [&"Idle", &"Run"]:
+		mob3._play(String(a), true)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		var t := float(SpriteFit.measure(fake, a).get("tallest", 0.0))
+		on[a] = t * float(mob3.sprite.scale.y)
+		print("   จำลอง %s: ภาพสูง %.0f → บนจอ %.0f" % [a, t, on[a]])
+	check.call("★ ท่า Idle สูงเท่า Display Height ★", absf(on[&"Idle"] - 200.0) < 2.0, "%.1f" % on[&"Idle"])
+	check.call("★ ท่า Run ที่วาดใหญ่ 2.2 เท่า ไม่บวม (ยังราว ๆ 200 ไม่ใช่ 440) ★",
+		on[&"Run"] <= 200.0 * d3.fit_max_overshoot + 2.0, "%.1f" % on[&"Run"])
+	check.call("กรอบตัวยังนิ่ง (เท่า Display Height)", absf(mob3.body_size().y - 200.0) < 2.0,
+		"%.1f" % mob3.body_size().y)
+
+	# =========================================================
 	# 5) มอนตัวอื่นไม่พัง
 	# =========================================================
 	print("\n-- 5) มอนตัวอื่น --")
@@ -193,3 +258,19 @@ func _stand_height(sf: SpriteFrames, anim: StringName) -> float:
 		return 0.0
 	hs.sort()
 	return hs[hs.size() / 2]
+
+
+## สร้าง SpriteFrames จำลอง: Idle เนื้อภาพสูง h1 · Run สูง h2 (ผ้าใบเท่ากัน)
+func _fake_frames(h1: int, h2: int) -> SpriteFrames:
+	var sf := SpriteFrames.new()
+	for pair in [[&"Idle", h1], [&"Run", h2]]:
+		var nm: StringName = pair[0]
+		if not sf.has_animation(nm):
+			sf.add_animation(nm)
+		sf.set_animation_loop(nm, true)
+		var img := Image.create(512, 512, false, Image.FORMAT_RGBA8)
+		img.fill(Color(0, 0, 0, 0))
+		var hh: int = int(pair[1])
+		img.fill_rect(Rect2i(200, 500 - hh, 112, hh), Color(0.6, 0.4, 0.8, 1.0))
+		sf.add_frame(nm, ImageTexture.create_from_image(img))
+	return sf

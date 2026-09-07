@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://ymdse42f67tj" path="res://Sprites/card/card_munak.webp" id="art_1"]
 
 [resource]
 script = ExtResource("1_card")
@@ -15,5 +16,6 @@ sell_price = 500
 mdef = 3
 max_hp = 150
 monster_id = &"munak"
+illustration = ExtResource("art_1")
 fits_slot = 5
 rarity = 3

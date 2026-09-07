@@ -1,17 +1,17 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_magma_slug.png" id="2_icon"]
+[ext_resource type="Texture2D" uid="uid://t87qj3s8f0hf" path="res://Sprites/card/card_magma_slug.webp" id="art_1"]
 
 [resource]
 script = ExtResource("1_card")
 monster_id = &"magma_slug"
+illustration = ExtResource("art_1")
 fits_slot = 6
 rarity = 3
 id = &"card_magma_slug"
 display_name = "การ์ดทากลาวา"
 description = "ร่างที่ร้อนดั่งลาวา"
-icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99

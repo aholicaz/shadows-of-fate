@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://d3k0umihbefqj"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://d3k0umihbefqj"]
 
 [ext_resource type="Script" uid="uid://b3076eptxjrrr" path="res://scripts/resources/card_data.gd" id="1_card"]
 [ext_resource type="Texture2D" path="res://Sprites/items/card_fabre.png" id="1_t1nam"]
+[ext_resource type="Texture2D" uid="uid://bm6yn26vlr3sx" path="res://Sprites/card/card_fabre.webp" id="art_1"]
 
 [resource]
 script = ExtResource("1_card")
 monster_id = &"fabre"
 fits_slot = 4
-illustration = ExtResource("1_t1nam")
+illustration = ExtResource("art_1")
 id = &"card_fabre"
 display_name = "การ์ดแฟเบร"
 description = "ตัวหนอนที่ทนทานเกินหน้าตา"

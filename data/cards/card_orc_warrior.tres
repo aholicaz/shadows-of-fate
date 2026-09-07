@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://mjy0mifuf2fs" path="res://Sprites/card/card_orc_warrior.webp" id="art_1"]
 
 [resource]
 script = ExtResource("1_card")
@@ -14,6 +15,7 @@ buy_price = 0
 sell_price = 500
 crit = 5
 monster_id = &"orc_warrior"
+illustration = ExtResource("art_1")
 fits_slot = 1
 rarity = 4
 percent_effects = {

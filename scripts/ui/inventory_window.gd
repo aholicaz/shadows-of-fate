@@ -464,7 +464,7 @@ func refresh() -> void:
 		art.texture = d.icon if d != null and d.icon != null else null
 		if art.texture == null and d != null and d.is_card():
 			art.texture = CardView.card_texture(d as CardData)
-			art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		btn.text = "" if art.texture != null else _short_name(inst)
 		cnt.text = str(inst.count) if inst.count > 1 else ""
 		btn.tooltip_text = _tooltip(inst)

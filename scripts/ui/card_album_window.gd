@@ -155,7 +155,7 @@ func _build_album(all: Array[CardData]) -> void:
 		# รูปการ์ดจัดกึ่งกลางช่องเสมอ
 		var art: TextureRect = UITheme.make_slot_icon(btn, 4.0)[0]
 		art.texture = CardView.card_texture(card)
-		art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 
 		var name_label := UITheme.make_label(
 			card.display_name.replace("การ์ด", "").strip_edges() if owned else "???",

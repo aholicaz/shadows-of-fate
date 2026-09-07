@@ -259,7 +259,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"Run",
-"speed": 6.0
+"speed": 9.0
 }]
 
 [resource]

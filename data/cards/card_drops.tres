@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://demgkoyk5qnhx"]
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3 uid="uid://demgkoyk5qnhx"]
 
 [ext_resource type="Texture2D" uid="uid://yv6iha5p82e0" path="res://Sprites/items/Drops Card.png" id="1_8pu2q"]
 [ext_resource type="Script" uid="uid://b3076eptxjrrr" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://dntbexaodjiws" path="res://Sprites/card/card_drops.webp" id="art_1"]
 
 [resource]
 script = ExtResource("1_card")
 monster_id = &"drops"
-illustration = ExtResource("1_8pu2q")
+illustration = ExtResource("art_1")
 rarity = 2
 id = &"card_drops"
 display_name = "การ์ดดรอปส์"

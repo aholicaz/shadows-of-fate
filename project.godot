@@ -28,8 +28,16 @@ UI="*res://scripts/ui/ui_manager.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor]
+
+movie_writer/video_quality=1.0
+movie_writer/ogv/encoding_speed=1
+movie_writer/movie_file="C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/movie/test2.avi"
+movie_writer/fps=48
 
 [gui]
 
@@ -166,7 +174,7 @@ toggle_quests={
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
+textures/canvas_textures/default_texture_filter=2
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

@@ -64,6 +64,8 @@ static func measure(frames: SpriteFrames, anim: StringName) -> Dictionary:
 		list.append({
 			"bottom": float(used.position.y + used.size.y) - th * 0.5,
 			"dx": float(used.position.x) + float(used.size.x) * 0.5 - tw * 0.5,
+			# ★ รอบ 87 ★ ความกว้างของเนื้อภาพ — ใช้ทำ "กรอบโดนตี" ให้กว้างเท่าตัวมอนที่วาดจริง
+			"w": float(used.size.x),
 		})
 
 	# ค่ากลาง (median) ของทั้งท่า — กันตัวเด้งจากขอบภาพที่คลาดกันเล็กน้อย (รอบ 39)
@@ -80,7 +82,15 @@ static func measure(frames: SpriteFrames, anim: StringName) -> Dictionary:
 		fd["bottom_use"] = fd.bottom if absf(fd.bottom - med_bottom) > SNAP else med_bottom
 		fd["dx_use"] = fd.dx if absf(fd.dx - med_dx) > SNAP else med_dx
 
-	var info := {"frames": list, "tallest": tallest}
+	# ★ ความกว้างตัวแทนของท่านี้ ★ ใช้ค่ากลาง ไม่ใช่ค่าสูงสุด
+	# เฟรมที่กางปีก/เหวี่ยงหางสุดตัวมีไม่กี่เฟรม ไม่ควรมากำหนดกรอบโดนตีของทั้งท่า
+	var ws: Array = []
+	for fd in list:
+		ws.append(fd.w)
+	ws.sort()
+	var widest: float = ws[ws.size() >> 1] if not ws.is_empty() else 0.0
+
+	var info := {"frames": list, "tallest": tallest, "widest": widest}
 	_cache[key] = info
 	measured_count += 1
 	return info

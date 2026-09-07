@@ -25,6 +25,8 @@ const DEFAULT_KEYS := {
 	"quick_load": [KEY_F9],
 	## ★ รอบ 80 — หน้าต่าง GM (เครื่องมือทดสอบ) ★
 	"toggle_gm": [KEY_F10],
+	## ★ รอบ 88 — สลับเต็มจอ/หน้าต่าง (สำหรับเล่นบน Steam) ★
+	"toggle_fullscreen": [KEY_F11],
 }
 
 # ★ ปุ่มเมาส์ไม่ผูกไว้ใน InputMap แล้ว ★

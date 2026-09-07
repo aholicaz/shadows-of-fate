@@ -5,6 +5,7 @@ extends Node
 
 var layer: CanvasLayer
 var hud: HUD
+var boss_bar: BossBar
 var confirm: ConfirmDialog
 var card_popup: CardGetPopup
 var item_popup: ItemInfoPopup
@@ -40,6 +41,11 @@ func _ready() -> void:
 	hud = HUD.new()
 	hud.name = "HUD"
 	root.add_child(hud)
+
+	# ---------- ★ หลอดเลือดบอสใบใหญ่ กลางจอด้านบน (รอบ 87) ★ ----------
+	# โผล่เองเมื่อมีบอสอยู่ใกล้ ไม่ต้องเรียกจากที่ไหน
+	boss_bar = BossBar.new()
+	root.add_child(boss_bar)
 
 	# ---------- ★ มินิแมพ + แถบปุ่มไอคอน (มุมขวาบน) ★ ----------
 	# ใส่ก่อนหน้าต่าง จะได้อยู่หลังหน้าต่างเวลาเปิดทับกัน
@@ -103,6 +109,15 @@ func _ready() -> void:
 	Events.refine_npc_opened.connect(_on_refine_opened)
 	Events.socket_npc_opened.connect(_on_socket_opened)
 	Events.toggle_window.connect(toggle)
+
+
+## ★ รอบ 88 ★ F11 สลับเต็มจอ ↔ หน้าต่าง (เต็มจอแบบ borderless ไม่กระพริบตอนสลับ alt-tab)
+func toggle_fullscreen() -> void:
+	var mode := DisplayServer.window_get_mode()
+	if mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 
 func _add_window(id: StringName, window: GameWindow, pos: Vector2) -> void:
@@ -225,6 +240,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle(&"quests")
 	elif InputMap.has_action("toggle_gm") and event.is_action_pressed("toggle_gm"):
 		toggle(&"gm")
+	elif InputMap.has_action("toggle_fullscreen") and event.is_action_pressed("toggle_fullscreen"):
+		toggle_fullscreen()
 	elif InputMap.has_action("toggle_minimap") and event.is_action_pressed("toggle_minimap"):
 		if minimap != null:
 			minimap.toggle()
