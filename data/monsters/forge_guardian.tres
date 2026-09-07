@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=11 format=3 uid="uid://23kkjqbhxvqx"]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://23kkjqbhxvqx"]
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/forge_guardian_frames.tres" id="frames_new"]
+[ext_resource type="SpriteFrames" uid="uid://i1idm15yr1sa" path="res://data/sprites/monsters/forge_guardian_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_forge_guardian_0"]
 script = ExtResource("2_drop")
@@ -77,6 +77,7 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 320.0
+attack_hit_frames = null
 exp_reward = 6000
 job_exp_reward = 4200
 zeny_min = 2000

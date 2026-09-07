@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/bramble_pelt.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"bramble_pelt"
+display_name = "หนังพงหนาม"
+description = "หนังสัตว์ที่มีหนามพืชงอกทะลุออกมา สัตว์กับป่ากลายเป็นสิ่งเดียวกัน"
+icon = ExtResource("2_icon")
+type = 3
+buy_price = 960
+sell_price = 320

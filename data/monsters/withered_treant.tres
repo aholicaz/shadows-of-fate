@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/withered_treant_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_withered_treant_0"]
+script = ExtResource("2_drop")
+item_id = &"withered_bark"
+chance = 50.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_withered_treant_1"]
+script = ExtResource("2_drop")
+item_id = &"heartwood_chip"
+chance = 12.0
+
+[sub_resource type="Resource" id="Drop_withered_treant_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 10.0
+
+[sub_resource type="Resource" id="Drop_withered_treant_card"]
+script = ExtResource("2_drop")
+item_id = &"card_withered_treant"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"withered_treant"
+display_name = "ต้นไม้เหี่ยว"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(70, 70)
+hp_bar_offset_y = -106.4
+display_height = 280.0
+level = 49
+max_hp = 7400
+atk_min = 280
+atk_max = 370
+def = 56
+mdef = 26
+hit = 76
+flee = 8
+crit = 1
+element = 3
+race = 3
+size = 2
+ai_type = 0
+move_speed = 45.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 260.0
+attack_range = 140.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 280.0
+exp_reward = 4000
+job_exp_reward = 2800
+zeny_min = 800
+zeny_max = 1400
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_withered_treant_0"), SubResource("Drop_withered_treant_1"), SubResource("Drop_withered_treant_2"), SubResource("Drop_withered_treant_card")])
+respawn_time = 18.0

@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"gullveig_ember"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"siphon_rune"
+count = 1
+text = "ดูรูนใต้ก้นบ่อน้ำ"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c3_10_flame_that_never_dies"
+title = "C3-10 เพลิงที่ไม่มอด"
+description = "ดับเพลิงกุลล์ไวก์กลางบ่อน้ำแห่งชีวิต แล้วดูสิ่งที่ซ่อนอยู่ใต้ก้นบ่อ"
+giver_name = "ผู้อาวุโสญอร์ดา"
+dialog_offer = "กลางบ่อน้ำมีเพลิงที่ลุกมาสามร้อยปี... กุลล์ไวก์ ผู้ปฏิเสธจะมอบบ่อน้ำ ถูกเผาสามครั้ง และสามครั้งนางลุกขึ้น ตอนนี้นางเหลือแค่เปลวไฟ ดับนางเถอะ แล้วดูว่าใต้เปลวไฟนั้น พวกเขาซ่อนอะไรไว้"
+dialog_progress = "เพลิงกุลล์ไวก์อยู่กลางบ่อน้ำแห่งชีวิต ผ่านสมรภูมิที่ถูกลืมไปทางตะวันออก — นางปล่อยเพลิงสามระลอก กระโดดข้ามหรือพุ่งหลบ"
+dialog_complete = "รูน «ดูด»... เหมือนที่คนแคระเห็นบนหัวค้อน ที่นี่มันไม่ได้ดูดเหล็ก ลูกเอ๋ย มันดูดชีวิตของทั้งโลกส่งขึ้นไปทางเหนือ... สามร้อยปีแล้ว"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 58
+required_quests = Array[StringName]([&"c3_9_thorn_matriarch"])
+set_flag_on_complete = &"chapter3_done"
+choice_prompt = "ญอร์ดา: «เจ้าเห็นแล้วว่าใครดึงชีวิตจากโลกนี้... เจ้าจะเล่าให้คนที่มิดการ์ดฟังไหม»"
+choice_options = Array[String](["ข้าจะบอกทุกคน", "...ยังไม่ใช่ตอนนี้ ยังไม่มีใครเชื่อ"])
+choice_flags = Array[StringName]([&"will_tell_truth", &"kept_silent_ch3"])
+cutscene_pan_npc = "เด็กหญิงฟรีดา"
+cutscene_text = "เสียงเพลงที่เคยได้ยินทุกวันเงียบไป\n\nเด็กหญิงฟรีดายืนอยู่หน้าประตู มองไปทางเหนือ\n\n...ทางที่รากทุกเส้นชี้ไป"
+reward_item_id = &"gullveig_ash"
+reward_item_count = 1
+reward_zeny = 40000
+reward_exp = 90000

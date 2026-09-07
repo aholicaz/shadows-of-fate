@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"เด็กหญิงฟรีดา"
+count = 1
+text = "ฟังเพลงของฟรีดา"
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"war_mural"
+count = 1
+text = "ดูภาพจิตรกรรมบนกำแพงราก"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c3_4_song_of_child"
+title = "C3-4 บทเพลงที่เด็กร้อง"
+description = "ฟังเพลงของเด็กหญิงฟรีดา แล้วไปดูภาพจิตรกรรมบนกำแพงรากให้เห็นกับตา"
+giver_name = "ผู้อาวุโสญอร์ดา"
+dialog_offer = "ฟรีดาร้องเพลงเก่าของนคร... ท่อนสุดท้ายยายของนางห้ามร้องให้นักบวชได้ยิน ไปฟังดู แล้วไปดูภาพวาดบนกำแพงรากท้ายตลาด — ภาพที่เอสกิลขอให้เราลบทิ้ง"
+dialog_progress = "ฟรีดาอยู่หน้าประตูตะวันออก ภาพวาดอยู่บนกำแพงรากท้ายตลาด"
+dialog_complete = "เห็นแล้วสินะ... กองทัพในภาพเดินเข้ามาทางประตูเหนือ ไม่ได้ป้องกันอะไรทั้งนั้น"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 42
+required_quests = Array[StringName]([&"c3_1_open_gate"])
+choice_prompt = "ญอร์ดามองเจ้านิ่ง ๆ — «ภาพนั้น... เจ้าคิดว่ายังไง»"
+choice_options = Array[String](["จิตรกรคงวาดผิด วิหารสอนไว้ชัดเจน", "...ภาพนี้ต่างจากที่วิหารสอน"])
+choice_flags = Array[StringName]([&"mural_dismissed", &"mural_doubt"])
+reward_item_id = &"frida_song"
+reward_item_count = 1
+reward_zeny = 4000
+reward_exp = 14000

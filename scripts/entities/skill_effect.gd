@@ -120,6 +120,10 @@ static func spawn_config(cfg: Dictionary, caster: Node2D, facing: int) -> SkillE
 	return fx
 
 
+## ★ รอบ 81 ★ ตัวคูณความเร็วภาพ (ท่าฟันไวตาม ASPD)
+var _anim_speed: float = 1.0
+
+
 func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 	var frames: SpriteFrames = cfg.get("frames", null)
 	var base_offset: Vector2 = cfg.get("offset", Vector2.ZERO)
@@ -169,6 +173,9 @@ func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 
 	_sprite.animation = StringName(anim)
 	_sprite.frame = 0
+	# ★ รอบ 81 ★ เร่งภาพเอฟเฟกต์ให้เท่าท่าของผู้ร่าย (ใช้กับท่าฟันที่ไวตาม ASPD)
+	_anim_speed = maxf(0.05, float(cfg.get("anim_speed", 1.0)))
+	_sprite.speed_scale = _anim_speed
 	# ★ เริ่มเล่นตอน "โผล่" เท่านั้น ★ (รอบ 32)
 	# ถ้าตั้ง Effect Delay ไว้ ห้ามเริ่มเล่นตรงนี้ ไม่งั้นภาพเดินไปแล้วตอนยังซ่อนอยู่
 	# พอโผล่มาก็เหลือแต่เฟรมท้าย ๆ (Bash เห็นแค่จังหวะเดียว — บั๊กที่ผู้ใช้เจอ)
@@ -186,7 +193,7 @@ func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 
 	# ---------- อายุ ----------
 	if _life <= 0.0:
-		_life = _anim_length(frames, StringName(anim))
+		_life = _anim_length(frames, StringName(anim)) / _anim_speed
 	if _life <= 0.0:
 		_life = 0.5
 

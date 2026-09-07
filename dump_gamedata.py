@@ -949,6 +949,9 @@ if os.path.exists("dump_assets_ext.py"):
 # ★ รอบ 49 — ตารางผลของสเตตัส (ไฟล์แยก dump_stats_ext.py) ★
 if os.path.exists("dump_stats_ext.py"):
     exec(compile(open("dump_stats_ext.py", encoding="utf-8").read(), "dump_stats_ext.py", "exec"))
+# ★ รอบ 84 — แท็บ "ยังไม่ทำ" (ไฟล์แยก dump_todo_ext.py) ★ ต้องอยู่หลัง assets เพราะอ่านตัวเลขจากตรงนั้น
+if os.path.exists("dump_todo_ext.py"):
+    exec(compile(open("dump_todo_ext.py", encoding="utf-8").read(), "dump_todo_ext.py", "exec"))
 open("gamedata.json", "w", encoding="utf-8").write(json.dumps(data_json, ensure_ascii=False, indent=1))
 print("เขียน gamedata.json (%.0f KB)" % (os.path.getsize("gamedata.json") / 1024))
 # ★ รอบ 46 — สร้างหน้าเว็บ codex.html จากเทมเพลต (เปิดในเบราว์เซอร์ได้เลย / ให้ Claude อัปเดต artifact) ★

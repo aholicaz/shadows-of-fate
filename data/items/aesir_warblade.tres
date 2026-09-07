@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/aesir_warblade.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"aesir_warblade"
+display_name = "ดาบสงครามเอซีร์"
+description = "ดาบมาตรฐานกองทัพเอซีร์ ตราค้อนสายฟ้าบนด้าม... มาอยู่ในบึงวานาเฮมได้ยังไง"
+icon = ExtResource("2_icon")
+required_level = 56
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 220000
+sell_price = 88000
+atk = 160
+bonus_str = 2
+refinable = true
+refine_atk_per_level = 6

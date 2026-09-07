@@ -22,6 +22,15 @@ const MAPS := {
 	&"thunder_scar": "res://scenes/maps/thunder_scar.tscn",
 	## ★ ป่าเงาลึกชั้นใน (รอบ 44) — มอนบท 1 ที่เหลือ + บาฟโฟเมทเฝ้าทางไปบท 2 ★
 	&"dark_forest_2": "res://scenes/maps/dark_forest_2.tscn",
+	## ★ บทที่ 3 — วานาเฮม (รอบ 79) ★
+	&"root_road": "res://scenes/maps/root_road.tscn",
+	&"vanir_town": "res://scenes/maps/vanir_town.tscn",
+	&"silver_marsh": "res://scenes/maps/silver_marsh.tscn",
+	&"withered_grove": "res://scenes/maps/withered_grove.tscn",
+	&"forgotten_battlefield": "res://scenes/maps/forgotten_battlefield.tscn",
+	&"spring_of_life": "res://scenes/maps/spring_of_life.tscn",
+	## ★ รอบ 80 — ห้องทดสอบ GM (ไม่เชื่อมกับแมพไหน เข้าได้จากหน้าต่าง F10 เท่านั้น) ★
+	&"gm_room": "res://scenes/maps/gm_room.tscn",
 }
 
 ## ★ รอบ 57 ★ ชื่อไทยของแมพ (ใช้ในเสาวาป/มินิแมพ) — ไม่มีในนี้จะใช้ id แทน
@@ -37,12 +46,19 @@ const MAP_NAMES := {
 	&"ember_mine": "เหมืองถ่านไฟ",
 	&"hall_of_silence": "ห้องโถงแห่งความเงียบ",
 	&"cold_forge": "เตาหลอมเย็น",
+	&"root_road": "ทางสายราก",
+	&"vanir_town": "วานาเฮม นครแห่งราก",
+	&"silver_marsh": "บึงหมอกเงิน",
+	&"withered_grove": "ป่าเหี่ยว",
+	&"forgotten_battlefield": "สมรภูมิที่ถูกลืม",
+	&"spring_of_life": "บ่อน้ำแห่งชีวิต",
+	&"gm_room": "★ ห้อง GM (ทดสอบ)",
 }
 
 
 ## ★ รอบ 60 ★ แมพไหนนับเป็น "เมือง" (ใช้กับปีกแห่งวาลคีรี · จุดเกิดใหม่ตอนตาย)
 ## เพิ่มเมืองใหม่ = เพิ่ม id ตรงนี้บรรทัดเดียว
-const TOWNS := [&"prontera_town", &"nidavellir_town"]
+const TOWNS := [&"prontera_town", &"nidavellir_town", &"vanir_town"]
 
 
 ## ชื่อแมพที่เอาไว้โชว์ให้ผู้เล่นอ่าน

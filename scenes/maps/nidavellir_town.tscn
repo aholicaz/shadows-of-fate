@@ -123,7 +123,10 @@ position = Vector2(1950, 820)
 npc_name = "เสาวาปแห่งธอร์"
 type = 4
 dialog = "ศิลาเก่าแก่ ตราค้อนที่สลักไว้ดูใหม่กว่าตัวหินมาก"
-warp_targets = Array[StringName]([&"asgard_forest_2"])
+warp_targets = Array[StringName]([&"asgard_forest_2", &"vanir_town"])
+warp_flags = {
+"vanir_town": "chapter3_visited"
+}
 
 [node name="Healer" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2400, 820)

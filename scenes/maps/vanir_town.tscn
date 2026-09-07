@@ -1,0 +1,176 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(4200, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"vanir_town"
+display_name = "วานาเฮม นครแห่งราก"
+chapter = 3
+region = "วานาเฮม"
+map_bounds = Rect2(-100, -200, 4000, 1200)
+player_scene = ExtResource("player")
+enter_flag = &"chapter3_visited"
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="Polygon2D" parent="Background"]
+z_index = -100
+position = Vector2(-100, -200)
+color = Color(0.2, 0.28, 0.24, 1)
+polygon = PackedVector2Array(0, 0, 4000, 0, 4000, 1200, 0, 1200)
+
+[node name="FarLayer" type="Polygon2D" parent="Background"]
+z_index = -90
+position = Vector2(-100, 520)
+color = Color(0.3, 0.42, 0.3, 1)
+polygon = PackedVector2Array(0, 0, 4000, 0, 4000, 360, 0, 360)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1900, 1000)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+color = Color(0.38, 0.36, 0.26, 1)
+polygon = PackedVector2Array(-2100, -120, 2100, -120, 2100, 120, -2100, 120)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(300, 820)
+
+[node name="from_road" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+[node name="from_marsh" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3600, 820)
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="Portals" type="Node2D" parent="."]
+
+[node name="ToRoad" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"root_road"
+target_spawn_point = &"from_town"
+label_text = "← ทางสายราก"
+destination_name = "ทางสายราก"
+
+[node name="ToMarsh" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(3740, 880)
+target_map = &"silver_marsh"
+target_spawn_point = &"from_town"
+label_text = "→ บึงหมอกเงิน"
+destination_name = "บึงหมอกเงิน"
+
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="Njorda" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(380, 820)
+npc_name = "ผู้อาวุโสญอร์ดา"
+type = 0
+dialog = "ที่นี่คือวานาเฮม นครแห่งราก\n\nเมื่อก่อนน้ำในบ่อกลางเมืองล้นจนไหลออกไปเลี้ยงทั้งโลก\nตอนนี้เหลือแค่ก้นบ่อ... และไม่มีใครถามว่าทำไม"
+greeting = "แขกจากใต้ภูเขา... นั่งก่อน รากไม่รีบ"
+voice_id = "njorda"
+quest_ids = Array[StringName]([&"c3_1_open_gate", &"c3_4_song_of_child", &"c3_6_withering", &"c3_10_flame_that_never_dies"])
+dialog_by_flag = {
+"saw_dry_spring": "น้ำไม่ได้แห้งเอง เจ้าก็เห็นแล้ว\n\nมันถูก «ดึง» ขึ้นไป... ไปทางที่ต้นไม้ยักษ์ยืนอยู่",
+"chapter3_done": "เจ้าเห็นแล้วว่าใต้บ่อน้ำมีอะไร\n\nสงครามครั้งนั้นไม่ได้จบ... มันแค่เปลี่ยนจากดาบเป็นรูน\n\nไปเถอะ ทางเหนือยังมีคนที่ต้องรู้เรื่องนี้"
+}
+
+[node name="Eskil" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(900, 820)
+npc_name = "นักบันทึกเอสกิล"
+type = 0
+dialog = "ข้าเอสกิล นักบันทึกแห่งวิหาร ถูกส่งมาเขียนพงศาวดารวานาเฮมฉบับสมบูรณ์\n\nประวัติศาสตร์ต้องมีฉบับเดียว ลูกเอ๋ย... ไม่งั้นผู้คนจะสับสน"
+greeting = "ผู้จาริกจากมิดการ์ด จงขอบคุณธอร์ที่นำเจ้ามาไกลถึงนี่"
+voice_id = "eskil"
+quest_ids = Array[StringName]([&"c3_5_marsh_of_soldiers", &"c3_8_stake_burned_thrice"])
+dialog_by_flag = {
+"recorded_truth": "...เจ้าเขียนสิ่งที่ไม่มีใครอยากอ่านลงในสมุดของข้า\n\nข้าจะส่งมันไปวิหารตามหน้าที่ แต่จะไม่มีใครได้อ่านมันหรอก\n\nจงขอบคุณธอร์... ที่ยังปล่อยให้เจ้าพูด",
+"recorded_aesir_version": "ดีมาก ประวัติศาสตร์ฉบับนี้จะสงบและเป็นระเบียบ\n\nจงขอบคุณธอร์ที่เจ้าเลือกถูก"
+}
+
+[node name="Sifa" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1400, 820)
+npc_name = "แม่ค้าซิฟา"
+type = 1
+dialog = "แม่ค้าประจำนคร ของทุกชิ้นปลูกเองเก็บเอง\n\nปีนี้เก็บได้น้อยลงอีก... ต้นไม้ให้ผลน้อยลงทุกปีตั้งแต่บ่อน้ำเริ่มแห้ง"
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"root_sword", &"marsh_cutter", &"bark_armor", &"mist_cloak", &"root_boots", &"vanir_circlet", &"spring_amulet", &"scale_mail", &"iron_greaves", &"rosary", &"belt"])
+greeting = "ของจากรากทั้งนั้น รับอะไรดี"
+voice_id = "sifa"
+quest_ids = Array[StringName]([&"c3_3_mist_that_lingers"])
+
+[node name="Galla" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1900, 820)
+npc_name = "ช่างรากไม้กัลลา"
+type = 2
+dialog = "ช่างของนครนี้ตีเหล็กด้วยไฟจากรากไม้ ไม่ใช่ถ่านหิน\n\nไฟรากอ่อนลงทุกปี... เหมือนต้นไม้ไม่มีแรงจะลุก"
+has_socket = true
+greeting = "วางของบนตอ แล้วอย่าคุยตอนข้าตี"
+voice_id = "galla"
+quest_ids = Array[StringName]([&"c3_7_sentinels_still_standing"])
+
+[node name="SavePoint" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2350, 820)
+npc_name = "เสาวาปแห่งราก"
+type = 4
+dialog = "เสาหินพันด้วยรากไม้ ลายเถาวัลย์เก่าแก่... แต่บนยอดมีตราค้อนสลักทับไว้ใหม่ ๆ"
+warp_targets = Array[StringName]([&"nidavellir_town", &"prontera_town"])
+
+[node name="Leif" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2800, 820)
+npc_name = "หมอสมุนไพรลีฟ"
+type = 3
+dialog = "สมุนไพรที่นี่ยังใช้ได้ แต่ต้องเดินไปเก็บไกลขึ้นทุกปี\n\nของดี ๆ ตายจากด้านในก่อนเสมอ ลูกเอ๋ย"
+heal_price = 800
+greeting = "แผลจากหนาม หรือแผลจากคน"
+voice_id = "leif"
+
+[node name="Arvid" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3250, 820)
+npc_name = "ทหารยามอาร์วิด"
+type = 0
+dialog = "ข้ายามของนคร... ยามที่ไม่มีอะไรให้เฝ้า\n\nมอนในป่าไม่ได้บุกเข้ามา พวกมันหนีออกจากบางอย่างในป่าลึก เหมือนกันกับที่มิดการ์ดใช่ไหม"
+greeting = "ประตูนี้ไม่ได้ปิดมาสามร้อยปีแล้ว ไม่รู้จะเปิดหรือปิดดี"
+voice_id = "arvid"
+quest_ids = Array[StringName]([&"c3_2_roots_in_town", &"c3_9_thorn_matriarch"])
+
+[node name="Frida" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3500, 820)
+npc_name = "เด็กหญิงฟรีดา"
+type = 0
+dialog = "♪ น้ำล้นบ่อ รากเลื้อยไกล ♪\n♪ เทพจากเหนือ ขี่พายุมา ♪\n♪ ขอน้ำเรา แล้วเอาไป... ♪\n\nยายบอกว่าท่อนสุดท้ายห้ามร้องให้นักบวชได้ยิน"
+greeting = "พี่ฟังเพลงเป็นไหม"
+voice_id = "frida"
+dialog_by_flag = {
+"saw_mural": "พี่ไปดูภาพวาดมาแล้วเหรอ\n\nในเพลงก็เป็นแบบนั้นแหละ... พายุมาจากทางเหนือ ไม่ได้มาจากในป่า",
+"chapter3_done": "...หนูไม่ร้องเพลงนั้นแล้ว\n\nพี่ไปเถอะ ยายบอกว่าพี่ต้องไปทางเหนือ"
+}
+
+[node name="Lore" type="Node2D" parent="."]
+
+[node name="WarMural" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(650, 790)
+lore_id = &"war_mural"
+title = "ภาพจิตรกรรมบนกำแพงราก"
+text = "ภาพจิตรกรรมเก่าบนกำแพงราก สีลอกไปครึ่งหนึ่ง\n\nกองทัพถือธงค้อนสายฟ้า เดินทัพ «เข้ามา» ทางประตูเหนือของนครนี้\nชาววานีร์ยืนมือเปล่าอยู่หน้าบ่อน้ำ\n\n...ในวิหารสอนว่าวานีร์เป็นฝ่ายบุกก่อน"
+label_text = "ภาพวาดเก่า"
+set_flag = &"saw_mural"

@@ -11,7 +11,10 @@ extends Node2D
 
 const DEFAULT_BURST := "res://Sprites/effects/slime_burst.png"
 const BURST_FRAMES := 8
-const BURST_CELL := 256
+## ★ รอบ 82 ★ ขนาดช่องคิดจากภาพจริง (กว้างภาพ / จำนวนเฟรม) ไม่ใช่เลขตายตัวอีกแล้ว
+## เปลี่ยนภาพชีทใหม่แล้วไม่ต้องมาแก้โค้ด ขอแค่เป็นแถวเดียว 8 ช่องเท่ากัน
+## ตัวคูณตำแหน่ง: ยกภาพขึ้นจากจุดตกเท่าไหร่ (0.5 = กึ่งกลางภาพอยู่ที่จุดตกพอดี)
+const BURST_LIFT := 0.46
 
 enum Mode { STRAIGHT, LOB }
 
@@ -232,7 +235,7 @@ func _spawn_burst(at: Vector2) -> void:
 		k = data.skill_explosion_height / float(tex.get_height())
 	fx.scale = Vector2(k, k)
 	# วางให้ขอบล่างของเอฟเฟกต์อยู่ที่พื้นพอดี
-	fx.global_position = at + Vector2(0, -data.skill_explosion_height * 0.42)
+	fx.global_position = at + Vector2(0, -data.skill_explosion_height * BURST_LIFT)
 	get_parent().add_child(fx)
 	fx.play(anim)
 	fx.animation_finished.connect(fx.queue_free)
@@ -250,10 +253,14 @@ static func _default_burst_frames() -> SpriteFrames:
 	f.add_animation(&"burst")
 	f.set_animation_loop(&"burst", false)
 	f.set_animation_speed(&"burst", 18.0)
+	# ★ รอบ 82 ★ ช่องกว้าง = กว้างภาพ / จำนวนเฟรม · สูง = สูงภาพเต็ม
+	# ชีทเก่าเป็น 8 ช่องจัตุรัส 256 ชีทใหม่ 8 ช่อง 285x198 — สูตรนี้ใช้ได้ทั้งคู่
+	var cell_w: float = float(tex.get_width()) / float(BURST_FRAMES)
+	var cell_h: float = float(tex.get_height())
 	for i in range(BURST_FRAMES):
 		var a := AtlasTexture.new()
 		a.atlas = tex
-		a.region = Rect2(i * BURST_CELL, 0, BURST_CELL, BURST_CELL)
+		a.region = Rect2(roundf(i * cell_w), 0.0, roundf((i + 1) * cell_w) - roundf(i * cell_w), cell_h)
 		f.add_frame(&"burst", a)
 	_burst_cache = f
 	return f

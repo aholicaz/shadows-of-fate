@@ -68,6 +68,9 @@ position = Vector2(200, 820)
 [node name="from_hall" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(200, 820)
 
+[node name="from_root_road" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(2800, 820)
+
 [node name="Spawners" type="Node2D" parent="."]
 
 [node name="Boss_forge_guardian" type="Node2D" parent="Spawners"]
@@ -79,6 +82,15 @@ max_alive = 1
 spawn_width = 160
 
 [node name="Portals" type="Node2D" parent="."]
+
+[node name="ToRootRoad" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(2940, 880)
+target_map = &"root_road"
+target_spawn_point = &"from_forge"
+label_text = "→ ทางสายราก"
+destination_name = "ทางสายราก (บทที่ 3)"
+required_flag = &"chapter2_done"
+locked_text = "หลังกำแพงแบบร่างมีรอยแยก... รากไม้เลื้อยออกมาจากข้างใน แต่ยังไม่มีเหตุผลจะเข้าไป"
 
 [node name="ToHall" parent="Portals" instance=ExtResource("portal")]
 position = Vector2(60, 880)

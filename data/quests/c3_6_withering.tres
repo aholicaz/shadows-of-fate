@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"withered_treant"
+count = 10
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"dry_spring_grove"
+count = 1
+text = "ดูลำธารที่แห้งขอด"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c3_6_withering"
+title = "C3-6 ต้นไม้ที่เหี่ยวจากข้างใน"
+description = "ป่าเหี่ยวมีต้นไม้ที่ตายจากข้างใน ตัดต้นที่ยังเดินได้ แล้วไปดูลำธารที่แห้งขอด"
+giver_name = "ผู้อาวุโสญอร์ดา"
+dialog_offer = "ต้นไม้ในป่าเหี่ยวลุกขึ้นเดินได้ทั้งที่ข้างในตายแล้ว... ไปตัดพวกที่อาละวาด แล้วไปดูลำธารกลางป่าให้เห็นกับตา ว่าน้ำมันหายไป «ทางไหน»"
+dialog_progress = "ต้นไม้เหี่ยว 10 ต้น แล้วดูลำธารกลางป่าเหี่ยว"
+dialog_complete = "รากทุกเส้นชี้ไปทางเหนือ... ทางต้นไม้ยักษ์ นั่นแหละที่ชีวิตของโลกนี้ถูกดึงไป ตั้งแต่วันที่กองทัพเดินเข้าประตู"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 48
+required_quests = Array[StringName]([&"c3_4_song_of_child", &"c3_3_mist_that_lingers"])
+set_flag_on_complete = &"saw_dry_spring"
+reward_item_id = &"spring_vial"
+reward_item_count = 1
+reward_zeny = 12000
+reward_exp = 26000

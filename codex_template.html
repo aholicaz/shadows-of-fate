@@ -260,6 +260,7 @@ pre.prompt{
   <section class="pane" id="pane-quests" role="tabpanel" hidden></section>
   <section class="pane" id="pane-stats" role="tabpanel" hidden></section>
   <section class="pane" id="pane-npcs" role="tabpanel" hidden></section>
+  <section class="pane" id="pane-todo" role="tabpanel" hidden></section>
   <section class="pane" id="pane-assets" role="tabpanel" hidden></section>
   <section class="pane" id="pane-health" role="tabpanel" hidden></section>
   <div class="foot" id="foot"></div>
@@ -280,6 +281,7 @@ const TABS = [
   {id:'stats',    label:'สเตตัส',     n:D.stats ? D.stats.effects.length : 0},
   {id:'quests',   label:'เควส',       n:D.quests.length},
   {id:'npcs',     label:'NPC',        n:(D.npcs||[]).length},
+  {id:'todo',     label:'★ ยังไม่ทำ',   n:D.todo ? (D.todo.artTotal + D.todo.roadmapLeft) : 0},
   {id:'assets',   label:'งานภาพที่ยังไม่ทำ', n:D.assets ? Object.values(D.assets.counts).reduce((a,b)=>a+b,0) : 0},
   {id:'health',   label:'ตรวจข้อมูล', n:D.health.orphanItems.length + D.health.orphanMonsters.length},
 ];
@@ -674,6 +676,55 @@ function renderNpcs(){
 }
 
 // ---------------- งานภาพที่ยังไม่ทำ ----------------
+function renderTodo(){
+  const T = D.todo;
+  if(!T){ $('#pane-todo').innerHTML = '<div class="empty">ยังไม่มีข้อมูล — รัน dump_gamedata.py ใหม่</div>'; return 0; }
+  const q = query;
+  const hit = (...v) => !q || v.filter(Boolean).join(' ').toLowerCase().includes(q);
+  const road = T.roadmap.filter(r => hit(r.name, r.note, r.catName, r.chapter));
+  const art = T.art.filter(a => hit(a.name, a.note));
+  const left = T.roadmapLeft, doneN = T.roadmapTotal - left;
+  const pct = T.roadmapTotal ? Math.round(doneN / T.roadmapTotal * 100) : 0;
+
+  const roadRows = cat => {
+    const rows = road.filter(r => r.cat === cat);
+    if(!rows.length) return '';
+    return `<div class="sec"><h2>${esc(rows[0].catName)}</h2><span class="rule"></span><span class="meta">${rows.filter(r=>!r.done).length} ยังไม่ทำ / ${rows.length}</span></div>
+      <div class="tw"><table><thead><tr><th style="width:96px">สถานะ</th><th>หัวข้อ</th><th>บท</th><th>รายละเอียด</th></tr></thead><tbody>
+      ${rows.map(r=>`<tr><td>${r.done?'<span class="chip ok">ทำแล้ว</span>':'<span class="chip no">ยังไม่ทำ</span>'}</td>
+        <td class="nm">${esc(r.name)}</td><td class="dim">${esc(r.chapter)}</td><td class="src">${esc(r.note)}</td></tr>`).join('')}
+      </tbody></table></div>`;
+  };
+
+  $('#pane-todo').innerHTML =
+    `<p class="lead">รวมทุกอย่างที่ <b>ยังไม่ได้ทำ</b> ไว้ที่เดียว — ตัวเลขงานภาพนับจากไฟล์จริงทุกครั้งที่รัน <code>dump_gamedata.py</code>
+      ส่วนหัวข้อระบบ/เนื้อเรื่องแก้ได้ที่ตาราง <code>ROADMAP</code> ใน <code>dump_todo_ext.py</code><br>
+      <b>ภาพที่สคริปต์วาดให้ชั่วคราว (mockup) นับว่ายังไม่ทำทั้งหมด</b> — ทั้งสไปรท์มอน ไอคอนไอเทม ฉากหลังแมพ และเอฟเฟกต์สกิล</p>
+
+     <div class="todo-sum">
+       <div class="tcard"><div class="big">${num(T.artTotal)}</div><h4>งานภาพค้าง</h4><p>ทุกหมวดรวมกัน</p></div>
+       <div class="tcard"><div class="big">${left}<small> / ${T.roadmapTotal}</small></div><h4>ระบบ · เนื้อเรื่อง · เสียง</h4><p>หัวข้อที่ยังไม่ได้เริ่ม</p>
+         <div class="bar"><i style="width:${pct}%"></i></div></div>
+       ${T.cats.map(c=>`<div class="tcard${c.left?'':' done'}"><div class="big">${c.left||'✓'}<small> / ${c.total}</small></div><h4>${esc(c.name)}</h4><p>ยังไม่ทำ</p></div>`).join('')}
+     </div>
+
+     <div class="sec"><h2>งานภาพ — ค้างกี่ชิ้นในแต่ละหมวด</h2><span class="rule"></span><span class="meta">รายชื่อเต็มอยู่แท็บ «งานภาพที่ยังไม่ทำ»</span></div>
+     <div class="tw"><table><thead><tr><th>หมวด</th><th style="text-align:right">ยังไม่ทำ</th><th style="text-align:right">ทั้งหมด</th><th style="width:150px">ทำไปแล้ว</th><th>นับจากอะไร</th></tr></thead><tbody>
+     ${art.map(a=>{
+        const p2 = a.total ? Math.round((a.total-a.left)/a.total*100) : null;
+        return `<tr><td class="nm">${esc(a.name)}</td><td class="n">${a.left?`<span class="chip no">${a.left}</span>`:'<span class="chip ok">✓</span>'}</td>
+        <td class="n dim">${a.total||'—'}</td><td>${p2!=null?`<div class="bar"><i style="width:${p2}%"></i></div>`:'<span class="dim">—</span>'}</td>
+        <td class="src">${esc(a.note)}</td></tr>`;
+     }).join('')}
+     </tbody></table></div>
+
+     ${roadRows('system')}
+     ${roadRows('story')}
+     ${roadRows('audio')}
+     ${roadRows('outside')}`;
+  return q ? (road.length + art.length) : (T.artTotal + left);
+}
+
 function renderAssets(){
   const A = D.assets;
   if(!A){ $('#pane-assets').innerHTML = '<div class="empty">ยังไม่มีข้อมูล — รัน dump_gamedata.py ใหม่</div>'; return 0; }
@@ -687,6 +738,7 @@ function renderAssets(){
     {k:'player',   name:'ท่าผู้เล่น', note:'ท่าโจมตีต่ออาวุธ+สกิลที่ยังไม่มี'},
     {k:'ui',       name:'ไอคอน UI', note:'ui_icons ที่หายไป'},
     {k:'videos',   name:'วิดีโอบอส', note:'บอสที่ไม่มี intro_video'},
+    {k:'fx',       name:'เอฟเฟกต์ชั่วคราว', note:'ภาพที่สคริปต์วาดให้ไว้ก่อน — ยังไม่ใช่ภาพจริง'},
     {k:'big',      name:'ไฟล์ใหญ่เกิน', note:'ควรย่อขนาด (โหลดช้า/กินแรม)'},
   ];
   const total = Object.values(C).reduce((a,b)=>a+b,0);
@@ -704,7 +756,8 @@ function renderAssets(){
   const ui = f(A.ui, x=>[x.key||x.id||'', x.file||'', x.name||'']);
   const videos = f(A.videos, 'id', 'name');
   const big = f(A.big, 'file', 'hint');
-  let shown = mons.length+items.length+maps.length+npcs.length+skills.length+player.length+ui.length+videos.length+big.length;
+  const fx = f(A.fx || [], 'file', 'name', 'note');
+  let shown = mons.length+items.length+maps.length+npcs.length+skills.length+player.length+ui.length+videos.length+big.length+fx.length;
 
   $('#pane-assets').innerHTML =
     `<p class="lead">รายการ "งานภาพ/เสียง/วิดีโอ" ที่ยังไม่ได้ทำ ตรวจจากไฟล์จริงทุกครั้งที่รัน <code>dump_gamedata.py</code> — ทำเสร็จวางไฟล์แล้วรันใหม่ รายการจะหายไปเอง · คลิกการ์ดเพื่อกระโดดไปหมวดนั้น</p>
@@ -751,6 +804,10 @@ function renderAssets(){
      <div class="spec"><b>สเปกวิดีโอ</b> .ogv (Theora) 1280×720 ยาว 3-8 วิ · วางที่ <code>Sprites/video/&lt;id&gt;_intro.ogv</code> แล้วชี้ช่อง <code>intro_video</code> ใน MonsterData</div>
      ${table(['id','ชื่อบอส'], videos.map(v=>`<tr><td class="id">${esc(v.id)}</td><td class="nm">${esc(v.name)}</td></tr>`))}
 
+     ${sec('fx','เอฟเฟกต์ที่สคริปต์วาดให้ชั่วคราว', fx.length)}
+     <div class="spec"><b>ทำไมอยู่ในรายการนี้</b> ภาพพวกนี้เขียนโค้ดวาดให้เพื่อให้สกิลทำงานได้ก่อน ไม่ใช่ภาพจริง — วางไฟล์ใหม่ทับที่เดิมได้เลย (ชีทแนวนอน 8 เฟรมเท่ากัน) แล้วรัน <code>dump_gamedata.py</code> ใหม่</div>
+     ${table(['ไฟล์','ใช้กับ','ที่มา'], fx.map(x=>`<tr><td class="src"><code>${esc(x.file)}</code></td><td class="nm">${esc(x.name)}</td><td class="src">${esc(x.note)}</td></tr>`))}
+
      ${sec('big','ไฟล์ใหญ่เกินจำเป็น', big.length)}
      <div class="spec"><b>ทำไมต้องย่อ</b> ไอคอนไอเทมโชว์ ~48 px แต่ไฟล์ 2,000+ px กินแรมและทำให้โหลดกระตุก (เห็นชัดตอนเข้าแมพ) — ย่อด้วยสคริปต์ <code>shrink_icons.py</code> หรือโปรแกรมวาดภาพ</div>
      ${table(['ไฟล์','#MB','ควรทำ'], big.map(b=>`<tr><td class="src"><code>${esc(b.file)}</code></td><td class="n">${b.mb}</td><td>${esc(b.hint)}</td></tr>`))}`;
@@ -766,6 +823,7 @@ function render(){
   else if(active === 'quests') n = renderQuests();
   else if(active === 'stats') n = renderStats();
   else if(active === 'npcs') n = renderNpcs();
+  else if(active === 'todo') n = renderTodo();
   else if(active === 'assets') n = renderAssets();
   else n = renderHealth();
   $('#count').textContent = query ? `เจอ ${n} รายการ` : `${n} รายการ`;

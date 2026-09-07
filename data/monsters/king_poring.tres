@@ -375,6 +375,6 @@ skill_projectile_height = 110.0
 skill_projectile_offset = Vector2(90, -230)
 skill_projectile_arc = 260.0
 skill_projectile_time = 0.95
-skill_explosion_height = 280.0
+skill_explosion_height = 225.0
 respawn_time = 180.0
 respawn_persistent = true

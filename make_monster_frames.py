@@ -48,9 +48,12 @@ ANIMS = [
 # มอนบทที่ 2 เป็นต้นไป (แมพทางเหล็ก · นิดาเวลลิร์ · เหมืองถ่านไฟ · ห้องโถงเงียบ · เตาหลอมร้าง)
 CHAPTER2 = ["steel_beetle", "pitman", "ember_bat", "magma_slug",
             "silent_wraith", "rune_watcher", "forge_golem", "forge_guardian"]
+# มอนบทที่ 3 วานาเฮม (รอบ 79)
+CHAPTER3 = ["root_crawler", "thorn_hound", "mist_sprite", "bog_lurker", "withered_treant",
+            "vanir_sentinel", "war_wraith", "thorn_matriarch", "gullveig_ember"]
 # ตัวที่ผู้ใช้สั่งเพิ่ม
 EXTRA = ["baphomet"]
-DEFAULT_LIST = EXTRA + CHAPTER2
+DEFAULT_LIST = EXTRA + CHAPTER2 + CHAPTER3
 
 
 # ---------------------------------------------------------------- อ่านค่าจากไฟล์มอน

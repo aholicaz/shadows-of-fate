@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/mist_cloak.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"mist_cloak"
+display_name = "ผ้าคลุมหมอก"
+description = "ผ้าคลุมทอจากแก่นหมอก ห่มแล้วเหมือนตัวจางลง"
+icon = ExtResource("2_icon")
+required_level = 44
+type = 2
+slot = 5
+card_slots = 1
+max_stack = 1
+buy_price = 88000
+sell_price = 35200
+def = 10
+mdef = 5
+flee = 10
+refinable = true

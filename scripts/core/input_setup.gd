@@ -23,6 +23,8 @@ const DEFAULT_KEYS := {
 	"close_windows": [KEY_ESCAPE],
 	"quick_save": [KEY_F5],
 	"quick_load": [KEY_F9],
+	## ★ รอบ 80 — หน้าต่าง GM (เครื่องมือทดสอบ) ★
+	"toggle_gm": [KEY_F10],
 }
 
 # ★ ปุ่มเมาส์ไม่ผูกไว้ใน InputMap แล้ว ★

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"thorn_matriarch"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c3_9_thorn_matriarch"
+title = "C3-9 ราชินีหนาม"
+description = "ราชินีหนามขวางทางไปบ่อน้ำแห่งชีวิต ล้มนางเพื่อเปิดทาง"
+giver_name = "ทหารยามอาร์วิด"
+dialog_offer = "ทางไปบ่อน้ำถูกพงหนามปิดตาย ราชินีหนามอยู่ในนั้น... นางปกป้องบ่อน้ำมาก่อนจะมีเทพองค์ไหน แต่ตอนนี้นางไม่แยกมิตรกับศัตรูแล้ว เจ้าต้องล้มนาง ข้าเสียใจ"
+dialog_progress = "ราชินีหนามอยู่สุดทางตะวันออกของสมรภูมิที่ถูกลืม ระวังหนามทะลวงพื้น — กระโดดข้าม"
+dialog_complete = "...นางล้มแล้ว ข้าได้ยินเสียงพงหนามถอนตัวจากที่นี่ เอาโล่นี้ไป สานจากหนามของนาง ให้นางได้ปกป้องเจ้าต่อ"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0")])
+kill_monster_id = &""
+required_level = 55
+required_quests = Array[StringName]([&"c3_8_stake_burned_thrice"])
+reward_item_id = &"thorn_shield"
+reward_item_count = 1
+reward_zeny = 20000
+reward_exp = 45000

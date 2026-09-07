@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"vanir_sentinel"
+count = 8
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 1
+target = &"sentinel_core"
+count = 3
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c3_7_sentinels_still_standing"
+title = "C3-7 ผู้พิทักษ์ที่ยังยืนอยู่"
+description = "ผู้พิทักษ์หินในป่าเหี่ยวคลั่ง เก็บแกนผู้พิทักษ์มาให้กัลลาซ่อมเกราะ"
+giver_name = "ช่างรากไม้กัลลา"
+dialog_offer = "ผู้พิทักษ์วานีร์... บรรพบุรุษข้าสร้างพวกมันไว้เฝ้าบ่อน้ำ ไม่ใช่เฝ้ากันมอน — เฝ้ากัน «เทพ» ตอนนี้แกนมันเสื่อม คลั่งไปหมด เอาแกนมาให้ข้าสามก้อน ข้าจะทำเกราะให้เจ้า"
+dialog_progress = "ผู้พิทักษ์วานีร์ 8 ตน แกนผู้พิทักษ์ 3 ก้อน ในป่าเหี่ยว"
+dialog_complete = "แกนยังเรืองแสงเขียว... สามร้อยปีแล้วมันยังทำหน้าที่ นี่เกราะจากแผ่นหินของมัน ใส่แล้วจำไว้ว่ามันสร้างมาเพื่อยืนขวางใคร"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 50
+required_quests = Array[StringName]([&"c3_6_withering"])
+reward_item_id = &"sentinel_plate"
+reward_item_count = 1
+reward_zeny = 14000
+reward_exp = 30000

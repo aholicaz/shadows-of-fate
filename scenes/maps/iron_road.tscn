@@ -11,9 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
-size = Vector2(5200, 240)
+size = Vector2(5200, 98)
 
 [node name="Map2" type="Node2D" unique_id=1147046819]
+position = Vector2(-26, -202)
 script = ExtResource("map_base")
 map_id = &"iron_road"
 display_name = "ทางเหล็ก"
@@ -49,6 +50,7 @@ position = Vector2(2400, 1000)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1351160428]
+position = Vector2(0, -26)
 shape = SubResource("Rect_ground")
 
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=402668208]

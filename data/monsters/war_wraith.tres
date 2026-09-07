@@ -1,0 +1,87 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/war_wraith_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_war_wraith_0"]
+script = ExtResource("2_drop")
+item_id = &"spectral_plume"
+chance = 40.0
+
+[sub_resource type="Resource" id="Drop_war_wraith_1"]
+script = ExtResource("2_drop")
+item_id = &"storm_medal"
+chance = 8.0
+
+[sub_resource type="Resource" id="Drop_war_wraith_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_war_wraith_3"]
+script = ExtResource("2_drop")
+item_id = &"aesir_warblade"
+chance = 1.0
+
+[sub_resource type="Resource" id="Drop_war_wraith_4"]
+script = ExtResource("2_drop")
+item_id = &"aesir_helm_rusted"
+chance = 12.0
+
+[sub_resource type="Resource" id="Drop_war_wraith_card"]
+script = ExtResource("2_drop")
+item_id = &"card_war_wraith"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"war_wraith"
+display_name = "วิญญาณนักรบเอซีร์"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(44, 56)
+hp_bar_offset_y = -79.8
+display_height = 210.0
+level = 55
+max_hp = 6200
+atk_min = 320
+atk_max = 430
+def = 40
+mdef = 60
+hit = 92
+flee = 58
+crit = 8
+element = 8
+race = 1
+size = 1
+ai_type = 1
+move_speed = 150.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 114.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 5200
+job_exp_reward = 3639
+zeny_min = 1000
+zeny_max = 1800
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_war_wraith_0"), SubResource("Drop_war_wraith_1"), SubResource("Drop_war_wraith_2"), SubResource("Drop_war_wraith_3"), SubResource("Drop_war_wraith_4"), SubResource("Drop_war_wraith_card")])
+respawn_time = 18.0
+skill_name = "สายฟ้าสงคราม"
+skill_anim = &"Skill"
+skill_range = 520.0
+skill_damage_mult = 1.4
+skill_windup = 0.5
+skill_duration = 1.0
+skill_cooldown = 10.0
+skill_chance = 0.50
+skill_bolt_count = 3
+skill_bolt_start = 140.0
+skill_bolt_spacing = 140.0
+skill_bolt_delay = 0.35

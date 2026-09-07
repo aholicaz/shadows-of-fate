@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/root_crawler_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_root_crawler_0"]
+script = ExtResource("2_drop")
+item_id = &"root_fiber"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_root_crawler_1"]
+script = ExtResource("2_drop")
+item_id = &"pale_sap"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_root_crawler_2"]
+script = ExtResource("2_drop")
+item_id = &"red_potion"
+chance = 8.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_root_crawler_3"]
+script = ExtResource("2_drop")
+item_id = &"bark_armor"
+chance = 0.8
+
+[sub_resource type="Resource" id="Drop_root_crawler_card"]
+script = ExtResource("2_drop")
+item_id = &"card_root_crawler"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"root_crawler"
+display_name = "รากเลื้อย"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(46, 34)
+hp_bar_offset_y = -64.6
+display_height = 170.0
+level = 39
+max_hp = 3600
+atk_min = 200
+atk_max = 260
+def = 34
+mdef = 20
+hit = 64
+flee = 30
+crit = 2
+element = 3
+race = 3
+size = 1
+ai_type = 0
+move_speed = 85.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 260.0
+attack_range = 116.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 2200
+job_exp_reward = 1540
+zeny_min = 500
+zeny_max = 900
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_root_crawler_0"), SubResource("Drop_root_crawler_1"), SubResource("Drop_root_crawler_2"), SubResource("Drop_root_crawler_3"), SubResource("Drop_root_crawler_card")])
+respawn_time = 18.0

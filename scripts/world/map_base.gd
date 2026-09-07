@@ -72,6 +72,10 @@ extends Node2D
 ## ต้องมีธงนี้ก่อนถึงจะเล่น (ว่าง = ไม่ต้อง) เช่น chapter2_open
 @export var intro_video_flag: StringName = &""
 
+@export_group("ธงเนื้อเรื่อง")
+## ★ รอบ 79 ★ เข้าแมพนี้แล้วตั้งธงนี้ให้เอง (ว่าง = ไม่ตั้ง) — ใช้ปลดล็อกปลายทางเสาวาป เช่น chapter3_visited
+@export var enter_flag: StringName = &""
+
 @export_group("")
 @export var player_scene: PackedScene
 @export var camera_zoom: Vector2 = Vector2.ONE
@@ -105,6 +109,8 @@ func _ready() -> void:
 	add_to_group("map")
 	PlayerState.current_map_id = map_id
 	PlayerState.set_last_town(map_id)      # ★ รอบ 60 — จำเมืองล่าสุดไว้ให้ปีกแห่งวาลคีรี ★
+	if enter_flag != &"" and not PlayerState.has_flag(enter_flag):
+		PlayerState.set_flag(enter_flag)   # ★ รอบ 79 — ธง "เคยมาแมพนี้แล้ว" ★
 	if auto_fit_bounds:
 		map_bounds = _measure_bounds()
 		print("[Map] %s ขนาดแมพที่วัดได้: %s" % [map_id, str(map_bounds)])

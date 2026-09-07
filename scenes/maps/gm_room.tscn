@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://ced52q8brdyf6"]
+
+[ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(4400, 80)
+
+[node name="Map" type="Node2D" unique_id=218283234]
+script = ExtResource("map_base")
+map_id = &"gm_room"
+display_name = "ห้อง GM (ทดสอบ)"
+chapter = 0
+region = "ห้องทดสอบ"
+map_bounds = Rect2(-200, -400, 4600, 1400)
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+player_scene = ExtResource("player")
+camera_fit_height = false
+
+[node name="Background" type="Node2D" parent="." unique_id=269006373]
+
+[node name="Sky" type="Polygon2D" parent="Background" unique_id=494857474]
+z_index = -100
+position = Vector2(-200, -400)
+color = Color(0.078, 0.086, 0.129, 1)
+polygon = PackedVector2Array(0, 0, 4600, 0, 4600, 1400, 0, 1400)
+
+[node name="Grid" type="Polygon2D" parent="Background" unique_id=2044926975]
+z_index = -95
+position = Vector2(-200, 300)
+color = Color(0.114, 0.129, 0.192, 1)
+polygon = PackedVector2Array(0, 0, 4600, 0, 4600, 8, 0, 8)
+
+[node name="Grid2" type="Polygon2D" parent="Background" unique_id=177932558]
+z_index = -95
+position = Vector2(-200, 600)
+color = Color(0.114, 0.129, 0.192, 1)
+polygon = PackedVector2Array(0, 0, 4600, 0, 4600, 8, 0, 8)
+
+[node name="Terrain" type="Node2D" parent="." unique_id=1803353584]
+
+[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=1765394713]
+position = Vector2(2100, 840)
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1898471684]
+shape = SubResource("Rect_ground")
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=432690202]
+color = Color(0.184, 0.196, 0.267, 1)
+polygon = PackedVector2Array(-2200, -40, 2200, -40, 2200, 40, -2200, 40)
+
+[node name="GroundLine" type="Polygon2D" parent="Terrain/Ground" unique_id=937298009]
+color = Color(0.31, 0.65, 0.55, 1)
+polygon = PackedVector2Array(-2200, -40, 2200, -40, 2200, -34, -2200, -34)
+
+[node name="Marks" type="Node2D" parent="." unique_id=615049653]
+
+[node name="M0" type="Label" parent="Marks" unique_id=2041200719]
+offset_left = 120.0
+offset_top = 700.0
+offset_right = 520.0
+offset_bottom = 740.0
+theme_override_colors/font_color = Color(1, 0.835, 0.29, 1)
+theme_override_font_sizes/font_size = 26
+text = "★ ห้อง GM — กด F10 เปิดเครื่องมือ ★"
+
+[node name="M1" type="Label" parent="Marks" unique_id=2045575765]
+offset_left = 120.0
+offset_top = 744.0
+offset_right = 720.0
+offset_bottom = 776.0
+theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
+theme_override_font_sizes/font_size = 18
+text = "แมพนี้ไม่เชื่อมกับแมพไหนเลย · ไม่มีมอนเกิดเอง"
+
+[node name="M2" type="Label" parent="Marks" unique_id=1375283314]
+offset_left = 1080.0
+offset_top = 660.0
+offset_right = 1400.0
+offset_bottom = 690.0
+theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
+theme_override_font_sizes/font_size = 18
+text = "สูง 80"
+
+[node name="M3" type="Label" parent="Marks" unique_id=1613956329]
+offset_left = 1500.0
+offset_top = 560.0
+offset_right = 1820.0
+offset_bottom = 590.0
+theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
+theme_override_font_sizes/font_size = 18
+text = "สูง 180"
+
+[node name="M4" type="Label" parent="Marks" unique_id=661347092]
+offset_left = 1920.0
+offset_top = 460.0
+offset_right = 2240.0
+offset_bottom = 490.0
+theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
+theme_override_font_sizes/font_size = 18
+text = "สูง 280 (กระโดดไม่ถึง)"
+
+[node name="M5" type="Label" parent="Marks" unique_id=1014781534]
+offset_left = 2600.0
+offset_top = 340.0
+offset_right = 2960.0
+offset_bottom = 370.0
+theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
+theme_override_font_sizes/font_size = 18
+text = "กำแพงกันคลื่นสกิล"
+
+[node name="M6" type="Label" parent="Marks" unique_id=982828167]
+offset_left = 3000.0
+offset_top = 600.0
+offset_right = 3500.0
+offset_bottom = 630.0
+theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
+theme_override_font_sizes/font_size = 18
+text = "ลานกว้าง — ทดสอบบอส"
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=1262224740]
+
+[node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1232545389]
+position = Vector2(300, 760)
+
+[node name="arena" type="Marker2D" parent="SpawnPoints" unique_id=1960966778]
+position = Vector2(3200, 760)
+
+[node name="Spawners" type="Node2D" parent="." unique_id=606115087]
+
+[node name="Portals" type="Node2D" parent="." unique_id=97718681]

@@ -796,7 +796,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"Attack_Blade_magnum_break",
-"speed": 6.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,

@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/bog_lurker_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_bog_lurker_0"]
+script = ExtResource("2_drop")
+item_id = &"bog_bone"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_bog_lurker_1"]
+script = ExtResource("2_drop")
+item_id = &"aesir_helm_rusted"
+chance = 18.0
+
+[sub_resource type="Resource" id="Drop_bog_lurker_2"]
+script = ExtResource("2_drop")
+item_id = &"orange_potion"
+chance = 12.0
+
+[sub_resource type="Resource" id="Drop_bog_lurker_3"]
+script = ExtResource("2_drop")
+item_id = &"marsh_cutter"
+chance = 0.8
+
+[sub_resource type="Resource" id="Drop_bog_lurker_card"]
+script = ExtResource("2_drop")
+item_id = &"card_bog_lurker"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"bog_lurker"
+display_name = "ผีบึง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(52, 46)
+hp_bar_offset_y = -72.2
+display_height = 190.0
+level = 46
+max_hp = 5600
+atk_min = 260
+atk_max = 340
+def = 48
+mdef = 30
+hit = 74
+flee = 20
+crit = 2
+element = 2
+race = 1
+size = 1
+ai_type = 0
+move_speed = 70.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 260.0
+attack_range = 122.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 220.0
+exp_reward = 3400
+job_exp_reward = 2380
+zeny_min = 700
+zeny_max = 1200
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_bog_lurker_0"), SubResource("Drop_bog_lurker_1"), SubResource("Drop_bog_lurker_2"), SubResource("Drop_bog_lurker_3"), SubResource("Drop_bog_lurker_card")])
+respawn_time = 18.0

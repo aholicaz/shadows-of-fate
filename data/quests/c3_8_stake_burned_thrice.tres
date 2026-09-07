@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"war_wraith"
+count = 12
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"burnt_stake"
+count = 1
+text = "ดูเสาที่ถูกเผาสามครั้ง"
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"buried_banner"
+count = 1
+text = "ดูธงที่ถูกฝัง"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c3_8_stake_burned_thrice"
+title = "C3-8 เสาที่ถูกเผาสามครั้ง"
+description = "เอสกิลให้ไปกวาดล้างวิญญาณนักรบในสมรภูมิที่ถูกลืม และตรวจดูเสาไหม้กับธงเก่าที่นั่นเพื่อประกอบพงศาวดาร"
+giver_name = "นักบันทึกเอสกิล"
+dialog_offer = "สมรภูมิเก่ายังมีวิญญาณทหารเอซีร์ที่ไม่ยอมไป กำจัดให้พวกเขาได้พัก... ระหว่างนั้นไปดูเสาไหม้กับธงที่ถูกฝัง แล้วกลับมาบอกข้าว่าเจ้าเห็นอะไร ข้าจะ «บันทึกให้ถูกต้อง»"
+dialog_progress = "วิญญาณนักรบเอซีร์ 12 ตน แล้วดูเสาไหม้กับธงที่ถูกฝังในสมรภูมิที่ถูกลืม"
+dialog_complete = "เจ้าเห็นเสาแล้ว... กุลล์ไวก์ แม่มดที่ยุยงสงคราม ถูกเผาสามครั้งเพราะความผิดของนาง — นั่นคือฉบับที่วิหารบันทึก ทีนี้บอกข้า เจ้าจะให้ข้าเขียนแบบไหน"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 53
+required_quests = Array[StringName]([&"c3_5_marsh_of_soldiers", &"c3_7_sentinels_still_standing"])
+choice_prompt = "เอสกิลเปิดสมุดพงศาวดาร ปากกาลอยอยู่เหนือหน้ากระดาษ — «วานาเฮม ปีแห่งสงคราม... ฝ่ายใดเริ่ม»"
+choice_options = Array[String](["บันทึกว่าวานีร์เป็นฝ่ายเริ่ม (ตามวิหาร)", "บันทึกตามที่ข้าเห็น — เอซีร์เดินทัพเข้ามา"])
+choice_flags = Array[StringName]([&"recorded_aesir_version", &"recorded_truth"])
+reward_item_id = &"eskil_chronicle"
+reward_item_count = 1
+reward_zeny = 16000
+reward_exp = 36000

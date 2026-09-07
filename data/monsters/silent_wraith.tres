@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3 uid="uid://bq4d88cglhnd1"]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://bq4d88cglhnd1"]
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Texture2D" uid="uid://5tcn36gyc0j6" path="res://Sprites/monster/silent_wraith/soul ball.png" id="2_8i5xw"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/silent_wraith_frames.tres" id="frames_new"]
+[ext_resource type="SpriteFrames" uid="uid://urrrjp7w8821" path="res://data/sprites/monsters/silent_wraith_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_silent_wraith_0"]
 script = ExtResource("2_drop")
@@ -37,7 +38,9 @@ display_name = "ภูตไร้เสียง"
 sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(36, 50)
 hp_bar_offset_y = -72.2
-display_height = 190.0
+display_height = 260.0
+flying = true
+hover_height = 50.0
 level = 33
 max_hp = 1600
 atk_min = 140
@@ -58,19 +61,19 @@ attack_range = 106.0
 leash_range = 750.0
 wander_range = 260.0
 hop_while_wandering = false
-wander_pause_chance = 0.60
-wander_pause_min = 3.00
-wander_pause_max = 5.00
-wander_walk_min = 1.80
-wander_walk_max = 3.20
-wander_look_chance = 0.80
+wander_pause_chance = 0.6
+wander_walk_min = 1.8
+wander_look_chance = 0.8
 attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 160.0
+attack_hit_frames = null
 exp_reward = 1100
 job_exp_reward = 770
 zeny_min = 280
 zeny_max = 500
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_silent_wraith_0"), SubResource("Drop_silent_wraith_1"), SubResource("Drop_silent_wraith_2"), SubResource("Drop_silent_wraith_3"), SubResource("Drop_silent_wraith_card")])
+projectile_texture = ExtResource("2_8i5xw")
+projectile_offset = Vector2(30, -160)
 respawn_time = 15.0

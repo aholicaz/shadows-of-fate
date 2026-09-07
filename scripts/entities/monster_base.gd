@@ -52,6 +52,8 @@ var _jump_cd := 0.0
 var _skill_cd := 0.0
 var _spawn_locked := false
 var _fit_cache: Dictionary = {}
+## ★ รอบ 83 ★ ความสูงของท่าอ้างอิง (-1 = ยังไม่ได้วัด)
+var _ref_tallest: float = -1.0
 ## ★ รอบ 54 — บิน ★ เฟสของการโยกขึ้นลง (สุ่มเริ่ม ไม่งั้นทั้งฝูงโยกพร้อมกัน)
 var _hover_t: float = randf() * TAU
 ## โหลดฉากของตกไว้ล่วงหน้า (รอบ 44 — เดิม load() ตอนมอนตาย)
@@ -126,7 +128,13 @@ func body_size() -> Vector2:
 	if sprite != null and sprite.sprite_frames != null:
 		var info: Dictionary = _fit_frames(sprite.animation)
 		if not info.is_empty():
-			h = maxf(h, float(info.tallest) * absf(sprite.scale.y))
+			# ★ รอบ 83 ★ ใช้ความสูงของท่าอ้างอิง กรอบตัวจะได้ไม่โตตามอาวุธที่ยกขึ้นตอนตี
+			var t: float = float(info.tallest)
+			if data != null and data.fit_uniform_scale:
+				var ref := _reference_tallest()
+				if ref > 0.0:
+					t = ref
+			h = maxf(h, t * absf(sprite.scale.y))
 	# ตัวสูงแต่กล่องชนแคบมาก ๆ ให้กว้างขึ้นหน่อย ไม่งั้นฟันยาก
 	w = maxf(w, h * 0.35)
 	return Vector2(w, h)
@@ -199,13 +207,47 @@ func _fit_frames(anim: StringName) -> Dictionary:
 	var list: Array = base.frames
 	var tallest: float = base.tallest
 
+	# ★★ รอบ 83 — ทุกท่าตัวเท่ากัน ★★
+	# เดิมวัด "ท่าที่กำลังเล่น" แล้วย่อให้สูงเท่า display_height พอดี
+	# ท่าที่ยกอาวุธสูง (เช่น Attack ของผู้พิทักษ์เตาหลอม กรอบสูง 423 เทียบ Idle 375)
+	# เลยโดนย่อทั้งตัวลง 11% → มอนหดตอนตี ซึ่งไม่ใช่สิ่งที่ควรเป็น
+	# ตอนนี้วัดจาก "ท่าอ้างอิง" (ปกติคือ Idle) ท่าเดียว แล้วใช้สเกลนั้นกับทุกท่า
+	var scale_from: float = tallest
+	if data.fit_uniform_scale:
+		var ref := _reference_tallest()
+		if ref > 0.0:
+			scale_from = ref
+
 	var k: float = data.sprite_scale.y
 	if data.display_height > 0.0:
-		k = data.display_height / maxf(1.0, tallest)
+		k = data.display_height / maxf(1.0, scale_from)
 
 	var info := {"scale": k, "frames": list, "tallest": tallest}
 	_fit_cache[anim] = info
 	return info
+
+
+## ความสูงของ "ท่าอ้างอิง" ที่ใช้คิดสเกลให้ทุกท่า (0 = หาไม่เจอ ให้ใช้ท่าตัวเองไปตามเดิม)
+func _reference_tallest() -> float:
+	if _ref_tallest >= 0.0:
+		return _ref_tallest
+	_ref_tallest = 0.0
+	var frames := sprite.sprite_frames
+	if frames == null:
+		return 0.0
+	var want: Array = [String(data.fit_reference_anim), "Idle", "Stand", "Run", "Walk"]
+	for candidate in want:
+		if String(candidate) == "":
+			continue
+		var real := _real_anim(String(candidate))
+		if real == "" or frames.get_frame_count(real) <= 0:
+			continue
+		var base: Dictionary = SpriteFit.measure(frames, StringName(real))
+		if base.is_empty():
+			continue
+		_ref_tallest = float(base.tallest)
+		break
+	return _ref_tallest
 
 
 func _process(delta: float) -> void:
@@ -784,12 +826,18 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 
 	var result := Combat.player_hits_monster(PlayerState.stats, data, skill_mult, use_matk)
 
+	# ★ โหมด GM ตีทีเดียวตาย (รอบ 80) ★ ตีปุ๊บตายปั๊บ ไม่พลาด ไม่สนธาตุ/เกราะ
+	# ใช้ไล่เก็บดรอป/ดูท่าตาย/เทสต์เควสฆ่ามอนเร็ว ๆ — เปิดจากหน้าต่าง GM (F10) เท่านั้น
+	if PlayerState.gm_one_hit:
+		take_damage(maxi(1, hp), true, from_dir)
+		return
+
 	if result.miss:
 		Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y - hover_lift()), "MISS", Color("#cccccc"), 20, 3)
 		_set_aggro()
 		return
 
-	take_damage(int(result.damage), bool(result.crit), from_dir)
+	take_damage(maxi(1, int(result.damage)), bool(result.crit), from_dir)
 	_drain_to_player(int(result.damage))
 
 

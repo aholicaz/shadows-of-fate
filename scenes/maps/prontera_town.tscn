@@ -1040,6 +1040,10 @@ position = Vector2(3245, 545)
 npc_name = "เสาวาปแห่งธอร์"
 type = 4
 dialog = "เสาวาปโบราณ · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
+warp_targets = Array[StringName]([&"asgard_forest_2", &"vanir_town"])
+warp_flags = {
+"vanir_town": "chapter3_visited"
+}
 quest_talk_names = Array[StringName]([&"ศิลาสลักแห่งธอร์"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/SavePoint" unique_id=1114171629]

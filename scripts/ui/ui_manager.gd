@@ -63,6 +63,8 @@ func _ready() -> void:
 	_add_window(&"cards", CardAlbumWindow.new(), Vector2(300, 60))
 	_add_window(&"system", SystemWindow.new(), Vector2(420, 140))
 	_add_window(&"quests", QuestWindow.new(), Vector2(340, 100))
+	# ★ รอบ 80 — ห้องเครื่องมือ GM (F10) ★ ไม่มีปุ่มในเมนู เปิดด้วยปุ่มลัดอย่างเดียว
+	_add_window(&"gm", GMWindow.new(), Vector2(340, 60))
 
 	# ---------- กล่องรายละเอียดไอเทม (เด้งข้างหน้าต่าง) ----------
 	item_popup = ItemInfoPopup.new()
@@ -221,6 +223,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		toggle(&"system")
 	elif event.is_action_pressed("toggle_quests"):
 		toggle(&"quests")
+	elif InputMap.has_action("toggle_gm") and event.is_action_pressed("toggle_gm"):
+		toggle(&"gm")
 	elif InputMap.has_action("toggle_minimap") and event.is_action_pressed("toggle_minimap"):
 		if minimap != null:
 			minimap.toggle()

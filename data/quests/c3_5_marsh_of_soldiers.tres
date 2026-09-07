@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"bog_lurker"
+count = 15
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 1
+target = &"aesir_helm_rusted"
+count = 3
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c3_5_marsh_of_soldiers"
+title = "C3-5 บึงที่กลืนนักรบ"
+description = "เอสกิลต้องการหมวกทหารจากบึงหมอกเงินไปประกอบพงศาวดาร ล่าผีบึงและเก็บหมวกเอซีร์ขึ้นสนิมมาให้"
+giver_name = "นักบันทึกเอสกิล"
+dialog_offer = "พงศาวดารต้องมีหลักฐาน ลูกเอ๋ย ในบึงมีหมวกทหารเอซีร์ที่ถูกวานีร์ซุ่มโจมตีเมื่อสามร้อยปีก่อน เอามาให้ข้าสามใบ ...แล้วกำจัดผีพวกนั้นด้วย มันคือทหารของเราที่ตายอย่างไม่สมเกียรติ"
+dialog_progress = "ผีบึง 15 ตน หมวกเอซีร์ขึ้นสนิม 3 ใบ จากบึงหมอกเงิน"
+dialog_complete = "ดี... หมวกพวกนี้จะบันทึกว่า «ทหารเอซีร์ผู้ถูกทรยศ» เท่านั้น ไม่ต้องถามว่าทำไมหมวกทุกใบหันหน้าไปทางบ่อน้ำ ข้าจะเก็บมันไว้เอง"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 45
+required_quests = Array[StringName]([&"c3_3_mist_that_lingers"])
+set_flag_on_complete = &"gave_helms_to_eskil"
+reward_zeny = 10000
+reward_exp = 20000

@@ -98,6 +98,16 @@ const KNOCKBACK_DECAY := 900.0
 @export var attack_reach_down: float = 40.0
 ## จังหวะที่ดาบฟันโดน (วินาทีหลังเริ่มอนิเมชัน)
 @export var attack_windup: float = 0.15
+
+# ---------- ★ รอบ 81 — ท่าฟันไวตาม ASPD ★ ----------
+## เปิด/ปิดการเร่งอนิเมชันท่าโจมตีตามความเร็วโจมตี (ASPD)
+## ปิด = ท่าฟันเล่นความเร็วเดิมเสมอ (ASPD สูง ๆ จะเห็นตัวละครค้างรอ)
+@export var attack_anim_follow_aspd: bool = true
+## ให้ท่าฟันจบภายในกี่ % ของช่วงเวลาระหว่างการตี 1 ครั้ง
+## 0.9 = ฟันจบแล้วเหลือช่องว่างนิดเดียวก่อนตีครั้งถัดไป (ดูลื่น ไม่ค้าง)
+@export_range(0.5, 1.0, 0.01) var attack_anim_fit: float = 0.9
+## เร่งได้มากสุดกี่เท่า (กันภาพกระตุกจนดูไม่ออกตอน ASPD สูงมาก)
+@export_range(1.0, 12.0, 0.1) var attack_anim_max_speed: float = 8.0
 ## ระยะที่เก็บไอเทมได้ (แนวนอน) — วัดจาก "ปลายเท้า" ไม่ใช่จุดกำเนิด
 @export var pickup_range: float = 90.0
 ## ระยะที่เก็บไอเทมได้ (แนวตั้ง) เผื่อของตกอยู่ต่างระดับเล็กน้อย
@@ -660,6 +670,10 @@ func _update_animation() -> void:
 	if is_attacking or sprite.sprite_frames == null:
 		return
 
+	# ★ รอบ 81 ★ ออกจากท่าฟันแล้วคืนความเร็วภาพเป็นปกติ (กันท่า Idle/Run วิ่งเร็วค้าง)
+	if not is_equal_approx(sprite.speed_scale, 1.0):
+		sprite.speed_scale = 1.0
+
 	# ★ กำลังพุ่งหลบ ★ ท่าถูกตั้งไว้แล้วตอนเริ่มพุ่ง อย่าให้อะไรมาทับ
 	if _dodge_time > 0.0:
 		return
@@ -1082,21 +1096,44 @@ func start_attack() -> void:
 	velocity.x = 0.0
 	_hit_left = 0.0
 	_jump_anim = ""
-	_play(attack_animation())
-	_spawn_attack_effect()
-	_play_attack_sfx(attack_animation())
+	var anim := attack_animation()
+	var played := _play(anim)
 
-	await get_tree().create_timer(attack_windup).timeout
+	# ★★ รอบ 81 — เร่งท่าฟันตาม ASPD ★★
+	# เดิมท่าฟันเล่นความเร็วคงที่ พออัพ ASPD สูง ๆ ช่วงเวลาระหว่างตีสั้นลงเรื่อย ๆ
+	# แต่ภาพยังฟันช้าเท่าเดิม = ตีครั้งถัดไปมาก่อนที่ท่าจะจบ ภาพเลยกระตุก/ค้างครึ่งท่า
+	# ตอนนี้คิดความเร็วให้ท่าฟัน "จบพอดี" ก่อนตีครั้งถัดไป และเลื่อนจังหวะดาบโดนตามไปด้วย
+	var anim_speed := _attack_anim_speed(played)
+	sprite.speed_scale = anim_speed
+	_spawn_attack_effect(anim_speed)
+	_play_attack_sfx(anim)
+
+	var windup: float = maxf(0.03, attack_windup / anim_speed)
+	await get_tree().create_timer(windup).timeout
 	if not is_instance_valid(self) or _dead:
 		return
 
 	_deal_damage(attack_range_x, attack_range_y, 1.0, false, 0)
 
 	# กลับสู่ท่าปกติหลังจบอนิเมชัน (เผื่อ signal ไม่ถูกต่อไว้)
-	var rest: float = maxf(0.05, attack_cooldown - attack_windup)
+	var rest: float = maxf(0.03, attack_cooldown - windup)
 	await get_tree().create_timer(rest).timeout
 	if is_instance_valid(self):
 		is_attacking = false
+		sprite.speed_scale = 1.0
+
+
+## ★ รอบ 81 ★ ท่าฟันควรเล่นเร็วกี่เท่า ถึงจะจบทันก่อนตีครั้งถัดไป
+## คืน 1.0 เสมอถ้าท่าเล่นจบทันอยู่แล้ว — เร่งอย่างเดียว ไม่มีการทำให้ช้าลง
+func _attack_anim_speed(played_anim: String) -> float:
+	if not attack_anim_follow_aspd or played_anim == "" or sprite.sprite_frames == null:
+		return 1.0
+	var natural := _anim_length(played_anim)
+	if natural <= 0.0:
+		return 1.0
+	var target: float = maxf(0.08, attack_cooldown * attack_anim_fit)
+	return clampf(natural / target, 1.0, attack_anim_max_speed)
+
 
 
 # =========================================================
@@ -1177,7 +1214,7 @@ func use_skill(skill_id: StringName) -> void:
 
 
 ## ★ รอยฟันตอนโจมตีปกติ (รอบ 44) ★
-func _spawn_attack_effect() -> void:
+func _spawn_attack_effect(anim_speed: float = 1.0) -> void:
 	if not attack_effect_enabled:
 		return
 	if attack_effect_frames == null and ResourceLoader.exists(ATTACK_FX_PATH):
@@ -1200,11 +1237,13 @@ func _spawn_attack_effect() -> void:
 		"height": attack_effect_height,
 		"scale": attack_effect_scale,
 		"follow": true,
-		"delay": attack_effect_delay,
+		"delay": attack_effect_delay / anim_speed,
 		"z": attack_effect_z,
 		"name": "attack",
 		"flip_v": idx % 2 == 1,
 		"damage": false,
+		# ★ รอบ 81 ★ ภาพฟันวิ่งเร็วเท่ากับท่าฟันของตัวละคร (ASPD สูง = ฟันไวทั้งคู่)
+		"anim_speed": anim_speed,
 	}, self, facing)
 
 
@@ -1347,6 +1386,11 @@ func take_damage(amount: int, knockback_force: float = 0.0, from_direction: int 
 	if _dead:
 		return
 
+	# ★ โหมด GM อมตะ (รอบ 80) ★ เปิดจากหน้าต่าง GM — ทดสอบสกิลบอสได้โดยไม่ตาย
+	if PlayerState.gm_god_mode:
+		Events.floating_text(global_position + Vector2(0, -40), "GM", Color("#ffd54a"), 24, 0)
+		return
+
 	# ★★ ช่วงอมตะตอนพุ่งหลบ ★★ โดนตีไม่เข้า ขึ้นคำว่า "หลบ!" แทนเลขดาเมจ
 	if is_invincible():
 		Events.floating_text(global_position + Vector2(0, -40), "หลบ!",
@@ -1394,6 +1438,7 @@ func _on_died() -> void:
 	_jump_anim = ""
 	velocity = Vector2.ZERO
 	sprite.modulate = Color.WHITE
+	sprite.speed_scale = 1.0   # ★ รอบ 81 ★ ตายกลางท่าฟันไว ๆ ต้องคืนความเร็วภาพก่อน
 
 	# ท่าตายของผู้เล่น ตั้งชื่อ Death / Die / Dead ก็ได้ (พิมพ์เล็ก-ใหญ่ไม่สำคัญ)
 	var played := _play("Death")
