@@ -1,19 +1,18 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://drdqeq44y6dne"]
 
-[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://c0lk4v456f8n0" path="res://Sprites/card/card_wolf.webp" id="1_3f630"]
+[ext_resource type="Script" uid="uid://b3076eptxjrrr" path="res://scripts/resources/card_data.gd" id="1_card"]
 
 [resource]
 script = ExtResource("1_card")
+monster_id = &"wolf"
+illustration = ExtResource("1_3f630")
+rarity = 3
 id = &"card_wolf"
 display_name = "การ์ดหมาป่า"
 description = "สัญชาตญาณนักล่า ทำให้โจมตีหนักและแม่นขึ้น"
 type = 5
-slot = 0
-max_stack = 99
 buy_price = 0
 sell_price = 500
 atk = 15
 hit = 5
-monster_id = &"wolf"
-fits_slot = 1
-rarity = 3
