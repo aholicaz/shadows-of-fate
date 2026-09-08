@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c43jyj4784rxi"
-path="res://.godot/imported/spritesheet.png-c211ea59f32ad01e79b7a208d423bdff.ctex"
+path.bptc="res://.godot/imported/spritesheet.png-c211ea59f32ad01e79b7a208d423bdff.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/steel_beetle Sprite/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-c211ea59f32ad01e79b7a208d423bdff.ctex"]
+dest_files=["res://.godot/imported/spritesheet.png-c211ea59f32ad01e79b7a208d423bdff.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

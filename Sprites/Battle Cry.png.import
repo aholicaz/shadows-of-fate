@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dut21b433eoyq"
-path="res://.godot/imported/Battle Cry.png-34f09b6c37855152aece90a9b1a5ee5a.ctex"
+path.bptc="res://.godot/imported/Battle Cry.png-34f09b6c37855152aece90a9b1a5ee5a.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/Battle Cry.png"
-dest_files=["res://.godot/imported/Battle Cry.png-34f09b6c37855152aece90a9b1a5ee5a.ctex"]
+dest_files=["res://.godot/imported/Battle Cry.png-34f09b6c37855152aece90a9b1a5ee5a.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

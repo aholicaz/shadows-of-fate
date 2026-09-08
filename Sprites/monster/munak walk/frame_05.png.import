@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cha47hi4sm3lb"
-path="res://.godot/imported/frame_05.png-d00d55fc51a88e65e47989d861cc5555.ctex"
+path.bptc="res://.godot/imported/frame_05.png-d00d55fc51a88e65e47989d861cc5555.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/munak walk/frame_05.png"
-dest_files=["res://.godot/imported/frame_05.png-d00d55fc51a88e65e47989d861cc5555.ctex"]
+dest_files=["res://.godot/imported/frame_05.png-d00d55fc51a88e65e47989d861cc5555.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

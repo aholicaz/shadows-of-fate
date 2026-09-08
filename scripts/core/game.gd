@@ -90,10 +90,18 @@ var _loading_label: Label
 var _loading_scene: PackedScene
 
 ## ★ รอบ 40 — จำแมพที่เคยโหลดไว้ (เข้า-ออกแมพเดิมไม่ต้องโหลดซ้ำ = ไม่กระตุก) ★
-## เก็บสูงสุด MAX_CACHED แมพล่าสุด กันกินแรมเกินไป (แมพทุ่งวิหารตัวเดียวมีภาพ ~12 MB)
-const MAX_CACHED := 4
+## เก็บสูงสุด MAX_CACHED แมพล่าสุด กันกินแรมเกินไป
+##
+## ★★ รอบ 90 ★★ ลด 4 → 2 และเว็บไม่แคชเลย
+## แมพที่ค้างในแคชยัง "ถือ" ชีทภาพมอนของแมพนั้นไว้ทั้งหมด (ตัวละ 30-50 MB)
+## แคช 4 แมพ = ชีทมอนค้างในหน่วยความจำถึง 4 แมพพร้อมกัน — บนเว็บทำให้แท็บเด้ง
+const MAX_CACHED_DESKTOP := 2
+const MAX_CACHED_WEB := 0
 var _scene_cache: Dictionary = {}      # path -> PackedScene
 var _cache_order: Array[String] = []
+
+func _max_cached() -> int:
+	return MAX_CACHED_WEB if OS.has_feature("web") else MAX_CACHED_DESKTOP
 
 
 ## ★ รอบ 52 — เพลงประจำแมพ ★ เรียกใช้ผ่าน Game.music (ดู scripts/core/music_player.gd)
@@ -180,9 +188,37 @@ func change_map(map_id: StringName, spawn_point: StringName = &"default") -> voi
 	get_tree().change_scene_to_packed(scene)
 	await get_tree().process_frame
 	await get_tree().process_frame
+	# ★ รอบ 90 ★ ปล่อยชีทมอนของแมพก่อนหน้าที่แมพนี้ไม่ได้ใช้
+	_release_unused_monsters()
 	Events.map_changed.emit(map_id)
 	await _fade_to(0.0, 0.3)
 	_is_changing = false
+
+
+## ★ รอบ 90 ★ คืนหน่วยความจำชีทมอนที่แมพปัจจุบันไม่ได้ใช้
+## แมพถือ MonsterData ของตัวเองอยู่แล้ว (ช่อง monster_types ของ MapSpawner)
+## ตัวที่ค้างอยู่ในแคชของ GameData เฉย ๆ จึงปล่อยได้ — ถูกเรียกใหม่เมื่อไหร่ก็โหลดกลับมาเอง
+func _release_unused_monsters() -> void:
+	var keep: Array = []
+	var root := get_tree().current_scene
+	if root != null:
+		for node in _walk(root):
+			if "monster_types" in node:
+				for md in node.monster_types:
+					if md != null:
+						keep.append(StringName(md.id))
+			if "data" in node and node.data != null and node.data is MonsterData:
+				keep.append(StringName(node.data.id))
+	var dropped: int = GameData.release_monsters_except(keep)
+	if dropped > 0:
+		print("[Game] ปล่อยชีทมอนที่ไม่ได้ใช้ %d ตัว (แมพนี้ใช้ %d)" % [dropped, keep.size()])
+
+
+func _walk(n: Node) -> Array:
+	var out: Array = [n]
+	for c in n.get_children():
+		out.append_array(_walk(c))
+	return out
 
 
 ## โหลดไฟล์ฉากแบบไม่บล็อกเกม + จำไว้ในแคช
@@ -209,10 +245,10 @@ func _load_map_scene(path: String) -> PackedScene:
 	_loading_label.hide()
 
 	var scene := ResourceLoader.load_threaded_get(path) as PackedScene
-	if scene != null:
+	if scene != null and _max_cached() > 0:
 		_scene_cache[path] = scene
 		_cache_order.append(path)
-		while _cache_order.size() > MAX_CACHED:
+		while _cache_order.size() > _max_cached():
 			var old_path: String = _cache_order.pop_front()
 			_scene_cache.erase(old_path)
 	return scene

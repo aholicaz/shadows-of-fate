@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bptw0ygh6fhvd"
-path="res://.godot/imported/HighPriest.png-8c65ad740204277f45af97022c367194.ctex"
+path.bptc="res://.godot/imported/HighPriest.png-8c65ad740204277f45af97022c367194.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/npc/HighPriest.png"
-dest_files=["res://.godot/imported/HighPriest.png-8c65ad740204277f45af97022c367194.ctex"]
+dest_files=["res://.godot/imported/HighPriest.png-8c65ad740204277f45af97022c367194.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

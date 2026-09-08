@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"mist_sprite"
 fits_slot = 7
 rarity = 4
+monster_level = 44
 id = &"card_mist_sprite"
 display_name = "การ์ดภูตหมอก"
 description = "จับต้องไม่ได้ดั่งหมอก"

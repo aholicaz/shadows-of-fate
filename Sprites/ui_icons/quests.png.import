@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://x40jrd7bi8er"
-path="res://.godot/imported/quests.png-b24793104f5f09da0d8db725d9c73633.ctex"
+path.bptc="res://.godot/imported/quests.png-b24793104f5f09da0d8db725d9c73633.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/ui_icons/quests.png"
-dest_files=["res://.godot/imported/quests.png-b24793104f5f09da0d8db725d9c73633.ctex"]
+dest_files=["res://.godot/imported/quests.png-b24793104f5f09da0d8db725d9c73633.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

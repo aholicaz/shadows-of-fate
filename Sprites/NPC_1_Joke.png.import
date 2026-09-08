@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2wax5qe06m4p"
-path="res://.godot/imported/NPC_1_Joke.png-4da30d4d3cd824a3c6f8ef4d977930cb.ctex"
+path.bptc="res://.godot/imported/NPC_1_Joke.png-4da30d4d3cd824a3c6f8ef4d977930cb.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/NPC_1_Joke.png"
-dest_files=["res://.godot/imported/NPC_1_Joke.png-4da30d4d3cd824a3c6f8ef4d977930cb.ctex"]
+dest_files=["res://.godot/imported/NPC_1_Joke.png-4da30d4d3cd824a3c6f8ef4d977930cb.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

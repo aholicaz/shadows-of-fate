@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chx4fi7s4fa8h"
-path="res://.godot/imported/system.png-fefb6dd96844ffbf6426aafa0d4092f9.ctex"
+path.bptc="res://.godot/imported/system.png-fefb6dd96844ffbf6426aafa0d4092f9.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/ui_icons/system.png"
-dest_files=["res://.godot/imported/system.png-fefb6dd96844ffbf6426aafa0d4092f9.ctex"]
+dest_files=["res://.godot/imported/system.png-fefb6dd96844ffbf6426aafa0d4092f9.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

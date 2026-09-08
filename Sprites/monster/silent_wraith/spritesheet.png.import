@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://doud50xufdipt"
-path="res://.godot/imported/spritesheet.png-a54425d8d4ad76a82d7c4049b21c3698.ctex"
+path.bptc="res://.godot/imported/spritesheet.png-a54425d8d4ad76a82d7c4049b21c3698.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/silent_wraith/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-a54425d8d4ad76a82d7c4049b21c3698.ctex"]
+dest_files=["res://.godot/imported/spritesheet.png-a54425d8d4ad76a82d7c4049b21c3698.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://eofh1ba2aiix"
-path="res://.godot/imported/kingporing_idle.png-7d907c7a81a587b710b3e1e305b6fb61.ctex"
+path.bptc="res://.godot/imported/kingporing_idle.png-7d907c7a81a587b710b3e1e305b6fb61.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/kingporing_idle.png"
-dest_files=["res://.godot/imported/kingporing_idle.png-7d907c7a81a587b710b3e1e305b6fb61.ctex"]
+dest_files=["res://.godot/imported/kingporing_idle.png-7d907c7a81a587b710b3e1e305b6fb61.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

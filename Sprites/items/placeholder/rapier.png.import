@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d308668xeq645"
-path="res://.godot/imported/rapier.png-a194528a0c9f0634b8e1d6461f0fad9d.ctex"
+path.bptc="res://.godot/imported/rapier.png-a194528a0c9f0634b8e1d6461f0fad9d.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/rapier.png"
-dest_files=["res://.godot/imported/rapier.png-a194528a0c9f0634b8e1d6461f0fad9d.ctex"]
+dest_files=["res://.godot/imported/rapier.png-a194528a0c9f0634b8e1d6461f0fad9d.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

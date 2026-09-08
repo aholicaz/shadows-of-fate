@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2i4ebyh36hn3"
-path="res://.godot/imported/frame_30.png-4572f7529c182ee61ae7a8b5a9a20b5b.ctex"
+path.bptc="res://.godot/imported/frame_30.png-4572f7529c182ee61ae7a8b5a9a20b5b.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/orc walk/frame_30.png"
-dest_files=["res://.godot/imported/frame_30.png-4572f7529c182ee61ae7a8b5a9a20b5b.ctex"]
+dest_files=["res://.godot/imported/frame_30.png-4572f7529c182ee61ae7a8b5a9a20b5b.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

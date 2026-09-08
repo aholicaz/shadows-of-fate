@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"gullveig_ember"
 fits_slot = 4
 rarity = 5
+monster_level = 60
 id = &"card_gullveig_ember"
 display_name = "การ์ดเพลิงกุลล์ไวก์"
 description = "เพลิงที่เผาสามครั้งแล้วยังไม่มอด"

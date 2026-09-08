@@ -9,6 +9,7 @@ monster_id = &"magma_slug"
 illustration = ExtResource("art_1")
 fits_slot = 6
 rarity = 3
+monster_level = 27
 id = &"card_magma_slug"
 display_name = "การ์ดทากลาวา"
 description = "ร่างที่ร้อนดั่งลาวา"

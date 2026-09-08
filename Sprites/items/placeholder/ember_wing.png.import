@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4qjic6lrypnu"
-path="res://.godot/imported/ember_wing.png-105bee855ceb93df333c913650e17362.ctex"
+path.bptc="res://.godot/imported/ember_wing.png-105bee855ceb93df333c913650e17362.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/ember_wing.png"
-dest_files=["res://.godot/imported/ember_wing.png-105bee855ceb93df333c913650e17362.ctex"]
+dest_files=["res://.godot/imported/ember_wing.png-105bee855ceb93df333c913650e17362.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

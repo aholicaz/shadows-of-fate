@@ -9,6 +9,7 @@ monster_id = &"ember_bat"
 illustration = ExtResource("art_1")
 fits_slot = 5
 rarity = 3
+monster_level = 25
 id = &"card_ember_bat"
 display_name = "การ์ดค้างคาวถ่านไฟ"
 description = "บินเร็วราวประกายไฟ"

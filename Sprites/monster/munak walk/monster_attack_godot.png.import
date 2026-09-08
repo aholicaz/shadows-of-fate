@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1ex54i1mkmu6"
-path="res://.godot/imported/monster_attack_godot.png-3578a6765197c61afe464c63c166a17b.ctex"
+path.bptc="res://.godot/imported/monster_attack_godot.png-3578a6765197c61afe464c63c166a17b.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/munak walk/monster_attack_godot.png"
-dest_files=["res://.godot/imported/monster_attack_godot.png-3578a6765197c61afe464c63c166a17b.ctex"]
+dest_files=["res://.godot/imported/monster_attack_godot.png-3578a6765197c61afe464c63c166a17b.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://plkhpjp26fya"
-path="res://.godot/imported/clover.png-4e30db14be913d4bdce35ce7527b016b.ctex"
+path.bptc="res://.godot/imported/clover.png-4e30db14be913d4bdce35ce7527b016b.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/clover.png"
-dest_files=["res://.godot/imported/clover.png-4e30db14be913d4bdce35ce7527b016b.ctex"]
+dest_files=["res://.godot/imported/clover.png-4e30db14be913d4bdce35ce7527b016b.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

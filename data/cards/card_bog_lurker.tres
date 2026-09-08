@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"bog_lurker"
 fits_slot = 4
 rarity = 3
+monster_level = 46
 id = &"card_bog_lurker"
 display_name = "การ์ดผีบึง"
 description = "ร่างที่บึงกลืนไว้"

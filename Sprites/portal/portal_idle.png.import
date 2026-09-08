@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ohg1yjbtlmlh"
-path="res://.godot/imported/portal_idle.png-9da7874fc728a4f08bc20a969aaed454.ctex"
+path.bptc="res://.godot/imported/portal_idle.png-9da7874fc728a4f08bc20a969aaed454.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/portal/portal_idle.png"
-dest_files=["res://.godot/imported/portal_idle.png-9da7874fc728a4f08bc20a969aaed454.ctex"]
+dest_files=["res://.godot/imported/portal_idle.png-9da7874fc728a4f08bc20a969aaed454.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

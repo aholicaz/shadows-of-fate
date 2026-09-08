@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b22y81xy73pr2"
-path="res://.godot/imported/storm_scale.png-0fac85a8a0cb05e258f0f6d81cdea8b8.ctex"
+path.bptc="res://.godot/imported/storm_scale.png-0fac85a8a0cb05e258f0f6d81cdea8b8.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/storm_scale.png"
-dest_files=["res://.godot/imported/storm_scale.png-0fac85a8a0cb05e258f0f6d81cdea8b8.ctex"]
+dest_files=["res://.godot/imported/storm_scale.png-0fac85a8a0cb05e258f0f6d81cdea8b8.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

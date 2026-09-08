@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bh2r555to20aj"
-path="res://.godot/imported/asgard forest2 sky.png-d6617f4cd6b44a76a1cfc4bc06517c06.ctex"
+path.bptc="res://.godot/imported/asgard forest2 sky.png-d6617f4cd6b44a76a1cfc4bc06517c06.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/map/asgard forest2 sky.png"
-dest_files=["res://.godot/imported/asgard forest2 sky.png-d6617f4cd6b44a76a1cfc4bc06517c06.ctex"]
+dest_files=["res://.godot/imported/asgard forest2 sky.png-d6617f4cd6b44a76a1cfc4bc06517c06.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dutbs3gu3ggoq"
-path="res://.godot/imported/cursed_scythe_shard.png-4af54916766912f7d709a14e15ea897b.ctex"
+path.bptc="res://.godot/imported/cursed_scythe_shard.png-4af54916766912f7d709a14e15ea897b.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/cursed_scythe_shard.png"
-dest_files=["res://.godot/imported/cursed_scythe_shard.png-4af54916766912f7d709a14e15ea897b.ctex"]
+dest_files=["res://.godot/imported/cursed_scythe_shard.png-4af54916766912f7d709a14e15ea897b.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

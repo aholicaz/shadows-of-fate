@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtc8eyidt5417"
-path="res://.godot/imported/cotton_shirt.png-db222f2d5d168ae3bdbf47f5a0e3921a.ctex"
+path.bptc="res://.godot/imported/cotton_shirt.png-db222f2d5d168ae3bdbf47f5a0e3921a.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/cotton_shirt.png"
-dest_files=["res://.godot/imported/cotton_shirt.png-db222f2d5d168ae3bdbf47f5a0e3921a.ctex"]
+dest_files=["res://.godot/imported/cotton_shirt.png-db222f2d5d168ae3bdbf47f5a0e3921a.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

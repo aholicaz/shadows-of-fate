@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0ald40te4gni"
-path="res://.godot/imported/Endure.png-6d78c86e8fad2b172513662bd449f2f5.ctex"
+path.bptc="res://.godot/imported/Endure.png-6d78c86e8fad2b172513662bd449f2f5.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/Endure.png"
-dest_files=["res://.godot/imported/Endure.png-6d78c86e8fad2b172513662bd449f2f5.ctex"]
+dest_files=["res://.godot/imported/Endure.png-6d78c86e8fad2b172513662bd449f2f5.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

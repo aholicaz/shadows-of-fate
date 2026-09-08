@@ -95,8 +95,9 @@ func show_card(card: CardData, owned: bool = true) -> void:
 	_art.modulate = Color.WHITE if owned else Color(0.12, 0.13, 0.18)
 
 	if owned:
-		var m := card.monster()
-		var lv: String = "Lv.%d" % m.level if m != null else ""
+		# ★ รอบ 90 ★ ใช้เลเวลที่เก็บไว้บนการ์ด ไม่เรียกไฟล์มอน (สมุดการ์ดวาดทีละ 30 ใบ)
+		var lvn: int = card.monster_level
+		var lv: String = "Lv.%d" % lvn if lvn > 0 else ""
 		_slot_label.text = "ใส่ใน%s   •   %s" % [card.slot_name(), lv]
 		_effect_label.text = card.describe()
 		_effect_label.add_theme_color_override("font_color", UITheme.GOOD)

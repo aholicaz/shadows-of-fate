@@ -26,9 +26,23 @@ extends ItemData
 ## ระดับความหายาก 1-5 (ใช้เลือกสีกรอบการ์ด)
 @export_range(1, 5) var rarity: int = 1
 
+## ★ รอบ 90 ★ เลเวลของมอนเจ้าของการ์ด — มีไว้เรียงลำดับในสมุดการ์ด
+## เพื่อ "ไม่ต้องโหลดไฟล์มอนทั้ง 30 ตัวแค่เพื่อเรียง" (ชีทมอนรวมกัน 1.6 GB)
+## เติมอัตโนมัติด้วย `python3 fill_card_levels.py --apply` · 0 = ยังไม่เติม (จะเรียงตามความหายากแทน)
+@export var monster_level: int = 0
 
+
+## ★ ระวัง ★ เรียกแล้วชีทภาพของมอนตัวนั้นจะถูกโหลดขึ้นหน่วยความจำ (30-50 MB)
+## อย่าเรียกวนทุกใบ — ใช้ `monster_level` แทนถ้าต้องการแค่เลเวล
 func monster() -> MonsterData:
 	return GameData.get_monster(monster_id)
+
+
+## เลเวลสำหรับเรียงลำดับ — ไม่โหลดไฟล์มอน
+func sort_level() -> int:
+	if monster_level > 0:
+		return monster_level
+	return rarity * 100     # ทางถอยตอนยังไม่ได้เติม: เรียงตามความหายาก
 
 
 func slot_name() -> String:

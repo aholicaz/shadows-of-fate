@@ -9,6 +9,7 @@ monster_id = &"stormscar"
 illustration = ExtResource("art_1")
 fits_slot = 3
 rarity = 4
+monster_level = 30
 id = &"card_stormscar"
 display_name = "การ์ดอสูรสายฟ้า"
 description = "ซากของมันสลายเป็นแสงทอง... แล้วไหลลงดินไปทางเหนือ"

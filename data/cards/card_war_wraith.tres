@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"war_wraith"
 fits_slot = 1
 rarity = 4
+monster_level = 55
 id = &"card_war_wraith"
 display_name = "การ์ดวิญญาณนักรบเอซีร์"
 description = "ทหารที่ยังสู้ในสงครามที่ไม่มีใครจำ"

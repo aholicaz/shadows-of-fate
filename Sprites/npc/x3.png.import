@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d31rke2m7eo6t"
-path="res://.godot/imported/x3.png-9c4b600632c48be02f251819205f1cdc.ctex"
+path.bptc="res://.godot/imported/x3.png-9c4b600632c48be02f251819205f1cdc.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/npc/x3.png"
-dest_files=["res://.godot/imported/x3.png-9c4b600632c48be02f251819205f1cdc.ctex"]
+dest_files=["res://.godot/imported/x3.png-9c4b600632c48be02f251819205f1cdc.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

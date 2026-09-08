@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"thorn_matriarch"
 fits_slot = 2
 rarity = 5
+monster_level = 57
 id = &"card_thorn_matriarch"
 display_name = "การ์ดราชินีหนาม"
 description = "หนามที่ปกป้องป่ามาก่อนมีเทพ"

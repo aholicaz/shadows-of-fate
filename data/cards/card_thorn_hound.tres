@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"thorn_hound"
 fits_slot = 5
 rarity = 3
+monster_level = 41
 id = &"card_thorn_hound"
 display_name = "การ์ดหมาป่าหนาม"
 description = "วิ่งทะลุพงหนามโดยไม่เจ็บ"

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhb072fo04ylv"
-path="res://.godot/imported/iron_road_bg.png-65f4a6fa76a7b4846377861641db0510.ctex"
+path.bptc="res://.godot/imported/iron_road_bg.png-65f4a6fa76a7b4846377861641db0510.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/map/generated/iron_road_bg.png"
-dest_files=["res://.godot/imported/iron_road_bg.png-65f4a6fa76a7b4846377861641db0510.ctex"]
+dest_files=["res://.godot/imported/iron_road_bg.png-65f4a6fa76a7b4846377861641db0510.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

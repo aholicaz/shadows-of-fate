@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cc08v4bkvuaim"
-path="res://.godot/imported/beetle_hurt_death.png-7e3ece09bb464fa8ca0ad5e60e7f9927.ctex"
+path.bptc="res://.godot/imported/beetle_hurt_death.png-7e3ece09bb464fa8ca0ad5e60e7f9927.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/steel_beetle Sprite/beetle_hurt_death.png"
-dest_files=["res://.godot/imported/beetle_hurt_death.png-7e3ece09bb464fa8ca0ad5e60e7f9927.ctex"]
+dest_files=["res://.godot/imported/beetle_hurt_death.png-7e3ece09bb464fa8ca0ad5e60e7f9927.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

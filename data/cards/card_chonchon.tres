@@ -19,3 +19,4 @@ monster_id = &"chonchon"
 illustration = ExtResource("art_1")
 fits_slot = 2
 rarity = 2
+monster_level = 9

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ujhoni7f2lh0"
-path="res://.godot/imported/card_pitman.webp-d6de0d7fa26d7daf976cd91af9a09841.ctex"
+path.bptc="res://.godot/imported/card_pitman.webp-d6de0d7fa26d7daf976cd91af9a09841.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/card/card_pitman.webp"
-dest_files=["res://.godot/imported/card_pitman.webp-d6de0d7fa26d7daf976cd91af9a09841.ctex"]
+dest_files=["res://.godot/imported/card_pitman.webp-d6de0d7fa26d7daf976cd91af9a09841.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

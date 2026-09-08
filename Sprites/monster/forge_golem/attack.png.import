@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjiaw2eyr8rvk"
-path="res://.godot/imported/attack.png-d8500a0fc4e8a09701452393f25eedc5.ctex"
+path.bptc="res://.godot/imported/attack.png-d8500a0fc4e8a09701452393f25eedc5.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/forge_golem/attack.png"
-dest_files=["res://.godot/imported/attack.png-d8500a0fc4e8a09701452393f25eedc5.ctex"]
+dest_files=["res://.godot/imported/attack.png-d8500a0fc4e8a09701452393f25eedc5.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

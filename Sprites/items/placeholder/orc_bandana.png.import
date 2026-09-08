@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://de4235tbenpca"
-path="res://.godot/imported/orc_bandana.png-6c0d8635fb3fecb0d44a202d0b505526.ctex"
+path.bptc="res://.godot/imported/orc_bandana.png-6c0d8635fb3fecb0d44a202d0b505526.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/orc_bandana.png"
-dest_files=["res://.godot/imported/orc_bandana.png-6c0d8635fb3fecb0d44a202d0b505526.ctex"]
+dest_files=["res://.godot/imported/orc_bandana.png-6c0d8635fb3fecb0d44a202d0b505526.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

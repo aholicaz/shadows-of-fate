@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"root_crawler"
 fits_slot = 6
 rarity = 3
+monster_level = 39
 id = &"card_root_crawler"
 display_name = "การ์ดรากเลื้อย"
 description = "รากที่ยึดพื้นไว้แน่น"

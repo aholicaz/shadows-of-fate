@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8mevl6bcvdi3"
-path="res://.godot/imported/monster_idle.png-3f305b1dabad5af1d00ce999291d3311.ctex"
+path.bptc="res://.godot/imported/monster_idle.png-3f305b1dabad5af1d00ce999291d3311.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/munak walk/monster_idle.png"
-dest_files=["res://.godot/imported/monster_idle.png-3f305b1dabad5af1d00ce999291d3311.ctex"]
+dest_files=["res://.godot/imported/monster_idle.png-3f305b1dabad5af1d00ce999291d3311.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

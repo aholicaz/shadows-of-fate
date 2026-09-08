@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cduifwabit32r"
-path="res://.godot/imported/cap.png-1dbddd667c153736402f9f63ea98634a.ctex"
+path.bptc="res://.godot/imported/cap.png-1dbddd667c153736402f9f63ea98634a.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/cap.png"
-dest_files=["res://.godot/imported/cap.png-1dbddd667c153736402f9f63ea98634a.ctex"]
+dest_files=["res://.godot/imported/cap.png-1dbddd667c153736402f9f63ea98634a.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

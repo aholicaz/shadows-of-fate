@@ -9,6 +9,7 @@ monster_id = &"steel_beetle"
 illustration = ExtResource("art_1")
 fits_slot = 4
 rarity = 2
+monster_level = 22
 id = &"card_steel_beetle"
 display_name = "การ์ดด้วงเหล็ก"
 description = "เปลือกแข็งดั่งเหล็ก"

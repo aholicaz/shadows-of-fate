@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gs0nr5v7qlj4"
-path="res://.godot/imported/hood.png-1a6b07f0399002d4189539726517bc68.ctex"
+path.bptc="res://.godot/imported/hood.png-1a6b07f0399002d4189539726517bc68.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/hood.png"
-dest_files=["res://.godot/imported/hood.png-1a6b07f0399002d4189539726517bc68.ctex"]
+dest_files=["res://.godot/imported/hood.png-1a6b07f0399002d4189539726517bc68.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

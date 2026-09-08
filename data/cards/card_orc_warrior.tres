@@ -18,6 +18,7 @@ monster_id = &"orc_warrior"
 illustration = ExtResource("art_1")
 fits_slot = 1
 rarity = 4
+monster_level = 24
 percent_effects = {
 "atk_percent": 5.0
 }

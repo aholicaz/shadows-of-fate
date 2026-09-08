@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fvud53qhpqut"
-path="res://.godot/imported/walk.png-9a2bd3fd8c1c3337a9d700a418d0061a.ctex"
+path.bptc="res://.godot/imported/walk.png-9a2bd3fd8c1c3337a9d700a418d0061a.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/forge_golem/walk.png"
-dest_files=["res://.godot/imported/walk.png-9a2bd3fd8c1c3337a9d700a418d0061a.ctex"]
+dest_files=["res://.godot/imported/walk.png-9a2bd3fd8c1c3337a9d700a418d0061a.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

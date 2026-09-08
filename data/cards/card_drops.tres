@@ -9,6 +9,7 @@ script = ExtResource("1_card")
 monster_id = &"drops"
 illustration = ExtResource("art_1")
 rarity = 2
+monster_level = 5
 id = &"card_drops"
 display_name = "การ์ดดรอปส์"
 description = "ก้อนวุ้นสีฟ้าที่ช่วยให้เล็งแม่นขึ้น"

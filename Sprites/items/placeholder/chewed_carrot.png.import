@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://immf6e6tjdx"
-path="res://.godot/imported/chewed_carrot.png-a2732e8999252545b8d960d5fe9540d2.ctex"
+path.bptc="res://.godot/imported/chewed_carrot.png-a2732e8999252545b8d960d5fe9540d2.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/chewed_carrot.png"
-dest_files=["res://.godot/imported/chewed_carrot.png-a2732e8999252545b8d960d5fe9540d2.ctex"]
+dest_files=["res://.godot/imported/chewed_carrot.png-a2732e8999252545b8d960d5fe9540d2.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

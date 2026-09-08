@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bj1tfndtovqgi"
-path="res://.godot/imported/hit and die.png-9b8390783840ecbf84cac474cc16b871.ctex"
+path.bptc="res://.godot/imported/hit and die.png-9b8390783840ecbf84cac474cc16b871.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/silent_wraith/hit and die.png"
-dest_files=["res://.godot/imported/hit and die.png-9b8390783840ecbf84cac474cc16b871.ctex"]
+dest_files=["res://.godot/imported/hit and die.png-9b8390783840ecbf84cac474cc16b871.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

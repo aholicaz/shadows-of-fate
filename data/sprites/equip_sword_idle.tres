@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://c04ucofe3wjxi"]
 
-[ext_resource type="Texture2D" path="res://Sprites/equip/sword_idle.png" id="tex_1"]
+[ext_resource type="Texture2D" path="res://Sprites/equip/bladeframe1.png" id="tex_1"]
 
 [resource]
 animations = [{

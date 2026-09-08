@@ -1,7 +1,7 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://i1idm15yr1sa"]
 
 [ext_resource type="Texture2D" uid="uid://ca7kurf7kpy6l" path="res://Sprites/monster/forge_guardian/attack.png" id="1_cu26y"]
-[ext_resource type="Texture2D" uid="uid://c73tk1t7e37kx" path="res://Sprites/monster/forge_guardian/spritemotion-spritesheet-1788764441635.png" id="2_jo0xi"]
+[ext_resource type="Texture2D" path="res://Sprites/monster/forge_guardian/spritesheet.png" id="2_jo0xi"]
 [ext_resource type="Texture2D" uid="uid://cr5v2c7neh5fv" path="res://Sprites/monster/forge_guardian/idle.png" id="3_j5muu"]
 [ext_resource type="Texture2D" uid="uid://cw70ijc0nwwd5" path="res://Sprites/monster/forge_guardian/walk.png" id="4_qjmut"]
 

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cy8gjn6vjyggd"
-path="res://.godot/imported/goat_hurt_death.png-34b8b731da0c7b870843f8c473052ae6.ctex"
+path.bptc="res://.godot/imported/goat_hurt_death.png-34b8b731da0c7b870843f8c473052ae6.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/baphomet jr/goat_hurt_death.png"
-dest_files=["res://.godot/imported/goat_hurt_death.png-34b8b731da0c7b870843f8c473052ae6.ctex"]
+dest_files=["res://.godot/imported/goat_hurt_death.png-34b8b731da0c7b870843f8c473052ae6.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

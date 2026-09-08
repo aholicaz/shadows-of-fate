@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k72fvixnxx10"
-path="res://.godot/imported/royal_jelly.png-7a597bb8f98cf0e7eec698ecb3b38d82.ctex"
+path.bptc="res://.godot/imported/royal_jelly.png-7a597bb8f98cf0e7eec698ecb3b38d82.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/royal_jelly.png"
-dest_files=["res://.godot/imported/royal_jelly.png-7a597bb8f98cf0e7eec698ecb3b38d82.ctex"]
+dest_files=["res://.godot/imported/royal_jelly.png-7a597bb8f98cf0e7eec698ecb3b38d82.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -9,6 +9,7 @@ monster_id = &"baphomet_jr"
 fits_slot = 7
 illustration = ExtResource("art_1")
 rarity = 4
+monster_level = 32
 id = &"card_baphomet_jr"
 display_name = "การ์ดบาฟโฟเมทจูเนียร์"
 description = "ปีศาจน้อยที่ว่องไวอย่างเหลือเชื่อ"

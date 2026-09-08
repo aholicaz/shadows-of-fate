@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bti7fpe7tcnxw"
-path="res://.godot/imported/card_forge_golem.webp-c18674802269969a9b69f8c6f244888e.ctex"
+path.bptc="res://.godot/imported/card_forge_golem.webp-c18674802269969a9b69f8c6f244888e.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/card/card_forge_golem.webp"
-dest_files=["res://.godot/imported/card_forge_golem.webp-c18674802269969a9b69f8c6f244888e.ctex"]
+dest_files=["res://.godot/imported/card_forge_golem.webp-c18674802269969a9b69f8c6f244888e.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

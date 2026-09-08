@@ -9,6 +9,7 @@ monster_id = &"forge_golem"
 illustration = ExtResource("art_1")
 fits_slot = 2
 rarity = 3
+monster_level = 30
 id = &"card_forge_golem"
 display_name = "การ์ดโกเลมเตาหลอม"
 description = "กำแพงที่เดินได้"

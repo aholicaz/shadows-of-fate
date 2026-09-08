@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dokntof2exk4"
-path="res://.godot/imported/poring die.png-700908719175efa25ff7d3f8c808cb1d.ctex"
+path.bptc="res://.godot/imported/poring die.png-700908719175efa25ff7d3f8c808cb1d.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/poring die.png"
-dest_files=["res://.godot/imported/poring die.png-700908719175efa25ff7d3f8c808cb1d.ctex"]
+dest_files=["res://.godot/imported/poring die.png-700908719175efa25ff7d3f8c808cb1d.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

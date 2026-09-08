@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dl5oaugnddh3c"
-path="res://.godot/imported/รูปภาพ Codex 6 ก.ย. 2569 21_36_46.png-e81b1d33ce4342ea9329091999d44ee0.ctex"
+path.bptc="res://.godot/imported/รูปภาพ Codex 6 ก.ย. 2569 21_36_46.png-e81b1d33ce4342ea9329091999d44ee0.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/Baphomet Sprite/รูปภาพ Codex 6 ก.ย. 2569 21_36_46.png"
-dest_files=["res://.godot/imported/รูปภาพ Codex 6 ก.ย. 2569 21_36_46.png-e81b1d33ce4342ea9329091999d44ee0.ctex"]
+dest_files=["res://.godot/imported/รูปภาพ Codex 6 ก.ย. 2569 21_36_46.png-e81b1d33ce4342ea9329091999d44ee0.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

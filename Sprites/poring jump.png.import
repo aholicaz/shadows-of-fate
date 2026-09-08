@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dy0hp4pcrtf2f"
-path="res://.godot/imported/poring jump.png-340ef66bad2639e65ac4c67513d3feaf.ctex"
+path.bptc="res://.godot/imported/poring jump.png-340ef66bad2639e65ac4c67513d3feaf.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/poring jump.png"
-dest_files=["res://.godot/imported/poring jump.png-340ef66bad2639e65ac4c67513d3feaf.ctex"]
+dest_files=["res://.godot/imported/poring jump.png-340ef66bad2639e65ac4c67513d3feaf.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

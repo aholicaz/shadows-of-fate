@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtwpw7hj580cv"
-path="res://.godot/imported/frame_32.png-02b744c64277f9668d8ff97f0d91b42a.ctex"
+path.bptc="res://.godot/imported/frame_32.png-02b744c64277f9668d8ff97f0d91b42a.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/Stormscar/run/frame_32.png"
-dest_files=["res://.godot/imported/frame_32.png-02b744c64277f9668d8ff97f0d91b42a.ctex"]
+dest_files=["res://.godot/imported/frame_32.png-02b744c64277f9668d8ff97f0d91b42a.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

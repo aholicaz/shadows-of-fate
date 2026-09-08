@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cv4o8hj51mfk5"
-path="res://.godot/imported/attack.png-3e7588013423bf4f3da68d21e2d67460.ctex"
+path.bptc="res://.godot/imported/attack.png-3e7588013423bf4f3da68d21e2d67460.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/silent_wraith/attack.png"
-dest_files=["res://.godot/imported/attack.png-3e7588013423bf4f3da68d21e2d67460.ctex"]
+dest_files=["res://.godot/imported/attack.png-3e7588013423bf4f3da68d21e2d67460.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

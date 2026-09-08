@@ -10,6 +10,7 @@ monster_id = &"king_poring"
 fits_slot = 5
 illustration = ExtResource("art_1")
 rarity = 4
+monster_level = 15
 id = &"card_king_poring"
 display_name = "การ์ดคิงโพริง"
 description = "การ์ดจากราชาแห่งก้อนวุ้น หายากมาก ผู้ถือครองจะโชคดีผิดปกติ"

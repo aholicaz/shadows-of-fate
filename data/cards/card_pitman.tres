@@ -9,6 +9,7 @@ monster_id = &"pitman"
 illustration = ExtResource("art_1")
 fits_slot = 1
 rarity = 2
+monster_level = 19
 id = &"card_pitman"
 display_name = "การ์ดพิตแมน"
 description = "พลังขุดจากใต้ดิน ทำให้โจมตีหนักขึ้น"

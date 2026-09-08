@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dm874neda3rny"
-path="res://.godot/imported/idle_blade 6.png-4cbba6c4dd06ba4bbbc088582f00ddf7.ctex"
+path.bptc="res://.godot/imported/idle_blade 6.png-4cbba6c4dd06ba4bbbc088582f00ddf7.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/character sprites/idle_blade 6.png"
-dest_files=["res://.godot/imported/idle_blade 6.png-4cbba6c4dd06ba4bbbc088582f00ddf7.ctex"]
+dest_files=["res://.godot/imported/idle_blade 6.png-4cbba6c4dd06ba4bbbc088582f00ddf7.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cifcmubnsent"
-path="res://.godot/imported/meat.png-b0d0c9292946dadaa86decf627679092.ctex"
+path.bptc="res://.godot/imported/meat.png-b0d0c9292946dadaa86decf627679092.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/meat.png"
-dest_files=["res://.godot/imported/meat.png-b0d0c9292946dadaa86decf627679092.ctex"]
+dest_files=["res://.godot/imported/meat.png-b0d0c9292946dadaa86decf627679092.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

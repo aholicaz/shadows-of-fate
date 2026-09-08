@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://j1xik2unwa0d"
-path="res://.godot/imported/forge_saber.png-edc11dd8b2e0a1c7b861d79603e91d8e.ctex"
+path.bptc="res://.godot/imported/forge_saber.png-edc11dd8b2e0a1c7b861d79603e91d8e.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/items/placeholder/forge_saber.png"
-dest_files=["res://.godot/imported/forge_saber.png-edc11dd8b2e0a1c7b861d79603e91d8e.ctex"]
+dest_files=["res://.godot/imported/forge_saber.png-edc11dd8b2e0a1c7b861d79603e91d8e.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

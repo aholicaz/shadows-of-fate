@@ -123,13 +123,16 @@ func _fill_monsters() -> void:
 	var key := _mon_search.text.strip_edges().to_lower()
 	_mon_list.clear()
 	_mon_ids.clear()
-	var ids: Array = GameData.monsters.keys()
+	# ★ รอบ 90 ★ ห้อง GM ต้องเห็นครบทุกตัว จึงบังคับโหลดที่นี่
+	# (ตอนเปิดเกมปกติมอนจะโหลดเฉพาะตัวที่แมพใช้ — ดู GameData.get_monster)
+	var all: Dictionary = GameData.load_all_monsters()
+	var ids: Array = all.keys()
 	ids.sort_custom(func(a, b):
-		var da: MonsterData = GameData.monsters[a]
-		var db: MonsterData = GameData.monsters[b]
+		var da: MonsterData = all[a]
+		var db: MonsterData = all[b]
 		return da.level < db.level)
 	for id in ids:
-		var d: MonsterData = GameData.monsters[id]
+		var d: MonsterData = all[id]
 		var label := "Lv%-3d %s   (%s)%s" % [d.level, d.display_name, id, "  ★บอส" if d.is_boss else ""]
 		if key != "" and not (key in String(id).to_lower() or key in d.display_name.to_lower()):
 			continue
@@ -427,10 +430,14 @@ func _warp_to(map_id: StringName) -> void:
 func refresh() -> void:
 	if _mon_list == null:
 		return
-	if _mon_list.item_count == 0:
-		_fill_monsters()
-	if _item_list.item_count == 0:
-		_fill_items()
+	# ★★ รอบ 90 ★★ เติมรายชื่อเฉพาะตอนหน้าต่างเปิดจริง
+	# GameWindow._ready() เรียก refresh() ตอนเปิดเกม → ของเดิมไปโหลดมอนครบ 30 ตัวตั้งแต่หน้าไตเติล
+	# (ชีทมอนรวม 1.6 GB — เป็นต้นเหตุที่เว็บโหลดนาน/แท็บเด้ง)
+	if visible:
+		if _mon_list.item_count == 0:
+			_fill_monsters()
+		if _item_list.item_count == 0:
+			_fill_items()
 	var st := PlayerState.stats
 	if _level_box != null:
 		_level_box.value = st.level

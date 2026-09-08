@@ -19,3 +19,4 @@ monster_id = &"hornet"
 illustration = ExtResource("art_1")
 fits_slot = 1
 rarity = 2
+monster_level = 13

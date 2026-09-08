@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"withered_treant"
 fits_slot = 2
 rarity = 4
+monster_level = 49
 id = &"card_withered_treant"
 display_name = "การ์ดต้นไม้เหี่ยว"
 description = "ยืนอยู่ได้แม้ข้างในตายแล้ว"

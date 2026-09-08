@@ -9,6 +9,7 @@ monster_id = &"forge_guardian"
 illustration = ExtResource("art_1")
 fits_slot = 4
 rarity = 5
+monster_level = 38
 id = &"card_forge_guardian"
 display_name = "การ์ดผู้พิทักษ์เตาหลอม"
 description = "หัวใจของเตาหลอมโบราณ"

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://casloay7v40u1"
-path="res://.godot/imported/Dash9.png-f42c296a93e592d1ea4b281b76c34ddc.ctex"
+path.bptc="res://.godot/imported/Dash9.png-f42c296a93e592d1ea4b281b76c34ddc.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/Dash9.png"
-dest_files=["res://.godot/imported/Dash9.png-f42c296a93e592d1ea4b281b76c34ddc.ctex"]
+dest_files=["res://.godot/imported/Dash9.png-f42c296a93e592d1ea4b281b76c34ddc.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bo8liqa3t53jc"
-path="res://.godot/imported/frame_06.png-52166eaf13673b31f6eb4d31a65a7153.ctex"
+path.bptc="res://.godot/imported/frame_06.png-52166eaf13673b31f6eb4d31a65a7153.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/frame_06.png"
-dest_files=["res://.godot/imported/frame_06.png-52166eaf13673b31f6eb4d31a65a7153.ctex"]
+dest_files=["res://.godot/imported/frame_06.png-52166eaf13673b31f6eb4d31a65a7153.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

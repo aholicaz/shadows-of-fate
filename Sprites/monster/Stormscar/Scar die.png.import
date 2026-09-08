@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dm8mtrgbv1tyg"
-path="res://.godot/imported/Scar die.png-55df1f5a1687b008634e5f84a3b67485.ctex"
+path.bptc="res://.godot/imported/Scar die.png-55df1f5a1687b008634e5f84a3b67485.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/monster/Stormscar/Scar die.png"
-dest_files=["res://.godot/imported/Scar die.png-55df1f5a1687b008634e5f84a3b67485.ctex"]
+dest_files=["res://.godot/imported/Scar die.png-55df1f5a1687b008634e5f84a3b67485.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

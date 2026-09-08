@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7qie1vo8qfec"
-path="res://.godot/imported/idle_ba 4.png-0c7ba5c8f8e4b889b3f3e200731606cd.ctex"
+path.bptc="res://.godot/imported/idle_ba 4.png-0c7ba5c8f8e4b889b3f3e200731606cd.bptc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/character sprites/idle_ba 4.png"
-dest_files=["res://.godot/imported/idle_ba 4.png-0c7ba5c8f8e4b889b3f3e200731606cd.ctex"]
+dest_files=["res://.godot/imported/idle_ba 4.png-0c7ba5c8f8e4b889b3f3e200731606cd.bptc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
+compress/mode=2
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
