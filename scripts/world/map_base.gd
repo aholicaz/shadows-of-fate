@@ -596,7 +596,8 @@ func _warm_sprite_fit() -> void:
 	if player != null:
 		var ps := player.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
 		if ps != null:
-			n += SpriteFit.warm(ps.sprite_frames)
+			# ★ รอบ 94 ★ ผู้เล่นต้องวัด "ลำตัว" ด้วย (ใช้เทียบขนาดข้ามท่า) — อุ่นไว้ตอนจอมืด
+			n += SpriteFit.warm(ps.sprite_frames, true)
 	for node in _all_descendants(self):
 		if "monster_types" in node:
 			for md in node.monster_types:

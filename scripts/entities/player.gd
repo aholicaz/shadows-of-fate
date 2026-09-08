@@ -108,6 +108,80 @@ const KNOCKBACK_DECAY := 900.0
 @export_range(0.5, 1.0, 0.01) var attack_anim_fit: float = 0.9
 ## เร่งได้มากสุดกี่เท่า (กันภาพกระตุกจนดูไม่ออกตอน ASPD สูงมาก)
 @export_range(1.0, 12.0, 0.1) var attack_anim_max_speed: float = 8.0
+
+# ---------- ★★ รอบ 93 — ฟัน 3 จังหวะ (คอมโบโจมตีปกติ) ★★ ----------
+## คลิกแต่ละครั้งเปลี่ยนท่าไปเรื่อย ๆ 1 → 2 → 3 แล้ววนกลับ · จังหวะสุดท้ายแรงขึ้น
+@export_group("Combo (ฟัน 3 จังหวะ)")
+@export var combo_enabled: bool = true
+## ต้องคลิกครั้งถัดไปภายในกี่วินาที "หลังท่าก่อนหน้าจบ" ถึงจะนับต่อ — เกินนี้กลับไปจังหวะ 1
+@export_range(0.1, 3.0, 0.05) var combo_window: float = 0.7
+## คลิกซ้ำระหว่างที่ยังฟันอยู่ = จำไว้แล้วต่อจังหวะถัดไปทันทีที่ท่าจบ (คอมโบไหลลื่น ไม่ต้องจับจังหวะเป๊ะ)
+@export var combo_buffer_input: bool = true
+## ★ รอบ 95 ★ คลิกก่อนถึง % นี้ของท่า จะไม่ถูกจำไว้
+## กันคลิกรัว/ดับเบิลคลิกตอนเริ่มท่า ไปสั่งฟันต่อโดยที่ผู้เล่นไม่ได้ตั้งใจ
+@export_range(0.0, 0.9, 0.05) var combo_buffer_from: float = 0.35
+## ★ รอบ 95 ★ จบจังหวะสุดท้ายแล้ว ให้วนกลับไปจังหวะ 1 เองจากคลิกที่จำไว้ไหม
+## ปิดไว้ = ครบ 3 ไม้แล้วหยุด ต้องกดใหม่ถึงจะเริ่มคอมโบรอบต่อไป (ไม่มีไม้ที่ 4 โผล่มาเอง)
+@export var combo_wrap_from_buffer: bool = false
+
+## ★★ รอบ 96 ★★ กดปุ่มโจมตี "ค้างไว้" = ฟันต่อเนื่องเอง ไม่ต้องคลิกทีละครั้ง
+## คลิกทีละครั้งยังใช้ได้เหมือนเดิมทุกอย่าง · คอมโบยังวน 1→2→3→1 ตามปกติ
+## ปิด = ต้องกด/คลิกทีละครั้งแบบก่อนรอบ 96
+@export var attack_hold_repeat: bool = true
+## ตัวคูณดาเมจของแต่ละจังหวะ (จำนวนช่อง = จำนวนจังหวะ) — ค่าเริ่มต้น จังหวะ 3 แรงขึ้น 25%
+@export var combo_damage_mults: PackedFloat32Array = [1.0, 1.0, 1.25]
+## ท่าของแต่ละจังหวะ = ท่าโจมตีของอาวุธ + คำต่อท้ายนี้ (เช่น Attack_Blade + "_2" = Attack_Blade_2)
+## ★ วาดท่าใหม่แล้วตั้งชื่อตามนี้ ระบบจะหยิบไปใช้เอง ★  ช่องแรกว่าง = ท่าพื้นฐาน
+@export var combo_anim_suffixes: PackedStringArray = ["", "_2", "_3"]
+## ถ้ายังไม่มีท่าตามชื่อข้างบน ให้ยืมท่าไหนแทน (คั่นด้วย , ลองตามลำดับ) — ยืมท่าสกิลไปก่อนจนกว่าจะวาด
+@export var combo_fallback_suffixes: PackedStringArray = ["", "_slash,_bash", "_bash,_slash"]
+## เอฟเฟกต์ดาบของจังหวะสุดท้ายใหญ่ขึ้นกี่เท่า (1.0 = เท่าเดิม)
+@export_range(1.0, 2.0, 0.05) var combo_finisher_fx_scale: float = 1.25
+
+## ★★ รอบ 94 ★★ ดาเมจออกตอน "ดาบฟาดถึง" ของแต่ละท่า ไม่ใช่เวลาคงที่
+##
+## เดิมใช้ Attack Windup 0.15 วิ เท่ากันทุกท่า — แต่ท่าคอมโบยาวไม่เท่ากันและจังหวะฟาดคนละที่
+## วัดจากภาพจริงของท่าชุดใหม่: ดาบฟาดถึงราวเฟรม 57-83% ของท่า แต่ดาเมจออกตั้งแต่ ~15%
+## = ตีโดนตั้งแต่ดาบยังไม่เหวี่ยง ("จังหวะดาเมจแปลก ๆ")
+##
+## เปิดไว้ = หาเฟรมที่ "ปลายดาบยื่นไปข้างหน้าไกลสุด" เองจากภาพ (วาดท่าใหม่ก็ยังตรงเอง)
+@export var attack_hit_auto: bool = true
+## ใส่เลขเฟรมเองต่อจังหวะ (−1 = ให้ระบบหาเอง) · เว้นว่าง = ให้ระบบหาเองทุกจังหวะ
+@export var combo_hit_frames: PackedInt32Array = PackedInt32Array()
+## ★ รอบ 95 ★ ดาเมจต้องออกไม่เกินกี่ % ของท่า
+## บางท่าดาบยื่นไปเรื่อย ๆ จนเฟรมสุดท้าย ระบบจะเลือกเฟรมท้าย = "ฟันไปแล้วดาเมจค่อยตามมา"
+@export_range(0.2, 1.0, 0.05) var attack_hit_max_fraction: float = 0.6
+@export_group("")
+
+## ★ รอบ 94 ★ ให้ทุกท่ามี "ลำตัว" สูงเท่ากันบนจอ โดยยึดขนาดจากท่าอ้างอิง
+## ปิด = กลับไปคิดสเกลจากความสูงรวม (รวมดาบที่ชูขึ้น) แบบก่อนรอบ 94
+@export var fit_uniform_body: bool = true
+## ท่าที่ใช้เป็นตัวตั้งขนาด (ปกติคือท่ายืน) — ขนาดตัวละครโดยรวมจะเท่ากับท่านี้เสมอ
+## ★ ระบบจะไล่ตามลำดับท่าสำรองเหมือนตอนเล่นจริง ★ ถือดาบอยู่ก็ใช้ Idle_blade เป็นตัวตั้งให้เอง
+@export var fit_reference_anim: StringName = &"Idle"
+## เพดานกันพัง: แก้ขนาดได้มากสุดกี่เท่าจากสเกลเดิม (2.5 = กว้างมาก)
+## ★ ไม่ใช่ปุ่มปรับความสวย ★ มีไว้กันกรณีวัดลำตัวเพี้ยนจนสเกลพุ่งผิดปกติเท่านั้น
+## ตั้งกว้างไว้เพราะท่าที่ "วาดมาคนละสเกล" ต้องแก้ได้เป็นเท่าตัวจริง ๆ
+## ถ้าท่าไหนไม่อยากให้ระบบยุ่ง ให้ใส่ชื่อใน Fit Uniform Body Skip แทน
+@export_range(1.0, 4.0, 0.05) var fit_body_max_adjust: float = 2.5
+## ท่าที่ไม่ต้องจัดขนาดให้เท่าท่ายืน (ใช้สเกลแบบเดิม) — ใส่ชื่อท่า เทียบแบบไม่สนตัวพิมพ์
+## ท่าพุ่ง (Dash) ตัวเอนไปข้างหน้าเกือบนอน ลำตัวจึงวัดได้สั้นผิดปกติ ปล่อยให้ใช้ค่าเดิมดีกว่า
+@export var fit_uniform_body_skip: PackedStringArray = ["Dash"]
+
+## จังหวะที่จะฟัน "ครั้งถัดไป" (0 = จังหวะ 1) · เวลาที่คอมโบจะหมดอายุ · คลิกที่จำไว้
+## ★ รอบ 94 ★ ความสูงลำตัวเป้าหมายบนจอ (คิดครั้งเดียวจากท่าอ้างอิง)
+var _body_target: float = 0.0
+## ชื่อท่าที่ใช้คิด _body_target ไว้ (ว่าง = ยังไม่ได้คิด) — เปลี่ยนอาวุธแล้วค่านี้จะไม่ตรง = คิดใหม่
+var _body_target_anim: String = ""
+
+var combo_step: int = 0
+var _combo_expire_ms: int = 0
+var _combo_queued: bool = false
+## เวลาที่เริ่มฟันไม้ปัจจุบัน + ความยาวไม้นั้น (วินาที) — ใช้ดูว่าคลิกมาตอนกี่ % ของท่า
+var _attack_started_ms: int = 0
+var _attack_span: float = 0.0
+## ส่งทุกครั้งที่เริ่มฟันจังหวะใหม่ (step เริ่มที่ 0 · anim = ชื่อท่าที่เล่นจริง · mult = ตัวคูณดาเมจ)
+signal combo_step_started(step: int, anim: String, mult: float)
 ## ระยะที่เก็บไอเทมได้ (แนวนอน) — วัดจาก "ปลายเท้า" ไม่ใช่จุดกำเนิด
 @export var pickup_range: float = 90.0
 ## ระยะที่เก็บไอเทมได้ (แนวตั้ง) เผื่อของตกอยู่ต่างระดับเล็กน้อย
@@ -124,6 +198,7 @@ const KNOCKBACK_DECAY := 900.0
 	set(value):
 		auto_fit_height = value
 		_fit_cache.clear()
+		_body_target = 0.0
 		_collision_synced = false
 ## จัดเท้าให้อยู่ระดับล่างของกล่องชนเสมอ
 @export var auto_fit_align_feet: bool = true
@@ -247,6 +322,8 @@ var _rescue_cd := 0.0
 # คลิกเมาส์ที่รับมาแล้วรอให้ _handle_input() เอาไปใช้ในเฟรมถัดไป
 var _click_attack := false
 var _click_skill := false
+## ★ รอบ 96 ★ ปุ่มซ้ายยังถูกกดค้างอยู่ไหม (เริ่มกดนอกพื้นที่ UI)
+var _click_attack_held := false
 var _click_pos := Vector2.ZERO
 
 
@@ -587,6 +664,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _dead or get_tree().paused:
 		return
 	var mb := event as InputEventMouseButton
+	# ★ รอบ 96 ★ ปล่อยปุ่มซ้าย = เลิกฟันต่อเนื่อง
+	if mb != null and not mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
+		_click_attack_held = false
+		return
 	if mb == null or not mb.pressed or mb.is_echo():
 		return
 	# คลิกทับหน้าต่าง/แผงบนจอ = ไม่นับเป็นการโจมตี
@@ -595,6 +676,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if mouse_attack and mb.button_index == MOUSE_BUTTON_LEFT:
 		_click_attack = true
+		_click_attack_held = true
 	elif mouse_skill_slot > 0 and mb.button_index == MOUSE_BUTTON_RIGHT:
 		_click_skill = true
 	else:
@@ -624,12 +706,25 @@ func _handle_input() -> void:
 	_click_skill = false
 
 	# โจมตีปกติ — ปุ่มโจมตี หรือ คลิกซ้าย
-	if (Input.is_action_just_pressed("attack") or click_attack) \
-			and not is_attacking and attack_cooldown <= 0.0:
-		if click_attack:
+	var attack_pressed := Input.is_action_just_pressed("attack") or click_attack
+	# ★ รอบ 96 ★ กดค้าง = ฟันรัวต่อเนื่องเอง (คลิกทีละครั้งยังทำงานเหมือนเดิม)
+	var mouse_held := _mouse_attack_held()
+	var attack_held: bool = attack_hold_repeat and (Input.is_action_pressed("attack") or mouse_held)
+	if (attack_pressed or attack_held) and not is_attacking and attack_cooldown <= 0.0:
+		# กดค้างด้วยเมาส์: อัปเดตจุดเล็งทุกครั้ง จะได้หันตามเคอร์เซอร์ระหว่างฟันรัว
+		if mouse_held and not click_attack:
+			_click_pos = get_viewport().get_canvas_transform().affine_inverse() \
+				* get_viewport().get_mouse_position()
+		if click_attack or mouse_held:
 			_face_click()
 		start_attack()
 		return
+	# ★ รอบ 93 ★ คลิกซ้ำระหว่างฟัน = จำไว้ ต่อจังหวะถัดไปทันทีที่ท่าจบ
+	# ★ รอบ 95 ★ ต้องคลิกหลังท่าเดินไปแล้ว combo_buffer_from (35%) ถึงจะนับ
+	# ไม่งั้นคลิกรัว 2 ทีตอนเริ่มไม้ 3 จะกลายเป็นสั่งฟันไม้ที่ 4 ทั้งที่ผู้เล่นไม่ได้ตั้งใจ
+	if attack_pressed and is_attacking and combo_enabled and combo_buffer_input \
+			and _attack_progress() >= combo_buffer_from:
+		_combo_queued = true
 
 	# คลิกขวา = สกิลช่องลัดที่ตั้งไว้
 	if click_skill and mouse_skill_slot > 0:
@@ -934,23 +1029,90 @@ func _fit_info(anim: StringName) -> Dictionary:
 	# ★ รอบ 44 — วัดผ่าน SpriteFit (จำไว้ตรงกลางทั้งเกม ไม่วัดซ้ำทุกครั้งที่ถูกสร้างใหม่) ★
 	# get_image() คือการดึงภาพกลับจากการ์ดจอ ช้ามาก — เดิมทำใหม่หลังเปลี่ยนแมพทุกครั้ง = กระตุก
 	# ค่ากลาง (median) กันตัวเด้งของรอบ 39 ย้ายไปอยู่ใน SpriteFit แล้ว (SNAP 12 px)
-	var base: Dictionary = SpriteFit.measure(frames, anim)
+	var base: Dictionary = SpriteFit.measure(frames, anim, {}, fit_uniform_body)
 	if base.is_empty():
 		return {}
 	var tallest: float = base.tallest
+
+	# ★★ รอบ 94 ★★ ขนาดตัวละครยึดจาก "ลำตัว" ของท่าอ้างอิง ไม่ใช่ความสูงรวมของท่านั้น ๆ
+	# ความสูงรวมนับดาบที่ชูขึ้นด้วย ท่าที่ชูสูงเลยถูกย่อทั้งตัว = ตัวโต/เล็กสลับกันระหว่างคอมโบ
+	# ตอนนี้: หา "ลำตัวสูงกี่ px บนจอ" จากท่ายืนก่อน แล้วบังคับให้ทุกท่าได้เท่ากัน
+	var k: float = auto_fit_height / maxf(1.0, tallest)
+	if fit_uniform_body and not _fit_skips(String(anim)):
+		var target := _body_on_screen_target()
+		var body_med: float = float(base.get("body_med", 0.0))
+		if target > 0.0 and body_med > 0.0:
+			# ★ รอบ 95 ★ กันแก้เกินจริง — ท่าที่ตัวหมอบ/พุ่งไปข้างหน้า (Dash) ลำตัวสั้นลงจริง
+			# ถ้าดันให้สูงเท่าท่ายืนจะกลายเป็นตัวโตผิดปกติ จึงจำกัดไม่ให้ต่างจากสเกลเดิมเกิน
+			# fit_body_max_adjust (ยืมแนวคิด fit_max_overshoot ของมอน รอบ 86)
+			var want := target / body_med
+			var cap: float = maxf(1.0, fit_body_max_adjust)
+			k = clampf(want, k / cap, k * cap)
+
 	var info := {
-		"scale": auto_fit_height / maxf(1.0, tallest),
+		"scale": k,
 		"frames": base.frames,
 		"tallest": tallest,
+		"body_med": float(base.get("body_med", 0.0)),
+		"reach_max": float(base.get("reach_max", 0.0)),
 	}
 	_fit_cache[anim] = info
 	return info
+
+
+## ★ รอบ 94 ★ "ลำตัวควรสูงกี่พิกเซลบนจอ" — คิดจากท่าอ้างอิงครั้งเดียวแล้วจำไว้
+## ยึดสเกลเดิมของท่าอ้างอิง (auto_fit_height ÷ ความสูงรวม) เพื่อให้ขนาดตัวละครเท่าเดิมเป๊ะ
+## เปลี่ยนแค่ "ท่าอื่นถูกดึงมาให้เท่าท่านี้" ไม่ใช่ทำให้ตัวละครโตขึ้นทั้งเกม
+func _body_on_screen_target() -> float:
+	# ★ รอบ 95 ★ เปลี่ยนอาวุธ = ท่าอ้างอิงเปลี่ยน (Idle → Idle_blade) ต้องคิดใหม่
+	# จำชื่อท่าที่ใช้คิดไว้ด้วย จะได้หมดอายุเองโดยไม่ต้องรอใครมาสั่งล้างแคช
+	if _body_target > 0.0 and _body_target_anim == _resolve_anim(String(fit_reference_anim)):
+		return _body_target
+	var frames := sprite.sprite_frames
+	if frames == null:
+		return 0.0
+	# ★★ รอบ 95 ★★ ต้องใช้ "ท่าที่เล่นจริง" เป็นตัวตั้ง ไม่ใช่ชื่อดิบ
+	# ถือดาบอยู่ ท่ายืนที่เห็นคือ Idle_blade ไม่ใช่ Idle — เดิมไปวัด Idle (ตัวเปล่า)
+	# ซึ่งวาดมาคนละสเกล ทำให้ทุกท่าถูกขยายราว 11% และท่าพุ่ง (Dash) โตถึง 18%
+	var ref := _resolve_anim(String(fit_reference_anim))
+	if ref == "":
+		return 0.0
+	var m: Dictionary = SpriteFit.measure(frames, StringName(ref), {}, true)
+	var body_med: float = float(m.get("body_med", 0.0))
+	var tall: float = float(m.get("tallest", 0.0))
+	if body_med <= 0.0 or tall <= 0.0:
+		return 0.0
+	_body_target = body_med * (auto_fit_height / tall)
+	_body_target_anim = ref
+	return _body_target
+
+
+## ท่านี้อยู่ในรายการยกเว้นไหม (เทียบแบบไม่สนตัวพิมพ์ใหญ่เล็ก)
+func _fit_skips(anim: String) -> bool:
+	var low := anim.to_lower()
+	for sk in fit_uniform_body_skip:
+		if sk != "" and low == String(sk).to_lower():
+			return true
+	return false
+
+
+## หาชื่อท่าที่ "จะถูกเล่นจริง" ตามลำดับท่าสำรองเดียวกับ _play() (คิดอาวุธที่ถืออยู่ด้วย)
+func _resolve_anim(anim: String) -> String:
+	if sprite.sprite_frames == null:
+		return ""
+	for candidate in _fallback_chain(anim):
+		var real := _real_anim(String(candidate))
+		if real != "" and sprite.sprite_frames.get_frame_count(real) > 0:
+			return real
+	return ""
 
 
 ## เรียกเมื่อเปลี่ยนชุดภาพตัวละคร
 func clear_fit_cache() -> void:
 	_fit_cache.clear()
 	_anim_lookup.clear()
+	_body_target = 0.0
+	_body_target_anim = ""
 
 
 # =========================================================
@@ -1096,8 +1258,16 @@ func start_attack() -> void:
 	velocity.x = 0.0
 	_hit_left = 0.0
 	_jump_anim = ""
-	var anim := attack_animation()
+
+	# ★★ รอบ 93 — ฟัน 3 จังหวะ ★★
+	# คลิกแต่ละครั้งเล่นท่าถัดไป (1→2→3→1) · จังหวะสุดท้ายดาเมจ x1.25 และเอฟเฟกต์ใหญ่ขึ้น
+	# ถ้าเว้นนานเกิน combo_window หลังท่าก่อนจบ กลับไปเริ่มจังหวะ 1 ใหม่
+	var step := _combo_begin_step()
+	var mult := _combo_mult(step)
+	var is_finisher := combo_enabled and step == _combo_steps() - 1 and _combo_steps() > 1
+	var anim := combo_attack_animation(step)
 	var played := _play(anim)
+	combo_step_started.emit(step, played, mult)
 
 	# ★★ รอบ 81 — เร่งท่าฟันตาม ASPD ★★
 	# เดิมท่าฟันเล่นความเร็วคงที่ พออัพ ASPD สูง ๆ ช่วงเวลาระหว่างตีสั้นลงเรื่อย ๆ
@@ -1105,15 +1275,18 @@ func start_attack() -> void:
 	# ตอนนี้คิดความเร็วให้ท่าฟัน "จบพอดี" ก่อนตีครั้งถัดไป และเลื่อนจังหวะดาบโดนตามไปด้วย
 	var anim_speed := _attack_anim_speed(played)
 	sprite.speed_scale = anim_speed
-	_spawn_attack_effect(anim_speed)
+	_attack_started_ms = Time.get_ticks_msec()
+	_attack_span = maxf(0.05, attack_cooldown)
+	_spawn_attack_effect(anim_speed, combo_finisher_fx_scale if is_finisher else 1.0)
 	_play_attack_sfx(anim)
 
-	var windup: float = maxf(0.03, attack_windup / anim_speed)
+	# ★★ รอบ 94 ★★ รอจนถึง "เฟรมที่ดาบฟาดถึง" ของท่านี้ แทนเวลาคงที่
+	var windup: float = maxf(0.03, _attack_hit_time(played, step) / anim_speed)
 	await get_tree().create_timer(windup).timeout
 	if not is_instance_valid(self) or _dead:
 		return
 
-	_deal_damage(attack_range_x, attack_range_y, 1.0, false, 0)
+	_deal_damage(attack_range_x, attack_range_y, mult, false, 0)
 
 	# กลับสู่ท่าปกติหลังจบอนิเมชัน (เผื่อ signal ไม่ถูกต่อไว้)
 	var rest: float = maxf(0.03, attack_cooldown - windup)
@@ -1121,6 +1294,158 @@ func start_attack() -> void:
 	if is_instance_valid(self):
 		is_attacking = false
 		sprite.speed_scale = 1.0
+		_combo_finish_step(step)
+
+
+# =========================================================
+# ★★ รอบ 93 — คอมโบฟัน 3 จังหวะ ★★
+# =========================================================
+func _combo_steps() -> int:
+	return maxi(1, combo_damage_mults.size()) if combo_enabled else 1
+
+
+## จังหวะที่จะใช้ในการฟันครั้งนี้ — ถ้าคอมโบหมดอายุแล้วเริ่มใหม่ที่ 0
+func _combo_begin_step() -> int:
+	if not combo_enabled:
+		return 0
+	if Time.get_ticks_msec() > _combo_expire_ms:
+		combo_step = 0
+	combo_step = clampi(combo_step, 0, _combo_steps() - 1)
+	_combo_queued = false
+	return combo_step
+
+
+## ท่าจบแล้ว → เลื่อนไปจังหวะถัดไป (วนกลับ) และเปิดหน้าต่างเวลาให้คลิกต่อ
+## ถ้ามีคลิกจำไว้ระหว่างฟัน ต่อจังหวะถัดไปทันที
+func _combo_finish_step(step: int) -> void:
+	if not combo_enabled:
+		return
+	var was_last := step >= _combo_steps() - 1
+	combo_step = (step + 1) % _combo_steps()
+	_combo_expire_ms = Time.get_ticks_msec() + int(combo_window * 1000.0)
+	# ★ รอบ 95 ★ ครบไม้สุดท้ายแล้วไม่วนต่อเอง — ต้องกดใหม่ ไม่งั้นเหมือนมีไม้ที่ 4 โผล่มาเอง
+	if was_last and not combo_wrap_from_buffer:
+		_combo_queued = false
+		return
+	if _combo_queued and not _dead:
+		_combo_queued = false
+		# คูลดาวน์อาจเหลือเศษไม่กี่ ms (ตัวจับเวลากับ _physics_process เดินคนละนาฬิกา) — รอให้หมดก่อน
+		if attack_cooldown > 0.0:
+			await get_tree().create_timer(attack_cooldown).timeout
+			if not is_instance_valid(self) or _dead or is_attacking:
+				return
+		start_attack()
+
+
+func _combo_mult(step: int) -> float:
+	if not combo_enabled or step < 0 or step >= combo_damage_mults.size():
+		return 1.0
+	return maxf(0.05, combo_damage_mults[step])
+
+
+## ยกเลิกคอมโบ (ใช้สกิล / ตาย / เปลี่ยนอาวุธ) — ครั้งถัดไปเริ่มจังหวะ 1
+func reset_combo() -> void:
+	combo_step = 0
+	_combo_expire_ms = 0
+	_combo_queued = false
+
+
+## ★ รอบ 96 ★ ปุ่มซ้ายยังกดค้างอยู่จริงไหม
+## เช็คสถานะปุ่มจริงด้วย เผื่อจังหวะ "ปล่อยปุ่ม" ถูก UI กินไปจนไม่ถึง _unhandled_input
+func _mouse_attack_held() -> bool:
+	if not mouse_attack or not _click_attack_held:
+		return false
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_click_attack_held = false
+		return false
+	return true
+
+
+## ท่าฟันไม้ปัจจุบันเดินไปแล้วกี่ส่วน (0 = เพิ่งเริ่ม · 1 = จบ)
+func _attack_progress() -> float:
+	if not is_attacking or _attack_span <= 0.0:
+		return 1.0
+	return clampf(float(Time.get_ticks_msec() - _attack_started_ms) / (_attack_span * 1000.0), 0.0, 1.0)
+
+
+## ★ ท่าของจังหวะนี้ ★ ไล่หา: ท่าอาวุธ+คำต่อท้าย (Attack_Blade_2) → ท่ายืม (Attack_Blade_slash) → ท่าพื้นฐาน
+## วาดท่าใหม่ชื่อ Attack_Blade_2 / _3 เมื่อไหร่ ระบบจะสลับไปใช้ให้เองโดยไม่ต้องแก้อะไร
+func combo_attack_animation(step: int) -> String:
+	var base := attack_animation()
+	if not combo_enabled or step <= 0:
+		return base
+	if step < combo_anim_suffixes.size() and combo_anim_suffixes[step] != "":
+		var named := base + combo_anim_suffixes[step]
+		if _has_anim(named):
+			return named
+	if step < combo_fallback_suffixes.size():
+		for suf in combo_fallback_suffixes[step].split(",", false):
+			var s := suf.strip_edges()
+			if s == "":
+				continue
+			if _has_anim(base + s):
+				return base + s
+	return base
+
+
+## ★★ รอบ 94 ★★ ท่านี้ "ดาบฟาดถึง" ที่วินาทีที่เท่าไหร่ (นับจากเริ่มท่า ที่ความเร็วปกติ)
+## ลำดับ: เลขเฟรมที่ตั้งเองต่อจังหวะ → หาเองจากภาพ → Attack Windup แบบเดิม
+func _attack_hit_time(played_anim: String, step: int) -> float:
+	if played_anim == "" or sprite.sprite_frames == null:
+		return attack_windup
+	var frame := -1
+	if step >= 0 and step < combo_hit_frames.size():
+		frame = combo_hit_frames[step]
+	if frame < 0 and attack_hit_auto:
+		frame = attack_hit_frame_of(played_anim)
+	if frame < 0:
+		return attack_windup
+	return _anim_time_to_frame(played_anim, frame)
+
+
+## ★ เฟรมที่ "ปลายดาบยื่นไปข้างหน้าไกลสุด" ★ = จังหวะที่ภาพฟาดโดนจริง
+## ใช้ "เฟรมแรกที่ยื่นถึง 75% ของระยะไกลสุด" ไม่ใช่เฟรมที่ไกลที่สุด
+## เพราะท่าที่ค้างดาบยื่นไว้หลายเฟรม จังหวะโดนคือตอนดาบ "มาถึง" ไม่ใช่ตอนสุดปลายทาง
+func attack_hit_frame_of(anim: String) -> int:
+	var real := _real_anim(anim)
+	if real == "" or sprite.sprite_frames == null:
+		return -1
+	var m: Dictionary = SpriteFit.measure(sprite.sprite_frames, StringName(real), {}, true)
+	var list: Array = m.get("frames", [])
+	if list.size() < 2:
+		return -1
+	var lo := INF
+	var hi := -INF
+	for fd in list:
+		lo = minf(lo, fd.reach)
+		hi = maxf(hi, fd.reach)
+	if hi <= 0.0 or hi - lo < 1.0:
+		return -1
+	var need: float = lo + (hi - lo) * 0.75
+	var found := -1
+	for i in range(list.size()):
+		if list[i].reach >= need:
+			found = i
+			break
+	if found < 0:
+		return -1
+	# ★ รอบ 95 ★ ไม่ให้ช้าเกิน — ท่าที่ดาบยื่นเพิ่มเรื่อย ๆ จะได้ไม่ไปออกดาเมจเอาเฟรมท้าย
+	var latest: int = maxi(0, int(float(list.size()) * attack_hit_max_fraction))
+	return mini(found, latest)
+
+
+## เวลาตั้งแต่เริ่มท่าจนถึงต้นเฟรมที่ระบุ (ที่ความเร็วปกติ)
+func _anim_time_to_frame(anim: String, frame: int) -> float:
+	var real := _real_anim(anim)
+	if real == "" or sprite.sprite_frames == null:
+		return attack_windup
+	var sf := sprite.sprite_frames
+	var speed: float = maxf(0.01, sf.get_animation_speed(real))
+	var n := sf.get_frame_count(real)
+	var t := 0.0
+	for i in range(mini(frame, n)):
+		t += sf.get_frame_duration(real, i) / speed
+	return t
 
 
 ## ★ รอบ 81 ★ ท่าฟันควรเล่นเร็วกี่เท่า ถึงจะจบทันก่อนตีครั้งถัดไป
@@ -1147,6 +1472,7 @@ func use_skill(skill_id: StringName) -> void:
 		return
 	if not PlayerState.commit_skill_use(skill_id):
 		return
+	reset_combo()   # ★ รอบ 93 ★ ใช้สกิลแล้วคอมโบฟันปกติเริ่มนับใหม่
 
 	var lv := PlayerState.skills.level_of(skill_id)
 
@@ -1214,7 +1540,7 @@ func use_skill(skill_id: StringName) -> void:
 
 
 ## ★ รอยฟันตอนโจมตีปกติ (รอบ 44) ★
-func _spawn_attack_effect(anim_speed: float = 1.0) -> void:
+func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0) -> void:
 	if not attack_effect_enabled:
 		return
 	if attack_effect_frames == null and ResourceLoader.exists(ATTACK_FX_PATH):
@@ -1234,8 +1560,9 @@ func _spawn_attack_effect(anim_speed: float = 1.0) -> void:
 		"frames": attack_effect_frames,
 		"anim": anims[idx],
 		"offset": attack_effect_offset,
-		"height": attack_effect_height,
-		"scale": attack_effect_scale,
+		"height": attack_effect_height * fx_scale,
+		# ★ รอบ 93 ★ จังหวะสุดท้ายของคอมโบ เอฟเฟกต์ใหญ่ขึ้น (fx_scale)
+		"scale": attack_effect_scale * fx_scale,
 		"follow": true,
 		"delay": attack_effect_delay / anim_speed,
 		"z": attack_effect_z,
@@ -1434,6 +1761,8 @@ func _on_died() -> void:
 	_dead = true
 	is_attacking = false
 	_hit_left = 0.0
+	_click_attack_held = false   # ★ รอบ 96 ★ ตายแล้วเลิกฟันรัว
+	reset_combo()   # ★ รอบ 93 ★
 	_land_left = 0.0
 	_jump_anim = ""
 	velocity = Vector2.ZERO
