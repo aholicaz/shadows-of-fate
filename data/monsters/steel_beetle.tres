@@ -25,10 +25,9 @@ script = ExtResource("2_drop")
 item_id = &"iron_shield"
 chance = 1.0
 
-[sub_resource type="Resource" id="Drop_steel_beetle_card"]
+[sub_resource type="Resource" id="Resource_4lp3a"]
 script = ExtResource("2_drop")
-item_id = &"card_steel_beetle"
-chance = 0.73
+metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [resource]
 script = ExtResource("1_monster")
@@ -37,12 +36,12 @@ display_name = "ด้วงเหล็ก"
 sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(40, 34)
 hp_bar_offset_y = -60.8
-display_height = 160.0
-level = 22
-max_hp = 900
-atk_min = 80
-atk_max = 110
-def = 30
+display_height = 260.0
+level = 26
+max_hp = 1200
+atk_min = 100
+atk_max = 130
+def = 55
 mdef = 8
 hit = 36
 flee = 12
@@ -66,9 +65,9 @@ attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 160.0
 attack_hit_frames = null
-exp_reward = 400
-job_exp_reward = 280
+exp_reward = 500
+job_exp_reward = 380
 zeny_min = 130
 zeny_max = 240
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_steel_beetle_0"), SubResource("Drop_steel_beetle_1"), SubResource("Drop_steel_beetle_2"), SubResource("Drop_steel_beetle_3"), SubResource("Drop_steel_beetle_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_steel_beetle_0"), SubResource("Drop_steel_beetle_1"), SubResource("Drop_steel_beetle_2"), SubResource("Drop_steel_beetle_3"), SubResource("Resource_4lp3a")])
 respawn_time = 15.0

@@ -108,6 +108,12 @@ const KNOCKBACK_DECAY := 900.0
 @export_range(0.5, 1.0, 0.01) var attack_anim_fit: float = 0.9
 ## เร่งได้มากสุดกี่เท่า (กันภาพกระตุกจนดูไม่ออกตอน ASPD สูงมาก)
 @export_range(1.0, 12.0, 0.1) var attack_anim_max_speed: float = 8.0
+## ★ รอบ 97 ★ ASPD ต่ำ: ยอมให้ท่าฟัน "ช้าลง" ได้ถึงเท่านี้เพื่อเติมช่วงตีให้เต็ม (1.0 = ไม่ยอมช้ากว่าปกติ)
+## ค่า 0.7 = ท่ายืดได้ถึง ~1.4 เท่าของความยาวปกติ · ช่วงตีที่ยาวกว่านั้นจะกลับท่ายืนรอ (ขาดช่วงตามธรรมชาติ)
+@export_range(0.2, 1.0, 0.05) var attack_anim_min_speed: float = 0.7
+## ★ รอบ 97 ★ ท่าโจมตีเล่น "ครั้งเดียว" เสมอ — ชีทเก่าบางท่า (Attack_Blade_bash / Katana / falchion) ตั้ง loop ไว้
+## ทำให้ ASPD ต่ำแล้วท่าวนซ้ำเองระหว่างรอคูลดาวน์ · เปิดไว้ = ปิด loop ให้ตอนเล่น (ไม่แก้ไฟล์)
+@export var attack_anim_no_loop: bool = true
 
 # ---------- ★★ รอบ 93 — ฟัน 3 จังหวะ (คอมโบโจมตีปกติ) ★★ ----------
 ## คลิกแต่ละครั้งเปลี่ยนท่าไปเรื่อย ๆ 1 → 2 → 3 แล้ววนกลับ · จังหวะสุดท้ายแรงขึ้น
@@ -180,6 +186,10 @@ var _combo_queued: bool = false
 ## เวลาที่เริ่มฟันไม้ปัจจุบัน + ความยาวไม้นั้น (วินาที) — ใช้ดูว่าคลิกมาตอนกี่ % ของท่า
 var _attack_started_ms: int = 0
 var _attack_span: float = 0.0
+## ★ รอบ 97 ★ เลขลำดับการฟัน — coroutine ของไม้เก่าที่ยังรอ timer อยู่ ต้องไม่มายุ่งกับไม้ใหม่
+var _attack_seq: int = 0
+## ไม้ที่ยังไม่ได้ "ปิดจังหวะ" (_combo_finish_step) — ถ้าไม้ใหม่เริ่มก่อน ให้ปิดไม้เก่าให้ก่อน
+var _attack_open_step: int = -1
 ## ส่งทุกครั้งที่เริ่มฟันจังหวะใหม่ (step เริ่มที่ 0 · anim = ชื่อท่าที่เล่นจริง · mult = ตัวคูณดาเมจ)
 signal combo_step_started(step: int, anim: String, mult: float)
 ## ระยะที่เก็บไอเทมได้ (แนวนอน) — วัดจาก "ปลายเท้า" ไม่ใช่จุดกำเนิด
@@ -251,6 +261,9 @@ var _attack_fx_turn := 0
 @export var unarmed_attack_anim: StringName = &"Attack"
 ## รูปแบบชื่อท่าตามชนิดอาวุธ ({type} = weapon_type ของอาวุธ)
 @export var weapon_attack_anim_format: String = "Attack_{type}"
+## ★ รอบ 97 ★ ท่าโจมตี "ตัวแทนของชนิดอาวุธ" — อาวุธที่ยังไม่มีท่าของตัวเอง (เช่น rapier / claymore / flame_sword)
+## จะยืมท่านี้แทนที่จะตกไปท่ามือเปล่า (ต่อย) · ตั้งเป็น {ชนิดอาวุธ: ชื่อท่า}
+@export var weapon_type_default_attack: Dictionary = {"sword": "Attack_Blade"}
 ## ★ รูปแบบชื่อท่าสกิลที่แยกตามอาวุธ ★
 ## {attack} = ชื่อท่าโจมตีของอาวุธที่ถืออยู่ · {skill} = id ของสกิล
 ## เช่น ถือดาบมือใหม่ (Attack_Blade) ใช้สกิล bash -> "Attack_Blade_bash"
@@ -872,16 +885,32 @@ func _real_anim(anim_name: String) -> String:
 
 
 ## เล่นท่านี้ แล้วคืนชื่อท่าที่ได้เล่นจริง ("" = ไม่มีท่าไหนใช้ได้เลย)
-func _play(anim: String) -> String:
+## restart = true → เริ่มท่าใหม่จากเฟรม 0 เสมอ (ใช้ตอนฟัน — ฟันซ้ำท่าเดิมต้องเริ่มใหม่ ไม่ใช่เล่นต่อ)
+func _play(anim: String, restart: bool = false) -> String:
 	if sprite.sprite_frames == null:
 		return ""
 	for candidate in _fallback_chain(anim):
 		var real := _real_anim(String(candidate))
 		if real != "" and sprite.sprite_frames.get_frame_count(real) > 0:
+			var switched := false
+			if restart:
+				sprite.play(real)
+				sprite.set_frame_and_progress(0, 0.0)
+				switched = true
 			# ★ ต้องเช็ค is_playing ด้วย ★ ตอนกระโดดเราสั่ง pause() ค้างเฟรมไว้
 			# ถ้าเช็คแค่ชื่อท่า พอลงพื้นแล้วชื่อท่าเดิม ภาพจะค้างไม่เล่นต่อ
-			if sprite.animation != real or not sprite.is_playing():
+			elif sprite.animation != real or not sprite.is_playing():
 				sprite.play(real)
+				switched = true
+			# ★★ รอบ 97 ★★ จัดสเกล/ตำแหน่งให้ท่าใหม่ "ทันทีในเฟรมเดียวกัน"
+			#
+			# _apply_auto_fit() เดิมทำงานใน _process() แต่ sprite.play() เกิดใน _physics_process()
+			# → เฟรมแรกของท่าใหม่ถูกวาดด้วย "สเกลของท่าเก่า"
+			# ท่ายืนสเกล 0.406 ส่วนท่าฟัน 0.663 = ไม้แรกกะพริบเล็กลง 39% ทุกครั้งที่เริ่มฟันจากท่ายืน
+			# (ไม้ 2-3 ไม่เห็นเพราะสเกลใกล้กัน 0.663 → 0.696 → 0.676)
+			# เป็นบั๊กเดียวกับที่มอนเจอตอนรอบ 88 — ฝั่งผู้เล่นเพิ่งได้แก้
+			if switched:
+				_apply_auto_fit()
 			return real
 	return ""
 
@@ -1212,7 +1241,12 @@ func attack_animation() -> String:
 				var by_type := weapon_attack_anim_format.replace("{type}", String(d.weapon_type))
 				if _has_anim(by_type):
 					return by_type
-	# 3) ท่ามือเปล่า
+				# 4) ★ รอบ 97 ★ ท่าตัวแทนของชนิดอาวุธ (rapier ไม่มี Attack_rapier → ยืม Attack_Blade)
+				# ไม่งั้นถือดาบอยู่แต่ตกไปท่าต่อยมือเปล่า
+				var by_default: String = String(weapon_type_default_attack.get(String(d.weapon_type), ""))
+				if by_default != "" and _has_anim(by_default):
+					return by_default
+	# 5) ท่ามือเปล่า
 	return String(unarmed_attack_anim)
 
 
@@ -1253,6 +1287,17 @@ func _has_anim(name: String) -> bool:
 # โจมตีปกติ
 # =========================================================
 func start_attack() -> void:
+	# ★★ รอบ 97 ★★ กันไม้เก่าทับไม้ใหม่ (บั๊ก "ASPD ต่ำแล้วท่าฟันไม่โผล่เลย")
+	# ASPD ต่ำ → ท่าจบก่อนคูลดาวน์ → animation_finished ปลด is_attacking → ไม้ใหม่เริ่มได้ทันทีที่คูลดาวน์หมด
+	# แต่ coroutine ของไม้เก่ายัง await อยู่ พอ timer มันหมด (ช้ากว่าไม่กี่ ms เพราะคนละนาฬิกากับ _physics_process)
+	# มันจะสั่ง is_attacking = false + speed_scale = 1 + เลื่อนจังหวะคอมโบ → ไม้ใหม่โดนเตะกลับท่ายืนตั้งแต่เฟรมแรก
+	_attack_seq += 1
+	var seq := _attack_seq
+	if _attack_open_step >= 0:
+		var open := _attack_open_step
+		_attack_open_step = -1
+		_combo_finish_step(open, true)
+
 	is_attacking = true
 	attack_cooldown = PlayerState.stats.attack_interval()
 	velocity.x = 0.0
@@ -1266,7 +1311,10 @@ func start_attack() -> void:
 	var mult := _combo_mult(step)
 	var is_finisher := combo_enabled and step == _combo_steps() - 1 and _combo_steps() > 1
 	var anim := combo_attack_animation(step)
-	var played := _play(anim)
+	# ★ รอบ 97 ★ ฟันซ้ำท่าเดิม (กดค้างจนวนกลับไม้ 1) ต้องเริ่มภาพใหม่ ไม่ใช่เล่นต่อจากที่ค้างไว้
+	var played := _play(anim, true)
+	if attack_anim_no_loop and played != "" and sprite.sprite_frames.get_animation_loop(played):
+		sprite.sprite_frames.set_animation_loop(played, false)
 	combo_step_started.emit(step, played, mult)
 
 	# ★★ รอบ 81 — เร่งท่าฟันตาม ASPD ★★
@@ -1282,18 +1330,26 @@ func start_attack() -> void:
 
 	# ★★ รอบ 94 ★★ รอจนถึง "เฟรมที่ดาบฟาดถึง" ของท่านี้ แทนเวลาคงที่
 	var windup: float = maxf(0.03, _attack_hit_time(played, step) / anim_speed)
+	_attack_open_step = step
 	await get_tree().create_timer(windup).timeout
-	if not is_instance_valid(self) or _dead:
+	if not is_instance_valid(self) or _dead or seq != _attack_seq:
 		return
 
 	_deal_damage(attack_range_x, attack_range_y, mult, false, 0)
 
 	# กลับสู่ท่าปกติหลังจบอนิเมชัน (เผื่อ signal ไม่ถูกต่อไว้)
-	var rest: float = maxf(0.03, attack_cooldown - windup)
+	# ★★ รอบ 97 ★★ ต้องคิดจาก _attack_span (ช่วงตีเต็มที่จำไว้ตอนเริ่ม) ไม่ใช่ attack_cooldown
+	# เพราะ attack_cooldown ถูก _physics_process หักลงทุกเฟรมระหว่างที่ await windup อยู่
+	# → ค่าที่อ่านได้ตรงนี้ = ช่วงตี - windup แล้ว พอลบ windup ซ้ำอีกที เหลือ 0.03 วิ
+	# → is_attacking หลุดที่ ~windup+0.03 = ท่าฟันโดนตัดกลางคัน (ท่า Attack_Blade 7 เฟรม เห็นแค่ 0-4
+	#   เฟรมฟาดจริง 5-6 ไม่เคยโผล่) — บั๊กนี้มีมาตั้งแต่รอบ 81 แต่เพิ่งเห็นชัดตอนรอบ 94-95
+	#   ทำให้ windup ยาวขึ้น (เดิม windup คงที่สั้น ๆ ตัดนิดเดียวเลยไม่มีใครสังเกต)
+	var rest: float = maxf(0.03, _attack_span - windup)
 	await get_tree().create_timer(rest).timeout
-	if is_instance_valid(self):
+	if is_instance_valid(self) and seq == _attack_seq:
 		is_attacking = false
 		sprite.speed_scale = 1.0
+		_attack_open_step = -1
 		_combo_finish_step(step)
 
 
@@ -1317,12 +1373,15 @@ func _combo_begin_step() -> int:
 
 ## ท่าจบแล้ว → เลื่อนไปจังหวะถัดไป (วนกลับ) และเปิดหน้าต่างเวลาให้คลิกต่อ
 ## ถ้ามีคลิกจำไว้ระหว่างฟัน ต่อจังหวะถัดไปทันที
-func _combo_finish_step(step: int) -> void:
+## advance_only = true → แค่เลื่อนจังหวะ ไม่ยิงไม้ที่จำไว้ (ใช้ตอนไม้ใหม่เริ่มก่อนไม้เก่าปิดจังหวะ)
+func _combo_finish_step(step: int, advance_only: bool = false) -> void:
 	if not combo_enabled:
 		return
 	var was_last := step >= _combo_steps() - 1
 	combo_step = (step + 1) % _combo_steps()
 	_combo_expire_ms = Time.get_ticks_msec() + int(combo_window * 1000.0)
+	if advance_only:
+		return
 	# ★ รอบ 95 ★ ครบไม้สุดท้ายแล้วไม่วนต่อเอง — ต้องกดใหม่ ไม่งั้นเหมือนมีไม้ที่ 4 โผล่มาเอง
 	if was_last and not combo_wrap_from_buffer:
 		_combo_queued = false
@@ -1457,7 +1516,8 @@ func _attack_anim_speed(played_anim: String) -> float:
 	if natural <= 0.0:
 		return 1.0
 	var target: float = maxf(0.08, attack_cooldown * attack_anim_fit)
-	return clampf(natural / target, 1.0, attack_anim_max_speed)
+	# ★ รอบ 97 ★ ASPD ต่ำ: ยอมช้าลงได้ถึง attack_anim_min_speed เพื่อไม่ให้ท่าจบแล้วยืนเฉยรอคูลดาวน์
+	return clampf(natural / target, minf(1.0, attack_anim_min_speed), attack_anim_max_speed)
 
 
 

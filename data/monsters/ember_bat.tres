@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://bxem6i08xr73k"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/ember_bat_frames.tres" id="frames_new"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" uid="uid://btba4o1mxnkmt" path="res://data/sprites/monsters/ember_bat_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_ember_bat_0"]
 script = ExtResource("2_drop")
@@ -32,12 +32,13 @@ chance = 0.7
 
 [resource]
 script = ExtResource("1_monster")
-sprite_frames = ExtResource("frames_new")
 id = &"ember_bat"
 display_name = "ค้างคาวถ่านไฟ"
+sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(34, 30)
 hp_bar_offset_y = -53.2
 display_height = 140.0
+flying = true
 level = 25
 max_hp = 820
 atk_min = 100
@@ -53,22 +54,21 @@ size = 0
 ai_type = 1
 move_speed = 170.0
 jump_force = -360.0
-jump_while_chasing = true
 detect_range = 420.0
 attack_range = 104.0
 leash_range = 750.0
 wander_range = 260.0
-hop_while_wandering = true
 wander_pause_chance = 0.25
-wander_pause_min = 0.80
-wander_pause_max = 1.50
-wander_walk_min = 2.50
-wander_walk_max = 4.00
-wander_look_chance = 0.40
+wander_pause_min = 0.8
+wander_pause_max = 1.5
+wander_walk_min = 2.5
+wander_walk_max = 4.0
+wander_look_chance = 0.4
 attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 160.0
+attack_hit_frames = null
 exp_reward = 520
 job_exp_reward = 364
 zeny_min = 150

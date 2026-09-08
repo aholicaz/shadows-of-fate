@@ -19,8 +19,16 @@ const SNAP := 12.0
 ## ท่าที่ชูดาบสูงจะถูกย่อลงทั้งตัว → ตัวละครโต/เล็กสลับไปมาระหว่างคอมโบ
 ## (วัดจริงจากท่าฟันชุดใหม่: ลำตัวบนจอแกว่ง 189-235 px ทั้งที่ควรเท่ากันหมด)
 ##
-## แก้: นับพิกเซลทึบทีละแถว — แถวที่กว้างเกิน BODY_ROW_RATIO ของแถวกว้างสุด = "ลำตัว"
+## แก้: นับพิกเซลทึบทีละแถว — แถวที่กว้างเกิน BODY_ROW_RATIO ของ "แถวค่ากลาง" = "ลำตัว"
 ## ดาบเป็นเส้นบาง ๆ กินไม่กี่พิกเซลต่อแถว จึงถูกคัดออกเอง
+##
+## ★★ รอบ 97 ★★ เทียบกับ "แถวค่ากลาง (median)" ไม่ใช่ "แถวกว้างสุด"
+## บั๊กรอบ 94: เกณฑ์เดิมคิดจากแถวกว้างสุด — แต่ในท่ายืนถือดาบ (Idle_blade) แถวกว้างสุดคือ
+## "แถวที่ดาบยื่นออกไปในแนวนอน" (กว้าง 3 เท่าของลำตัว) → เกณฑ์สูงเกิน → **เท้าหลัง**
+## (แคบกว่าดาบมาก) ตกเกณฑ์ → ลำตัวท่ายืนถูกวัดขาดไป 69 px (519 แทน 588 = -12%)
+## ท่าฟันกางขากว้าง เท้าผ่านเกณฑ์ → วัดครบ → ท่าฟันเลยถูกย่อให้ "เท่ากับลำตัวที่วัดขาด"
+## = ตัวละครเล็กลง ~10% ทุกครั้งที่ฟัน (ที่ผู้ใช้เห็นว่า "ท่าฟันโดนลดไซส์")
+## แถวค่ากลางคือความกว้างลำตัวปกติ ดาบยื่นกี่แถวก็ไม่ดึงเกณฑ์ขึ้น
 const BODY_ROW_RATIO := 0.25
 ## สแกนแบบข้ามพิกเซล (เร็วขึ้นราว 9 เท่า) — ละเอียดพอสำหรับหาขอบลำตัว
 const BODY_SCAN_STEP := 3
@@ -112,8 +120,43 @@ static func _scan_body(img: Image) -> Dictionary:
 	if ys.is_empty() or best_row <= 0:
 		return {}
 
+	# ---------- ★ รอบ 97 ★ กรอบที่มองเห็นจริง (alpha > 20) — สแกนหยาบแล้วเก็บขอบให้เป๊ะ ----------
+	var vis_top: int = ys[0]
+	var vis_bot: int = ys[ys.size() - 1]
+	var vis_lo: int = w
+	var vis_hi: int = 0
+	for i in range(ys.size()):
+		vis_lo = mini(vis_lo, row_min_x[i])
+		vis_hi = maxi(vis_hi, row_max_x[i])
+	# ขอบบน/ล่าง: ไล่แถวเต็มความละเอียดในช่วง ±step รอบขอบหยาบ
+	var t := vis_top
+	for y in range(maxi(0, vis_top - step + 1), vis_top):
+		if _row_has_alpha(data, w, y, 0, w):
+			t = y
+			break
+	var b := vis_bot
+	for y in range(mini(h - 1, vis_bot + step - 1), vis_bot, -1):
+		if _row_has_alpha(data, w, y, 0, w):
+			b = y
+			break
+	var l := vis_lo
+	for x in range(maxi(0, vis_lo - step + 1), vis_lo):
+		if _col_has_alpha(data, w, x, t, b):
+			l = x
+			break
+	var rgt := vis_hi
+	for x in range(mini(w - 1, vis_hi + step - 1), vis_hi, -1):
+		if _col_has_alpha(data, w, x, t, b):
+			rgt = x
+			break
+	var vis_rect := Rect2i(l, t, rgt - l + 1, b - t + 1)
+
 	# ---------- ลำตัว = แถวที่กว้างพอ (ดาบบาง ๆ ตกเกณฑ์ไปเอง) ----------
-	var need := maxf(1.0, float(best_row) * BODY_ROW_RATIO)
+	# ★ รอบ 97 ★ เกณฑ์คิดจาก "แถวค่ากลาง" ไม่ใช่แถวกว้างสุด (ดูคำอธิบายบนหัวไฟล์)
+	var sorted_counts := row_count.duplicate()
+	sorted_counts.sort()
+	var median_row: int = sorted_counts[sorted_counts.size() >> 1]
+	var need := maxf(1.0, float(median_row) * BODY_ROW_RATIO)
 	var b_top := -1
 	var b_bot := -1
 	var b_lo := w
@@ -129,6 +172,16 @@ static func _scan_body(img: Image) -> Dictionary:
 	if b_top < 0:
 		return {}
 
+	# ---------- ★ รอบ 97 ★ กึ่งกลางลำตัวจริง = ค่ากลางของ "กึ่งกลางแต่ละแถวลำตัว" ----------
+	# (b_lo+b_hi)/2 ยังโดนดาบดึง เพราะแถวที่ดาบยื่นแนวนอนก็เป็นแถวลำตัว → ใช้ค่ากลางของทุกแถวแทน
+	# แถวที่มีดาบยื่นมีไม่กี่แถว ดึงค่ากลางไม่ได้
+	var centers: PackedFloat32Array = PackedFloat32Array()
+	for i in range(ys.size()):
+		if float(row_count[i]) >= need:
+			centers.append(float(row_min_x[i] + row_max_x[i]) * 0.5)
+	centers.sort()
+	var body_cx_med: float = centers[centers.size() >> 1] if not centers.is_empty() else float(b_lo + b_hi) * 0.5
+
 	# ---------- ปลายอาวุธยื่นพ้นกึ่งกลางลำตัวไปทางขวาไกลสุดเท่าไหร่ ----------
 	var body_cx := float(b_lo + b_hi) * 0.5
 	var far := 0.0
@@ -138,7 +191,24 @@ static func _scan_body(img: Image) -> Dictionary:
 	return {
 		"body_h": float(b_bot + step - b_top),
 		"reach": far,
+		"rect": vis_rect,
+		"body_cx": body_cx_med,
 	}
+
+
+static func _row_has_alpha(data: PackedByteArray, w: int, y: int, x0: int, x1: int) -> bool:
+	var base := y * w
+	for x in range(x0, x1):
+		if data[(base + x) * 4 + 3] > 20:
+			return true
+	return false
+
+
+static func _col_has_alpha(data: PackedByteArray, w: int, x: int, y0: int, y1: int) -> bool:
+	for y in range(y0, y1 + 1):
+		if data[(y * w + x) * 4 + 3] > 20:
+			return true
+	return false
 
 
 static func _key(frames: SpriteFrames, anim: StringName) -> String:
@@ -189,15 +259,30 @@ static func measure(frames: SpriteFrames, anim: StringName, shared_pool: Diction
 		var th := float(tex.get_height())
 		var used := Rect2i(0, 0, int(tw), int(th))
 		var img := _frame_image(tex, atlas_pool)
+		var fd_body: Dictionary = _scan_body(img) if (with_body and img != null) else {}
 		if img != null:
-			var r := img.get_used_rect()
+			# ★★ รอบ 97 ★★ ผู้เล่น (with_body): ใช้กรอบ "ที่มองเห็นจริง" จากการสแกน (alpha > 20)
+			# แทน get_used_rect() ที่นับ alpha > 0 — ชีทที่ตัดด้วยเครื่องมือบางตัวมี "เส้น/แถบจาง alpha = 1"
+			# ทิ้งไว้ในทุกช่อง และ **ไม่เท่ากันในแต่ละช่อง** (attack 3hit.png: ช่อง 1-2 ขยะ x 0-397 · ช่อง 3 x 118-397)
+			# → จุดกึ่งกลางเลื่อน 38 px อยู่เฟรมเดียว = "ตัวเด้งมาข้างหน้าจังหวะนึง"
+			# มอน (ไม่มี with_body) ยังใช้ get_used_rect() เหมือนเดิมทุกประการ — ท่าตายที่ค่อย ๆ จางของมอนบางตัว
+			# (ผู้พิทักษ์เตาหลอม) พึ่งพิกเซลจาง ๆ พวกนั้นอยู่ ห้ามตัดทิ้ง (r88 จับได้)
+			var r: Rect2i = fd_body.get("rect", Rect2i())
+			if r.size.x <= 0 or r.size.y <= 0:
+				r = img.get_used_rect()
 			if r.size.x > 0 and r.size.y > 0:
 				used = r
 		tallest = maxf(tallest, float(used.size.y))
-		var fd_body: Dictionary = _scan_body(img) if (with_body and img != null) else {}
+		# ★★ รอบ 97 ★★ ผู้เล่น (with_body): จัดกึ่งกลางด้วย "กึ่งกลางลำตัว" ไม่ใช่กึ่งกลางกรอบ (ลำตัว+ดาบ)
+		# กรอบรวมดาบเลื่อนตามดาบที่เหวี่ยง (Attack_Blade_2: -5 → -61 · Attack_Blade_3: +52 → -32 หน่วยภาพ)
+		# → ระบบดันลำตัวถอยไปมาให้กรอบอยู่กลาง = ตัวเลื่อนไปเลื่อนมาระหว่างฟัน
+		# กึ่งกลางลำตัวเลื่อนแค่ตามท่าเอนจริง ๆ (−2…−10) และตรงกับแคปซูลชนที่อยู่กลางโหนดพอดี
+		var dx_val: float = float(used.position.x) + float(used.size.x) * 0.5 - tw * 0.5
+		if fd_body.has("body_cx"):
+			dx_val = float(fd_body.body_cx) - tw * 0.5
 		list.append({
 			"bottom": float(used.position.y + used.size.y) - th * 0.5,
-			"dx": float(used.position.x) + float(used.size.x) * 0.5 - tw * 0.5,
+			"dx": dx_val,
 			# ★ รอบ 87 ★ ความกว้างของเนื้อภาพ — ใช้ทำ "กรอบโดนตี" ให้กว้างเท่าตัวมอนที่วาดจริง
 			"w": float(used.size.x),
 			# ★ รอบ 94 ★ ความสูงลำตัว (ไม่รวมดาบ) และระยะที่อาวุธยื่นไปข้างหน้า

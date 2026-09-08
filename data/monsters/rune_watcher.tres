@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://bp616t20mvumf"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/rune_watcher_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_rune_watcher_0"]
@@ -12,7 +12,6 @@ chance = 40.0
 [sub_resource type="Resource" id="Drop_rune_watcher_1"]
 script = ExtResource("2_drop")
 item_id = &"watcher_lens"
-chance = 10.0
 
 [sub_resource type="Resource" id="Drop_rune_watcher_2"]
 script = ExtResource("2_drop")
@@ -37,26 +36,24 @@ chance = 0.62
 
 [resource]
 script = ExtResource("1_monster")
-sprite_frames = ExtResource("frames_new")
 id = &"rune_watcher"
 display_name = "ผู้เฝ้ารูน"
+sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(56, 60)
 hp_bar_offset_y = -87.4
-display_height = 230.0
+display_height = 330.0
 level = 35
-max_hp = 3200
-atk_min = 170
-atk_max = 230
+max_hp = 10000
+atk_min = 220
+atk_max = 350
 def = 30
 mdef = 30
 hit = 62
 flee = 30
 crit = 3
 element = 0
-race = 0
 size = 2
 ai_type = 1
-move_speed = 90.0
 jump_force = -280.0
 jump_while_chasing = false
 detect_range = 420.0
@@ -64,22 +61,22 @@ attack_range = 126.0
 leash_range = 750.0
 wander_range = 260.0
 hop_while_wandering = false
-wander_pause_chance = 0.80
-wander_pause_min = 4.00
-wander_pause_max = 6.00
-wander_walk_min = 1.50
-wander_walk_max = 2.50
-wander_look_chance = 0.60
+wander_pause_chance = 0.8
+wander_pause_min = 4.0
+wander_pause_max = 6.0
+wander_walk_min = 1.5
+wander_walk_max = 2.5
+wander_look_chance = 0.6
 attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 220.0
+attack_hit_frames = null
 exp_reward = 1600
 job_exp_reward = 1120
 zeny_min = 400
 zeny_max = 700
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_rune_watcher_0"), SubResource("Drop_rune_watcher_1"), SubResource("Drop_rune_watcher_2"), SubResource("Drop_rune_watcher_3"), SubResource("Drop_rune_watcher_4"), SubResource("Drop_rune_watcher_card")])
-respawn_time = 15.0
 skill_name = "รูนระเบิด"
 skill_anim = &"Attack"
 skill_range = 340.0
@@ -88,3 +85,4 @@ skill_radius_y = 160.0
 skill_damage_mult = 2.0
 skill_windup = 0.8
 skill_duration = 0.7
+respawn_time = 15.0

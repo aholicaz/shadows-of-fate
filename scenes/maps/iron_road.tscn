@@ -74,6 +74,7 @@ position = Vector2(4600, 820)
 [node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=1372183501]
 script = ExtResource("map_spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_pitman"), ExtResource("md_steel_beetle")])
+count_per_type = 7
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
 

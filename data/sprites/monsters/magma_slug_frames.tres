@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" load_steps=2 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cvp2lccerk8ik"]
 
-[ext_resource type="Texture2D" path="res://Sprites/monsters/placeholder/magma_slug.png" id="tex_0"]
+[ext_resource type="Texture2D" uid="uid://daiyhji1ha72s" path="res://Sprites/monsters/placeholder/magma_slug.png" id="tex_0"]
 
 [resource]
 animations = [{
@@ -10,8 +10,41 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("tex_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("tex_0")
 }],
-"loop": true,
+"loop": 0,
+"name": &"Attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("tex_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("tex_0")
+}],
+"loop": 0,
+"name": &"Die",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("tex_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("tex_0")
+}],
+"loop": 0,
+"name": &"Hit",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": 1,
 "name": &"Idle",
 "speed": 6.0
 }, {
@@ -22,7 +55,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("tex_0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Run",
 "speed": 10.0
 }, {
@@ -36,46 +69,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("tex_0")
 }],
-"loop": false,
-"name": &"Attack",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}],
-"loop": false,
-"name": &"Hit",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}],
-"loop": false,
-"name": &"Die",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("tex_0")
-}],
-"loop": false,
+"loop": 0,
 "name": &"Skill",
 "speed": 10.0
 }]

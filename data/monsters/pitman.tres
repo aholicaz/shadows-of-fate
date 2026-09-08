@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/pitman_frames.tres" id="frames_new"]
+[ext_resource type="SpriteFrames" uid="uid://dyqxs2bxf6isb" path="res://data/sprites/monsters/pitman_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_pitman_0"]
 script = ExtResource("2_drop")
@@ -39,11 +39,11 @@ display_name = "พิตแมน"
 sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(30, 30)
 hp_bar_offset_y = -57.0
-display_height = 150.0
-level = 19
-max_hp = 700
-atk_min = 72
-atk_max = 98
+display_height = 220.0
+level = 22
+max_hp = 900
+atk_min = 95
+atk_max = 135
 def = 16
 mdef = 4
 hit = 34
@@ -68,8 +68,8 @@ attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 160.0
 attack_hit_frames = null
-exp_reward = 300
-job_exp_reward = 210
+exp_reward = 350
+job_exp_reward = 260
 zeny_min = 100
 zeny_max = 190
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_pitman_0"), SubResource("Drop_pitman_1"), SubResource("Drop_pitman_2"), SubResource("Drop_pitman_3"), SubResource("Drop_pitman_card")])

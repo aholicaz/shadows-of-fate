@@ -75,5 +75,5 @@ zeny_min = 280
 zeny_max = 500
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_silent_wraith_0"), SubResource("Drop_silent_wraith_1"), SubResource("Drop_silent_wraith_2"), SubResource("Drop_silent_wraith_3"), SubResource("Drop_silent_wraith_card")])
 projectile_texture = ExtResource("2_8i5xw")
-projectile_offset = Vector2(30, -160)
+projectile_offset = Vector2(30, -220)
 respawn_time = 15.0

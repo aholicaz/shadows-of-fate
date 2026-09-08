@@ -1,37 +1,19 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene format=3 uid="uid://dk7g1br4bh34n"]
 
-[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
-[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
-[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
-[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
-[ext_resource type="Resource" path="res://data/monsters/ember_bat.tres" id="md_ember_bat"]
-[ext_resource type="Resource" path="res://data/monsters/magma_slug.tres" id="md_magma_slug"]
-[ext_resource type="Texture2D" path="res://Sprites/map/generated/ember_mine_bg.png" id="bg38"]
+[ext_resource type="Texture2D" uid="uid://dc8srugyo7spy" path="res://Sprites/map/generated/ember_mine_bg.png" id="bg38"]
+[ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Resource" uid="uid://bxem6i08xr73k" path="res://data/monsters/ember_bat.tres" id="md_ember_bat"]
+[ext_resource type="Resource" uid="uid://ctesrl84xraec" path="res://data/monsters/magma_slug.tres" id="md_magma_slug"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(5400, 240)
 
-[sub_resource type="RectangleShape2D" id="Rect_p0"]
-size = Vector2(320, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p1"]
-size = Vector2(300, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p2"]
-size = Vector2(380, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p3"]
-size = Vector2(300, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p4"]
-size = Vector2(340, 32)
-
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" unique_id=1599436164]
 script = ExtResource("map_base")
 map_id = &"ember_mine"
 display_name = "เหมืองถ่านไฟ"
@@ -40,132 +22,69 @@ region = "สวาร์ทัลฟ์เฮม"
 map_bounds = Rect2(-100, -200, 5200, 1400)
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=901953463]
 
-[node name="Sky" type="Polygon2D" parent="Background"]
+[node name="Sky" type="Polygon2D" parent="Background" unique_id=648218802]
 z_index = -100
 position = Vector2(-100, -200)
-color = Color(1, 1, 1, 1)
 texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 1400, 0, 1400)
 uv = PackedVector2Array(0, 0, 2600, 0, 2600, 650, 0, 650)
 
-[node name="FarLayer" type="Polygon2D" parent="Background"]
+[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1865573880]
 visible = false
 z_index = -90
 position = Vector2(-100, 540)
 color = Color(0.3, 0.1, 0.06, 1)
 polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 360, 0, 360)
 
-[node name="Art" type="Sprite2D" parent="Background"]
+[node name="Art" type="Sprite2D" parent="Background" unique_id=940613954]
 z_index = -80
 position = Vector2(2500, 600)
 
-[node name="Terrain" type="Node2D" parent="."]
+[node name="Terrain" type="Node2D" parent="." unique_id=705544492]
 
-[node name="Ground" type="StaticBody2D" parent="Terrain"]
+[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=666941485]
 position = Vector2(2500, 1020)
-collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1093680512]
 shape = SubResource("Rect_ground")
 
-[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=932514752]
 visible = false
 color = Color(0.28, 0.2, 0.16, 1)
 polygon = PackedVector2Array(-2700, -120, 2700, -120, 2700, 120, -2700, 120)
 
-[node name="Plat0" type="StaticBody2D" parent="Terrain"]
-position = Vector2(800, 720)
-collision_layer = 1
-collision_mask = 0
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=2129526146]
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat0"]
-shape = SubResource("Rect_p0")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat0"]
-color = Color(0.28, 0.2, 0.16, 1)
-polygon = PackedVector2Array(-160, -16, 160, -16, 160, 16, -160, 16)
-
-[node name="Plat1" type="StaticBody2D" parent="Terrain"]
-position = Vector2(1600, 600)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat1"]
-shape = SubResource("Rect_p1")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat1"]
-color = Color(0.28, 0.2, 0.16, 1)
-polygon = PackedVector2Array(-150, -16, 150, -16, 150, 16, -150, 16)
-
-[node name="Plat2" type="StaticBody2D" parent="Terrain"]
-position = Vector2(2500, 700)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat2"]
-shape = SubResource("Rect_p2")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat2"]
-color = Color(0.28, 0.2, 0.16, 1)
-polygon = PackedVector2Array(-190, -16, 190, -16, 190, 16, -190, 16)
-
-[node name="Plat3" type="StaticBody2D" parent="Terrain"]
-position = Vector2(3300, 580)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat3"]
-shape = SubResource("Rect_p3")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat3"]
-color = Color(0.28, 0.2, 0.16, 1)
-polygon = PackedVector2Array(-150, -16, 150, -16, 150, 16, -150, 16)
-
-[node name="Plat4" type="StaticBody2D" parent="Terrain"]
-position = Vector2(4200, 700)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat4"]
-shape = SubResource("Rect_p4")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat4"]
-color = Color(0.28, 0.2, 0.16, 1)
-polygon = PackedVector2Array(-170, -16, 170, -16, 170, 16, -170, 16)
-
-[node name="SpawnPoints" type="Node2D" parent="."]
-
-[node name="default" type="Marker2D" parent="SpawnPoints"]
+[node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1307068646]
 position = Vector2(200, 840)
 
-[node name="from_town" type="Marker2D" parent="SpawnPoints"]
+[node name="from_town" type="Marker2D" parent="SpawnPoints" unique_id=1399178152]
 position = Vector2(200, 840)
 
-[node name="from_hall" type="Marker2D" parent="SpawnPoints"]
+[node name="from_hall" type="Marker2D" parent="SpawnPoints" unique_id=669429624]
 position = Vector2(4800, 840)
 
-[node name="Spawners" type="Node2D" parent="."]
+[node name="Spawners" type="Node2D" parent="." unique_id=973656203]
 
-[node name="MapSpawner" type="Node2D" parent="Spawners"]
+[node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=218847611]
 script = ExtResource("map_spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_ember_bat"), ExtResource("md_magma_slug")])
-count_per_type = 5
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
 
-[node name="Portals" type="Node2D" parent="."]
+[node name="Portals" type="Node2D" parent="." unique_id=1094342174]
 
-[node name="ToTown" parent="Portals" instance=ExtResource("portal")]
+[node name="ToTown" parent="Portals" unique_id=311394888 instance=ExtResource("portal")]
 position = Vector2(60, 900)
 target_map = &"nidavellir_town"
 target_spawn_point = &"from_mine"
 label_text = "← นิดาเวลลิร์"
 destination_name = "นิดาเวลลิร์"
 
-[node name="ToHall" parent="Portals" instance=ExtResource("portal")]
+[node name="ToHall" parent="Portals" unique_id=966135113 instance=ExtResource("portal")]
 position = Vector2(4940, 900)
 target_map = &"hall_of_silence"
 target_spawn_point = &"from_mine"
