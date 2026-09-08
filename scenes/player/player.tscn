@@ -16,10 +16,9 @@ script = ExtResource("1_player")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1373520025]
 position = Vector2(-1, 0)
 sprite_frames = ExtResource("2_frames")
-animation = &"Dash"
+animation = &"Attack_falchion_slash"
 autoplay = "Idle"
-frame = 11
-frame_progress = 1.0
+frame_progress = 0.59298706
 speed_scale = 2.0
 
 [node name="EquipVisual" type="Node2D" parent="." unique_id=1678438290]

@@ -102,4 +102,6 @@ skill_knockback = 340.0
 skill_bolt_count = 5
 skill_bolt_telegraph = 0.32
 skill_bolt_delay = 0.9
+skill_bolt_max_hits = 5
+skill_bolt_damage_mult = 2.0
 respawn_time = 300.0
