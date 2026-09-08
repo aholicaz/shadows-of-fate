@@ -35,11 +35,20 @@ MIN_SIDE = 256
 SKIP_DIRS = ("Sprites/ui/", "Sprites/font")
 
 PROFILES = {
-    # เว็บ: เล็กที่สุดเท่าที่ยังดูดี — q0.85 ผิดเฉลี่ยราว 4/255 ซึ่งบนจอมือถือมองไม่เห็น
-    "web": {"compress/mode": "1", "compress/lossy_quality": "0.85", "compress/high_quality": "false"},
+    # เว็บ: โหมด 1 Lossy — ไฟล์เล็กลง 4.7 เท่า (VRAM เท่าเดิม แต่รอบ 90 แก้เรื่องนั้นไปแล้ว)
+    # คุณภาพแยกตามชนิดภาพ (ค่าที่ทดสอบในเบราว์เซอร์จริงแล้ว — ดูคู่มือ 7.104)
+    "web": {"compress/mode": "1", "compress/high_quality": "false"},
     # คอม/Steam: BC7 — VRAM ลง 4 เท่า คุณภาพ 34.9 dB
     "desktop": {"compress/mode": "2", "compress/high_quality": "true", "compress/lossy_quality": "0.7"},
 }
+
+# คุณภาพของโหมดเว็บ แยกตามชนิดภาพ — แก้ตัวเลขตรงนี้ถ้าอยากได้ภาพคมขึ้น (ไฟล์จะใหญ่ขึ้นตาม)
+WEB_QUALITY = {
+    "monster": "0.65",    # ชีทมอน (ถูกย่อด้วย webtrim.py อยู่แล้ว)
+    "big": "0.45",        # ภาพใหญ่อื่น ๆ เช่นฉากหลัง — เป็นภาพวาดเนียน ๆ ลดได้เยอะโดยไม่เห็น
+    "small": "0.85",      # ภาพเล็ก เช่นไอคอน การ์ด รูปคุย — ต้องคมกว่าเพราะคนมองใกล้
+}
+BIG_SIDE = 1024           # ยาวด้านใดด้านหนึ่งเกินนี้ = นับเป็น "ภาพใหญ่"
 
 try:
     from PIL import Image
@@ -71,19 +80,29 @@ def each_import():
             if any(rel.startswith(d) for d in SKIP_DIRS):
                 continue
             src = p[:-len(".import")]
+            size = None
             if Image is not None:
                 try:
-                    w, h = Image.open(src).size
-                    if w < MIN_SIDE or h < MIN_SIDE:
+                    size = Image.open(src).size
+                    if size[0] < MIN_SIDE or size[1] < MIN_SIDE:
                         continue
                 except Exception:
-                    pass
-            yield p, s
+                    size = None
+            yield p, s, rel, size
+
+
+def quality_for(rel, size):
+    """ภาพนี้ควรใช้คุณภาพเท่าไหร่ในเวอร์ชันเว็บ"""
+    if rel.startswith("Sprites/monster"):
+        return WEB_QUALITY["monster"]
+    if size is not None and max(size) >= BIG_SIDE:
+        return WEB_QUALITY["big"]
+    return WEB_QUALITY["small"]
 
 
 def status():
     counts = {}
-    for _p, s in each_import():
+    for _p, s, _rel, _sz in each_import():
         m = re.search(r"^compress/mode=(\d)", s, re.M)
         counts[m.group(1) if m else "?"] = counts.get(m.group(1) if m else "?", 0) + 1
     names = {"0": "0 Lossless (ตั้งต้น)", "1": "1 Lossy — เวอร์ชันเว็บ", "2": "2 VRAM/BC7 — เวอร์ชันคอม"}
@@ -95,15 +114,22 @@ def status():
 def apply(profile):
     want = PROFILES[profile]
     n = 0
-    for p, s in each_import():
+    per_q = {}
+    for p, s, rel, size in each_import():
         out = s
         for k, v in want.items():
             out = set_key(out, k, v)
+        if profile == "web":
+            q = quality_for(rel, size)
+            out = set_key(out, "compress/lossy_quality", q)
+            per_q[q] = per_q.get(q, 0) + 1
         if out != s:
             io.open(p, "w", encoding="utf-8", newline="\n").write(out)
             n += 1
     print("ตั้งค่าโหมด «%s» ให้ %d ไฟล์" % (profile, n))
     print("ค่าที่ใช้: %s" % " · ".join("%s=%s" % kv for kv in want.items()))
+    for q in sorted(per_q, reverse=True):
+        print("  คุณภาพ %s → %d ไฟล์" % (q, per_q[q]))
     if n:
         print("★ ต้องสั่ง import ใหม่ก่อน export ★")
 
