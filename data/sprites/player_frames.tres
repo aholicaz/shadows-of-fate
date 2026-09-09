@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://ch7sri06ung6y" path="res://Sprites/character sprites/attack 3hit.png" id="2_8ggv2"]
 [ext_resource type="Texture2D" uid="uid://ckqy17a72cs3h" path="res://Sprites/spritesheet Attack blade_bash v2.png" id="3_v1u58"]
 [ext_resource type="Texture2D" uid="uid://bik88w2jlfx74" path="res://Sprites/hero magnum break.png" id="4_iyar8"]
-[ext_resource type="Texture2D" uid="uid://5h3extlwvjkx" path="res://Sprites/skill/blade_slash.png" id="5_rsfcu"]
 [ext_resource type="Texture2D" uid="uid://f5nyrayddyhh" path="res://Sprites/spritesheet Attack falchion bash.png" id="5_v1u58"]
 [ext_resource type="Texture2D" uid="uid://bjqff4ssiy5tu" path="res://Sprites/character sprites/attack 3hit katana.png" id="6_8ggv2"]
 [ext_resource type="Texture2D" uid="uid://4kvpadgln2xv" path="res://Sprites/character sprites/attack 3hit falcon.png" id="8_dhc50"]
@@ -296,37 +295,97 @@ region = Rect2(512, 512, 512, 512)
 atlas = ExtResource("4_iyar8")
 region = Rect2(1024, 512, 512, 512)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hybu"]
+atlas = ExtResource("11_tecas")
+region = Rect2(2560, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tecas"]
+atlas = ExtResource("11_tecas")
+region = Rect2(3072, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2syi"]
+atlas = ExtResource("11_tecas")
+region = Rect2(3584, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0672p"]
+atlas = ExtResource("11_tecas")
+region = Rect2(0, 512, 512, 512)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_avhvt"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(0, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(512, 512, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nbdp"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(558, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(1024, 512, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrj8d"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(1116, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(1536, 512, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7inm6"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(1674, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(2048, 512, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5taty"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(2232, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(2560, 512, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bs4mm"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(2790, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(3072, 512, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uoest"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(3348, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(3584, 512, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jmxml"]
-atlas = ExtResource("5_rsfcu")
-region = Rect2(3906, 0, 558, 768)
+atlas = ExtResource("11_tecas")
+region = Rect2(0, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uj0i6"]
+atlas = ExtResource("11_tecas")
+region = Rect2(512, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4272"]
+atlas = ExtResource("11_tecas")
+region = Rect2(1024, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuj2f"]
+atlas = ExtResource("11_tecas")
+region = Rect2(1536, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxaiv"]
+atlas = ExtResource("11_tecas")
+region = Rect2(2048, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbkg1"]
+atlas = ExtResource("11_tecas")
+region = Rect2(2560, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr7ua"]
+atlas = ExtResource("11_tecas")
+region = Rect2(3072, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyd4b"]
+atlas = ExtResource("11_tecas")
+region = Rect2(3584, 1024, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gy6p"]
+atlas = ExtResource("11_tecas")
+region = Rect2(0, 1536, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_658sb"]
+atlas = ExtResource("11_tecas")
+region = Rect2(512, 1536, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nh7bg"]
+atlas = ExtResource("11_tecas")
+region = Rect2(1024, 1536, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3ols"]
+atlas = ExtResource("11_tecas")
+region = Rect2(1536, 1536, 512, 512)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxhjl"]
 atlas = ExtResource("6_8ggv2")
@@ -1195,6 +1254,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0hybu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tecas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2syi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0672p")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_avhvt")
 }, {
 "duration": 1.0,
@@ -1217,10 +1288,43 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jmxml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uj0i6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4272")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuj2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxaiv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbkg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr7ua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyd4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gy6p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_658sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nh7bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3ols")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"Attack_Blade_slash",
-"speed": 8.0
+"speed": 22.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1582,7 +1686,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"Attack_falchion_slash",
-"speed": 14.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,

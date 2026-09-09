@@ -276,6 +276,36 @@ signal combo_step_started(step: int, anim: String, mult: float)
 ## ย่อ/ขยายส่วนโค้ง (เลขน้อย = โค้งใหญ่)
 @export_range(0.2, 1.5, 0.01) var slash_zoom: float = 0.6
 
+## ★★ รอบ 101 — รอยฟันแบบ "ภาพชุด Alternative 3" (ลำแสงพุ่งไปข้างหน้า) ★★
+##
+## รอบ 100 ใช้เชดเดอร์วาดส่วนโค้งรอบตัว = ดูเป็นวงกลม ทิศไม่ตรงกับดาบ
+## รอบนี้เปลี่ยนมาใช้ภาพชุดที่เป็น "ลำแสงเส้นตรง" แล้วหมุนให้ตรงทิศดาบของแต่ละไม้
+## เปิด = ใช้ภาพชุด · ปิด = ถอยไปใช้เชดเดอร์รอบ 100 (ถ้า slash_shader_enabled ยังเปิดอยู่)
+@export var slash_sheet_enabled: bool = true
+## ★ ใช้ภาพชุดไหนของแต่ละไม้ ★ (1-5 · ชุด 1-3 เป็นวงโค้ง · ชุด 4-5 เป็นลำแสงเส้นตรง)
+## ★ รอบ 101 รอบสอง — ผู้ใช้เลือกเอง: ไม้ 1 = ชุด 5 · ไม้ 2 = ชุด 2 ย้อนเฟรม · ไม้ 3 = ชุด 4 ★
+@export var slash_sheet_sets: PackedInt32Array = PackedInt32Array([5, 2, 4])
+## ★ เล่นเฟรมจากท้ายมาหน้าไหม ★ (1 = ย้อน · 0 = ปกติ)
+## ชุด 2 ไล่ปกติคือวงโค้ง "หุบเข้า" · ย้อนแล้วเป็น "กางออก" ตามดาบที่เหวี่ยง
+@export var slash_sheet_reversed: PackedInt32Array = PackedInt32Array([0, 1, 0])
+## ★ หมุนภาพยังไง ★ องศาบนจอตอนหันขวา
+## · ชุด 4-5 (ลำแสงเส้นตรง) = "ลำแสงชี้ไปทางมุมนี้" (0 = นอนราบ · บวก = ก้มลง · ลบ = เชิดขึ้น)
+## · ชุด 1-3 (วงโค้ง) = "หมุนเพิ่มจากภาพต้นฉบับกี่องศา" (0 = ใช้ตามที่วาดมา)
+##   เพราะวงโค้งพวกนี้หมุนเปลี่ยนทิศไปเรื่อย ๆ ระหว่างเฟรมอยู่แล้ว ไม่มีมุมประจำตัว
+@export var slash_sheet_aims: PackedFloat32Array = PackedFloat32Array([45.0, 0.0, 55.0])
+## ขนาดลำแสงบนจอของแต่ละไม้ (px)
+@export var slash_sheet_sizes: PackedFloat32Array = PackedFloat32Array([250.0, 300.0, 340.0])
+## จุดเกิดเทียบตัวละคร (x = ข้างหน้า) ของแต่ละไม้ — ว่าง = ใช้ slash_offset
+@export var slash_sheet_offsets: Array[Vector2] = [
+	Vector2(86.0, -22.0), Vector2(70.0, -40.0), Vector2(116.0, 2.0)
+]
+## ★ พุ่งออกไปข้างหน้ากี่ px หลังดาเมจออก ★ (0 = อยู่กับที่) — นี่คือสิ่งที่ทำให้ "ไม่วนรอบตัว"
+@export var slash_sheet_travel: float = 34.0
+## สีคูณของแต่ละไม้ (ว่าง = ขาว = สีไฟตามภาพต้นฉบับ)
+@export var slash_sheet_tints: PackedColorArray = PackedColorArray()
+## บวกแสงลงฉาก (เรืองแสง) หรือวาดทับปกติ
+@export var slash_sheet_additive: bool = true
+
 @export var attack_effect_delay: float = 0.06
 @export var attack_effect_z: int = 40
 const ATTACK_FX_PATH := "res://data/sprites/fx_attack.tres"
@@ -1634,11 +1664,16 @@ func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0,
 	if not attack_effect_enabled:
 		return
 
-	# ★★ รอบ 100 ★★ รอยฟันแบบเชดเดอร์ — จังหวะสว่างสุดตรงเฟรมที่ดาเมจออก
+	# ★★ รอบ 100/101 ★★ รอยฟันพิเศษ — จังหวะสว่างสุดตรงเฟรมที่ดาเมจออก
+	# ลำดับ: ภาพชุด Alternative 3 (รอบ 101) → เชดเดอร์ส่วนโค้ง (รอบ 100) → ไม่มี
 	var used_shader := false
-	if slash_shader_enabled and SlashArcFX.available():
-		_spawn_slash_arc(step, fx_scale, windup, anim_speed)
-		used_shader = true
+	if slash_shader_enabled:
+		if slash_sheet_enabled and SlashSheetFX.available(_slash_sheet_set(step)):
+			_spawn_slash_sheet(step, fx_scale, windup, anim_speed)
+			used_shader = true
+		elif SlashArcFX.available():
+			_spawn_slash_arc(step, fx_scale, windup, anim_speed)
+			used_shader = true
 	if used_shader and slash_shader_replaces_sprite:
 		return
 
@@ -1670,6 +1705,58 @@ func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0,
 		"damage": false,
 		# ★ รอบ 81 ★ ภาพฟันวิ่งเร็วเท่ากับท่าฟันของตัวละคร (ASPD สูง = ฟันไวทั้งคู่)
 		"anim_speed": anim_speed,
+	}, self, facing)
+
+
+## ★ ไม้ที่ step ใช้ภาพชุดไหน ★ (เผื่อ slash_sheet_sets สั้นกว่าจำนวนไม้ → ใช้ตัวสุดท้าย)
+func _slash_sheet_set(step: int) -> int:
+	if slash_sheet_sets.is_empty():
+		return 4
+	var n := maxi(1, _combo_steps())
+	var i := clampi(step, 0, n - 1)
+	return slash_sheet_sets[mini(i, slash_sheet_sets.size() - 1)]
+
+
+## ★★ รอบ 101 — รอยฟันแบบภาพชุดของไม้ที่ step ★★
+##
+## `windup` = เวลาจากกดฟัน → ดาเมจออก (วินาทีจริง คิดรวมความเร็วท่าตาม ASPD แล้ว)
+## ส่งเข้าไปเป็น `peak` ตรง ๆ → SlashSheetFX จะวางเฟรมที่ 3 (ลำแสงยาวสุด) ไว้ที่วินาทีนั้นเป๊ะ
+##
+## ★ ทิศทาง ★ `slash_sheet_aims[i]` คือมุมที่ "อยากให้ลำแสงชี้" บนจอตอนหันขวา
+## ภาพต้นฉบับวางตัวที่ −45° อยู่แล้ว จึงต้องหมุนเพิ่ม = aim − (−45) = aim + 45
+## (คิดให้ด้วย SlashSheetFX.rotation_for() จะได้ไม่มีเลขวิเศษกระจายอยู่สองที่)
+func _spawn_slash_sheet(step: int, fx_scale: float, windup: float, anim_speed: float) -> SlashSheetFX:
+	var n := maxi(1, _combo_steps())
+	var i := clampi(step, 0, n - 1)
+	var aim: float = slash_sheet_aims[mini(i, slash_sheet_aims.size() - 1)] \
+		if not slash_sheet_aims.is_empty() else 45.0
+	var size: float = slash_sheet_sizes[mini(i, slash_sheet_sizes.size() - 1)] \
+		if not slash_sheet_sizes.is_empty() else 260.0
+	var off: Vector2 = slash_offset
+	if not slash_sheet_offsets.is_empty():
+		off = slash_sheet_offsets[mini(i, slash_sheet_offsets.size() - 1)]
+	var tint := Color.WHITE
+	if not slash_sheet_tints.is_empty():
+		tint = slash_sheet_tints[mini(i, slash_sheet_tints.size() - 1)]
+	var rev := false
+	if not slash_sheet_reversed.is_empty():
+		rev = slash_sheet_reversed[mini(i, slash_sheet_reversed.size() - 1)] != 0
+	var set_no := _slash_sheet_set(step)
+
+	return SlashSheetFX.spawn({
+		"set": set_no,
+		"peak": windup,                       # ★ เฟรมลำแสงยาวสุด = เฟรมที่ดาเมจออก ★
+		"tail": slash_tail / maxf(0.1, anim_speed),
+		"size": size,
+		"scale": fx_scale,
+		"offset": off,
+		"rotate": SlashSheetFX.rotation_for(aim, set_no),
+		"reversed": rev,
+		"travel": slash_sheet_travel,
+		"modulate": tint,
+		"additive": slash_sheet_additive,
+		"z": attack_effect_z + 5,
+		"follow": true,
 	}, self, facing)
 
 
