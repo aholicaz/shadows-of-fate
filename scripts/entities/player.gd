@@ -186,6 +186,9 @@ var _combo_queued: bool = false
 ## เวลาที่เริ่มฟันไม้ปัจจุบัน + ความยาวไม้นั้น (วินาที) — ใช้ดูว่าคลิกมาตอนกี่ % ของท่า
 var _attack_started_ms: int = 0
 var _attack_span: float = 0.0
+## ★ รอบ 100 ★ วินาทีที่ "ดาเมจจะออก" ของไม้ที่กำลังฟันอยู่ (คิดรวม ASPD แล้ว)
+## รอยฟันแบบเชดเดอร์ใช้ค่านี้เป็นจุดที่ภาพสว่างสุด — เก็บไว้ให้เทสต์/ดีบักตรวจได้ด้วย
+var _attack_windup: float = 0.0
 ## ★ รอบ 97 ★ เลขลำดับการฟัน — coroutine ของไม้เก่าที่ยังรอ timer อยู่ ต้องไม่มายุ่งกับไม้ใหม่
 var _attack_seq: int = 0
 ## ไม้ที่ยังไม่ได้ "ปิดจังหวะ" (_combo_finish_step) — ถ้าไม้ใหม่เริ่มก่อน ให้ปิดไม้เก่าให้ก่อน
@@ -251,6 +254,28 @@ signal combo_step_started(step: int, anim: String, mult: float)
 @export var attack_effect_height: float = 230.0
 @export var attack_effect_scale: float = 1.0
 ## โผล่หลังกดตีกี่วิ (ให้ตรงจังหวะดาบเหวี่ยง)
+## ★★ รอบ 100 — รอยฟันแบบเชดเดอร์ (ส่วนโค้งเรืองแสง) ★★
+## เปิด = ใช้เชดเดอร์ · ปิด = กลับไปใช้เอฟเฟกต์ชีทภาพเดิมทุกประการ
+@export var slash_shader_enabled: bool = true
+## เปิดพร้อมกับเอฟเฟกต์ชีทภาพเดิมด้วยไหม (ปิดไว้ = ใช้เชดเดอร์อย่างเดียว ไม่ซ้อนกันมั่ว)
+@export var slash_shader_replaces_sprite: bool = true
+## ขนาดรอยฟันบนจอ (px) · ตำแหน่งเทียบตัวละคร
+@export var slash_size: float = 300.0
+@export var slash_offset: Vector2 = Vector2(76, -30)
+## ★ องศาการวางส่วนโค้งของแต่ละไม้ ★ (ไม้ 1 ฟันลง · ไม้ 2 สวนขึ้น · ไม้ 3 ฟันลงเต็มแรง)
+@export var slash_rotations: PackedFloat32Array = PackedFloat32Array([205.0, 25.0, 195.0])
+## ตัวคูณขนาดของแต่ละไม้
+## (ไม้สุดท้ายไม่ต้องใส่ตัวคูณเพิ่ม — ได้ combo_finisher_fx_scale คูณให้อยู่แล้ว ไม่งั้นใหญ่เกิน)
+@export var slash_step_scales: PackedFloat32Array = PackedFloat32Array([1.0, 0.95, 1.0])
+## ความเรืองแสงของแต่ละไม้
+@export var slash_step_emission: PackedFloat32Array = PackedFloat32Array([1.0, 1.0, 1.5])
+## ตารางสีของแต่ละไม้ (ว่าง = ใช้ฟ้าเริ่มต้น · ไม้สุดท้ายใช้โทนไฟ)
+@export var slash_color_ramps: Array[Texture2D] = []
+## เวลาที่รอยฟัน "จางหาย" หลังดาเมจออก (วินาที) — หารด้วยความเร็วท่าตาม ASPD เหมือนกัน
+@export_range(0.04, 0.6, 0.01) var slash_tail: float = 0.16
+## ย่อ/ขยายส่วนโค้ง (เลขน้อย = โค้งใหญ่)
+@export_range(0.2, 1.5, 0.01) var slash_zoom: float = 0.6
+
 @export var attack_effect_delay: float = 0.06
 @export var attack_effect_z: int = 40
 const ATTACK_FX_PATH := "res://data/sprites/fx_attack.tres"
@@ -1325,11 +1350,15 @@ func start_attack() -> void:
 	sprite.speed_scale = anim_speed
 	_attack_started_ms = Time.get_ticks_msec()
 	_attack_span = maxf(0.05, attack_cooldown)
-	_spawn_attack_effect(anim_speed, combo_finisher_fx_scale if is_finisher else 1.0)
-	_play_attack_sfx(anim)
 
 	# ★★ รอบ 94 ★★ รอจนถึง "เฟรมที่ดาบฟาดถึง" ของท่านี้ แทนเวลาคงที่
+	# ★★ รอบ 100 ★★ คิดก่อนสร้างเอฟเฟกต์ เพราะรอยฟันแบบเชดเดอร์ต้องรู้ว่า "ดาเมจออกกี่วินาที"
+	# เพื่อเอาไปวางจุดที่ภาพสว่างสุดให้ตรงเฟรมนั้นเป๊ะ
 	var windup: float = maxf(0.03, _attack_hit_time(played, step) / anim_speed)
+	_attack_windup = windup
+
+	_spawn_attack_effect(anim_speed, combo_finisher_fx_scale if is_finisher else 1.0, step, windup)
+	_play_attack_sfx(anim)
 	_attack_open_step = step
 	await get_tree().create_timer(windup).timeout
 	if not is_instance_valid(self) or _dead or seq != _attack_seq:
@@ -1600,9 +1629,19 @@ func use_skill(skill_id: StringName) -> void:
 
 
 ## ★ รอยฟันตอนโจมตีปกติ (รอบ 44) ★
-func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0) -> void:
+func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0,
+		step: int = 0, windup: float = 0.12) -> void:
 	if not attack_effect_enabled:
 		return
+
+	# ★★ รอบ 100 ★★ รอยฟันแบบเชดเดอร์ — จังหวะสว่างสุดตรงเฟรมที่ดาเมจออก
+	var used_shader := false
+	if slash_shader_enabled and SlashArcFX.available():
+		_spawn_slash_arc(step, fx_scale, windup, anim_speed)
+		used_shader = true
+	if used_shader and slash_shader_replaces_sprite:
+		return
+
 	if attack_effect_frames == null and ResourceLoader.exists(ATTACK_FX_PATH):
 		attack_effect_frames = load(ATTACK_FX_PATH)
 	if attack_effect_frames == null:
@@ -1631,6 +1670,41 @@ func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0) -> voi
 		"damage": false,
 		# ★ รอบ 81 ★ ภาพฟันวิ่งเร็วเท่ากับท่าฟันของตัวละคร (ASPD สูง = ฟันไวทั้งคู่)
 		"anim_speed": anim_speed,
+	}, self, facing)
+
+
+## ★★ รอบ 100 — รอยฟันแบบเชดเดอร์ของไม้ที่ step ★★
+##
+## `windup` = เวลาจากกดฟัน → ดาเมจออก (วินาทีจริง คิดรวมความเร็วท่าตาม ASPD แล้ว)
+## ส่งเข้าไปเป็น `peak` ตรง ๆ → SlashArcFX จะวาง progress = 0.5 (จุดที่ภาพสว่าง/กวาดกลางพอดี)
+## ไว้ที่วินาทีนั้นเป๊ะ ไม่ว่า ASPD จะเท่าไหร่หรือไม้ไหนยาวสั้นแค่ไหน
+func _spawn_slash_arc(step: int, fx_scale: float, windup: float, anim_speed: float) -> void:
+	var n := maxi(1, _combo_steps())
+	var i := clampi(step, 0, n - 1)
+	var rot: float = slash_rotations[i] if i < slash_rotations.size() else 205.0
+	var sc: float = slash_step_scales[i] if i < slash_step_scales.size() else 1.0
+	var em: float = slash_step_emission[i] if i < slash_step_emission.size() else 1.0
+	var ramp: Texture2D = null
+	if i < slash_color_ramps.size():
+		ramp = slash_color_ramps[i]
+	if ramp == null:
+		# ไม่ได้ตั้งเอง: ไม้สุดท้าย (ท่าจบคอมโบ) ใช้โทนไฟ · ไม้อื่นใช้โทนฟ้า
+		var path := SlashArcFX.COLOR_EMBER_PATH if (i == n - 1 and n > 1) else SlashArcFX.COLOR_CYAN_PATH
+		if ResourceLoader.exists(path):
+			ramp = load(path)
+
+	SlashArcFX.spawn({
+		"peak": windup,                       # ★ จุดสว่างสุด = เฟรมที่ดาเมจออก ★
+		"tail": slash_tail / maxf(0.1, anim_speed),
+		"size": slash_size,
+		"scale": sc * fx_scale,
+		"offset": slash_offset,
+		"rotate": rot,
+		"zoom": slash_zoom,
+		"emission": em,
+		"color": ramp,
+		"z": attack_effect_z + 5,
+		"follow": true,
 	}, self, facing)
 
 

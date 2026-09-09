@@ -1,13 +1,19 @@
-## TouchControls — ปุ่มบนจอสำหรับเล่นบนมือถือ / จอสัมผัส
+## TouchControls — ปุ่มบนจอ: วงโจมตี/สกิล/พุ่งหลบ + ช่องยา Q/R (ทุกเครื่อง) และปุ่มเดินซ้าย-ขวา (จอสัมผัส)
+##
+## ★★ รอบ 98 — โฉม Petrol ตามภาพตัวอย่าง ★★
+## · "กลุ่มสู้" (โจมตี J · สกิล 1-4 · DASH · ยา Q/R) โชว์ **ทุกเครื่อง** — คอมก็เห็นและคลิกได้ (เหมือนภาพ)
+## · "กลุ่มเดิน" (◀ ▶ ▼ + คุย/เก็บ) โชว์เฉพาะเครื่องจอสัมผัส (หรือเปิดเองที่ระบบ → ปุ่มจอสัมผัส: เปิดตลอด)
+## · บนมือถือปุ่มทั้งหมดใหญ่ขึ้น TOUCH_SCALE เท่า นิ้วจะได้กดถูก
 ##
 ## ★ ทำไมต้องเขียนเอง ไม่ใช้ปุ่มธรรมดา ★
 ## Godot แปลง "นิ้วแรก" เป็นเมาส์ให้เท่านั้น ถ้าใช้ Button ปกติจะกดได้ทีละปุ่ม
 ## (เดินไปตีไปไม่ได้) ไฟล์นี้เลยอ่าน InputEventScreenTouch เองแยกตามนิ้ว (multi-touch)
+## เมาส์บนคอมก็กดได้ (นิ้วหมายเลข -1)
 ##
 ## ★ ปุ่มส่งเป็น "action" ★ เกมทั้งเกมเลยไม่ต้องแก้อะไรเลย
 ## กดปุ่มบนจอ = เหมือนกดคีย์บอร์ด (ทั้งแบบ polling และแบบรับ event)
 ##
-## ★ เปิด/ปิด ★  UI.touch.set_mode(TouchControls.Mode.AUTO / ON / OFF)
+## ★ เปิด/ปิดกลุ่มเดิน ★  UI.touch.set_mode(TouchControls.Mode.AUTO / ON / OFF)
 ## AUTO = โผล่เองเมื่อเครื่องมีจอสัมผัส หรือเมื่อมีการแตะจอครั้งแรก
 ## ค่าที่เลือกถูกจำไว้ใน user://ui_layout.cfg
 class_name TouchControls
@@ -17,102 +23,120 @@ enum Mode { AUTO, ON, OFF }
 
 const LAYOUT_PATH := "user://ui_layout.cfg"
 
-## ---------- ขนาดปุ่ม (แก้ตรงนี้ถ้าอยากให้ใหญ่/เล็กลง) — รอบ 45 ใหญ่ขึ้น + ยกสูงจากขอบล่าง ----------
-const PAD_BIG := 128.0        # ปุ่มเดินซ้าย-ขวา
-const PAD_ATTACK := 150.0     # ★ ปุ่มโจมตี (ใหญ่สุด อยู่กลางวงสกิล) ★
-const PAD_MID := 100.0        # คุย/เก็บของ · ★ รอบ 47 — ยา/มานา/พุ่งหลบ ใช้ขนาดนี้ด้วย ★
-const PAD_SMALL := 86.0       # สกิล 1-4 (ล้อมรอบปุ่มโจมตี)
-const PAD_TINY := 70.0        # (สำรองไว้ — รอบ 47 เลิกใช้กับแถวยาแล้ว)
-const EDGE := 26.0            # ห่างจากขอบซ้าย-ขวา
-const EDGE_BOTTOM := 64.0     # ★ ห่างจากขอบล่าง (เดิม 22 — นิ้วโป้งจะได้ไม่ชนขอบเครื่อง) ★
-const GAP := 12.0             # ห่างระหว่างปุ่ม
-## ★ วงสกิลรอบปุ่มโจมตี: เริ่มที่ 8 นาฬิกา ไปจบที่ 1 นาฬิกา (ตามเข็ม) ★  (มุมนาฬิกา: 12 = บน · 3 = ขวา)
-const SKILL_CLOCK_START := 8.0
-const SKILL_CLOCK_END := 13.0
+## ---------- ขนาดปุ่ม (ที่จอ 1280×720 — วัดจากภาพตัวอย่าง) ----------
+const D_ATTACK := 106.0       # วงโจมตีใหญ่ (J)
+const D_SKILL := 66.0         # วงสกิล 1-4
+const D_DASH := 66.0          # วงพุ่งหลบ
+const D_POTION := 48.0        # ช่องยา Q / R (สี่เหลี่ยม)
+const D_WALK := 118.0         # ปุ่มเดิน ◀ ▶ (จอสัมผัส)
+const D_DOWN := 84.0          # ปุ่มลง ▼ (จอสัมผัส)
+const D_INTERACT := 84.0      # คุย/เก็บของ (จอสัมผัส)
+## มุมขวาล่างของวงโจมตี ห่างขอบขวา / ขอบล่างเท่าไหร่
+const EDGE_RIGHT := 47.0
+const EDGE_BOTTOM := 69.0
+const EDGE_LEFT := 26.0
+const RING_R := 128.0         # รัศมีวงสกิลรอบปุ่มโจมตี
+## วงสกิลเรียงจาก 12 นาฬิกา (ช่อง 1) ทวนเข็มไปถึง 8 นาฬิกา (ช่อง 4) — ภาพตัวอย่างมี 3 ช่อง (12→9) เรามี 4 เลยกางเพิ่ม
+const SKILL_CLOCK_START := 12.0
+const SKILL_CLOCK_END := 8.7
+## ★ มือถือ: ขยายปุ่มทุกปุ่มเท่านี้ ★
+const TOUCH_SCALE := 1.35
 
-## ★★ รอบ 47 — ความจางอยู่ที่ "แผ่นปุ่ม" ไม่ใช่ทั้งปุ่ม ★★
-## เดิมตั้ง node.modulate.a = 0.55 ซึ่งจางลงไปถึงไอคอนข้างในด้วย → ไอคอนสกิลดูซีดเป็นสีเทา
-## ตอนนี้ใส่ alpha ลงในสีของ StyleBox เอง (พื้น+ขอบ) ไอคอน/ตัวหนังสือจึงเป็นสีปกติเต็มที่
-const PLATE_ALPHA := 0.55     # ความจางของแผ่นปุ่มตอนไม่ได้กด
-const PLATE_ALPHA_HOLD := 0.9 # ตอนกด
+const PLATE_ALPHA := 0.85
 ## ไอคอนสกิลตอนคูลดาวน์: เทาเท่าไหร่ (0 = ดำ · 1 = สีปกติ) แล้วไล่กลับมา 1.0 เมื่อคูลดาวน์ครบ
 const CD_GRAY := 0.34
 
 var mode: Mode = Mode.AUTO
 
-## รายการปุ่มทั้งหมด: {id, action, label, size, node, rect, callable}
+## รายการปุ่มทั้งหมด: {id, action, group, size, node, rect, ...}
 var _zones: Array = []
-## นิ้วไหนกดปุ่มไหนอยู่ (index ของนิ้ว -> id ปุ่ม)
+## นิ้วไหนกดปุ่มไหนอยู่ (index ของนิ้ว -> id ปุ่ม) · เมาส์ = -1
 var _fingers: Dictionary = {}
 var _shown := false
+## กลุ่มเดินโชว์อยู่ไหม (= เครื่องจอสัมผัส)
+var walk_visible := false
+## ★ เส้นประดับสองข้างช่องยา ★
+var _ornaments: Array = []
 
 
 func _ready() -> void:
 	name = "TouchControls"
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	z_index = 190
-	# ปุ่มพวกนี้ไม่กินเมาส์ — เราอ่านการแตะเองใน _input()
+	# ปุ่มพวกนี้ไม่กินเมาส์ผ่านระบบ Control — เราอ่านการแตะ/คลิกเองใน _input()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	visible = false
 
 	_define_zones()
 	_build()
 	_load_mode()
 	get_viewport().size_changed.connect(_layout)
 	_refresh_visible()
+	_layout()
+
+
+## สเกลปุ่มตอนนี้ (มือถือใหญ่กว่า)
+func ui_scale() -> float:
+	return TOUCH_SCALE if walk_visible else 1.0
 
 
 # =========================================================
 # รายการปุ่ม
 # =========================================================
 func _define_zones() -> void:
-	# ฝั่งซ้าย = เดิน · ฝั่งขวา = สู้
 	_zones = [
-		{"id": "left",    "action": "move_left",  "arrow": "left",  "size": PAD_BIG},
-		{"id": "right",   "action": "move_right", "arrow": "right", "size": PAD_BIG},
-		{"id": "down",    "action": "move_down",  "arrow": "down",  "size": PAD_MID},
+		# ---------- กลุ่มเดิน (จอสัมผัสเท่านั้น) ----------
+		{"id": "left",    "action": "move_left",  "group": "walk", "arrow": "left",  "size": D_WALK},
+		{"id": "right",   "action": "move_right", "group": "walk", "arrow": "right", "size": D_WALK},
+		{"id": "down",    "action": "move_down",  "group": "walk", "arrow": "down",  "size": D_DOWN},
+		{"id": "interact","action": "interact",   "group": "walk", "label": "คุย/เก็บ", "size": D_INTERACT},
 
-		{"id": "attack",  "action": "attack",   "label": "โจมตี",  "size": PAD_ATTACK},
-		{"id": "interact","action": "interact", "label": "คุย/เก็บ", "size": PAD_MID},
-
-		{"id": "skill_1", "action": "skill_1", "label": "1", "size": PAD_SMALL, "skill": 0},
-		{"id": "skill_2", "action": "skill_2", "label": "2", "size": PAD_SMALL, "skill": 1},
-		{"id": "skill_3", "action": "skill_3", "label": "3", "size": PAD_SMALL, "skill": 2},
-		{"id": "skill_4", "action": "skill_4", "label": "4", "size": PAD_SMALL, "skill": 3},
-
-		# ★ รอบ 47 — แถวนี้ใหญ่เท่าปุ่มคุย (100) · ยา/มานาโชว์ไอคอนยาที่จะถูกใช้ + จำนวนที่เหลือ ★
-		{"id": "potion",  "action": "quick_potion",    "label": "ยา", "size": PAD_MID, "item": 0},
-		{"id": "sp",      "action": "quick_sp_potion", "label": "มานา", "size": PAD_MID, "item": 1},
-		# ★ รอบ 47 — คืนปุ่มพุ่งหลบ (แทนปุ่มเมนูเดิม · เมนูระบบยังกดได้จากแถบไอคอนมุมขวาบน) ★
-		{"id": "dash",    "action": "jump", "label": "พุ่งหลบ", "size": PAD_MID},
+		# ---------- กลุ่มสู้ (ทุกเครื่อง) ----------
+		{"id": "attack",  "action": "attack", "group": "fight", "size": D_ATTACK, "glyph": "swords", "key": "J"},
+		{"id": "skill_1", "action": "skill_1", "group": "fight", "size": D_SKILL, "skill": 0, "key": "1"},
+		{"id": "skill_2", "action": "skill_2", "group": "fight", "size": D_SKILL, "skill": 1, "key": "2"},
+		{"id": "skill_3", "action": "skill_3", "group": "fight", "size": D_SKILL, "skill": 2, "key": "3"},
+		{"id": "skill_4", "action": "skill_4", "group": "fight", "size": D_SKILL, "skill": 3, "key": "4"},
+		{"id": "dash",    "action": "jump",    "group": "fight", "size": D_DASH, "glyph": "dash", "key": "DASH"},
+		{"id": "potion",  "action": "quick_potion",    "group": "fight", "size": D_POTION, "item": 0, "key": "Q", "square": true},
+		{"id": "sp",      "action": "quick_sp_potion", "group": "fight", "size": D_POTION, "item": 1, "key": "R", "square": true},
 	]
 
 
 func _build() -> void:
+	# เส้นประดับสองข้างช่องยา (─────◆─────)
+	for i in range(2):
+		var o := PetrolWidgets.ornament(70.0)
+		add_child(o)
+		_ornaments.append(o)
+
 	for z in _zones:
 		var panel := PanelContainer.new()
 		panel.name = "Btn_%s" % z.id
 		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		panel.add_theme_stylebox_override("panel", _pad_style(false))
+		panel.add_theme_stylebox_override("panel", _pad_style(z, false))
 		add_child(panel)
 		z["node"] = panel
+
+		if not z.has("square"):
+			panel.add_child(PetrolWidgets.inner_ring(float(z.size)))
 
 		if z.has("arrow"):
 			var arrow := _Arrow.new()
 			arrow.dir = String(z.arrow)
-			arrow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			panel.add_child(arrow)
-			if z.has("caption"):
-				var cap := UITheme.make_label(String(z.caption), 13, Color(1, 1, 1, 0.85))
-				cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
-				cap.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-				cap.offset_top = -20
-				cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-				panel.add_child(cap)
+		elif z.has("glyph"):
+			var g := PetrolWidgets.glyph(String(z.glyph), float(z.size) * 0.5, UITheme.TEXT)
+			g.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+			var half := float(z.size) * 0.25
+			g.offset_left = -half
+			g.offset_top = -half
+			g.offset_right = half
+			g.offset_bottom = half
+			panel.add_child(g)
+			z["glyph_node"] = g
 		else:
-			# ★ รอบ 45 — ปุ่มสกิลมีไอคอนสกิลข้างใน (ถ้าช่องลัดนั้นตั้งสกิลไว้) ★
-			# ★ รอบ 47 — ปุ่มยา/มานาก็มีไอคอนไอเทมแบบเดียวกัน ★
+			# ★ ปุ่มสกิล/ยา มีไอคอนข้างใน ★
 			if z.has("skill") or z.has("item"):
 				var art := TextureRect.new()
 				art.name = "SkillIcon"
@@ -121,38 +145,49 @@ func _build() -> void:
 				art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 				art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 				art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-				var m := float(z.size) * 0.2   # ให้สี่เหลี่ยมไอคอนอยู่ในวงกลมพอดี
+				var m: float = float(z.size) * (0.12 if z.has("square") else 0.2)
 				art.offset_left = m
 				art.offset_top = m
 				art.offset_right = -m
 				art.offset_bottom = -m
 				panel.add_child(art)
 				z["icon"] = art
-				# ★ รอบ 47 — ม่านคูลดาวน์ (วาดทับไอคอน) เหลือเท่าไหร่ก็บังเท่านั้น แล้วเปิดออกจนหมด ★
 				if z.has("skill"):
 					var veil := _CooldownVeil.new()
 					veil.name = "Cooldown"
-					veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
 					panel.add_child(veil)
 					z["veil"] = veil
-			var lbl := UITheme.make_label(String(z.get("label", "")),
-				20 if float(z.size) >= PAD_MID else 15, Color.WHITE)
+			var lbl := UITheme.make_label(String(z.get("label", "")), 15, Color.WHITE)
 			lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 			lbl.add_theme_color_override("font_outline_color", Color.BLACK)
-			lbl.add_theme_constant_override("outline_size", 5)
+			lbl.add_theme_constant_override("outline_size", 4)
 			panel.add_child(lbl)
 			z["label_node"] = lbl
 			if z.has("skill") or z.has("item"):
-				# เลขช่อง / จำนวนยา เล็ก ๆ มุมขวาล่าง เมื่อมีไอคอนแล้ว
+				# จำนวนยา / ชื่อสกิลย่อ มุมขวาล่าง
 				lbl.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-				lbl.offset_left = -30
-				lbl.offset_top = -26
-				lbl.offset_right = -8
-				lbl.offset_bottom = -6
+				lbl.offset_left = -34
+				lbl.offset_top = -22
+				lbl.offset_right = -4
+				lbl.offset_bottom = -2
 				lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-				lbl.add_theme_font_size_override("font_size", 15)
+				lbl.add_theme_font_size_override("font_size", 13)
+
+		# ★ ป้ายปุ่ม (J / 1 / DASH / Q) เม็ดเล็ก ๆ ใต้ปุ่ม ตามภาพ ★
+		if z.has("key"):
+			var pill := PanelContainer.new()
+			pill.name = "Key_%s" % z.id
+			pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			pill.add_theme_stylebox_override("panel", _pill_style())
+			var kl := UITheme.make_label(String(z.key), 11, UITheme.TEXT)
+			kl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			kl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			pill.add_child(kl)
+			add_child(pill)
+			z["pill"] = pill
+
 	if Events.has_signal("skills_changed"):
 		Events.skills_changed.connect(refresh_skill_icons)
 	if Events.has_signal("inventory_changed"):
@@ -161,7 +196,20 @@ func _build() -> void:
 	refresh_item_icons()
 
 
-## ★ รอบ 45 — อัพเดตไอคอนสกิลบนปุ่มตามช่องลัด 1-4 ★
+static func _pill_style() -> StyleBoxFlat:
+	var s := StyleBoxFlat.new()
+	s.bg_color = Color(UITheme.INK, 0.9)
+	s.border_color = Color(UITheme.ACCENT, 0.8)
+	s.set_border_width_all(1)
+	s.set_corner_radius_all(4)
+	s.content_margin_left = 7
+	s.content_margin_right = 7
+	s.content_margin_top = 1
+	s.content_margin_bottom = 1
+	return s
+
+
+## ★ อัพเดตไอคอนสกิลบนปุ่มตามช่องลัด 1-4 ★
 func refresh_skill_icons() -> void:
 	if PlayerState == null or PlayerState.skills == null:
 		return
@@ -174,17 +222,18 @@ func refresh_skill_icons() -> void:
 		art.texture = sk.icon if sk != null else null
 		var lbl: Label = z.get("label_node", null)
 		if lbl != null:
-			# มีไอคอนแล้ว = เหลือแค่เลขช่องเล็ก ๆ · ไม่มีไอคอน = ชื่อสกิลย่อ/เลขใหญ่กลางปุ่ม
 			if art.texture != null:
-				lbl.text = str(int(z.skill) + 1)
+				lbl.text = ""
 			elif sk != null:
 				lbl.text = sk.display_name.substr(0, 6)
 			else:
-				lbl.text = str(int(z.skill) + 1)
+				lbl.text = ""
+		var node: Control = z.node
+		node.tooltip_text = ("%s\n%s" % [sk.display_name, sk.description]) if sk != null \
+			else "ยังไม่ได้ตั้งสกิล (เปิดหน้าสกิลด้วย K)"
 
 
-## ★ รอบ 47 — ไอคอนยา/มานาบนปุ่ม + จำนวนที่เหลือในกระเป๋า ★
-## ยาที่โชว์ = ยาที่กดปุ่มนี้แล้วจะถูกใช้จริง (ช่องด่วน PlayerState.item_hotkeys — เปลี่ยนได้ในกระเป๋า)
+## ★ ไอคอนยา/มานาบนช่อง Q/R + จำนวนที่เหลือในกระเป๋า ★
 func refresh_item_icons() -> void:
 	if PlayerState == null:
 		return
@@ -198,112 +247,140 @@ func refresh_item_icons() -> void:
 		var n := 0
 		if PlayerState.inventory != null and iid != &"":
 			n = PlayerState.inventory.count_of(iid)
-		# ยาหมด = ไอคอนหมองลง ให้รู้ตั้งแต่ยังไม่กด
 		art.modulate = Color.WHITE if n > 0 else Color(CD_GRAY, CD_GRAY, CD_GRAY)
 		var lbl: Label = z.get("label_node", null)
 		if lbl == null:
 			continue
-		if art.texture != null:
-			lbl.text = str(n)                        # มีไอคอนแล้ว = โชว์แค่จำนวน
-			lbl.add_theme_color_override("font_color",
-				Color.WHITE if n > 0 else Color("#ff9c9c"))
+		if data != null:
+			lbl.text = str(n)
+			lbl.add_theme_color_override("font_color", Color.WHITE if n > 0 else Color("#ff9c9c"))
 		else:
-			lbl.text = String(z.get("label", ""))    # ยังไม่มีไอคอน = ข้อความเดิม
+			lbl.text = ""
+		var node: Control = z.node
+		node.tooltip_text = ("%s (เหลือ %d)" % [data.display_name, n]) if data != null \
+			else "ยังไม่ได้เลือกยา — เปิดกระเป๋า (I) แล้วกดตั้งช่อง %s" % String(z.key)
 
 
-## ★ รอบ 47 — ไอคอนสกิลเทาตอนเพิ่งใช้ แล้วค่อย ๆ กลับมาสีสดจนคูลดาวน์ครบ ★
+## ★ คูลดาวน์: ไอคอนสกิลเทาแล้วค่อย ๆ กลับมาสีสด + ม่านพัด · ยาโชว์เลขวินาที ★
 func _tick_cooldowns() -> void:
 	if PlayerState == null or PlayerState.skills == null:
 		return
 	for z in _zones:
-		if not z.has("skill") or not z.has("icon"):
-			continue
-		var art: TextureRect = z.icon
-		var veil = z.get("veil", null)
-		var sid: StringName = PlayerState.skills.hotkey_at(int(z.skill))
-		var t := 1.0                    # 0 = เพิ่งใช้ · 1 = พร้อมใช้
-		if sid != &"":
-			var left: float = PlayerState.skill_cooldown_left(sid)
-			if left > 0.0:
-				var sk := GameData.get_skill(sid)
-				var total: float = maxf(0.0, float(sk.cooldown)) if sk != null else 0.0
-				t = clampf(1.0 - left / total, 0.0, 1.0) if total > 0.0 else 0.0
-		var g: float = lerpf(CD_GRAY, 1.0, t)
-		art.modulate = Color(g, g, g)
-		if veil != null:
-			veil.set_progress(1.0 - t)
+		if z.has("skill") and z.has("icon"):
+			var art: TextureRect = z.icon
+			var veil = z.get("veil", null)
+			var sid: StringName = PlayerState.skills.hotkey_at(int(z.skill))
+			var t := 1.0
+			if sid != &"":
+				var left: float = PlayerState.skill_cooldown_left(sid)
+				if left > 0.0:
+					var sk := GameData.get_skill(sid)
+					var total: float = maxf(0.0, float(sk.cooldown)) if sk != null else 0.0
+					t = clampf(1.0 - left / total, 0.0, 1.0) if total > 0.0 else 0.0
+			var g: float = lerpf(CD_GRAY, 1.0, t)
+			art.modulate = Color(g, g, g)
+			if veil != null:
+				veil.set_progress(1.0 - t)
+		elif z.has("item") and z.has("label_node"):
+			var lbl: Label = z.label_node
+			var left2: float = 0.0
+			if PlayerState.has_method("potion_cooldown_left_of_id"):
+				left2 = PlayerState.potion_cooldown_left_of_id(PlayerState.item_hotkey_at(int(z.item)))
+			var node: Control = z.node
+			if left2 > 0.0:
+				node.modulate = Color(0.55, 0.55, 0.6)
+				lbl.text = ("%.1f" % left2) if left2 < 1.0 else str(int(ceil(left2)))
+			else:
+				node.modulate = Color.WHITE
 
 
-static func _pad_style(pressed: bool) -> StyleBoxFlat:
-	# ★ รอบ 47 — ใส่ alpha ที่ "สีของแผ่นปุ่ม" เอง ไม่ใช่ modulate ของทั้งปุ่ม ★
-	# เดิมตั้ง node.modulate.a = 0.55 ซึ่งจางลงไปถึงไอคอนข้างในด้วย ไอคอนสกิลจึงดูซีดเป็นสีเทา
-	var st := StyleBoxFlat.new()
-	var a: float = PLATE_ALPHA_HOLD if pressed else PLATE_ALPHA
-	var bg := Color("#4a5c86") if pressed else Color("#1b2333")
-	var line: Color = UITheme.ACCENT if pressed else Color("#8ea0c4")
-	bg.a = a
-	line.a = minf(1.0, a + 0.3)
-	st.bg_color = bg
-	st.border_color = line
-	st.set_border_width_all(3)
-	st.set_corner_radius_all(999)   # กลม
-	return st
+func _pad_style(z: Dictionary, pressed: bool) -> StyleBoxFlat:
+	if z.has("square"):
+		var st := UITheme.slot_style(pressed)
+		st.bg_color = Color(UITheme.INK, PLATE_ALPHA)
+		st.border_color = UITheme.ACCENT
+		st.set_border_width_all(2 if pressed else 1)
+		return st
+	return PetrolWidgets.ring_style(pressed, PLATE_ALPHA)
 
 
 # =========================================================
-# วางตำแหน่งปุ่ม
+# วางตำแหน่งปุ่ม (ตามภาพตัวอย่าง · สเกลตามจอและมือถือ)
 # =========================================================
 func _layout() -> void:
 	var vp := get_viewport_rect().size
-	var bottom := vp.y - EDGE_BOTTOM
+	var s := ui_scale()
 
-	# ---------- ฝั่งซ้าย: เดิน ----------
-	_set_rect("left",  Vector2(EDGE, bottom - PAD_BIG))
-	_set_rect("right", Vector2(EDGE + PAD_BIG + GAP, bottom - PAD_BIG))
-	_set_rect("down",  Vector2(EDGE + (PAD_BIG * 2.0 + GAP - PAD_MID) * 0.5,
-		bottom - PAD_BIG - GAP - PAD_MID))
+	# ---------- วงโจมตี มุมขวาล่าง ----------
+	var attack_d := D_ATTACK * s
+	var center := Vector2(vp.x - EDGE_RIGHT * s - attack_d * 0.5, vp.y - EDGE_BOTTOM * s - attack_d * 0.5)
+	_set_rect("attack", center - Vector2.ONE * attack_d * 0.5, attack_d)
 
-	# ---------- ฝั่งขวา: ปุ่มโจมตีใหญ่ตรงกลาง + สกิลล้อมรอบ 8 → 1 นาฬิกา ----------
-	# วงสกิลกินพื้นที่ล่างซ้ายของปุ่มโจมตีด้วย (8 นาฬิกา) → ยกปุ่มโจมตีขึ้นให้วงไม่ตกขอบจอ
-	# รัศมีวง = ครึ่งปุ่มโจมตี + ช่องว่าง + ครึ่งปุ่มสกิล (+16 กันกรอบสี่เหลี่ยมของปุ่มข้างกันเกยกัน)
-	var ring_r: float = PAD_ATTACK * 0.5 + GAP + PAD_SMALL * 0.5 + 16.0
-	var lowest_extra: float = maxf(0.0, ring_r * -cos(deg_to_rad(SKILL_CLOCK_START * 30.0)) + PAD_SMALL * 0.5 - PAD_ATTACK * 0.5)
-	var center := Vector2(vp.x - EDGE - PAD_SMALL - GAP * 0.5 - PAD_ATTACK * 0.5,
-		bottom - lowest_extra - PAD_ATTACK * 0.5)
-	_set_rect("attack", center - Vector2.ONE * PAD_ATTACK * 0.5)
+	# ---------- สกิล 1-4 เรียงบนวง 12 → 9 นาฬิกา ----------
 	var ids := ["skill_1", "skill_2", "skill_3", "skill_4"]
 	var n := ids.size()
+	var ring := RING_R * s
+	var skill_d := D_SKILL * s
 	for i in range(n):
 		var t: float = float(i) / float(maxi(1, n - 1))
 		var clock: float = SKILL_CLOCK_START + (SKILL_CLOCK_END - SKILL_CLOCK_START) * t
 		var ang: float = deg_to_rad(clock * 30.0)          # 12 นาฬิกา = 0° · ตามเข็ม
 		var dir := Vector2(sin(ang), -cos(ang))
-		_set_rect(ids[i], center + dir * ring_r - Vector2.ONE * PAD_SMALL * 0.5)
+		_set_rect(ids[i], center + dir * ring - Vector2.ONE * skill_d * 0.5, skill_d)
 
-	# ---------- คุย/เก็บของ: ซ้ายของวงสกิล ----------
-	var ring_left: float = minf(center.x - PAD_ATTACK * 0.5,
-		center.x + ring_r * sin(deg_to_rad(SKILL_CLOCK_START * 30.0)) - PAD_SMALL * 0.5)
-	var ix: float = ring_left - GAP - PAD_MID
-	_set_rect("interact", Vector2(ix, bottom - PAD_MID))
+	# ---------- DASH ซ้ายของวงสกิล ระดับเดียวกับวงโจมตี ----------
+	var dash_d := D_DASH * s
+	var dash_pos := Vector2(center.x - ring - skill_d * 0.5 - 22.0 * s - dash_d, center.y + 9.0 * s - dash_d * 0.5)
+	_set_rect("dash", dash_pos, dash_d)
 
-	# ---------- ยา / มานา / พุ่งหลบ: แถวเหนือปุ่มคุย (รอบ 47 — ใหญ่เท่าปุ่มคุย) ----------
-	# ไล่จากขวาไปซ้าย: พุ่งหลบอยู่ขวาสุด (ชิดวงสกิล) → มานา → ยา
-	var row3: float = bottom - PAD_MID - GAP - PAD_MID
-	var tx: float = ix
-	for id in ["dash", "sp", "potion"]:
-		_set_rect(id, Vector2(tx, row3))
-		tx -= GAP + PAD_MID
+	# ---------- ยา Q / R กลางล่าง ----------
+	var pot_d := D_POTION * s
+	var gap := 22.0 * s
+	var py := vp.y - 76.0 * s - pot_d
+	_set_rect("potion", Vector2(vp.x * 0.5 - gap * 0.5 - pot_d, py), pot_d)
+	_set_rect("sp", Vector2(vp.x * 0.5 + gap * 0.5, py), pot_d)
+	if _ornaments.size() >= 2:
+		var ow := 70.0 * s
+		for i in range(2):
+			var o: Control = _ornaments[i]
+			o.custom_minimum_size = Vector2(ow, 12.0)
+			o.size = Vector2(ow, 12.0)
+			var x: float = (vp.x * 0.5 - gap * 0.5 - pot_d - 12.0 * s - ow) if i == 0 else (vp.x * 0.5 + gap * 0.5 + pot_d + 12.0 * s)
+			o.position = Vector2(x, py + pot_d * 0.5 - 6.0)
+
+	# ---------- กลุ่มเดิน (จอสัมผัส) ----------
+	var walk_d := D_WALK * s
+	var bottom := vp.y - EDGE_BOTTOM * s
+	_set_rect("left", Vector2(EDGE_LEFT * s, bottom - walk_d), walk_d)
+	_set_rect("right", Vector2(EDGE_LEFT * s + walk_d + 12.0 * s, bottom - walk_d), walk_d)
+	var down_d := D_DOWN * s
+	_set_rect("down", Vector2(EDGE_LEFT * s + (walk_d * 2.0 + 12.0 * s - down_d) * 0.5, bottom - walk_d - 12.0 * s - down_d), down_d)
+	var it_d := D_INTERACT * s
+	_set_rect("interact", Vector2(dash_pos.x + dash_d * 0.5 - it_d * 0.5, dash_pos.y - 16.0 * s - it_d), it_d)
+
+	# ---------- ป้ายปุ่มใต้ปุ่ม ----------
+	for z in _zones:
+		if not z.has("pill") or not z.has("rect"):
+			continue
+		var pill: Control = z.pill
+		var r: Rect2 = z.rect
+		pill.reset_size()
+		var pw: float = maxf(pill.size.x, pill.get_combined_minimum_size().x)
+		var ph: float = maxf(pill.size.y, pill.get_combined_minimum_size().y)
+		pill.position = Vector2(r.position.x + r.size.x * 0.5 - pw * 0.5, r.end.y - 4.0 * s)
+		if z.has("square"):
+			pill.position.y = r.end.y + 6.0 * s
+		pill.size = Vector2(pw, ph)
 
 
-func _set_rect(id: String, pos: Vector2) -> void:
+func _set_rect(id: String, pos: Vector2, d: float) -> void:
 	for z in _zones:
 		if z.id != id:
 			continue
-		var s: float = float(z.size)
-		z["rect"] = Rect2(pos, Vector2(s, s))
+		z["rect"] = Rect2(pos, Vector2(d, d))
 		var node: Control = z.node
 		node.position = pos
-		node.size = Vector2(s, s)
+		node.size = Vector2(d, d)
 		return
 
 
@@ -323,7 +400,7 @@ func mode_text() -> String:
 	return "อัตโนมัติ"
 
 
-## เครื่องนี้ควรมีปุ่มจอสัมผัสไหม
+## เครื่องนี้ควรมีปุ่มเดินบนจอไหม
 func should_show() -> bool:
 	match mode:
 		Mode.ON: return true
@@ -334,22 +411,28 @@ func should_show() -> bool:
 
 
 func _refresh_visible() -> void:
-	var want: bool = should_show()
-	# ระหว่างเปิดหน้าต่าง/คุยกับ NPC/ตายอยู่ ให้ซ่อนไว้ก่อน จะได้ไม่บังปุ่มในกล่อง
-	if want and (UI.is_any_window_open() or UI.is_asking()):
-		want = false
-	# แถบคำใบ้ปุ่มคีย์บอร์ดล่างจอไม่มีประโยชน์บนมือถือ แถมทับปุ่ม — ซ่อนไว้
-	if UI.hud != null and UI.hud.bottom_panel != null:
-		var dlg_open: bool = UI.dialogue != null and UI.dialogue.is_open()
-		UI.hud.bottom_panel.visible = not want and not dlg_open
+	var want_walk: bool = should_show()
+	# ระหว่างเปิดหน้าต่าง/คุยกับ NPC/ตายอยู่ ให้ซ่อนทั้งหมด จะได้ไม่บังปุ่มในกล่อง
+	var busy: bool = UI.is_any_window_open() or UI.is_asking()
+	var want_all: bool = not busy and UI.in_game
 
-	if want == visible:
-		return
-	visible = want
-	if not want:
-		_release_all()
-	else:
+	if want_walk != walk_visible:
+		walk_visible = want_walk
 		_layout()
+	for z in _zones:
+		var node: Control = z.node
+		var on: bool = want_all and (String(z.group) != "walk" or walk_visible)
+		node.visible = on
+		if z.has("pill"):
+			(z.pill as Control).visible = on
+	for o in _ornaments:
+		(o as Control).visible = want_all
+
+	if want_all == visible:
+		return
+	visible = want_all
+	if not want_all:
+		_release_all()
 
 
 func _process(_delta: float) -> void:
@@ -359,12 +442,12 @@ func _process(_delta: float) -> void:
 
 
 # =========================================================
-# อ่านการแตะจอ (แยกตามนิ้ว = กดพร้อมกันหลายปุ่มได้)
+# อ่านการแตะจอ (แยกตามนิ้ว = กดพร้อมกันหลายปุ่มได้) + เมาส์บนคอม
 # =========================================================
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		var t := event as InputEventScreenTouch
-		# แตะจอครั้งแรก = เครื่องนี้มีจอสัมผัสจริง โผล่ปุ่มให้เลย (โหมดอัตโนมัติ)
+		# แตะจอครั้งแรก = เครื่องนี้มีจอสัมผัสจริง โผล่ปุ่มเดินให้เลย (โหมดอัตโนมัติ)
 		if not _shown and mode == Mode.AUTO:
 			_shown = true
 			_refresh_visible()
@@ -384,6 +467,19 @@ func _input(event: InputEvent) -> void:
 			_release_finger(d.index)
 			if now_id != "":
 				_press_at(d.index, d.position)
+	elif event is InputEventMouseButton and visible:
+		# ★ รอบ 98 ★ คอม: คลิกซ้ายบนปุ่มก็ใช้ได้ (นิ้วหมายเลข -1)
+		var mb := event as InputEventMouseButton
+		if mb.button_index != MOUSE_BUTTON_LEFT:
+			return
+		if mb.pressed:
+			if _zone_at(mb.position).is_empty():
+				return
+			_press_at(-1, mb.position)
+			get_viewport().set_input_as_handled()
+		elif _fingers.has(-1):
+			_release_finger(-1)
+			get_viewport().set_input_as_handled()
 
 
 func _press_at(index: int, pos: Vector2) -> void:
@@ -431,20 +527,22 @@ func _release_all() -> void:
 
 func _set_pressed(z: Dictionary, on: bool) -> void:
 	var node: Control = z.node
-	node.add_theme_stylebox_override("panel", _pad_style(on))
+	node.add_theme_stylebox_override("panel", _pad_style(z, on))
 
 
-## ปุ่มไหนอยู่ตรงจุดนี้ (เผื่อระยะนิ้วอ้วนไว้นิดหน่อย)
+## ปุ่มไหนอยู่ตรงจุดนี้ (เผื่อระยะนิ้วอ้วนไว้นิดหน่อย) — ปุ่มที่ซ่อนอยู่ไม่นับ
 func _zone_at(pos: Vector2) -> Dictionary:
 	for z in _zones:
 		if not z.has("rect"):
+			continue
+		if not (z.node as Control).visible:
 			continue
 		if (z.rect as Rect2).grow(6.0).has_point(pos):
 			return z
 	return {}
 
 
-## จุดนี้ทับปุ่มจอสัมผัสไหม (UI.is_point_over_ui เรียกใช้ กันคลิกทะลุไปตีมอน)
+## จุดนี้ทับปุ่มบนจอไหม (UI.is_point_over_ui เรียกใช้ กันคลิกทะลุไปตีมอน)
 func is_over(point: Vector2) -> bool:
 	if not visible:
 		return false
@@ -482,7 +580,7 @@ class _Arrow extends Control:
 
 	func _draw() -> void:
 		var c := size * 0.5
-		var r: float = minf(size.x, size.y) * 0.26
+		var r: float = minf(size.x, size.y) * 0.24
 		var pts := PackedVector2Array()
 		match dir:
 			"left":
@@ -495,7 +593,7 @@ class _Arrow extends Control:
 			_:
 				pts = PackedVector2Array([c + Vector2(-r, r * 0.6), c + Vector2(r, r * 0.6),
 					c + Vector2(0, -r * 0.8)])
-		draw_colored_polygon(pts, Color(1, 1, 1, 0.92))
+		draw_colored_polygon(pts, Color(UITheme.TEXT, 0.92))
 
 	func _notification(what: int) -> void:
 		if what == NOTIFICATION_RESIZED:
@@ -503,9 +601,7 @@ class _Arrow extends Control:
 
 
 # =========================================================
-# ★ รอบ 47 — ม่านคูลดาวน์บนปุ่มสกิล ★
-# วาดเป็น "พัด" สีเข้มทับไอคอน กินพื้นที่เท่าสัดส่วนคูลดาวน์ที่เหลือ
-# เริ่มจากบน (12 นาฬิกา) กวาดตามเข็ม แล้วหุบหายไปตอนพร้อมใช้
+# ม่านคูลดาวน์บนปุ่มสกิล — "พัด" สีเข้มทับไอคอน กินพื้นที่เท่าสัดส่วนคูลดาวน์ที่เหลือ
 # =========================================================
 class _CooldownVeil extends Control:
 	var progress := 0.0      # 1 = เพิ่งใช้ (บังทั้งวง) · 0 = พร้อมใช้ (ไม่บังเลย)

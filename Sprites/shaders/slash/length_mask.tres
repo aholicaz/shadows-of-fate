@@ -1,0 +1,12 @@
+[gd_resource type="GradientTexture1D" load_steps=2 format=3]
+
+; ★ ความ "ยาว" ของส่วนโค้ง (แกน x = มุม) + ตัวคุมการกวาด ★
+; ช่วงเห็นจริง 0.36-0.58 + ปลายไล่จาง 0.30-0.64 ≈ 34% ของวงกลม ≈ 125 องศา
+; (กว้างกว่านี้จะกลายเป็นวงกลมล้อมตัวละครแทนที่จะเป็นรอยฟัน)
+[sub_resource type="Gradient" id="Gradient_l"]
+offsets = PackedFloat32Array(0, 0.26, 0.32, 0.4, 0.56, 0.64, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[resource]
+gradient = SubResource("Gradient_l")
+width = 256

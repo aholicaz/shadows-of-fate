@@ -21,10 +21,11 @@ const MARGIN := 12.0
 const REFRESH := 0.06
 const LAYOUT_PATH := "user://ui_layout.cfg"
 
-const C_BG := Color("#0b101a")
-const C_FIELD := Color("#151d2c")
-const C_BORDER := Color("#41527a")
-const C_TERRAIN := Color("#2f3f5c")
+## ★ รอบ 98 ★ โทน Petrol
+const C_BG := Color("#08110f")
+const C_FIELD := Color("#10221f")
+const C_BORDER := Color("#b5a16c")
+const C_TERRAIN := Color("#2b4a44")
 const C_PLAYER := Color("#ffe14a")
 const C_ENEMY := Color("#ff5a5a")
 const C_BOSS := Color("#ff9b30")
@@ -35,6 +36,10 @@ const C_CAM := Color("#ffffff44")
 
 var title_label: Label
 var view: Control
+## ★ รอบ 98 ★ ฝังอยู่ในหน้าแผนที่ใหญ่ (ไม่ยึดมุมจอ · ไม่จำสถานะเปิด/ปิด)
+var embedded := false
+## ★ รอบ 98 ★ ระยะจากขอบบน (HUD ตั้งให้ = ใต้แถบเมนู + ชื่อแมพ)
+var top_offset: float = 120.0
 
 var _timer := 0.0
 var _terrain: Array[Rect2] = []
@@ -44,7 +49,7 @@ var _bounds := Rect2()
 
 func _ready() -> void:
 	name = "Minimap"
-	add_theme_stylebox_override("panel", UITheme.panel_style(Color("#161b28dd")))
+	add_theme_stylebox_override("panel", UITheme.panel_style(Color(UITheme.BG, 0.88), UITheme.ACCENT, 4, 1, 6.0))
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	tooltip_text = "แผนที่ย่อ — กด M เพื่อเปิด/ปิด"
 
@@ -66,21 +71,24 @@ func _ready() -> void:
 	view.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(view)
 
-	visible = _load_shown()
+	if not embedded:
+		visible = _load_shown()
+		get_viewport().size_changed.connect(place)
+		place.call_deferred()
 	Events.map_changed.connect(func(_id): _on_map_changed())
-	get_viewport().size_changed.connect(place)
-	place.call_deferred()
 
 
 # =========================================================
 # ตำแหน่ง — ยึดมุมขวาบนเสมอ
 # =========================================================
 func place() -> void:
+	if embedded:
+		return
 	var screen := get_viewport_rect().size
 	var w: float = size.x
 	if w <= 1.0:
 		w = get_combined_minimum_size().x
-	position = Vector2(screen.x - w - MARGIN, MARGIN)
+	position = Vector2(screen.x - w - MARGIN, maxf(MARGIN, top_offset))
 
 
 func _notification(what: int) -> void:
@@ -97,7 +105,8 @@ func toggle() -> void:
 
 func set_shown(on: bool) -> void:
 	visible = on
-	_save_shown()
+	if not embedded:
+		_save_shown()
 	if on:
 		place()
 		_on_map_changed()

@@ -62,6 +62,21 @@ func first_empty() -> int:
 	return -1
 
 
+## ★ รอบ 98 ★ ใส่ของชิ้นนี้ได้อย่างน้อย 1 ชิ้นไหม (ไม่แตะกระเป๋า) — ของดรอปใช้เช็คก่อนลอยเข้าตัว
+func can_add(inst: ItemInstance) -> bool:
+	if inst == null or inst.count <= 0:
+		return false
+	var data := inst.data()
+	if data == null:
+		return false
+	if data.is_stackable():
+		for i in range(size):
+			var s: ItemInstance = slots[i]
+			if s != null and s.same_kind_as(inst) and s.count < data.max_stack:
+				return true
+	return first_empty() >= 0
+
+
 ## ใส่ของเข้ากระเป๋า คืนค่าจำนวนที่ใส่ไม่ได้ (0 = ใส่ได้หมด)
 func add(inst: ItemInstance) -> int:
 	if inst == null or inst.count <= 0:

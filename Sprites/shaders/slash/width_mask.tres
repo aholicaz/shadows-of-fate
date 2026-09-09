@@ -1,0 +1,12 @@
+[gd_resource type="GradientTexture1D" load_steps=2 format=3]
+
+; ★ ความ "กว้าง" ของส่วนโค้ง (แกน x = รัศมี) — ขาว = ตัดทิ้ง · ดำ = เก็บ ★
+; มีไล่สีข้างในด้วย (0.6) ไม่ใช่ดำล้วน → ร่องมืดในผืน noise เจาะทะลุเป็น "ริ้ว" ได้
+; แต่นอกช่วงต้องขาวสนิท ไม่งั้นตอน progress≈0.5 (เกณฑ์ตัด=0) จะสว่างเต็มผืน
+[sub_resource type="Gradient" id="Gradient_w"]
+offsets = PackedFloat32Array(0, 0.37, 0.43, 0.475, 0.525, 0.57, 0.63, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.6, 0.6, 0.6, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.6, 0.6, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[resource]
+gradient = SubResource("Gradient_w")
+width = 256

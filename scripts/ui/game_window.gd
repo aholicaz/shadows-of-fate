@@ -10,6 +10,10 @@ var title_label: Label
 var _dragging := false
 var _drag_offset := Vector2.ZERO
 var _built := false
+## ★ รอบ 98 ★ อยู่ใน "หน้าต่างรวม" (MenuShell) — ไม่มีหัวเรื่อง/ขอบของตัวเอง ขนาดเต็มพื้นที่หน้า
+var embedded := false
+var shell_tab: String = ""
+var _bar: PanelContainer
 
 
 func _ready() -> void:
@@ -17,7 +21,7 @@ func _ready() -> void:
 		return
 	_built = true
 
-	add_theme_stylebox_override("panel", UITheme.panel_style(Color("#161b28ee")))
+	add_theme_stylebox_override("panel", UITheme.panel_style(Color(UITheme.BG, 0.95), UITheme.ACCENT, 4, 1, 10.0))
 	custom_minimum_size = Vector2(300, 200)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
@@ -27,10 +31,11 @@ func _ready() -> void:
 
 	# ---------- แถบหัวเรื่อง ----------
 	var bar := PanelContainer.new()
-	bar.add_theme_stylebox_override("panel", UITheme.panel_style(UITheme.PANEL_LIGHT, UITheme.BORDER, 4))
+	bar.add_theme_stylebox_override("panel", UITheme.inner_style(UITheme.PANEL, 4, 6.0))
 	bar.gui_input.connect(_on_titlebar_input)
 	bar.mouse_filter = Control.MOUSE_FILTER_STOP
 	root.add_child(bar)
+	_bar = bar
 
 	var bar_box := HBoxContainer.new()
 	bar.add_child(bar_box)
@@ -51,6 +56,31 @@ func _ready() -> void:
 
 	_build_content()
 	refresh()
+	if embedded:
+		set_embedded(true, shell_tab)
+
+
+## ★ รอบ 98 ★ ย้ายเข้าหน้าต่างรวม: ซ่อนหัวเรื่อง ถอดกรอบ ขยายเต็มพื้นที่
+func set_embedded(on: bool, tab_id: String = "") -> void:
+	embedded = on
+	shell_tab = tab_id
+	if not _built:
+		return
+	if on:
+		if _bar != null:
+			_bar.visible = false
+		add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		custom_minimum_size = Vector2.ZERO
+	else:
+		if _bar != null:
+			_bar.visible = true
+		add_theme_stylebox_override("panel", UITheme.panel_style(Color(UITheme.BG, 0.95), UITheme.ACCENT, 4, 1, 10.0))
+
+
+## คำใบ้ปุ่มใต้หน้าต่างรวม — หน้าไหนอยากบอกปุ่มของตัวเอง override ได้  [["E", "ใช้"], ...]
+func shell_hints() -> Array:
+	return []
 
 
 ## หน้าต่างลูกเขียนเนื้อหาตรงนี้
@@ -70,6 +100,9 @@ func set_title(text: String) -> void:
 
 
 func show_window() -> void:
+	if embedded and UI.shell != null:
+		UI.shell.open_tab(shell_tab)
+		return
 	show()
 	refresh()
 	move_to_front()
@@ -81,16 +114,27 @@ func show_window() -> void:
 ## ถ้าปล่อยไว้ กรอบหน้าต่าง (get_global_rect) จะใหญ่เกินจริง
 ## แล้วไปกินคลิกเมาส์บริเวณที่ไม่มีอะไรอยู่ (ดู UI.is_point_over_ui)
 func fit_to_content() -> void:
+	if embedded:
+		return
 	await get_tree().process_frame
-	if is_instance_valid(self) and visible:
+	if is_instance_valid(self) and visible and not embedded:
 		reset_size()
 
 
 func hide_window() -> void:
+	if embedded and UI.shell != null:
+		if UI.shell.is_showing(self):
+			UI.shell.close()
+		else:
+			hide()
+		return
 	hide()
 
 
 func toggle() -> void:
+	if embedded and UI.shell != null:
+		UI.shell.toggle_tab(shell_tab)
+		return
 	if visible:
 		hide_window()
 	else:

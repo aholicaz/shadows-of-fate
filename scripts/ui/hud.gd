@@ -1,476 +1,427 @@
-## HUD — แถบสถานะบนจอ: HP / SP / EXP / เลเวล / ซีนี / ปุ่มสกิล / บัฟ
+## HUD — แถบสถานะบนจอ (โฉม Petrol รอบ 98 ตามภาพตัวอย่างของผู้ใช้)
+##
+##   ซ้ายบน   : รูปหน้าวงกลมขอบทอง + ตราอาชีพ · "Lv.20  ชื่อ" · เหรียญซีนี · หลอด HP / SP
+##              ใต้ลงมา: ◆ ชื่อเควสที่ติดตาม + เป้าหมาย (0/1)
+##   ขวาบน    : แถบเมนู 6 ปุ่ม (IconMenuBar) · ใต้ลงมา: ─◆─ ชื่อแมพ ─◆─ + ชื่อภูมิภาค
+##   ล่าง     : "EXP 16.9%" + แถบ EXP ทองบาง ๆ ยาวเต็มจอ (เพชรกลาง) · ขวาล่าง: สัญญาณ + นาฬิกา
+##   ปุ่มโจมตี/สกิล/พุ่งหลบ/ยา Q R อยู่ที่ TouchControls (โชว์ทุกเครื่อง)
+##
 ## สร้างทั้งหมดด้วยโค้ด ไม่ต้องจัด Scene เอง
 class_name HUD
 extends Control
 
+## ★ ชื่อภูมิภาคใต้ชื่อแมพ ★ (แมพไหนไม่อยู่ในนี้ = ใช้ชื่อบท)
+const REGION_NAMES := {
+	&"prontera_town": "มิดการ์ด · บทที่ 1", &"prontera_field": "มิดการ์ด · บทที่ 1",
+	&"asgard_forest_2": "มิดการ์ด · บทที่ 1", &"dark_forest": "มิดการ์ด · บทที่ 1",
+	&"dark_forest_2": "มิดการ์ด · บทที่ 1", &"thunder_scar": "ที่ราบสูงสายฟ้า · บทที่ 1",
+	&"iron_road": "นิดาเวลลีร์ · บทที่ 2", &"nidavellir_town": "นิดาเวลลีร์ · บทที่ 2",
+	&"ember_mine": "นิดาเวลลีร์ · บทที่ 2", &"hall_of_silence": "นิดาเวลลีร์ · บทที่ 2",
+	&"cold_forge": "นิดาเวลลีร์ · บทที่ 2", &"root_road": "วานาเฮม · บทที่ 3",
+	&"vanir_town": "วานาเฮม · บทที่ 3", &"silver_marsh": "วานาเฮม · บทที่ 3",
+	&"withered_grove": "วานาเฮม · บทที่ 3", &"forgotten_battlefield": "วานาเฮม · บทที่ 3",
+	&"spring_of_life": "วานาเฮม · บทที่ 3", &"gm_room": "ห้องทดสอบ",
+}
+const PORTRAIT_D := 84.0
+const MARGIN := 18.0
+
 var hp_bar: ProgressBar
 var sp_bar: ProgressBar
 var exp_bar: ProgressBar
-var job_bar: ProgressBar
 var hp_text: Label
 var sp_text: Label
 var exp_text: Label
-var job_text: Label
 var level_label: Label
 var zeny_label: Label
 var buff_box: HBoxContainer
-var hotkey_box: HBoxContainer
-var potion_button: Button        # ช่องยาเลือด (Q)
-var sp_potion_button: Button     # ช่องยามานา (R)
-var menu_button: Button
-## แผงปุ่มลัด — แยกออกมาจากแผงหลอดเลือดแล้ว
-var hotkey_panel: PanelContainer
 var notice_label: Label
-## กรอบบนซ้าย (หลอดเลือด + ปุ่มลัด) และแถบคำใบ้ด้านล่าง — ใช้เช็คว่าคลิกโดน UI หรือเปล่า
-var top_panel: PanelContainer
-var bottom_panel: PanelContainer
-
-## ★ ขนาดช่องปุ่มลัด ★ เป็นสี่เหลี่ยมจัตุรัส อยากให้ใหญ่ขึ้นแก้เลขนี้
-const HOTKEY_SIZE := Vector2(58, 58)
-## ★ แผงปุ่มลัดอยู่ "ข้างขวา" ของแผงหลอดเลือด ★ ห่างกันกี่พิกเซล (ไม่ติดกัน)
-const HOTKEY_GAP_X := 10.0
-## ตำแหน่งสำรอง เผื่อคำนวณขนาดแผงหลอดเลือดไม่ได้
-const HOTKEY_PANEL_POS := Vector2(320, 12)
-## ที่เก็บตำแหน่งที่ผู้เล่นลากไว้ (แยกจากไฟล์เซฟ ใช้ร่วมกันทุกช่องเซฟ)
-const LAYOUT_PATH := "user://ui_layout.cfg"
-
-var _hotkey_buttons: Array[Button] = []
-var _hotkey_icons: Array[TextureRect] = []
-var _potion_icons: Array[TextureRect] = []
-var _potion_counts: Array[Label] = []
+## กรอบซ้ายบน — ใช้เช็คว่าคลิกโดน UI หรือเปล่า (UI.is_point_over_ui)
+var top_panel: Control
+## (รอบ 98) ไม่มีแถบคำใบ้ล่างจอกับแผงปุ่มลัดแล้ว — เก็บชื่อไว้ให้โค้ดเก่าที่อ้างถึงไม่พัง
+var bottom_panel: Control = null
+var hotkey_panel: Control = null
+## ชื่อแมพ + ภูมิภาค (ขวาบน ใต้แถบเมนู)
+var map_block: Control
+var map_name_label: Label
+var region_label: Label
+## เควสที่ติดตาม
+var quest_block: Control
+var quest_title: Label
+var quest_lines: VBoxContainer
+## ขวาล่าง
+var clock_label: Label
+var _portrait: Control
 var _notice_timer := 0.0
-## ★ สถานะการลากแผงปุ่มลัด ★
-var _dragging := false
-var _drag_offset := Vector2.ZERO
-var _drag_moved := false
+var _clock_timer := 0.0
 
 
 func _ready() -> void:
 	# ★ ต้อง _and_offsets_ ★ ไม่งั้นกรอบ HUD ยังกว้าง 0 อยู่
-	# แล้วของที่จัดชิดล่าง/กึ่งกลาง (แถบคำใบ้ปุ่ม, ข้อความแจ้งเตือน) จะหลุดออกนอกจอ
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	_build_top_left()
-	_build_hotkeys()
+	_build_quest_tracker()
+	_build_map_block()
 	_build_bottom()
 	_build_notice()
 
 	Events.hp_changed.connect(_on_hp_changed)
 	Events.sp_changed.connect(_on_sp_changed)
 	Events.exp_changed.connect(_on_exp_changed)
-	Events.job_exp_changed.connect(_on_job_exp_changed)
+	Events.job_exp_changed.connect(func(_c, _n): _refresh_level())
 	Events.job_level_up.connect(func(_lv): _refresh_all())
 	Events.level_up.connect(func(_lv): _refresh_all())
 	Events.stats_changed.connect(_refresh_all)
 	Events.zeny_changed.connect(_on_zeny_changed)
-	Events.skills_changed.connect(_refresh_hotkeys)
-	Events.inventory_changed.connect(_refresh_potions)
 	Events.buff_changed.connect(_refresh_buffs)
 	Events.notice.connect(show_notice)
+	Events.map_changed.connect(func(_id): _refresh_map())
+	Events.quest_changed.connect(_refresh_quest)
+	Events.quest_accepted.connect(func(_q): _refresh_quest())
+	Events.quest_progress.connect(func(_q, _c, _n): _refresh_quest())
+	Events.quest_completed.connect(func(_q): _refresh_quest())
+	get_viewport().size_changed.connect(_layout)
 
 	_refresh_all()
-	_place_hotkey_panel()
+	_refresh_map()
+	_refresh_quest()
+	_layout.call_deferred()
 
 
 # =========================================================
-# มุมซ้ายบน: หลอดเลือด/พลัง/ประสบการณ์
+# ซ้ายบน: รูปหน้า + เลเวล/ชื่อ + ซีนี + หลอด
 # =========================================================
 func _build_top_left() -> void:
-	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", UITheme.panel_style(Color("#161b28cc")))
-	panel.position = Vector2(12, 12)
-	panel.mouse_filter = Control.MOUSE_FILTER_PASS
-	add_child(panel)
-	top_panel = panel
+	top_panel = Control.new()
+	top_panel.name = "TopLeft"
+	top_panel.position = Vector2(MARGIN, 14)
+	top_panel.custom_minimum_size = Vector2(360, 96)
+	top_panel.size = Vector2(360, 96)
+	top_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(top_panel)
 
-	# แถวใหญ่: [หลอดเลือด/พลัง/EXP]  [ปุ่มสกิล + ยา]  ← ชิดกันเลย
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 8)
-	panel.add_child(row)
+	# ---------- รูปหน้าวงกลม ----------
+	var ring := PetrolWidgets.portrait_ring(PORTRAIT_D)
+	ring.position = Vector2.ZERO
+	ring.size = Vector2(PORTRAIT_D, PORTRAIT_D)
+	top_panel.add_child(ring)
+	_portrait = PetrolWidgets.circle_portrait(PORTRAIT_D, _player_portrait())
+	_portrait.position = Vector2.ZERO
+	_portrait.size = Vector2(PORTRAIT_D, PORTRAIT_D)
+	top_panel.add_child(_portrait)
+	# ตราอาชีพเม็ดเล็กมุมล่างซ้ายของรูป
+	var emblem_bg := PetrolWidgets.portrait_ring(28.0)
+	emblem_bg.position = Vector2(-2, PORTRAIT_D - 30)
+	emblem_bg.size = Vector2(28, 28)
+	top_panel.add_child(emblem_bg)
+	var emblem := PetrolWidgets.glyph("emblem", 18.0, UITheme.ACCENT)
+	emblem.position = Vector2(3, PORTRAIT_D - 25)
+	emblem.size = Vector2(18, 18)
+	top_panel.add_child(emblem)
 
+	# ---------- ข้อความ + หลอด ----------
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 4)
-	box.custom_minimum_size = Vector2(280, 0)
-	row.add_child(box)
+	box.position = Vector2(PORTRAIT_D + 12, 4)
+	box.size = Vector2(250, 90)
+	box.add_theme_constant_override("separation", 5)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	top_panel.add_child(box)
 
-	# แถวบน: เลเวล + ซีนี
 	var top := HBoxContainer.new()
+	top.add_theme_constant_override("separation", 10)
 	box.add_child(top)
-
-	level_label = UITheme.make_label("Lv.1 นักดาบ", 16, UITheme.ACCENT)
-	level_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	level_label = UITheme.make_label("Lv.1  นักดาบ", 17, UITheme.TEXT)
+	level_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	level_label.add_theme_constant_override("outline_size", 3)
 	top.add_child(level_label)
-
-	zeny_label = UITheme.make_label("0 z", 14, Color("#ffe9a0"))
+	var spacer := Control.new()
+	spacer.custom_minimum_size.x = 14
+	top.add_child(spacer)
+	top.add_child(PetrolWidgets.glyph("coin", 16.0))
+	zeny_label = UITheme.make_label("0", 14, UITheme.GOLD_BRIGHT)
+	zeny_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	zeny_label.add_theme_constant_override("outline_size", 3)
 	top.add_child(zeny_label)
 
-	# HP
-	var hp_pair := _bar_row("HP", UITheme.HP, 18)
+	var hp_pair := _bar_row(UITheme.HP, 170.0, 10.0)
 	hp_bar = hp_pair[0]
 	hp_text = hp_pair[1]
 	box.add_child(hp_pair[2])
 
-	# SP
-	var sp_pair := _bar_row("SP", UITheme.SP, 14)
+	var sp_pair := _bar_row(UITheme.SP, 150.0, 9.0)
 	sp_bar = sp_pair[0]
 	sp_text = sp_pair[1]
 	box.add_child(sp_pair[2])
 
-	# EXP
-	var exp_pair := _bar_row("EXP", UITheme.EXP, 10)
-	exp_bar = exp_pair[0]
-	exp_text = exp_pair[1]
-	box.add_child(exp_pair[2])
-
-	# ★ JOB EXP — หลอดแยกจาก Base ★
-	var job_pair := _bar_row("JOB", UITheme.JOB, 10)
-	job_bar = job_pair[0]
-	job_text = job_pair[1]
-	box.add_child(job_pair[2])
-
-	# บัฟที่ติดอยู่
 	buff_box = HBoxContainer.new()
-	buff_box.add_theme_constant_override("separation", 4)
+	buff_box.add_theme_constant_override("separation", 6)
+	buff_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(buff_box)
 
 
-
-
-# =========================================================
-# ★ แผงปุ่มลัด ★ — แผงของตัวเอง วางไว้ "ข้างขวา" ของแผงหลอดเลือด (ไม่ติดกัน)
-#   [::] [1][2][3][4]   [Q ยาเลือด][R ยามานา]   [Tab เมนู]
-# · ลากที่พื้นแผง (หรือที่จุด [::] ด้านซ้าย) เพื่อย้ายไปวางตรงไหนก็ได้
-# · คลิกขวาบนแผง = คืนตำแหน่งเดิม
-# · ตำแหน่งถูกจำไว้ในไฟล์ user://ui_layout.cfg
-# ช่องยาเลือกยาเองได้จากหน้ากระเป๋า (เลือกไอเทม -> กด "ตั้งช่อง Q/R")
-# =========================================================
-func _build_hotkeys() -> void:
-	hotkey_panel = PanelContainer.new()
-	hotkey_panel.name = "HotkeyPanel"
-	hotkey_panel.add_theme_stylebox_override("panel", UITheme.panel_style(Color("#161b28cc")))
-	hotkey_panel.position = HOTKEY_PANEL_POS
-	# ★ ต้องเป็น STOP ★ แผงต้องกินคลิกเองถึงจะลากได้ และตัวละครจะได้ไม่ตีตอนลาก
-	hotkey_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	hotkey_panel.tooltip_text = "ลากเพื่อย้ายแถบปุ่มลัด · คลิกขวา = คืนตำแหน่งเดิม"
-	hotkey_panel.gui_input.connect(_on_hotkey_panel_input)
-	add_child(hotkey_panel)
-
-	hotkey_box = HBoxContainer.new()
-	hotkey_box.add_theme_constant_override("separation", 5)
-	# ปล่อยให้คลิกทะลุไปโดนแผง (ปุ่มที่เป็นลูกยังกดได้ตามปกติ) เพื่อให้ลากพื้นที่ว่างได้
-	hotkey_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hotkey_panel.add_child(hotkey_box)
-
-	# ---------- ที่จับสำหรับลาก ----------
-	hotkey_box.add_child(_make_grip())
-
-	# ---------- สกิล 1-4 ----------
-	for i in range(SkillBook.HOTKEY_COUNT):
-		var btn := _make_slot(str(i + 1), Color("#ffe14a"))
-		var index := i
-		btn.pressed.connect(func(): _use_hotkey(index))
-		hotkey_box.add_child(btn)
-		_hotkey_buttons.append(btn)
-		_hotkey_icons.append(btn.get_node("SlotArt"))
-
-	hotkey_box.add_child(_gap(10))
-
-	# ---------- ยาเลือด (Q) / ยามานา (R) ----------
-	potion_button = _make_slot("Q", Color("#ff9a9a"))
-	potion_button.pressed.connect(func(): PlayerState.use_item_hotkey(0))
-	hotkey_box.add_child(potion_button)
-	_potion_icons.append(potion_button.get_node("SlotArt"))
-	_potion_counts.append(potion_button.get_node("SlotCount"))
-
-	sp_potion_button = _make_slot("R", Color("#9ac4ff"))
-	sp_potion_button.pressed.connect(func(): PlayerState.use_item_hotkey(1))
-	hotkey_box.add_child(sp_potion_button)
-	_potion_icons.append(sp_potion_button.get_node("SlotArt"))
-	_potion_counts.append(sp_potion_button.get_node("SlotCount"))
-
-	hotkey_box.add_child(_gap(10))
-
-	# ---------- เมนู ----------
-	menu_button = _make_slot("Tab", UITheme.TEXT_DIM)
-	menu_button.get_node("SlotName").text = "เมนู"
-	menu_button.pressed.connect(func(): Events.toggle_window.emit(&"system"))
-	hotkey_box.add_child(menu_button)
-
-
-func _gap(width: float) -> Control:
-	var c := Control.new()
-	c.custom_minimum_size.x = width
-	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	return c
-
-
-## ★ ที่จับสำหรับลาก ★ จุด 2x3 เม็ดด้านซ้ายของแผง (ไม่กินคลิก ปล่อยให้แผงลากเอง)
-func _make_grip() -> Control:
-	var grip := Control.new()
-	grip.name = "Grip"
-	grip.custom_minimum_size = Vector2(12, HOTKEY_SIZE.y)
-	grip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var mid := HOTKEY_SIZE.y * 0.5
-	for row in range(3):
-		for col in range(2):
-			var dot := ColorRect.new()
-			dot.color = UITheme.TEXT_DIM
-			dot.size = Vector2(3, 3)
-			dot.position = Vector2(2 + col * 5, mid - 9 + row * 7)
-			dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			grip.add_child(dot)
-	return grip
-
-
-# =========================================================
-# ★ ตำแหน่งแผงปุ่มลัด: วางข้างขวาแผงหลอดเลือด + ลากย้ายได้ + จำตำแหน่ง ★
-# =========================================================
-func _place_hotkey_panel() -> void:
-	# รอให้คอนเทนเนอร์คำนวณขนาดจริงก่อน ไม่งั้น size ยังเป็น 0
-	await get_tree().process_frame
-	await get_tree().process_frame
-	if hotkey_panel == null:
-		return
-	var saved := _load_layout()
-	if saved != Vector2.INF:
-		hotkey_panel.position = saved
-	else:
-		hotkey_panel.position = default_hotkey_pos()
-	_clamp_hotkey_panel()
-
-
-## ตำแหน่งเริ่มต้น = ชิดขวาแผงหลอดเลือด เว้นช่องไฟ HOTKEY_GAP_X (แถวเดียวกัน ไม่เชื่อมกัน)
-func default_hotkey_pos() -> Vector2:
-	if top_panel == null:
-		return HOTKEY_PANEL_POS
-	var w: float = top_panel.size.x
-	if w <= 1.0:
-		w = maxf(top_panel.get_combined_minimum_size().x, 300.0)
-	return Vector2(top_panel.position.x + w + HOTKEY_GAP_X, top_panel.position.y)
-
-
-## กันไม่ให้ลากแผงหลุดออกนอกจอ
-func _clamp_hotkey_panel() -> void:
-	if hotkey_panel == null:
-		return
-	var screen := get_viewport_rect().size
-	var panel_size := hotkey_panel.size
-	if panel_size.x <= 1.0:
-		panel_size = hotkey_panel.get_combined_minimum_size()
-	hotkey_panel.position.x = clampf(hotkey_panel.position.x, 0.0,
-		maxf(0.0, screen.x - panel_size.x))
-	hotkey_panel.position.y = clampf(hotkey_panel.position.y, 0.0,
-		maxf(0.0, screen.y - panel_size.y))
-
-
-func _on_hotkey_panel_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		var mb := event as InputEventMouseButton
-		if mb.button_index == MOUSE_BUTTON_LEFT:
-			if mb.pressed:
-				_dragging = true
-				_drag_moved = false
-				_drag_offset = hotkey_panel.global_position - hotkey_panel.get_global_mouse_position()
-			else:
-				_dragging = false
-			hotkey_panel.accept_event()
-		elif mb.button_index == MOUSE_BUTTON_RIGHT and mb.pressed:
-			# คลิกขวาบนแผง = คืนตำแหน่งเดิม (ข้างขวาแผงหลอดเลือด)
-			hotkey_panel.position = default_hotkey_pos()
-			_clamp_hotkey_panel()
-			_save_layout()
-			Events.say("คืนตำแหน่งแถบปุ่มลัดแล้ว")
-			hotkey_panel.accept_event()
-
-
-## รับการเคลื่อนเมาส์ที่ระดับ HUD ด้วย เพราะลากเร็ว ๆ เมาส์จะหลุดออกนอกแผง
-func _input(event: InputEvent) -> void:
-	if not _dragging:
-		return
-	if event is InputEventMouseMotion:
-		hotkey_panel.position = get_global_mouse_position() + _drag_offset
-		_clamp_hotkey_panel()
-		_drag_moved = true
-		get_viewport().set_input_as_handled()
-	elif event is InputEventMouseButton and not (event as InputEventMouseButton).pressed:
-		_dragging = false
-		if _drag_moved:
-			_save_layout()
-			get_viewport().set_input_as_handled()
-
-
-func _save_layout() -> void:
-	var cfg := ConfigFile.new()
-	cfg.load(LAYOUT_PATH)  # อ่านของเดิมก่อน เผื่อมีค่าอื่นในไฟล์
-	cfg.set_value("hud", "hotkey_pos", hotkey_panel.position)
-	cfg.save(LAYOUT_PATH)
-
-
-## คืน Vector2.INF ถ้ายังไม่เคยลาก
-func _load_layout() -> Vector2:
-	var cfg := ConfigFile.new()
-	if cfg.load(LAYOUT_PATH) != OK:
-		return Vector2.INF
-	var v = cfg.get_value("hud", "hotkey_pos", null)
-	return v if v is Vector2 else Vector2.INF
-
-
-## ช่องปุ่มลัด 1 ช่อง: สี่เหลี่ยมจัตุรัส + ป้ายปุ่มมุมซ้ายบน + รูป + จำนวนมุมขวาล่าง
-func _make_slot(key_label: String, key_color: Color) -> Button:
-	var btn := Button.new()
-	btn.custom_minimum_size = HOTKEY_SIZE
-	btn.focus_mode = Control.FOCUS_NONE
-	btn.clip_text = true
-	btn.clip_contents = true
-	# ★ ฟอนต์ 1 px ★ ข้อความทั้งหมดอยู่ที่ "ป้ายซ้อน" (SlotName) แล้ว
-	# ถ้าปล่อยฟอนต์ปกติ Godot จะกันที่ให้ 1 บรรทัดเสมอ ช่องเลยสูงเกินจนไม่เป็นจัตุรัส
-	btn.add_theme_font_size_override("font_size", 1)
-	btn.add_theme_color_override("font_color", UITheme.TEXT)
-	btn.add_theme_stylebox_override("normal", UITheme.slot_style())
-	btn.add_theme_stylebox_override("hover", UITheme.slot_style(true))
-	btn.add_theme_stylebox_override("pressed", UITheme.slot_style(true))
-
-	var art := TextureRect.new()
-	art.name = "SlotArt"
-	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	art.offset_left = 5
-	art.offset_top = 5
-	art.offset_right = -5
-	art.offset_bottom = -5
-	btn.add_child(art)
-
-	var key := Label.new()
-	key.name = "SlotKey"
-	key.text = key_label
-	key.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	key.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	key.offset_left = 4
-	key.offset_top = -1
-	key.add_theme_font_size_override("font_size", 11)
-	key.add_theme_color_override("font_color", key_color)
-	key.add_theme_color_override("font_outline_color", Color.BLACK)
-	key.add_theme_constant_override("outline_size", 4)
-	btn.add_child(key)
-
-	var caption := Label.new()
-	caption.name = "SlotName"
-	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	caption.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	caption.clip_text = true
-	caption.add_theme_font_size_override("font_size", 11)
-	caption.add_theme_color_override("font_color", UITheme.TEXT)
-	caption.add_theme_color_override("font_outline_color", Color.BLACK)
-	caption.add_theme_constant_override("outline_size", 3)
-	btn.add_child(caption)
-
-	var count := Label.new()
-	count.name = "SlotCount"
-	count.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	count.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	count.offset_left = -HOTKEY_SIZE.x + 4
-	count.offset_top = -20
-	count.offset_right = -4
-	count.offset_bottom = -2
-	count.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	count.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-	count.add_theme_font_size_override("font_size", 12)
-	count.add_theme_color_override("font_color", Color.WHITE)
-	count.add_theme_color_override("font_outline_color", Color.BLACK)
-	count.add_theme_constant_override("outline_size", 4)
-	btn.add_child(count)
-
-	# ★ รอบ 65 — เลขนับถอยหลังคูลดาวน์ ★ ซ้อนกลางช่อง (ปกติซ่อนไว้)
-	var cd := Label.new()
-	cd.name = "SlotCD"
-	cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	cd.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	cd.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	cd.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	cd.add_theme_font_size_override("font_size", 20)
-	cd.add_theme_color_override("font_color", Color("#ffe9a8"))
-	cd.add_theme_color_override("font_outline_color", Color.BLACK)
-	cd.add_theme_constant_override("outline_size", 6)
-	cd.visible = false
-	btn.add_child(cd)
-
-	return btn
-
-
-## คืน [ProgressBar, Label, Container]
-func _bar_row(label_text: String, color: Color, height: float) -> Array:
-	var wrapper := Control.new()
-	wrapper.custom_minimum_size.y = height
-	wrapper.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
+## หลอด + ตัวเลขทางขวา (แบบภาพ: หลอดสั้น ตัวเลขอยู่นอกหลอด)  คืน [ProgressBar, Label, Container]
+func _bar_row(color: Color, width: float, height: float) -> Array:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var bar := UITheme.make_bar(color, height)
-	bar.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bar.custom_minimum_size = Vector2(width, height)
+	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	wrapper.add_child(bar)
-
-	var text := UITheme.make_label("", maxi(10, int(height * 0.65)), Color.WHITE)
-	text.set_anchors_preset(Control.PRESET_FULL_RECT)
-	text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	text.add_theme_color_override("font_outline_color", Color.BLACK)
+	row.add_child(bar)
+	var text := UITheme.make_label("", 12, UITheme.TEXT)
+	text.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 	text.add_theme_constant_override("outline_size", 3)
 	text.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	wrapper.add_child(text)
+	row.add_child(text)
+	return [bar, text, row]
 
-	return [bar, text, wrapper]
+
+## รูปหน้าผู้เล่น: ใช้ไฟล์ glyphs/portrait.png ถ้ามี · ไม่มีก็ตัด "หัว" จากท่ายืนของตัวละครมาใช้
+func _player_portrait() -> Texture2D:
+	var tex := UITheme.glyph_texture("portrait")
+	if tex != null:
+		return tex
+	var frames: SpriteFrames = null
+	var player := get_tree().get_first_node_in_group("player")
+	if player != null and "sprite" in player and player.sprite != null:
+		frames = player.sprite.sprite_frames
+	if frames == null and ResourceLoader.exists("res://data/sprites/player_frames.tres"):
+		frames = load("res://data/sprites/player_frames.tres")
+	if frames == null:
+		return null
+	var anim := &"Idle"
+	if not frames.has_animation(anim):
+		var names := frames.get_animation_names()
+		if names.is_empty():
+			return null
+		anim = names[0]
+	if frames.get_frame_count(anim) <= 0:
+		return null
+	var base := frames.get_frame_texture(anim, 0)
+	if base == null:
+		return null
+	var m: Dictionary = SpriteFit.measure(frames, anim)
+	var fd: Dictionary = m.frames[0] if not m.get("frames", []).is_empty() else {}
+	var ts := base.get_size()
+	var used_h: float = float(m.get("tallest", ts.y))
+	var bottom: float = float(fd.get("bottom", ts.y * 0.5)) + ts.y * 0.5
+	var top: float = maxf(0.0, bottom - used_h)
+	var cx: float = ts.x * 0.5 + float(fd.get("dx", 0.0))
+	var side: float = used_h * 0.42
+	var at := AtlasTexture.new()
+	at.atlas = base
+	at.region = Rect2(cx - side * 0.5, top - side * 0.06, side, side)
+	return at
 
 
 # =========================================================
-# ล่างจอ: ปุ่มสกิล 1-4 + ปุ่มลัดหน้าต่าง
+# เควสที่ติดตาม (ใต้หลอดเลือด)
+# =========================================================
+func _build_quest_tracker() -> void:
+	quest_block = VBoxContainer.new()
+	quest_block.name = "QuestTracker"
+	quest_block.position = Vector2(MARGIN + 6, 118)
+	quest_block.add_theme_constant_override("separation", 2)
+	quest_block.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(quest_block)
+
+	var head := HBoxContainer.new()
+	head.add_theme_constant_override("separation", 8)
+	quest_block.add_child(head)
+	var q := PetrolWidgets.glyph("quest", 22.0)
+	q.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	head.add_child(q)
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 0)
+	head.add_child(col)
+	quest_title = UITheme.make_label("", 16, UITheme.TEXT)
+	quest_title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	quest_title.add_theme_constant_override("outline_size", 3)
+	col.add_child(quest_title)
+	var rule := PetrolWidgets.ornament(200.0, UITheme.ACCENT, 3.0)
+	(rule as PetrolWidgets._Ornament).diamond_at_start = true
+	rule.custom_minimum_size = Vector2(200, 8)
+	col.add_child(rule)
+	quest_lines = VBoxContainer.new()
+	quest_lines.add_theme_constant_override("separation", 0)
+	col.add_child(quest_lines)
+
+
+func _refresh_quest() -> void:
+	if quest_block == null:
+		return
+	var log: QuestLog = PlayerState.quests if "quests" in PlayerState else null
+	if log == null or log.active.is_empty():
+		quest_block.visible = false
+		return
+	# ติดตามเควสที่รับล่าสุด (ใช้ตัวท้ายสุดของรายการ)
+	var qid: StringName = log.active[log.active.size() - 1]
+	var q := GameData.get_quest(qid)
+	if q == null:
+		quest_block.visible = false
+		return
+	quest_block.visible = true
+	quest_title.text = q.title
+	GameWindow.clear_container(quest_lines)
+	var lines := log.progress_lines(qid)
+	var shown := 0
+	for line in lines:
+		var l := UITheme.make_label(String(line).replace("[x]", "✓").replace("[ ]", "").strip_edges(), 12, UITheme.TEXT_DIM)
+		l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+		l.add_theme_constant_override("outline_size", 3)
+		quest_lines.add_child(l)
+		shown += 1
+		if shown >= 3:
+			break
+	if log.is_ready(qid):
+		var done := UITheme.make_label("ครบแล้ว — กลับไปส่งเควส", 12, UITheme.GOOD)
+		done.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+		done.add_theme_constant_override("outline_size", 3)
+		quest_lines.add_child(done)
+
+
+# =========================================================
+# ชื่อแมพ (ขวาบน ใต้แถบเมนู)
+# =========================================================
+func _build_map_block() -> void:
+	map_block = VBoxContainer.new()
+	map_block.name = "MapBlock"
+	map_block.add_theme_constant_override("separation", 0)
+	map_block.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(map_block)
+
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	row.alignment = BoxContainer.ALIGNMENT_END
+	map_block.add_child(row)
+	var left := PetrolWidgets.ornament(44.0, UITheme.ACCENT, 3.0)
+	left.custom_minimum_size = Vector2(44, 10)
+	left.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(left)
+	map_name_label = UITheme.make_label("", 17, UITheme.TEXT)
+	map_name_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	map_name_label.add_theme_constant_override("outline_size", 3)
+	row.add_child(map_name_label)
+	var right := PetrolWidgets.ornament(44.0, UITheme.ACCENT, 3.0)
+	right.custom_minimum_size = Vector2(44, 10)
+	right.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(right)
+
+	region_label = UITheme.make_label("", 11, UITheme.TEXT_DIM)
+	region_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	region_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	region_label.add_theme_constant_override("outline_size", 3)
+	map_block.add_child(region_label)
+
+
+func _refresh_map() -> void:
+	if map_block == null:
+		return
+	var id: StringName = PlayerState.current_map_id
+	map_name_label.text = Game.map_display_name(id)
+	region_label.text = String(REGION_NAMES.get(id, ""))
+	_layout.call_deferred()
+
+
+# =========================================================
+# ล่าง: EXP + นาฬิกา
 # =========================================================
 func _build_bottom() -> void:
-	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", UITheme.panel_style(Color("#161b28cc")))
-	panel.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	panel.position = Vector2(0, -12)
-	panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	add_child(panel)
-	bottom_panel = panel
+	var exp_row := HBoxContainer.new()
+	exp_row.name = "ExpRow"
+	exp_row.add_theme_constant_override("separation", 8)
+	exp_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(exp_row)
+	var cap := UITheme.make_label("EXP", 13, UITheme.TEXT)
+	cap.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	cap.add_theme_constant_override("outline_size", 3)
+	exp_row.add_child(cap)
+	exp_text = UITheme.make_label("0.0000%", 13, UITheme.TEXT)
+	exp_text.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	exp_text.add_theme_constant_override("outline_size", 3)
+	exp_row.add_child(exp_text)
+	exp_row.set_meta("hud_role", "exp_row")
 
-	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 4)
-	panel.add_child(box)
+	exp_bar = UITheme.make_bar(UITheme.EXP, 4.0)
+	exp_bar.name = "ExpBar"
+	var bg := UITheme.bar_bg_style()
+	bg.set_corner_radius_all(2)
+	bg.border_color = Color(UITheme.ACCENT, 0.35)
+	exp_bar.add_theme_stylebox_override("background", bg)
+	var fill := UITheme.bar_fill_style(UITheme.EXP)
+	fill.set_corner_radius_all(2)
+	exp_bar.add_theme_stylebox_override("fill", fill)
+	exp_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(exp_bar)
+	var mid := PetrolWidgets.ornament(24.0, UITheme.ACCENT, 5.0)
+	mid.name = "ExpDiamond"
+	mid.custom_minimum_size = Vector2(24, 14)
+	add_child(mid)
 
-	var hint := UITheme.make_label(
-		"A/D เดิน  |  W หรือ Space = พุ่งหลบ  |  J หรือ คลิกซ้าย = โจมตี  |  คลิกขวา = สกิลช่อง 1  |  F เก็บของ/คุย/เข้าประตู\n"
-		+ "Q ยาเลือด  |  R ยามานา  |  1-4 สกิล  |  C สเตตัส  |  I กระเป๋า  |  E สวมใส่  |  K สกิล  |  V การ์ด  |  U เควส  |  M แผนที่  |  Tab เมนู",
-		12, UITheme.TEXT_DIM)
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	box.add_child(hint)
+	var right := HBoxContainer.new()
+	right.name = "ClockRow"
+	right.add_theme_constant_override("separation", 8)
+	right.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(right)
+	right.add_child(PetrolWidgets.glyph("signal", 14.0))
+	clock_label = UITheme.make_label("00:00", 13, UITheme.TEXT)
+	clock_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	clock_label.add_theme_constant_override("outline_size", 3)
+	right.add_child(clock_label)
+	_tick_clock()
 
 
-func _use_hotkey(index: int) -> void:
-	var sid := PlayerState.skills.hotkey_at(index)
-	if sid == &"":
-		Events.say("ยังไม่ได้ตั้งสกิลในปุ่มนี้ (เปิดหน้าต่างสกิลด้วย K)")
+func _tick_clock() -> void:
+	if clock_label == null:
 		return
-	var player := get_tree().get_first_node_in_group("player")
-	if player != null and player.has_method("use_skill"):
-		player.use_skill(sid)
+	var t := Time.get_time_dict_from_system()
+	clock_label.text = "%02d:%02d" % [int(t.hour), int(t.minute)]
+
+
+## จัดตำแหน่งของที่ยึดขอบจอ (เรียกตอนเริ่ม/จอเปลี่ยนขนาด/เปลี่ยนแมพ)
+func _layout() -> void:
+	var vp := get_viewport_rect().size
+	# EXP ล่างสุด ยาวเต็มจอ
+	var exp_row := get_node_or_null("ExpRow") as Control
+	if exp_row != null:
+		exp_row.position = Vector2(MARGIN, vp.y - 80)
+	if exp_bar != null:
+		exp_bar.position = Vector2(MARGIN, vp.y - 62)
+		exp_bar.size = Vector2(vp.x - MARGIN * 2.0, 4)
+		var mid := get_node_or_null("ExpDiamond") as Control
+		if mid != null:
+			mid.position = Vector2(vp.x * 0.5 - 12, vp.y - 67)
+			mid.size = Vector2(24, 14)
+	var clock_row := get_node_or_null("ClockRow") as Control
+	if clock_row != null:
+		clock_row.reset_size()
+		var w: float = maxf(clock_row.size.x, clock_row.get_combined_minimum_size().x)
+		clock_row.position = Vector2(vp.x - MARGIN - w, vp.y - 80)
+	# ชื่อแมพ: ชิดขวา ใต้แถบเมนู (แถบเมนูสูง ~70)
+	if map_block != null:
+		map_block.reset_size()
+		var mw: float = maxf(map_block.size.x, map_block.get_combined_minimum_size().x)
+		var top := 12.0 + IconMenuBar.BTN_H + 6.0
+		if UI.menu_bar != null and UI.menu_bar.visible:
+			top = UI.menu_bar.position.y + maxf(UI.menu_bar.size.y, IconMenuBar.BTN_H) + 6.0
+		map_block.position = Vector2(vp.x - 12.0 - mw, top)
+		# มินิแมพมุมจอขยับลงมาอยู่ใต้ชื่อแมพ
+		if UI.minimap != null and not UI.minimap.embedded:
+			UI.minimap.top_offset = top + maxf(map_block.size.y, map_block.get_combined_minimum_size().y) + 10.0
+			UI.minimap.place()
 
 
 # =========================================================
 # ข้อความแจ้งเตือน
 # =========================================================
 func _build_notice() -> void:
-	notice_label = UITheme.make_label("", 18, UITheme.ACCENT)
-	# ★ ต้องใช้ set_anchors_AND_OFFSETS_preset ★
-	# ถ้าใช้ set_anchors_preset เฉย ๆ กรอบจะยังกว้าง 0 อยู่ ข้อความเลยไปกองมุมซ้าย
-	# แล้วไปทับกับแผงหลอดเลือด (ยิ่งตอนนี้มีหลอด JOB เพิ่มมา แผงยิ่งสูง)
+	notice_label = UITheme.make_label("", 18, UITheme.GOLD_BRIGHT)
+	# ★ ต้องใช้ set_anchors_AND_OFFSETS_preset ★ ไม่งั้นกรอบกว้าง 0 ข้อความไปกองมุมซ้าย
 	notice_label.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	notice_label.offset_top = 130
-	notice_label.offset_bottom = 172
+	notice_label.offset_top = 150
+	notice_label.offset_bottom = 192
 	notice_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	notice_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	notice_label.add_theme_color_override("font_outline_color", Color.BLACK)
@@ -489,24 +440,20 @@ func show_notice(message: String) -> void:
 
 
 func _process(delta: float) -> void:
+	# ★ เปิดหน้าต่างรวมอยู่ = ซ่อนแถบ EXP/นาฬิกาล่างจอ (ภาพตัวอย่างหน้ากระเป๋าไม่มี และคำใบ้ปุ่มใช้ที่ตรงนั้น) ★
+	var shell_open: bool = UI.shell != null and UI.shell.visible
+	for n in ["ExpRow", "ExpBar", "ExpDiamond", "ClockRow"]:
+		var c := get_node_or_null(n) as Control
+		if c != null:
+			c.visible = not shell_open
 	if _notice_timer > 0.0:
 		_notice_timer -= delta
 		if _notice_timer <= 0.5:
 			notice_label.modulate.a = maxf(0.0, _notice_timer / 0.5)
-
-	# อัพเดตคูลดาวน์บนปุ่มสกิล
-	for i in range(_hotkey_buttons.size()):
-		var sid := PlayerState.skills.hotkey_at(i)
-		if sid == &"":
-			continue
-		var cd := PlayerState.skill_cooldown_left(sid)
-		_hotkey_buttons[i].modulate = Color(0.55, 0.55, 0.55) if cd > 0.0 else Color.WHITE
-
-	# ★ รอบ 65 — คูลดาวน์ยา ★ หรี่ช่อง + นับถอยหลังเป็นวินาที
-	_update_potion_cooldowns()
-
-	# ★ ห้ามตั้ง .text ให้ปุ่มช่องลัด ★ ข้อความอยู่ที่ป้ายซ้อน (SlotName/SlotCount) แล้ว
-	# ตั้ง text เมื่อไหร่ Godot จะกันที่ให้ 1 บรรทัด ช่องเลยไม่เป็นจัตุรัส
+	_clock_timer -= delta
+	if _clock_timer <= 0.0:
+		_clock_timer = 5.0
+		_tick_clock()
 	_refresh_buffs()
 
 
@@ -517,14 +464,19 @@ func _refresh_all() -> void:
 	var s := PlayerState.stats
 	if s == null:
 		return
-	# ★ โชว์ทั้ง Base Level และ Job Level ★
-	level_label.text = "Lv.%d / Job %d  %s" % [s.level, s.job_level, s.job().display_name]
+	_refresh_level()
 	_on_hp_changed(s.hp, s.max_hp)
 	_on_sp_changed(s.sp, s.max_sp)
 	_on_exp_changed(s.exp_current, s.exp_to_next())
-	_on_job_exp_changed(s.job_exp_current, s.job_exp_to_next())
 	_on_zeny_changed(PlayerState.zeny)
-	_refresh_hotkeys()
+
+
+func _refresh_level() -> void:
+	var s := PlayerState.stats
+	if s == null or level_label == null:
+		return
+	# ★ ภาพตัวอย่าง: "Lv.20  Arlen" — เกมเรามีเลเวลอาชีพด้วย เลยใส่ต่อท้ายเล็ก ๆ ★
+	level_label.text = "Lv.%d  %s  (Job %d)" % [s.level, s.job().display_name, s.job_level]
 
 
 func _on_hp_changed(current: int, maximum: int) -> void:
@@ -545,113 +497,11 @@ func _on_exp_changed(current: int, needed: int) -> void:
 	if needed <= 0:
 		exp_text.text = "MAX"
 	else:
-		exp_text.text = "%.1f%%" % (float(current) / needed * 100.0)
-
-
-func _on_job_exp_changed(current: int, needed: int) -> void:
-	if job_bar == null:
-		return
-	job_bar.max_value = maxi(1, needed)
-	job_bar.value = current
-	if needed <= 0:
-		job_text.text = "MAX"
-	else:
-		job_text.text = "%.1f%%" % (float(current) / needed * 100.0)
+		exp_text.text = "%.4f%%" % (float(current) / needed * 100.0)
 
 
 func _on_zeny_changed(amount: int) -> void:
-	zeny_label.text = "%s z" % _comma(amount)
-
-
-func _refresh_hotkeys() -> void:
-	for i in range(_hotkey_buttons.size()):
-		var sid := PlayerState.skills.hotkey_at(i)
-		var s := GameData.get_skill(sid) if sid != &"" else null
-		var art: TextureRect = _hotkey_icons[i] if i < _hotkey_icons.size() else null
-		var cap: Label = _hotkey_buttons[i].get_node_or_null("SlotName")
-		if s == null:
-			if cap != null:
-				cap.text = ""
-			_hotkey_buttons[i].tooltip_text = "ยังไม่ได้ตั้งสกิล (เปิดหน้าต่างสกิลด้วย K)"
-			if art != null:
-				art.texture = null
-		else:
-			# มีไอคอน = โชว์รูปอย่างเดียว / ไม่มีไอคอน = โชว์ชื่อสกิลย่อ ๆ เหมือนเดิม
-			if art != null:
-				art.texture = s.icon
-			if cap != null:
-				cap.text = "" if (art != null and art.texture != null) \
-					else _short_skill_name(s.display_name)
-			_hotkey_buttons[i].tooltip_text = "%s\n%s" % [s.display_name, s.description]
-
-	_refresh_potions()
-
-
-## ★ ช่องยา ★ โชว์รูปยาที่เลือกไว้ + จำนวนที่เหลือ
-func _refresh_potions() -> void:
-	if _potion_icons.is_empty():
-		return
-	var slot_names := ["Q  ยาเลือด", "R  ยามานา"]
-	var buttons := [potion_button, sp_potion_button]
-	for i in range(PlayerState.ITEM_HOTKEY_COUNT):
-		if i >= _potion_icons.size():
-			break
-		var id := PlayerState.item_hotkey_at(i)
-		var d := GameData.get_item(id) if id != &"" else null
-		var art: TextureRect = _potion_icons[i]
-		var count: Label = _potion_counts[i]
-		var btn: Button = buttons[i]
-		var cap: Label = btn.get_node_or_null("SlotName")
-		if d == null:
-			art.texture = null
-			count.text = ""
-			if cap != null:
-				cap.text = "ว่าง"
-			btn.tooltip_text = "%s — ยังไม่ได้เลือกยา\nเปิดกระเป๋า (I) แล้วกดตั้งช่องยา" % slot_names[i]
-			continue
-		var have := PlayerState.inventory.count_of(id)
-		art.texture = d.icon
-		if cap != null:
-			cap.text = "" if d.icon != null else _short_skill_name(d.display_name)
-		count.text = str(have) if have > 0 else "0"
-		count.add_theme_color_override("font_color",
-			Color.WHITE if have > 0 else Color("#ff8080"))
-		btn.tooltip_text = "%s\n%s (เหลือ %d)" % [slot_names[i], d.display_name, have]
-		# ★ รอบ 65 ★ บอกคูลดาวน์ของยาชิ้นนี้ไว้ในคำอธิบายช่องด้วย
-		var cd := PlayerState.potion_cooldown_of(d)
-		if cd > 0.0:
-			btn.tooltip_text += "\nคูลดาวน์ %.1f วินาที" % cd
-
-
-## ★ รอบ 65 — คูลดาวน์ยาบนช่อง Q/R ★
-## ติดคูลดาวน์ = ช่องหรี่ลง + มีเลขวินาทีนับถอยหลังตรงกลาง (ยาแรงยิ่งรอนาน)
-func _update_potion_cooldowns() -> void:
-	var buttons := [potion_button, sp_potion_button]
-	for i in range(PlayerState.ITEM_HOTKEY_COUNT):
-		if i >= buttons.size() or buttons[i] == null:
-			break
-		var btn: Button = buttons[i]
-		var cd_label: Label = btn.get_node_or_null("SlotCD")
-		if cd_label == null:
-			continue
-		var left := PlayerState.potion_cooldown_left_of_id(PlayerState.item_hotkey_at(i))
-		if left > 0.0:
-			cd_label.visible = true
-			# เหลือน้อยกว่า 1 วิ โชว์ทศนิยม 1 ตำแหน่ง (ให้เห็นว่าใกล้พร้อมแล้ว)
-			cd_label.text = ("%.1f" % left) if left < 1.0 else str(int(ceil(left)))
-			btn.modulate = Color(0.5, 0.5, 0.55)
-		else:
-			cd_label.visible = false
-			btn.modulate = Color.WHITE
-
-
-## ตัดชื่อสกิลให้พอดีปุ่มเล็ก ๆ (ใช้ตอนสกิลนั้นยังไม่ได้ใส่ไอคอน)
-static func _short_skill_name(full: String) -> String:
-	var t := full
-	var p := t.find(" (")
-	if p > 0:
-		t = t.substr(0, p)
-	return "\n" + t
+	zeny_label.text = _comma(amount)
 
 
 func _refresh_buffs() -> void:
@@ -663,8 +513,10 @@ func _refresh_buffs() -> void:
 		for sid in PlayerState.active_buffs.keys():
 			var s := GameData.get_skill(StringName(sid))
 			var name_text: String = s.display_name if s != null else String(PlayerState.active_buffs[sid].get("name", sid))
-			var lbl := UITheme.make_label(name_text, 12, UITheme.ACCENT)
+			var lbl := UITheme.make_label(name_text, 11, UITheme.GOLD_BRIGHT)
 			lbl.name = String(sid)
+			lbl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+			lbl.add_theme_constant_override("outline_size", 3)
 			buff_box.add_child(lbl)
 
 	for child in buff_box.get_children():

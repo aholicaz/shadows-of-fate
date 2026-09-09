@@ -20,6 +20,13 @@ var menu_bar: IconMenuBar
 ## ★ หน้าจอตอนตาย (คำอวยพรจากธอร์ + ปุ่มเกิดใหม่) ★
 var death_popup: DeathPopup
 var windows: Dictionary = {}   # StringName -> GameWindow
+## ★ รอบ 98 ★ หน้าต่างรวมแบบแท็บ (สเตตัส/สวมใส่/กระเป๋า/สกิล/การ์ด/เควส/แผนที่/ระบบ)
+var shell: MenuShell
+## แท็บไหนใช้หน้าต่าง id ไหน
+const SHELL_TABS := {
+	"status": &"equipment", "equipment": &"equipment", "inventory": &"inventory", "skills": &"skills",
+	"cards": &"cards", "quests": &"quests", "map": &"map", "system": &"system",
+}
 
 
 func _ready() -> void:
@@ -56,6 +63,10 @@ func _ready() -> void:
 	menu_bar.minimap = minimap
 	root.add_child(menu_bar)
 
+	# ---------- ★ หน้าต่างรวม (รอบ 98) ★ ใส่ก่อนหน้าต่างลอย (ร้านค้า/ตีบวก) จะได้อยู่ใต้พวกนั้น ----------
+	shell = MenuShell.new()
+	root.add_child(shell)
+
 	# ---------- หน้าต่างต่าง ๆ ----------
 	# ★ รอบ 45 — หน้าสวมใส่ + สเตตัส รวมเป็นหน้าเดียว ★ id "status" กับ "equipment" ชี้หน้าต่างเดียวกัน (C หรือ E เปิดได้ทั้งคู่)
 	_add_window(&"equipment", EquipmentWindow.new(), Vector2(30, 60))
@@ -69,8 +80,16 @@ func _ready() -> void:
 	_add_window(&"cards", CardAlbumWindow.new(), Vector2(300, 60))
 	_add_window(&"system", SystemWindow.new(), Vector2(420, 140))
 	_add_window(&"quests", QuestWindow.new(), Vector2(340, 100))
+	# ★ รอบ 98 — หน้าแผนที่ใหญ่ (แท็บ "แผนที่") ★
+	_add_window(&"map", MapPage.new(), Vector2(300, 60))
 	# ★ รอบ 80 — ห้องเครื่องมือ GM (F10) ★ ไม่มีปุ่มในเมนู เปิดด้วยปุ่มลัดอย่างเดียว
 	_add_window(&"gm", GMWindow.new(), Vector2(340, 60))
+
+	# ★ รอบ 98 ★ ย้ายหน้าต่างที่เป็นแท็บเข้าไปในหน้าต่างรวม
+	for tab in SHELL_TABS.keys():
+		var w: GameWindow = windows.get(SHELL_TABS[tab], null)
+		if w != null:
+			shell.register_page(String(tab), w)
 
 	# ---------- กล่องรายละเอียดไอเทม (เด้งข้างหน้าต่าง) ----------
 	item_popup = ItemInfoPopup.new()
@@ -179,6 +198,9 @@ func hide_item_popup() -> void:
 func is_point_over_ui(point: Vector2) -> bool:
 	if is_asking():
 		return true
+	# ★ รอบ 98 ★ หน้าต่างรวมเปิดอยู่ = มีม่านคลุมทั้งจอ คลิกตรงไหนก็ไม่ใช่การสั่งตีมอน
+	if shell != null and shell.visible:
+		return true
 	# แตะปุ่มบนจอ = ไม่ใช่การสั่งตีมอน
 	if touch != null and touch.is_over(point):
 		return true
@@ -197,6 +219,11 @@ func is_point_over_ui(point: Vector2) -> bool:
 			if p != null and p.visible and p.get_global_rect().has_point(point):
 				return true
 	return false
+
+
+## ★ รอบ 98 ★ ไอคอนเล็กที่ยังไม่มีไฟล์ (ระบบวาดแทนให้ชั่วคราว) — ดูรายชื่อที่ PetrolWidgets.GLYPHS
+func missing_ui_icons() -> Array[String]:
+	return PetrolWidgets.missing_glyphs()
 
 
 func is_asking() -> bool:
@@ -261,6 +288,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func toggle(id: StringName) -> void:
+	if shell != null and shell.is_tab(String(id)):
+		shell.toggle_tab(String(id))
+		return
 	var w: GameWindow = windows.get(id, null)
 	if w == null:
 		return
@@ -268,12 +298,20 @@ func toggle(id: StringName) -> void:
 
 
 func open(id: StringName) -> void:
+	if shell != null and shell.is_tab(String(id)):
+		shell.open_tab(String(id))
+		return
 	var w: GameWindow = windows.get(id, null)
 	if w != null:
 		w.show_window()
 
 
 func close(id: StringName) -> void:
+	if shell != null and shell.is_tab(String(id)):
+		var page := shell.page_of(String(id))
+		if page != null and shell.is_showing(page):
+			shell.close()
+		return
 	var w: GameWindow = windows.get(id, null)
 	if w != null:
 		w.hide_window()
@@ -281,14 +319,19 @@ func close(id: StringName) -> void:
 
 func close_all() -> void:
 	hide_item_popup()
+	if shell != null:
+		shell.close()
 	for w: GameWindow in windows.values():
-		w.hide_window()
+		if not w.embedded:
+			w.hide_window()
 	var inv := windows.get(&"inventory") as InventoryWindow
 	if inv != null:
 		inv.sell_mode = false
 
 
 func is_any_window_open() -> bool:
+	if shell != null and shell.visible:
+		return true
 	for w: GameWindow in windows.values():
 		if w.visible:
 			return true

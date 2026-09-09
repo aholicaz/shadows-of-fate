@@ -1168,10 +1168,15 @@ func _spawn_drops() -> void:
 
 	var parent := get_parent()
 	var i := 0
+	var n := drops.size()
 	for inst in drops:
 		var node := scene.instantiate()
+		# ★ รอบ 98 ★ ระเบิดออกเป็นพัดรอบตัวมอน — ชิ้นที่ i กางไปตามลำดับ ไม่กองทับกัน
+		if node.has_method("launch"):
+			var t: float = 0.5 if n <= 1 else float(i) / float(n - 1)
+			node.launch(t, 150.0 if n > 1 else 60.0)
 		parent.add_child(node)
-		node.global_position = global_position + Vector2(randf_range(-30, 30), -20)
+		node.global_position = global_position + Vector2(0.0, -20.0)
 		if node.has_method("setup"):
 			node.setup(inst)
 		i += 1
