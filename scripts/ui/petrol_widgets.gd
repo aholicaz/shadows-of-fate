@@ -84,7 +84,7 @@ static func glyph(id: String, size: float = 16.0, color: Color = UITheme.TEXT) -
 		art.custom_minimum_size = Vector2(size, size)
 		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		art.modulate = color
 		return art
@@ -278,6 +278,9 @@ static func circle_portrait(diameter: float, tex: Texture2D) -> Control:
 
 class _CirclePortrait extends Control:
 	var texture: Texture2D
+	func _ready() -> void:
+		# ★ รอบ 102 ★ draw_polygon ใช้ filter ของโหนดนี้ — ไม่ตั้ง = ย่อรูปหัวตัวละครแล้วขอบหยัก
+		texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	func _draw() -> void:
 		var rad := minf(size.x, size.y) * 0.5 - 4.0
 		var c := size * 0.5

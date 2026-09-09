@@ -24,9 +24,53 @@ func _ready() -> void:
 	custom_minimum_size = Vector2(420, 0)
 
 
+## ★ รอบ 102 (รอบสาม) ★ กลุ่มการตั้งค่า 1 กลุ่ม = กรอบ + หัวข้อทอง + เนื้อหาข้างใน
+## กรอบยืดเต็มความสูงที่เหลือ → หน้าไม่มีที่โล่งครึ่งล่างเหมือนเดิม
+## ★ expand ★ ให้ยืดกินที่ว่างที่เหลือหรือไม่ — **คอลัมน์ละกลุ่มเดียวเท่านั้น**
+## ถ้าให้ยืดทุกกลุ่ม ความสูงขั้นต่ำรวมกันจะเกินกรอบ แล้วกลุ่มล่างจะทะลุออกนอกหน้าต่าง
+func _group(title: String, parent: Control, expand: bool = false) -> VBoxContainer:
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel",
+		InventoryWindow._style(Color("#0f2422b3"), UITheme.BORDER_SOFT, 8, 10))
+	if expand:
+		panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	parent.add_child(panel)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 6)
+	panel.add_child(box)
+	var head := UITheme.make_label(title, 16, UITheme.GOLD_BRIGHT)
+	box.add_child(head)
+	box.add_child(UITheme.separator())
+	return box
+
+
 func _build_content() -> void:
-	content.add_child(UITheme.make_label(
-		"เซฟเกมไว้กันหาย — เลือกช่องแล้วกดบันทึก", 12, UITheme.TEXT_DIM))
+	# ★★ รอบ 102 (รอบสาม) ★★ จัดหน้าแบบเดียวกับหน้าสเตตัส:
+	# แบ่งสองคอลัมน์ · แต่ละกลุ่มอยู่ในกรอบของตัวเอง · ยืดเต็มความสูง ไม่เหลือที่โล่งครึ่งล่าง
+	var cols := HBoxContainer.new()
+	cols.add_theme_constant_override("separation", 18)
+	cols.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cols.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	content.add_child(cols)
+
+	var left := VBoxContainer.new()
+	left.add_theme_constant_override("separation", 8)
+	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	cols.add_child(left)
+
+	var right := VBoxContainer.new()
+	right.add_theme_constant_override("separation", 8)
+	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	cols.add_child(right)
+
+	# ---------- ซ้าย: ช่องเซฟ ----------
+	var save_group := _group("เซฟเกม", left, true)
+	save_group.add_child(UITheme.make_label(
+		"เซฟเกมไว้กันหาย — เลือกช่องแล้วกดบันทึก", 13, UITheme.TEXT_DIM))
+	var content_backup := content
+	content = save_group
 
 	for slot in range(SaveManager.SLOT_COUNT):
 		var panel := PanelContainer.new()
@@ -51,15 +95,12 @@ func _build_content() -> void:
 		load_btn.pressed.connect(func(): _do_load(s))
 		row.add_child(load_btn)
 
-		var del_btn := UITheme.make_button("ลบ", 48)
-		del_btn.pressed.connect(func(): _do_delete(s))
-		row.add_child(del_btn)
-
-		_slot_rows.append({"info": info, "load": load_btn, "del": del_btn})
-
-	content.add_child(UITheme.separator())
+		# ★ รอบ 102 ★ เอาปุ่ม "ลบ" ออกตามที่ผู้ใช้สั่ง — กดพลาดแล้วเซฟหายถาวร กู้ไม่ได้
+		# ตัวฟังก์ชัน _do_delete() ยังอยู่ (ห้องเครื่องมือ GM เรียกได้) แค่ไม่มีปุ่มในเมนูปกติ
+		_slot_rows.append({"info": info, "load": load_btn, "del": null})
 
 	# ---------- ★ ปุ่มจอสัมผัส (มือถือ) ★ ----------
+	content = _group("ปุ่มจอสัมผัส", left)
 	var touch_row := HBoxContainer.new()
 	touch_row.add_theme_constant_override("separation", 6)
 	content.add_child(touch_row)
@@ -77,9 +118,8 @@ func _build_content() -> void:
 		"อัตโนมัติ = โผล่เองเมื่อเล่นบนจอสัมผัส · กดปุ่มนี้เพื่อลองบนคอมได้",
 		11, UITheme.TEXT_DIM))
 
-	content.add_child(UITheme.separator())
-
-	# ---------- ★ รอบ 52 — เพลงประจำแมพ ★ ----------
+	# ---------- ★ เสียง ★ (รอบ 52/57/59) ----------
+	content = _group("เสียง", right, true)
 	var music_row := HBoxContainer.new()
 	music_row.add_theme_constant_override("separation", 6)
 	content.add_child(music_row)
@@ -163,20 +203,20 @@ func _build_content() -> void:
 		"เสียงพากย์ — วางไฟล์ Sprites/voice/<voice_id>/<ประโยค>.ogg (ดูรายชื่อใน dump_npc_lines.py)",
 		11, UITheme.TEXT_DIM))
 
-	content.add_child(UITheme.separator())
-
-	var new_btn := UITheme.make_button("เริ่มเกมใหม่ (ข้อมูลปัจจุบันจะหายไป)", 380)
-	new_btn.add_theme_color_override("font_color", Color("#ff9a9a"))
-	new_btn.pressed.connect(_do_new_game)
-	content.add_child(new_btn)
-
+	# ---------- ออกจากเกม ----------
+	# ★ รอบ 102 ★ เอาปุ่ม "เริ่มเกมใหม่" ออก (เริ่มใหม่ได้จากหน้าหลัก)
+	content = _group("ออกจากเกม", right)
 	var title_btn := UITheme.make_button("กลับหน้าหลัก (อย่าลืมบันทึกก่อน)", 380)
-	title_btn.pressed.connect(_do_go_title)
+	title_btn.custom_minimum_size.y = 40
+	title_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.add_child(title_btn)
+	title_btn.pressed.connect(_do_go_title)
 
-	_status = UITheme.make_label("", 12, UITheme.TEXT_DIM)
+	_status = UITheme.make_label("", 13, UITheme.TEXT_DIM)
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	content.add_child(_status)
+
+	content = content_backup
 
 
 # =========================================================
@@ -262,7 +302,8 @@ func refresh() -> void:
 			row["info"].text = "ช่อง %d — ว่าง" % (slot + 1)
 			row["info"].add_theme_color_override("font_color", UITheme.TEXT_DIM)
 		row["load"].disabled = not has
-		row["del"].disabled = not has
+		if row["del"] != null:
+			row["del"].disabled = not has
 
 
 # =========================================================

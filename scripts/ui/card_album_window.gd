@@ -5,8 +5,16 @@
 class_name CardAlbumWindow
 extends GameWindow
 
-const COLUMNS := 5
-const MINI_SIZE := Vector2(84, 96)
+## ★ รอบ 102 ★ แถวละ 7 ใบ (เดิม 5 → เหลือที่ว่างครึ่งหน้า)
+const COLUMNS := 7
+## ขนาดขั้นต่ำ — ขนาดจริงคำนวณจากความกว้างที่มีใน _fit_grid() (สัดส่วนใบการ์ดคงเดิม)
+const MINI_SIZE := Vector2(70, 81)
+## ★ รอบ 102 (รอบสอง) ★ ใบการ์ด "ยืดเต็มระยะ" ชิดแผงข้าง ไม่เหลือที่โล่งครึ่งหน้า
+const MINI_MIN := 70.0
+const MINI_MAX := 150.0
+const CARD_RATIO := 90.0 / 78.0     # สูง ÷ กว้าง ของใบการ์ด (คงสัดส่วนเดิมไว้)
+const GRID_SEP := 6
+const SCROLLBAR_ROOM := 16.0
 
 var _tab_album: Button
 var _tab_manage: Button
@@ -14,6 +22,8 @@ var _album_page: HBoxContainer
 var _manage_page: VBoxContainer
 
 var _grid: GridContainer
+var _grid_scroll: ScrollContainer
+var _cell := Vector2.ZERO
 var _card_view: CardView
 var _progress: Label
 var _socket_box: VBoxContainer
@@ -55,24 +65,33 @@ func _build_content() -> void:
 	content.add_child(UITheme.separator())
 
 	# ---------- หน้าอัลบั้ม ----------
+	# ★ รอบ 102 ★ กระจายเต็มกรอบ (เดิมกองมุมซ้าย เหลือที่ว่างครึ่งหน้า)
 	_album_page = HBoxContainer.new()
-	_album_page.add_theme_constant_override("separation", 10)
+	_album_page.add_theme_constant_override("separation", 14)
+	_album_page.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_album_page.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	content.add_child(_album_page)
 
 	var scroll := ScrollContainer.new()
 	scroll.custom_minimum_size = Vector2(400, 330)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_album_page.add_child(scroll)
+	_grid_scroll = scroll
+	scroll.resized.connect(_fit_grid)
 
 	_grid = GridContainer.new()
 	_grid.columns = COLUMNS
-	_grid.add_theme_constant_override("h_separation", 6)
-	_grid.add_theme_constant_override("v_separation", 6)
-	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_grid.add_theme_constant_override("h_separation", GRID_SEP)
+	_grid.add_theme_constant_override("v_separation", GRID_SEP)
+	# ★ ใบการ์ดขนาดคงที่ ★ ถ้า EXPAND_FILL ที่ว่างจะไปกองข้างขวาข้างเดียว → กลางไว้ดีกว่า
+	_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	scroll.add_child(_grid)
 
 	var side := VBoxContainer.new()
 	side.add_theme_constant_override("separation", 6)
+	side.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_album_page.add_child(side)
 
 	_card_view = CardView.new()
@@ -100,6 +119,41 @@ func _build_content() -> void:
 	_manage_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_manage_list.add_theme_constant_override("separation", 4)
 	mscroll.add_child(_manage_list)
+
+
+## ★★ รอบ 102 (รอบสอง) — ใบการ์ดยืดเต็มความกว้าง ★★
+## คิดขนาดใบจากความกว้างจริงของกล่องเลื่อน แล้วคูณสัดส่วนเดิมเป็นความสูง
+## (ภาพในใบใช้ PRESET_FULL_RECT อยู่แล้ว → โตตามช่องเอง ไม่ต้องแตะที่อื่น)
+func _fit_grid() -> void:
+	if _grid == null or _grid_scroll == null:
+		return
+	var avail: float = _grid_scroll.size.x - SCROLLBAR_ROOM
+	if avail <= 0.0:
+		return
+	var w: float = floorf((avail - float(COLUMNS - 1) * float(GRID_SEP)) / float(COLUMNS))
+	w = clampf(w, MINI_MIN, MINI_MAX)
+	var cell := Vector2(w, floorf(w * CARD_RATIO))
+	if _cell.distance_to(cell) < 0.5:
+		return
+	_cell = cell
+	_apply_cell()
+
+
+## เอาขนาดที่คิดได้ไปใส่ทุกใบ (แต่ละใบ = VBox { ปุ่มรูปการ์ด, ป้ายชื่อ })
+func _apply_cell() -> void:
+	if _grid == null or _cell == Vector2.ZERO:
+		return
+	for c in _grid.get_children():
+		var box := c as VBoxContainer
+		if box == null or box.get_child_count() < 1:
+			continue
+		var btn := box.get_child(0) as Control
+		if btn != null:
+			btn.custom_minimum_size = _cell
+		if box.get_child_count() >= 2:
+			var name_label := box.get_child(1) as Control
+			if name_label != null:
+				name_label.custom_minimum_size.x = _cell.x
 
 
 func _set_mode(album: bool) -> void:
@@ -167,6 +221,8 @@ func _build_album(all: Array[CardData]) -> void:
 
 		_grid.add_child(cell)
 
+	# ★ refresh() สร้างใบใหม่ทุกครั้ง → ต้องเอาขนาดที่คิดไว้มาใส่ซ้ำ ไม่งั้นกลับไปเป็นขนาดขั้นต่ำ
+	_apply_cell()
 	_update_side()
 
 

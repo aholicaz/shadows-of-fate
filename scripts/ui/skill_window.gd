@@ -14,17 +14,24 @@ class_name SkillWindow
 extends GameWindow
 
 ## ขนาดช่องไอคอนสกิล 1 ช่อง
-const TILE := Vector2(64, 64)
+const TILE := Vector2(84, 84)
 ## ความกว้างของ "คอลัมน์" ทั้งช่อง (ป้ายชื่อยาวกว่าไอคอน จะได้ไม่ถูกตัด)
-const COL_W := 88.0
+## ★★ รอบ 102 (รอบสาม) ★★ ขยายผังสกิลให้เต็มหน้าขึ้น
+## เคยลองวิธี "ตั้ง scale ของกล่องผังตามพื้นที่ที่เหลือ" แล้ว **ไม่เอา** —
+## เพราะต้องตั้ง custom_minimum_size = ขนาดหลังขยาย ให้ CenterContainer จองที่ถูก
+## แต่พอทำแบบนั้น กล่องแม่ก็โตตาม → วัดพื้นที่ได้ใหญ่ขึ้น → ขยายอีก (งูกินหาง)
+## วัดจาก ScrollContainer แทนก็ยังได้สเกลจากขนาดตอน layout ยังไม่เสร็จ ตำแหน่งเลยเพี้ยน
+## → ใช้วิธีที่ตรงไปตรงมากว่า: **ขยายค่าคงที่ของผังไปเลย** (ช่อง 64→84 · คอลัมน์ 88→116)
+## ได้ผังใหญ่ขึ้นราว 1.3 เท่า จัดกึ่งกลางเหมือนเดิม และไม่มีเลขวิ่งตอนรันสักตัว
+const COL_W := 116.0
 ## ระยะห่างระหว่างช่อง
-const GAP_X := 10.0
-const GAP_Y := 30.0
+const GAP_X := 14.0
+const GAP_Y := 36.0
 ## ความสูงป้ายเลเวลด้านบน · ป้ายชื่อ
-const BADGE_H := 20.0
-const NAME_H := 20.0
+const BADGE_H := 26.0
+const NAME_H := 26.0
 ## ★ ปุ่มกลม + ที่มุมไอคอน ★
-const PLUS_SIZE := 24.0
+const PLUS_SIZE := 28.0
 
 var _tree_box: Control          # กล่องวางผัง (วางช่องด้วยพิกัดเอง)
 var _lines: Control             # ชั้นวาดเส้นโยง
@@ -60,12 +67,27 @@ func _build_content() -> void:
 	var scroll := ScrollContainer.new()
 	scroll.custom_minimum_size.y = 300
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	content.add_child(scroll)
 
+	# ★★ รอบ 102 ★★ เดิม _tree_box เป็นลูกตรงของ ScrollContainer แล้วช่องสกิลวางที่ x = 0
+	# → ผังกองมุมซ้ายเสมอ · ตั้ง SIZE_SHRINK_CENTER ก็ไม่ช่วย เพราะ ScrollContainer
+	#   วางลูกไว้ที่มุม (0,0) ตลอดไม่ว่าจะตั้ง size flag อะไร
+	# → ต้องมี CenterContainer คั่นกลางถึงจะจัดกึ่งกลางได้จริง (ทั้งแนวนอนและแนวตั้ง)
+	var center := CenterContainer.new()
+	center.name = "TreeCenter"
+	center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.add_child(center)
+
+	# ★★ รอบ 102 (รอบสาม) — ผังสกิลขยายเต็มพื้นที่ ★★
+	# ผังวาดด้วยพิกัดตายตัว (COL_W · TILE · GAP) ขยายทีละค่าจะต้องแก้หลายที่และเส้นโยงเพี้ยน
+	# → ใช้วิธี "ย่อ-ขยายทั้งผัง" แทน: ห่อไว้ในกล่องที่รายงานขนาด = ขนาดผัง × k
+	#   แล้วตั้ง scale ของผังเป็น k · CenterContainer จะจัดกึ่งกลางจากขนาดของกล่องห่อ
+	#   (ถ้าตั้ง scale ที่ _tree_box ตรง ๆ CenterContainer จะไม่รู้ขนาดจริง แล้ววางเบี้ยว)
 	_tree_box = Control.new()
 	_tree_box.name = "TreeBox"
-	_tree_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(_tree_box)
+	center.add_child(_tree_box)
 
 	# ชั้นเส้นโยงอยู่หลังช่องสกิล
 	_lines = Control.new()

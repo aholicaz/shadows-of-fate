@@ -111,6 +111,11 @@ func _ready() -> void:
 	PlayerState.set_last_town(map_id)      # ★ รอบ 60 — จำเมืองล่าสุดไว้ให้ปีกแห่งวาลคีรี ★
 	if enter_flag != &"" and not PlayerState.has_flag(enter_flag):
 		PlayerState.set_flag(enter_flag)   # ★ รอบ 79 — ธง "เคยมาแมพนี้แล้ว" ★
+	# ★★ รอบ 102 ★★ ธง "เคยไปแมพนี้แล้ว" ของทุกแมพ (ไม่ต้องตั้ง Enter Flag เอง)
+	# เสาวาปใช้ธงนี้ตัดสินว่าให้วาปไปได้ไหม — ยังไม่เคยไปถึง = ยังวาปไปไม่ได้
+	var been := MapAtlas.visited_flag(map_id)
+	if not PlayerState.has_flag(been):
+		PlayerState.set_flag(been)
 	if auto_fit_bounds:
 		map_bounds = _measure_bounds()
 		print("[Map] %s ขนาดแมพที่วัดได้: %s" % [map_id, str(map_bounds)])

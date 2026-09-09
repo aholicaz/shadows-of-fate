@@ -24,6 +24,10 @@ const REGION_NAMES := {
 }
 const PORTRAIT_D := 84.0
 const MARGIN := 18.0
+## ★ รอบ 102 ★ ป้ายเควสบนจอหลัก — ระยะจากขอบบน (เดิม 118 ไปชนหลอดเลือด/แถบ EXP)
+const QUEST_TRACKER_Y := 168.0
+## สีบรรทัดเป้าหมายของเควส — เทาเดิมจมฉาก จึงใช้เทาอมเขียวสว่างขึ้น
+const QUEST_LINE := Color("#cfe0d4")
 
 var hp_bar: ProgressBar
 var sp_bar: ProgressBar
@@ -210,10 +214,27 @@ func _player_portrait() -> Texture2D:
 	var top: float = maxf(0.0, bottom - used_h)
 	var cx: float = ts.x * 0.5 + float(fd.get("dx", 0.0))
 	var side: float = used_h * 0.42
-	var at := AtlasTexture.new()
-	at.atlas = base
-	at.region = Rect2(cx - side * 0.5, top - side * 0.06, side, side)
-	return at
+	# ★★ รอบ 102 ★★ เดิมคืน AtlasTexture ชี้เข้าชีทตัวละครก้อนใหญ่ (1112×834)
+	# แล้วเอาไปย่อวาดในวงกลม 84 px = ย่อ ~4 เท่าโดยไม่มี mipmap → ขอบหยัก "ภาพแตก"
+	# ตอนนี้ตัดเป็นภาพจริงแล้วย่อด้วย LANCZOS เหลือ 2 เท่าของขนาดจอ + สร้าง mipmap ให้เลย
+	var rect := Rect2i(Vector2i(cx - side * 0.5, top - side * 0.06), Vector2i(maxi(2, int(side)), maxi(2, int(side))))
+	var src: Image = base.get_image()
+	if src == null:
+		var at := AtlasTexture.new()
+		at.atlas = base
+		at.region = Rect2(rect)
+		return at
+	if src.is_compressed():
+		src.decompress()
+	rect = rect.intersection(Rect2i(Vector2i.ZERO, src.get_size()))
+	if rect.size.x < 2 or rect.size.y < 2:
+		return null
+	var cut := src.get_region(rect)
+	var want := int(PORTRAIT_D * 2.0)
+	if cut.get_width() > want:
+		cut.resize(want, want, Image.INTERPOLATE_LANCZOS)
+	cut.generate_mipmaps()
+	return ImageTexture.create_from_image(cut)
 
 
 # =========================================================
@@ -222,7 +243,8 @@ func _player_portrait() -> Texture2D:
 func _build_quest_tracker() -> void:
 	quest_block = VBoxContainer.new()
 	quest_block.name = "QuestTracker"
-	quest_block.position = Vector2(MARGIN + 6, 118)
+	# ★ รอบ 102 ★ เลื่อนลงให้พ้นหลอดเลือด/แถบ EXP (เดิม 118 = ชนกันจนอ่านยาก)
+	quest_block.position = Vector2(MARGIN + 6, QUEST_TRACKER_Y)
 	quest_block.add_theme_constant_override("separation", 2)
 	quest_block.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(quest_block)
@@ -236,7 +258,7 @@ func _build_quest_tracker() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 0)
 	head.add_child(col)
-	quest_title = UITheme.make_label("", 16, UITheme.TEXT)
+	quest_title = UITheme.make_label("", 18, UITheme.TEXT)
 	quest_title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 	quest_title.add_theme_constant_override("outline_size", 3)
 	col.add_child(quest_title)
@@ -268,15 +290,16 @@ func _refresh_quest() -> void:
 	var lines := log.progress_lines(qid)
 	var shown := 0
 	for line in lines:
-		var l := UITheme.make_label(String(line).replace("[x]", "✓").replace("[ ]", "").strip_edges(), 12, UITheme.TEXT_DIM)
-		l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
-		l.add_theme_constant_override("outline_size", 3)
+		# ★ รอบ 102 ★ เดิมใช้ TEXT_DIM (#81958a) ทับฉากสว่าง ๆ แล้วแทบมองไม่เห็น
+		var l := UITheme.make_label(String(line).replace("[x]", "✓").replace("[ ]", "").strip_edges(), 14, QUEST_LINE)
+		l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+		l.add_theme_constant_override("outline_size", 4)
 		quest_lines.add_child(l)
 		shown += 1
 		if shown >= 3:
 			break
 	if log.is_ready(qid):
-		var done := UITheme.make_label("ครบแล้ว — กลับไปส่งเควส", 12, UITheme.GOOD)
+		var done := UITheme.make_label("ครบแล้ว — กลับไปส่งเควส", 14, UITheme.GOOD)
 		done.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 		done.add_theme_constant_override("outline_size", 3)
 		quest_lines.add_child(done)

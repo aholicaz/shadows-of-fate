@@ -2,8 +2,8 @@
 ##
 ##  ┌ ตัวละคร ─────────┐ ┌ ทั้งหมด · อาวุธ · เกราะ · ของใช้ · วัตถุดิบ ────────┐ ┌ รายละเอียด ───────┐
 ##  │ ชื่ออาชีพ Lv.20     │ │ [🔍 ค้นหา...............]  [เรียง ▾]              │ │   (รูปใหญ่)         │
-##  │ [ช่อง] ตัวละคร [ช่อง]│ │ ▢ ▢ ▢ ▢ ▢                                        │ │  ชื่อไอเทม           │
-##  │ [ช่อง]  (ยืน)  [ช่อง]│ │ ▢ ▢ ▢ ▢ ▢   (5 คอลัมน์ เลื่อนลงได้)              │ │  ความหายาก           │
+##  │ [ช่อง] ตัวละคร [ช่อง]│ │ ▢ ▢ ▢ ▢ ▢ ▢                                      │ │  ชื่อไอเทม           │
+##  │ [ช่อง]  (ยืน)  [ช่อง]│ │ ▢ ▢ ▢ ▢ ▢ ▢  (6 คอลัมน์ เลื่อนลงได้)             │ │  ความหายาก           │
 ##  │ [ช่อง]         [ช่อง]│ │ ▢ ▢ ▢ ▢ ▢                                        │ │  ⚔ โจมตี        96  │
 ##  │ [ช่อง]         [ช่อง]│ │ ▢ ▢ ▢ ▢ ▢                                        │ │  ★ คริ        +4.5% │
 ##  │ ♥ HP  541          │ │                                                   │ │  คำอธิบาย...        │
@@ -15,9 +15,21 @@
 class_name InventoryWindow
 extends GameWindow
 
-const COLUMNS := 5
-const SLOT_SIZE := Vector2(74, 74)
+## ★ รอบ 102 ★ แถวละ 6 ช่อง (เดิม 5)
+const COLUMNS := 6
+## ขนาดช่องขั้นต่ำ (ใช้ตอนหน้าต่างแคบมาก) — ขนาดจริงคำนวณจากความกว้างที่มีใน _fit_grid()
+const SLOT_SIZE := Vector2(58, 58)
+## ★ รอบ 102 (รอบสอง) ★ ช่องไอเทม "ยืดเต็มระยะ" ไม่เหลือที่ว่างข้าง Scroll
+## เดิมช่องขนาดตายตัว → กริดกว้างไม่ถึงขอบ เหลือช่องโล่งกองอยู่ข้าง ๆ
+## ตอนนี้คำนวณขนาดช่องจากความกว้างจริงของกล่องเลื่อนทุกครั้งที่หน้าต่างเปลี่ยนขนาด
+const SLOT_MIN := 56.0
+const SLOT_MAX := 140.0
+const GRID_SEP := 8
+## เผื่อที่ให้แถบเลื่อนแนวตั้ง (ไม่เผื่อ = พอมีของเต็มกระเป๋าแล้วแถบเลื่อนโผล่ กริดจะล้นออกข้าง)
+const SCROLLBAR_ROOM := 16.0
 const EQUIP_SLOT := Vector2(54, 54)
+## ความกว้างคงที่ของแผงรายละเอียดด้านขวา (ตรึงไว้ กริดกระเป๋าจะได้ไม่ขยับตามความยาวข้อความ)
+const DETAIL_WIDTH := 268.0
 
 # ---- สี (ค้างชื่อเดิมไว้ หน้าต่างอื่นอ้างถึง) ----
 const C_BG := Color("#0b1c1bf2")
@@ -83,6 +95,9 @@ var _equip_icons: Dictionary = {}     # EquipSlot -> TextureRect
 var _equip_glyphs: Dictionary = {}    # EquipSlot -> Control
 var _stat_values: Dictionary = {}     # key -> Label
 ## ขวา: รายละเอียด
+var _grid_scroll: ScrollContainer
+var _cell_size := 0.0
+var _detail_scroll: ScrollContainer
 var _detail_art: TextureRect
 var _detail_name: Label
 var _detail_rarity: Label
@@ -350,11 +365,14 @@ func _build_middle() -> Control:
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	box.add_child(scroll)
+	_grid_scroll = scroll
+	scroll.resized.connect(_fit_grid)
 	_grid = GridContainer.new()
 	_grid.columns = COLUMNS
-	_grid.add_theme_constant_override("h_separation", 8)
-	_grid.add_theme_constant_override("v_separation", 8)
-	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_grid.add_theme_constant_override("h_separation", GRID_SEP)
+	_grid.add_theme_constant_override("v_separation", GRID_SEP)
+	# ขนาดช่องคำนวณให้พอดีความกว้างอยู่แล้ว เศษที่เหลือ (< 6 px) แบ่งซ้าย-ขวาเท่ากัน
+	_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	scroll.add_child(_grid)
 
 	for i in range(PlayerState.INVENTORY_SIZE):
@@ -388,6 +406,7 @@ func _build_middle() -> Control:
 		empty.offset_right = 15
 		empty.offset_bottom = 15
 		btn.add_child(empty)
+		# ★ ต้องปิด IGNORE ตรงนี้ ★ ถุงจาง ๆ อยู่ใต้ไอคอนของจริงเสมอ ไม่กินคลิก
 		_slot_empties.append(empty)
 		var parts := UITheme.make_slot_icon(btn, 7.0)
 		_slot_icons.append(parts[0])
@@ -421,13 +440,44 @@ func _build_middle() -> Control:
 	return panel
 
 
+## ★★ รอบ 102 (รอบสอง) — ช่องไอเทมยืดเต็มความกว้าง ★★
+##
+## เรียกทุกครั้งที่กล่องเลื่อนเปลี่ยนขนาด (ย่อ/ขยายหน้าต่าง · เข้าเต็มจอ)
+## ขนาดช่อง = (ความกว้างที่มี − ช่องไฟรวม) ÷ จำนวนคอลัมน์  แล้ว clamp กันเล็ก/ใหญ่เกิน
+## ไอคอนในช่องยึด PRESET_FULL_RECT อยู่แล้ว (ดู UITheme.make_slot_icon) → โตตามช่องเอง
+func _fit_grid() -> void:
+	if _grid == null or _grid_scroll == null:
+		return
+	var avail: float = _grid_scroll.size.x - SCROLLBAR_ROOM
+	if avail <= 0.0:
+		return
+	var cell: float = floorf((avail - float(COLUMNS - 1) * float(GRID_SEP)) / float(COLUMNS))
+	cell = clampf(cell, SLOT_MIN, SLOT_MAX)
+	if absf(cell - _cell_size) < 0.5:
+		return
+	_cell_size = cell
+	var r: float = cell * 0.26        # ถุงจาง ๆ ในช่องว่าง โตตามช่องด้วย
+	for i in range(_slot_buttons.size()):
+		_slot_buttons[i].custom_minimum_size = Vector2(cell, cell)
+		if i < _slot_empties.size():
+			var e: Control = _slot_empties[i]
+			e.offset_left = -r
+			e.offset_top = -r
+			e.offset_right = r
+			e.offset_bottom = r
+
+
 # ---------------------------------------------------------
 # ขวา: รายละเอียดไอเทมที่เลือก
 # ---------------------------------------------------------
 func _build_right() -> Control:
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", UITheme.inner_style(C_INNER, 4, 12.0))
-	panel.custom_minimum_size.x = 250
+	# ★ รอบ 102 ★ ตรึงความกว้างไว้ (min = max) ไม่งั้นคำอธิบายยาว ๆ จะดันแผงให้กว้างขึ้น
+	# แล้วไปบีบกริดกระเป๋าให้แคบลง (นี่คืออาการ "ข้อมูลยาวไปแล้วช่องกระเป๋าเปลี่ยนขนาด")
+	panel.custom_minimum_size.x = DETAIL_WIDTH
+	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	panel.clip_contents = true
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 6)
 	panel.add_child(box)
@@ -449,32 +499,46 @@ func _build_right() -> Control:
 	_detail_art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	art_holder.add_child(_detail_art)
 
+	# ★★ รอบ 102 ★★ เนื้อความตรงกลาง (ชื่อ · ความหายาก · ค่าพลัง · คำอธิบาย) อยู่ในกล่องเลื่อน
+	# ของยาวแค่ไหนก็เลื่อนดูเอา ไม่ดันปุ่มด้านล่างหลุดจอ และไม่ไปบีบกริดกระเป๋า
+	_detail_scroll = ScrollContainer.new()
+	_detail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_detail_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_detail_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	box.add_child(_detail_scroll)
+	var inner := VBoxContainer.new()
+	inner.add_theme_constant_override("separation", 6)
+	inner.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# ★ กว้างเท่าแผงลบที่เผื่อแถบเลื่อน ★ ถ้าไม่ตรึง ข้อความ autowrap จะขอความกว้างไม่จำกัด
+	inner.custom_minimum_size.x = DETAIL_WIDTH - 40.0
+	_detail_scroll.add_child(inner)
+
 	_detail_name = _label("", 19, C_TEXT)
 	_detail_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_detail_name.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	box.add_child(_detail_name)
+	inner.add_child(_detail_name)
 	_detail_rarity = _label("", 13, UITheme.RARITY_RARE)
 	_detail_rarity.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	box.add_child(_detail_rarity)
+	inner.add_child(_detail_rarity)
 	var rule := PetrolWidgets.ornament(180.0, UITheme.ACCENT, 3.0)
 	rule.custom_minimum_size = Vector2(180, 10)
 	rule.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	box.add_child(rule)
+	inner.add_child(rule)
 
 	_detail_stats = VBoxContainer.new()
 	_detail_stats.add_theme_constant_override("separation", 3)
-	box.add_child(_detail_stats)
+	inner.add_child(_detail_stats)
 
 	_detail_desc = _label("", 12, C_TEXT_DIM)
 	_detail_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_detail_desc.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	box.add_child(_detail_desc)
+	inner.add_child(_detail_desc)
 
 	_detail_empty = _label("เลือกไอเทมในกระเป๋า\nเพื่อดูรายละเอียด", 13, C_TEXT_DIM)
 	_detail_empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_detail_empty.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_detail_empty.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	box.add_child(_detail_empty)
+	inner.add_child(_detail_empty)
 
 	# ---------- ตั้งช่องยาด่วน (โผล่เฉพาะของกิน) ----------
 	_potion_row = HBoxContainer.new()

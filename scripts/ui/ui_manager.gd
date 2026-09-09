@@ -23,8 +23,11 @@ var windows: Dictionary = {}   # StringName -> GameWindow
 ## ★ รอบ 98 ★ หน้าต่างรวมแบบแท็บ (สเตตัส/สวมใส่/กระเป๋า/สกิล/การ์ด/เควส/แผนที่/ระบบ)
 var shell: MenuShell
 ## แท็บไหนใช้หน้าต่าง id ไหน
+## ★ รอบ 102 ★ เอาแท็บ "equipment" ออก — ชี้หน้าต่างเดียวกับ "status" อยู่แล้ว
+## (ถ้าปล่อยไว้ register_page จะตั้ง shell_tab ของหน้านั้นเป็น "equipment" ซึ่งไม่มีปุ่มแท็บแล้ว
+##  → กด C เปิดได้แต่ไม่มีแท็บไหนสว่าง) · ปุ่ม C ยังเปิดหน้าเดิมผ่าน windows[&"equipment"]
 const SHELL_TABS := {
-	"status": &"equipment", "equipment": &"equipment", "inventory": &"inventory", "skills": &"skills",
+	"status": &"equipment", "inventory": &"inventory", "skills": &"skills",
 	"cards": &"cards", "quests": &"quests", "map": &"map", "system": &"system",
 }
 
@@ -81,7 +84,9 @@ func _ready() -> void:
 	_add_window(&"system", SystemWindow.new(), Vector2(420, 140))
 	_add_window(&"quests", QuestWindow.new(), Vector2(340, 100))
 	# ★ รอบ 98 — หน้าแผนที่ใหญ่ (แท็บ "แผนที่") ★
-	_add_window(&"map", MapPage.new(), Vector2(300, 60))
+	# ★ รอบ 102 ★ แท็บแผนที่เปลี่ยนจากมินิแมพขยาย (MapPage) เป็นแผนที่โลก (WorldMapPage)
+	# มินิแมพมุมจอยังอยู่เหมือนเดิม กด M เปิด/ปิดได้ · MapPage เดิมยังอยู่ในโปรเจกต์ ไม่ได้ลบ
+	_add_window(&"map", WorldMapPage.new(), Vector2(300, 60))
 	# ★ รอบ 80 — ห้องเครื่องมือ GM (F10) ★ ไม่มีปุ่มในเมนู เปิดด้วยปุ่มลัดอย่างเดียว
 	_add_window(&"gm", GMWindow.new(), Vector2(340, 60))
 

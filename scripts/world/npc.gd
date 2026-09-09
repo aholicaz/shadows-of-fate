@@ -5,6 +5,9 @@
 ##   ├── Sprite2D หรือ AnimatedSprite2D
 ##   ├── CollisionShape2D
 ##   └── Label   (ชื่อ NPC — ไม่ใส่ก็ได้)
+##
+## ★ รอบ 102 ★ ใส่ class_name ให้อ้างถึงได้จากที่อื่น (เทสต์ + ตัวช่วยแบบ static เช่น warp_label)
+class_name NPC
 extends Area2D
 
 ## ★ รอบ 57 ★ SAVE_POINT กลายเป็น "เสาวาป" แล้ว (วาปข้ามแมพ + บันทึกเกม)
@@ -60,7 +63,9 @@ enum NPCType { DIALOG, SHOP, REFINER, HEALER, SAVE_POINT, QUEST }
 # =========================================================
 @export_group("เสาวาป")
 ## แมพปลายทางที่วาปไปได้ (เรียงตามลำดับที่อยากให้โชว์)
-@export var warp_targets: Array[StringName] = [&"asgard_forest_2"]
+## ★ รอบ 102 ★ ปล่อยว่าง = วาปได้ทุกแมพตามกติกาใน MapAtlas (แนะนำ)
+## กรอกไว้ = จำกัดให้เหลือเฉพาะรายชื่อนี้ (ยังต้องผ่านเงื่อนไขระยะ/เคยไป/ล่าครบ/มีเงินอยู่ดี)
+@export var warp_targets: Array[StringName] = []
 ## ปลายทางไหนต้องปลดล็อกก่อน — { map_id: ธงเนื้อเรื่อง } (ไม่ใส่ = ไปได้เลย)
 @export var warp_flags: Dictionary = {}
 ## จุดเกิดที่จะไปโผล่ในแมพปลายทาง (ไม่มีชื่อนี้ในแมพ ระบบใช้ default ให้เอง)
@@ -104,6 +109,12 @@ const MARK_FALLBACK_TOP := -174.0   # NPC ที่ไม่มีป้าย�
 const MARK_BOB := 7.0          # ลอยขึ้น-ลงกี่พิกเซล
 const MARK_BOB_SPEED := 2.4
 
+## ★★ รอบ 102 — ป้ายชื่อ NPC ★★
+const NAME_FONT := 21          # ขนาดตัวอักษรชื่อ (ค่าเริ่มต้นของ Label = 16 เล็กเกินไป)
+const NAME_OUTLINE := 6        # ขอบดำ ให้อ่านออกบนฉากสว่าง
+const NAME_MIN_WIDTH := 220.0  # ความกว้างขั้นต่ำของป้าย (ชื่อยาวจะได้ไม่ถูกตัด)
+const NAME_CLEAR := 26.0       # ช่องไฟระหว่างหัวรูปกับป้ายชื่อ
+
 var _player_inside := false
 var _prompt: Label
 var _mark: Control
@@ -120,8 +131,17 @@ func _ready() -> void:
 	var label := get_node_or_null("Label") as Label
 	if label != null:
 		label.text = npc_name
+		# ★★ รอบ 102 ★★ ป้ายชื่อ NPC เล็กไป และบางตัว (เช่น เสาวาป) รูปสูงกว่าป้ายจนบัง
+		label.add_theme_font_size_override("font_size", NAME_FONT)
+		label.add_theme_color_override("font_color", Color("#f2ead8"))
 		label.add_theme_color_override("font_outline_color", Color.BLACK)
-		label.add_theme_constant_override("outline_size", 5)
+		label.add_theme_constant_override("outline_size", NAME_OUTLINE)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		# กว้างพอสำหรับชื่อยาว ๆ (เดิม 120 px ชื่อยาวจะถูกตัด)
+		var half: float = maxf(NAME_MIN_WIDTH, float(label.offset_right - label.offset_left)) * 0.5
+		label.offset_left = -half
+		label.offset_right = half
+		_lift_name_above_art(label)
 
 	_prompt = Label.new()
 	_prompt.text = "[F] คุย"
@@ -139,6 +159,49 @@ func _ready() -> void:
 
 
 ## ★ รอบ 47 — สร้างป้าย ! ? เหนือหัว (วงรอง + ตัวอักษรใหญ่) ★
+## ★ ยกป้ายชื่อขึ้นให้พ้นยอดรูป ★
+## แม่แบบ npc.tscn ตั้งป้ายไว้ที่ y = −174 ตายตัว · NPC ที่รูปสูงกว่านั้น (เสาวาป ฯลฯ) จะโดนรูปทับ
+## ตรงนี้วัดยอดรูปจริงจากทุกโหนดภาพที่เป็นลูก แล้วเลื่อนป้ายขึ้นถ้าจำเป็น (ไม่เคยเลื่อนลง)
+func _lift_name_above_art(label: Label) -> void:
+	var top := INF
+	for c in get_children():
+		var n2d := c as Node2D
+		if n2d == null or not n2d.visible:
+			continue
+		var h := 0.0
+		var sp := c as Sprite2D
+		if sp != null and sp.texture != null:
+			h = sp.texture.get_height() * (1.0 if sp.region_enabled == false else 1.0)
+			if sp.region_enabled:
+				h = sp.region_rect.size.y
+			if sp.hframes > 1 or sp.vframes > 1:
+				h /= float(maxi(1, sp.vframes))
+			top = minf(top, n2d.position.y + (-h * 0.5 * absf(n2d.scale.y) if sp.centered else 0.0))
+			continue
+		var asp := c as AnimatedSprite2D
+		if asp != null and asp.sprite_frames != null:
+			var anim := asp.animation
+			if not asp.sprite_frames.has_animation(anim):
+				var names := asp.sprite_frames.get_animation_names()
+				if names.is_empty():
+					continue
+				anim = names[0]
+			if asp.sprite_frames.get_frame_count(anim) <= 0:
+				continue
+			var tex := asp.sprite_frames.get_frame_texture(anim, 0)
+			if tex == null:
+				continue
+			h = tex.get_height()
+			top = minf(top, n2d.position.y + (-h * 0.5 * absf(n2d.scale.y) if asp.centered else 0.0))
+	if top == INF:
+		return
+	var want: float = top - NAME_CLEAR
+	if want < label.offset_top:
+		var height: float = label.offset_bottom - label.offset_top
+		label.offset_top = want
+		label.offset_bottom = want + height
+
+
 func _build_mark(name_label: Label) -> void:
 	# วางให้ "ขอบล่างของวง" อยู่เหนือขอบบนของป้ายชื่อ — NPC ตัวสูง/เตี้ยก็ไม่ทับชื่อ
 	var name_top: float = name_label.offset_top if name_label != null else MARK_FALLBACK_TOP
@@ -379,20 +442,37 @@ func has_refine_menu() -> bool:
 # =========================================================
 # ★★ เสาวาป (รอบ 57) ★★
 # =========================================================
-## ปลายทางที่ "เปิดให้ไปได้ตอนนี้" — คืน Array ของ { "id": StringName, "name": String }
+## ปลายทางที่ "เปิดให้ไปได้ตอนนี้" — คืน Array ของ
+##   { id, name, cost, hops, ok, why }
+##
+## ★★ รอบ 102 — กติกาใหม่ ★★  (เดิมโชว์เฉพาะรายชื่อที่พิมพ์ไว้ใน Warp Targets และไม่มีค่าใช้จ่าย)
+##   1. วาปได้ทุกแมพในโลก **ยกเว้นแมพที่ติดกัน** (ห่าง 1 ทอด = เดินเอา ไม่ต้องเสียเงิน)
+##   2. ต้องเคยไปถึงแมพนั้นมาก่อน
+##   3. ต้องล่ามอนในแมพนั้น "ครบทุกชนิด" แล้ว
+##   4. เสียค่าวาป เริ่ม 2000 เพิ่มตามระยะทาง เพดาน 25000 (ดู MapAtlas.warp_cost)
+##
+## `warp_targets` / `warp_flags` เดิมยังใช้ได้: ถ้ากรอกไว้ = จำกัดให้เหลือเฉพาะรายชื่อนั้น
+## (ปล่อยว่าง = ใช้ทั้งโลกตามกติกาข้างบน) — เสาเก่าในฉากจึงไม่พังและยังคุมด้วยมือได้เหมือนเดิม
 func warp_options() -> Array:
+	var here := PlayerState.current_map_id
+	var all: Array = MapAtlas.warp_destinations(here)
+	var limited := not warp_targets.is_empty()
 	var out: Array = []
-	for mid in warp_targets:
-		var id := StringName(mid)
-		if not Game.MAPS.has(id):
-			push_warning("[เสาวาป] ไม่รู้จักแมพ %s" % id)
+	for d in all:
+		var id: StringName = d["id"]
+		if limited and not warp_targets.has(id):
 			continue
-		if id == PlayerState.current_map_id:
-			continue                      # อยู่แมพนี้อยู่แล้ว ไม่ต้องโชว์
 		if warp_flags.has(id) and not PlayerState.has_flag(StringName(warp_flags[id])):
-			continue                      # ยังไม่ปลดล็อก
-		out.append({"id": id, "name": Game.map_display_name(id)})
+			continue                      # ยังไม่ปลดล็อกด้วยธงเนื้อเรื่อง
+		out.append(d)
 	return out
+
+
+## ข้อความบนปุ่มปลายทาง 1 อัน
+static func warp_label(d: Dictionary) -> String:
+	if bool(d.get("ok", false)):
+		return "ไป %s  (%s z)" % [String(d["name"]), HUD._comma(int(d["cost"]))]
+	return "%s — %s" % [String(d["name"]), String(d.get("why", ""))]
 
 
 ## เปิดเมนูเสาวาป
@@ -404,7 +484,7 @@ func open_warp_menu() -> void:
 	if not ritual.is_empty():
 		options.append(String(ritual["text"]))
 	for t in targets:
-		options.append("ไป %s" % String(t["name"]))
+		options.append(warp_label(t))
 	if warp_saves_game:
 		options.append(MENU_SAVE)
 	options.append(MENU_LEAVE)
@@ -428,8 +508,18 @@ func open_warp_menu() -> void:
 		SaveManager.save_game(0)
 		return
 	if pick >= 0 and pick < targets.size():
-		var dest: StringName = targets[pick]["id"]
-		Events.say("กำลังวาปไป %s..." % String(targets[pick]["name"]))
+		var t: Dictionary = targets[pick]
+		# ★ รอบ 102 ★ ปลายทางที่ยังไม่ผ่านเงื่อนไขก็ยังโชว์อยู่ (จะได้รู้ว่าต้องทำอะไรอีก)
+		# แต่กดแล้วไม่วาป — บอกเหตุผลแทน
+		if not bool(t.get("ok", false)):
+			Events.say("%s: %s" % [String(t["name"]), String(t.get("why", "ยังไปไม่ได้"))])
+			return
+		var cost := int(t.get("cost", 0))
+		if not PlayerState.spend_zeny(cost):
+			Events.say("เงินไม่พอ — ต้องใช้ %s z" % HUD._comma(cost))
+			return
+		var dest: StringName = t["id"]
+		Events.say("กำลังวาปไป %s...  (−%s z)" % [String(t["name"]), HUD._comma(cost)])
 		await Game.change_map(dest, warp_spawn_point)
 
 

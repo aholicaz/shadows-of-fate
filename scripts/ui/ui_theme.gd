@@ -57,8 +57,8 @@ static func icon(id: String) -> Texture2D:
 			tex = load(path) as Texture2D
 			if tex != null:
 				break
-	_icon_cache[id] = tex
-	return tex
+	_icon_cache[id] = mipped(tex)
+	return _icon_cache[id]
 
 
 ## ภาพประกอบจาก components/ (slot · slot-selected · action · action-pressed · close)
@@ -77,6 +77,35 @@ static func component(id: String) -> Texture2D:
 
 
 ## ไอคอนเล็ก (glyph) ที่ผู้ใช้วางเพิ่มได้เองที่ res://Sprites/ui/petrol/glyphs/<id>.svg|png — null = ยังไม่มี
+## ★★ รอบ 102 — ไอคอน/รูปหน้าตัวละคร "ภาพแตก" ★★
+##
+## ไอคอนชุด Petrol เป็น SVG ที่ import ที่ svg/scale = 4 (ผืนจริง ~256 px) แต่บนจอวาดแค่ 20-40 px
+## ย่อ 6-10 เท่าโดยไม่มี mipmap = สุ่มหยิบพิกเซลเดียวจากทุก 8 พิกเซล → ขอบหยัก/ระยิบ (aliasing)
+## ตั้ง TEXTURE_FILTER_LINEAR_WITH_MIPMAPS อย่างเดียวไม่พอ ถ้าไฟล์ .import ไม่ได้สร้าง mipmap ไว้
+## → ตรงนี้จึงสร้าง mipmap ให้เองตอนโหลด (ทำครั้งเดียวแล้วแคช) ไม่ต้องพึ่งค่าใน .import เลย
+static func mipped(tex: Texture2D) -> Texture2D:
+	if tex == null:
+		return null
+	var key := "mip:%d" % tex.get_instance_id()
+	if _icon_cache.has(key):
+		return _icon_cache[key]
+	var out: Texture2D = tex
+	var img: Image = tex.get_image()
+	if img != null and img.get_width() > 1 and img.get_height() > 1:
+		var work := Image.new()
+		work.copy_from(img)
+		if work.is_compressed():
+			# ผืนที่บีบอัดแล้วสร้าง mipmap ไม่ได้ ต้องคลายก่อน (บาง format คลายไม่ได้ = ข้ามไป)
+			if work.decompress() != OK:
+				_icon_cache[key] = tex
+				return tex
+		if not work.has_mipmaps():
+			work.generate_mipmaps()
+		out = ImageTexture.create_from_image(work)
+	_icon_cache[key] = out
+	return out
+
+
 static func glyph_texture(id: String) -> Texture2D:
 	var key := "glyph:" + id
 	if _icon_cache.has(key):
@@ -87,8 +116,8 @@ static func glyph_texture(id: String) -> Texture2D:
 			tex = load(path) as Texture2D
 			if tex != null:
 				break
-	_icon_cache[key] = tex
-	return tex
+	_icon_cache[key] = mipped(tex)
+	return _icon_cache[key]
 
 
 # =========================================================

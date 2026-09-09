@@ -72,6 +72,8 @@ var _is_dead := false
 # อ่านค่า: PlayerState.has_flag(&"saw_ceremony")
 # =========================================================
 var story_flags: Dictionary = {}
+## ★ รอบ 102 ★ ล้มมอนชนิดไหนไปแล้วกี่ตัว: monster_id -> จำนวน (เก็บลงเซฟด้วย)
+var kills: Dictionary = {}
 
 # =========================================================
 # ★★ โหมด GM (รอบ 80) — เครื่องมือทดสอบ ★★
@@ -95,6 +97,10 @@ func _ready() -> void:
 func _on_monster_killed(monster_id: StringName, _level: int) -> void:
 	if quests != null:
 		quests.on_monster_killed(monster_id)
+	# ★ รอบ 102 ★ จำว่าเคยล้มมอนชนิดไหนไปแล้วกี่ตัว
+	# ใช้เป็นเงื่อนไขของเสาวาป ("ล่ามอนในแมพนั้นครบทุกชนิดก่อนถึงวาปไปได้")
+	# และโชว์เป็นความคืบหน้าในหน้าแผนที่โลก
+	kills[monster_id] = int(kills.get(monster_id, 0)) + 1
 
 
 func _on_map_changed(map_id: StringName) -> void:
@@ -175,6 +181,7 @@ func new_game() -> void:
 	skills = SkillBook.new()
 	quests = QuestLog.new()
 	story_flags.clear()
+	kills.clear()
 	zeny = 1000
 	active_buffs.clear()
 	cooldowns.clear()
@@ -397,6 +404,17 @@ func gain_exp(base_exp: int, job_exp: int) -> void:
 func add_zeny(amount: int) -> void:
 	zeny = maxi(0, zeny + amount)
 	Events.zeny_changed.emit(zeny)
+
+
+## ★ รอบ 102 ★ จ่ายเงิน — เงินไม่พอคืน false และไม่หักอะไรเลย (ใช้กับค่าวาปของเสาวาป)
+func spend_zeny(amount: int) -> bool:
+	if amount <= 0:
+		return true
+	if zeny < amount:
+		return false
+	zeny -= amount
+	Events.zeny_changed.emit(zeny)
+	return true
 
 
 # =========================================================
@@ -966,7 +984,20 @@ func to_dict() -> Dictionary:
 		"item_hotkeys": [String(item_hotkeys[0]), String(item_hotkeys[1])],
 		"map": String(current_map_id),
 		"flags": _flags_to_dict(),
+		"kills": _kills_to_dict(),
 	}
+
+
+## ★ รอบ 102 ★ เคยล้มมอนชนิดนี้ไปกี่ตัว (0 = ยังไม่เคยล้มเลย)
+func kill_count(monster_id: StringName) -> int:
+	return int(kills.get(monster_id, 0))
+
+
+func _kills_to_dict() -> Dictionary:
+	var out: Dictionary = {}
+	for k in kills.keys():
+		out[String(k)] = int(kills[k])
+	return out
 
 
 func _flags_to_dict() -> Dictionary:
@@ -1005,6 +1036,12 @@ func from_dict(d: Dictionary) -> void:
 	if rl is Dictionary:
 		for k in rl.keys():
 			respawn_locks[StringName(k)] = float(rl[k])
+
+	kills.clear()
+	var kd = d.get("kills", {})
+	if kd is Dictionary:
+		for k in kd.keys():
+			kills[StringName(k)] = int(kd[k])
 
 	story_flags.clear()
 	var fl = d.get("flags", {})

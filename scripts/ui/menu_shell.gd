@@ -1,6 +1,6 @@
 ## MenuShell — "หน้าต่างรวม" กลางจอ มีแถบแท็บด้านบน (โฉม Petrol รอบ 98 ตามภาพตัวอย่าง)
 ##
-##   ┌─ สเตตัส · สวมใส่ · กระเป๋า · สกิล · การ์ด · เควส · แผนที่ · ระบบ ─────────── ✕ ┐
+##   ┌─ สเตตัส · กระเป๋า · สกิล · การ์ด · เควส · แผนที่ · ระบบ ──────────────────── ✕ ┐
 ##   │  (หน้าของแท็บที่เลือก — คือ GameWindow เดิม ๆ ที่ถูกย้ายมาอยู่ข้างในแบบไม่มีหัวเรื่อง)   │
 ##   └───────────────────────────────────────────────────────────────────────────────┘
 ##        E ใช้/สวม   C เปรียบเทียบ   X ทิ้ง   Esc ปิด        ← คำใบ้ปุ่มของหน้านั้น
@@ -10,10 +10,12 @@
 class_name MenuShell
 extends Control
 
-const FRAME_SIZE := Vector2(1000, 572)
+## ★ รอบ 102 ★ ขยายกรอบให้กว้างขึ้น (เดิม 1000×572 = เนื้อหากองมุมซ้าย เหลือที่ว่างครึ่งจอ)
+const FRAME_SIZE := Vector2(1180, 640)
 const TABS := [
+	# ★ รอบ 102 ★ เอาแท็บ "สวมใส่" ออก — มันชี้หน้าเดียวกับ "สเตตัส" อยู่แล้ว (ซ้ำซ้อน)
+	# ปุ่ม C / คำสั่ง UI.toggle(&"equipment") ยังเปิดหน้านี้ได้เหมือนเดิม แค่ไม่มีแท็บซ้ำบนแถบ
 	{"id": "status",    "label": "สเตตัส"},
-	{"id": "equipment", "label": "สวมใส่"},
 	{"id": "inventory", "label": "กระเป๋า"},
 	{"id": "skills",    "label": "สกิล"},
 	{"id": "cards",     "label": "การ์ด"},
@@ -50,6 +52,7 @@ func _ready() -> void:
 	frame.name = "Frame"
 	frame.add_theme_stylebox_override("panel", UITheme.panel_style(Color(UITheme.BG, 0.95), UITheme.ACCENT, 4, 1, 0.0))
 	frame.mouse_filter = Control.MOUSE_FILTER_STOP
+	frame.clip_contents = true
 	add_child(frame)
 
 	var root := VBoxContainer.new()
@@ -62,8 +65,9 @@ func _ready() -> void:
 	strip.add_theme_constant_override("separation", 0)
 	strip.custom_minimum_size.y = 50
 	root.add_child(strip)
+	# ★ รอบ 102 ★ แท็บกระจายกลางแถบ (เดิมชิดซ้ายด้วยช่องว่างคงที่ 60 px)
 	var lead := Control.new()
-	lead.custom_minimum_size.x = 60
+	lead.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	strip.add_child(lead)
 	for t in TABS:
 		var btn := _make_tab(t)
@@ -77,13 +81,18 @@ func _ready() -> void:
 	root.add_child(UITheme.separator())
 
 	# ---------- พื้นที่หน้า ----------
-	page_area = MarginContainer.new()
+	# ★★ รอบ 102 (รอบสาม) ★★ เดิมเป็น MarginContainer → **ขนาดขั้นต่ำของหน้าไหลขึ้นมาถึงกรอบ**
+	# พอหน้าไหนมีของเยอะ (หรือมีตัวคำนวณขนาดช่องจากความกว้างจริง) กรอบจะโตตาม
+	# แล้ววนซ้ำ: กรอบโต → กล่องเลื่อนโต → ช่องโต → ขนาดขั้นต่ำโต → กรอบโตอีก
+	# (เจอจริง: หน้าระบบดันกรอบจาก 640 เป็น 1051 px จนทะลุออกนอกจอ)
+	# → เปลี่ยนเป็น Control ธรรมดา ซึ่ง "ขนาดขั้นต่ำ = 0 เสมอ ไม่สนลูก"
+	#   กรอบจึงคุมขนาดตัวเองได้เด็ดขาด · ระยะขอบย้ายไปเป็น offset ของหน้า (ดู GameWindow.set_embedded)
+	page_area = Control.new()
 	page_area.name = "Page"
-	page_area.add_theme_constant_override("margin_left", 12)
-	page_area.add_theme_constant_override("margin_right", 12)
-	page_area.add_theme_constant_override("margin_top", 10)
-	page_area.add_theme_constant_override("margin_bottom", 8)
+	page_area.custom_minimum_size = Vector2.ZERO
 	page_area.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	page_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	page_area.clip_contents = true
 	page_area.mouse_filter = Control.MOUSE_FILTER_PASS
 	root.add_child(page_area)
 

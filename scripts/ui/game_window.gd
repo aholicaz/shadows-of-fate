@@ -3,6 +3,12 @@
 class_name GameWindow
 extends PanelContainer
 
+## ระยะขอบของหน้าตอนอยู่ในหน้าต่างรวม
+const SHELL_PAD_LEFT := 12.0
+const SHELL_PAD_RIGHT := 12.0
+const SHELL_PAD_TOP := 10.0
+const SHELL_PAD_BOTTOM := 8.0
+
 var window_title: String = "หน้าต่าง"
 var content: VBoxContainer
 var title_label: Label
@@ -71,6 +77,12 @@ func set_embedded(on: bool, tab_id: String = "") -> void:
 			_bar.visible = false
 		add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 		set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		# ★ รอบ 102 (รอบสาม) ★ ระยะขอบของหน้าอยู่ตรงนี้แล้ว (เดิมเป็น margin ของ MarginContainer
+		# ที่ครอบอยู่ — แต่ MarginContainer ดันขนาดขั้นต่ำของหน้าขึ้นไปทำให้กรอบโตตาม ดู MenuShell)
+		offset_left = SHELL_PAD_LEFT
+		offset_top = SHELL_PAD_TOP
+		offset_right = -SHELL_PAD_RIGHT
+		offset_bottom = -SHELL_PAD_BOTTOM
 		custom_minimum_size = Vector2.ZERO
 	else:
 		if _bar != null:
