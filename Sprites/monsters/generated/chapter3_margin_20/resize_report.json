@@ -1,0 +1,92 @@
+[
+  {
+    "file": "bog_lurker.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "24E9653F1FBAB7CF105ED95D4E20CFFF1FAAE6FBB95449DB7656E1741A771383"
+  },
+  {
+    "file": "gullveig_ember.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "F6BDBEE2B8348A93D659B417D0752557D1E315B022106E31367789B5874F6588"
+  },
+  {
+    "file": "mist_sprite.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "874393CF3FF3F5488B9B9DB7EBBF6F5975F9478DFFEBB3007F50A96C964BB33D"
+  },
+  {
+    "file": "root_crawler.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "CF1E9513E2D25C147E759FB4C9A5F3593D38E94322D4507F50FBCB4F41E26242"
+  },
+  {
+    "file": "thorn_hound.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "4DE231B368ED6B3EEEF32FA50D7822C33D2CAAE29FF786F542161E5473DCDABA"
+  },
+  {
+    "file": "thorn_matriarch.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "D0C7FB107B58A6A2ADB34D52D35E4C3AC6862A5F7D942C830F29891902E79DFA"
+  },
+  {
+    "file": "vanir_sentinel.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "8998E9A4FADA91FDA8A20294059F41E3DB7DAAB1A756FE37944A6B35B2AAE982"
+  },
+  {
+    "file": "war_wraith.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "52F19EA72D2CFF053989F9C808970D941C4D8AE7A8D50A82B0212E83DB0B6609"
+  },
+  {
+    "file": "withered_treant.png",
+    "width": 1254,
+    "height": 1254,
+    "scale": 0.8,
+    "offset_x": 125.399994,
+    "offset_y": 125.399994,
+    "opaque_border_pixels": 0,
+    "source_sha256": "9291650206DA5E07CF20678E7337DC7CFCB77B885A515646D4CAEF7675FA2CF2"
+  }
+]

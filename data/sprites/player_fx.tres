@@ -1,0 +1,109 @@
+[gd_resource type="Resource" script_class="PlayerFXBook" format=3 uid="uid://cwmmlkg21jiwp"]
+
+[ext_resource type="Script" uid="uid://yrs0r421aw8u" path="res://scripts/resources/player_fx_book.gd" id="1_fxbook"]
+[ext_resource type="Script" uid="uid://pbbg8dtlv5sj" path="res://scripts/resources/player_skill_fx.gd" id="1_jcg3u"]
+[ext_resource type="SpriteFrames" uid="uid://c4txli5k15ntp" path="res://data/sprites/fx_bash.tres" id="2_iqndm"]
+
+[sub_resource type="Resource" id="Resource_iqndm"]
+script = ExtResource("1_jcg3u")
+use_book = true
+sheet_set = 5
+size_px = 360.0
+travel = 0.0
+white_mask = true
+crescent_enabled = true
+crescent_span = 1.3
+crescent_width = 1.4
+track_animation = &"Attack_Blade"
+blade_positions = PackedVector2Array(-100, -54, -96, -96, -28, -138, -38, -138, -68, 58)
+blade_angles = PackedFloat32Array(-125, -98, -58, -40, 125)
+blade_opacity = PackedFloat32Array(0, 0.12, 0.45, 0.85, 1)
+offset = Vector2(86, -22)
+
+[sub_resource type="Resource" id="Resource_5xwk3"]
+script = ExtResource("1_jcg3u")
+use_book = true
+aim_deg = 0.0
+size_px = 350.0
+travel = 0.0
+white_mask = true
+crescent_enabled = true
+crescent_span = 1.15
+crescent_width = 1.25
+crescent_direction = -1.0
+track_animation = &"Attack_Blade_2"
+blade_positions = PackedVector2Array(74, -98, 74, -88, -172, -36, -144, -72, -140, -94)
+blade_angles = PackedFloat32Array(-60, -48, 160, 180, -150)
+blade_opacity = PackedFloat32Array(0, 0.3, 1, 0.7, 0.18)
+offset = Vector2(70, -40)
+
+[sub_resource type="Resource" id="Resource_0bcg5"]
+script = ExtResource("1_jcg3u")
+use_book = true
+aim_deg = 55.0
+size_px = 320.0
+travel = 0.0
+white_mask = true
+crescent_enabled = true
+crescent_span = 1.45
+crescent_width = 1.6
+track_animation = &"Attack_Blade_3"
+blade_positions = PackedVector2Array(28, -146, 80, -146, 68, -138, 68, -138, 80, -146, -106, 98, -106, 98, -106, 98, -106, 98, -126, 56, -112, -12, -112, -44)
+blade_angles = PackedFloat32Array(-25, 0, 8, 8, 0, 142, 142, 142, 142, 170, -155, -135)
+blade_opacity = PackedFloat32Array(0, 0, 0.08, 0.18, 0.65, 1, 0.7, 0.4, 0.18, 0.08, 0, 0)
+offset = Vector2(116, 2)
+
+[sub_resource type="Resource" id="Resource_4vxrq"]
+script = ExtResource("1_jcg3u")
+blade_positions = null
+blade_angles = null
+blade_opacity = null
+frames = ExtResource("2_iqndm")
+anim = &"slash"
+height = 300.0
+speed = 640.0
+delay = 0.34
+offset = Vector2(120, -5)
+
+[sub_resource type="Resource" id="Resource_rfgkm"]
+script = ExtResource("1_jcg3u")
+blade_positions = null
+blade_angles = null
+blade_opacity = null
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dwxqo"]
+
+[sub_resource type="Resource" id="Resource_2h84t"]
+script = ExtResource("1_jcg3u")
+blade_positions = null
+blade_angles = null
+blade_opacity = null
+frames = SubResource("SpriteFrames_dwxqo")
+anim = &"burst"
+height = 720.0
+delay = 0.2
+z = -60
+offset = Vector2(0, -226)
+
+[sub_resource type="Resource" id="Resource_trim6"]
+script = ExtResource("1_jcg3u")
+blade_positions = null
+blade_angles = null
+blade_opacity = null
+height = 200.0
+follow = true
+life = 0.45
+offset = Vector2(110, -60)
+
+[resource]
+script = ExtResource("1_fxbook")
+entries = {
+&"attack_1": SubResource("Resource_iqndm"),
+&"attack_2": SubResource("Resource_5xwk3"),
+&"attack_3": SubResource("Resource_0bcg5"),
+&"bash": SubResource("Resource_4vxrq"),
+&"battle_cry": SubResource("Resource_rfgkm"),
+&"magnum_break": SubResource("Resource_2h84t"),
+&"slash": SubResource("Resource_trim6")
+}
+editing = 0

@@ -1,4 +1,8 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+
+[ext_resource type="Texture2D" path="res://Sprites/map/generated/vanir_town_bg_final.png" id="bg38"]
 
 [ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
@@ -28,14 +32,18 @@ enter_flag = &"chapter3_visited"
 [node name="Sky" type="Polygon2D" parent="Background"]
 z_index = -100
 position = Vector2(-100, -200)
-color = Color(0.2, 0.28, 0.24, 1)
+color = Color(1, 1, 1, 1)
 polygon = PackedVector2Array(0, 0, 4000, 0, 4000, 1200, 0, 1200)
+texture = ExtResource("bg38")
+uv = PackedVector2Array(0, 0, 4000, 0, 4000, 1200, 0, 1200)
+texture_filter = 2
 
 [node name="FarLayer" type="Polygon2D" parent="Background"]
 z_index = -90
 position = Vector2(-100, 520)
 color = Color(0.3, 0.42, 0.3, 1)
 polygon = PackedVector2Array(0, 0, 4000, 0, 4000, 360, 0, 360)
+visible = false
 
 [node name="Terrain" type="Node2D" parent="."]
 
@@ -50,6 +58,7 @@ shape = SubResource("Rect_ground")
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
 color = Color(0.38, 0.36, 0.26, 1)
 polygon = PackedVector2Array(-2100, -120, 2100, -120, 2100, 120, -2100, 120)
+visible = false
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -96,7 +105,7 @@ dialog_by_flag = {
 }
 
 [node name="Eskil" parent="NPCs" instance=ExtResource("npc")]
-position = Vector2(900, 820)
+position = Vector2(1100, 820)
 npc_name = "นักบันทึกเอสกิล"
 type = 0
 dialog = "ข้าเอสกิล นักบันทึกแห่งวิหาร ถูกส่งมาเขียนพงศาวดารวานาเฮมฉบับสมบูรณ์\n\nประวัติศาสตร์ต้องมีฉบับเดียว ลูกเอ๋ย... ไม่งั้นผู้คนจะสับสน"
@@ -109,7 +118,7 @@ dialog_by_flag = {
 }
 
 [node name="Sifa" parent="NPCs" instance=ExtResource("npc")]
-position = Vector2(1400, 820)
+position = Vector2(1650, 820)
 npc_name = "แม่ค้าซิฟา"
 type = 1
 dialog = "แม่ค้าประจำนคร ของทุกชิ้นปลูกเองเก็บเอง\n\nปีนี้เก็บได้น้อยลงอีก... ต้นไม้ให้ผลน้อยลงทุกปีตั้งแต่บ่อน้ำเริ่มแห้ง"
@@ -119,7 +128,7 @@ voice_id = "sifa"
 quest_ids = Array[StringName]([&"c3_3_mist_that_lingers"])
 
 [node name="Galla" parent="NPCs" instance=ExtResource("npc")]
-position = Vector2(1900, 820)
+position = Vector2(2000, 820)
 npc_name = "ช่างรากไม้กัลลา"
 type = 2
 dialog = "ช่างของนครนี้ตีเหล็กด้วยไฟจากรากไม้ ไม่ใช่ถ่านหิน\n\nไฟรากอ่อนลงทุกปี... เหมือนต้นไม้ไม่มีแรงจะลุก"
@@ -129,14 +138,14 @@ voice_id = "galla"
 quest_ids = Array[StringName]([&"c3_7_sentinels_still_standing"])
 
 [node name="SavePoint" parent="NPCs" instance=ExtResource("npc")]
-position = Vector2(2350, 820)
+position = Vector2(2380, 820)
 npc_name = "เสาวาปแห่งราก"
 type = 4
 dialog = "เสาหินพันด้วยรากไม้ ลายเถาวัลย์เก่าแก่... แต่บนยอดมีตราค้อนสลักทับไว้ใหม่ ๆ"
 warp_targets = Array[StringName]([&"nidavellir_town", &"prontera_town"])
 
 [node name="Leif" parent="NPCs" instance=ExtResource("npc")]
-position = Vector2(2800, 820)
+position = Vector2(2950, 820)
 npc_name = "หมอสมุนไพรลีฟ"
 type = 3
 dialog = "สมุนไพรที่นี่ยังใช้ได้ แต่ต้องเดินไปเก็บไกลขึ้นทุกปี\n\nของดี ๆ ตายจากด้านในก่อนเสมอ ลูกเอ๋ย"
@@ -145,7 +154,7 @@ greeting = "แผลจากหนาม หรือแผลจากคน"
 voice_id = "leif"
 
 [node name="Arvid" parent="NPCs" instance=ExtResource("npc")]
-position = Vector2(3250, 820)
+position = Vector2(3350, 820)
 npc_name = "ทหารยามอาร์วิด"
 type = 0
 dialog = "ข้ายามของนคร... ยามที่ไม่มีอะไรให้เฝ้า\n\nมอนในป่าไม่ได้บุกเข้ามา พวกมันหนีออกจากบางอย่างในป่าลึก เหมือนกันกับที่มิดการ์ดใช่ไหม"
@@ -154,7 +163,7 @@ voice_id = "arvid"
 quest_ids = Array[StringName]([&"c3_2_roots_in_town", &"c3_9_thorn_matriarch"])
 
 [node name="Frida" parent="NPCs" instance=ExtResource("npc")]
-position = Vector2(3500, 820)
+position = Vector2(3570, 820)
 npc_name = "เด็กหญิงฟรีดา"
 type = 0
 dialog = "♪ น้ำล้นบ่อ รากเลื้อยไกล ♪\n♪ เทพจากเหนือ ขี่พายุมา ♪\n♪ ขอน้ำเรา แล้วเอาไป... ♪\n\nยายบอกว่าท่อนสุดท้ายห้ามร้องให้นักบวชได้ยิน"
@@ -168,9 +177,24 @@ dialog_by_flag = {
 [node name="Lore" type="Node2D" parent="."]
 
 [node name="WarMural" parent="Lore" instance=ExtResource("lore")]
-position = Vector2(650, 790)
+position = Vector2(834, 800)
 lore_id = &"war_mural"
 title = "ภาพจิตรกรรมบนกำแพงราก"
 text = "ภาพจิตรกรรมเก่าบนกำแพงราก สีลอกไปครึ่งหนึ่ง\n\nกองทัพถือธงค้อนสายฟ้า เดินทัพ «เข้ามา» ทางประตูเหนือของนครนี้\nชาววานีร์ยืนมือเปล่าอยู่หน้าบ่อน้ำ\n\n...ในวิหารสอนว่าวานีร์เป็นฝ่ายบุกก่อน"
 label_text = "ภาพวาดเก่า"
 set_flag = &"saw_mural"
+[node name="AmbientFX" type="Node2D" parent="."]
+script = ExtResource("ambient_fx")
+mote_regions = Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370)])
+motes_per_region = 12
+mote_color = Color(0.62, 0.83, 0.61, 0.4)
+mote_drift = Vector2(10, -5)
+lantern_positions = PackedVector2Array(50, 166, 66, 535, 263, 294, 317, 325, 1761, 437, 1889, 384, 2158, 406, 2527, 375, 2146, 587, 2706, 375, 2794, 401, 3199, 399, 3390, 238, 3709, 233)
+flame_size = Vector2(18, 36)
+light_radius = 180.0
+light_energy = 0.16
+wind_regions = Array[Rect2]([Rect2(-34, 49, 89, 547), Rect2(1452, 294, 288, 124), Rect2(2831, 259, 331, 106), Rect2(3478, -37, 152, 319)])
+shaft_positions = PackedVector2Array(500, -190, 2000, -190, 3300, -190)
+shaft_size = Vector2(400, 1050)
+shaft_color = Color(0.86, 0.89, 0.65, 0.065)
+

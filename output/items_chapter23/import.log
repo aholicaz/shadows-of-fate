@@ -1,0 +1,297 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | กำลังสแกนไฟล์ กรุณารอ...
+WARNING: Detected another project.godot at res://petrol_ui_kit_godot4. The folder will be ignored.
+   at: _should_skip_directory (editor/file_system/editor_file_system.cpp:3497)
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_drops.tres and res://_to_delete/originals_cards_r89/card_drops.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_fabre.tres and res://_to_delete/originals_cards_r89/card_fabre.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_king_poring.tres and res://_to_delete/originals_cards_r89/card_king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_lunatic.tres and res://_to_delete/originals_cards_r89/card_lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_poring.tres and res://_to_delete/originals_cards_r89/card_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_wolf.tres and res://_to_delete/originals_cards_r89/card_wolf.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_items_r53/novice_sword.tres and res://_to_delete/originals_items_equipframes/novice_sword.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_maps_r73/prontera_town.tscn and res://_to_delete/originals_maps_r57/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_maps_shop/prontera_town.tscn and res://_to_delete/originals_maps_r73/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_maps_voice/prontera_town.tscn and res://_to_delete/originals_maps_shop/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_monsters_r69/stormscar.tres and res://_to_delete/originals_monsters_r64/stormscar.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_quest_r76/prontera_town.tscn and res://_to_delete/originals_maps_voice/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_r92/lunatic.tres and res://_to_delete/originals_monsters_r67/lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_skill_r78/baphomet.tres and res://_to_delete/originals_frames_r77/baphomet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_video_r75/king_poring.tres and res://_to_delete/originals_fx_r82/king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_video_r75/stormscar.tres and res://_to_delete/originals_monsters_r69/stormscar.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_baphomet.tres and res://_to_delete/originals_cards_r90/card_baphomet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_baphomet_jr.tres and res://_to_delete/originals_cards_r90/card_baphomet_jr.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_drops.tres and res://_to_delete/originals_cards_r90/card_drops.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_fabre.tres and res://_to_delete/originals_cards_r90/card_fabre.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_king_poring.tres and res://_to_delete/originals_cards_r90/card_king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_lunatic.tres and res://_to_delete/originals_cards_r90/card_lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_poring.tres and res://_to_delete/originals_cards_r90/card_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_wolf.tres and res://_to_delete/originals_cards_r90/card_wolf.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/items/novice_sword.tres and res://_to_delete/originals_items_r53/novice_sword.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/baphomet.tres and res://_to_delete/originals_skill_r78/baphomet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/baphomet_jr.tres and res://_to_delete/originals_monsters_r66/baphomet_jr.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/forge_guardian.tres and res://_to_delete/originals_frames_r77/forge_guardian.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/hornet.tres and res://_to_delete/originals_monster_preview/hornet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/king_poring.tres and res://_to_delete/originals_video_r75/king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/lunatic.tres and res://_to_delete/originals_r92/lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/magma_slug.tres and res://_to_delete/originals_frames_r77/magma_slug.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/pitman.tres and res://_to_delete/originals_frames_r77/pitman.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/silent_wraith.tres and res://_to_delete/originals_frames_r77/silent_wraith.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/steel_beetle.tres and res://_to_delete/originals_frames_r77/steel_beetle.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/stormscar.tres and res://_to_delete/originals_video_r75/stormscar.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/skills/magnum_break.tres and res://_to_delete/originals_fx_r82/magnum_break.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/skills/slash.tres and res://_to_delete/originals_skills_r56/slash.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/monsters/forge_guardian_frames.tres and res://_to_delete/originals_refs_r91/data__sprites__monsters__forge_guardian_frames.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/placeholder/stormscar_frames.tres and res://_to_delete/originals_monsters_r64/stormscar_frames.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/equip_sword_idle.tres and res://_to_delete/originals_refs_r91/data__sprites__equip_sword_idle.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/fx_magnum.tres and res://_to_delete/originals_fx_r82/fx_magnum.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://scenes/maps/prontera_town.tscn and res://_to_delete/originals_quest_r76/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://scenes/maps/thunder_scar.tscn and res://_to_delete/originals_maps_r68/thunder_scar.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+[   0% ] _update_scan_actions | Started Scanning actions... (57 steps)
+[   0% ] _update_scan_actions | Jump.png
+[   1% ] _update_scan_actions | npc_lines.csv
+[   3% ] _update_scan_actions | aesir_helm_rusted.png
+[   5% ] _update_scan_actions | aesir_warblade.png
+[   6% ] _update_scan_actions | ash_ring.png
+[   8% ] _update_scan_actions | bark_armor.png
+[  10% ] _update_scan_actions | bog_bone.png
+[  12% ] _update_scan_actions | bramble_pelt.png
+[  13% ] _update_scan_actions | card_bog_lurker.png
+[  15% ] _update_scan_actions | card_ember_bat.png
+[  17% ] _update_scan_actions | card_forge_golem.png
+[  18% ] _update_scan_actions | card_forge_guardian.png
+[  20% ] _update_scan_actions | card_gullveig_ember.png
+[  22% ] _update_scan_actions | card_magma_slug.png
+[  24% ] _update_scan_actions | card_mist_sprite.png
+[  25% ] _update_scan_actions | card_pitman.png
+[  27% ] _update_scan_actions | card_root_crawler.png
+[  29% ] _update_scan_actions | card_rune_watcher.png
+[  31% ] _update_scan_actions | card_silent_wraith.png
+[  32% ] _update_scan_actions | card_steel_beetle.png
+[  34% ] _update_scan_actions | card_thorn_hound.png
+[  36% ] _update_scan_actions | card_thorn_matriarch.png
+[  37% ] _update_scan_actions | card_vanir_sentinel.png
+[  39% ] _update_scan_actions | card_war_wraith.png
+[  41% ] _update_scan_actions | card_withered_treant.png
+[  43% ] _update_scan_actions | carved_stone.png
+[  44% ] _update_scan_actions | ember_heart.png
+[  46% ] _update_scan_actions | ember_of_gullveig.png
+[  48% ] _update_scan_actions | eskil_chronicle.png
+[  50% ] _update_scan_actions | frida_song.png
+[  51% ] _update_scan_actions | golem_plate.png
+[  53% ] _update_scan_actions | gullveig_ash.png
+[  55% ] _update_scan_actions | heartwood_chip.png
+[  56% ] _update_scan_actions | magma_core.png
+[  58% ] _update_scan_actions | marsh_cutter.png
+[  60% ] _update_scan_actions | matriarch_thorn.png
+[  62% ] _update_scan_actions | mist_cloak.png
+[  63% ] _update_scan_actions | mist_essence.png
+[  65% ] _update_scan_actions | mole_claw.png
+[  67% ] _update_scan_actions | pale_sap.png
+[  68% ] _update_scan_actions | root_boots.png
+[  70% ] _update_scan_actions | root_fiber.png
+[  72% ] _update_scan_actions | root_sword.png
+[  74% ] _update_scan_actions | royal_bloom.png
+[  75% ] _update_scan_actions | sentinel_blade.png
+[  77% ] _update_scan_actions | sentinel_core.png
+[  79% ] _update_scan_actions | sentinel_plate.png
+[  81% ] _update_scan_actions | silver_dust.png
+[  82% ] _update_scan_actions | spectral_plume.png
+[  84% ] _update_scan_actions | spring_amulet.png
+[  86% ] _update_scan_actions | spring_vial.png
+[  87% ] _update_scan_actions | storm_medal.png
+[  89% ] _update_scan_actions | thorn_fang.png
+[  91% ] _update_scan_actions | thorn_shield.png
+[  93% ] _update_scan_actions | vanir_circlet.png
+[  94% ] _update_scan_actions | vanir_seal.png
+[  96% ] _update_scan_actions | withered_bark.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started กำลังนำเข้าทรัพยากร(อีกครั้ง) (56 steps)
+[   0% ] reimport | Preparing files to reimport...
+[   1% ] reimport | Preparing files to reimport...
+[   3% ] reimport | Preparing files to reimport...
+[   5% ] reimport | Preparing files to reimport...
+[   7% ] reimport | Preparing files to reimport...
+[   8% ] reimport | Preparing files to reimport...
+[  10% ] reimport | Preparing files to reimport...
+[  12% ] reimport | Preparing files to reimport...
+[  14% ] reimport | Preparing files to reimport...
+[  15% ] reimport | Preparing files to reimport...
+[  17% ] reimport | Preparing files to reimport...
+[  19% ] reimport | Preparing files to reimport...
+[  21% ] reimport | Preparing files to reimport...
+[  22% ] reimport | Preparing files to reimport...
+[  24% ] reimport | Preparing files to reimport...
+[  26% ] reimport | Preparing files to reimport...
+[  28% ] reimport | Preparing files to reimport...
+[  29% ] reimport | Preparing files to reimport...
+[  31% ] reimport | Preparing files to reimport...
+[  33% ] reimport | Preparing files to reimport...
+[  35% ] reimport | Preparing files to reimport...
+[  36% ] reimport | Preparing files to reimport...
+[  38% ] reimport | Preparing files to reimport...
+[  40% ] reimport | Preparing files to reimport...
+[  42% ] reimport | Preparing files to reimport...
+[  43% ] reimport | Preparing files to reimport...
+[  45% ] reimport | Preparing files to reimport...
+[  47% ] reimport | Preparing files to reimport...
+[  49% ] reimport | Preparing files to reimport...
+[  50% ] reimport | Preparing files to reimport...
+[  52% ] reimport | Preparing files to reimport...
+[  54% ] reimport | Preparing files to reimport...
+[  56% ] reimport | Preparing files to reimport...
+[  57% ] reimport | Preparing files to reimport...
+[  59% ] reimport | Preparing files to reimport...
+[  61% ] reimport | Preparing files to reimport...
+[  63% ] reimport | Preparing files to reimport...
+[  64% ] reimport | Preparing files to reimport...
+[  66% ] reimport | Preparing files to reimport...
+[  68% ] reimport | Preparing files to reimport...
+[  70% ] reimport | Preparing files to reimport...
+[  71% ] reimport | Preparing files to reimport...
+[  73% ] reimport | Preparing files to reimport...
+[  75% ] reimport | Preparing files to reimport...
+[  77% ] reimport | Preparing files to reimport...
+[  78% ] reimport | Preparing files to reimport...
+[  80% ] reimport | Preparing files to reimport...
+[  82% ] reimport | Preparing files to reimport...
+[  84% ] reimport | Preparing files to reimport...
+[  85% ] reimport | Preparing files to reimport...
+[  87% ] reimport | Preparing files to reimport...
+[  89% ] reimport | Preparing files to reimport...
+[  91% ] reimport | Preparing files to reimport...
+[  92% ] reimport | Preparing files to reimport...
+[  94% ] reimport | Preparing files to reimport...
+[  96% ] reimport | Preparing files to reimport...
+[   0% ] reimport | Executing pre-reimport operations...
+[   0% ] reimport | npc_lines.csv
+ERROR: Cannot create file 'res://_to_delete/npc_lines.ไฟล์เสียง (Sprites/voice/<voice.translation'.
+   at: save (core/io/resource_format_binary.cpp:2117)
+ERROR: Cannot open file 'res://_to_delete/npc_lines.ไฟล์เสียง (Sprites/voice/<voice.translation'.
+   at: set_uid (core/io/resource_format_binary.cpp:2349)
+ERROR: Condition "f.is_null()" is true. Continuing.
+   at: get_multiple_md5 (core/io/file_access.cpp:967)
+[   1% ] reimport | npc_lines.csv
+[   3% ] reimport | golem_plate.png
+[   5% ] reimport | gullveig_ash.png
+[   7% ] reimport | heartwood_chip.png
+[   8% ] reimport | magma_core.png
+[  10% ] reimport | marsh_cutter.png
+[  12% ] reimport | matriarch_thorn.png
+[  14% ] reimport | mist_cloak.png
+[  15% ] reimport | mist_essence.png
+[  17% ] reimport | mole_claw.png
+[  19% ] reimport | pale_sap.png
+[  21% ] reimport | root_boots.png
+[  22% ] reimport | root_fiber.png
+[  24% ] reimport | root_sword.png
+[  26% ] reimport | royal_bloom.png
+[  28% ] reimport | sentinel_blade.png
+[  29% ] reimport | sentinel_core.png
+[  31% ] reimport | sentinel_plate.png
+[  33% ] reimport | silver_dust.png
+[  35% ] reimport | spectral_plume.png
+[  36% ] reimport | spring_amulet.png
+[  38% ] reimport | spring_vial.png
+[  40% ] reimport | storm_medal.png
+[  42% ] reimport | thorn_fang.png
+[  43% ] reimport | thorn_shield.png
+[  45% ] reimport | vanir_circlet.png
+[  47% ] reimport | vanir_seal.png
+[  49% ] reimport | withered_bark.png
+[  50% ] reimport | aesir_helm_rusted.png
+[  52% ] reimport | aesir_warblade.png
+[  54% ] reimport | ash_ring.png
+[  56% ] reimport | bark_armor.png
+[  57% ] reimport | bog_bone.png
+[  59% ] reimport | bramble_pelt.png
+[  61% ] reimport | card_bog_lurker.png
+[  63% ] reimport | card_ember_bat.png
+[  64% ] reimport | card_forge_golem.png
+[  66% ] reimport | card_forge_guardian.png
+[  68% ] reimport | card_gullveig_ember.png
+[  70% ] reimport | card_magma_slug.png
+[  71% ] reimport | card_mist_sprite.png
+[  73% ] reimport | card_pitman.png
+[  75% ] reimport | card_root_crawler.png
+[  77% ] reimport | card_rune_watcher.png
+[  78% ] reimport | card_silent_wraith.png
+[  80% ] reimport | card_steel_beetle.png
+[  82% ] reimport | card_thorn_hound.png
+[  84% ] reimport | card_thorn_matriarch.png
+[  85% ] reimport | card_vanir_sentinel.png
+[  87% ] reimport | card_war_wraith.png
+[  89% ] reimport | card_withered_treant.png
+[  91% ] reimport | carved_stone.png
+[  92% ] reimport | ember_heart.png
+[  94% ] reimport | ember_of_gullveig.png
+[  96% ] reimport | eskil_chronicle.png
+[  98% ] reimport | Finalizing Asset Import...
+[ DONE ] reimport
+
+[   0% ] reimport | Started กำลังนำเข้าทรัพยากร(อีกครั้ง) (56 steps)
+[   0% ] reimport | Executing post-reimport operations...
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[  33% ] loading_editor_layout | Reopening scenes...
+[  50% ] loading_editor_layout | Loading central editor layout...
+[  66% ] loading_editor_layout | Loading plugin window layout...
+[  83% ] loading_editor_layout | Editor layout ready.
+[ DONE ] loading_editor_layout
+

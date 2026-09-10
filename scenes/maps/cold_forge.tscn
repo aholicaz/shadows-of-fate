@@ -1,21 +1,22 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene format=3 uid="uid://4in34rpk1igd"]
 
-[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
-[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
-[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
-[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+[ext_resource type="Texture2D" uid="uid://283gu68qf80p" path="res://Sprites/map/generated/cold_forge_bg_final.png" id="bg38"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
-[ext_resource type="Resource" path="res://data/monsters/forge_guardian.tres" id="md_forge_guardian"]
-[ext_resource type="Texture2D" path="res://Sprites/map/generated/cold_forge_bg.png" id="bg38"]
+[ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Resource" uid="uid://c8vvg68ge743n" path="res://data/monsters/forge_golem.tres" id="md_forge_golem"]
+[ext_resource type="Resource" uid="uid://23kkjqbhxvqx" path="res://data/monsters/forge_guardian.tres" id="md_forge_guardian"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="Script" uid="uid://c2no85difcfo6" path="res://scripts/world/monster_spawner.gd" id="spawner"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(3400, 240)
 
-[node name="Map" type="Node2D"]
+[node name="Map2" type="Node2D" unique_id=1540790808]
 script = ExtResource("map_base")
 map_id = &"cold_forge"
 display_name = "เตาหลอมร้าง"
@@ -24,56 +25,65 @@ region = "สวาร์ทัลฟ์เฮม"
 map_bounds = Rect2(-100, -200, 3200, 1300)
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=186671587]
+color = Color(0.35751006, 0.3886813, 0.46636307, 1)
 
-[node name="Sky" type="Polygon2D" parent="Background"]
+[node name="Background" type="Node2D" parent="." unique_id=130926785]
+
+[node name="Sky" type="Polygon2D" parent="Background" unique_id=459527376]
 z_index = -100
+texture_filter = 4
 position = Vector2(-100, -200)
-color = Color(1, 1, 1, 1)
 texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 3200, 0, 3200, 1300, 0, 1300)
-uv = PackedVector2Array(0, 0, 1600, 0, 1600, 650, 0, 650)
+uv = PackedVector2Array(0, 0, 3200, 0, 3200, 1300, 0, 1300)
 
-[node name="FarLayer" type="Polygon2D" parent="Background"]
+[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=2113494617]
 visible = false
 z_index = -90
 position = Vector2(-100, 520)
 color = Color(0.16, 0.1, 0.08, 1)
 polygon = PackedVector2Array(0, 0, 3200, 0, 3200, 360, 0, 360)
 
-[node name="Art" type="Sprite2D" parent="Background"]
+[node name="Art" type="Sprite2D" parent="Background" unique_id=1737066910]
 z_index = -80
 position = Vector2(1500, 550)
 
-[node name="Terrain" type="Node2D" parent="."]
+[node name="Terrain" type="Node2D" parent="." unique_id=826932181]
 
-[node name="Ground" type="StaticBody2D" parent="Terrain"]
+[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=1930166875]
 position = Vector2(1500, 1000)
-collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=121706036]
+position = Vector2(0, -26)
 shape = SubResource("Rect_ground")
 
-[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=1975906368]
 visible = false
 color = Color(0.24, 0.18, 0.15, 1)
 polygon = PackedVector2Array(-1700, -120, 1700, -120, 1700, 120, -1700, 120)
 
-[node name="SpawnPoints" type="Node2D" parent="."]
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=1366861134]
 
-[node name="default" type="Marker2D" parent="SpawnPoints"]
+[node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1300213415]
 position = Vector2(200, 820)
 
-[node name="from_hall" type="Marker2D" parent="SpawnPoints"]
+[node name="from_hall" type="Marker2D" parent="SpawnPoints" unique_id=564728571]
 position = Vector2(200, 820)
 
-[node name="from_root_road" type="Marker2D" parent="SpawnPoints"]
+[node name="from_root_road" type="Marker2D" parent="SpawnPoints" unique_id=2108517644]
 position = Vector2(2800, 820)
 
-[node name="Spawners" type="Node2D" parent="."]
+[node name="Spawners" type="Node2D" parent="." unique_id=907139677]
 
-[node name="Boss_forge_guardian" type="Node2D" parent="Spawners"]
+[node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=1542344886]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_forge_golem")])
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1500.0
+
+[node name="Boss_forge_guardian" type="Node2D" parent="Spawners" unique_id=1833015493]
 position = Vector2(2500, 850)
 script = ExtResource("spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_forge_guardian")])
@@ -81,10 +91,10 @@ monster_scene = ExtResource("monster_scene")
 max_alive = 1
 spawn_width = 160
 
-[node name="Portals" type="Node2D" parent="."]
+[node name="Portals" type="Node2D" parent="." unique_id=961689485]
 
-[node name="ToRootRoad" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(2940, 880)
+[node name="ToRootRoad" parent="Portals" unique_id=1843123879 instance=ExtResource("portal")]
+position = Vector2(2893, 774)
 target_map = &"root_road"
 target_spawn_point = &"from_forge"
 label_text = "→ ทางสายราก"
@@ -92,20 +102,43 @@ destination_name = "ทางสายราก (บทที่ 3)"
 required_flag = &"chapter2_done"
 locked_text = "หลังกำแพงแบบร่างมีรอยแยก... รากไม้เลื้อยออกมาจากข้างใน แต่ยังไม่มีเหตุผลจะเข้าไป"
 
-[node name="ToHall" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+[node name="ToHall" parent="Portals" unique_id=310398707 instance=ExtResource("portal")]
+position = Vector2(65, 790)
 target_map = &"hall_of_silence"
 target_spawn_point = &"from_forge"
 label_text = "← ห้องโถงเงียบ"
 destination_name = "ห้องโถงเงียบ"
 
-[node name="Lore" type="Node2D" parent="."]
+[node name="Lore" type="Node2D" parent="." unique_id=1550860865]
 
-[node name="HammerBlueprint" parent="Lore" instance=ExtResource("lore")]
-position = Vector2(1500, 790)
+[node name="HammerBlueprint" parent="Lore" unique_id=1623801239 instance=ExtResource("lore")]
+position = Vector2(2442, 705)
 lore_id = &"hammer_blueprint"
 title = "แบบร่างบนกำแพง"
-text = "แบบร่างค้อนขนาดใหญ่สลักบนกำแพงหิน\n\nวงจรรูนรอบหัวค้อน... ไม่ใช่รูนป้องกัน\n\nมันคือรูน «ดูด»"
-label_text = "แบบร่างโบราณ"
+text = "แบบร่างค้อนขนาดใหญ่สลักบนกำแพงหิน
+
+วงจรรูนรอบหัวค้อน... ไม่ใช่รูนป้องกัน
+
+มันคือรูน «ดูด»"
 required_flag = &"killed_forge_guardian"
 locked_text = "ผู้พิทักษ์ยังยืนขวางอยู่ มองไม่เห็นกำแพงด้านหลัง"
+label_text = "แบบร่างโบราณ"
+
+[node name="AmbientFX" type="Node2D" parent="." unique_id=459225601]
+script = ExtResource("ambient_fx")
+lantern_positions = PackedVector2Array(494, 608, 900, 632, 1524, 624, 1984, 590, 2110, 620, 2796, 626)
+flame_size = Vector2(30, 52)
+light_radius = 530.0
+light_energy = 2.2
+light_background = true
+shaft_positions = PackedVector2Array()
+shaft_size = Vector2(330, 1000)
+shaft_angle = 8.0
+shaft_color = Color(0.62, 0.78, 1, 0.065)
+drifting_embers = true
+mist_regions = Array[Rect2]([Rect2(870, 450, 450, 340), Rect2(1460, 490, 380, 290)])
+mist_color = Color(0.14, 0.17, 0.22, 0.08)
+rune_regions = Array[Rect2]([Rect2(2160, -50, 740, 780)])
+rune_warm_ink = true
+rune_color = Color(1, 0.72, 0.34, 0)
+rune_unlock_flag = &"killed_forge_guardian"

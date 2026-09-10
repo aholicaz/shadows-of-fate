@@ -1,0 +1,175 @@
+{
+  "platform": {
+    "width": 1981,
+    "height": 597,
+    "top": 36
+  },
+  "root_road": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370), Rect2(3700, 430, 1000, 370)])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.62, 0.83, 0.61, 0.4)",
+      "mote_drift": "Vector2(10, -5)",
+      "lantern_positions": "PackedVector2Array(177, 568)",
+      "flame_size": "Vector2(18, 36)",
+      "light_radius": "180.0",
+      "light_energy": "0.16",
+      "wind_regions": "Array[Rect2]([Rect2(311, 421, 61, 209)])",
+      "shaft_positions": "PackedVector2Array(700, -190, 2000, -190, 3400, -190, 4600, -190)",
+      "shaft_size": "Vector2(400, 1050)",
+      "shaft_color": "Color(0.86, 0.89, 0.65, 0.065)"
+    },
+    "lore": {}
+  },
+  "vanir_town": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370)])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.62, 0.83, 0.61, 0.4)",
+      "mote_drift": "Vector2(10, -5)",
+      "lantern_positions": "PackedVector2Array(50, 166, 66, 535, 263, 294, 317, 325, 1761, 437, 1889, 384, 2158, 406, 2527, 375, 2146, 587, 2706, 375, 2794, 401, 3199, 399, 3390, 238, 3709, 233)",
+      "flame_size": "Vector2(18, 36)",
+      "light_radius": "180.0",
+      "light_energy": "0.16",
+      "wind_regions": "Array[Rect2]([Rect2(-34, 49, 89, 547), Rect2(1452, 294, 288, 124), Rect2(2831, 259, 331, 106), Rect2(3478, -37, 152, 319)])",
+      "shaft_positions": "PackedVector2Array(500, -190, 2000, -190, 3300, -190)",
+      "shaft_size": "Vector2(400, 1050)",
+      "shaft_color": "Color(0.86, 0.89, 0.65, 0.065)"
+    },
+    "lore": {
+      "WarMural": [
+        834,
+        800
+      ]
+    }
+  },
+  "silver_marsh": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([Rect2(100, 450, 1000, 370), Rect2(1300, 450, 1000, 370), Rect2(2500, 450, 1000, 370), Rect2(3700, 450, 1000, 370), Rect2(4900, 450, 1000, 370)])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.6, 0.85, 0.94, 0.45)",
+      "mote_drift": "Vector2(8, -3)",
+      "glow_positions": "PackedVector2Array(600, 706, 1785, 698, 3439, 650, 4674, 710)",
+      "glow_radius": "115.0",
+      "glow_energy": "0.12",
+      "glow_color": "Color(0.42, 0.7, 0.9, 0.22)",
+      "water_regions": "Array[Rect2]([Rect2(926, 455, 367, 250), Rect2(1458, 566, 676, 231), Rect2(3034, 589, 493, 190), Rect2(4361, 587, 504, 213)])",
+      "mist_regions": "Array[Rect2]([Rect2(0, 620, 5400, 230), Rect2(400, 350, 4600, 260)])",
+      "mist_color": "Color(0.61, 0.72, 0.77, 0.17)"
+    },
+    "lore": {}
+  },
+  "withered_grove": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([Rect2(100, 450, 1000, 370), Rect2(1300, 450, 1000, 370), Rect2(2500, 450, 1000, 370), Rect2(3700, 450, 1000, 370)])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.68, 0.57, 0.36, 0.32)",
+      "mote_drift": "Vector2(18, 9)",
+      "wind_regions": "Array[Rect2]([Rect2(-99, -187, 459, 138), Rect2(2282, -75, 264, 425), Rect2(2483, -148, 333, 256), Rect2(4798, 228, 64, 239)])",
+      "mist_regions": "Array[Rect2]([Rect2(100, 720, 5000, 150)])",
+      "mist_color": "Color(0.59, 0.58, 0.52, 0.09)"
+    },
+    "lore": {
+      "DrySpring": [
+        3293,
+        820
+      ]
+    }
+  },
+  "forgotten_battlefield": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([Rect2(100, 450, 1000, 370), Rect2(1300, 450, 1000, 370), Rect2(2500, 450, 1000, 370), Rect2(3700, 450, 1000, 370), Rect2(4900, 450, 1000, 370)])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.61, 0.59, 0.6, 0.28)",
+      "mote_drift": "Vector2(24, 3)",
+      "wind_regions": "Array[Rect2]([Rect2(77, -32, 253, 548), Rect2(2242, 48, 160, 484), Rect2(2985, -4, 308, 607)])",
+      "mist_regions": "Array[Rect2]([Rect2(0, 680, 5600, 180)])",
+      "mist_color": "Color(0.54, 0.49, 0.58, 0.1)"
+    },
+    "lore": {
+      "BurntStake": [
+        1942,
+        820
+      ],
+      "BuriedBanner": [
+        3205,
+        820
+      ]
+    }
+  },
+  "spring_of_life": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370)])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.38, 0.7, 0.68, 0.3)",
+      "mote_drift": "Vector2(10, -5)",
+      "lantern_positions": "PackedVector2Array(171, 290, 776, 342, 1469, 269, 1773, 243, 2479, 507, 2923, 507, 2610, 243, 2835, 271)",
+      "flame_size": "Vector2(18, 36)",
+      "light_radius": "180.0",
+      "light_energy": "0.16",
+      "heat_regions": "Array[Rect2]([Rect2(2352, 641, 756, 135)])",
+      "mist_regions": "Array[Rect2]([Rect2(0, 680, 3400, 180)])",
+      "mist_color": "Color(0.26, 0.48, 0.49, 0.1)",
+      "drifting_embers": "true"
+    },
+    "lore": {
+      "SiphonRune": [
+        1662,
+        800
+      ]
+    },
+    "quest_fx": {
+      "rune_regions": "Array[Rect2]([Rect2(1250, 50, 762, 736)])",
+      "rune_color": "Color(0.35, 0.88, 0.81, 0.4)",
+      "rune_unlock_flag": "&\"killed_gullveig_ember\""
+    }
+  },
+  "dark_forest_2": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([Rect2(100, 210, 1000, 370), Rect2(1300, 210, 1000, 370), Rect2(2500, 210, 1000, 370), Rect2(3700, 210, 1000, 370)])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.6, 0.42, 1, 0.55)",
+      "mote_drift": "Vector2(10, -5)",
+      "lantern_positions": "PackedVector2Array(4211, 284)",
+      "flame_size": "Vector2(18, 36)",
+      "light_radius": "180.0",
+      "light_energy": "0.16",
+      "glow_positions": "PackedVector2Array(52, 522, 954, 546, 1944, 521, 2795, 523, 3460, 518, 3931, 472, 4290, 510)",
+      "glow_radius": "115.0",
+      "glow_energy": "0.12",
+      "glow_color": "Color(0.5, 0.25, 0.95, 0.22)",
+      "mist_regions": "Array[Rect2]([Rect2(0, 510, 4200, 130)])",
+      "mist_color": "Color(0.28, 0.37, 0.62, 0.1)",
+      "shaft_positions": "PackedVector2Array(730, -95, 2300, -95, 3600, -95)",
+      "shaft_size": "Vector2(330, 790)",
+      "shaft_color": "Color(0.45, 0.57, 1.0, 0.09)"
+    },
+    "lore": {
+      "AltarStone": [
+        3222,
+        580
+      ]
+    }
+  },
+  "nidavellir_town": {
+    "fx": {
+      "mote_regions": "Array[Rect2]([])",
+      "motes_per_region": "12",
+      "mote_color": "Color(0.62, 0.83, 0.61, 0.4)",
+      "mote_drift": "Vector2(10, -5)",
+      "lantern_positions": "PackedVector2Array(-60, 649, 151, 695, 800, 681, 1327, 718, 1218, 776, 1549, 683, 1798, 683, 2221, 646, 2508, 682, 2728, 682, 2662, 680, 2819, 672, 3142, 675, 3497, 677, 3576, 727, 4115, 686, 3989, 684, 4326, 717, 4880, 674, 5183, 678, 5452, 689)",
+      "flame_size": "Vector2(18, 36)",
+      "light_radius": "200.0",
+      "light_energy": "0.2",
+      "wind_regions": "Array[Rect2]([Rect2(-44, 19, 131, 383), Rect2(346, 523, 220, 63), Rect2(1606, 543, 49, 163), Rect2(2727, 349, 47, 187), Rect2(3821, 549, 229, 97), Rect2(4051, 365, 69, 161), Rect2(5257, 437, 60, 140)])",
+      "heat_regions": "Array[Rect2]([Rect2(1131, 602, 201, 231), Rect2(1394, -13, 143, 87), Rect2(3522, 544, 160, 190), Rect2(4271, 598, 110, 136), Rect2(4491, 245, 115, 71)])",
+      "drifting_embers": "true"
+    },
+    "lore": {
+      "SindriGrave": [
+        5016,
+        863
+      ]
+    }
+  }
+}

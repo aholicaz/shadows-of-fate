@@ -1,0 +1,96 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://23kkjqbhxvqx"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" uid="uid://i1idm15yr1sa" path="res://data/sprites/monsters/forge_guardian_frames.tres" id="frames_new"]
+
+[sub_resource type="Resource" id="Drop_forge_guardian_0"]
+script = ExtResource("2_drop")
+item_id = &"guardian_core"
+chance = 100.0
+
+[sub_resource type="Resource" id="Drop_forge_guardian_1"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 100.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_forge_guardian_2"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 1.98
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_forge_guardian_3"]
+script = ExtResource("2_drop")
+item_id = &"dwarven_mail"
+chance = 1.49
+
+[sub_resource type="Resource" id="Drop_forge_guardian_4"]
+script = ExtResource("2_drop")
+item_id = &"mirror_shield"
+chance = 1.49
+
+[sub_resource type="Resource" id="Drop_forge_guardian_5"]
+script = ExtResource("2_drop")
+item_id = &"forge_saber"
+chance = 1.49
+
+[sub_resource type="Resource" id="Drop_forge_guardian_card"]
+script = ExtResource("2_drop")
+item_id = &"card_forge_guardian"
+chance = 2.12
+
+[resource]
+script = ExtResource("1_monster")
+id = &"forge_guardian"
+display_name = "ผู้พิทักษ์เตาหลอม"
+sprite_frames = ExtResource("frames_new")
+hitbox_size = Vector2(80, 90)
+hp_bar_offset_y = -121.6
+display_height = 520.0
+level = 38
+max_hp = 60000
+atk_min = 350
+atk_max = 600
+def = 85
+mdef = 25
+hit = 70
+flee = 20
+crit = 2
+element = 1
+size = 2
+ai_type = 1
+move_speed = 85.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 420.0
+attack_range = 150.0
+leash_range = 750.0
+wander_range = 260.0
+hop_while_wandering = false
+wander_pause_chance = 0.6
+wander_walk_min = 2.0
+wander_walk_max = 3.5
+wander_look_chance = 0.5
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 320.0
+attack_hit_frames = null
+exp_reward = 6000
+job_exp_reward = 4200
+zeny_min = 2000
+zeny_max = 3500
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_guardian_0"), SubResource("Drop_forge_guardian_1"), SubResource("Drop_forge_guardian_2"), SubResource("Drop_forge_guardian_3"), SubResource("Drop_forge_guardian_4"), SubResource("Drop_forge_guardian_5"), SubResource("Drop_forge_guardian_card")])
+is_boss = true
+boss_title = "ผู้พิทักษ์เตาหลอม"
+skill_name = "ค้อนเตาหลอม"
+skill_anim = &"Attack"
+skill_range = 380.0
+skill_radius_x = 340.0
+skill_radius_y = 200.0
+skill_damage_mult = 2.4
+skill_windup = 0.9
+skill_duration = 0.9
+respawn_time = 60.0

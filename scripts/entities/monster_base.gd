@@ -20,6 +20,9 @@ const DAMAGE_FONT_SIZE := 32
 const DAMAGE_FONT_CRIT := 40
 
 signal died(monster: Node, data: MonsterData)
+signal ground_slam_impact(origin: Vector2, radius: float, skill: bool, hit_index: int)
+
+const LAVA_SLAM_FX = preload("res://scripts/entities/lava_slam_fx.gd")
 
 ## ★ ลาก MonsterData (.tres) มาใส่ตรงนี้ ★
 @export var data: MonsterData
@@ -93,6 +96,8 @@ func _apply_visual() -> void:
 		sprite.sprite_frames = data.sprite_frames
 	sprite.scale = data.sprite_scale
 	sprite.offset = data.sprite_offset
+	if data.fit_fixed_anchor_enabled and not sprite.frame_changed.is_connected(_apply_fit):
+		sprite.frame_changed.connect(_apply_fit)
 
 	if collision != null and collision.shape is CapsuleShape2D:
 		var shape := (collision.shape as CapsuleShape2D).duplicate() as CapsuleShape2D
@@ -194,6 +199,17 @@ func _apply_fit() -> void:
 
 	var k: float = info.scale
 	sprite.scale = Vector2(k, k)
+	if data.fit_fixed_anchor_enabled:
+		var texture := sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+		var anchor := data.fit_fixed_anchor - texture.get_size() * 0.5
+		var soles: PackedFloat32Array = info.get("soles", PackedFloat32Array())
+		if sprite.frame < soles.size() and soles[sprite.frame] > 0.0:
+			anchor.y = soles[sprite.frame] - texture.get_height() * 0.5
+		sprite.offset.x = data.sprite_offset.x + (anchor.x if sprite.flip_h else -anchor.x)
+		sprite.offset.y = data.sprite_offset.y
+		if data.align_feet:
+			sprite.offset.y += data.foot_offset() / k - anchor.y
+		return
 
 	var list: Array = info.frames
 	if list.is_empty():
@@ -232,15 +248,19 @@ func _fit_frames(anim: StringName) -> Dictionary:
 		# ★ รอบ 86 ★ ใช้สเกลของท่าอ้างอิงเฉพาะตอนที่ท่านี้สูงกว่าไม่มาก
 		# ชีทบางท่า (Run ของออร์ค/มูนัค/อสูรสายฟ้า) วาดตัวมอนใหญ่กว่า Idle ถึง 2.2 เท่า
 		# ถ้าใช้สเกลเดียวกันตัวจะบวมเป็น 2 เท่าทั้งตัว → กรณีนั้นถอยกลับไปย่อแยกทีละท่า
-		if ref > 0.0 and tallest <= ref * data.fit_max_overshoot:
+		if ref > 0.0 and (data.fit_fixed_anchor_enabled or tallest <= ref * data.fit_max_overshoot):
 			scale_from = ref
 
 	var k: float = data.sprite_scale.y
 	if data.display_height > 0.0:
 		k = data.display_height / maxf(1.0, scale_from)
+	# คาลิเบรตขนาดลำตัวของแต่ละชีท โดยไม่วัดตามอาวุธที่เหวี่ยงในแต่ละเฟรม
+	k *= maxf(0.01, float(data.fit_animation_scales.get(anim, 1.0)))
 
 	var info := {"scale": k, "frames": list, "tallest": tallest, "fit_from": scale_from,
 		"widest": float(base.get("widest", 0.0))}
+	if data.fit_fixed_anchor_enabled and data.fit_foot_region.has_area() and data.fit_foot_animations.has(String(anim)):
+		info["soles"] = SpriteFit.measure_soles(frames, anim, data.fit_foot_region)
 	_fit_cache[anim] = info
 	return info
 
@@ -724,6 +744,10 @@ func _cast_skill() -> void:
 			data.skill_name, Color("#ff9a4a"), 22, 0)
 
 	# ★ เอฟเฟกต์สกิล ★ เกิดเป็นโหนดแยกในแมพ เลยใหญ่/ไกลเกินตัวมอนได้
+	if data.skill_ground_slam:
+		await _run_ground_slam_animation(played, true)
+		return
+
 	# ใส่ SpriteFrames ลงช่อง "Skill Effect Frames" ใน MonsterData แล้วมันทำงานเอง
 	if data.skill_effect_frames != null:
 		SkillEffect.spawn_monster(data, self, facing)
@@ -796,6 +820,9 @@ func _attack() -> void:
 	state = State.ATTACK
 	velocity.x = 0.0
 	var played := _play("Attack", true)   # ★ ตีซ้ำต้องเริ่มท่าใหม่ทุกครั้ง (กับดัก 94)
+	if data.attack_ground_slam:
+		await _run_ground_slam_animation(played, false)
+		return
 
 	# ★ รอบ 66/69 — จับจังหวะตามภาพ ★ ตั้ง Attack Hit Frames ไว้ = คิดเวลาจากเฟรมจริง
 	# (เปลี่ยน fps ของท่าเมื่อไหร่ ดาเมจก็ยังออกตรงจังหวะเดิม ไม่ต้องแก้ Windup)
@@ -826,6 +853,72 @@ func _attack() -> void:
 		return
 	state = State.IDLE
 	_attack_timer = data.attack_cooldown
+
+
+## จับเฟรมจริง จึงไม่เลื่อนจังหวะเมื่อเปลี่ยน FPS หรือ duration ของ SpriteFrames
+func _run_ground_slam_animation(anim: String, skill: bool) -> void:
+	var frames: Array[int] = []
+	if skill:
+		for frame in data.skill_hit_frames:
+			if frame >= 0 and not frames.has(frame):
+				frames.append(frame)
+	else:
+		frames = data.attack_hit_frame_list()
+	frames.sort()
+	if anim != "" and sprite.sprite_frames.has_animation(anim):
+		var count := sprite.sprite_frames.get_frame_count(anim)
+		var hit_index := 0
+		for frame in frames:
+			if frame >= count:
+				continue
+			while state == State.ATTACK and sprite.animation == StringName(anim) and sprite.frame < frame:
+				await get_tree().physics_frame
+			if state != State.ATTACK or sprite.animation != StringName(anim):
+				return
+			_apply_fit()
+			_ground_slam_hit(skill, hit_index)
+			hit_index += 1
+		while state == State.ATTACK and sprite.animation == StringName(anim) and sprite.is_playing():
+			await get_tree().physics_frame
+	if state != State.ATTACK:
+		return
+	state = State.IDLE
+	_attack_timer = data.attack_cooldown * (0.5 if skill else 1.0)
+
+
+func _ground_slam_origin() -> Vector2:
+	var texture := sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+	var point := data.ground_slam_anchor - texture.get_size() * 0.5
+	if sprite.flip_h:
+		point.x = -point.x
+	point += sprite.offset
+	var at := sprite.to_global(point)
+	var foot_y := foot_position().y
+	var query := PhysicsRayQueryParameters2D.create(Vector2(at.x, foot_y - 70), Vector2(at.x, foot_y + 90), 1)
+	query.exclude = [get_rid()]
+	var ground := get_world_2d().direct_space_state.intersect_ray(query)
+	at.y = ground.position.y if not ground.is_empty() else foot_y
+	return at
+
+
+func _ground_slam_hit(skill: bool, hit_index: int) -> void:
+	var at := _ground_slam_origin()
+	var radius := data.skill_slam_radius if skill else data.attack_slam_radius
+	LAVA_SLAM_FX.spawn(get_parent(), at, radius, skill, hit_index)
+	ground_slam_impact.emit(at, radius, skill, hit_index)
+	if not is_instance_valid(_player) or PlayerState.is_dead():
+		return
+	var pf: Vector2 = _player.foot_position() if _player.has_method("foot_position") else _player.global_position
+	if absf(pf.x - at.x) > radius or absf(pf.y - at.y) > data.slam_height:
+		return
+	var result := Combat.monster_hits_player(data, PlayerState.stats)
+	if result.miss:
+		Events.floating_text(_player.global_position + Vector2(0, -40), "MISS", Color("#cccccc"), 20, 3)
+		return
+	var mult := data.skill_damage_mult if skill else 1.0
+	var force := data.skill_knockback if skill else data.knockback_force
+	if _player.has_method("take_damage"):
+		_player.take_damage(maxi(1, int(round(result.damage * mult))), force, signi(int(pf.x - at.x)))
 
 
 ## ★ ดาเมจ 1 ที ของท่าโจมตีปกติ ★ (ท่าที่ตีหลายทีจะเรียกซ้ำตามจำนวนเฟรมที่ตั้งไว้)

@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 566.14 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3050 Ti Laptop GPU
+
+[GameData] items=175 (การ์ด 30) monsters=30 (รอเรียก) skills=8 jobs=2 เควส=31
+[Map] cold_forge ปรับขอบตามภาพฉาก: x -100..3100 → -60..3060 · y -200..1100 → -200..1100
+[Map] cold_forge อุ่นเครื่อง auto-fit 34 ท่า
+ERROR: Explosion rests on collider floor
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://forge_guardian_slam_test.gd:19)
+       [1] _ready (res://forge_guardian_slam_test.gd:63)
+       [2] _attack (res://scripts/entities/monster_base.gd:808)
+       [3] _run_ground_slam_animation (res://scripts/entities/monster_base.gd:870)
+ERROR: Explosion rests on collider floor
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://forge_guardian_slam_test.gd:19)
+       [1] _ready (res://forge_guardian_slam_test.gd:63)
+       [2] _attack (res://scripts/entities/monster_base.gd:808)
+       [3] _run_ground_slam_animation (res://scripts/entities/monster_base.gd:870)
+FORGE_GUARDIAN_SLAM_TEST: normal + mirror + five hits + frame sync + range + death cancellation + FX cleanup; 2 failures

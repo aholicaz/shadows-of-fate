@@ -1,33 +1,20 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene format=3 uid="uid://bgkx2p5jw1w46"]
 
-[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
-[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
-[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
-[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
-[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
-[ext_resource type="Resource" path="res://data/monsters/root_crawler.tres" id="md_root_crawler"]
-[ext_resource type="Resource" path="res://data/monsters/thorn_hound.tres" id="md_thorn_hound"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+[ext_resource type="Texture2D" uid="uid://ckj08soqguxrv" path="res://Sprites/map/generated/root_road_bg_final.png" id="bg38"]
+[ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Resource" uid="uid://depeulhjexcp7" path="res://data/monsters/root_crawler.tres" id="md_root_crawler"]
+[ext_resource type="Resource" uid="uid://c7j4k6cnxco64" path="res://data/monsters/thorn_hound.tres" id="md_thorn_hound"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(5400, 240)
 
-[sub_resource type="RectangleShape2D" id="Rect_p0"]
-size = Vector2(340, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p1"]
-size = Vector2(320, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p2"]
-size = Vector2(360, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p3"]
-size = Vector2(320, 32)
-
-[node name="Map" type="Node2D"]
+[node name="Map2" type="Node2D" unique_id=1816848179]
 script = ExtResource("map_base")
 map_id = &"root_road"
 display_name = "ทางสายราก"
@@ -36,114 +23,82 @@ region = "วานาเฮม"
 map_bounds = Rect2(-100, -200, 5200, 1300)
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=1380898911]
 
-[node name="Sky" type="Polygon2D" parent="Background"]
+[node name="Sky" type="Polygon2D" parent="Background" unique_id=659590771]
 z_index = -100
+texture_filter = 2
 position = Vector2(-100, -200)
-color = Color(0.12, 0.16, 0.14, 1)
+texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 1300, 0, 1300)
+uv = PackedVector2Array(0, 0, 5200, 0, 5200, 1300, 0, 1300)
 
-[node name="FarLayer" type="Polygon2D" parent="Background"]
+[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1976523962]
+visible = false
 z_index = -90
 position = Vector2(-100, 520)
 color = Color(0.18, 0.26, 0.2, 1)
 polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 360, 0, 360)
 
-[node name="Terrain" type="Node2D" parent="."]
+[node name="Terrain" type="Node2D" parent="." unique_id=358408185]
 
-[node name="Ground" type="StaticBody2D" parent="Terrain"]
+[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=935665239]
 position = Vector2(2500, 1000)
-collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1838929638]
 shape = SubResource("Rect_ground")
 
-[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=1717118781]
+visible = false
 color = Color(0.28, 0.3, 0.22, 1)
 polygon = PackedVector2Array(-2700, -120, 2700, -120, 2700, 120, -2700, 120)
 
-[node name="Plat0" type="StaticBody2D" parent="Terrain"]
-position = Vector2(900, 700)
-collision_layer = 1
-collision_mask = 0
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=1908399199]
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat0"]
-shape = SubResource("Rect_p0")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat0"]
-color = Color(0.28, 0.3, 0.22, 1)
-polygon = PackedVector2Array(-170, -16, 170, -16, 170, 16, -170, 16)
-
-[node name="Plat1" type="StaticBody2D" parent="Terrain"]
-position = Vector2(1900, 620)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat1"]
-shape = SubResource("Rect_p1")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat1"]
-color = Color(0.28, 0.3, 0.22, 1)
-polygon = PackedVector2Array(-160, -16, 160, -16, 160, 16, -160, 16)
-
-[node name="Plat2" type="StaticBody2D" parent="Terrain"]
-position = Vector2(2900, 700)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat2"]
-shape = SubResource("Rect_p2")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat2"]
-color = Color(0.28, 0.3, 0.22, 1)
-polygon = PackedVector2Array(-180, -16, 180, -16, 180, 16, -180, 16)
-
-[node name="Plat3" type="StaticBody2D" parent="Terrain"]
-position = Vector2(3900, 640)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat3"]
-shape = SubResource("Rect_p3")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat3"]
-color = Color(0.28, 0.3, 0.22, 1)
-polygon = PackedVector2Array(-160, -16, 160, -16, 160, 16, -160, 16)
-
-[node name="SpawnPoints" type="Node2D" parent="."]
-
-[node name="default" type="Marker2D" parent="SpawnPoints"]
+[node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1940120117]
 position = Vector2(200, 820)
 
-[node name="from_forge" type="Marker2D" parent="SpawnPoints"]
+[node name="from_forge" type="Marker2D" parent="SpawnPoints" unique_id=1372412175]
 position = Vector2(200, 820)
 
-[node name="from_town" type="Marker2D" parent="SpawnPoints"]
+[node name="from_town" type="Marker2D" parent="SpawnPoints" unique_id=750066720]
 position = Vector2(4800, 820)
 
-[node name="Spawners" type="Node2D" parent="."]
+[node name="Spawners" type="Node2D" parent="." unique_id=1705096185]
 
-[node name="MapSpawner" type="Node2D" parent="Spawners"]
+[node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=1375724123]
 script = ExtResource("map_spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_root_crawler"), ExtResource("md_thorn_hound")])
-count_per_type = 5
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
 
-[node name="Portals" type="Node2D" parent="."]
+[node name="Portals" type="Node2D" parent="." unique_id=1282947392]
 
-[node name="ToForge" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+[node name="ToForge" parent="Portals" unique_id=1026534230 instance=ExtResource("portal")]
+position = Vector2(222, 777)
 target_map = &"cold_forge"
 target_spawn_point = &"from_root_road"
 label_text = "← เตาหลอมร้าง"
 destination_name = "เตาหลอมร้าง"
 
-[node name="ToTown" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(4940, 880)
+[node name="ToTown" parent="Portals" unique_id=1746934669 instance=ExtResource("portal")]
+position = Vector2(4799, 792)
 target_map = &"vanir_town"
 target_spawn_point = &"from_road"
 label_text = "→ วานาเฮม"
 destination_name = "วานาเฮม นครแห่งราก"
+
+[node name="AmbientFX" type="Node2D" parent="." unique_id=1433035637]
+script = ExtResource("ambient_fx")
+lantern_positions = PackedVector2Array(177, 568)
+flame_size = Vector2(18, 36)
+light_radius = 180.0
+light_energy = 0.16
+shaft_positions = PackedVector2Array(700, -190, 2000, -190, 3400, -190, 4600, -190)
+shaft_size = Vector2(400, 1050)
+shaft_color = Color(0.86, 0.89, 0.65, 0.065)
+mote_regions = Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370), Rect2(3700, 430, 1000, 370)])
+mote_color = Color(0.62, 0.83, 0.61, 0.4)
+motes_per_region = 12
+wind_regions = Array[Rect2]([Rect2(311, 421, 61, 209)])

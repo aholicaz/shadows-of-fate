@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://c7ngr18f0ibsq" path="res://Sprites/card/card_forge_guardian.webp" id="art_1"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"forge_guardian"
+illustration = ExtResource("art_1")
+fits_slot = 4
+rarity = 5
+monster_level = 38
+id = &"card_forge_guardian"
+display_name = "การ์ดผู้พิทักษ์เตาหลอม"
+description = "หัวใจของเตาหลอมโบราณ"
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 1000
+def = 10
+percent_effects = {
+"max_hp_percent": 8.0
+}

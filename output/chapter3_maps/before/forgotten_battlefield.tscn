@@ -1,0 +1,162 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/war_wraith.tres" id="md_war_wraith"]
+[ext_resource type="Resource" path="res://data/monsters/thorn_matriarch.tres" id="md_thorn_matriarch"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(5800, 240)
+
+[sub_resource type="RectangleShape2D" id="Rect_p0"]
+size = Vector2(360, 32)
+
+[sub_resource type="RectangleShape2D" id="Rect_p1"]
+size = Vector2(320, 32)
+
+[sub_resource type="RectangleShape2D" id="Rect_p2"]
+size = Vector2(360, 32)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"forgotten_battlefield"
+display_name = "สมรภูมิที่ถูกลืม"
+chapter = 3
+region = "วานาเฮม"
+map_bounds = Rect2(-100, -200, 5600, 1400)
+player_scene = ExtResource("player")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="Polygon2D" parent="Background"]
+z_index = -100
+position = Vector2(-100, -200)
+color = Color(0.22, 0.2, 0.24, 1)
+polygon = PackedVector2Array(0, 0, 5600, 0, 5600, 1400, 0, 1400)
+
+[node name="FarLayer" type="Polygon2D" parent="Background"]
+z_index = -90
+position = Vector2(-100, 540)
+color = Color(0.3, 0.26, 0.3, 1)
+polygon = PackedVector2Array(0, 0, 5600, 0, 5600, 360, 0, 360)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2700, 1020)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+color = Color(0.28, 0.24, 0.2, 1)
+polygon = PackedVector2Array(-2900, -120, 2900, -120, 2900, 120, -2900, 120)
+
+[node name="Plat0" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1100, 700)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat0"]
+shape = SubResource("Rect_p0")
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Plat0"]
+color = Color(0.28, 0.24, 0.2, 1)
+polygon = PackedVector2Array(-180, -16, 180, -16, 180, 16, -180, 16)
+
+[node name="Plat1" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2300, 620)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat1"]
+shape = SubResource("Rect_p1")
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Plat1"]
+color = Color(0.28, 0.24, 0.2, 1)
+polygon = PackedVector2Array(-160, -16, 160, -16, 160, 16, -160, 16)
+
+[node name="Plat2" type="StaticBody2D" parent="Terrain"]
+position = Vector2(3500, 700)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat2"]
+shape = SubResource("Rect_p2")
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Plat2"]
+color = Color(0.28, 0.24, 0.2, 1)
+polygon = PackedVector2Array(-180, -16, 180, -16, 180, 16, -180, 16)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 840)
+
+[node name="from_grove" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 840)
+
+[node name="from_spring" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5200, 840)
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_war_wraith")])
+count_per_type = 6
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+[node name="Boss_thorn_matriarch" type="Node2D" parent="Spawners"]
+position = Vector2(4700, 870)
+script = ExtResource("spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_thorn_matriarch")])
+monster_scene = ExtResource("monster_scene")
+max_alive = 1
+spawn_width = 160
+
+[node name="Portals" type="Node2D" parent="."]
+
+[node name="ToGrove" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 900)
+target_map = &"withered_grove"
+target_spawn_point = &"from_field"
+label_text = "← ป่าเหี่ยว"
+destination_name = "ป่าเหี่ยว"
+
+[node name="ToSpring" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5340, 900)
+target_map = &"spring_of_life"
+target_spawn_point = &"from_field"
+label_text = "→ บ่อน้ำแห่งชีวิต"
+destination_name = "บ่อน้ำแห่งชีวิต"
+required_flag = &"killed_thorn_matriarch"
+locked_text = "ราชินีหนามยังขวางทางอยู่ — พงหนามหนาเกินกว่าจะฝ่าไป"
+
+[node name="Lore" type="Node2D" parent="."]
+
+[node name="BurntStake" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(1800, 810)
+lore_id = &"burnt_stake"
+title = "เสาที่ถูกเผาสามครั้ง"
+text = "เสาไม้ดำเป็นถ่าน มีรอยไหม้ซ้อนกันสามชั้น สามครั้ง\n\nจารึกที่โคนเสาถูกขูดออก แต่ยังอ่านได้ลาง ๆ:\n«กุลล์ไวก์ ผู้ปฏิเสธจะมอบบ่อน้ำ — ถูกเผาสามครั้ง และสามครั้งนางลุกขึ้น»\n\n...ในวิหารบอกว่านางคือแม่มดที่ยุยงสงคราม"
+label_text = "เสาไหม้"
+set_flag = &"read_burnt_stake"
+
+[node name="BuriedBanner" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(3000, 810)
+lore_id = &"buried_banner"
+title = "ธงที่ถูกฝัง"
+text = "ธงผืนใหญ่ถูกฝังไว้ใต้ดินตื้น ๆ ตราค้อนสายฟ้าเลือนไปครึ่งหนึ่ง\n\nรอบ ๆ มีหมวกทหารเอซีร์ขึ้นสนิมกองอยู่หลายสิบใบ ทุกใบหันหน้าไป «ทางบ่อน้ำ»\n\nกองทัพที่บุกเข้ามา... ไม่ใช่กองทัพที่ป้องกัน"
+label_text = "ธงเก่า"
+set_flag = &"read_buried_banner"

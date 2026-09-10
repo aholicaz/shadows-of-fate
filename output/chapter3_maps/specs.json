@@ -1,0 +1,222 @@
+[
+  {
+    "id": "root_road",
+    "w": 5200,
+    "h": 1300,
+    "floor": 1080,
+    "theme": "Root Road at entrance to Vanaheim, giant interwoven Yggdrasil roots, mossy ancient forest, dark green and muted gold, dwarven mine exit behind at far left, roots flowing toward a distant root city at right. Animals have fled the east, traces of claws and root disturbance.",
+    "landmarks": [
+      {
+        "x": 300,
+        "text": "dwarven stone tunnel emerging into tangled forest"
+      },
+      {
+        "x": 4900,
+        "text": "distant open wooden root-city gate"
+      }
+    ],
+    "n": 4,
+    "tileW": 1480,
+    "step": 1240,
+    "lip_offset": 24,
+    "walk_depth": 110
+  },
+  {
+    "id": "vanir_town",
+    "w": 4000,
+    "h": 1200,
+    "floor": 1080,
+    "theme": "Vanaheim ancient Vanir city grown inside enormous living roots. Gentle desaturated sage green, aged pale stone, carved timber, woven roofs, amber lanterns. Quiet depleted town, once abundant water now dry. Spacious clear walkway, no characters.",
+    "landmarks": [
+      {
+        "x": 480,
+        "text": "elder's rootwood seat beside a dry modest town well"
+      },
+      {
+        "x": 750,
+        "text": "LARGE old faded wall mural on a root wall: army bearing hammer banners entering a northern gate toward unarmed villagers at a well. Clear carved picture, no writing; this is an interactive quest landmark"
+      },
+      {
+        "x": 1500,
+        "text": "herbal market stall with jars and woven baskets"
+      },
+      {
+        "x": 2000,
+        "text": "rootwood artisan workshop with anvil on stump and small ember brazier"
+      },
+      {
+        "x": 2450,
+        "text": "vine entwined warp standing stone with a newly carved hammer emblem"
+      },
+      {
+        "x": 2900,
+        "text": "herbalist's open apothecary"
+      },
+      {
+        "x": 3600,
+        "text": "ancient open eastern gate, small place for a singing child beside it"
+      }
+    ],
+    "n": 3,
+    "tileW": 1493.3333333333333,
+    "step": 1253.3333333333333,
+    "lip_offset": 24,
+    "walk_depth": 110
+  },
+  {
+    "id": "silver_marsh",
+    "w": 5400,
+    "h": 1400,
+    "floor": 1100,
+    "theme": "Silver Marsh, haunting Norse fantasy wetland dying from within, pale silver reed beds and shallow still pools BEHIND a continuous dry traversable causeway. Cool silver teal gray, layered drowned trunks, distant vapor. Scattered rusty Aesir helmets face east toward the well, old spearheads half buried; medicinal pale flowers. No figures.",
+    "landmarks": [
+      {
+        "x": 2400,
+        "text": "cluster of half submerged rusted hammer-emblem helmets and broken spearheads, facing right"
+      },
+      {
+        "x": 4200,
+        "text": "dead tree and shallow luminous mist pool behind the walking lane"
+      }
+    ],
+    "n": 4,
+    "tileW": 1530,
+    "step": 1290,
+    "lip_offset": 24,
+    "walk_depth": 110
+  },
+  {
+    "id": "withered_grove",
+    "w": 5200,
+    "h": 1400,
+    "floor": 1100,
+    "theme": "Withered Grove, once sacred Vanir grove drained of life from within. Hollow cracked trees, pale withered leaves, ochre bark, dark olive shadows, root veins converging toward huge distant northern tree. Ruined stone sentinel remains behind walkway. Somber muted palette, not fire.",
+    "landmarks": [
+      {
+        "x": 3100,
+        "text": "large clearly visible dried spring basin behind the walkway, cracked mud stream bed, waist high old water stains on rocks, exposed roots all converge into a channel leading into the background north. Interactive quest landmark, unobstructed access from front"
+      }
+    ],
+    "n": 4,
+    "tileW": 1480,
+    "step": 1240,
+    "lip_offset": 24,
+    "walk_depth": 110
+  },
+  {
+    "id": "forgotten_battlefield",
+    "w": 5600,
+    "h": 1400,
+    "floor": 1100,
+    "theme": "Forgotten battlefield of Aesir invasion 300 years ago, dark weathered earth, torn hammer-emblem banners, abandoned shields, bronze rust, distant broken palisades and dead root trees, restrained bruised dusk sky. Heavy thorns increasingly eastward. No living figures, no bodies.",
+    "landmarks": [
+      {
+        "x": 1900,
+        "text": "tall charred execution stake, exactly three distinct concentric burn scars on its trunk, broken binding chain, scraped stone inscription plinth at base. Quest landmark visible behind walking lane"
+      },
+      {
+        "x": 3100,
+        "text": "large half-buried faded banner bearing hammer-and-lightning emblem, surrounded by rusted helmets facing right. Quest landmark"
+      },
+      {
+        "x": 4800,
+        "text": "wide boss clearing framed by a huge enclosing arch of thorn roots, no boss painted in"
+      },
+      {
+        "x": 5400,
+        "text": "narrow open passage leading onward past thorn arch"
+      }
+    ],
+    "n": 4,
+    "tileW": 1580,
+    "step": 1340,
+    "lip_offset": 24,
+    "walk_depth": 110
+  },
+  {
+    "id": "spring_of_life",
+    "w": 3400,
+    "h": 1300,
+    "floor": 1080,
+    "theme": "Spring of Life: immense sacred drained Vanir well beneath ancient roots, grand circular pale stone well in background behind continuous dry arena walkway. Worn carved stones, turquoise-green faint residual life, cold darkness, tiny warm embers near well. Empty boss arena, no characters. Siphon apparatus takes life toward the northern world tree.",
+    "landmarks": [
+      {
+        "x": 1600,
+        "text": "large dry well bottom visible behind front walkway, huge intricate carved circular siphon rune with all lines flowing inward then one channel toward northern background. Clear interactive focal point, dim cyan inlay"
+      },
+      {
+        "x": 2600,
+        "text": "well's inner sanctuary dais, scorched three concentric fire marks, open space for a fire boss, DO NOT draw the boss"
+      }
+    ],
+    "n": 3,
+    "tileW": 1293.3333333333333,
+    "step": 1053.3333333333333,
+    "lip_offset": 24,
+    "walk_depth": 110
+  },
+  {
+    "id": "dark_forest_2",
+    "w": 4400,
+    "h": 1021,
+    "floor": 763.5,
+    "theme": "Inner Dark Forest of Shadows of Fate, mature detailed hand painted RPG, midnight navy and indigo, huge gnarled ancient tree trunks, deep layered woodland, restrained violet fungi and firefly specks, cold moonbeams through canopy. Crisp bark and cobbles. Haunted Baphomet domain. No repetitive identical trunks.",
+    "landmarks": [
+      {
+        "x": 3300,
+        "text": "black stone altar bearing a clearly carved curved-horn goat head, layers of dried dark red stains, hoof tracks toward right, important quest landmark"
+      },
+      {
+        "x": 4085,
+        "text": "open boss clearing and narrow stone mine passage entering underground to right"
+      }
+    ],
+    "n": 3,
+    "tileW": 1626.6666666666667,
+    "step": 1386.6666666666667,
+    "lip_offset": 24,
+    "walk_depth": 110
+  },
+  {
+    "id": "nidavellir_town",
+    "w": 5600,
+    "h": 1200,
+    "floor": 956,
+    "theme": "Nidavellir dwarven forge city, wide uncrowded district, weathered black basalt and brass timbered workshops, steep slate roofs and distant mountainous dwarven towers, orange warm hearths against charcoal blue. Crisp rich hand-painted 2.5D RPG setting. Distinct shops separated by plazas. No NPCs painted in.",
+    "landmarks": [
+      {
+        "x": 650,
+        "text": "broker's trading stall with ore sacks and orderly shelves"
+      },
+      {
+        "x": 1450,
+        "text": "master smith's grand open forge with anvil and orange furnace"
+      },
+      {
+        "x": 2300,
+        "text": "quiet retired smith residence and simple workbench"
+      },
+      {
+        "x": 3150,
+        "text": "warp shrine standing stone with hammer crest in an open plaza"
+      },
+      {
+        "x": 3950,
+        "text": "healer's apothecary with amber bottles and linen awning"
+      },
+      {
+        "x": 4650,
+        "text": "old smith's home and bench with hanging tools"
+      },
+      {
+        "x": 5100,
+        "text": "small unnamed grave with name deliberately chiseled off stone and dried flowers, quiet recess accessible from walkway, quest landmark"
+      }
+    ],
+    "n": 4,
+    "tileW": 1580,
+    "step": 1340,
+    "lip_offset": 24,
+    "walk_depth": 110
+  }
+]

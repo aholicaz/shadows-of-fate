@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://bkss2dk7w66j7"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/bog_lurker_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_bog_lurker_0"]
@@ -47,10 +47,7 @@ mdef = 30
 hit = 74
 flee = 20
 crit = 2
-element = 2
 race = 1
-size = 1
-ai_type = 0
 move_speed = 70.0
 jump_force = -280.0
 jump_while_chasing = false
@@ -63,6 +60,7 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 220.0
+attack_hit_frames = null
 exp_reward = 3400
 job_exp_reward = 2380
 zeny_min = 700

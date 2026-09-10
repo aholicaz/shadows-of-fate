@@ -72,6 +72,47 @@ static func spawn(skill: SkillData, caster: Node2D, facing: int,
 	}, caster, facing)
 
 
+## ★★ รอบ 103 — สร้างเอฟเฟกต์จากสกิล แต่ให้ "สมุดเอฟเฟกต์ผู้เล่น" ทับค่าได้ ★★
+##
+## ใช้เมื่อผู้ใช้ติ๊ก "ใช้ค่าจากสมุดนี้" ของสกิลนั้นใน `data/sprites/player_fx.tres`
+## ช่องไหนในสมุดเว้นว่างไว้ (เช่นไม่ได้ใส่ SpriteFrames) จะถอยไปใช้ค่าเดิมใน .tres ของสกิล
+## → แก้เฉพาะที่อยากแก้ ไม่ต้องกรอกใหม่ทั้งชุด
+static func spawn_with_override(skill: SkillData, caster: Node2D, facing: int,
+		damage_mult: float, fx: PlayerSkillFX) -> SkillEffect:
+	if skill == null:
+		return null
+	if fx == null:
+		return spawn(skill, caster, facing, damage_mult)
+	var frames: SpriteFrames = fx.frames if fx.frames != null else skill.effect_frames
+	if frames == null:
+		return null
+	return spawn_config({
+		"frames": frames,
+		"anim": fx.anim if fx.anim != &"" else skill.effect_anim,
+		"offset": fx.offset,
+		"height": fx.height,
+		"scale": fx.scale,
+		"speed": fx.speed,
+		"follow": fx.follow,
+		"life": fx.life,
+		"delay": fx.delay,
+		"z": fx.z,
+		"modulate": fx.tint,
+		"name": String(skill.id),
+		# ส่วนดาเมจยังใช้ของสกิลเหมือนเดิม — สมุดคุมแค่ "หน้าตา" ไม่แตะสมดุลเกม
+		"damage": skill.effect_damage,
+		"mult": damage_mult,
+		"use_matk": skill.use_matk,
+		"hit_size": skill.effect_hit_size,
+		"max_targets": skill.effect_max_targets,
+		"hit_once": skill.effect_hit_once,
+		"pierce": skill.effect_pierce,
+		"hits": skill.effect_hit_count if skill.effect_hit_count > 0 else skill.hit_count,
+		"hit_interval": skill.effect_hit_interval,
+		"stick": skill.effect_stick_on_hit,
+	}, caster, facing)
+
+
 ## สร้างเอฟเฟกต์จากสกิลของมอนสเตอร์/บอส
 static func spawn_monster(data: MonsterData, caster: Node2D, facing: int) -> SkillEffect:
 	if data == null or data.skill_effect_frames == null:
@@ -152,6 +193,8 @@ func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 	_sprite.sprite_frames = frames
 	_sprite.flip_h = _dir < 0
 	_sprite.flip_v = bool(cfg.get("flip_v", false))   # รอบ 44: ฟันสวนขึ้น
+	# ★ รอบ 103 ★ สีคูณจากสมุดเอฟเฟกต์ (ไม่ส่งมา = ขาว = สีตามภาพต้นฉบับ)
+	_sprite.modulate = cfg.get("modulate", Color.WHITE)
 	_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	add_child(_sprite)
 

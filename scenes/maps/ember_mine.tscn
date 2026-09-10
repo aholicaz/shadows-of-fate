@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dk7g1br4bh34n"]
 
-[ext_resource type="Texture2D" uid="uid://dc8srugyo7spy" path="res://Sprites/map/generated/ember_mine_bg.png" id="bg38"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+[ext_resource type="Texture2D" uid="uid://cc8fgdjxdc0ml" path="res://Sprites/map/generated/ember_mine_bg_final.png" id="bg38"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
 [ext_resource type="Resource" uid="uid://bxem6i08xr73k" path="res://data/monsters/ember_bat.tres" id="md_ember_bat"]
@@ -11,9 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
-size = Vector2(5400, 240)
+size = Vector2(5400, 104)
 
-[node name="Map" type="Node2D" unique_id=1599436164]
+[node name="Map2" type="Node2D" unique_id=1599436164]
 script = ExtResource("map_base")
 map_id = &"ember_mine"
 display_name = "เหมืองถ่านไฟ"
@@ -22,14 +23,25 @@ region = "สวาร์ทัลฟ์เฮม"
 map_bounds = Rect2(-100, -200, 5200, 1400)
 player_scene = ExtResource("player")
 
+[node name="AmbientFX" type="Node2D" parent="." unique_id=1912726915]
+script = ExtResource("ambient_fx")
+lantern_positions = PackedVector2Array(128, 453, 508, 457, 895, 408, 1076, 515, 3111, 479, 4456, 440, 4960, 492)
+light_radius = 450.0
+light_energy = 4.22
+shaft_positions = PackedVector2Array(1420, -150, 2350, -100)
+shaft_size = Vector2(360, 970)
+shaft_angle = 8.0
+shaft_color = Color(0.82, 0.74, 0.6, 0.035)
+
 [node name="Background" type="Node2D" parent="." unique_id=901953463]
 
 [node name="Sky" type="Polygon2D" parent="Background" unique_id=648218802]
 z_index = -100
+texture_filter = 4
 position = Vector2(-100, -200)
 texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 1400, 0, 1400)
-uv = PackedVector2Array(0, 0, 2600, 0, 2600, 650, 0, 650)
+uv = PackedVector2Array(0, 0, 5200, 0, 5200, 1400, 0, 1400)
 
 [node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1865573880]
 visible = false
@@ -49,6 +61,7 @@ position = Vector2(2500, 1020)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1093680512]
+position = Vector2(2, -84)
 shape = SubResource("Rect_ground")
 
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=932514752]
@@ -62,7 +75,7 @@ polygon = PackedVector2Array(-2700, -120, 2700, -120, 2700, 120, -2700, 120)
 position = Vector2(200, 840)
 
 [node name="from_town" type="Marker2D" parent="SpawnPoints" unique_id=1399178152]
-position = Vector2(200, 840)
+position = Vector2(588, 835)
 
 [node name="from_hall" type="Marker2D" parent="SpawnPoints" unique_id=669429624]
 position = Vector2(4800, 840)
@@ -78,15 +91,18 @@ max_spawn_distance = 1700.0
 [node name="Portals" type="Node2D" parent="." unique_id=1094342174]
 
 [node name="ToTown" parent="Portals" unique_id=311394888 instance=ExtResource("portal")]
-position = Vector2(60, 900)
+position = Vector2(321, 792)
 target_map = &"nidavellir_town"
 target_spawn_point = &"from_mine"
 label_text = "← นิดาเวลลิร์"
 destination_name = "นิดาเวลลิร์"
 
 [node name="ToHall" parent="Portals" unique_id=966135113 instance=ExtResource("portal")]
-position = Vector2(4940, 900)
+position = Vector2(4931, 802)
 target_map = &"hall_of_silence"
 target_spawn_point = &"from_mine"
 label_text = "→ ห้องโถงเงียบ"
 destination_name = "ห้องโถงเงียบ"
+
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=1936514667]
+color = Color(0.46849567, 0.50327855, 0.5897615, 1)

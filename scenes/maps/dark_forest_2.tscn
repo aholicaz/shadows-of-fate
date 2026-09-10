@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://xbpewolg4spa"]
 
-[ext_resource type="Texture2D" uid="uid://d3ng1misv08qj" path="res://Sprites/map/generated/dark_forest_2_bg.png" id="bg38"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+[ext_resource type="Texture2D" uid="uid://bl6xgjxtyfjcr" path="res://Sprites/map/generated/dark_forest_2_bg_final.png" id="bg38"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
@@ -17,21 +18,22 @@
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(4600, 67)
 
-[node name="Map" type="Node2D" unique_id=1565650474]
+[node name="Map2" type="Node2D" unique_id=1565650474]
 script = ExtResource("map_base")
 map_id = &"dark_forest_2"
 display_name = "ป่าเงาลึกชั้นใน"
-map_bounds = Rect2(-100, 185, 4400, 1021)
+map_bounds = Rect2(-85, -104, 4400, 1021)
 player_scene = ExtResource("player")
 
 [node name="Background" type="Node2D" parent="." unique_id=2017925133]
 
 [node name="Sky" type="Polygon2D" parent="Background" unique_id=1202893480]
 z_index = -100
+texture_filter = 2
 position = Vector2(-85, -104)
 texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 4400, 0, 4400, 1021, 0, 1021)
-uv = PackedVector2Array(0, 0, 5600, 0, 5600, 1300, 0, 1300)
+uv = PackedVector2Array(0, 0, 4400, 0, 4400, 1021, 0, 1021)
 
 [node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1090341459]
 visible = false
@@ -97,7 +99,7 @@ label_text = "← ป่าเงาลึก"
 destination_name = "ป่าเงาลึก"
 
 [node name="ToIronRoad" parent="Portals" unique_id=1080945976 instance=ExtResource("portal")]
-position = Vector2(4136, 608)
+position = Vector2(3805, 558)
 target_map = &"iron_road"
 target_spawn_point = &"from_forest"
 label_text = "→ ทางเหล็ก"
@@ -108,10 +110,29 @@ locked_text = "ทางเดินแคบ ๆ ลงไปใต้ดิน
 [node name="Lore" type="Node2D" parent="." unique_id=780031934]
 
 [node name="AltarStone" parent="Lore" unique_id=65716978 instance=ExtResource("lore")]
-position = Vector2(2850, 457)
+position = Vector2(3222, 580)
 lore_id = &"dark_altar"
 title = "แท่นบูชาหินดำ"
 text = "หินดำสลักรูปแพะเขาโค้ง เลือดแห้งกรังเป็นชั้น ๆ
 
 รอยกีบเท้าขนาดใหญ่เดินวนรอบแท่น... แล้วมุ่งหน้าไปทางตะวันออก"
 label_text = "แท่นบูชาหินดำ"
+
+[node name="AmbientFX" type="Node2D" parent="." unique_id=1858763436]
+script = ExtResource("ambient_fx")
+lantern_positions = PackedVector2Array(4211, 284)
+flame_size = Vector2(18, 36)
+light_radius = 180.0
+light_energy = 0.16
+shaft_positions = PackedVector2Array(730, -95, 2300, -95, 3600, -95)
+shaft_size = Vector2(330, 790)
+shaft_color = Color(0.45, 0.57, 1, 0.09)
+mist_regions = Array[Rect2]([Rect2(0, 510, 4200, 130)])
+mist_color = Color(0.28, 0.37, 0.62, 0.1)
+mote_regions = Array[Rect2]([Rect2(100, 210, 1000, 370), Rect2(1300, 210, 1000, 370), Rect2(2500, 210, 1000, 370), Rect2(3700, 210, 1000, 370)])
+mote_color = Color(0.6, 0.42, 1, 0.55)
+motes_per_region = 12
+glow_positions = PackedVector2Array(52, 522, 954, 546, 1944, 521, 2795, 523, 3460, 518, 3931, 472, 4290, 510)
+glow_color = Color(0.5, 0.25, 0.95, 0.22)
+glow_radius = 115.0
+glow_energy = 0.12

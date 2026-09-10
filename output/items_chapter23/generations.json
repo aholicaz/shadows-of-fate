@@ -1,0 +1,396 @@
+[
+  {
+    "id": "silver_dust",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A small lustrous heap of magical silver dust, distinct silver flakes and a few icy blue-white twinkles, cool translucent mist curling subtly upward. Alchemy material left by the reference mist spirit.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/mist_sprite.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-9c48c08c-f749-4d80-85e9-cfcb70ffa413.png"
+  },
+  {
+    "id": "spectral_plume",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One elegant translucent blue-gray ghost feather from an ancient soldier helmet, silver central quill, frayed spectral wisps, slightly curved diagonal silhouette. Match the blue ghost armor palette of the reference war wraith.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/war_wraith.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-82544fdd-53ff-439c-808c-627f8675f8b6.png"
+  },
+  {
+    "id": "spring_vial",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A small exquisite clear glass vial with silver vine neck and cork stopper, only a tiny amount of pale turquoise luminous spring water remaining at the bottom; readable glass highlights, an ancient life-spring quest relic.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/mist_sprite.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-f1bfb3ce-09d4-407c-9766-b1c4c02d1bd0.png"
+  },
+  {
+    "id": "spring_amulet",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. An ornate silver vine filigree pendant enclosing ONE teardrop of pale cyan luminous water, small loop at top, sacred life spring relic with faint warm gold accent. No necklace chain extending to edges.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/gullveig_ember.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-5bf45209-05f6-4526-a984-76f802502c3e.png"
+  },
+  {
+    "id": "storm_medal",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One ancient Aesir military medal: weathered silver-bronze medallion engraved with a thunder hammer emblem, frayed deep blue ribbon, tarnished edges with subtle spectral blue glow, worn battlefield relic.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/war_wraith.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-aeb1cdde-45a7-4701-a206-e5caadf6e199.png"
+  },
+  {
+    "id": "thorn_fang",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. ONE large ivory wolf fang with two woody brown thorn barbs growing backwards from its root, a little green moss and sap, sharp curved diagonal silhouette, match thorn hound anatomy.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_hound.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-eedda854-fa06-4a81-9320-c69bbc05b5c0.png"
+  },
+  {
+    "id": "thorn_shield",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A complete wearable round-to-kite shield intricately woven from the thorn queen's dark brown woody vines, long reddish thorns pointing outward, a deep crimson flower boss and muted moss-green leaves. Strong clear shield silhouette.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_matriarch.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-856add78-a186-4e8b-b61d-6e0454c234fd.png"
+  },
+  {
+    "id": "vanir_circlet",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One elegant wearable open silver circlet shaped as intertwining vines and delicate leaves, pale green gemstone at forehead, restrained silver and antique gold highlights, ancient Vanir forest royal craftsmanship.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_matriarch.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-d47ad9be-8350-4fe7-9677-979920cbfc49.png"
+  },
+  {
+    "id": "vanir_seal",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One ancient Vanir seal token, polished pale stone medallion engraved with an unmistakable curling vine insignia, silver rim and small green wax seal, a short moss-green cord. A diplomatic guest token, not a weapon.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/vanir_sentinel.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-1c6d7f8c-50d6-433b-bb60-3d696c846142.png"
+  },
+  {
+    "id": "withered_bark",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. Two overlapping curved pieces of dead treant bark, dry cracked dark umber wood, hollow pale grain underneath, a few brittle roots. No glowing face, no creature. A mundane harvested crafting material.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/withered_treant.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-59d73647-f960-4136-84f2-1533f63f31a0.png"
+  },
+  {
+    "id": "marsh_cutter",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A complete broad-bladed swamp hunter's machete sword, weathered steel broad blade with swamp patina, leather-wrapped hilt and simple bronze guard, tiny hanging strand of moss, diagonal fully visible weapon.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/bog_lurker.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-52c92630-038c-465d-a20d-bab65b5965d9.png"
+  },
+  {
+    "id": "root_sword",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A complete lightweight sword whose blade is made of tightly twisted hardened brown roots tapering to a sharp point, small green leaves at crossguard, wrapped wooden handle; polished light heartwood cutting edge. Diagonal full weapon.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/root_crawler.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-86c35ed2-134d-4058-8a2b-ed0306e756b3.png"
+  },
+  {
+    "id": "aesir_warblade",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One complete ancient Aesir army longsword, broad silver steel blade with weathering, bronze thunder-hammer emblem on guard, deep blue leather grip and spectral blue glint; exactly one fully visible diagonal sword.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/war_wraith.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-f1dc6dff-e7d7-4bbb-9aa6-a75a9c30894c.png"
+  },
+  {
+    "id": "sentinel_blade",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One complete ancient Vanir sentinel stone sword, pale ivory-gray stone blade carved with vine patterns, moss in cracks, green glowing runic inset, antique gold and root-wrapped hilt. Match the reference sentinel's sword and materials.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/vanir_sentinel.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-aa728233-c974-40f8-adda-065ccb587d49.png"
+  },
+  {
+    "id": "card_bog_lurker",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The mossy teal amphibian bog lurker emerging onto a broken stone causeway in a silver marsh, reeds, murky water, cold fog, ruined remnants of Aesir armor in background.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/bog_lurker.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-23121c4c-fd61-4e05-ba31-9208a7d36cf7.png"
+  },
+  {
+    "id": "card_gullveig_ember",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The beautiful tragic flame woman Gullveig Ember, flowing burning hair and charred black-gold gown as reference, floating by the failing sacred life spring amidst enormous roots, glowing embers reflecting in shallow turquoise water, dramatic orange against teal.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/gullveig_ember.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-c56a93ec-7df1-43f4-af2c-efe3f6cbd517.png"
+  },
+  {
+    "id": "card_mist_sprite",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The elegant silver-white and pale blue floating mist spirit exactly as reference, curling translucent tail and ornamental horn-like wisps, drifting over a moonlit silver marsh with reeds and glimmering water.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/mist_sprite.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-405fd32c-3297-4f89-a37b-c0bc0e4a4539.png"
+  },
+  {
+    "id": "card_thorn_hound",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The bramble-covered gray-green wolf from reference prowling leftward across tangled root road in ancient woodland, cream chest fur, copper-red thorns, glowing green eyes, mossy stones and shafts of green light.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_hound.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-8a9851c2-ac21-440b-9f6c-d0b543fc0fa8.png"
+  },
+  {
+    "id": "card_thorn_matriarch",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The imposing thorn matriarch exactly as reference: ancient feminine wooden forest queen with thorn crown, pale flowers and deep crimson blooms in root armor, long branch claws, standing among suffocating thorns in a withered grove, subtle poisoned green light, majestic menacing full figure.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_matriarch.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-b25b471d-2cf3-4540-ae5d-5c5815fe0249.png"
+  },
+  {
+    "id": "card_war_wraith",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The ancient Aesir ghost soldier exactly as reference, dark steel and bronze armor, blue spectral plume and ragged cloak, sword and shield, standing on the forgotten battlefield among broken standards and ruins under storm-blue moonlight.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/war_wraith.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3df234e8-5e63-4d1d-bf34-96311def7b23.png"
+  },
+  {
+    "id": "card_vanir_sentinel",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The tall ivory stone and gold Vanir sentinel exactly as reference, glowing emerald core, vine inscriptions, leaf crown, stone sword and shield, guarding an ancient vine-covered arch on the root road, warm shafts of light and green forest shadows.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/vanir_sentinel.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-812d255c-0fc4-4228-8a8e-5338a05df6e1.png"
+  },
+  {
+    "id": "card_withered_treant",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The withered treant exactly as reference, hollow ancient gnarled trunk body, jagged wooden claws and branching antlers, a few dying orange leaves, standing in a ruined withered grove, soft amber light through gray mist, tragic ancient forest guardian.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/withered_treant.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3c2e78d6-fab7-47cd-bf69-3966d3c08c80.png"
+  },
+  {
+    "id": "aesir_helm_rusted",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One empty ancient Aesir soldier helmet, rounded weathered iron with rusty copper edges, cheek guards, clear thunder hammer emblem on side, traces of dark swamp algae. No head or face inside.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/war_wraith.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-8aa220b7-59d9-47c5-8a3f-68ec00bc60f4.png"
+  },
+  {
+    "id": "ash_ring",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One wearable ring forged from compact dark charcoal ash with orange ember fissures, small molten copper-red inset, elegant ancient flame shaped shank, warm restrained glow.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/gullveig_ember.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-a56ea18f-9e14-4fad-b8bb-da9e2b193ef2.png"
+  },
+  {
+    "id": "bark_armor",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One complete empty wearable chest armor crafted from overlapping tough brown bark plates, root-fiber bindings, small moss-green accents and leaf-shaped pauldrons, match root crawler bark; no wearer, no head.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/root_crawler.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3964b543-d6e9-4af9-a270-f0353cd0452b.png"
+  },
+  {
+    "id": "bog_bone",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One heavy old blackened swamp bone with pale worn broken ends, dark green algae strands and wet dull sheen, thick curved femur-like silhouette; clearly a bone, not a monster.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/bog_lurker.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-c89e3146-8798-4a59-a0fd-b0ae16c7323a.png"
+  },
+  {
+    "id": "card_root_crawler",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The low many-legged root crawler exactly as reference, twisted woody bark carapace, green glowing eyes and hooked root claws, crawling left over a mossy ancient root road beneath gigantic trees, green shafts of light and tiny drifting spores.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/root_crawler.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-cec2ac2c-0c07-4faf-8851-d0ef72dbc591.png"
+  },
+  {
+    "id": "bramble_pelt",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One folded gray-green wolf hide with cream fur edge and reddish-brown bramble thorns growing through the fur, loose compact harvested pelt, no whole animal or animal face.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_hound.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-7f9eb2b1-1349-45f8-9696-f655d1247b46.png"
+  },
+  {
+    "id": "carved_stone",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One broken ivory-gray stone tablet fragment with ancient swirling vine relief, worn gold line accents, moss at cracks, small green luminous inset; match pale sentinel carved armor.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/vanir_sentinel.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-1efa65a9-3cf4-47a8-93d1-a35d8c042ce7.png"
+  },
+  {
+    "id": "ember_heart",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One pulsing copper-gold magical heart-shaped ember core, dark charred crust split open to molten gold light, three small flame tongues and a few sparks. Organic heart-like luminous mineral, not jewelry or a literal bloody organ.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/gullveig_ember.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-5d4855df-344d-4e29-a2dc-71892fba097d.png"
+  },
+  {
+    "id": "eskil_chronicle",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One old official history chronicle, closed dark blue leather book in three-quarter view, bronze clasps and thunder-hammer insignia, worn parchment page edges with several rewritten loose pages peeking out. No readable writing, no letters.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/war_wraith.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-356175d1-b3b9-4a19-85db-7b147b4a34e4.png"
+  },
+  {
+    "id": "ember_of_gullveig",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One complete ancient flaming longsword of Gullveig, slender blackened steel blade with copper-gold edge, three tongues of orange fire licking the blade, flame-shaped bronze guard and dark wrapped hilt. Full diagonal sword with tip and pommel inside margins.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/gullveig_ember.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-b12d660a-4a7f-41de-ac31-5130fdb04fa3.png"
+  },
+  {
+    "id": "frida_song",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One small worn cream parchment song sheet with curled corners, a few simple musical notes on staves and faint overwritten ink lines, tied at corner with moss-green ribbon. A child's forgotten song quest item, not a book. No readable words.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/mist_sprite.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-994395b2-b1b1-4443-a806-a5e5847b3d10.png"
+  },
+  {
+    "id": "gullveig_ash",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A compact mound of soft charcoal-gray ash mixed with three small stubborn copper-orange embers, subtle warm glow and tiny drifting flecks, clearly ash powder distinct from a solid fiery heart.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/gullveig_ember.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-820deb15-ef9f-4f66-bc7e-a52d85981812.png"
+  },
+  {
+    "id": "heartwood_chip",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One wedge-shaped golden-brown heartwood chip, visible concentric wood grain on cut face and two fine pale green luminous veins, rough dark bark edge, last remaining life inside a withered tree.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/withered_treant.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-39331d01-0c68-4533-936d-cf6a69e4fcfc.png"
+  },
+  {
+    "id": "mist_cloak",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One empty wearable hooded cloak woven from pale blue-white mist, silver-gray fabric at shoulders fading into translucent curling wisps at hem, elegant silver clasp, no person, no face, no body inside.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/mist_sprite.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-d7747a6a-723a-48b3-9582-5e8bf561e230.png"
+  },
+  {
+    "id": "mist_essence",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One compact rounded knot of concentrated silvery blue magical mist, pearl-like luminous center and translucent curling vapor wrapping it, cool highlights; no face, no eyes, no bottle, clearly an alchemy material.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/mist_sprite.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-26644470-f55f-4ce5-b350-7653a519e307.png"
+  },
+  {
+    "id": "matriarch_thorn",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. ONE arm-length curved woody thorn from the thorn queen, dark reddish-brown ridged surface, sharp ivory-gold tip and one visible drop of sickly green poisonous sap, root-like base with a small red petal, long diagonal material silhouette.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_matriarch.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-7f6b0d2f-cd74-41db-8b19-0849633b29fb.png"
+  },
+  {
+    "id": "root_boots",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A pair of complete ankle-high dark leather boots reinforced by tightly winding brown roots, small copper-red thorn accents and moss-green leaves, thick sturdy soles, empty boots without legs, three-quarter inventory view.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_hound.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-db4dac41-498d-4483-b5f8-b7c4ff3934d4.png"
+  },
+  {
+    "id": "pale_sap",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A compact ivory-white droplet of thick pale tree resin resting on a small curled piece of brown root bark, waxy translucent pale cream shine, no green glow, harvested lifeless sap crafting material.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/root_crawler.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-130edd30-59c5-45b3-b8d9-3fd49d1bfc3a.png"
+  },
+  {
+    "id": "root_fiber",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. A tied compact bundle of tough tan-brown root fibers, several curled woody strands with frayed pale ends, a tiny moss-green leaf, strong clear rope bundle silhouette.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/root_crawler.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-dcc69ea5-8fe9-4b8d-9b75-169266dbbb7b.png"
+  },
+  {
+    "id": "royal_bloom",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One deep crimson rose-like flower harvested from the thorn queen, velvety layered petals, a short dark thorny stem and two muted green leaves, regal and slightly ominous, full blossom centered.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/thorn_matriarch.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-feef1720-09c2-46de-96a6-f7d204ce07f4.png"
+  },
+  {
+    "id": "sentinel_core",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One spherical ancient stone core, ivory-gray carved segments wrapped around a brilliant green emerald-like glowing center, vine engravings and slim aged gold bands, compact round silhouette; detached core, not creature.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/vanir_sentinel.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-e0972d49-3baf-44d3-84cd-438c3bf7ebb2.png"
+  },
+  {
+    "id": "sentinel_plate",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One detached curved pale ivory stone armor plate from the Vanir sentinel, carved curling vine relief and green luminous seam, worn gold trim with traces of moss, clearly a heavy shoulder/chest armor fragment.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter3/vanir_sentinel.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-37e3184d-2c9a-4d93-8c5a-a7a8ff55c28c.png"
+  },
+  {
+    "id": "mole_claw",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One broad flat ivory digging claw from the reference pitman's paw, thick keratin wedge with dark brown worn base and rock-scratched surface, strong spade-like hooked shape, tiny brown fur tuft at base, no whole paw or creature.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter2/pitman.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-ec21a25f-9bf0-4c07-b0d6-03ad620e6c74.png"
+  },
+  {
+    "id": "card_rune_watcher",
+    "prompt": "Create ONE portrait 2:3 full-bleed fantasy trading-card ILLUSTRATION. Image 1 is the exact monster identity reference; image 2 is ONLY the painted art style and composition reference. Preserve monster anatomy, outfit, colors, weapons and identity from image 1. Dynamic detailed hand-painted anime fantasy illustration matching the existing game card set. Monster fills most of composition with full silhouette readable, face below top 15% so title can be overlaid later. Beautiful atmospheric habitat, foreground-to-background depth. NO card border, NO text, NO letters, NO title, NO watermark: these will be composited separately from the exact original card template, with outside-card transparency in the final asset. The rune watcher exactly as reference: upright dark stone and antique bronze constructed sentinel with a vertical cyan rune visor and floating glowing cyan glyphs above its raised hand, NOT a purple eyeball monster. Guarding the silent dwarven hall, immense carved pillars and narrow overhead cyan light, solemn ancient magical machinery.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter2/rune_watcher.png",
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/card/card_wolf.webp"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-87ee52cc-e680-48c7-8103-eafb6c3e954a.png"
+  },
+  {
+    "id": "golem_plate",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One detached heavy dark iron and bronze armor plate from a furnace golem, riveted rounded rectangular metal panel, worn faint dwarven rune engraving, scorched edge with a restrained orange glow, clearly a crafting scrap.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter2/forge_golem.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-ffd81401-fad8-42d3-bab4-f5318f6ebd89.png"
+  },
+  {
+    "id": "magma_core",
+    "prompt": "Create ONE finished fantasy RPG inventory icon, not a card. Hand-painted crisp anime fantasy item art matching the reference monster's materials and colors. The monster is reference ONLY, do not draw the creature. A single recognizable isolated item centered on a square canvas, occupies 75-80% of canvas with generous clear margins. Strong silhouette and readable at 48px, restrained detailed highlights, no text, no letters, no frame, no pedestal, no ground, no cast shadow, no scenery. TRUE transparent alpha background, not a checkerboard pattern or black backdrop. One irregular hot red volcanic stone core from the magma slug, jagged dark charcoal crust with blazing red-orange cracks and small cooled ridges, compact mineral chunk, no face, no limbs.",
+    "referenced_image_paths": [
+      "C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/Sprites/monsters/generated/chapter2/magma_slug.png"
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-9641282b-131f-44ab-9a07-892966899a6f.png"
+  }
+]

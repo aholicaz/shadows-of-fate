@@ -1,0 +1,144 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | กำลังสแกนไฟล์ กรุณารอ...
+WARNING: Detected another project.godot at res://petrol_ui_kit_godot4. The folder will be ignored.
+   at: _should_skip_directory (editor/file_system/editor_file_system.cpp:3497)
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_drops.tres and res://_to_delete/originals_cards_r89/card_drops.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_fabre.tres and res://_to_delete/originals_cards_r89/card_fabre.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_king_poring.tres and res://_to_delete/originals_cards_r89/card_king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_lunatic.tres and res://_to_delete/originals_cards_r89/card_lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_poring.tres and res://_to_delete/originals_cards_r89/card_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_cards_r90/card_wolf.tres and res://_to_delete/originals_cards_r89/card_wolf.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_items_r53/novice_sword.tres and res://_to_delete/originals_items_equipframes/novice_sword.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_maps_r73/prontera_town.tscn and res://_to_delete/originals_maps_r57/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_maps_shop/prontera_town.tscn and res://_to_delete/originals_maps_r73/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_maps_voice/prontera_town.tscn and res://_to_delete/originals_maps_shop/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_monsters_r69/stormscar.tres and res://_to_delete/originals_monsters_r64/stormscar.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_quest_r76/prontera_town.tscn and res://_to_delete/originals_maps_voice/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_r92/lunatic.tres and res://_to_delete/originals_monsters_r67/lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_skill_r78/baphomet.tres and res://_to_delete/originals_frames_r77/baphomet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_video_r75/king_poring.tres and res://_to_delete/originals_fx_r82/king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://_to_delete/originals_video_r75/stormscar.tres and res://_to_delete/originals_monsters_r69/stormscar.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_baphomet.tres and res://_to_delete/originals_cards_r90/card_baphomet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_baphomet_jr.tres and res://_to_delete/originals_cards_r90/card_baphomet_jr.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_drops.tres and res://_to_delete/originals_cards_r90/card_drops.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_fabre.tres and res://_to_delete/originals_cards_r90/card_fabre.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_king_poring.tres and res://_to_delete/originals_cards_r90/card_king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_lunatic.tres and res://_to_delete/originals_cards_r90/card_lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_poring.tres and res://_to_delete/originals_cards_r90/card_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/cards/card_wolf.tres and res://_to_delete/originals_cards_r90/card_wolf.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/items/novice_sword.tres and res://_to_delete/originals_items_r53/novice_sword.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/baphomet.tres and res://_to_delete/originals_skill_r78/baphomet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/baphomet_jr.tres and res://_to_delete/originals_monsters_r66/baphomet_jr.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/forge_guardian.tres and res://_to_delete/originals_frames_r77/forge_guardian.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/hornet.tres and res://_to_delete/originals_monster_preview/hornet.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/king_poring.tres and res://_to_delete/originals_video_r75/king_poring.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/lunatic.tres and res://_to_delete/originals_r92/lunatic.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/magma_slug.tres and res://_to_delete/originals_frames_r77/magma_slug.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/pitman.tres and res://_to_delete/originals_frames_r77/pitman.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/silent_wraith.tres and res://_to_delete/originals_frames_r77/silent_wraith.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/steel_beetle.tres and res://_to_delete/originals_frames_r77/steel_beetle.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/monsters/stormscar.tres and res://_to_delete/originals_video_r75/stormscar.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/skills/magnum_break.tres and res://_to_delete/originals_fx_r82/magnum_break.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/skills/slash.tres and res://_to_delete/originals_skills_r56/slash.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/monsters/forge_guardian_frames.tres and res://_to_delete/originals_refs_r91/data__sprites__monsters__forge_guardian_frames.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/placeholder/stormscar_frames.tres and res://_to_delete/originals_monsters_r64/stormscar_frames.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/equip_sword_idle.tres and res://_to_delete/originals_refs_r91/data__sprites__equip_sword_idle.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://data/sprites/fx_magnum.tres and res://_to_delete/originals_fx_r82/fx_magnum.tres.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://scenes/maps/prontera_town.tscn and res://_to_delete/originals_quest_r76/prontera_town.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+WARNING: UID duplicate detected between res://scenes/maps/thunder_scar.tscn and res://_to_delete/originals_maps_r68/thunder_scar.tscn.
+   at: _process_file_system (editor/file_system/editor_file_system.cpp:1405)
+[   0% ] update_scripts_classes | Started Registering global classes... (5 steps)
+[   0% ] update_scripts_classes | SlashSheetFX
+[  16% ] update_scripts_classes | PlayerFXBook
+[  33% ] update_scripts_classes | PlayerSkillFX
+[  50% ] update_scripts_classes | MapAmbientFX
+[  66% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] _update_scan_actions | Started Scanning actions... (2 steps)
+[   0% ] _update_scan_actions | Jump.png
+[  33% ] _update_scan_actions | npc_lines.csv
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started กำลังนำเข้าทรัพยากร(อีกครั้ง) (1 steps)
+[   0% ] reimport | Preparing files to reimport...
+[   0% ] reimport | Executing pre-reimport operations...
+[   0% ] reimport | npc_lines.csv
+ERROR: Cannot create file 'res://_to_delete/npc_lines.ไฟล์เสียง (Sprites/voice/<voice.translation'.
+   at: save (core/io/resource_format_binary.cpp:2117)
+ERROR: Cannot open file 'res://_to_delete/npc_lines.ไฟล์เสียง (Sprites/voice/<voice.translation'.
+   at: set_uid (core/io/resource_format_binary.cpp:2349)
+ERROR: Condition "f.is_null()" is true. Continuing.
+   at: get_multiple_md5 (core/io/file_access.cpp:967)
+[  50% ] reimport | Finalizing Asset Import...
+[ DONE ] reimport
+
+[   0% ] reimport | Started กำลังนำเข้าทรัพยากร(อีกครั้ง) (1 steps)
+[   0% ] reimport | Executing post-reimport operations...
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[  33% ] loading_editor_layout | Reopening scenes...
+SCRIPT ERROR: Parse Error: No constructor of "PackedFloat32Array" matches the signature "PackedFloat32Array(int, float, float, int)".
+   at: GDScript::reload (res://scripts/world/map_ambient_fx.gd:31)
+ERROR: Failed to load script "res://scripts/world/map_ambient_fx.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+[  50% ] loading_editor_layout | Loading central editor layout...
+[  66% ] loading_editor_layout | Loading plugin window layout...
+[  83% ] loading_editor_layout | Editor layout ready.
+[ DONE ] loading_editor_layout
+

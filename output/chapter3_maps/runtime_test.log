@@ -1,0 +1,89 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 566.14 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3050 Ti Laptop GPU
+
+[GameData] items=175 (การ์ด 30) monsters=30 (รอเรียก) skills=8 jobs=2 เควส=31
+[Map] root_road ปรับขอบตามภาพฉาก: x -100..5100 → -60..5060 · y -200..1100 → -200..1100
+[Map] root_road อุ่นเครื่อง auto-fit 34 ท่า
+ERROR: root_crawler feet remain inside walking plane
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:108)
+ERROR: thorn_hound feet remain inside walking plane
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:108)
+ERROR: thorn_hound actual painted feet fit within visible ground depth (y=679.999084472656 floor=880.0)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:115)
+MAP_VERIFIED: root_road floor=880.0 monsters=2
+[Map] vanir_town ปรับขอบตามภาพฉาก: x -100..3900 → -60..3860 · y -200..1000 → -200..1000
+MAP_VERIFIED: vanir_town floor=880.0 monsters=0
+[Map] silver_marsh ปรับขอบตามภาพฉาก: x -100..5300 → -60..5360 · y -200..1200 → -200..1200
+ERROR: mist_sprite feet remain inside walking plane
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:108)
+ERROR: bog_lurker feet remain inside walking plane
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:108)
+MAP_VERIFIED: silver_marsh floor=900.0 monsters=2
+[Map] withered_grove ปรับขอบตามภาพฉาก: x -100..5100 → -60..5060 · y -200..1200 → -200..1200
+ERROR: dry_spring_grove reachable from ground
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:131)
+       [2] settle (res://chapter3_map_test.gd:26)
+MAP_VERIFIED: withered_grove floor=900.0 monsters=2
+[Map] forgotten_battlefield ปรับขอบตามภาพฉาก: x -100..5500 → -60..5560 · y -200..1200 → -200..1200
+MAP_VERIFIED: forgotten_battlefield floor=900.0 monsters=2
+[Map] spring_of_life ปรับขอบตามภาพฉาก: x -100..3300 → -60..3360 · y -200..1100 → -200..1100
+MAP_VERIFIED: spring_of_life floor=880.0 monsters=1
+[Map] dark_forest_2 ปรับขอบตามภาพฉาก: x -85..4315 → -45..4275 · y -104..917 → -104..917
+ERROR: Cannot blit_rect in compressed image formats.
+   at: blit_rect (core/io/image.cpp:3130)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://chapter3_map_test.gd:112)
+ERROR: munak actual painted feet fit within visible ground depth (y=694.859252929688 floor=659.5)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:115)
+ERROR: Cannot blit_rect in compressed image formats.
+   at: blit_rect (core/io/image.cpp:3130)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://chapter3_map_test.gd:112)
+ERROR: orc_warrior actual painted feet fit within visible ground depth (y=713.654968261719 floor=659.5)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:115)
+ERROR: Cannot blit_rect in compressed image formats.
+   at: blit_rect (core/io/image.cpp:3130)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://chapter3_map_test.gd:112)
+ERROR: baphomet_jr actual painted feet fit within visible ground depth (y=691.158508300781 floor=659.5)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:115)
+ERROR: Cannot blit_rect in compressed image formats.
+   at: blit_rect (core/io/image.cpp:3130)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://chapter3_map_test.gd:112)
+ERROR: baphomet actual painted feet fit within visible ground depth (y=732.809631347656 floor=659.5)
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://chapter3_map_test.gd:12)
+       [1] _ready (res://chapter3_map_test.gd:115)
+MAP_VERIFIED: dark_forest_2 floor=659.5 monsters=4
+[Map] nidavellir_town ปรับขอบตามภาพฉาก: x -100..5500 → -60..5460 · y -13..1187 → -13..1187
+MAP_VERIFIED: nidavellir_town floor=943.0 monsters=0
+CHAPTER3_MAP_TEST: 8 maps, seams, platforms, player/monster feet, NPC reach, lore events and boss gate; 10 failures

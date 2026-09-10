@@ -249,7 +249,7 @@ func _art_rects() -> Array[Rect2]:
 		var item := node as CanvasItem
 		if not item.is_visible_in_tree():
 			continue
-		if _is_actor(node):
+		if _is_actor(node) or _ignores_map_bounds(node):
 			continue
 		var r: Rect2 = _canvas_item_rect(item)
 		if r.size.x < min_w:
@@ -259,6 +259,15 @@ func _art_rects() -> Array[Rect2]:
 		else:
 			flat.append(r)
 	return textured if not textured.is_empty() else flat
+
+
+func _ignores_map_bounds(node: Node) -> bool:
+	var ancestor := node
+	while ancestor != null and ancestor != self:
+		if ancestor.get_meta("ignore_map_bounds", false):
+			return true
+		ancestor = ancestor.get_parent()
+	return false
 
 
 func _has_texture(item: CanvasItem) -> bool:

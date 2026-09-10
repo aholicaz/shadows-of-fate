@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://dwatr4vg7qyeo"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/gullveig_ember_frames.tres" id="3_frames"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/fx_fire_wave.tres" id="4_wave"]
+[ext_resource type="SpriteFrames" uid="uid://dk6u4x66leahl" path="res://data/sprites/fx_fire_wave.tres" id="4_wave"]
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_0"]
 script = ExtResource("2_drop")
@@ -60,6 +60,8 @@ sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(80, 110)
 hp_bar_offset_y = -136.8
 display_height = 360.0
+flying = true
+hover_height = 60.0
 level = 60
 max_hp = 32000
 atk_min = 420
@@ -85,15 +87,12 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 380.0
+attack_hit_frames = null
 exp_reward = 40000
 job_exp_reward = 28000
 zeny_min = 12000
 zeny_max = 20000
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_gullveig_ember_0"), SubResource("Drop_gullveig_ember_1"), SubResource("Drop_gullveig_ember_2"), SubResource("Drop_gullveig_ember_3"), SubResource("Drop_gullveig_ember_4"), SubResource("Drop_gullveig_ember_5"), SubResource("Drop_gullveig_ember_6"), SubResource("Drop_gullveig_ember_7"), SubResource("Drop_gullveig_ember_card")])
-respawn_time = 600.0
-flying = true
-hover_height = 60.0
-flying_no_hop = true
 is_boss = true
 boss_title = "ผู้ถูกเผาสามครั้ง"
 skill_name = "เพลิงสามครั้ง"
@@ -109,6 +108,6 @@ skill_wave_count = 3
 skill_wave_both_sides = true
 skill_wave_speed = 560.0
 skill_wave_range = 1000.0
-skill_wave_delay = 0.45
 skill_wave_height = 160.0
 skill_wave_frames = ExtResource("4_wave")
+respawn_time = 600.0

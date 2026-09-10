@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://depeulhjexcp7"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/root_crawler_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_root_crawler_0"]
@@ -50,8 +50,6 @@ flee = 30
 crit = 2
 element = 3
 race = 3
-size = 1
-ai_type = 0
 move_speed = 85.0
 jump_force = -280.0
 jump_while_chasing = false
@@ -64,6 +62,7 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
+attack_hit_frames = null
 exp_reward = 2200
 job_exp_reward = 1540
 zeny_min = 500

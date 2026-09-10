@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" load_steps=12 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://fy6dp28eg4sa"]
 
-[ext_resource type="Texture2D" path="res://Sprites/effects/lightning_bolt.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://din1em1e63g0t" path="res://Sprites/effects/lightning_bolt.png" id="1_tex"]
 
 [sub_resource type="AtlasTexture" id="bolt_0"]
 atlas = ExtResource("1_tex")
@@ -75,7 +75,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("bolt_9")
 }],
-"loop": false,
+"loop": 0,
 "name": &"bolt",
 "speed": 30.0
 }]

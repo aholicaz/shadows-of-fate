@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://ddtmckm2hrxw1"]
 
-[ext_resource type="Texture2D" uid="uid://ckhp3pbuphf4j" path="res://Sprites/map/generated/hall_of_silence_bg.png" id="bg38"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+[ext_resource type="Texture2D" uid="uid://bjb0y1n1umdgv" path="res://Sprites/map/generated/hall_of_silence_bg_final.png" id="bg38"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
 [ext_resource type="Resource" uid="uid://c8vvg68ge743n" path="res://data/monsters/forge_golem.tres" id="md_forge_golem"]
@@ -13,9 +15,9 @@
 [ext_resource type="Script" uid="uid://c2no85difcfo6" path="res://scripts/world/monster_spawner.gd" id="spawner"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
-size = Vector2(5000, 240)
+size = Vector2(5000, 42)
 
-[node name="Map" type="Node2D" unique_id=2038627440]
+[node name="Map2" type="Node2D" unique_id=2038627440]
 script = ExtResource("map_base")
 map_id = &"hall_of_silence"
 display_name = "ห้องโถงเงียบ"
@@ -24,14 +26,27 @@ region = "สวาร์ทัลฟ์เฮม"
 map_bounds = Rect2(-100, -200, 4800, 1400)
 player_scene = ExtResource("player")
 
+[node name="AmbientFX" type="Node2D" parent="." unique_id=1874090235]
+script = ExtResource("ambient_fx")
+lantern_positions = PackedVector2Array(3653, 622, 4139, 625)
+flame_size = Vector2(34, 62)
+light_radius = 250.0
+shaft_positions = PackedVector2Array(1140, -190, 1660, -190, 3070, -190, 3900, -190)
+shaft_size = Vector2(390, 1120)
+shaft_angle = 14.0
+drifting_embers = true
+mist_regions = Array[Rect2]([Rect2(2070, 430, 450, 410), Rect2(2870, 530, 430, 300)])
+rune_regions = Array[Rect2]([Rect2(316, 385, 60, 220), Rect2(1290, 460, 95, 240), Rect2(3430, 420, 90, 260), Rect2(4230, 390, 100, 320)])
+
 [node name="Background" type="Node2D" parent="." unique_id=454481296]
 
 [node name="Sky" type="Polygon2D" parent="Background" unique_id=693577092]
 z_index = -100
+texture_filter = 4
 position = Vector2(-100, -200)
 texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 4800, 0, 4800, 1400, 0, 1400)
-uv = PackedVector2Array(0, 0, 2400, 0, 2400, 650, 0, 650)
+uv = PackedVector2Array(0, 0, 4800, 0, 4800, 1400, 0, 1400)
 
 [node name="FarLayer" type="Polygon2D" parent="Background" unique_id=740989819]
 visible = false
@@ -51,6 +66,7 @@ position = Vector2(2300, 1020)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1235389828]
+position = Vector2(0, -113)
 shape = SubResource("Rect_ground")
 
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=1675459926]
@@ -89,15 +105,26 @@ spawn_width = 160
 [node name="Portals" type="Node2D" parent="." unique_id=1310953764]
 
 [node name="ToMine" parent="Portals" unique_id=679822482 instance=ExtResource("portal")]
-position = Vector2(60, 900)
+position = Vector2(149, 805)
 target_map = &"ember_mine"
 target_spawn_point = &"from_hall"
 label_text = "← เหมืองถ่านไฟ"
 destination_name = "เหมืองถ่านไฟ"
 
 [node name="ToForge" parent="Portals" unique_id=578124943 instance=ExtResource("portal")]
-position = Vector2(4540, 900)
+position = Vector2(4391, 814)
 target_map = &"cold_forge"
 target_spawn_point = &"from_hall"
 label_text = "→ เตาหลอมร้าง"
 destination_name = "เตาหลอมร้าง"
+
+[node name="Lore" type="Node2D" parent="." unique_id=1304046679]
+
+[node name="FamilyTools" parent="Lore" unique_id=1835532289 instance=ExtResource("lore")]
+position = Vector2(1720, 810)
+lore_id = &"dvalin_family_tools"
+title = "เครื่องมือของตระกูลดวาลิน"
+text = "คีม ค้อน และเครื่องมือช่างเก่าถูกวางไว้ข้างทั่ง
+
+รอยใช้งานบนด้ามจับบอกว่าพวกมันถูกส่งต่อกันมาหลายรุ่น — นี่คงเป็นเครื่องมือที่ดวาลินอยากกลับมาเอา"
+label_text = "เครื่องมือช่างเก่า"

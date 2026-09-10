@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://chdp2gwc1kyul" path="res://Sprites/card/card_silent_wraith.webp" id="art_1"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"silent_wraith"
+illustration = ExtResource("art_1")
+fits_slot = 7
+rarity = 4
+monster_level = 33
+id = &"card_silent_wraith"
+display_name = "การ์ดภูตไร้เสียง"
+description = "ไร้เสียง ไร้เงา ไร้ร่องรอย"
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 500
+flee = 12
+crit = 3

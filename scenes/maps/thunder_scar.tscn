@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bgvryened4bej"]
 
-[ext_resource type="Texture2D" uid="uid://b1a7j4dyr7juj" path="res://Sprites/map/generated/thunder_scar_bg.png" id="bg38"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Texture2D" uid="uid://b1a7j4dyr7juj" path="res://Sprites/map/generated/thunder_scar_bg.png" id="bg38"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Resource" uid="uid://cyum1hljnlamg" path="res://data/monsters/stormscar.tres" id="md_stormscar"]
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
@@ -12,12 +12,6 @@
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(3200, 55)
-
-[sub_resource type="RectangleShape2D" id="Rect_p0"]
-size = Vector2(320, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p1"]
-size = Vector2(300, 32)
 
 [node name="Map" type="Node2D" unique_id=1513842992]
 script = ExtResource("map_base")
@@ -60,32 +54,6 @@ shape = SubResource("Rect_ground")
 visible = false
 color = Color(0.2, 0.19, 0.23, 1)
 polygon = PackedVector2Array(-1600, -120, 1600, -120, 1600, 120, -1600, 120)
-
-[node name="Plat0" type="StaticBody2D" parent="Terrain" unique_id=2102834827]
-visible = false
-position = Vector2(1103, 1358)
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat0" unique_id=1516936778]
-position = Vector2(-40, 735)
-shape = SubResource("Rect_p0")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat0" unique_id=1165166252]
-color = Color(0.2, 0.19, 0.23, 1)
-polygon = PackedVector2Array(-160, -16, 51, 158, 160, -16, 160, 16, -160, 16)
-
-[node name="Plat1" type="StaticBody2D" parent="Terrain" unique_id=1978545640]
-visible = false
-position = Vector2(1595, 1323)
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat1" unique_id=2075085871]
-position = Vector2(-144, 861)
-shape = SubResource("Rect_p1")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat1" unique_id=2125448117]
-color = Color(0.2, 0.19, 0.23, 1)
-polygon = PackedVector2Array(-150, -16, -41, 491, 150, -16, 150, 16, -81, 439, -150, 16)
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=1939802256]
 

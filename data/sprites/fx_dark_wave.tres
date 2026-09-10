@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" load_steps=10 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://c8mdehpjl4c7s"]
 
-[ext_resource type="Texture2D" path="res://Sprites/effects/dark_wave.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://bft5joulnw0xs" path="res://Sprites/effects/dark_wave.png" id="1_tex"]
 
 [sub_resource type="AtlasTexture" id="wave_0"]
 atlas = ExtResource("1_tex")
@@ -61,7 +61,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("wave_7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"wave",
 "speed": 14.0
 }]

@@ -1,0 +1,92 @@
+[
+  {
+    "file": "bog_lurker.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 44909,
+    "partial_samples": 53583,
+    "opaque_samples": 104,
+    "corner_alpha": 0
+  },
+  {
+    "file": "gullveig_ember.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 53557,
+    "partial_samples": 44930,
+    "opaque_samples": 109,
+    "corner_alpha": 0
+  },
+  {
+    "file": "mist_sprite.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 70243,
+    "partial_samples": 28200,
+    "opaque_samples": 153,
+    "corner_alpha": 0
+  },
+  {
+    "file": "root_crawler.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 64757,
+    "partial_samples": 33745,
+    "opaque_samples": 94,
+    "corner_alpha": 0
+  },
+  {
+    "file": "thorn_hound.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 55164,
+    "partial_samples": 43308,
+    "opaque_samples": 124,
+    "corner_alpha": 0
+  },
+  {
+    "file": "thorn_matriarch.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 58954,
+    "partial_samples": 6,
+    "opaque_samples": 39636,
+    "corner_alpha": 0
+  },
+  {
+    "file": "vanir_sentinel.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 59191,
+    "partial_samples": 39291,
+    "opaque_samples": 114,
+    "corner_alpha": 0
+  },
+  {
+    "file": "war_wraith.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 60810,
+    "partial_samples": 37703,
+    "opaque_samples": 83,
+    "corner_alpha": 0
+  },
+  {
+    "file": "withered_treant.png",
+    "width": 1254,
+    "height": 1254,
+    "format": "Format32bppArgb",
+    "transparent_samples": 52851,
+    "partial_samples": 45429,
+    "opaque_samples": 316,
+    "corner_alpha": 0
+  }
+]

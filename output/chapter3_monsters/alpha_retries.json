@@ -1,0 +1,26 @@
+{
+  "vanir_sentinel": [
+    {
+      "prompt": "ลบพื้นหลังออกให้โปร่งใสจริง เก็บเฉพาะตัวมอนสเตอร์หันซ้ายตามต้นฉบับ ส่งเป็นไฟล์ PNG พื้นหลังโปร่งใส",
+      "output": "Generated images are saved to C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d as C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3869f250-96ee-4160-980c-31f6b533ecfc.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    }
+  ],
+  "thorn_matriarch": [
+    {
+      "prompt": "ลบพื้นหลังออกให้โปร่งใสจริง เก็บเฉพาะตัวมอนสเตอร์หันซ้ายตามต้นฉบับ ส่งเป็นไฟล์ PNG พื้นหลังโปร่งใส",
+      "output": "Generated images are saved to C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d as C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3f26832e-dfae-41c9-8931-997c840b9750.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "prompt": "Background removal only: cut out the plant creature. Replace the entire checkerboard with alpha transparency. Return an RGBA transparent PNG.",
+      "output": "Generated images are saved to C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d as C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-8ede6275-02ec-4fee-8de0-b7399cf2ee0f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "prompt": "Extract only the thorn queen from the first image onto an empty transparent background, matching the actual transparent cutout format of the second image. Keep the queen's original colors, pose, details and left-facing orientation. The second image is ONLY a transparency-output example; do not include or copy that creature. No checkerboard pixels anywhere.",
+      "output": "Generated images are saved to C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d as C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-9785feb8-0880-440b-acc2-0828b38a3743.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "prompt": "Make the background transparent.",
+      "output": "Generated images are saved to C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d as C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-637fe8ae-d2cd-41e5-b8ff-5f7786788a7f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    }
+  ]
+}

@@ -1,0 +1,717 @@
+[
+  {
+    "id": "silver_dust",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 65970,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-9c48c08c-f749-4d80-85e9-cfcb70ffa413.png"
+  },
+  {
+    "id": "spectral_plume",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 62856,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-82544fdd-53ff-439c-808c-627f8675f8b6.png"
+  },
+  {
+    "id": "spring_vial",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 50550,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-f1bfb3ce-09d4-407c-9766-b1c4c02d1bd0.png"
+  },
+  {
+    "id": "spring_amulet",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 53086,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-5bf45209-05f6-4526-a984-76f802502c3e.png"
+  },
+  {
+    "id": "storm_medal",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 86470,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-aeb1cdde-45a7-4701-a206-e5caadf6e199.png"
+  },
+  {
+    "id": "thorn_fang",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 44493,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-eedda854-fa06-4a81-9320-c69bbc05b5c0.png"
+  },
+  {
+    "id": "thorn_shield",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 73320,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-856add78-a186-4e8b-b61d-6e0454c234fd.png"
+  },
+  {
+    "id": "vanir_circlet",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 59383,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-d47ad9be-8350-4fe7-9677-979920cbfc49.png"
+  },
+  {
+    "id": "vanir_seal",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 80695,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-1c6d7f8c-50d6-433b-bb60-3d696c846142.png"
+  },
+  {
+    "id": "withered_bark",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 83822,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-59d73647-f960-4136-84f2-1533f63f31a0.png"
+  },
+  {
+    "id": "marsh_cutter",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 41943,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-52c92630-038c-465d-a20d-bab65b5965d9.png"
+  },
+  {
+    "id": "root_sword",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 34704,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-86c35ed2-134d-4058-8a2b-ed0306e756b3.png"
+  },
+  {
+    "id": "aesir_warblade",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 36016,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-f1dc6dff-e7d7-4bbb-9aa6-a75a9c30894c.png"
+  },
+  {
+    "id": "sentinel_blade",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 46130,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-aa728233-c974-40f8-adda-065ccb587d49.png"
+  },
+  {
+    "id": "card_bog_lurker",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1537241,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-23121c4c-fd61-4e05-ba31-9208a7d36cf7.png"
+  },
+  {
+    "id": "card_gullveig_ember",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1419595,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-c56a93ec-7df1-43f4-af2c-efe3f6cbd517.png"
+  },
+  {
+    "id": "card_mist_sprite",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1345314,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-405fd32c-3297-4f89-a37b-c0bc0e4a4539.png"
+  },
+  {
+    "id": "card_thorn_hound",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1428246,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-8a9851c2-ac21-440b-9f6c-d0b543fc0fa8.png"
+  },
+  {
+    "id": "card_thorn_matriarch",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1336275,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-b25b471d-2cf3-4540-ae5d-5c5815fe0249.png"
+  },
+  {
+    "id": "card_war_wraith",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1420623,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3df234e8-5e63-4d1d-bf34-96311def7b23.png"
+  },
+  {
+    "id": "card_vanir_sentinel",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1521777,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-812d255c-0fc4-4228-8a8e-5338a05df6e1.png"
+  },
+  {
+    "id": "card_withered_treant",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1425163,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3c2e78d6-fab7-47cd-bf69-3966d3c08c80.png"
+  },
+  {
+    "id": "aesir_helm_rusted",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 79967,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-8aa220b7-59d9-47c5-8a3f-68ec00bc60f4.png"
+  },
+  {
+    "id": "ash_ring",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 62544,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-a56ea18f-9e14-4fad-b8bb-da9e2b193ef2.png"
+  },
+  {
+    "id": "bark_armor",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 95011,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-3964b543-d6e9-4af9-a270-f0353cd0452b.png"
+  },
+  {
+    "id": "bog_bone",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 63694,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-c89e3146-8798-4a59-a0fd-b0ae16c7323a.png"
+  },
+  {
+    "id": "card_root_crawler",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1422244,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-cec2ac2c-0c07-4faf-8851-d0ef72dbc591.png"
+  },
+  {
+    "id": "bramble_pelt",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 92827,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-7f9eb2b1-1349-45f8-9696-f655d1247b46.png"
+  },
+  {
+    "id": "carved_stone",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 74523,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-1efa65a9-3cf4-47a8-93d1-a35d8c042ce7.png"
+  },
+  {
+    "id": "ember_heart",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 63821,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-5d4855df-344d-4e29-a2dc-71892fba097d.png"
+  },
+  {
+    "id": "eskil_chronicle",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 94934,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-356175d1-b3b9-4a19-85db-7b147b4a34e4.png"
+  },
+  {
+    "id": "ember_of_gullveig",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 42026,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-b12d660a-4a7f-41de-ac31-5130fdb04fa3.png"
+  },
+  {
+    "id": "frida_song",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 79671,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-994395b2-b1b1-4443-a806-a5e5847b3d10.png"
+  },
+  {
+    "id": "gullveig_ash",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 69444,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-820deb15-ef9f-4f66-bc7e-a52d85981812.png"
+  },
+  {
+    "id": "heartwood_chip",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 72245,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-39331d01-0c68-4533-936d-cf6a69e4fcfc.png"
+  },
+  {
+    "id": "mist_cloak",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 67151,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-d7747a6a-723a-48b3-9582-5e8bf561e230.png"
+  },
+  {
+    "id": "mist_essence",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 72466,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-26644470-f55f-4ce5-b350-7653a519e307.png"
+  },
+  {
+    "id": "matriarch_thorn",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 40139,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-7f6b0d2f-cd74-41db-8b19-0849633b29fb.png"
+  },
+  {
+    "id": "root_boots",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 94158,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-db4dac41-498d-4483-b5f8-b7c4ff3934d4.png"
+  },
+  {
+    "id": "pale_sap",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 60752,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-130edd30-59c5-45b3-b8d9-3fd49d1bfc3a.png"
+  },
+  {
+    "id": "root_fiber",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 71924,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-dcc69ea5-8fe9-4b8d-9b75-169266dbbb7b.png"
+  },
+  {
+    "id": "royal_bloom",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 73481,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-feef1720-09c2-46de-96a6-f7d204ce07f4.png"
+  },
+  {
+    "id": "sentinel_core",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 101563,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-e0972d49-3baf-44d3-84cd-438c3bf7ebb2.png"
+  },
+  {
+    "id": "sentinel_plate",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 81103,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-37e3184d-2c9a-4d93-8c5a-a7a8ff55c28c.png"
+  },
+  {
+    "id": "mole_claw",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 54428,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-ec21a25f-9bf0-4c07-b0d6-03ad620e6c74.png"
+  },
+  {
+    "id": "card_steel_beetle",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1401009,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e40\u0e01\u0e21\u0e43\u0e2b\u0e21\u0e48\\Sprites\\card\\card_steel_beetle.webp"
+  },
+  {
+    "id": "card_magma_slug",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1296009,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e40\u0e01\u0e21\u0e43\u0e2b\u0e21\u0e48\\Sprites\\card\\card_magma_slug.webp"
+  },
+  {
+    "id": "card_ember_bat",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1263167,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e40\u0e01\u0e21\u0e43\u0e2b\u0e21\u0e48\\Sprites\\card\\card_ember_bat.webp"
+  },
+  {
+    "id": "card_forge_guardian",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1362610,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e40\u0e01\u0e21\u0e43\u0e2b\u0e21\u0e48\\Sprites\\card\\card_forge_guardian.webp"
+  },
+  {
+    "id": "card_rune_watcher",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1423387,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-87ee52cc-e680-48c7-8103-eafb6c3e954a.png"
+  },
+  {
+    "id": "card_silent_wraith",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1448375,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e40\u0e01\u0e21\u0e43\u0e2b\u0e21\u0e48\\Sprites\\card\\card_silent_wraith.webp"
+  },
+  {
+    "id": "golem_plate",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 84140,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-ffd81401-fad8-42d3-bab4-f5318f6ebd89.png"
+  },
+  {
+    "id": "magma_core",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 78591,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\.codex\\generated_images\\01a08a3a-342a-7322-917e-8f65ffbe6c7d\\exec-9641282b-131f-44ab-9a07-892966899a6f.png"
+  },
+  {
+    "id": "card_forge_golem",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1407131,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e40\u0e01\u0e21\u0e43\u0e2b\u0e21\u0e48\\Sprites\\card\\card_forge_golem.webp"
+  },
+  {
+    "id": "card_pitman",
+    "size": [
+      640,
+      960
+    ],
+    "bytes": 1411142,
+    "alpha": [
+      0,
+      255
+    ],
+    "source": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\\u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e40\u0e01\u0e21\u0e43\u0e2b\u0e21\u0e48\\Sprites\\card\\card_pitman.webp"
+  }
+]

@@ -306,6 +306,16 @@ signal combo_step_started(step: int, anim: String, mult: float)
 ## บวกแสงลงฉาก (เรืองแสง) หรือวาดทับปกติ
 @export var slash_sheet_additive: bool = true
 
+## ★★ รอบ 103 — สมุดเอฟเฟกต์ผู้เล่น (PlayerFXBook) ★★
+##
+## ที่เดียวที่คุมเอฟเฟกต์ของทุกท่า: Attack 1/2/3 · Magnum Break · Slash · Bash · บัฟต่าง ๆ
+## เปิดไฟล์ `data/sprites/player_fx.tres` แล้วเลือกท่าจากดรอปดาวน์ในหน้าต่าง Inspector
+##
+## · ท่าไหน "ใช้ค่าจากสมุดนี้" ไม่ติ๊ก → ท่านั้นใช้ค่าเดิมของมันเหมือนเดิมทุกประการ
+##   (ไม้ 1-3 ใช้ช่อง slash_sheet_* ข้างบน · สกิลใช้ค่าใน .tres ของตัวเอง)
+## · เว้นช่องนี้ว่าง = ไม่ใช้สมุดเลย เกมทำงานเหมือนก่อนรอบ 103 ทุกอย่าง
+@export var fx_book: PlayerFXBook
+
 @export var attack_effect_delay: float = 0.06
 @export var attack_effect_z: int = 40
 const ATTACK_FX_PATH := "res://data/sprites/fx_attack.tres"
@@ -1668,10 +1678,9 @@ func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0,
 	# ลำดับ: ภาพชุด Alternative 3 (รอบ 101) → เชดเดอร์ส่วนโค้ง (รอบ 100) → ไม่มี
 	var used_shader := false
 	if slash_shader_enabled:
-		if slash_sheet_enabled and SlashSheetFX.available(_slash_sheet_set(step)):
-			_spawn_slash_sheet(step, fx_scale, windup, anim_speed)
-			used_shader = true
-		elif SlashArcFX.available():
+		if slash_sheet_enabled:
+			used_shader = _spawn_slash_sheet(step, fx_scale, windup, anim_speed) != null
+		if not used_shader and SlashArcFX.available():
 			_spawn_slash_arc(step, fx_scale, windup, anim_speed)
 			used_shader = true
 	if used_shader and slash_shader_replaces_sprite:
@@ -1742,19 +1751,51 @@ func _spawn_slash_sheet(step: int, fx_scale: float, windup: float, anim_speed: f
 	if not slash_sheet_reversed.is_empty():
 		rev = slash_sheet_reversed[mini(i, slash_sheet_reversed.size() - 1)] != 0
 	var set_no := _slash_sheet_set(step)
+	var travel := slash_sheet_travel
+	var additive := slash_sheet_additive
+	# ★ รอบ 103 ★ ภาพที่ผู้ใช้ใส่เอง (SpriteFrames / โฟลเดอร์) — ว่าง = ใช้ภาพชุดที่แถมมา
+	var own_frames: SpriteFrames = null
+	var own_anim: StringName = &""
+	var own_dir := ""
+
+	# ★★ รอบ 103 ★★ ถ้าสมุดเอฟเฟกต์ติ๊ก "ใช้ค่าจากสมุดนี้" ไว้ ให้ค่าในสมุดชนะทั้งชุด
+	var book_fx := _book_fx(PlayerFXBook.combo_key(i))
+	if book_fx != null:
+		set_no = book_fx.sheet_set
+		rev = book_fx.sheet_reversed
+		aim = book_fx.aim_deg
+		size = book_fx.size_px
+		off = book_fx.offset
+		travel = book_fx.travel
+		tint = book_fx.tint
+		additive = book_fx.additive
+		own_frames = book_fx.frames
+		own_anim = book_fx.anim
+		own_dir = book_fx.custom_dir
+
+	# ★ ภาพต้นฉบับเอียงมากี่องศา ★ ภาพชุดที่แถมมารู้ค่าอยู่แล้ว (ชุด 4-5 เอียง −45)
+	# แต่ภาพที่ผู้ใช้ใส่เองไม่รู้ → ถือว่า 0 แปลว่า "องศาที่ชี้" ที่ตั้งไว้ = องศาที่หมุนจริง ๆ
+	var uses_own: bool = own_frames != null or own_dir.strip_edges() != "" or (book_fx != null and book_fx.crescent_enabled)
+	var native: float = 0.0 if uses_own else SlashSheetFX.native_angle_of(set_no)
 
 	return SlashSheetFX.spawn({
+		"sprite": sprite,
+		"track": book_fx,
 		"set": set_no,
+		"frames": own_frames,
+		"anim": own_anim,
+		"dir": own_dir,
+		"native": native,
 		"peak": windup,                       # ★ เฟรมลำแสงยาวสุด = เฟรมที่ดาเมจออก ★
 		"tail": slash_tail / maxf(0.1, anim_speed),
 		"size": size,
 		"scale": fx_scale,
 		"offset": off,
-		"rotate": SlashSheetFX.rotation_for(aim, set_no),
+		"rotate": aim - native,
 		"reversed": rev,
-		"travel": slash_sheet_travel,
+		"travel": travel,
 		"modulate": tint,
-		"additive": slash_sheet_additive,
+		"additive": additive,
 		"z": attack_effect_z + 5,
 		"follow": true,
 	}, self, facing)
@@ -1798,9 +1839,23 @@ func _spawn_slash_arc(step: int, fx_scale: float, windup: float, anim_speed: flo
 ## ★ เอฟเฟกต์สกิล ★ เกิดเป็นโหนดแยกในแมพ เลยใหญ่/ไกลเกินตัวละครได้
 ## ใส่ SpriteFrames ลงช่อง "Effect Frames" ของ SkillData แล้วมันทำงานเอง
 func _spawn_skill_effect(s: SkillData, damage_mult: float = 1.0) -> void:
-	if s == null or not s.has_effect():
+	if s == null:
+		return
+	# ★★ รอบ 103 ★★ สมุดเอฟเฟกต์ทับค่าของสกิลนี้ไหม
+	var book_fx := _book_fx(s.id)
+	if book_fx != null:
+		SkillEffect.spawn_with_override(s, self, facing, damage_mult, book_fx)
+		return
+	if not s.has_effect():
 		return
 	SkillEffect.spawn(s, self, facing, damage_mult)
+
+
+## ★ รอบ 103 ★ ค่าเอฟเฟกต์จากสมุดของท่านี้ (ไม่มีสมุด/ไม่ได้ติ๊กใช้ = null)
+func _book_fx(key: StringName) -> PlayerSkillFX:
+	if fx_book == null or key == &"":
+		return null
+	return fx_book.active(key)
 
 
 # =========================================================

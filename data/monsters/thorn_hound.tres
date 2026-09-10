@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://c7j4k6cnxco64"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/thorn_hound_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_thorn_hound_0"]
@@ -49,20 +49,18 @@ flee = 44
 crit = 5
 element = 3
 race = 2
-size = 1
 ai_type = 1
 move_speed = 190.0
 jump_force = -360.0
-jump_while_chasing = true
 detect_range = 460.0
 attack_range = 118.0
 leash_range = 800.0
 wander_range = 260.0
-hop_while_wandering = true
 attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
+attack_hit_frames = null
 exp_reward = 2600
 job_exp_reward = 1819
 zeny_min = 600

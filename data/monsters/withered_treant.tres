@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://dvl5xlx54q181"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/withered_treant_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_withered_treant_0"]
@@ -18,7 +18,6 @@ chance = 12.0
 [sub_resource type="Resource" id="Drop_withered_treant_2"]
 script = ExtResource("2_drop")
 item_id = &"white_potion"
-chance = 10.0
 
 [sub_resource type="Resource" id="Drop_withered_treant_card"]
 script = ExtResource("2_drop")
@@ -41,11 +40,9 @@ def = 56
 mdef = 26
 hit = 76
 flee = 8
-crit = 1
 element = 3
 race = 3
 size = 2
-ai_type = 0
 move_speed = 45.0
 jump_force = -280.0
 jump_while_chasing = false
@@ -58,6 +55,7 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 280.0
+attack_hit_frames = null
 exp_reward = 4000
 job_exp_reward = 2800
 zeny_min = 800

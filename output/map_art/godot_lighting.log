@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 566.14 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3050 Ti Laptop GPU
+
+[GameData] items=175 (การ์ด 30) monsters=30 (รอเรียก) skills=8 jobs=2 เควส=31
+[Map] ember_mine ปรับขอบตามภาพฉาก: x -100..5100 → -60..5060 · y -200..1200 → -200..1200
+[Map] ember_mine อุ่นเครื่อง auto-fit 34 ท่า
+[Map] hall_of_silence ปรับขอบตามภาพฉาก: x -100..4700 → -60..4660 · y -200..1200 → -200..1200
+MAP_ART_TEST: 2 maps, 6 standing samples, 480 walking frames, 0 failures

@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://dssyvrkgijv50"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/mist_sprite_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_mist_sprite_0"]
@@ -39,6 +39,7 @@ sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(36, 36)
 hp_bar_offset_y = -57.0
 display_height = 150.0
+flying = true
 level = 44
 max_hp = 3800
 atk_min = 240
@@ -49,7 +50,6 @@ hit = 78
 flee = 62
 crit = 6
 element = 4
-race = 0
 size = 0
 ai_type = 1
 move_speed = 160.0
@@ -64,12 +64,10 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
+attack_hit_frames = null
 exp_reward = 3000
 job_exp_reward = 2100
 zeny_min = 650
 zeny_max = 1100
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_mist_sprite_0"), SubResource("Drop_mist_sprite_1"), SubResource("Drop_mist_sprite_2"), SubResource("Drop_mist_sprite_3"), SubResource("Drop_mist_sprite_card")])
 respawn_time = 18.0
-flying = true
-hover_height = 110.0
-flying_no_hop = true

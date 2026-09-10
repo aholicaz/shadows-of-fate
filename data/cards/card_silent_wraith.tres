@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" uid="uid://chdp2gwc1kyul" path="res://Sprites/card/card_silent_wraith.webp" id="art_1"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_silent_wraith.png" id="art_1"]
 
 [resource]
 script = ExtResource("1_card")

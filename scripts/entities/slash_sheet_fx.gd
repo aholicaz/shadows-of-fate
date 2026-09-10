@@ -1,4 +1,6 @@
-## SlashSheetFX — รอยฟัน "พุ่งไปข้างหน้า" จากภาพชุด Alternative 3 (รอบ 101)
+## SlashSheetFX — ภาพชุดเดิมหรือเสี้ยวแสงสดตามเฟรมดาบผ่าน PlayerFXBook
+## crescent_enabled เปิดเสี้ยวแสงสีขาว; ปิดเพื่อใช้แหล่งภาพตามลำดับเดิม
+## หมายเหตุด้านล่างเป็นที่มาของโหมดภาพชุด Alternative 3
 ##
 ## ★★ ทำไมถึงเปลี่ยนจากเชดเดอร์รอบ 100 ★★
 ## เชดเดอร์รอบ 100 วาดรอยฟันเป็น "ส่วนโค้งรอบตัว" (polar coordinates) — ดูเป็นวงกลม
@@ -23,6 +25,13 @@
 ##
 ## เฟรม 3 (นับจาก 0) คือเฟรมที่ลำแสงยาว/สว่างที่สุดของทั้งชุด 4 และชุด 5 (วัดจากภาพจริง)
 ## และ int(0.5 * 6) = 3 พอดี → ใช้ progress_at() สูตรเดียวกับรอบ 100 ได้เลย
+## ★★ รอบ 103 — ใส่ภาพเอฟเฟกต์ของตัวเองได้ ★★
+## นอกจากภาพชุด Alternative 3 ที่แถมมา ยังรับแหล่งภาพได้อีก 2 ทาง (เรียงตามลำดับความสำคัญ):
+##   1. `frames` = SpriteFrames (+ `anim` ชื่อท่า) — ลากไฟล์ใส่ในสมุดเอฟเฟกต์ได้เลย
+##   2. `dir` = พาธโฟลเดอร์ที่มีไฟล์ .png เรียงตามชื่อ — โหลดทุกไฟล์ในนั้นเป็นเฟรม
+##   3. ไม่ใส่ทั้งคู่ → ใช้ `set` (ภาพชุด 1-5) เหมือนเดิม
+## ★ กี่เฟรมก็ได้ ★ ไม่จำเป็นต้อง 6 เฟรม — จังหวะ "เฟรมกลาง = ตอนดาเมจออก" ยังตรงเหมือนเดิม
+## และขนาดบนจอคิดจากความสูงจริงของภาพที่ใส่มา ไม่ได้ล็อกไว้ที่ 150 px
 class_name SlashSheetFX
 extends Sprite2D
 
@@ -48,6 +57,8 @@ const PEAK_FRAME := 3
 
 static var _cache: Dictionary = {}
 static var _set_cache: Dictionary = {}
+static var _crescent_canvas: GradientTexture2D
+const CRESCENT_SHADER = preload("res://Sprites/shaders/slash/slash_crescent.gdshader")
 
 var _t := 0.0
 var _peak := 0.12          # วินาทีจากเริ่มฟัน → ดาเมจออก
@@ -60,6 +71,16 @@ var _textures: Array[Texture2D] = []
 var _frame_idx := -1
 var _base_scale := Vector2.ONE
 var _reversed := false     # เล่นเฟรมจากท้ายมาหน้า (5→0)
+var _sprite: AnimatedSprite2D
+var _track: PlayerSkillFX
+var _native := 0.0
+var _tint_alpha := 1.0
+
+
+## จำนวนเฟรมของชุดที่กำลังเล่น (ภาพชุดที่แถมมา = 6 · ภาพที่ผู้ใช้ใส่เอง = เท่าที่มี)
+## ยังไม่ได้โหลดภาพ (เช่นโหนดเปล่าที่เอาไว้คำนวณจังหวะ) = ถือเป็นชุดมาตรฐาน 6 เฟรม
+func frame_count() -> int:
+	return _textures.size() if not _textures.is_empty() else FRAMES_PER_SET
 
 
 ## เส้นทางไฟล์ของ (ชุด, เฟรม)
@@ -98,6 +119,78 @@ static func available(set_no: int = 4) -> bool:
 	return not load_set(set_no).is_empty()
 
 
+## ★ รอบ 103 — เฟรมจาก SpriteFrames ที่ผู้ใช้ลากมาใส่เอง ★
+## `anim` เว้นว่าง = ใช้ท่าแรกที่เจอในไฟล์นั้น (ส่วนใหญ่มีท่าเดียวอยู่แล้ว)
+static func load_frames(frames: SpriteFrames, anim: StringName = &"") -> Array[Texture2D]:
+	var out: Array[Texture2D] = []
+	if frames == null:
+		return out
+	var a := anim
+	if a == &"" or not frames.has_animation(a):
+		var names := frames.get_animation_names()
+		if names.is_empty():
+			return out
+		a = StringName(names[0])
+	for i in range(frames.get_frame_count(a)):
+		var tex := frames.get_frame_texture(a, i)
+		if tex != null:
+			out.append(tex)
+	return out
+
+
+## ★ รอบ 103 — เฟรมจากโฟลเดอร์ภาพที่ผู้ใช้โยนเข้ามา ★
+## อ่านไฟล์ .png ทุกไฟล์ในโฟลเดอร์นั้น **เรียงตามชื่อ** → ตั้งชื่อ 01,02,03... จะได้ลำดับถูก
+static func load_dir(path: String) -> Array[Texture2D]:
+	var out: Array[Texture2D] = []
+	if path.strip_edges() == "":
+		return out
+	if _set_cache.has(path):
+		return _set_cache[path]
+	var d := DirAccess.open(path)
+	if d == null:
+		_set_cache[path] = out
+		return out
+	var names: Array[String] = []
+	for f in d.get_files():
+		# ★ ในเกมที่ export แล้วไฟล์ .png จะกลายเป็น .ctex ★ ต้องรับทั้งสองนามสกุล
+		var low := f.to_lower()
+		if low.ends_with(".png") or low.ends_with(".png.import"):
+			names.append(f.trim_suffix(".import"))
+		elif low.ends_with(".ctex"):
+			names.append(f)
+	names.sort()
+	var seen := {}
+	for f in names:
+		if seen.has(f):
+			continue
+		seen[f] = true
+		var tex := _res(path.path_join(f)) as Texture2D
+		if tex != null:
+			out.append(tex)
+	_set_cache[path] = out
+	return out
+
+
+## ★ แหล่งภาพของ cfg นี้ ★ SpriteFrames ที่ใส่เอง > โฟลเดอร์ที่ชี้ > ภาพชุด 1-5 ที่แถมมา
+static func textures_for(cfg: Dictionary) -> Array[Texture2D]:
+	var track := cfg.get("track") as PlayerSkillFX
+	if track != null and track.crescent_enabled:
+		if _crescent_canvas == null:
+			_crescent_canvas = GradientTexture2D.new()
+			_crescent_canvas.width = 512
+			_crescent_canvas.height = 512
+			_crescent_canvas.gradient = Gradient.new()
+		return [_crescent_canvas]
+	var out: Array[Texture2D] = load_frames(cfg.get("frames", null) as SpriteFrames,
+		StringName(cfg.get("anim", &"")))
+	if not out.is_empty():
+		return out
+	out = load_dir(String(cfg.get("dir", "")))
+	if not out.is_empty():
+		return out
+	return load_set(int(cfg.get("set", 4)))
+
+
 ## ★ ต้องหมุนภาพกี่องศา ถึงจะได้ลำแสงชี้ไปทางมุม target (องศาบนจอ · บวก = ก้มลง) ★
 ## ใช้ตอนตั้งค่า/ตอนเทสต์ จะได้ไม่ต้องเดามุมเอง
 ## ชุด 1-3 (วงโค้ง) มุมต้นฉบับ = 0 → ค่าที่ใส่กลายเป็น "หมุนเพิ่มกี่องศา" ตรง ๆ
@@ -111,8 +204,9 @@ static func rotation_for(target_deg: float, set_no: int = 4) -> float:
 static func spawn(cfg: Dictionary, caster: Node2D, facing: int) -> SlashSheetFX:
 	if caster == null:
 		return null
-	var set_no := int(cfg.get("set", 4))
-	if not available(set_no):
+	# ★ รอบ 103 ★ เช็คจาก "แหล่งภาพจริงที่จะใช้" ไม่ใช่แค่ภาพชุดที่แถมมา
+	# (ใส่ SpriteFrames/โฟลเดอร์เอง แล้วเลขชุดชี้ไปที่ชุดที่ไม่มีไฟล์ ก็ยังต้องเกิดได้)
+	if textures_for(cfg).is_empty():
 		return null
 	var tree := caster.get_tree()
 	if tree == null:
@@ -136,7 +230,7 @@ static func spawn(cfg: Dictionary, caster: Node2D, facing: int) -> SlashSheetFX:
 
 
 func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
-	_textures = load_set(int(cfg.get("set", 4)))
+	_textures = textures_for(cfg)
 	centered = true
 	z_index = int(cfg.get("z", 45))
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -148,7 +242,12 @@ func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 
 	# ขนาดบนจอ (px) — ภาพต้นฉบับสูง 150 px ทุกเฟรม จึงยึดความสูงเป็นตัวตั้ง
 	var size := maxf(16.0, float(cfg.get("size", 260.0))) * maxf(0.05, float(cfg.get("scale", 1.0)))
-	var k := size / 150.0
+	# ★ ยึดความสูงของภาพจริง ★ เดิมหาร 150 ตายตัว (ความสูงของภาพชุด Alternative 3)
+	# ภาพที่ผู้ใช้ใส่เองสูงเท่าไหร่ก็ได้ → ตั้ง "ขนาดบนจอ 250 px" แล้วต้องได้ 250 px จริงทุกภาพ
+	var src_h := 150.0
+	if not _textures.is_empty() and _textures[0] != null:
+		src_h = maxf(1.0, float(_textures[0].get_height()))
+	var k := size / src_h
 
 	# ★★ พลิกซ้าย-ขวาให้ถูก ★★
 	# เมทริกซ์ของ Node2D = R(φ)·S  ส่วนภาพที่เรา "อยากได้" ตอนหันซ้ายคือ Flip_x·R(θ)·S
@@ -161,7 +260,10 @@ func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 	scale = _base_scale
 
 	# ทิศที่ลำแสงพุ่งออก = มุมของภาพต้นฉบับ + มุมที่หมุนเพิ่ม (พลิกข้างด้วยถ้าหันซ้าย)
-	var aim := deg_to_rad(native_angle_of(int(cfg.get("set", 4))) + rot_deg)
+	# ★ รอบ 103 ★ ภาพที่ผู้ใช้ใส่เองไม่รู้ว่าวาดเอียงมากี่องศา → ผู้เรียกส่ง "native" = 0 มา
+	# แปลว่า "องศาที่ชี้" ที่ตั้งในสมุดกลายเป็นองศาหมุนตรง ๆ (ตั้งเท่าไหร่หมุนเท่านั้น)
+	var native := float(cfg.get("native", native_angle_of(int(cfg.get("set", 4)))))
+	var aim := deg_to_rad(native + rot_deg)
 	_dir = Vector2(cos(aim), sin(aim))
 	if not right:
 		_dir.x = -_dir.x
@@ -177,7 +279,52 @@ func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 		_follow_offset = Vector2(base_offset.x * signf(facing), base_offset.y)
 
 	modulate = cfg.get("modulate", Color.WHITE)
+	_tint_alpha = modulate.a
+	var track := cfg.get("track") as PlayerSkillFX
+	if track != null and track.crescent_enabled:
+		var crescent := ShaderMaterial.new()
+		crescent.shader = CRESCENT_SHADER
+		crescent.set_shader_parameter("arc_span", track.crescent_span)
+		crescent.set_shader_parameter("arc_width", track.crescent_width)
+		material = crescent
+		native = 0.0
+	elif track != null and track.white_mask:
+		var shader := Shader.new()
+		shader.code = "shader_type canvas_item;\n" + ("render_mode blend_add;\n" if bool(cfg.get("additive", true)) else "") + "varying vec4 tint; void vertex() { tint = COLOR; } void fragment() { vec4 c = texture(TEXTURE, UV); COLOR = vec4(vec3(1.0), c.a) * tint; }"
+		var white := ShaderMaterial.new()
+		white.shader = shader
+		material = white
+	_sprite = cfg.get("sprite") as AnimatedSprite2D
+	if track != null and is_instance_valid(_sprite) and track.track_animation == _sprite.animation \
+			and track.blade_positions.size() == _sprite.sprite_frames.get_frame_count(_sprite.animation) \
+			and track.blade_angles.size() == track.blade_positions.size() \
+			and track.blade_opacity.size() == track.blade_positions.size():
+		_track = track
+		_native = native
+		process_priority = 100 # หลัง player ปรับ auto-fit ของเฟรมนี้
 	_apply(0.0)
+	if _track != null:
+		visible = false # รอตำแหน่ง global หลัง add_child
+
+
+func _apply_blade_frame() -> void:
+	var f := _sprite.frame
+	var flip := Vector2(-1.0 if _sprite.flip_h else 1.0, -1.0 if _sprite.flip_v else 1.0)
+	# Sprite2D offset อยู่ในพิกัดวาด; flip กลับภาพรอบ offset
+	global_position = _sprite.to_global(_track.blade_positions[f] * flip + _sprite.offset)
+	var angle := deg_to_rad(_track.blade_angles[f])
+	var axis := Vector2(cos(angle), sin(angle)) * flip
+	global_rotation = _sprite.global_rotation + axis.angle() - deg_to_rad(_native)
+	scale = Vector2(absf(_base_scale.x), absf(_base_scale.y))
+	texture = _textures[mini(PEAK_FRAME, _textures.size() - 1)]
+	modulate.a = _track.blade_opacity[f] * _tint_alpha
+	if _track.crescent_enabled:
+		var crescent := material as ShaderMaterial
+		crescent.set_shader_parameter("phase", float(f) + _sprite.frame_progress)
+		crescent.set_shader_parameter("sweep_direction", _track.crescent_direction * flip.x * flip.y)
+		if f == _track.blade_positions.size() - 1:
+			modulate.a *= 1.0 - smoothstep(0.15, 1.0, _sprite.frame_progress)
+	visible = modulate.a > 0.0
 
 
 ## progress ณ เวลา t วินาที (สูตรเดียวกับรอบ 100 — p = 0.5 ตกตรงเฟรมที่ดาเมจออกเป๊ะ)
@@ -190,8 +337,9 @@ func progress_at(t: float) -> float:
 ## เฟรมที่ต้องโชว์ ณ progress p · p = 0.5 → เฟรม 3 (เฟรมที่ลำแสงยาวสุด) พอดี
 ## ★ ถ้า reversed ★ เล่นจากท้ายมาหน้า: p = 0.5 → เฟรม 5−3 = 2 (ยังเป็นเฟรมกลาง ๆ ที่ใหญ่สุดอยู่)
 func frame_at(p: float) -> int:
-	var f := clampi(int(clampf(p, 0.0, 1.0) * float(FRAMES_PER_SET)), 0, FRAMES_PER_SET - 1)
-	return (FRAMES_PER_SET - 1 - f) if _reversed else f
+	var n := frame_count()
+	var f := clampi(int(clampf(p, 0.0, 1.0) * float(n)), 0, n - 1)
+	return (n - 1 - f) if _reversed else f
 
 
 func _apply(p: float) -> void:
@@ -211,6 +359,12 @@ func _apply(p: float) -> void:
 
 
 func _process(delta: float) -> void:
+	if _track != null:
+		if not is_instance_valid(_sprite) or _sprite.animation != _track.track_animation or not _sprite.is_playing():
+			queue_free()
+			return
+		_apply_blade_frame()
+		return
 	_t += delta
 	var p := progress_at(_t)
 	var base := Vector2.ZERO

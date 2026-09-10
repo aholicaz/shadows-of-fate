@@ -1,30 +1,21 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene format=3 uid="uid://b8crfam16cnjb"]
 
-[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
-[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
-[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
-[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+[ext_resource type="Texture2D" uid="uid://3kprf51wrink" path="res://Sprites/map/generated/withered_grove_bg_final.png" id="bg38"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
-[ext_resource type="Resource" path="res://data/monsters/withered_treant.tres" id="md_withered_treant"]
-[ext_resource type="Resource" path="res://data/monsters/vanir_sentinel.tres" id="md_vanir_sentinel"]
+[ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Resource" uid="uid://btqor5t22v4hk" path="res://data/monsters/vanir_sentinel.tres" id="md_vanir_sentinel"]
+[ext_resource type="Resource" uid="uid://dvl5xlx54q181" path="res://data/monsters/withered_treant.tres" id="md_withered_treant"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(5400, 240)
 
-[sub_resource type="RectangleShape2D" id="Rect_p0"]
-size = Vector2(360, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p1"]
-size = Vector2(320, 32)
-
-[sub_resource type="RectangleShape2D" id="Rect_p2"]
-size = Vector2(360, 32)
-
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" unique_id=971157750]
 script = ExtResource("map_base")
 map_id = &"withered_grove"
 display_name = "ป่าเหี่ยว"
@@ -33,112 +24,93 @@ region = "วานาเฮม"
 map_bounds = Rect2(-100, -200, 5200, 1400)
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=1287565400]
 
-[node name="Sky" type="Polygon2D" parent="Background"]
+[node name="Sky" type="Polygon2D" parent="Background" unique_id=1923452210]
 z_index = -100
+texture_filter = 2
 position = Vector2(-100, -200)
-color = Color(0.3, 0.28, 0.2, 1)
+texture = ExtResource("bg38")
 polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 1400, 0, 1400)
+uv = PackedVector2Array(0, 0, 5200, 0, 5200, 1400, 0, 1400)
 
-[node name="FarLayer" type="Polygon2D" parent="Background"]
+[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1669515440]
+visible = false
 z_index = -90
 position = Vector2(-100, 540)
 color = Color(0.36, 0.3, 0.18, 1)
 polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 360, 0, 360)
 
-[node name="Terrain" type="Node2D" parent="."]
+[node name="Terrain" type="Node2D" parent="." unique_id=1626877827]
 
-[node name="Ground" type="StaticBody2D" parent="Terrain"]
+[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=467775238]
 position = Vector2(2500, 1020)
-collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1170871731]
 shape = SubResource("Rect_ground")
 
-[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=506562808]
+visible = false
 color = Color(0.3, 0.26, 0.16, 1)
 polygon = PackedVector2Array(-2700, -120, 2700, -120, 2700, 120, -2700, 120)
 
-[node name="Plat0" type="StaticBody2D" parent="Terrain"]
-position = Vector2(1000, 700)
-collision_layer = 1
-collision_mask = 0
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=847965038]
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat0"]
-shape = SubResource("Rect_p0")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat0"]
-color = Color(0.3, 0.26, 0.16, 1)
-polygon = PackedVector2Array(-180, -16, 180, -16, 180, 16, -180, 16)
-
-[node name="Plat1" type="StaticBody2D" parent="Terrain"]
-position = Vector2(2200, 620)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat1"]
-shape = SubResource("Rect_p1")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat1"]
-color = Color(0.3, 0.26, 0.16, 1)
-polygon = PackedVector2Array(-160, -16, 160, -16, 160, 16, -160, 16)
-
-[node name="Plat2" type="StaticBody2D" parent="Terrain"]
-position = Vector2(3400, 700)
-collision_layer = 1
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Plat2"]
-shape = SubResource("Rect_p2")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Plat2"]
-color = Color(0.3, 0.26, 0.16, 1)
-polygon = PackedVector2Array(-180, -16, 180, -16, 180, 16, -180, 16)
-
-[node name="SpawnPoints" type="Node2D" parent="."]
-
-[node name="default" type="Marker2D" parent="SpawnPoints"]
+[node name="default" type="Marker2D" parent="SpawnPoints" unique_id=794326869]
 position = Vector2(200, 840)
 
-[node name="from_marsh" type="Marker2D" parent="SpawnPoints"]
+[node name="from_marsh" type="Marker2D" parent="SpawnPoints" unique_id=33448967]
 position = Vector2(200, 840)
 
-[node name="from_field" type="Marker2D" parent="SpawnPoints"]
+[node name="from_field" type="Marker2D" parent="SpawnPoints" unique_id=497802133]
 position = Vector2(4800, 840)
 
-[node name="Spawners" type="Node2D" parent="."]
+[node name="Spawners" type="Node2D" parent="." unique_id=1537566285]
 
-[node name="MapSpawner" type="Node2D" parent="Spawners"]
+[node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=370125481]
 script = ExtResource("map_spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_withered_treant"), ExtResource("md_vanir_sentinel")])
 count_per_type = 4
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
 
-[node name="Portals" type="Node2D" parent="."]
+[node name="Portals" type="Node2D" parent="." unique_id=1905914018]
 
-[node name="ToMarsh" parent="Portals" instance=ExtResource("portal")]
+[node name="ToMarsh" parent="Portals" unique_id=1400111030 instance=ExtResource("portal")]
 position = Vector2(60, 900)
 target_map = &"silver_marsh"
 target_spawn_point = &"from_grove"
 label_text = "← บึงหมอกเงิน"
 destination_name = "บึงหมอกเงิน"
 
-[node name="ToField" parent="Portals" instance=ExtResource("portal")]
+[node name="ToField" parent="Portals" unique_id=215499510 instance=ExtResource("portal")]
 position = Vector2(4940, 900)
 target_map = &"forgotten_battlefield"
 target_spawn_point = &"from_grove"
 label_text = "→ สมรภูมิที่ถูกลืม"
 destination_name = "สมรภูมิที่ถูกลืม"
 
-[node name="Lore" type="Node2D" parent="."]
+[node name="Lore" type="Node2D" parent="." unique_id=1690281703]
 
-[node name="DrySpring" parent="Lore" instance=ExtResource("lore")]
-position = Vector2(2600, 810)
+[node name="DrySpring" parent="Lore" unique_id=590434445 instance=ExtResource("lore")]
+position = Vector2(3293, 820)
 lore_id = &"dry_spring_grove"
 title = "ลำธารที่แห้งขอด"
-text = "ลำธารแห้งขอด ก้อนหินยังมีคราบน้ำสูงถึงเอว\n\nไม่ใช่แห้งเพราะแล้ง — ต้นไม้รอบ ๆ เหี่ยวจากข้างใน เหมือนถูก «ดึง» ชีวิตออกไป\n\nรากทุกเส้นชี้ไปทางเดียวกัน... ทางเหนือ ทางที่ต้นไม้ยักษ์ยืนอยู่"
-label_text = "ลำธารแห้ง"
+text = "ลำธารแห้งขอด ก้อนหินยังมีคราบน้ำสูงถึงเอว
+
+ไม่ใช่แห้งเพราะแล้ง — ต้นไม้รอบ ๆ เหี่ยวจากข้างใน เหมือนถูก «ดึง» ชีวิตออกไป
+
+รากทุกเส้นชี้ไปทางเดียวกัน... ทางเหนือ ทางที่ต้นไม้ยักษ์ยืนอยู่"
 set_flag = &"saw_dry_spring"
+label_text = "ลำธารแห้ง"
+
+[node name="AmbientFX" type="Node2D" parent="." unique_id=778804578]
+script = ExtResource("ambient_fx")
+mist_regions = Array[Rect2]([Rect2(100, 720, 5000, 150)])
+mist_color = Color(0.59, 0.58, 0.52, 0.09)
+mote_regions = Array[Rect2]([Rect2(100, 450, 1000, 370), Rect2(1300, 450, 1000, 370), Rect2(2500, 450, 1000, 370), Rect2(3700, 450, 1000, 370)])
+mote_color = Color(0.68, 0.57, 0.36, 0.32)
+mote_drift = Vector2(18, 9)
+motes_per_region = 12
+wind_regions = Array[Rect2]([Rect2(-99, -187, 459, 138), Rect2(2282, -75, 264, 425), Rect2(2483, -148, 333, 256), Rect2(4798, 228, 64, 239)])

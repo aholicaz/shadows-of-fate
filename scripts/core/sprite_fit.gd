@@ -352,5 +352,26 @@ static func is_cached(frames: SpriteFrames, anim: StringName) -> bool:
 	return frames != null and _cache.has(_key(frames, anim))
 
 
+## วัดแนวฝ่าเท้าเฉพาะบริเวณที่กำหนด ไม่เอาสะเก็ดอาวุธหรือ alpha จางมาเป็นพื้น
+static func measure_soles(frames: SpriteFrames, anim: StringName, region: Rect2i) -> PackedFloat32Array:
+	var soles := PackedFloat32Array()
+	var pool := {}
+	for i in range(frames.get_frame_count(anim)):
+		var img := _frame_image(frames.get_frame_texture(anim, i), pool)
+		var sole := 0.0
+		if img != null:
+			var area := region.intersection(Rect2i(Vector2i.ZERO, img.get_size()))
+			for y in range(area.end.y - 1, area.position.y - 1, -1):
+				var opaque := 0
+				for x in range(area.position.x, area.end.x):
+					if img.get_pixel(x, y).a > 0.4:
+						opaque += 1
+				if opaque >= 10:
+					sole = float(y + 1)
+					break
+		soles.append(sole)
+	return soles
+
+
 static func clear() -> void:
 	_cache.clear()

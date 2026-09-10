@@ -41,6 +41,16 @@ enum AIType {
 @export var fit_uniform_scale: bool = true
 ## ท่าที่ใช้เป็นตัววัด (ไม่มีท่านี้จะไล่ไปหา Run แล้ว Walk แล้วท่าที่กำลังเล่น)
 @export var fit_reference_anim: StringName = &"Idle"
+## ชีทที่วาดบนผ้าใบตรงกันทุกเฟรม: ใช้จุดยึดคงที่ แทนการจัดกลางตามอาวุธ/ขอบแสง
+@export var fit_fixed_anchor_enabled: bool = false
+## จุดยืนบนผ้าใบต้นฉบับ (ก่อน scale/flip) ใช้ร่วมกันทุกท่า
+@export var fit_fixed_anchor: Vector2 = Vector2.ZERO
+## ชดเชยชีทที่วาดลำตัวต่างขนาดกัน: ชื่อท่าจริง -> ตัวคูณคงที่ตลอดท่า
+@export var fit_animation_scales: Dictionary[StringName, float] = {}
+## บริเวณฝ่าเท้าบนชีท (ไม่รวมอาวุธ/แสง) ขนาด 0 = ไม่ชดเชยระดับเท้า
+@export var fit_foot_region: Rect2i = Rect2i()
+## ท่าที่เท้าต้องติดพื้น ไม่ใส่ท่ากระโดดหรือล้มตาย
+@export var fit_foot_animations: PackedStringArray = PackedStringArray()
 ## ★ รอบ 86 ★ ใช้สเกลของท่าอ้างอิงได้ก็ต่อเมื่อท่านั้น "สูงกว่าท่าอ้างอิงไม่เกินกี่เท่า"
 ## ท่าที่ยกอาวุธ/กระโดดสูงกว่านิดหน่อย (1.0-1.3 เท่า) = พฤติกรรมเดียวกัน ตัวไม่หด
 ## แต่ถ้าชีทท่านั้นวาดตัวมอนคนละขนาดกันเลย (เช่น Run ของออร์คใหญ่กว่า Idle 2.2 เท่า)
@@ -175,6 +185,18 @@ enum AIType {
 ## ★ ให้ท่าโจมตีเล่นจนจบก่อนกลับไปยืน ★ (ใช้แทน Attack Duration)
 ## ท่ายาว ๆ อย่าง 17 เฟรม ถ้าไม่เปิดจะถูกตัดกลางคันแล้วเด้งกลับท่ายืน
 @export var attack_follow_anim: bool = false
+
+@export_group("Ground Slam")
+## เปิดเฉพาะมอนที่ใช้ค้อนทุบพื้น; ค่าเริ่มต้นไม่เปลี่ยนมอนตัวอื่น
+@export var attack_ground_slam: bool = false
+@export var skill_ground_slam: bool = false
+## จุดหัวค้อนในภาพเฟรมกระแทก ก่อนจัด scale/flip ของ AnimatedSprite2D
+@export var ground_slam_anchor: Vector2 = Vector2(130, 420)
+@export var attack_slam_radius: float = 210.0
+@export var skill_slam_radius: float = 430.0
+@export var slam_height: float = 120.0
+## เฟรมสกิลที่ค้อนกระแทกพื้น (เริ่มนับ 0)
+@export var skill_hit_frames: PackedInt32Array = PackedInt32Array()
 
 # =========================================================
 # รางวัล

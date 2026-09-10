@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://btqor5t22v4hk"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/vanir_sentinel_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_vanir_sentinel_0"]
@@ -54,10 +54,8 @@ hit = 84
 flee = 24
 crit = 2
 element = 0
-race = 0
 size = 2
 ai_type = 1
-move_speed = 90.0
 jump_force = -280.0
 jump_while_chasing = false
 detect_range = 460.0
@@ -69,6 +67,7 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 260.0
+attack_hit_frames = null
 exp_reward = 4600
 job_exp_reward = 3220
 zeny_min = 900

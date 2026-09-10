@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/gullveig_ember.tres" id="md_gullveig_ember"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(3600, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"spring_of_life"
+display_name = "บ่อน้ำแห่งชีวิต"
+chapter = 3
+region = "วานาเฮม"
+map_bounds = Rect2(-100, -200, 3400, 1300)
+player_scene = ExtResource("player")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="Polygon2D" parent="Background"]
+z_index = -100
+position = Vector2(-100, -200)
+color = Color(0.16, 0.22, 0.26, 1)
+polygon = PackedVector2Array(0, 0, 3400, 0, 3400, 1300, 0, 1300)
+
+[node name="FarLayer" type="Polygon2D" parent="Background"]
+z_index = -90
+position = Vector2(-100, 520)
+color = Color(0.22, 0.34, 0.3, 1)
+polygon = PackedVector2Array(0, 0, 3400, 0, 3400, 360, 0, 360)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1600, 1000)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+color = Color(0.26, 0.3, 0.24, 1)
+polygon = PackedVector2Array(-1800, -120, 1800, -120, 1800, 120, -1800, 120)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+[node name="from_field" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="Boss_gullveig_ember" type="Node2D" parent="Spawners"]
+position = Vector2(2500, 850)
+script = ExtResource("spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_gullveig_ember")])
+monster_scene = ExtResource("monster_scene")
+max_alive = 1
+spawn_width = 160
+
+[node name="Portals" type="Node2D" parent="."]
+
+[node name="ToField" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"forgotten_battlefield"
+target_spawn_point = &"from_spring"
+label_text = "← สมรภูมิที่ถูกลืม"
+destination_name = "สมรภูมิที่ถูกลืม"
+
+[node name="Lore" type="Node2D" parent="."]
+
+[node name="SiphonRune" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(1500, 790)
+lore_id = &"siphon_rune"
+title = "รูนใต้บ่อน้ำ"
+text = "ก้นบ่อน้ำแห้งเผยวงจรรูนขนาดใหญ่สลักบนหิน\n\nเส้นทุกเส้นไหล «เข้า» สู่ศูนย์กลาง แล้วพุ่งขึ้นไปทางเหนือเป็นสายเดียว\n\n...วงจรเดียวกับบนหัวค้อนที่กำแพงเตาหลอมร้าง\nรูน «ดูด» — ที่นี่ไม่ได้ดูดเหล็ก มันดูดชีวิตของทั้งโลก"
+label_text = "รูนบนหิน"
+required_flag = &"killed_gullveig_ember"
+locked_text = "เปลวเพลิงยังลุกโชนอยู่กลางบ่อ เข้าใกล้ไม่ได้"
+set_flag = &"saw_siphon_rune"

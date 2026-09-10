@@ -1,0 +1,433 @@
+[
+  {
+    "id": "silver_dust",
+    "description": "ผงแวววาวที่ภูตหมอกทิ้งไว้ ชาววานีร์ใช้ทำยา",
+    "drops": [
+      "mist_sprite"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "spectral_plume",
+    "description": "ขนนกจากหมวกทหาร ยังโปร่งแสงเหมือนเจ้าของ",
+    "drops": [
+      "war_wraith"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "spring_vial",
+    "description": "น้ำใสจากบ่อน้ำแห่งชีวิต... เหลืออยู่แค่ก้นขวด และแสงในน้ำก็จางลงทุกวัน",
+    "drops": [],
+    "existing_card": null
+  },
+  {
+    "id": "spring_amulet",
+    "description": "หยดน้ำจากบ่อน้ำแห่งชีวิตในกรอบเงิน ยังส่องแสงจาง ๆ",
+    "drops": [
+      "gullveig_ember"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "storm_medal",
+    "description": "เหรียญเชิดชูเกียรติของกองทัพเอซีร์ จารึกว่า «ผู้พิชิตวานาเฮม»",
+    "drops": [
+      "war_wraith"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "thorn_fang",
+    "description": "เขี้ยวที่มีหนามงอกซ้อน กัดแล้วดึงออกยาก",
+    "drops": [
+      "thorn_hound"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "thorn_shield",
+    "description": "โล่ที่ทำจากหนามราชินีสานกัน ใครตีก็เจ็บกลับ",
+    "drops": [
+      "thorn_matriarch"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "vanir_circlet",
+    "description": "มงกุฎเถาวัลย์เงินของชาววานีร์ เย็นสบายศีรษะ",
+    "drops": [
+      "thorn_matriarch"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "vanir_seal",
+    "description": "ตราประทับลายเถาวัลย์ของชาววานีร์ — ผู้ถือคือแขกของนครแห่งราก",
+    "drops": [],
+    "existing_card": null
+  },
+  {
+    "id": "withered_bark",
+    "description": "เปลือกไม้แห้งกรอบทั้งที่ต้นยังยืนอยู่ เหมือนถูกดูดชีวิตจากข้างใน",
+    "drops": [
+      "withered_treant"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "marsh_cutter",
+    "description": "ดาบใบกว้างของนักล่าบึง ฟันทะลุน้ำหนืด ๆ ได้",
+    "drops": [
+      "bog_lurker",
+      "thorn_matriarch"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "root_sword",
+    "description": "ดาบที่ใบเป็นรากไม้แข็งพันกัน เบาและยืดหยุ่น",
+    "drops": [],
+    "existing_card": null
+  },
+  {
+    "id": "aesir_warblade",
+    "description": "ดาบมาตรฐานกองทัพเอซีร์ ตราค้อนสายฟ้าบนด้าม... มาอยู่ในบึงวานาเฮมได้ยังไง",
+    "drops": [
+      "war_wraith"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "sentinel_blade",
+    "description": "ดาบหินสลักลายเถาวัลย์ที่ผู้พิทักษ์วานีร์ถือ หนักแต่มั่นคง",
+    "drops": [
+      "vanir_sentinel"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_bog_lurker",
+    "description": "ร่างที่บึงกลืนไว้",
+    "drops": [
+      "bog_lurker"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_gullveig_ember",
+    "description": "เพลิงที่เผาสามครั้งแล้วยังไม่มอด",
+    "drops": [
+      "gullveig_ember"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_mist_sprite",
+    "description": "จับต้องไม่ได้ดั่งหมอก",
+    "drops": [
+      "mist_sprite"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_thorn_hound",
+    "description": "วิ่งทะลุพงหนามโดยไม่เจ็บ",
+    "drops": [
+      "thorn_hound"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_thorn_matriarch",
+    "description": "หนามที่ปกป้องป่ามาก่อนมีเทพ",
+    "drops": [
+      "thorn_matriarch"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_war_wraith",
+    "description": "ทหารที่ยังสู้ในสงครามที่ไม่มีใครจำ",
+    "drops": [
+      "war_wraith"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_vanir_sentinel",
+    "description": "ผู้พิทักษ์ที่สร้างไว้กัน «เทพ» ไม่ใช่มอน",
+    "drops": [
+      "vanir_sentinel"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_withered_treant",
+    "description": "ยืนอยู่ได้แม้ข้างในตายแล้ว",
+    "drops": [
+      "withered_treant"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "aesir_helm_rusted",
+    "description": "หมวกทหารเก่าขึ้นสนิม ตราค้อนสายฟ้าที่ข้างหมวกยังเห็นชัด...",
+    "drops": [
+      "bog_lurker",
+      "war_wraith"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "ash_ring",
+    "description": "แหวนที่หล่อจากเถ้ากุลล์ไวก์ อุ่นตลอดเวลา",
+    "drops": [
+      "gullveig_ember"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "bark_armor",
+    "description": "เกราะจากเปลือกไม้แก่นแข็ง เบากว่าเหล็กแต่กันได้ไม่แพ้กัน",
+    "drops": [
+      "root_crawler"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "bog_bone",
+    "description": "กระดูกที่แช่บึงมานาน ดำและหนักผิดปกติ",
+    "drops": [
+      "bog_lurker"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_root_crawler",
+    "description": "รากที่ยึดพื้นไว้แน่น",
+    "drops": [
+      "root_crawler"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "bramble_pelt",
+    "description": "หนังสัตว์ที่มีหนามพืชงอกทะลุออกมา สัตว์กับป่ากลายเป็นสิ่งเดียวกัน",
+    "drops": [
+      "thorn_hound"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "carved_stone",
+    "description": "เศษหินสลักลายเถาวัลย์ ลวดลายเก่ากว่าตราค้อนใด ๆ ที่เคยเห็น",
+    "drops": [
+      "vanir_sentinel"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "ember_heart",
+    "description": "ก้อนแสงสีทองแดงเต้นตุบ ๆ เหมือนหัวใจ ร้อนจนถือนานไม่ได้",
+    "drops": [
+      "gullveig_ember"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "eskil_chronicle",
+    "description": "สมุดบันทึกประวัติศาสตร์ฉบับทางการ หน้าเรื่องสงครามวานีร์ถูกเขียนใหม่หลายรอบ",
+    "drops": [],
+    "existing_card": null
+  },
+  {
+    "id": "ember_of_gullveig",
+    "description": "ดาบที่ใบยังลุกไหม้เบา ๆ ไม่มีวันมอด — เผาสามครั้งก็ยังไม่ตาย",
+    "drops": [
+      "gullveig_ember"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "frida_song",
+    "description": "กระดาษจดเนื้อเพลงที่เด็กหญิงร้อง — ท่อนสุดท้ายต่างจากที่วิหารสอน",
+    "drops": [],
+    "existing_card": null
+  },
+  {
+    "id": "gullveig_ash",
+    "description": "เถ้าที่ยังอุ่นอยู่ตลอดเวลา ถูกเผาสามครั้ง... และยังไม่ยอมมอด",
+    "drops": [
+      "gullveig_ember"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "heartwood_chip",
+    "description": "เศษแก่นไม้ที่ยังมีเส้นแสงเขียวจาง ๆ ชีวิตสุดท้ายของต้นไม้",
+    "drops": [
+      "withered_treant"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "mist_cloak",
+    "description": "ผ้าคลุมทอจากแก่นหมอก ห่มแล้วเหมือนตัวจางลง",
+    "drops": [
+      "mist_sprite"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "mist_essence",
+    "description": "หมอกสีเงินที่จับตัวเป็นก้อน เย็นเฉียบ ค่อย ๆ ระเหยถ้าไม่เก็บในขวด",
+    "drops": [
+      "mist_sprite"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "matriarch_thorn",
+    "description": "หนามยาวเท่าแขน แข็งกว่าเหล็ก ปลายยังมียางพิษซึม",
+    "drops": [
+      "thorn_matriarch"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "root_boots",
+    "description": "รองเท้าที่รากไม้พันขึ้นมาถึงข้อเท้า ยืนบนพื้นไหนก็ไม่ล้ม",
+    "drops": [
+      "thorn_hound"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "pale_sap",
+    "description": "ยางไม้สีซีดเหมือนไม่มีชีวิต ต้นไม้ที่นี่ผลิตยางแบบนี้มานานแล้ว",
+    "drops": [
+      "root_crawler"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "root_fiber",
+    "description": "เส้นใยเหนียวจากรากเลื้อย ดึงยังไงก็ไม่ขาด",
+    "drops": [
+      "root_crawler"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "royal_bloom",
+    "description": "ดอกไม้สีแดงเข้มที่บานอยู่บนตัวราชินีหนาม ไม่เหี่ยวแม้เด็ดออกมาแล้ว",
+    "drops": [
+      "thorn_matriarch"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "sentinel_core",
+    "description": "ก้อนหินกลมเรืองแสงเขียว ใครสร้างผู้พิทักษ์พวกนี้ และสร้างไว้กันใคร",
+    "drops": [
+      "vanir_sentinel"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "sentinel_plate",
+    "description": "แผ่นหินเรืองแสงเขียวจากตัวผู้พิทักษ์ ประกอบเป็นเกราะ หนักมาก",
+    "drops": [
+      "gullveig_ember",
+      "vanir_sentinel"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "mole_claw",
+    "description": "กรงเล็บแบนกว้างของพิตแมน ขุดหินได้",
+    "drops": [
+      "pitman"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_steel_beetle",
+    "description": "เปลือกแข็งดั่งเหล็ก",
+    "drops": [],
+    "existing_card": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\โปรเจกต์เกมใหม่\\Sprites\\card\\card_steel_beetle.webp"
+  },
+  {
+    "id": "card_magma_slug",
+    "description": "ร่างที่ร้อนดั่งลาวา",
+    "drops": [
+      "magma_slug"
+    ],
+    "existing_card": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\โปรเจกต์เกมใหม่\\Sprites\\card\\card_magma_slug.webp"
+  },
+  {
+    "id": "card_ember_bat",
+    "description": "บินเร็วราวประกายไฟ",
+    "drops": [
+      "ember_bat"
+    ],
+    "existing_card": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\โปรเจกต์เกมใหม่\\Sprites\\card\\card_ember_bat.webp"
+  },
+  {
+    "id": "card_forge_guardian",
+    "description": "หัวใจของเตาหลอมโบราณ",
+    "drops": [
+      "forge_guardian"
+    ],
+    "existing_card": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\โปรเจกต์เกมใหม่\\Sprites\\card\\card_forge_guardian.webp"
+  },
+  {
+    "id": "card_rune_watcher",
+    "description": "ดวงตาที่เห็นรูนทุกตัว",
+    "drops": [
+      "rune_watcher"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_silent_wraith",
+    "description": "ไร้เสียง ไร้เงา ไร้ร่องรอย",
+    "drops": [
+      "silent_wraith"
+    ],
+    "existing_card": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\โปรเจกต์เกมใหม่\\Sprites\\card\\card_silent_wraith.webp"
+  },
+  {
+    "id": "golem_plate",
+    "description": "แผ่นโลหะจากตัวโกเลม มีรอยสลักรูนจาง ๆ",
+    "drops": [
+      "forge_golem"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "magma_core",
+    "description": "ก้อนหินร้อนแดงจากตัวทากลาวา ยังอุ่นอยู่หลายวัน",
+    "drops": [
+      "magma_slug"
+    ],
+    "existing_card": null
+  },
+  {
+    "id": "card_forge_golem",
+    "description": "กำแพงที่เดินได้",
+    "drops": [
+      "forge_golem"
+    ],
+    "existing_card": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\โปรเจกต์เกมใหม่\\Sprites\\card\\card_forge_golem.webp"
+  },
+  {
+    "id": "card_pitman",
+    "description": "พลังขุดจากใต้ดิน ทำให้โจมตีหนักขึ้น",
+    "drops": [
+      "pitman"
+    ],
+    "existing_card": "C:\\Users\\peeco\\Downloads\\Game Dev Rag\\โปรเจกต์เกมใหม่\\Sprites\\card\\card_pitman.webp"
+  }
+]

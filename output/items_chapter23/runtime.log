@@ -1,0 +1,97 @@
+Godot Engine v4.7.2.stable.steam.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 566.14 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3050 Ti Laptop GPU
+
+SCRIPT ERROR: Compile Error: Identifier not found: GameData
+   at: GDScript::reload (res://scripts/resources/card_data.gd:38)
+SCRIPT ERROR: Compile Error: Identifier not found: GameData
+   at: GDScript::reload (res://scripts/resources/item_instance.gd:36)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://scripts/resources/drop_entry.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://scripts/resources/monster_data.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://scripts/ui/card_view.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://items_art_audit.gd:0)
+ERROR: Failed to load script "res://items_art_audit.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+WARNING: res://data/items/jellopy.tres:3 - ext_resource, invalid UID: uid://c7oplbwj7swy8 - using text path instead: res://Sprites/items/Jellopy.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:37)
+ERROR: Resource file not found: res://Sprites/items/Jellopy.png (expected type: Texture2D)
+   at: _load (core/io/resource_loader.cpp:325)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:37)
+ERROR: res://data/items/jellopy.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://Sprites/items/Jellopy.png.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:37)
+ERROR: res://data/items/jellopy.tres:11 - Parse Error: [ext_resource] referenced non-existent resource at: res://Sprites/items/Jellopy.png.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:37)
+ERROR: Failed loading resource: res://data/items/jellopy.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:37)
+WARNING: res://data/cards/card_drops.tres:3 - ext_resource, invalid UID: uid://yv6iha5p82e0 - using text path instead: res://Sprites/items/Drops Card.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:43)
+ERROR: Resource file not found: res://Sprites/items/Drops Card.png (expected type: Texture2D)
+   at: _load (core/io/resource_loader.cpp:325)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:43)
+WARNING: res://data/cards/card_king_poring.tres:4 - ext_resource, invalid UID: uid://binj25gmno7v2 - using text path instead: res://Sprites/items/King poring Card.png
+   at: load (scene/resources/resource_format_text.cpp:501)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:43)
+ERROR: Resource file not found: res://Sprites/items/King poring Card.png (expected type: Texture2D)
+   at: _load (core/io/resource_loader.cpp:325)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:43)
+ERROR: res://data/cards/card_king_poring.tres:17 - Parse Error: [ext_resource] referenced non-existent resource at: res://Sprites/items/King poring Card.png.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:43)
+ERROR: res://data/cards/card_king_poring.tres:17 - Parse Error: [ext_resource] referenced non-existent resource at: res://Sprites/items/King poring Card.png.
+   at: _printerr (scene/resources/resource_format_text.cpp:41)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:43)
+ERROR: Failed loading resource: res://data/cards/card_king_poring.tres.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] _load_dir (res://scripts/core/game_data.gd:67)
+       [1] _ready (res://scripts/core/game_data.gd:43)
+[GameData] items=144 (การ์ด 0) monsters=30 (รอเรียก) skills=8 jobs=2 เควส=31
+SCRIPT ERROR: Invalid call. Nonexistent function 'create' in base 'GDScript'.
+   at: Inventory.add_id (res://scripts/core/inventory.gd:133)
+   GDScript backtrace (most recent call first):
+       [0] add_id (res://scripts/core/inventory.gd:133)
+       [1] new_game (res://scripts/core/player_state.gd:203)
+       [2] _ready (res://scripts/core/player_state.gd:90)
+SCRIPT ERROR: Invalid call. Nonexistent function 'create' in base 'GDScript'.
+   at: Inventory.add_id (res://scripts/core/inventory.gd:133)
+   GDScript backtrace (most recent call first):
+       [0] add_id (res://scripts/core/inventory.gd:133)
+       [1] new_game (res://scripts/core/player_state.gd:204)
+       [2] _ready (res://scripts/core/player_state.gd:90)
+SCRIPT ERROR: Invalid call. Nonexistent function 'create' in base 'GDScript'.
+   at: Inventory.add_id (res://scripts/core/inventory.gd:133)
+   GDScript backtrace (most recent call first):
+       [0] add_id (res://scripts/core/inventory.gd:133)
+       [1] new_game (res://scripts/core/player_state.gd:205)
+       [2] _ready (res://scripts/core/player_state.gd:90)
+ITEM_ART_AUDIT: 55 loaded, 17 card paths checked, failures=17

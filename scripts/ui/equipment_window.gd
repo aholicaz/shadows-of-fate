@@ -11,11 +11,16 @@ class_name EquipmentWindow
 extends GameWindow
 
 ## ขนาดช่องอุปกรณ์หนึ่งช่อง (กล่องชื่อไอเทม + ไอคอนขวา)
-const SLOT_SIZE := Vector2(152, 44)
+## ★ รอบ 102 (รอบห้า) ★ ขนาดวัดจากภาพตัวอย่างของผู้ใช้ (ภาพกว้าง 1627 ÷ กรอบ 1180 = สเกล 1.38)
+## ช่องสวมใส่ 250×65 บนจอผู้ใช้ → 181×47 ในหน่วยของกรอบ
+const SLOT_SIZE := Vector2(182, 48)
 ## ความกว้างสูงสุดของไอคอนในช่องสวมใส่ (พิกเซล)
 const ICON_MAX := 32
 ## ขนาดกรอบตัวละครตรงกลาง
-const PREVIEW_SIZE := Vector2(140, 236)
+## กรอบตัวละคร 230×460 บนจอผู้ใช้ → 167×333
+const PREVIEW_SIZE := Vector2(168, 334)
+## กล่องสเตตัส (STR/AGI/…) กว้าง 430 บนจอผู้ใช้ → 312 · วางกึ่งกลางคอลัมน์ ไม่ยืดเต็ม
+const STAT_PANEL_W := 316.0
 
 const SLOT_CAPTION := {
 	Equipment.EquipSlot.HEAD: "ศีรษะ · head",
@@ -192,12 +197,16 @@ func _build_content() -> void:
 	# ★ รอบ 102 (รอบสอง) ★ ให้บล็อกช่องสวมใส่กินที่ว่างที่เหลือ ช่องจะกระจายห่างกันขึ้น
 	# (ดีกว่าปล่อยให้กล่องสรุปโบนัสยืด — จะกลายเป็นกรอบโล่ง ๆ ซึ่งคือสิ่งที่ผู้ใช้ไม่เอา)
 	_page_equip.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	# ★ รอบ 102 (รอบห้า) ★ ตามภาพ: บล็อกช่องสวมใส่+ตัวละคร "ลอยกลาง" คอลัมน์ซ้าย
+	# มีที่ว่างเหนือและใต้ใกล้เคียงกัน ไม่ได้ยืดเต็มความสูง
+	_page_equip.alignment = BoxContainer.ALIGNMENT_CENTER
+	_page_equip.add_theme_constant_override("separation", 14)
 	left.add_child(_page_equip)
 
 	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 5)
+	row.add_theme_constant_override("separation", 10)
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	row.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	_page_equip.add_child(row)
 	row.add_child(_make_column(LEFT_SLOTS))
 	row.add_child(_make_preview())
@@ -235,34 +244,39 @@ func _build_content() -> void:
 	columns.add_child(right)
 
 	# ★ รอบ 102 (รอบสี่) ★ หัวเรื่องจัดกึ่งกลาง ตัวใหญ่ขึ้น ตามภาพตัวอย่าง
-	_header = _label("", 19, C_ACCENT)
+	_header = _label("", 16, C_ACCENT)
 	_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	right.add_child(_header)
-	_point_label = _label("", 14, C_TEXT)
+	_point_label = _label("", 12, C_TEXT)
 	_point_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	right.add_child(_point_label)
 
 	# ★★ รอบ 102 (รอบสอง) ★★ เดิมสองแผงนี้สูงเท่าเนื้อหาพอดี → เหลือที่โล่งครึ่งล่างของหน้า
 	# ตอนนี้ให้ทั้งสองแผงยืดเต็มความสูงที่เหลือ แล้วกระจายบรรทัดข้างในให้ห่างขึ้นแทน
 	var stat_panel := PanelContainer.new()
-	stat_panel.add_theme_stylebox_override("panel", InventoryWindow._style(C_INNER, C_SLOT_EDGE, 8, 5))
-	stat_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	# ★ รอบ 102 (รอบห้า) ★ ตามภาพ: กล่องสเตตัสไม่ยืดเต็มความกว้าง — กว้าง ~316 วางกึ่งกลาง
+	# เว้นขอบใน 22 px แถวห่างกัน 10 px (ภาพต้นฉบับ pitch 41 → 30 ในหน่วยกรอบ)
+	stat_panel.add_theme_stylebox_override("panel", InventoryWindow._style(C_INNER, C_SLOT_EDGE, 8, 18))
+	stat_panel.custom_minimum_size.x = STAT_PANEL_W
+	stat_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	stat_panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	right.add_child(stat_panel)
 	var stat_box := VBoxContainer.new()
-	stat_box.add_theme_constant_override("separation", 2)
+	stat_box.add_theme_constant_override("separation", 3)
 	stat_box.alignment = BoxContainer.ALIGNMENT_CENTER
 	stat_panel.add_child(stat_box)
 
 	for stat in PlayerStats.STAT_NAMES:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", 6)
-		var name_label := _label(STAT_LABELS[stat], 13, C_TEXT)
-		name_label.custom_minimum_size.x = 96
+		var name_label := _label(STAT_LABELS[stat], 12, C_TEXT)
+		name_label.custom_minimum_size.x = 120
+		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		name_label.tooltip_text = STAT_TIPS.get(stat, "")
 		name_label.mouse_filter = Control.MOUSE_FILTER_STOP
 		r.add_child(name_label)
-		var value_label := _label("1", 14, C_TEXT)
-		value_label.custom_minimum_size.x = 78
+		var value_label := _label("1", 13, C_TEXT)
+		value_label.custom_minimum_size.x = 64
 		value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		r.add_child(value_label)
 		var btn := _cream_button("+", 30)
@@ -270,7 +284,7 @@ func _build_content() -> void:
 		var s: StringName = stat
 		btn.pressed.connect(func(): _raise(s))
 		r.add_child(btn)
-		var cost_label := _label("", 11, C_TEXT_DIM)
+		var cost_label := _label("", 10, C_TEXT_DIM)
 		cost_label.custom_minimum_size.x = 26
 		r.add_child(cost_label)
 		stat_box.add_child(r)
@@ -281,8 +295,9 @@ func _build_content() -> void:
 	# ตามภาพตัวอย่าง: แบ่งครึ่งเป็น 2 กริดวางข้างกัน — ซ้าย 5 คู่ · ขวา 4 คู่ เตี้ยลงเหลือ 5 แถว
 	# (ไม่ใช้กริดเดียว 8 คอลัมน์ เพราะลำดับจะไหลเป็นแนวนอน ไม่ตรงกับภาพ)
 	var derived_panel := PanelContainer.new()
-	derived_panel.add_theme_stylebox_override("panel", InventoryWindow._style(C_INNER, C_SLOT_EDGE, 8, 5))
-	derived_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	derived_panel.add_theme_stylebox_override("panel", InventoryWindow._style(C_INNER, C_SLOT_EDGE, 8, 10))
+	# ★ รอบห้า ★ ตามภาพ: กล่องนี้สูงเท่าเนื้อหา ที่ว่างที่เหลือไปอยู่ระหว่างกล่องสรุปกับหมายเหตุล่างสุด
+	derived_panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	right.add_child(derived_panel)
 	var derived_row := HBoxContainer.new()
 	derived_row.add_theme_constant_override("separation", 18)
@@ -306,14 +321,14 @@ func _build_content() -> void:
 		var g := GridContainer.new()
 		g.columns = 4
 		g.add_theme_constant_override("h_separation", 10)
-		g.add_theme_constant_override("v_separation", 4)
+		g.add_theme_constant_override("v_separation", 6)
 		g.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		g.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		derived_row.add_child(g)
 		for f in side:
 			var key: StringName = f[0]
-			g.add_child(_label(f[1], 12, C_TEXT_DIM))
-			var v := _label("-", 13, C_TEXT)
+			g.add_child(_label(f[1], 11, C_TEXT_DIM))
+			var v := _label("-", 12, C_TEXT)
 			v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			v.custom_minimum_size.x = 56
@@ -327,14 +342,18 @@ func _build_content() -> void:
 	var sum_box := VBoxContainer.new()
 	sum_box.add_theme_constant_override("separation", 2)
 	sum_panel.add_child(sum_box)
-	sum_box.add_child(_label("จากของสวมใส่ + การ์ด", 12, C_TEXT_DIM))
-	_summary = _label("", 14, C_GOOD)
+	sum_box.add_child(_label("จากของสวมใส่ + การ์ด", 11, C_TEXT_DIM))
+	_summary = _label("", 12, C_GOOD)
 	_summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_summary.custom_minimum_size.x = 300
 	sum_box.add_child(_summary)
 
-	_equip_bonus_label = _label("", 11, C_TEXT_DIM)
-	_equip_bonus_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# ดันหมายเหตุ "สีเขียว = …" ลงไปชิดขอบล่างของคอลัมน์ (ตามภาพตัวอย่าง)
+	var bottom_gap := Control.new()
+	bottom_gap.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	right.add_child(bottom_gap)
+	_equip_bonus_label = _label("", 10, C_TEXT_DIM)
+	_equip_bonus_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	right.add_child(_equip_bonus_label)
 
 	_set_tab(0)
@@ -342,8 +361,9 @@ func _build_content() -> void:
 
 func _make_column(slot_list: Array, _unused := false) -> VBoxContainer:
 	var col := VBoxContainer.new()
-	col.add_theme_constant_override("separation", 4)
-	col.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	# ★ รอบ 102 (รอบห้า) ★ ระยะห่างคงที่ตามภาพตัวอย่าง (ไม่ยืดตามความสูงแล้ว)
+	col.add_theme_constant_override("separation", 15)
+	col.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	col.alignment = BoxContainer.ALIGNMENT_CENTER
 	for slot in slot_list:
 		col.add_child(_make_slot(slot))
@@ -387,7 +407,7 @@ func _make_slot(slot: int) -> VBoxContainer:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	btn.add_child(box)
 
-	var name_label := _label("", 11, C_TEXT)
+	var name_label := _label("", 12, C_TEXT)
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -429,7 +449,7 @@ func _make_preview() -> Control:
 	_preview_drop.kind = "any"
 	_preview_drop.text = ""
 	_preview_drop.custom_minimum_size = PREVIEW_SIZE
-	_preview_drop.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_preview_drop.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	_preview_drop.add_theme_stylebox_override("normal", InventoryWindow._style(C_BTN, C_SLOT_EDGE, 8, 2))
 	_preview_drop.add_theme_stylebox_override("hover", InventoryWindow._style(C_BTN_HOVER, C_BORDER, 8, 2))
 	_preview_drop.add_theme_stylebox_override("pressed", InventoryWindow._style(C_BTN, C_SLOT_EDGE, 8, 2))
