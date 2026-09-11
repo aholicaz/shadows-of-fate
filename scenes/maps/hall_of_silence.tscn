@@ -30,7 +30,8 @@ player_scene = ExtResource("player")
 script = ExtResource("ambient_fx")
 lantern_positions = PackedVector2Array(3653, 622, 4139, 625)
 flame_size = Vector2(34, 62)
-light_radius = 250.0
+light_radius = 350.0
+light_energy = 2.0
 shaft_positions = PackedVector2Array(1140, -190, 1660, -190, 3070, -190, 3900, -190)
 shaft_size = Vector2(390, 1120)
 shaft_angle = 14.0
@@ -128,3 +129,6 @@ text = "คีม ค้อน และเครื่องมือช่า�
 
 รอยใช้งานบนด้ามจับบอกว่าพวกมันถูกส่งต่อกันมาหลายรุ่น — นี่คงเป็นเครื่องมือที่ดวาลินอยากกลับมาเอา"
 label_text = "เครื่องมือช่างเก่า"
+
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=700465264]
+color = Color(0.7850203, 0.80595154, 0.85612816, 1)

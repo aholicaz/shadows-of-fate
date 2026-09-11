@@ -919,6 +919,11 @@ func weapon_suffix() -> String:
 ## 3) ตัวสำรองอื่น ๆ
 func _fallback_chain(anim: String) -> Array:
 	var chain: Array = []
+	# Socket weapons use the existing bare-hand Idle, not a baked-in sword.
+	if anim == "Idle":
+		var equipped := PlayerState.equipment.weapon()
+		if equipped != null and equipped.data() != null and equipped.data().equip_follow_idle_hand:
+			chain.append("Idle")
 
 	# ท่าเฉพาะอาวุธ — ทำให้เปลี่ยนอาวุธแล้วภาพตัวละครเปลี่ยนตามได้ทุกท่า
 	var suffix := weapon_suffix()
@@ -1257,7 +1262,8 @@ func skill_sfx_keys(skill_id: StringName) -> Array:
 	# ท่าสกิลเฉพาะอาวุธ (Attack_Blade_slash) — ถ้าท่าที่ได้เป็นแค่ท่าฟันธรรมดา ไม่นับเป็นเสียงสกิล
 	if parts.size() > 2:
 		keys.append(anim)
-	keys.append("skill_%s" % String(skill_id).to_lower())
+	var sound_id := "rending_wave" if s != null and s.type == SkillData.SkillType.ACTIVE_WAVE else String(skill_id).to_lower()
+	keys.append("skill_%s" % sound_id)
 	if parts.size() >= 2:
 		keys.append("%s_%s" % [parts[0], parts[1]])        # attack_blade
 	for k in SFX_ATTACK_FALLBACK:
@@ -1326,6 +1332,8 @@ func skill_animation(skill_id: StringName) -> String:
 
 	var base := attack_animation()
 	var sid := String(skill_id)
+	if s != null and s.type == SkillData.SkillType.ACTIVE_WAVE:
+		sid = "rending_wave" # เก็บ save key เดิม แต่ไม่ใช้ท่าระเบิดไฟเก่า
 
 	# 2) ท่าเฉพาะ "อาวุธนี้ + สกิลนี้"  เช่น Attack_Blade_bash
 	var by_weapon := skill_weapon_anim_format.replace("{attack}", base).replace("{skill}", sid)
@@ -1339,6 +1347,27 @@ func skill_animation(skill_id: StringName) -> String:
 
 	# 4) ไม่มีท่าสกิลเลย ก็ใช้ท่าโจมตีปกติของอาวุธที่ถืออยู่
 	return base
+
+
+## x = release time, y = complete pose duration, z = playback speed.
+## Respect frame weights from the artist's SpriteFrames, without changing that resource.
+func _wave_animation_timing(skill: SkillData, anim: String) -> Vector3:
+	var frames := sprite.sprite_frames
+	if anim.to_lower() != String(skill.animation).to_lower() or frames == null or anim == "":
+		return Vector3(skill.cast_windup, skill.cast_windup + 0.15, 1.0)
+	var count := frames.get_frame_count(anim)
+	var release := clampi(skill.wave_release_frame, 0, maxi(0, count - 1))
+	var total := 0.0
+	var before_release := 0.0
+	for i in range(count):
+		var weight := frames.get_frame_duration(anim, i)
+		total += weight
+		if i < release:
+			before_release += weight
+	var duration := maxf(0.1, skill.wave_cast_duration)
+	var native_duration := total / maxf(0.01, frames.get_animation_speed(anim))
+	return Vector3(maxf(0.01, duration * before_release / maxf(0.01, total)),
+		duration, native_duration / duration)
 
 
 func _has_anim(name: String) -> bool:
@@ -1500,6 +1529,14 @@ func _attack_progress() -> float:
 ## วาดท่าใหม่ชื่อ Attack_Blade_2 / _3 เมื่อไหร่ ระบบจะสลับไปใช้ให้เองโดยไม่ต้องแก้อะไร
 func combo_attack_animation(step: int) -> String:
 	var base := attack_animation()
+	# Socket swords share the calibrated bare-hand combo. Keep attack_animation()
+	# unchanged so each weapon's existing skill animations still resolve normally.
+	var equipped := PlayerState.equipment.weapon()
+	if equipped != null:
+		var item := equipped.data()
+		if item != null and item.equip_follow_idle_hand and item.equip_attack_body_frames != null:
+			if _has_anim("Attack_Blade"):
+				base = "Attack_Blade"
 	if not combo_enabled or step <= 0:
 		return base
 	if step < combo_anim_suffixes.size() and combo_anim_suffixes[step] != "":
@@ -1622,7 +1659,12 @@ func use_skill(skill_id: StringName) -> void:
 			is_attacking = true
 			attack_cooldown = maxf(PlayerState.stats.attack_interval(), s.cast_windup + 0.25)
 			velocity.x = 0.0
-			_play(skill_animation(skill_id))
+			var dash_anim := _play(skill_animation(skill_id))
+			if skill_id == &"slash":
+				# Fit the complete flurry into windup, travel and recovery; preserve combat timing.
+				var pose_time := s.cast_windup + s.dash_range(lv) / maxf(50.0, s.dash_speed) + 0.15
+				sprite.speed_scale = maxf(0.01, _anim_length(dash_anim) / pose_time)
+				preload("res://scripts/entities/slash_flurry_fx.gd").spawn(self, sprite, facing)
 			Events.floating_text(global_position, s.display_name, Color("#ffd54a"), 18, 0)
 			_spawn_skill_effect(s, s.damage_mult(lv))
 			_play_skill_sfx(skill_id)
@@ -1638,6 +1680,29 @@ func use_skill(skill_id: StringName) -> void:
 			await get_tree().create_timer(0.15).timeout
 			if is_instance_valid(self):
 				is_attacking = false
+				if skill_id == &"slash":
+					sprite.speed_scale = 1.0
+
+		SkillData.SkillType.ACTIVE_WAVE:
+			is_attacking = true
+			_attack_seq += 1
+			var wave_seq := _attack_seq
+			var wave_facing := facing
+			velocity.x = 0.0
+			var wave_anim := _play(skill_animation(skill_id), true)
+			var wave_timing := _wave_animation_timing(s, wave_anim)
+			sprite.speed_scale = wave_timing.z
+			attack_cooldown = maxf(PlayerState.stats.attack_interval(), wave_timing.y)
+			Events.floating_text(global_position, s.display_name, Color("#ffbd68"), 18, 0)
+			await get_tree().create_timer(wave_timing.x).timeout
+			if _dead or not is_inside_tree() or wave_seq != _attack_seq:
+				return
+			preload("res://scripts/entities/rending_wave.gd").spawn(s, self, wave_facing, lv, _book_fx(s.id))
+			_play_skill_sfx(skill_id)
+			await get_tree().create_timer(maxf(0.01, wave_timing.y - wave_timing.x)).timeout
+			if wave_seq == _attack_seq:
+				is_attacking = false
+				sprite.speed_scale = 1.0
 
 		_:
 			is_attacking = true

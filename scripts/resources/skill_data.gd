@@ -12,6 +12,7 @@ enum SkillType {
 	## ★ พุ่งไปข้างหน้าแล้วฟันทุกตัวที่ขวางทาง ★ (ต่อท้ายเสมอ ห้ามสลับลำดับ
 	## เพราะไฟล์ .tres เก็บค่า type เป็นตัวเลข)
 	ACTIVE_DASH,
+	ACTIVE_WAVE,   ## คลื่นดาบทะลุเป้าหมาย ใช้ hitbox แยกจากภาพ
 }
 
 @export var id: StringName = &"bash"
@@ -78,6 +79,19 @@ enum SkillType {
 @export var dash_hit_once: bool = true
 ## ชนกำแพงแล้วหยุดพุ่ง
 @export var dash_stop_on_wall: bool = true
+
+@export_group("คลื่นดาบ / เปิดแผล")
+@export var wave_distance: float = 650.0
+@export var wave_speed: float = 1000.0
+## ความยาวท่าฟันทั้งหมด และเฟรมแรกที่ดาบฟาดลง (เริ่มนับจาก 0)
+@export var wave_cast_duration: float = 0.72
+@export var wave_release_frame: int = 15
+@export var wound_bonus_base: float = 0.20
+@export var wound_bonus_per_level: float = 0.016666667
+@export var wound_duration: float = 5.0
+
+func wound_bonus(level: int) -> float:
+	return clampf(wound_bonus_base + wound_bonus_per_level * (level - 1), 0.0, 1.0)
 
 # =========================================================
 # ★ เอฟเฟกต์สกิล (ภาพที่ใหญ่/ไกลเกินตัวละครได้) ★

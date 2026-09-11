@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/forge_golem_frames.tres" id="frames_new"]
+[ext_resource type="SpriteFrames" uid="uid://ravr77q87vun" path="res://data/sprites/monsters/forge_golem_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_forge_golem_0"]
 script = ExtResource("2_drop")
@@ -42,7 +42,8 @@ display_name = "โกเลมเตาหลอม"
 sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(60, 64)
 hp_bar_offset_y = -91.2
-display_height = 240.0
+display_height = 340.0
+fit_foot_animations = null
 level = 30
 max_hp = 2400
 atk_min = 150
@@ -73,6 +74,7 @@ attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 260.0
 attack_hit_frames = null
+skill_hit_frames = null
 exp_reward = 950
 job_exp_reward = 665
 zeny_min = 250

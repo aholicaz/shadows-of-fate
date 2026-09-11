@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/rune_watcher_frames.tres" id="frames_new"]
+[ext_resource type="SpriteFrames" uid="uid://b6y6dn5npuy56" path="res://data/sprites/monsters/rune_watcher_frames.tres" id="frames_new"]
 
 [sub_resource type="Resource" id="Drop_rune_watcher_0"]
 script = ExtResource("2_drop")
@@ -41,7 +41,8 @@ display_name = "ผู้เฝ้ารูน"
 sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(56, 60)
 hp_bar_offset_y = -87.4
-display_height = 330.0
+display_height = 460.0
+fit_foot_animations = null
 level = 35
 max_hp = 10000
 atk_min = 220
@@ -72,6 +73,7 @@ attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 220.0
 attack_hit_frames = null
+skill_hit_frames = null
 exp_reward = 1600
 job_exp_reward = 1120
 zeny_min = 400

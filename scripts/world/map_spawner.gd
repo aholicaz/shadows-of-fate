@@ -9,7 +9,7 @@ extends Node2D
 ## ★ ชนิดมอนที่จะเกิดในแมพนี้ ★ (ใส่ได้หลายชนิด แนะนำ 3 ชนิดต่อแมพ)
 @export var monster_types: Array[MonsterData] = []
 ## เกิดชนิดละกี่ตัว
-@export var count_per_type: int = 5
+@export_range(0, 100, 1, "or_greater") var count_per_type: int = 5
 ## Scene ต้นแบบของมอน (ปกติคือ res://scenes/monsters/monster.tscn)
 @export var monster_scene: PackedScene
 
@@ -60,6 +60,9 @@ var _dry_time := 0.0
 
 
 func _ready() -> void:
+	if count_per_type < 0:
+		push_warning("Negative monster count at %s; restoring default of 5 per type." % get_path())
+		count_per_type = 5
 	if monster_scene == null:
 		monster_scene = load("res://scenes/monsters/monster.tscn")
 	if monster_types.is_empty():

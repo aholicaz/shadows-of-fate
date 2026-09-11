@@ -90,7 +90,7 @@ func play(key: String, volume_scale: float = 1.0, pitch_spread: float = 0.06) ->
 	_next = (_next + 1) % _players.size()
 	p.stream = stream
 	p.volume_db = linear_to_db(clampf(volume * volume_scale, 0.001, 1.0))
-	p.pitch_scale = randf_range(1.0 - pitch_spread, 1.0 + pitch_spread)
+	p.pitch_scale = randf_range(1.0 - pitch_spread, 1.0 + pitch_spread) if pitch_spread > 0.0 else 1.0
 	p.play()
 	return true
 

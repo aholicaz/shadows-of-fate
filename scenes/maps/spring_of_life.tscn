@@ -1,24 +1,20 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene format=3 uid="uid://bqqih4j5234hd"]
 
-[ext_resource type="Script" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
-
-[ext_resource type="Texture2D" path="res://Sprites/map/generated/spring_of_life_bg_final.png" id="bg38"]
-
-[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
-[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
-[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
-[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
-[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
+[ext_resource type="Texture2D" uid="uid://b1uojsokdj11c" path="res://Sprites/map/generated/spring_of_life_bg_final.png" id="bg38"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
-[ext_resource type="Resource" path="res://data/monsters/gullveig_ember.tres" id="md_gullveig_ember"]
+[ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="Resource" uid="uid://dwatr4vg7qyeo" path="res://data/monsters/gullveig_ember.tres" id="md_gullveig_ember"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="Script" uid="uid://c2no85difcfo6" path="res://scripts/world/monster_spawner.gd" id="spawner"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(3600, 240)
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" unique_id=1573320305]
 script = ExtResource("map_base")
 map_id = &"spring_of_life"
 display_name = "บ่อน้ำแห่งชีวิต"
@@ -27,50 +23,48 @@ region = "วานาเฮม"
 map_bounds = Rect2(-100, -200, 3400, 1300)
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=723578295]
 
-[node name="Sky" type="Polygon2D" parent="Background"]
+[node name="Sky" type="Polygon2D" parent="Background" unique_id=662539828]
 z_index = -100
-position = Vector2(-100, -200)
-color = Color(1, 1, 1, 1)
-polygon = PackedVector2Array(0, 0, 3400, 0, 3400, 1300, 0, 1300)
-texture = ExtResource("bg38")
-uv = PackedVector2Array(0, 0, 3400, 0, 3400, 1300, 0, 1300)
 texture_filter = 2
+position = Vector2(-100, -200)
+texture = ExtResource("bg38")
+polygon = PackedVector2Array(0, 0, 3400, 0, 3400, 1300, 0, 1300)
+uv = PackedVector2Array(0, 0, 3400, 0, 3400, 1300, 0, 1300)
 
-[node name="FarLayer" type="Polygon2D" parent="Background"]
+[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1261110635]
+visible = false
 z_index = -90
 position = Vector2(-100, 520)
 color = Color(0.22, 0.34, 0.3, 1)
 polygon = PackedVector2Array(0, 0, 3400, 0, 3400, 360, 0, 360)
-visible = false
 
-[node name="Terrain" type="Node2D" parent="."]
+[node name="Terrain" type="Node2D" parent="." unique_id=1658176258]
 
-[node name="Ground" type="StaticBody2D" parent="Terrain"]
+[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=717589899]
 position = Vector2(1600, 1000)
-collision_layer = 1
 collision_mask = 0
 
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1532107904]
 shape = SubResource("Rect_ground")
 
-[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=1444206457]
+visible = false
 color = Color(0.26, 0.3, 0.24, 1)
 polygon = PackedVector2Array(-1800, -120, 1800, -120, 1800, 120, -1800, 120)
-visible = false
 
-[node name="SpawnPoints" type="Node2D" parent="."]
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=1345856070]
 
-[node name="default" type="Marker2D" parent="SpawnPoints"]
+[node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1236361263]
 position = Vector2(200, 820)
 
-[node name="from_field" type="Marker2D" parent="SpawnPoints"]
+[node name="from_field" type="Marker2D" parent="SpawnPoints" unique_id=1645007895]
 position = Vector2(200, 820)
 
-[node name="Spawners" type="Node2D" parent="."]
+[node name="Spawners" type="Node2D" parent="." unique_id=1479823404]
 
-[node name="Boss_gullveig_ember" type="Node2D" parent="Spawners"]
+[node name="Boss_gullveig_ember" type="Node2D" parent="Spawners" unique_id=168430593]
 position = Vector2(2500, 850)
 script = ExtResource("spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_gullveig_ember")])
@@ -78,42 +72,47 @@ monster_scene = ExtResource("monster_scene")
 max_alive = 1
 spawn_width = 160
 
-[node name="Portals" type="Node2D" parent="."]
+[node name="Portals" type="Node2D" parent="." unique_id=628812805]
 
-[node name="ToField" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+[node name="ToField" parent="Portals" unique_id=2019242591 instance=ExtResource("portal")]
+position = Vector2(69, 796)
 target_map = &"forgotten_battlefield"
 target_spawn_point = &"from_spring"
 label_text = "← สมรภูมิที่ถูกลืม"
 destination_name = "สมรภูมิที่ถูกลืม"
 
-[node name="Lore" type="Node2D" parent="."]
+[node name="Lore" type="Node2D" parent="." unique_id=1280010092]
 
-[node name="SiphonRune" parent="Lore" instance=ExtResource("lore")]
+[node name="SiphonRune" parent="Lore" unique_id=912368486 instance=ExtResource("lore")]
 position = Vector2(1662, 800)
 lore_id = &"siphon_rune"
 title = "รูนใต้บ่อน้ำ"
-text = "ก้นบ่อน้ำแห้งเผยวงจรรูนขนาดใหญ่สลักบนหิน\n\nเส้นทุกเส้นไหล «เข้า» สู่ศูนย์กลาง แล้วพุ่งขึ้นไปทางเหนือเป็นสายเดียว\n\n...วงจรเดียวกับบนหัวค้อนที่กำแพงเตาหลอมร้าง\nรูน «ดูด» — ที่นี่ไม่ได้ดูดเหล็ก มันดูดชีวิตของทั้งโลก"
-label_text = "รูนบนหิน"
+text = "ก้นบ่อน้ำแห้งเผยวงจรรูนขนาดใหญ่สลักบนหิน
+
+เส้นทุกเส้นไหล «เข้า» สู่ศูนย์กลาง แล้วพุ่งขึ้นไปทางเหนือเป็นสายเดียว
+
+...วงจรเดียวกับบนหัวค้อนที่กำแพงเตาหลอมร้าง
+รูน «ดูด» — ที่นี่ไม่ได้ดูดเหล็ก มันดูดชีวิตของทั้งโลก"
 required_flag = &"killed_gullveig_ember"
 locked_text = "เปลวเพลิงยังลุกโชนอยู่กลางบ่อ เข้าใกล้ไม่ได้"
 set_flag = &"saw_siphon_rune"
-[node name="AmbientFX" type="Node2D" parent="."]
+label_text = "รูนบนหิน"
+
+[node name="AmbientFX" type="Node2D" parent="." unique_id=102939112]
 script = ExtResource("ambient_fx")
-mote_regions = Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370)])
-motes_per_region = 12
-mote_color = Color(0.38, 0.7, 0.68, 0.3)
-mote_drift = Vector2(10, -5)
 lantern_positions = PackedVector2Array(171, 290, 776, 342, 1469, 269, 1773, 243, 2479, 507, 2923, 507, 2610, 243, 2835, 271)
 flame_size = Vector2(18, 36)
 light_radius = 180.0
 light_energy = 0.16
-heat_regions = Array[Rect2]([Rect2(2352, 641, 756, 135)])
+drifting_embers = true
 mist_regions = Array[Rect2]([Rect2(0, 680, 3400, 180)])
 mist_color = Color(0.26, 0.48, 0.49, 0.1)
-drifting_embers = true
+mote_regions = Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370)])
+mote_color = Color(0.38, 0.7, 0.68, 0.3)
+motes_per_region = 12
+heat_regions = Array[Rect2]([Rect2(2352, 641, 756, 135)])
 
-[node name="QuestRuneFX" type="Node2D" parent="."]
+[node name="QuestRuneFX" type="Node2D" parent="." unique_id=552257630]
 script = ExtResource("ambient_fx")
 rune_regions = Array[Rect2]([Rect2(1250, 50, 762, 736)])
 rune_color = Color(0.35, 0.88, 0.81, 0.4)

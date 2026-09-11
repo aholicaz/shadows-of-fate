@@ -1,0 +1,9 @@
+# Rending Wave artwork
+
+Generated using the built-in imagegen tool. Final asset: `Sprites/effects/rending_wave_gold.png`. The earlier crescent concepts were discarded after the user requested a design distinct from Baphomet.
+
+Eight frames, four columns by two rows, 16 FPS loop. Original sheet faces LEFT. SpriteFrames metadata records facing and the foot anchor; runtime mirrors for right-facing casts and fades the sprite at launch/end of travel. Combat geometry and cast timing remain separate.
+
+## Final generation prompt
+
+Generate a NEW 2D fantasy RPG sword skill VFX sprite sheet, Rending Wave. Exactly 8 animation frames in FOUR columns TWO rows, equal square cells, 2048x1024. All effects face and travel LEFT. Design: a sharp diagonal slash of concentrated ivory-white and pale gold sword energy, leaning / with lower-left pointed leading tip, with TWO thin parallel tapered golden speed ribbons trailing off to the RIGHT. A fast tearing blade of wind, elegant angular elongated blade streak, NOT a crescent moon, NOT a curved fire wall, NOT a circular arc, NOT demonic flames or horns or spikes. Small amber sparks scatter to the right behind it. White-gold sharp cutting edge with warm amber fine wisps, translucent delicate light trails, painterly high quality fantasy RPG sprite artwork. Clear diagonal slashing gesture, roughly 300px wide x350px tall centered in each 512 square cell with 60px margins on all sides. All eight frames have same position scale and direction; animate subtle flowing trailing ribbons and sparks, smooth continuous loop. No characters, weapons, ground, labels, text, grid or panels. CRITICAL: actual transparent PNG background, empty alpha channel outside the VFX. Never draw gray checkerboard squares. Never draw a background of any color. Each sprite is an isolated cutout.

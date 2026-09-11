@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://clp4swdg6qd8h" path="res://Sprites/Attack falchion.png" id="1_tvjxe"]
 [ext_resource type="Texture2D" uid="uid://bnmofjbs5igrk" path="res://Sprites/items/falchion.png" id="2_a5lgs"]
 
+[ext_resource type="Texture2D" path="res://Sprites/equip/falchion_hand.png" id="hand_texture"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/attack_blade_bare_hands.tres" id="bare_combo"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrmt8"]
 atlas = ExtResource("1_tvjxe")
 region = Rect2(0, 0, 512, 512)
@@ -110,6 +113,7 @@ animations = [{
 "speed": 15.0
 }]
 
+
 [resource]
 script = ExtResource("1_item")
 id = &"falchion"
@@ -122,7 +126,6 @@ metadata/price_base_r47_sell = 1760
 metadata/price_base_r47_buy = 2200
 slot = 1
 weapon_type = &"sword"
-equip_sprite_frames = SubResource("SpriteFrames_tvjxe")
 attack_animation = &"Attack_Falchion"
 card_slots = 1
 max_stack = 1
@@ -133,3 +136,13 @@ atk = 39
 hit = 5
 crit = 2
 refinable = true
+
+
+
+equip_texture = ExtResource("hand_texture")
+equip_follow_idle_hand = true
+equip_grip = Vector2(413, 89)
+equip_hand_scale = 0.68
+equip_hand_rotation_degrees = 59.0
+equip_attack_body_frames = ExtResource("bare_combo")
+equip_z_index = -1

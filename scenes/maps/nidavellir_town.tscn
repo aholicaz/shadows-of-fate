@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
 [ext_resource type="Texture2D" uid="uid://en260pvfuqd3" path="res://Sprites/map/generated/nidavellir_town_bg_final.png" id="bg38"]
+[ext_resource type="SpriteFrames" uid="uid://cm4i3caprat4b" path="res://Sprites/npc/chapter2/idle/brokk_idle.tres" id="c2_brokk"]
+[ext_resource type="SpriteFrames" uid="uid://bbhwuwor1o1x0" path="res://Sprites/npc/chapter2/idle/dvalin_idle.tres" id="c2_dvalin"]
+[ext_resource type="SpriteFrames" uid="uid://33yn1gfcfsv3" path="res://Sprites/npc/chapter2/idle/hans_idle.tres" id="c2_hans"]
+[ext_resource type="SpriteFrames" uid="uid://5lsao8f7s1uc" path="res://Sprites/npc/chapter2/idle/hedin_idle.tres" id="c2_hedin"]
+[ext_resource type="SpriteFrames" uid="uid://k1yn8h65rujb" path="res://Sprites/npc/chapter2/idle/helga_idle.tres" id="c2_helga"]
+[ext_resource type="SpriteFrames" uid="uid://barf3ksutitx1" path="res://Sprites/npc/chapter2/idle/thor_warp_idle.tres" id="c2_thor_warp"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="PackedScene" uid="uid://bdgqbnav4qg14" path="res://scenes/npc/npc.tscn" id="npc"]
@@ -86,6 +92,7 @@ label_text = "→ เหมืองถ่านไฟ"
 destination_name = "เหมืองถ่านไฟ"
 
 [node name="NPCs" type="Node2D" parent="." unique_id=1267784035]
+position = Vector2(0, -62)
 
 [node name="Helga" parent="NPCs" unique_id=1753019939 instance=ExtResource("npc")]
 position = Vector2(550, 883)
@@ -97,6 +104,14 @@ shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion"
 voice_id = "helga"
 quest_ids = Array[StringName]([&"c2_1_unwelcome_gate", &"c2_2_toll"])
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Helga" unique_id=511072514]
+texture_filter = 2
+position = Vector2(0, -39.36)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("c2_helga")
+animation = &"Idle"
+autoplay = "Idle"
+
 [node name="Dvalin" parent="NPCs" unique_id=943662091 instance=ExtResource("npc")]
 position = Vector2(1350, 883)
 npc_name = "ช่างเอกดวาลิน"
@@ -106,6 +121,14 @@ dialog = "เอาของมาตีบวกก็วางตรงนี�
 ...เจ้ามากับฮันส์ใช่ไหม บอกมันว่าข้ายังไม่ให้อภัย"
 voice_id = "dvalin"
 quest_ids = Array[StringName]([&"c2_5_hall_of_silence", &"c2_6_to_cold_forge", &"c2_7_forge_guardian"])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Dvalin" unique_id=1724191326]
+texture_filter = 2
+position = Vector2(0, -39.36)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("c2_dvalin")
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="Brokk" parent="NPCs" unique_id=976899576 instance=ExtResource("npc")]
 position = Vector2(2200, 883)
@@ -123,6 +146,14 @@ dialog_by_flag = {
 voice_id = "brokk"
 quest_ids = Array[StringName]([&"c2_8_hammer_truth"])
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Brokk" unique_id=680752251]
+texture_filter = 2
+position = Vector2(0, -39.36)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("c2_brokk")
+animation = &"Idle"
+autoplay = "Idle"
+
 [node name="SavePoint" parent="NPCs" unique_id=1789249336 instance=ExtResource("npc")]
 position = Vector2(3050, 883)
 npc_name = "เสาวาปแห่งธอร์"
@@ -133,6 +164,14 @@ warp_flags = {
 "vanir_town": "chapter3_visited"
 }
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/SavePoint" unique_id=1519770721]
+texture_filter = 2
+position = Vector2(-4, -108.00001)
+scale = Vector2(0.78, 0.78)
+sprite_frames = ExtResource("c2_thor_warp")
+animation = &"Idle"
+autoplay = "Idle"
+
 [node name="Healer" parent="NPCs" unique_id=1168898817 instance=ExtResource("npc")]
 position = Vector2(3850, 883)
 npc_name = "หมอคนแคระเฮดิน"
@@ -141,6 +180,14 @@ dialog = "เจ็บตรงไหน ให้ข้าดู
 
 ที่นี่ไม่มีใครขอบคุณธอร์หรอกนะ อย่าแปลกใจ"
 voice_id = "hedin"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Healer" unique_id=722078354]
+texture_filter = 2
+position = Vector2(0, -39.36)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("c2_hedin")
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="Hans" parent="NPCs" unique_id=781576204 instance=ExtResource("npc")]
 position = Vector2(4550, 883)
@@ -152,10 +199,18 @@ dialog = "ข้าตามเจ้ามาถึงนี่แล้ว...
 voice_id = "hans_c2"
 quest_ids = Array[StringName]([&"c2_3_forbidden_name", &"c2_4_nameless_grave"])
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Hans" unique_id=1733612234]
+texture_filter = 2
+position = Vector2(-12, -71.000015)
+scale = Vector2(0.395, 0.395)
+sprite_frames = ExtResource("c2_hans")
+animation = &"Idle"
+autoplay = "Idle"
+
 [node name="Lore" type="Node2D" parent="." unique_id=974744741]
 
 [node name="SindriGrave" parent="Lore" unique_id=2110342074 instance=ExtResource("lore")]
-position = Vector2(5016, 863)
+position = Vector2(5012, 785)
 lore_id = &"sindri_grave"
 title = "หลุมศพไร้ชื่อ"
 text = "หลุมศพเก่า ชื่อบนป้ายถูกสกัดออกจนอ่านไม่ได้
@@ -170,9 +225,12 @@ script = ExtResource("ambient_fx")
 lantern_positions = PackedVector2Array(-60, 649, 151, 695, 800, 681, 1327, 718, 1218, 776, 1549, 683, 1798, 683, 2221, 646, 2508, 682, 2728, 682, 2662, 680, 2819, 672, 3142, 675, 3497, 677, 3576, 727, 4115, 686, 3989, 684, 4326, 717, 4880, 674, 5183, 678, 5452, 689)
 flame_size = Vector2(18, 36)
 light_radius = 200.0
-light_energy = 0.2
+light_energy = 2.0
 drifting_embers = true
 mote_color = Color(0.62, 0.83, 0.61, 0.4)
 motes_per_region = 12
 wind_regions = Array[Rect2]([Rect2(-44, 19, 131, 383), Rect2(346, 523, 220, 63), Rect2(1606, 543, 49, 163), Rect2(2727, 349, 47, 187), Rect2(3821, 549, 229, 97), Rect2(4051, 365, 69, 161), Rect2(5257, 437, 60, 140)])
 heat_regions = Array[Rect2]([Rect2(1131, 602, 201, 231), Rect2(1394, -13, 143, 87), Rect2(3522, 544, 160, 190), Rect2(4271, 598, 110, 136), Rect2(4491, 245, 115, 71)])
+
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=468050428]
+color = Color(0.7850203, 0.80595154, 0.85612816, 1)

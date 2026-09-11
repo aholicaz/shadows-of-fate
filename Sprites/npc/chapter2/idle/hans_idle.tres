@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://33yn1gfcfsv3"]
+
+[ext_resource type="Texture2D" uid="uid://c2e01jusy62ah" path="res://Sprites/npc/blacksmith-idle-6frames.png" id="7_h73fi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ce6c"]
+atlas = ExtResource("7_h73fi")
+region = Rect2(0, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgd5h"]
+atlas = ExtResource("7_h73fi")
+region = Rect2(1026, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bafy1"]
+atlas = ExtResource("7_h73fi")
+region = Rect2(0, 770, 513, 770)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_440hk"]
+atlas = ExtResource("7_h73fi")
+region = Rect2(1026, 770, 513, 770)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ce6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgd5h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bafy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_440hk")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 3.0
+}]

@@ -497,6 +497,10 @@ static func describe(s: SkillData, learned_level: int) -> String:
 			stats_lines.append("ดาเมจ %.0f%% ต่อตัว" % (s.damage_mult(lv) * 100.0))
 			stats_lines.append("พุ่งไกล %.0f px" % s.dash_range(lv))
 			stats_lines.append(_targets_line(s, lv, "โดนทุกตัวที่ขวางทาง (ตัวละ 1 ครั้ง)"))
+		SkillData.SkillType.ACTIVE_WAVE:
+			stats_lines.append("ดาเมจกายภาพ %.0f%% · ตัวละ 1 ครั้ง" % (s.damage_mult(lv) * 100.0))
+			stats_lines.append("คลื่นไกล %.0f px · ทะลุ %d ตัว" % [s.wave_distance, s.max_targets_at(lv)])
+			stats_lines.append("เปิดแผล: รับดาเมจกายภาพ +%.1f%% นาน %.0f วิ" % [s.wound_bonus(lv) * 100.0, s.wound_duration])
 		_:
 			stats_lines.append("ดาเมจ %.0f%%%s"
 				% [s.damage_mult(lv) * 100.0,
@@ -529,4 +533,5 @@ static func _type_name(t: int) -> String:
 		SkillData.SkillType.HEAL: return "ฟื้นฟู"
 		SkillData.SkillType.PASSIVE: return "ติดตัว"
 		SkillData.SkillType.ACTIVE_DASH: return "พุ่งฟัน"
+		SkillData.SkillType.ACTIVE_WAVE: return "คลื่นดาบ / เปิดแผล"
 	return ""

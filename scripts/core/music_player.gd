@@ -36,6 +36,33 @@ var _current_key := ""                  ## เพลงที่เล่นอ�
 var _tween: Tween
 ## จำว่าหาไฟล์ของ key ไหนไปแล้วบ้าง (กันไล่หาไฟล์ซ้ำ ๆ ทุกครั้งที่เปลี่ยนแมพ)
 var _path_cache: Dictionary = {}
+var _map_key := ""
+var _combat_check_time := 0.0
+
+
+func _process(delta: float) -> void:
+	if _map_key == "" or get_tree().paused:
+		return
+	_combat_check_time += delta
+	if _combat_check_time < 0.25:
+		return
+	_combat_check_time = 0.0
+	_refresh_combat_music()
+
+
+func _refresh_combat_music() -> void:
+	var desired := _map_key
+	if _map_key == "cold_forge" and not PlayerState.is_dead():
+		for enemy in get_tree().get_nodes_in_group("enemy"):
+			var monster_data: Resource = enemy.get("data")
+			if monster_data == null or monster_data.get("id") != &"forge_guardian":
+				continue
+			if int(enemy.get("hp")) > 0 and enemy.has_method("is_aggro_locked") \
+					and enemy.is_aggro_locked() and has_track("boss_forge_guardian"):
+				desired = "boss_forge_guardian"
+				break
+	if desired != _current_key and has_track(desired):
+		_play_track(desired)
 
 
 func _ready() -> void:
@@ -84,11 +111,17 @@ func has_track(key: String) -> bool:
 # =========================================================
 ## เล่นเพลงประจำแมพ — เรียกจาก map_base ตอนโหลดแมพ
 func play_for_map(map_id: StringName) -> void:
-	play_key(String(map_id))
+	_map_key = String(map_id)
+	_play_track(_map_key)
 
 
 ## เล่นเพลงตามชื่อไฟล์ (ไม่รวมนามสกุล) · ไม่มีไฟล์ = ไล่เสียงออกแล้วเงียบ
 func play_key(key: String) -> void:
+	_map_key = ""
+	_play_track(key)
+
+
+func _play_track(key: String) -> void:
 	if key == _current_key and _players[_active].playing:
 		return                                    # เพลงเดิมอยู่แล้ว — ปล่อยให้เล่นต่อ ไม่ต้องเริ่มใหม่
 	var path := find_track(key)
@@ -180,7 +213,7 @@ func set_enabled(on: bool) -> void:
 	elif _current_key != "":
 		var key := _current_key
 		_current_key = ""          # บังคับให้เริ่มใหม่
-		play_key(key)
+		_play_track(key)
 	_save_settings()
 
 

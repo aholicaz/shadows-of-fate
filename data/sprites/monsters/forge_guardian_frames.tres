@@ -165,6 +165,38 @@ region = Rect2(3072, 0, 512, 512)
 atlas = ExtResource("2_jo0xi")
 region = Rect2(3584, 0, 512, 512)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_8"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(0, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_9"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(512, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_10"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(1024, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_11"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(1536, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_12"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(2048, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_13"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(2560, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_14"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(3072, 512, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_15"]
+atlas = ExtResource("2_jo0xi")
+region = Rect2(3584, 512, 512, 512)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2yi2u"]
 atlas = ExtResource("2_jo0xi")
 region = Rect2(0, 0, 512, 512)
@@ -429,38 +461,6 @@ region = Rect2(3072, 1536, 512, 512)
 atlas = ExtResource("4_qjmut")
 region = Rect2(3584, 1536, 512, 512)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_8"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(0, 512, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_9"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(512, 512, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_10"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(1024, 512, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_11"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(1536, 512, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_12"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(2048, 512, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_13"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(2560, 512, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_14"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(3072, 512, 512, 512)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_forge_die_15"]
-atlas = ExtResource("2_jo0xi")
-region = Rect2(3584, 512, 512, 512)
-
 [resource]
 animations = [{
 "frames": [{
@@ -613,7 +613,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_forge_die_15")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Die",
 "speed": 12.0
 }, {
@@ -999,7 +999,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tm6bq")
 }],
-"loop": false,
+"loop": 0,
 "name": &"Skill",
 "speed": 20.0
 }]

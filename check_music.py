@@ -11,7 +11,8 @@ import os, re, glob
 
 MUSIC_DIRS = ["Sprites/music", "music", "Sprites/Music", "audio/music"]
 EXTS = (".mp3", ".ogg", ".wav")
-SPECIAL = {"title": "หน้าหลัก (title screen)", "boss": "เพลงบอส (เรียกเองในโค้ด)"}
+SPECIAL = {"title": "หน้าหลัก (title screen)", "boss": "เพลงบอส (เรียกเองในโค้ด)",
+           "boss_forge_guardian": "ต่อสู้ผู้พิทักษ์เตาหลอม (สลับอัตโนมัติ)"}
 
 
 def map_ids():

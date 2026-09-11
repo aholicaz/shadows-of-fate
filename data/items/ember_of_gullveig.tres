@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="ItemData" format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
 [ext_resource type="Texture2D" path="res://Sprites/items/placeholder/ember_of_gullveig.png" id="2_icon"]
+
+
+[ext_resource type="Texture2D" path="res://Sprites/equip/ember_of_gullveig_hand.png" id="hand_texture"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/attack_blade_bare_hands.tres" id="bare_combo"]
 
 [resource]
 script = ExtResource("1_item")
@@ -23,3 +27,13 @@ matk = 30
 bonus_int = 2
 refinable = true
 refine_atk_per_level = 6
+
+
+
+equip_texture = ExtResource("hand_texture")
+equip_follow_idle_hand = true
+equip_grip = Vector2(204, 57)
+equip_hand_scale = 1.5
+equip_hand_rotation_degrees = 63.0
+equip_attack_body_frames = ExtResource("bare_combo")
+equip_z_index = -1

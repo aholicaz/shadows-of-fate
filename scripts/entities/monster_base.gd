@@ -31,6 +31,9 @@ const LAVA_SLAM_FX = preload("res://scripts/entities/lava_slam_fx.gd")
 @onready var collision: CollisionShape2D = $CollisionShape2D
 
 var hp: int = 1
+var _wound_time := 0.0
+var _wound_bonus := 0.0
+var _wound_label: Label
 var state: State = State.IDLE
 var spawn_position: Vector2
 var facing: int = -1
@@ -328,6 +331,7 @@ func _apply_hover(delta: float) -> void:
 # PHYSICS
 # =========================================================
 func _physics_process(delta: float) -> void:
+	_tick_wound(delta)
 	_check_boss_intro()
 	if state == State.DEAD:
 		return
@@ -901,10 +905,23 @@ func _ground_slam_origin() -> Vector2:
 	return at
 
 
+func _play_ground_slam_sound(at: Vector2, skill: bool) -> void:
+	var key := data.skill_slam_sfx if skill else data.attack_slam_sfx
+	if key.is_empty() or Game.sfx == null:
+		return
+	var gain := 0.70 if skill else 0.85
+	if is_instance_valid(_player):
+		# Nearby impacts stay solid; distant monsters fade out.
+		gain *= 1.0 - smoothstep(450.0, 1400.0, at.distance_to(_player.global_position))
+	if gain > 0.001:
+		Game.sfx.play(key, gain, 0.035)
+
+
 func _ground_slam_hit(skill: bool, hit_index: int) -> void:
 	var at := _ground_slam_origin()
 	var radius := data.skill_slam_radius if skill else data.attack_slam_radius
 	LAVA_SLAM_FX.spawn(get_parent(), at, radius, skill, hit_index)
+	_play_ground_slam_sound(at, skill)
 	ground_slam_impact.emit(at, radius, skill, hit_index)
 	if not is_instance_valid(_player) or PlayerState.is_dead():
 		return
@@ -974,11 +991,13 @@ func _anim_time_to_frame(anim: String, idx: int) -> float:
 # =========================================================
 # รับดาเมจจากผู้เล่น
 # =========================================================
-func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, from_dir: int = 0) -> void:
+func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, from_dir: int = 0,
+		wound_bonus: float = 0.0, wound_duration: float = 0.0) -> void:
 	if state == State.DEAD:
 		return
 
-	var result := Combat.player_hits_monster(PlayerState.stats, data, skill_mult, use_matk)
+	var physical_bonus := 1.0 + _wound_bonus if _wound_time > 0.0 and not use_matk else 1.0
+	var result := Combat.player_hits_monster(PlayerState.stats, data, skill_mult * physical_bonus, use_matk)
 
 	# ★ โหมด GM ตีทีเดียวตาย (รอบ 80) ★ ตีปุ๊บตายปั๊บ ไม่พลาด ไม่สนธาตุ/เกราะ
 	# ใช้ไล่เก็บดรอป/ดูท่าตาย/เทสต์เควสฆ่ามอนเร็ว ๆ — เปิดจากหน้าต่าง GM (F10) เท่านั้น
@@ -993,6 +1012,30 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 
 	take_damage(maxi(1, int(result.damage)), bool(result.crit), from_dir)
 	_drain_to_player(int(result.damage))
+	if int(result.damage) > 0 and wound_bonus > 0.0:
+		apply_wound(wound_bonus, wound_duration)
+
+
+func apply_wound(bonus: float, duration: float) -> void:
+	if state == State.DEAD or duration <= 0.0:
+		return
+	_wound_bonus = maxf(_wound_bonus if _wound_time > 0 else 0.0, clampf(bonus, 0.0, 1.0))
+	_wound_time = maxf(_wound_time, duration)
+	if _wound_label == null:
+		_wound_label = UITheme.make_label("", 13, Color("#ffc56b"))
+		_wound_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(_wound_label)
+	_wound_label.text = "เปิดแผล +%.0f%%" % (_wound_bonus * 100.0)
+	_wound_label.position = Vector2(-42, data.hp_bar_offset_y - hover_lift() - 22)
+	_wound_label.show()
+
+
+func _tick_wound(delta: float) -> void:
+	_wound_time = maxf(0.0, _wound_time - delta)
+	if _wound_time <= 0.0 or state == State.DEAD:
+		_wound_bonus = 0.0
+		if _wound_label != null:
+			_wound_label.hide()
 
 
 ## ★ รอบ 45 — ดูดเลือด/ดูดมานา ★ ได้คืน = % ของดาเมจที่ทำได้ (ตัวเลขลอยสีเขียว/ฟ้าเล็ก ๆ)
@@ -1017,6 +1060,8 @@ func take_damage(amount: int, is_crit: bool = false, from_dir: int = 0) -> void:
 
 	hp = maxi(0, hp - amount)
 	_set_aggro()
+	if is_crit and amount > 0:
+		preload("res://scripts/entities/critical_burst_fx.gd").spawn(self)
 
 	# ★ ตัวเลขดาเมจ — ใหญ่และหนา ★ คริติคอลใหญ่กว่าอีก
 	var text := str(amount) + ("!" if is_crit else "")

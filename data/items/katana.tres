@@ -3,6 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://dsq1wy3bt0u1g" path="res://Sprites/items/Katana.png" id="1_555ec"]
 [ext_resource type="Script" uid="uid://dbdwo63bn67r7" path="res://scripts/resources/item_data.gd" id="2_kixpy"]
 
+
+[ext_resource type="Texture2D" path="res://Sprites/equip/katana_hand.png" id="hand_texture"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/attack_blade_bare_hands.tres" id="bare_combo"]
+
 [resource]
 script = ExtResource("2_kixpy")
 id = &"katana"
@@ -28,3 +32,13 @@ refine_def_per_level = 0
 metadata/price_base_r47_sell = 9600
 metadata/price_base_r47_buy = 84000
 metadata/sell_price_base_r44 = 2400
+
+
+
+equip_texture = ExtResource("hand_texture")
+equip_follow_idle_hand = true
+equip_grip = Vector2(410, 93)
+equip_hand_scale = 0.72
+equip_hand_rotation_degrees = 62.0
+equip_attack_body_frames = ExtResource("bare_combo")
+equip_z_index = -1

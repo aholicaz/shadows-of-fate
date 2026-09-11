@@ -52,6 +52,14 @@ enum Slot {
 ## ใช้ได้ถ้ายังไม่อยากวาดครบทุกเฟรม
 @export var equip_texture: Texture2D
 
+## Attach a single weapon texture to the shared bare-hand Idle track.
+@export var equip_follow_idle_hand: bool = false
+@export var equip_grip: Vector2 = Vector2.ZERO
+@export var equip_hand_scale: float = 1.0
+@export var equip_hand_rotation_degrees: float = 0.0
+## Optional bare-hand combo frames with the same registration as the original body.
+@export var equip_attack_body_frames: SpriteFrames
+
 ## เยื้องตำแหน่งภาพ (ถ้าวาดผืนผ้าใบเท่าตัวเปล่า ไม่ต้องแตะเลย ปล่อย 0,0)
 @export var equip_offset: Vector2 = Vector2.ZERO
 

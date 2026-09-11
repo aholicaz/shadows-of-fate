@@ -41,7 +41,7 @@ const SLOTS := [
 	{"key": &"attack_1", "label": "Attack 1 (ไม้แรก)",  "kind": KIND_COMBO, "step": 0},
 	{"key": &"attack_2", "label": "Attack 2 (ไม้สอง)",  "kind": KIND_COMBO, "step": 1},
 	{"key": &"attack_3", "label": "Attack 3 (ไม้สาม)",  "kind": KIND_COMBO, "step": 2},
-	{"key": &"magnum_break", "label": "Magnum Break (ระเบิดพลัง)", "kind": KIND_SKILL},
+	{"key": &"magnum_break", "label": "Rending Wave (คลื่นดาบเปิดแผล)", "kind": KIND_SKILL},
 	{"key": &"slash",        "label": "Slash (พุ่งฟัน)",           "kind": KIND_SKILL},
 	{"key": &"bash",         "label": "Bash (ฟันแรง)",             "kind": KIND_SKILL},
 	{"key": &"battle_cry",   "label": "Battle Cry (คำรามศึก)",     "kind": KIND_SKILL},

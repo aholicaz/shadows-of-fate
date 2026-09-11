@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dbdwo63bn67r7" path="res://scripts/resources/item_data.gd" id="1_item"]
 
+
+[ext_resource type="Texture2D" path="res://Sprites/equip/claymore_hand.png" id="hand_texture"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/attack_blade_bare_hands.tres" id="bare_combo"]
+
 [resource]
 script = ExtResource("1_item")
 id = &"claymore"
@@ -23,3 +27,15 @@ atk = 92
 aspd_percent = -12.0
 refinable = true
 refine_atk_per_level = 5
+
+icon = ExtResource("hand_texture")
+
+
+
+equip_texture = ExtResource("hand_texture")
+equip_follow_idle_hand = true
+equip_grip = Vector2(1020, 230)
+equip_hand_scale = 0.32
+equip_hand_rotation_degrees = 63.0
+equip_attack_body_frames = ExtResource("bare_combo")
+equip_z_index = -1

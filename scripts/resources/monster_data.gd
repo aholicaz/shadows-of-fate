@@ -195,6 +195,9 @@ enum AIType {
 @export var attack_slam_radius: float = 210.0
 @export var skill_slam_radius: float = 430.0
 @export var slam_height: float = 120.0
+## เสียงตอนหัวค้อนถึงพื้น ใช้ระดับเสียง SFX ของเกม; ค่าว่าง = เงียบ
+@export var attack_slam_sfx: String = ""
+@export var skill_slam_sfx: String = ""
 ## เฟรมสกิลที่ค้อนกระแทกพื้น (เริ่มนับ 0)
 @export var skill_hit_frames: PackedInt32Array = PackedInt32Array()
 

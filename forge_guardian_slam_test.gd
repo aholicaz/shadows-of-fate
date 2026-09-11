@@ -13,6 +13,7 @@ var boss: CharacterBody2D
 var probe: DamageProbe
 var shot_name := ""
 var floor_y := 0.0
+var audio_cursor := 0
 
 func check(value: bool, message: String) -> void:
 	if not value:
@@ -20,6 +21,11 @@ func check(value: bool, message: String) -> void:
 		push_error(message)
 
 func on_impact(at: Vector2, radius: float, skill: bool, index: int) -> void:
+	check(Game.sfx._next == (audio_cursor + 1) % SfxPlayer.VOICES, "Exactly one sound starts at each hammer impact")
+	var voice: AudioStreamPlayer = Game.sfx._players[audio_cursor]
+	var expected: String = boss.data.skill_slam_sfx if skill else boss.data.attack_slam_sfx
+	check(voice.stream != null and voice.stream.resource_path == Game.sfx.find_sound(expected), "Impact uses the correct normal/skill sound")
+	audio_cursor = Game.sfx._next
 	impacts.append({"frame":boss.sprite.frame,"at":at,"radius":radius,"skill":skill,"index":index})
 	if shot_name != "" and index == 0 and DisplayServer.get_name() != "headless":
 		var label := shot_name
@@ -52,6 +58,10 @@ func _ready() -> void:
 	boss.global_position = Vector2(1550, floor_y - boss.data.foot_offset())
 	boss._player = probe
 	boss.ground_slam_impact.connect(on_impact)
+	Game.sfx.enabled = true
+	Game.sfx.volume = 0.5
+	audio_cursor = Game.sfx._next
+	check(Game.sfx.has_sound(boss.data.attack_slam_sfx) and Game.sfx.has_sound(boss.data.skill_slam_sfx), "Both Forge Guardian sound assets import")
 	# Verify every pose and animation transition against one world-space root.
 	var sprite_frames: SpriteFrames = boss.sprite.sprite_frames
 	var reference_scale: Vector2 = Vector2.ONE * boss._fit_frames(&"Idle").scale
@@ -124,6 +134,13 @@ func _ready() -> void:
 	boss.state = boss.State.DEAD
 	await get_tree().create_timer(2.0).timeout
 	check(impacts.size() == 1, "Death interrupts remaining four hits")
+	check(Game.sfx._next == audio_cursor, "Death cancels remaining impact sounds")
+	Game.sfx.enabled = false
+	boss._play_ground_slam_sound(boss.global_position, false)
+	check(Game.sfx._next == audio_cursor, "SFX mute prevents impact playback")
+	Game.sfx.enabled = true
+	boss._play_ground_slam_sound(probe.global_position + Vector2(2000,0), true)
+	check(Game.sfx._next == audio_cursor, "Distant impacts are inaudible")
 	check(get_tree().get_nodes_in_group("lava_slam_fx").is_empty(), "All temporary lava nodes expire")
 	var other = load("res://data/monsters/baphomet.tres")
 	check(not other.attack_ground_slam and not other.skill_ground_slam, "Other bosses retain existing attacks")

@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="ItemData" format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
 [ext_resource type="Texture2D" path="res://Sprites/items/placeholder/short_sword.png" id="2_icon"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/equip_sword_idle.tres" id="equipframes"]
+
+
+[ext_resource type="Texture2D" path="res://Sprites/equip/short_sword_hand.png" id="hand_texture"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/attack_blade_bare_hands.tres" id="bare_combo"]
 
 [resource]
 script = ExtResource("1_item")
@@ -25,4 +29,13 @@ metadata/sell_price_base_r44 = 360
 atk = 30
 refinable = true
 refine_atk_per_level = 2
-equip_sprite_frames = ExtResource("equipframes")
+
+
+
+equip_texture = ExtResource("hand_texture")
+equip_follow_idle_hand = true
+equip_grip = Vector2(320, 930)
+equip_hand_scale = 0.21
+equip_hand_rotation_degrees = 242.0
+equip_attack_body_frames = ExtResource("bare_combo")
+equip_z_index = -1

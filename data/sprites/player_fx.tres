@@ -71,19 +71,14 @@ blade_positions = null
 blade_angles = null
 blade_opacity = null
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_dwxqo"]
-
 [sub_resource type="Resource" id="Resource_2h84t"]
 script = ExtResource("1_jcg3u")
 blade_positions = null
 blade_angles = null
 blade_opacity = null
-frames = SubResource("SpriteFrames_dwxqo")
-anim = &"burst"
-height = 720.0
-delay = 0.2
-z = -60
-offset = Vector2(0, -226)
+anim = &"wave"
+height = 180.0
+offset = Vector2(0, -100)
 
 [sub_resource type="Resource" id="Resource_trim6"]
 script = ExtResource("1_jcg3u")
