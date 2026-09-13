@@ -64,14 +64,14 @@ max_spawn_distance = 1700.0
 [node name="Portals" type="Node2D" parent="." unique_id=1905914018]
 
 [node name="ToMarsh" parent="Portals" unique_id=1400111030 instance=ExtResource("portal")]
-position = Vector2(60, 900)
+position = Vector2(60, 845)
 target_map = &"silver_marsh"
 target_spawn_point = &"from_grove"
 label_text = "← บึงหมอกเงิน"
 destination_name = "บึงหมอกเงิน"
 
 [node name="ToField" parent="Portals" unique_id=215499510 instance=ExtResource("portal")]
-position = Vector2(4940, 900)
+position = Vector2(4937, 821)
 target_map = &"forgotten_battlefield"
 target_spawn_point = &"from_grove"
 label_text = "→ สมรภูมิที่ถูกลืม"

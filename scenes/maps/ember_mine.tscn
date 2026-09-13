@@ -32,7 +32,6 @@ player_scene = ExtResource("player")
 process_priority = 100
 texture_filter = 4
 script = ExtResource("c2_parallax")
-open_bridge = null
 metadata/ignore_map_bounds = true
 
 [node name="Depth" type="Sprite2D" parent="Background" unique_id=1677008758]
@@ -169,14 +168,14 @@ max_spawn_distance = 1700.0
 [node name="Portals" type="Node2D" parent="." unique_id=1094342174]
 
 [node name="ToTown" parent="Portals" unique_id=311394888 instance=ExtResource("portal")]
-position = Vector2(321, 792)
+position = Vector2(294, 821)
 target_map = &"nidavellir_town"
 target_spawn_point = &"from_mine"
 label_text = "← นิดาเวลลิร์"
 destination_name = "นิดาเวลลิร์"
 
 [node name="ToHall" parent="Portals" unique_id=966135113 instance=ExtResource("portal")]
-position = Vector2(4931, 802)
+position = Vector2(4846, 838)
 target_map = &"hall_of_silence"
 target_spawn_point = &"from_mine"
 label_text = "→ ห้องโถงเงียบ"

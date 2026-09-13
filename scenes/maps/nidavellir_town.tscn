@@ -1,25 +1,24 @@
 [gd_scene format=3 uid="uid://uslrlnj2em2v"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/helga_exchange.png" id="city_helga_exchange"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/dvalin_smithy.png" id="city_dvalin_smithy"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/brokk_rune_house.png" id="city_brokk_rune_house"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/hedin_apothecary.png" id="city_hedin_apothecary"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/hans_old_workshop.png" id="city_hans_old_workshop"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/dwarf_street_row.png" id="city_dwarf_street_row"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/sindri_memorial.png" id="c2_memorial"]
-[ext_resource type="Script" path="res://scripts/world/chapter2_parallax.gd" id="c2_parallax"]
-[ext_resource type="Script" path="res://scripts/world/map_ambient_fx.gd" id="c2_fx"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/nidavellir_town_depth.png" id="c2_nidavellir_town_depth"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/forge_ground.png" id="c2_forge_ground"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/dwarf_lantern.png" id="c2_dwarf_lantern"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter2/rune_workbench.png" id="c2_rune_workbench"]
-
 
 [ext_resource type="SpriteFrames" uid="uid://cm4i3caprat4b" path="res://Sprites/npc/chapter2/idle/brokk_idle.tres" id="c2_brokk"]
 [ext_resource type="SpriteFrames" uid="uid://bbhwuwor1o1x0" path="res://Sprites/npc/chapter2/idle/dvalin_idle.tres" id="c2_dvalin"]
+[ext_resource type="Texture2D" uid="uid://caprptiypttl3" path="res://Sprites/map/chapter2/dwarf_lantern.png" id="c2_dwarf_lantern"]
+[ext_resource type="Texture2D" uid="uid://bep3jwh4tlx7u" path="res://Sprites/map/chapter2/forge_ground.png" id="c2_forge_ground"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="c2_fx"]
 [ext_resource type="SpriteFrames" uid="uid://33yn1gfcfsv3" path="res://Sprites/npc/chapter2/idle/hans_idle.tres" id="c2_hans"]
 [ext_resource type="SpriteFrames" uid="uid://5lsao8f7s1uc" path="res://Sprites/npc/chapter2/idle/hedin_idle.tres" id="c2_hedin"]
 [ext_resource type="SpriteFrames" uid="uid://k1yn8h65rujb" path="res://Sprites/npc/chapter2/idle/helga_idle.tres" id="c2_helga"]
+[ext_resource type="Texture2D" uid="uid://hafyq2uucfbe" path="res://Sprites/map/chapter2/sindri_memorial.png" id="c2_memorial"]
+[ext_resource type="Texture2D" uid="uid://bphy4b7lxxgwf" path="res://Sprites/map/chapter2/nidavellir_town_depth.png" id="c2_nidavellir_town_depth"]
+[ext_resource type="Script" uid="uid://cm32004roptyp" path="res://scripts/world/chapter2_parallax.gd" id="c2_parallax"]
+[ext_resource type="Texture2D" uid="uid://f5s7imi7e3r0" path="res://Sprites/map/chapter2/rune_workbench.png" id="c2_rune_workbench"]
 [ext_resource type="SpriteFrames" uid="uid://barf3ksutitx1" path="res://Sprites/npc/chapter2/idle/thor_warp_idle.tres" id="c2_thor_warp"]
+[ext_resource type="Texture2D" uid="uid://frc0bpr8aovl" path="res://Sprites/map/chapter2/brokk_rune_house.png" id="city_brokk_rune_house"]
+[ext_resource type="Texture2D" uid="uid://dqqb7vvexvlwx" path="res://Sprites/map/chapter2/dvalin_smithy.png" id="city_dvalin_smithy"]
+[ext_resource type="Texture2D" uid="uid://bycmkjtn3ymbh" path="res://Sprites/map/chapter2/dwarf_street_row.png" id="city_dwarf_street_row"]
+[ext_resource type="Texture2D" uid="uid://cworco2nfsuts" path="res://Sprites/map/chapter2/hans_old_workshop.png" id="city_hans_old_workshop"]
+[ext_resource type="Texture2D" uid="uid://uaf233f5stl1" path="res://Sprites/map/chapter2/hedin_apothecary.png" id="city_hedin_apothecary"]
+[ext_resource type="Texture2D" uid="uid://ccxkdg2lwygly" path="res://Sprites/map/chapter2/helga_exchange.png" id="city_helga_exchange"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="PackedScene" uid="uid://bdgqbnav4qg14" path="res://scenes/npc/npc.tscn" id="npc"]
@@ -40,13 +39,15 @@ clamp_bounds_to_art = false
 bounds_follow_art_x = false
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=128523889]
+process_priority = 100
 texture_filter = 4
 script = ExtResource("c2_parallax")
 anchor_x = 2700.0
 floor_y = 943.0
+metadata/ignore_map_bounds = true
 
-[node name="Depth" type="Sprite2D" parent="Background"]
+[node name="Depth" type="Sprite2D" parent="Background" unique_id=1045936]
 z_index = -100
 texture_repeat = 3
 position = Vector2(2700, 483)
@@ -54,38 +55,33 @@ texture = ExtResource("c2_nidavellir_town_depth")
 region_enabled = true
 region_rect = Rect2(-5000, 0, 12000, 724)
 
-[node name="Floor" type="Sprite2D" parent="Background"]
-scale = Vector2(0.75, 1)
+[node name="Floor" type="Sprite2D" parent="Background" unique_id=1535755324]
 z_index = -50
 texture_repeat = 3
 position = Vector2(2700, 1128)
+scale = Vector2(0.75, 1)
 texture = ExtResource("c2_forge_ground")
 region_enabled = true
 region_rect = Rect2(-5000, 0, 12000, 550)
 
-[node name="FoundationFill" type="Polygon2D" parent="Background"]
+[node name="FoundationFill" type="Polygon2D" parent="Background" unique_id=2060614195]
 z_index = -51
-color = Color(0.10, 0.09, 0.08, 1)
+color = Color(0.1, 0.09, 0.08, 1)
 polygon = PackedVector2Array(-6000, 1398, 12000, 1398, 12000, 2000, -6000, 2000)
 
-
-
-
-
-
-[node name="BrokkBench" type="Sprite2D" parent="Background"]
+[node name="BrokkBench" type="Sprite2D" parent="Background" unique_id=173095898]
 z_index = -25
-position = Vector2(2400, 794.0)
-scale = Vector2(0.15212981744421908, 0.15212981744421908)
+position = Vector2(2400, 794)
+scale = Vector2(0.15212981, 0.15212981)
 texture = ExtResource("c2_rune_workbench")
 
-[node name="Lamp0" type="Sprite2D" parent="Background"]
+[node name="Lamp0" type="Sprite2D" parent="Background" unique_id=205009260]
 z_index = -20
-position = Vector2(820, 738.3443708609271)
-scale = Vector2(0.16887417218543047, 0.16887417218543047)
+position = Vector2(820, 738.34436)
+scale = Vector2(0.16887417, 0.16887417)
 texture = ExtResource("c2_dwarf_lantern")
 
-[node name="FlameAndLight" type="Node2D" parent="Background/Lamp0"]
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp0" unique_id=624082984]
 z_index = 40
 script = ExtResource("c2_fx")
 lantern_positions = PackedVector2Array(0, -378)
@@ -94,13 +90,13 @@ light_radius = 780.0
 light_energy = 0.4
 light_background = true
 
-[node name="Lamp1" type="Sprite2D" parent="Background"]
+[node name="Lamp1" type="Sprite2D" parent="Background" unique_id=463800341]
 z_index = -20
-position = Vector2(1720, 738.3443708609271)
-scale = Vector2(0.16887417218543047, 0.16887417218543047)
+position = Vector2(1720, 738.34436)
+scale = Vector2(0.16887417, 0.16887417)
 texture = ExtResource("c2_dwarf_lantern")
 
-[node name="FlameAndLight" type="Node2D" parent="Background/Lamp1"]
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp1" unique_id=1993039786]
 z_index = 40
 script = ExtResource("c2_fx")
 lantern_positions = PackedVector2Array(0, -378)
@@ -109,13 +105,13 @@ light_radius = 780.0
 light_energy = 0.4
 light_background = true
 
-[node name="Lamp2" type="Sprite2D" parent="Background"]
+[node name="Lamp2" type="Sprite2D" parent="Background" unique_id=1919031134]
 z_index = -20
-position = Vector2(2790, 738.3443708609271)
-scale = Vector2(0.16887417218543047, 0.16887417218543047)
+position = Vector2(2790, 738.34436)
+scale = Vector2(0.16887417, 0.16887417)
 texture = ExtResource("c2_dwarf_lantern")
 
-[node name="FlameAndLight" type="Node2D" parent="Background/Lamp2"]
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp2" unique_id=846128405]
 z_index = 40
 script = ExtResource("c2_fx")
 lantern_positions = PackedVector2Array(0, -378)
@@ -124,13 +120,13 @@ light_radius = 780.0
 light_energy = 0.4
 light_background = true
 
-[node name="Lamp3" type="Sprite2D" parent="Background"]
+[node name="Lamp3" type="Sprite2D" parent="Background" unique_id=827184086]
 z_index = -20
-position = Vector2(3370, 738.3443708609271)
-scale = Vector2(0.16887417218543047, 0.16887417218543047)
+position = Vector2(3370, 738.34436)
+scale = Vector2(0.16887417, 0.16887417)
 texture = ExtResource("c2_dwarf_lantern")
 
-[node name="FlameAndLight" type="Node2D" parent="Background/Lamp3"]
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp3" unique_id=1612786203]
 z_index = 40
 script = ExtResource("c2_fx")
 lantern_positions = PackedVector2Array(0, -378)
@@ -139,13 +135,13 @@ light_radius = 780.0
 light_energy = 0.4
 light_background = true
 
-[node name="Lamp4" type="Sprite2D" parent="Background"]
+[node name="Lamp4" type="Sprite2D" parent="Background" unique_id=1113639699]
 z_index = -20
-position = Vector2(4900, 738.3443708609271)
-scale = Vector2(0.16887417218543047, 0.16887417218543047)
+position = Vector2(4900, 738.34436)
+scale = Vector2(0.16887417, 0.16887417)
 texture = ExtResource("c2_dwarf_lantern")
 
-[node name="FlameAndLight" type="Node2D" parent="Background/Lamp4"]
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp4" unique_id=1950116761]
 z_index = 40
 script = ExtResource("c2_fx")
 lantern_positions = PackedVector2Array(0, -378)
@@ -154,6 +150,65 @@ light_radius = 780.0
 light_energy = 0.4
 light_background = true
 
+[node name="SindriMemorial" type="Sprite2D" parent="Background" unique_id=1665901298]
+z_index = -30
+position = Vector2(5012, 747.1996)
+scale = Vector2(0.24439919, 0.24439919)
+texture = ExtResource("c2_memorial")
+
+[node name="HelgaExchange" type="Sprite2D" parent="Background" unique_id=761745631]
+z_index = -30
+position = Vector2(550, 591.57513)
+scale = Vector2(0.58549225, 0.58549225)
+texture = ExtResource("city_helga_exchange")
+
+[node name="DvalinSmithy" type="Sprite2D" parent="Background" unique_id=846457143]
+z_index = -30
+position = Vector2(1350, 615.55237)
+scale = Vector2(0.6098964, 0.6098964)
+texture = ExtResource("city_dvalin_smithy")
+
+[node name="BrokkHouse" type="Sprite2D" parent="Background" unique_id=70979006]
+z_index = -30
+position = Vector2(2200, 595.61066)
+scale = Vector2(0.57933193, 0.57933193)
+texture = ExtResource("city_brokk_rune_house")
+
+[node name="HedinApothecary" type="Sprite2D" parent="Background" unique_id=989017645]
+z_index = -30
+position = Vector2(3850, 599.5799)
+scale = Vector2(0.5635246, 0.5635246)
+texture = ExtResource("city_hedin_apothecary")
+
+[node name="HansWorkshop" type="Sprite2D" parent="Background" unique_id=1488459553]
+z_index = -30
+position = Vector2(4550, 657.25806)
+scale = Vector2(0.5707196, 0.5707196)
+texture = ExtResource("city_hans_old_workshop")
+
+[node name="CityBack0" type="Sprite2D" parent="Background" unique_id=981215791]
+modulate = Color(0.74, 0.76, 0.8, 1)
+z_index = -60
+position = Vector2(650, 513.1513)
+scale = Vector2(1.0892587, 1.0892587)
+texture = ExtResource("city_dwarf_street_row")
+metadata/city_anchor_x = 650.0
+
+[node name="CityBack1" type="Sprite2D" parent="Background" unique_id=297965488]
+modulate = Color(0.74, 0.76, 0.8, 1)
+z_index = -60
+position = Vector2(2500, 513.1513)
+scale = Vector2(1.0892587, 1.0892587)
+texture = ExtResource("city_dwarf_street_row")
+metadata/city_anchor_x = 2500.0
+
+[node name="CityBack2" type="Sprite2D" parent="Background" unique_id=1524227140]
+modulate = Color(0.74, 0.76, 0.8, 1)
+z_index = -60
+position = Vector2(4400, 513.1513)
+scale = Vector2(1.0892587, 1.0892587)
+texture = ExtResource("city_dwarf_street_row")
+metadata/city_anchor_x = 4400.0
 
 [node name="Terrain" type="Node2D" parent="." unique_id=728326318]
 
@@ -186,14 +241,14 @@ position = Vector2(5200, 843)
 [node name="Portals" type="Node2D" parent="." unique_id=713811608]
 
 [node name="ToRoad" parent="Portals" unique_id=978388567 instance=ExtResource("portal")]
-position = Vector2(77, 844)
+position = Vector2(64, 884)
 target_map = &"iron_road"
 target_spawn_point = &"from_town"
 label_text = "← ทางเหล็ก"
 destination_name = "ทางเหล็ก"
 
 [node name="ToMine" parent="Portals" unique_id=564538363 instance=ExtResource("portal")]
-position = Vector2(5334, 841)
+position = Vector2(5331, 894)
 target_map = &"ember_mine"
 target_spawn_point = &"from_town"
 label_text = "→ เหมืองถ่านไฟ"
@@ -328,80 +383,18 @@ text = "หลุมศพเก่า ชื่อบนป้ายถูก�
 มีดอกไม้แห้งวางอยู่ ใครบางคนยังมาเยี่ยม"
 label_text = "หลุมศพเก่า"
 
-
-[node name="Darkness" type="CanvasModulate" parent="." unique_id=468050428]
-color = Color(0.86, 0.88, 0.92, 1)
-
-[node name="RunebladeWorkbench" parent="Lore" instance=ExtResource("lore")]
+[node name="RunebladeWorkbench" parent="Lore" unique_id=2093910112 instance=ExtResource("lore")]
 position = Vector2(2400, 810)
 lore_id = &"rb_brokk_workbench"
 title = "ชิ้นรูนไร้เสียง"
-text = "บรอกก์วางชิ้นรูนข้างเครื่องมือเก่า ร่องบนโลหะสิ้นสุดกลางทาง คล้ายแบบร่างค้อนที่ขาดวงจรส่วนหนึ่ง\n\nบันทึกข้างทั่งเขียนไว้ว่า: รับพลังได้แล้ว แต่ทางคืนพลังอยู่ที่ใด? ญอร์ดาแห่งวานาเฮมอาจจำอักษรนี้ได้\n\nหากเจ้ายังเดินในวิถีนักดาบ ลองถามบรอกก์ถึงสิ่งที่ค้อนมิได้สอน"
+text = "บรอกก์วางชิ้นรูนข้างเครื่องมือเก่า ร่องบนโลหะสิ้นสุดกลางทาง คล้ายแบบร่างค้อนที่ขาดวงจรส่วนหนึ่ง
+
+บันทึกข้างทั่งเขียนไว้ว่า: รับพลังได้แล้ว แต่ทางคืนพลังอยู่ที่ใด? ญอร์ดาแห่งวานาเฮมอาจจำอักษรนี้ได้
+
+หากเจ้ายังเดินในวิถีนักดาบ ลองถามบรอกก์ถึงสิ่งที่ค้อนมิได้สอน"
 required_flag = &"chapter2_done"
 locked_text = "บรอกก์ยังเทียบรอยรูนไม่เสร็จ ต้องค้นความจริงจากแบบร่างในเตาหลอมร้างก่อน"
 label_text = "โต๊ะศึกษารูน"
 
-[node name="SindriMemorial" type="Sprite2D" parent="Background"]
-z_index = -30
-position = Vector2(5012, 747.1995926680245)
-scale = Vector2(0.24439918533604887, 0.24439918533604887)
-texture = ExtResource("c2_memorial")
-
-[node name="HelgaExchange" type="Sprite2D" parent="Background"]
-z_index = -30
-position = Vector2(550, 591.5751295336788)
-scale = Vector2(0.5854922279792746, 0.5854922279792746)
-texture = ExtResource("city_helga_exchange")
-
-
-[node name="DvalinSmithy" type="Sprite2D" parent="Background"]
-z_index = -30
-position = Vector2(1350, 615.5523590333717)
-scale = Vector2(0.6098964326812428, 0.6098964326812428)
-texture = ExtResource("city_dvalin_smithy")
-
-
-[node name="BrokkHouse" type="Sprite2D" parent="Background"]
-z_index = -30
-position = Vector2(2200, 595.6106471816283)
-scale = Vector2(0.5793319415448852, 0.5793319415448852)
-texture = ExtResource("city_brokk_rune_house")
-
-
-[node name="HedinApothecary" type="Sprite2D" parent="Background"]
-z_index = -30
-position = Vector2(3850, 599.579918032787)
-scale = Vector2(0.5635245901639344, 0.5635245901639344)
-texture = ExtResource("city_hedin_apothecary")
-
-
-[node name="HansWorkshop" type="Sprite2D" parent="Background"]
-z_index = -30
-position = Vector2(4550, 657.258064516129)
-scale = Vector2(0.5707196029776674, 0.5707196029776674)
-texture = ExtResource("city_hans_old_workshop")
-
-
-[node name="CityBack0" type="Sprite2D" parent="Background"]
-z_index = -60
-position = Vector2(650, 513.1512859304084)
-scale = Vector2(1.0892586989409985, 1.0892586989409985)
-texture = ExtResource("city_dwarf_street_row")
-modulate = Color(0.74, 0.76, 0.8, 1)
-metadata/city_anchor_x = 650.0
-
-[node name="CityBack1" type="Sprite2D" parent="Background"]
-z_index = -60
-position = Vector2(2500, 513.1512859304084)
-scale = Vector2(1.0892586989409985, 1.0892586989409985)
-texture = ExtResource("city_dwarf_street_row")
-modulate = Color(0.74, 0.76, 0.8, 1)
-metadata/city_anchor_x = 2500.0
-
-[node name="CityBack2" type="Sprite2D" parent="Background"]
-z_index = -60
-position = Vector2(4400, 513.1512859304084)
-scale = Vector2(1.0892586989409985, 1.0892586989409985)
-texture = ExtResource("city_dwarf_street_row")
-modulate = Color(0.74, 0.76, 0.8, 1)
-metadata/city_anchor_x = 4400.0
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=468050428]
+color = Color(0.86, 0.88, 0.92, 1)

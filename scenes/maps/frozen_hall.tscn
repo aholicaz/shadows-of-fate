@@ -6,20 +6,18 @@
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
-[ext_resource type="Resource" path="res://data/monsters/echo_wraith.tres" id="md_echo_wraith"]
-[ext_resource type="Resource" path="res://data/monsters/stone_soldier.tres" id="md_stone_soldier"]
+[ext_resource type="Resource" uid="uid://cvuu0ujmaunxn" path="res://data/monsters/echo_wraith.tres" id="md_echo_wraith"]
+[ext_resource type="Resource" uid="uid://duy2334vdah46" path="res://data/monsters/stone_soldier.tres" id="md_stone_soldier"]
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
 [ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Texture2D" uid="uid://bh4l0c7eh0apq" path="res://Sprites/map/chapter4/organic/frozen_hall_0.png" id="organic_0"]
+[ext_resource type="Texture2D" uid="uid://dkahp707kas72" path="res://Sprites/map/chapter4/organic/frozen_hall_1.png" id="organic_1"]
+[ext_resource type="Texture2D" uid="uid://c101q4o2h2q" path="res://Sprites/map/chapter4/organic/frozen_hall_2.png" id="organic_2"]
+[ext_resource type="Texture2D" uid="uid://bkj3pg2kn50gy" path="res://Sprites/map/chapter4/organic/frozen_hall_3.png" id="organic_3"]
+[ext_resource type="Texture2D" uid="uid://vv2bfldmehx0" path="res://Sprites/map/chapter4/organic/frozen_hall_foundation.png" id="organic_foundation"]
 [ext_resource type="Script" uid="uid://cs8flp0jpgphg" path="res://scripts/world/frozen_hall_parallax.gd" id="parallax"]
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frozen_hall_0.png" id="organic_0"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frozen_hall_1.png" id="organic_1"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frozen_hall_2.png" id="organic_2"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frozen_hall_3.png" id="organic_3"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frozen_hall_foundation.png" id="organic_foundation"]
-
-
 
 [sub_resource type="ShaderMaterial" id="IceAtmosphere"]
 shader = ExtResource("atmosphere")
@@ -38,16 +36,13 @@ clamp_bounds_to_art = false
 bounds_follow_art_x = false
 player_scene = ExtResource("player")
 
-
 [node name="Background" type="Node2D" parent="." unique_id=33237141]
 script = ExtResource("parallax")
-
 
 [node name="Backdrop" type="Polygon2D" parent="Background" unique_id=1956592752]
 z_index = -110
 color = Color(0.025, 0.045, 0.09, 1)
 polygon = PackedVector2Array(-5000, -2500, 10000, -2500, 10000, 3000, -5000, 3000)
-
 
 [node name="Depth" type="Sprite2D" parent="Background" unique_id=307485230]
 modulate = Color(0.7, 0.84, 1, 1)
@@ -60,7 +55,6 @@ texture = ExtResource("ice_depth")
 region_enabled = true
 region_rect = Rect2(-6000, 0, 12000, 724)
 
-
 [node name="Arches" type="Sprite2D" parent="Background" unique_id=115136304]
 modulate = Color(0.6, 0.76, 0.91, 0.86)
 z_index = -70
@@ -72,49 +66,70 @@ texture = ExtResource("ice_arches")
 region_enabled = true
 region_rect = Rect2(-6000, 0, 12000, 724)
 
-
 [node name="Atmosphere" type="Polygon2D" parent="Background" unique_id=1232168950]
 z_index = -2
 material = SubResource("IceAtmosphere")
 polygon = PackedVector2Array(-300, -350, 5300, -350, 5300, 1250, -300, 1250)
 uv = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
 
+[node name="OrganicRoad0" type="Sprite2D" parent="Background" unique_id=1644827635]
+z_index = -40
+position = Vector2(-1200, 170)
+texture = ExtResource("organic_0")
+centered = false
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background" unique_id=808012779]
+z_index = -40
+position = Vector2(800, 170)
+texture = ExtResource("organic_1")
+centered = false
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background" unique_id=1125546158]
+z_index = -40
+position = Vector2(2800, 170)
+texture = ExtResource("organic_2")
+centered = false
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background" unique_id=890950519]
+z_index = -40
+position = Vector2(4800, 170)
+texture = ExtResource("organic_3")
+centered = false
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background" unique_id=1470281522]
+z_index = -45
+texture_repeat = 3
+position = Vector2(2600, 1960)
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)
 
 [node name="Terrain" type="Node2D" parent="." unique_id=568201336]
-
 
 [node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=2062500484]
 position = Vector2(2500, 1000)
 collision_mask = 0
 
-
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1922025550]
 shape = SubResource("Rect_ground")
-
 
 [node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=1924139069]
 visible = false
 color = Color(0.36, 0.4, 0.5, 1)
 polygon = PackedVector2Array(-2700, -120, 2700, -120, 2700, 120, -2700, 120)
 
-
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=1489011683]
-
 
 [node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1776133569]
 position = Vector2(200, 820)
 
-
 [node name="from_steppe" type="Marker2D" parent="SpawnPoints" unique_id=1625875294]
 position = Vector2(200, 820)
-
 
 [node name="from_wall" type="Marker2D" parent="SpawnPoints" unique_id=791302238]
 position = Vector2(4800, 820)
 
-
 [node name="Spawners" type="Node2D" parent="." unique_id=1205976789]
-
 
 [node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=38409771]
 script = ExtResource("map_spawner")
@@ -123,28 +138,23 @@ count_per_type = 4
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
 
-
 [node name="Portals" type="Node2D" parent="." unique_id=1388533504]
 
-
 [node name="ToSteppe" parent="Portals" unique_id=893914569 instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(72, 807)
 target_map = &"giant_steppe"
 target_spawn_point = &"from_hall"
 label_text = "← ทุ่งหญ้ายักษ์"
 destination_name = "ทุ่งหญ้ายักษ์"
 
-
 [node name="ToWall" parent="Portals" unique_id=637137609 instance=ExtResource("portal")]
-position = Vector2(4940, 880)
+position = Vector2(4940, 808)
 target_map = &"broken_wall"
 target_spawn_point = &"from_hall"
 label_text = "→ กำแพงที่แตก"
 destination_name = "กำแพงที่แตก"
 
-
 [node name="Lore" type="Node2D" parent="." unique_id=763107472]
-
 
 [node name="InvasionMural" parent="Lore" unique_id=57416395 instance=ExtResource("lore")]
 position = Vector2(2700, 790)
@@ -163,7 +173,6 @@ text = "ภาพวาดยาวเต็มผนัง สีซีดแ�
 set_flag = &"saw_invasion_mural"
 label_text = "★ ภาพวาดโบราณ ★"
 
-
 [node name="ChildDrawing" parent="Lore" unique_id=528243937 instance=ExtResource("lore")]
 position = Vector2(1300, 790)
 lore_id = &"child_drawing"
@@ -174,35 +183,3 @@ text = "ใต้ภาพวาดใหญ่ มีรอยขีดเล�
 
 วาดก่อนหรือหลังกำแพงแตก ไม่มีใครรู้"
 label_text = "รอยขีด"
-
-[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
-z_index = -40
-position = Vector2(-1200, 170)
-centered = false
-texture = ExtResource("organic_0")
-
-[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
-z_index = -40
-position = Vector2(800, 170)
-centered = false
-texture = ExtResource("organic_1")
-
-[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
-z_index = -40
-position = Vector2(2800, 170)
-centered = false
-texture = ExtResource("organic_2")
-
-[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
-z_index = -40
-position = Vector2(4800, 170)
-centered = false
-texture = ExtResource("organic_3")
-
-[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
-z_index = -45
-position = Vector2(2600.0, 1960)
-texture_repeat = 3
-texture = ExtResource("organic_foundation")
-region_enabled = true
-region_rect = Rect2(0, 0, 16000, 1600)

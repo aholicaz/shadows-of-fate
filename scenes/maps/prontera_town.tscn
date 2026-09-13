@@ -16,31 +16,22 @@
 [ext_resource type="Texture2D" uid="uid://ebs7rusrgjgy" path="res://Sprites/portraits/Ingrid.png" id="18_6ce6c"]
 [ext_resource type="Texture2D" uid="uid://byyvju3piyvdi" path="res://Sprites/npc/adventurer_idle.png" id="19_63tt3"]
 [ext_resource type="Texture2D" uid="uid://btvljbbjlc58p" path="res://Sprites/portraits/GuildMaster.png" id="22_lpoml"]
+[ext_resource type="Texture2D" uid="uid://sxqx5udxocd0" path="res://Sprites/map/chapter1/organic/prontera_town_depth.png" id="c1_depth"]
+[ext_resource type="Script" uid="uid://riwa85xul2mt" path="res://scripts/world/chapter1_npc_fit.gd" id="c1_npc_fit"]
+[ext_resource type="Script" uid="uid://b0ar5a6luocix" path="res://scripts/world/chapter6_parallax.gd" id="c1_parallax"]
+[ext_resource type="Script" uid="uid://kifkn0yanmks" path="res://scripts/world/chapter4_npc_shadow.gd" id="c1_shadow"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="PackedScene" uid="uid://bdgqbnav4qg14" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="Texture2D" uid="uid://y4c4hxho0qci" path="res://Sprites/map/chapter1/organic/prontera_town_0.png" id="organic_0"]
+[ext_resource type="Texture2D" uid="uid://bcaaysnpn1jkb" path="res://Sprites/map/chapter1/organic/prontera_town_1.png" id="organic_1"]
+[ext_resource type="Texture2D" uid="uid://cbhktsfg46keu" path="res://Sprites/map/chapter1/organic/prontera_town_2.png" id="organic_2"]
+[ext_resource type="Texture2D" uid="uid://c22tk6w3vmrxs" path="res://Sprites/map/chapter1/organic/prontera_town_3.png" id="organic_3"]
+[ext_resource type="Texture2D" uid="uid://b2she5f122g87" path="res://Sprites/map/chapter1/organic/prontera_town_4.png" id="organic_4"]
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="c1_parallax"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/prontera_town_depth.png" id="c1_depth"]
-[ext_resource type="Script" path="res://scripts/world/chapter1_npc_fit.gd" id="c1_npc_fit"]
-[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="c1_shadow"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/prontera_town_0.png" id="organic_0"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/prontera_town_1.png" id="organic_1"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/prontera_town_2.png" id="organic_2"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/prontera_town_3.png" id="organic_3"]
-[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/prontera_town_4.png" id="organic_4"]
 
-
-[sub_resource type="RectangleShape2D" id="Rect_0"]
-size = Vector2(7234, 39)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bhb5w"]
-animations = [{
-"frames": [],
-"loop": 1,
-"name": &"Idle",
-"speed": 8.0
-}]
+[sub_resource type="RectangleShape2D" id="C1Floor"]
+size = Vector2(7700, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63tt3"]
 atlas = ExtResource("6_46nb1")
@@ -132,39 +123,11 @@ animations = [{
 atlas = ExtResource("9_12r2t")
 region = Rect2(0, 0, 513, 770)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bkw0j"]
-atlas = ExtResource("9_12r2t")
-region = Rect2(1026, 0, 513, 770)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_smqou"]
-atlas = ExtResource("9_12r2t")
-region = Rect2(0, 770, 513, 770)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ml2jm"]
-atlas = ExtResource("9_12r2t")
-region = Rect2(513, 770, 513, 770)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kh261"]
-atlas = ExtResource("9_12r2t")
-region = Rect2(1026, 770, 513, 770)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6f5qt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bkw0j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_smqou")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ml2jm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kh261")
 }],
 "loop": 1,
 "name": &"Idle",
@@ -919,47 +882,41 @@ animations = [{
 "speed": 3.0
 }]
 
-
-[sub_resource type="RectangleShape2D" id="C1Floor"]
-size = Vector2(7700, 60)
-
 [node name="Map2" type="Node2D" unique_id=983589772]
 script = ExtResource("map_base")
 map_id = &"prontera_town"
 display_name = "พรอนเทรา นครแห่งสายฟ้า"
 map_bounds = Rect2(-2800, -160, 7300, 1200)
-player_scene = ExtResource("player")
 clamp_bounds_to_art = false
 bounds_follow_art_x = false
-
+player_scene = ExtResource("player")
 
 [node name="Terrain" type="Node2D" parent="." unique_id=1444048664]
 
+[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=1949528636]
+position = Vector2(850, 750)
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1974777551]
+shape = SubResource("C1Floor")
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=386314343]
-
 
 [node name="default" type="Marker2D" parent="SpawnPoints" unique_id=744531472]
 position = Vector2(3800, 580)
 
-
 [node name="from_field" type="Marker2D" parent="SpawnPoints" unique_id=118970678]
 position = Vector2(4170, 580)
 
-
 [node name="Portals" type="Node2D" parent="." unique_id=706764151]
-
 
 [node name="ToField" parent="Portals" unique_id=2006643713 instance=ExtResource("portal")]
 position = Vector2(4350, 670)
 target_map = &"prontera_field"
 target_spawn_point = &"from_town"
 label_text = "→ ทุ่งวิหาร"
-visible = true
-
 
 [node name="NPCs" type="Node2D" parent="." unique_id=524951142]
-
 
 [node name="Merchant" parent="NPCs" unique_id=1565733649 instance=ExtResource("npc")]
 position = Vector2(1770, 660)
@@ -973,7 +930,6 @@ shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"blue_potion",
 voice_id = "tony"
 quest_ids = Array[StringName]([&"tony_fabre"])
 
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Merchant" unique_id=36482936]
 position = Vector2(-3, -13.999981)
 scale = Vector2(0.34356725, 0.34356725)
@@ -982,6 +938,9 @@ autoplay = "default"
 script = ExtResource("c1_npc_fit")
 actor_height = 275.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Merchant" unique_id=1710279295]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="Blacksmith" parent="NPCs" unique_id=1359939436 instance=ExtResource("npc")]
 position = Vector2(-610, 660)
@@ -995,7 +954,6 @@ portrait_file = "res://Sprites/portraits/hans.png"
 voice_id = "hans"
 quest_ids = Array[StringName]([&"hans_poring", &"m5_old_mine_iron"])
 
-
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="NPCs/Blacksmith" unique_id=1862143772]
 position = Vector2(-7, 1.9999924)
 scale = Vector2(0.35302803, 0.35302806)
@@ -1006,6 +964,9 @@ frame_progress = 0.46044508
 script = ExtResource("c1_npc_fit")
 actor_height = 280.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Blacksmith" unique_id=1718256273]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="Healer" parent="NPCs" unique_id=981804629 instance=ExtResource("npc")]
 position = Vector2(2980, 660)
@@ -1014,7 +975,6 @@ type = 3
 dialog = "บาดแผลของเจ้าจะหายดี จงขอบคุณธอร์เถิด"
 portrait = ExtResource("9_put8n")
 voice_id = "maria"
-
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Healer" unique_id=1369066492]
 position = Vector2(2.0000546, -14.000019)
@@ -1026,6 +986,9 @@ frame_progress = 0.21823835
 script = ExtResource("c1_npc_fit")
 actor_height = 265.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Healer" unique_id=2046773899]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="SavePoint" parent="NPCs" unique_id=1149238899 instance=ExtResource("npc")]
 position = Vector2(3590, 660)
@@ -1038,7 +1001,6 @@ warp_flags = {
 }
 quest_talk_names = Array[StringName]([&"ศิลาสลักแห่งธอร์"])
 
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/SavePoint" unique_id=1114171629]
 position = Vector2(2, -25)
 scale = Vector2(0.5643275, 0.5643275)
@@ -1049,6 +1011,9 @@ frame_progress = 0.12460094
 script = ExtResource("c1_npc_fit")
 actor_height = 270.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/SavePoint" unique_id=2133200160]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="Guide" parent="NPCs" unique_id=1727980527 instance=ExtResource("npc")]
 position = Vector2(4075, 660)
@@ -1065,7 +1030,6 @@ portrait = ExtResource("12_uap02")
 voice_id = "erik"
 quest_ids = Array[StringName]([&"m1_adventurer_badge", &"m7_silent_forest", &"m13_thunder_scar"])
 
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Guide" unique_id=458557870]
 position = Vector2(-2, -16.000013)
 scale = Vector2(0.3825536, 0.3825536)
@@ -1076,6 +1040,9 @@ frame_progress = 0.0011229648
 script = ExtResource("c1_npc_fit")
 actor_height = 280.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Guide" unique_id=104354605]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="HighPriest" parent="NPCs" unique_id=1318346366 instance=ExtResource("npc")]
 position = Vector2(2190, 660)
@@ -1097,7 +1064,6 @@ greeting = "เจ้ามาหาข้าด้วยเรื่องใ�
 voice_id = "valder"
 quest_ids = Array[StringName]([&"m2_oath", &"m6_ceremony", &"m8_burnt_bark", &"m12_shadow"])
 
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/HighPriest" unique_id=1929005518]
 position = Vector2(12.999996, -29.000025)
 scale = Vector2(0.37016425, 0.37016425)
@@ -1108,6 +1074,9 @@ frame_progress = 0.6362185
 script = ExtResource("c1_npc_fit")
 actor_height = 280.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/HighPriest" unique_id=1306722877]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="OldMan" parent="NPCs" unique_id=1084804787 instance=ExtResource("npc")]
 position = Vector2(-2500, 660)
@@ -1139,7 +1108,6 @@ dialog_by_flag = {
 portrait = ExtResource("16_y0k02")
 voice_id = "gunnar"
 
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/OldMan" unique_id=2045269019]
 position = Vector2(0, -20.999977)
 scale = Vector2(0.34941518, 0.34941515)
@@ -1149,6 +1117,9 @@ autoplay = "Idle"
 script = ExtResource("c1_npc_fit")
 actor_height = 265.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/OldMan" unique_id=1962784899]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="Ingrid" parent="NPCs" unique_id=1434718339 instance=ExtResource("npc")]
 position = Vector2(345, 660)
@@ -1162,7 +1133,6 @@ portrait = ExtResource("18_6ce6c")
 voice_id = "ingrid"
 quest_ids = Array[StringName]([&"m9_missing_hunter", &"m10_hunter_journal"])
 
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Ingrid" unique_id=1192510778]
 position = Vector2(2.9999542, -13.999986)
 scale = Vector2(0.58015305, 0.58015305)
@@ -1171,6 +1141,9 @@ autoplay = "default"
 script = ExtResource("c1_npc_fit")
 actor_height = 270.0
 
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Ingrid" unique_id=357781370]
+script = ExtResource("c1_shadow")
+fit_actor_size = true
 
 [node name="GuildMaster" parent="NPCs" unique_id=907818509 instance=ExtResource("npc")]
 position = Vector2(-1470, 660)
@@ -1186,7 +1159,6 @@ portrait = ExtResource("22_lpoml")
 voice_id = "bjorn"
 quest_ids = Array[StringName]([&"m11_king_poring"])
 
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/GuildMaster" unique_id=1565329367]
 position = Vector2(-1.9999876, -46.000008)
 scale = Vector2(0.46077, 0.46077)
@@ -1196,89 +1168,49 @@ frame_progress = 0.029318195
 script = ExtResource("c1_npc_fit")
 actor_height = 285.0
 
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/Merchant"]
+[node name="FootShadow" type="Sprite2D" parent="NPCs/GuildMaster" unique_id=1940206701]
 script = ExtResource("c1_shadow")
 fit_actor_size = true
 
-[node name="FootShadow" type="Sprite2D" parent="NPCs/Blacksmith"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/Healer"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/SavePoint"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/Guide"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/HighPriest"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/OldMan"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/Ingrid"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="FootShadow" type="Sprite2D" parent="NPCs/GuildMaster"]
-script = ExtResource("c1_shadow")
-fit_actor_size = true
-
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=1879220247]
 script = ExtResource("c1_parallax")
 anchor_x = 850.0
-atmosphere = Color(0.9,0.84,0.54,0.24)
+atmosphere = Color(0.9, 0.84, 0.54, 0.24)
 mote_amount = 32
 mist_strength = 0.018
 
-[node name="Depth" type="Sprite2D" parent="Background"]
+[node name="Depth" type="Sprite2D" parent="Background" unique_id=1060255143]
 z_index = -100
 texture_repeat = 3
 texture = ExtResource("c1_depth")
 region_enabled = true
 
-[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+[node name="OrganicRoad0" type="Sprite2D" parent="Background" unique_id=1421094666]
 z_index = -40
 position = Vector2(-4000, -290)
-centered = false
 texture = ExtResource("organic_0")
+centered = false
 
-[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+[node name="OrganicRoad1" type="Sprite2D" parent="Background" unique_id=1580379856]
 z_index = -40
 position = Vector2(-2000, -290)
-centered = false
 texture = ExtResource("organic_1")
+centered = false
 
-[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+[node name="OrganicRoad2" type="Sprite2D" parent="Background" unique_id=285894104]
 z_index = -40
 position = Vector2(0, -290)
-centered = false
 texture = ExtResource("organic_2")
+centered = false
 
-[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+[node name="OrganicRoad3" type="Sprite2D" parent="Background" unique_id=1707077413]
 z_index = -40
 position = Vector2(2000, -290)
-centered = false
 texture = ExtResource("organic_3")
+centered = false
 
-[node name="OrganicRoad4" type="Sprite2D" parent="Background"]
+[node name="OrganicRoad4" type="Sprite2D" parent="Background" unique_id=91924104]
 z_index = -40
 position = Vector2(4000, -290)
-centered = false
 texture = ExtResource("organic_4")
-
-[node name="Ground" type="StaticBody2D" parent="Terrain"]
-position = Vector2(850.0, 750)
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
-shape = SubResource("C1Floor")
+centered = false
