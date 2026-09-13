@@ -8,6 +8,11 @@
 ## ค่าพลังทั้งหมดดึงจาก PlayerState ไม่ต้องแก้ในไฟล์นี้
 extends CharacterBody2D
 
+@export var visual_job_override: StringName = &""
+
+func _uses_runeblade_visual() -> bool:
+	return visual_job_override == &"runeblade" or (visual_job_override == &"" and PlayerState.stats != null and PlayerState.stats.job_id == &"runeblade")
+
 const JUMP_VELOCITY := -420.0
 const KNOCKBACK_DECAY := 900.0
 
@@ -519,6 +524,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	_apply_auto_fit()
+	preload("res://scripts/entities/runeblade_visual.gd").update_idle(sprite)
 
 
 # =========================================================
@@ -616,6 +622,11 @@ func _start_dodge() -> void:
 	knockback = Vector2.ZERO
 	velocity.y = 0.0
 	_play_dodge()
+	var dash_light := preload("res://scripts/entities/rune_dash_fx.gd").new()
+	dash_light.caster = self
+	dash_light.facing = facing
+	dash_light.dodge = true
+	add_child(dash_light)
 
 
 func _dodge_step(delta: float) -> void:
@@ -902,7 +913,10 @@ func _update_animation() -> void:
 
 	_jump_anim = ""
 	if absf(velocity.x) > 10.0:
-		_play("Run")
+		var move_pose := "Run"
+		if _uses_runeblade_visual() and absf(velocity.x) < PlayerState.stats.move_speed * 0.75:
+			move_pose = "Walk"
+		_play(move_pose)
 	else:
 		_play("Idle")
 
@@ -944,9 +958,10 @@ func weapon_suffix() -> String:
 ## 3) ตัวสำรองอื่น ๆ
 func _fallback_chain(anim: String, include_job: bool = true) -> Array:
 	var chain: Array = []
-	if include_job and anim == "Idle" and PlayerState.stats != null and PlayerState.stats.job_id == &"runeblade":
-		preload("res://scripts/entities/runeblade_visual.gd").install(sprite)
-		chain.append("Idle_Runeblade")
+	if include_job and _uses_runeblade_visual():
+		var job_pose: String = preload("res://scripts/entities/runeblade_visual.gd").route(sprite, anim)
+		if not job_pose.is_empty():
+			chain.append(job_pose)
 	# Socket weapons use the existing bare-hand Idle, not a baked-in sword.
 	if anim == "Idle":
 		var equipped := PlayerState.equipment.weapon()
@@ -1009,6 +1024,7 @@ func _play(anim: String, restart: bool = false) -> String:
 			# เป็นบั๊กเดียวกับที่มอนเจอตอนรอบ 88 — ฝั่งผู้เล่นเพิ่งได้แก้
 			if switched:
 				_apply_auto_fit()
+				preload("res://scripts/entities/runeblade_visual.gd").update_idle(sprite)
 			return real
 	return ""
 
@@ -1034,6 +1050,8 @@ func _apply_auto_fit() -> void:
 	if list.is_empty():
 		return
 	var fd: Dictionary = list[clampi(sprite.frame, 0, list.size() - 1)]
+	k = float(fd.get("scale", k))
+	sprite.scale = Vector2(k,k)
 
 	# แนวนอน: จัดให้ตัวละครอยู่กึ่งกลาง (สลับข้างตอนหันกลับ)
 	sprite.offset.x = fd.dx_use if sprite.flip_h else -fd.dx_use
@@ -1148,8 +1166,8 @@ func _feet_y() -> float:
 func _fit_info(anim: StringName) -> Dictionary:
 	if _fit_cache.has(anim):
 		return _fit_cache[anim]
-	if anim == &"Idle_Runeblade":
-		var job_fit := preload("res://scripts/entities/runeblade_visual.gd").fit(sprite.sprite_frames,auto_fit_height)
+	if preload("res://scripts/entities/runeblade_visual.gd").is_pose(sprite.sprite_frames, anim):
+		var job_fit := preload("res://scripts/entities/runeblade_visual.gd").fit(sprite.sprite_frames,auto_fit_height,anim)
 		_fit_cache[anim] = job_fit
 		return job_fit
 
@@ -1356,6 +1374,12 @@ func attack_animation() -> String:
 ## ★ ชื่อท่าที่ควรเล่นตอนใช้สกิลนี้ ★ (ดูจากอาวุธที่ถือ + สกิลที่ใช้)
 ## ไล่หาตามลำดับ: ท่าที่ตั้งไว้ในสกิล → ท่าอาวุธ+สกิล → ท่าสกิลกลาง → ท่าโจมตีของอาวุธ
 func skill_animation(skill_id: StringName) -> String:
+	if _uses_runeblade_visual():
+		preload("res://scripts/entities/runeblade_visual.gd").install(sprite)
+		var routes: Dictionary = sprite.sprite_frames.get_meta("rb_skill_routes", {})
+		var pose: String = routes.get(String(skill_id), "")
+		if not pose.is_empty() and _has_anim(pose):
+			return pose
 	var s := GameData.get_skill(skill_id)
 
 	# 1) ท่าเฉพาะที่ตั้งไว้ในไฟล์สกิลเอง (ช่อง Animation)
@@ -1386,6 +1410,8 @@ func skill_animation(skill_id: StringName) -> String:
 func _wave_animation_timing(skill: SkillData, anim: String) -> Vector3:
 	var frames := sprite.sprite_frames
 	if anim.to_lower() != String(skill.animation).to_lower() or frames == null or anim == "":
+		if frames != null and frames.get_meta("rb_hit_frames",{}).has(anim):
+			return Vector3(skill.cast_windup,skill.cast_windup+.15,_anim_length(anim)/(skill.cast_windup+.15))
 		return Vector3(skill.cast_windup, skill.cast_windup + 0.15, 1.0)
 	var count := frames.get_frame_count(anim)
 	var release := clampi(skill.wave_release_frame, 0, maxi(0, count - 1))
@@ -1405,6 +1431,10 @@ func _wave_animation_timing(skill: SkillData, anim: String) -> Vector3:
 func _has_anim(name: String) -> bool:
 	if sprite.sprite_frames == null:
 		return false
+	if _uses_runeblade_visual():
+		var routed: String = preload("res://scripts/entities/runeblade_visual.gd").route(sprite,name)
+		if not routed.is_empty() and sprite.sprite_frames.has_animation(routed):
+			return sprite.sprite_frames.get_frame_count(routed)>0
 	var real := _real_anim(name)
 	return real != "" and sprite.sprite_frames.get_frame_count(real) > 0
 
@@ -1563,6 +1593,11 @@ func _attack_progress() -> float:
 ## ★ ท่าของจังหวะนี้ ★ ไล่หา: ท่าอาวุธ+คำต่อท้าย (Attack_Blade_2) → ท่ายืม (Attack_Blade_slash) → ท่าพื้นฐาน
 ## วาดท่าใหม่ชื่อ Attack_Blade_2 / _3 เมื่อไหร่ ระบบจะสลับไปใช้ให้เองโดยไม่ต้องแก้อะไร
 func combo_attack_animation(step: int) -> String:
+	if _uses_runeblade_visual():
+		preload("res://scripts/entities/runeblade_visual.gd").install(sprite)
+		var pose := "Attack_Runeblade_%d" % (clampi(step, 0, 2) + 1)
+		if _has_anim(pose):
+			return pose
 	var base := attack_animation()
 	# Socket swords share the calibrated bare-hand combo. Keep attack_animation()
 	# unchanged so each weapon's existing skill animations still resolve normally.
@@ -1593,6 +1628,9 @@ func combo_attack_animation(step: int) -> String:
 func _attack_hit_time(played_anim: String, step: int) -> float:
 	if played_anim == "" or sprite.sprite_frames == null:
 		return attack_windup
+	var authored_hits: Dictionary = sprite.sprite_frames.get_meta("rb_hit_frames", {})
+	if authored_hits.has(played_anim):
+		return _anim_time_to_frame(played_anim, int(authored_hits[played_anim]))
 	var frame := -1
 	if step >= 0 and step < combo_hit_frames.size():
 		frame = combo_hit_frames[step]

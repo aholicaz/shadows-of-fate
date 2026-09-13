@@ -125,7 +125,9 @@ def install(mid, anims):
             src=WORK/'downloads'/source/f'frame_{f:02}.png'
             dst=ROOT/'Sprites/monsters/spriteflow'/mid/source/f'frame_{f:02}.png'
             dst.parent.mkdir(parents=True,exist_ok=True)
-            shutil.copy2(src,dst)
+            # Existing runtime PNGs may contain the artist's later manual edits.
+            if not dst.exists():
+                shutil.copy2(src,dst)
             with Image.open(src) as im: w,h=im.size
             text += [f'[ext_resource type="Texture2D" path="res://{dst.relative_to(ROOT).as_posix()}" id="{eid}"]']
             trim=c.get('trim_left',{}).get(f,0)

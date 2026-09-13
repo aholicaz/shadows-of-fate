@@ -43,6 +43,8 @@ sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(48, 66)
 hp_bar_offset_y = -87.4
 display_height = 230.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)
 fit_foot_animations = null
 level = 82
 max_hp = 22000
@@ -80,6 +82,3 @@ tint = Color(0.7, 0.7, 0.8, 0.6)
 calm_if_item = &"giant_child_scarf"
 spawn_lines = PackedStringArray("หนาว... ทำไมถึงหนาว", "แสงไปไหน...", "ข้าจำชื่อแม่ไม่ได้")
 death_lines = null
-
-fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(256, 480)

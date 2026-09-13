@@ -79,3 +79,7 @@ drops = Array[ExtResource("2_drop")]([SubResource("Drop_stone_soldier_0"), SubRe
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.16798732, &"Walk": 1.16798732, &"Attack": 1.16613924, &"Hit": 1.16798732, &"Die": 1.16798732, &"Run": 1.16798732, &"Skill": 1.16613924})

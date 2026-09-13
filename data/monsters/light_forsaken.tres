@@ -46,6 +46,8 @@ sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(80, 100)
 hp_bar_offset_y = -129.2
 display_height = 340.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)
 fit_foot_animations = null
 level = 83
 max_hp = 55000
@@ -97,6 +99,3 @@ respawn_time = 300.0
 tint = Color(0.75, 0.75, 0.85, 0.85)
 spawn_lines = null
 death_lines = PackedStringArray("...มีดาว... ข้าเคยเห็นดาว...", "อย่าให้พวกเขาลืม... ว่าเคยมีกลางคืน")
-
-fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(256, 480)

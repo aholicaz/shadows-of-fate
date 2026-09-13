@@ -108,3 +108,7 @@ skill_bolt_delay = 0.35
 respawn_time = 600.0
 spawn_lines = null
 death_lines = PackedStringArray("...ตุบ... ตุบ... หัวใจ... ยังเต้น...")
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.15492958, &"Walk": 1.15492958, &"Attack": 1.15673981, &"Hit": 1.15673981, &"Die": 1.15673981, &"Run": 1.15492958, &"Skill": 1.15673981})

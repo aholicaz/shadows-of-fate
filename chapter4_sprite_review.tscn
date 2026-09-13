@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/tools/chapter4_sprite_review.gd" id="1"]
+
+[node name="Chapter4SpriteReview" type="Node2D"]
+script = ExtResource("1")

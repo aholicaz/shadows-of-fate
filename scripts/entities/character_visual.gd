@@ -154,7 +154,8 @@ func _process(_delta: float) -> void:
 
 	for slot in _layers.keys():
 		var layer: AnimatedSprite2D = _layers[slot]
-		if body_anim == &"Idle_Runeblade" and slot != Equipment.EquipSlot.WEAPON:
+		var job_visual = preload("res://scripts/entities/runeblade_visual.gd")
+		if job_visual.is_pose(body.sprite_frames, body_anim) and (slot != Equipment.EquipSlot.WEAPON or job_visual.baked_weapon(body.sprite_frames, body_anim)):
 			layer.hide()
 			continue
 		layer.modulate = body.modulate
@@ -208,6 +209,8 @@ func _process(_delta: float) -> void:
 ## หาชื่อท่าในอุปกรณ์ที่ตรงกับท่าของตัวเปล่า (ไม่สนตัวพิมพ์เล็ก-ใหญ่)
 ## คืน &"" ถ้าไม่มีท่านั้นเลย
 func _sync_idle_hand(layer: AnimatedSprite2D, item: ItemData) -> void:
+	if _sync_runeblade_weapon(layer,item):
+		return
 	if _sync_attack_hand(layer, item):
 		return
 	# Unsupported poses keep their original baked-in equipment.
@@ -223,6 +226,11 @@ func _sync_idle_hand(layer: AnimatedSprite2D, item: ItemData) -> void:
 	var wrist_rotation := 0.0
 	if job_idle:
 		var poses: Array=RUNE_HAND_TRACK.IDLE
+		var authored: Array = body.sprite_frames.get_meta("rb_idle_hands",[])
+		if not authored.is_empty():
+			poses = []
+			for p in authored:
+				poses.append(Vector3(p[0],p[1],p[2]))
 		var current: Vector3=poses[body.frame%poses.size()]
 		var next: Vector3=poses[(body.frame+1)%poses.size()]
 		var pose := current.lerp(next,body.frame_progress)
@@ -256,6 +264,37 @@ func _restore_body() -> void:
 		_attack_body.hide()
 	if is_instance_valid(_hand_cover):
 		_hand_cover.hide()
+
+
+func _sync_runeblade_weapon(layer: AnimatedSprite2D,item: ItemData) -> bool:
+	var pose: Dictionary = preload("res://scripts/entities/runeblade_weapon_track.gd").pose(body)
+	if pose.is_empty(): return false
+	var texture := body.sprite_frames.get_frame_texture(body.animation,body.frame)
+	var grip: Vector2 = pose.point
+	var hand := grip-texture.get_size()*.5 if body.centered else grip
+	var mirror := Vector2(-1.0 if body.flip_h else 1.0,-1.0 if body.flip_v else 1.0)
+	layer.position = body.offset+hand*mirror+item.equip_offset*mirror
+	layer.centered = false
+	layer.offset = -item.equip_grip
+	layer.flip_h = false
+	layer.flip_v = false
+	layer.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	layer.scale = mirror*item.equip_hand_scale*float(pose.scale)
+	var angle := deg_to_rad(item.equip_hand_rotation_degrees+float(pose.angle))
+	layer.rotation = -angle if body.flip_h != body.flip_v else angle
+	# Same depth as the body draws behind it because EquipVisual precedes the body.
+	layer.z_index = 0 if pose.back or not pose.attack else 1
+	layer.modulate = body.modulate
+	layer.show()
+	if pose.attack and is_instance_valid(_hand_cover):
+		_hand_cover.texture = texture
+		_hand_cover.region_rect = Rect2(grip-Vector2(8,8),Vector2(16,16))
+		_hand_cover.position = body.offset+hand*mirror
+		_hand_cover.flip_h = body.flip_h
+		_hand_cover.flip_v = body.flip_v
+		_hand_cover.modulate = body.modulate*body.self_modulate
+		_hand_cover.show()
+	return true
 
 
 func _exit_tree() -> void:

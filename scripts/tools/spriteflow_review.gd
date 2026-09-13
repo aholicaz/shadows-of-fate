@@ -85,7 +85,10 @@ func run_audit() -> void:
 				if actor.sprite.flip_h: point.x = -point.x
 				check(actor.sprite.to_global(point+actor.sprite.offset).distance_to(actor.foot_position())<.1,"Ground anchor: %s %d" % [anim,f])
 	check(is_equal_approx(actors[0]._anim_length("Attack"),data.attack_windup+data.attack_duration),"Attack duration retains gameplay timing")
-	var contacts := {"thorn_hound":2,"vanir_sentinel":8,"thorn_matriarch":6,"war_wraith":9,"root_crawler":3,"bog_lurker":7,"mist_sprite":11,"withered_treant":12,"gullveig_ember":9}
+	var contacts := {"thorn_hound":2,"vanir_sentinel":8,"thorn_matriarch":6,"war_wraith":9,"root_crawler":3,"bog_lurker":7,"mist_sprite":11,"withered_treant":12,"gullveig_ember":9,"wall_shieldbearer":3,"stone_hrungnir":4,"ice_troll":6,"frost_wolf":4}
+	contacts["snow_mammoth"] = 8
+	contacts["stone_soldier"] = 6
+	contacts["wall_shieldbearer"] = 6
 	check(is_equal_approx(actors[0]._anim_time_to_frame("Attack",contacts[monster_id]),data.attack_windup),"Attack impact frame retains existing windup")
 	check(frames.get_frame_count(&"Run")==frames.get_frame_count(&"Walk"),"Run aliases Walk")
 	check(actors[0]._play("Death",true)=="Die","Death resolves to Die")

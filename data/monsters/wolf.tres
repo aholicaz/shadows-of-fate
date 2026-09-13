@@ -45,6 +45,11 @@ script = ExtResource("2_drop")
 item_id = &"wolf_cloak"
 chance = 3.0
 
+[sub_resource type="Resource" id="Balance_brooch"]
+script = ExtResource("2_drop")
+item_id = &"brooch"
+chance = 3.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_voqcd"]
 atlas = ExtResource("3_1ovui")
 region = Rect2(0, 0, 512, 512)
@@ -261,11 +266,6 @@ animations = [{
 "name": &"Run",
 "speed": 9.0
 }]
-
-[sub_resource type="Resource" id="Balance_brooch"]
-script = ExtResource("2_drop")
-item_id = &"brooch"
-chance = 3.0
 
 [resource]
 script = ExtResource("1_monster")

@@ -76,3 +76,7 @@ drops = Array[ExtResource("2_drop")]([SubResource("Drop_frost_wolf_0"), SubResou
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.14803150, &"Walk": 1.14803150, &"Attack": 1.15348101, &"Hit": 1.15348101, &"Die": 1.15348101, &"Run": 1.14803150, &"Skill": 1.15348101})

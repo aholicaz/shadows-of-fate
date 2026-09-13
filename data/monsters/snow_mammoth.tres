@@ -73,3 +73,7 @@ drops = Array[ExtResource("2_drop")]([SubResource("Drop_snow_mammoth_0"), SubRes
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.18151815, &"Walk": 1.18151815, &"Attack": 1.19134775, &"Hit": 1.18347107, &"Die": 1.18347107, &"Run": 1.18151815, &"Skill": 1.19134775})

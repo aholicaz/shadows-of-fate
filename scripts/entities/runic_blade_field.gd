@@ -38,6 +38,10 @@ func configure(rb: Node2D, id: StringName, mult: float, at: Vector2, dir: int) -
 	# A short visual arrival precedes the first damaging pulse.
 	next_pulse = 0.16
 	z_index = 64
+	if source == &"worldcleaver":
+		var rain := preload("res://scripts/entities/worldcleaver_rain_visual.gd").new()
+		rain.field = self
+		add_child(rain)
 	if source==&"faultline":
 		weapon_visual=preload("res://scripts/entities/planted_weapon_visual.gd").new()
 		weapon_visual.configure(PlayerState.equipment.weapon())
@@ -113,13 +117,6 @@ func _draw() -> void:
 			draw_polyline(ribbon,Color(color,alpha*0.85),4,true)
 			draw_polyline(ribbon,Color(0.9,1,1,alpha*0.95),1.5,true)
 
-	else:
-		for i in range(7):
-			var phase := fmod(elapsed * 4.0 + i * 0.17, 1.0)
-			var x := lerpf(-radius * 0.85, radius * 0.85, i / 6.0)
-			var tip := Vector2(x, lerpf(-390.0, -10.0, phase))
-			draw_line(tip - Vector2(0,145), tip, Color(color, alpha * 0.22), 12.0, true)
-			_draw_sword(tip, 115, tint)
 
 func _draw_sword(tip: Vector2, length: float, tint: Color) -> void:
 	var blade := PackedVector2Array([tip, tip+Vector2(-10,-22), tip+Vector2(-7,-length), tip+Vector2(7,-length), tip+Vector2(10,-22)])

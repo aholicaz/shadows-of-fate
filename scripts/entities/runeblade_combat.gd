@@ -258,6 +258,11 @@ func cast(id: StringName) -> void:
 	var hits := 6 if id == &"rune_flurry" else 1
 	for i in range(hits):
 		if player._dead or seq != player._attack_seq: break
+		if id == &"rune_flurry" and player._uses_runeblade_visual():
+			var slice := "Flurry_Runeblade_%d" % (i%3+1)
+			if player._has_anim(slice):
+				player._play(slice,true)
+				player.sprite.speed_scale = player._anim_length(slice)/flurry_interval
 		strike(id,s.damage_mult(lv)*flurry_bonus/hits,reach,cap,dir)
 		_flash(player.foot_position()+Vector2(dir*reach*0.55,-100),reach*0.45,Color("#ffc766"))
 		if hits > 1: await get_tree().create_timer(flurry_interval).timeout

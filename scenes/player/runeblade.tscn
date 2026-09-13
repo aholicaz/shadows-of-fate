@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bt65s0r48il8h"]
+
+[ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="1"]
+[ext_resource type="SpriteFrames" uid="uid://bc6k5e4xschg4" path="res://data/sprites/runeblade_frames.tres" id="2"]
+
+[node name="Runeblade" unique_id=1377978423 instance=ExtResource("1")]
+visual_job_override = &"runeblade"
+
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=1373520025]
+sprite_frames = ExtResource("2")
+animation = &"Attack_Runeblade_1"
+autoplay = "Idle_Runeblade"
+frame = 0
+frame_progress = 0.0
+speed_scale = 1.0
