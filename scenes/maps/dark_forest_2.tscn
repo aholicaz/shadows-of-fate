@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://xbpewolg4spa"]
 
-[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
-[ext_resource type="Texture2D" uid="uid://bl6xgjxtyfjcr" path="res://Sprites/map/generated/dark_forest_2_bg_final.png" id="bg38"]
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
@@ -11,66 +9,51 @@
 [ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
-[ext_resource type="Script" uid="uid://c2no85difcfo6" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="c1_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/dark_forest_2_depth.png" id="c1_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/dark_forest_2_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/dark_forest_2_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/dark_forest_2_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/dark_forest_2_3.png" id="organic_3"]
+
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(4600, 67)
+
+
+[sub_resource type="RectangleShape2D" id="C1Floor"]
+size = Vector2(4800, 60)
 
 [node name="Map2" type="Node2D" unique_id=1565650474]
 script = ExtResource("map_base")
 map_id = &"dark_forest_2"
 display_name = "ป่าเงาลึกชั้นใน"
-map_bounds = Rect2(-85, -104, 4400, 1021)
+map_bounds = Rect2(-85, -220.5, 4400, 1200)
 player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
 
-[node name="Background" type="Node2D" parent="." unique_id=2017925133]
-
-[node name="Sky" type="Polygon2D" parent="Background" unique_id=1202893480]
-z_index = -100
-texture_filter = 2
-position = Vector2(-85, -104)
-texture = ExtResource("bg38")
-polygon = PackedVector2Array(0, 0, 4400, 0, 4400, 1021, 0, 1021)
-uv = PackedVector2Array(0, 0, 4400, 0, 4400, 1021, 0, 1021)
-
-[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1090341459]
-visible = false
-z_index = -90
-position = Vector2(-100, 520)
-color = Color(0.12, 0.1, 0.16, 1)
-polygon = PackedVector2Array(0, 0, 4400, 0, 4400, 360, 0, 360)
-
-[node name="Art" type="Sprite2D" parent="Background" unique_id=2052291012]
-z_index = -80
-position = Vector2(2100, 550)
 
 [node name="Terrain" type="Node2D" parent="." unique_id=1702082960]
 
-[node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=2005749063]
-position = Vector2(2100, 695)
-collision_mask = 0
-
-[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=710093021]
-position = Vector2(15, -2)
-shape = SubResource("Rect_ground")
-
-[node name="Visual" type="Polygon2D" parent="Terrain/Ground" unique_id=211481550]
-visible = false
-color = Color(0.17, 0.15, 0.2, 1)
-polygon = PackedVector2Array(-2300, -120, 2300, -120, 2300, 120, -2300, 120)
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=755573984]
 
+
 [node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1782874803]
-position = Vector2(82, 552)
+position = Vector2(235, 519.5)
+
 
 [node name="from_dark_forest" type="Marker2D" parent="SpawnPoints" unique_id=1739067476]
-position = Vector2(82, 559)
+position = Vector2(235, 519.5)
+
 
 [node name="from_iron_road" type="Marker2D" parent="SpawnPoints" unique_id=1797784484]
-position = Vector2(4010, 496)
+position = Vector2(3995, 519.5)
+
 
 [node name="Spawners" type="Node2D" parent="." unique_id=1246635382]
+
 
 [node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=1022435623]
 script = ExtResource("map_spawner")
@@ -79,28 +62,35 @@ count_per_type = 4
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
 
+
 [node name="Portals" type="Node2D" parent="." unique_id=771676892]
 
+
 [node name="ToDarkForest" parent="Portals" unique_id=593534440 instance=ExtResource("portal")]
-position = Vector2(84, 604)
+position = Vector2(65, 609.5)
 target_map = &"dark_forest"
 target_spawn_point = &"from_dark_forest_2"
 label_text = "← ป่าเงาลึก"
 destination_name = "ป่าเงาลึก"
+visible = true
+
 
 [node name="ToIronRoad" parent="Portals" unique_id=1080945976 instance=ExtResource("portal")]
-position = Vector2(3805, 558)
+position = Vector2(4165, 609.5)
 target_map = &"iron_road"
 target_spawn_point = &"from_forest"
 label_text = "→ ทางเหล็ก"
 destination_name = "ทางเหล็ก (บทที่ 2)"
 required_flag = &"chapter2_open"
 locked_text = "ทางเดินแคบ ๆ ลงไปใต้ดิน... มืดเกินกว่าจะไปต่อโดยไม่มีแผนที่"
+visible = true
+
 
 [node name="Lore" type="Node2D" parent="." unique_id=780031934]
 
+
 [node name="AltarStone" parent="Lore" unique_id=65716978 instance=ExtResource("lore")]
-position = Vector2(3222, 580)
+position = Vector2(3222, 599.5)
 lore_id = &"dark_altar"
 title = "แท่นบูชาหินดำ"
 text = "หินดำสลักรูปแพะเขาโค้ง เลือดแห้งกรังเป็นชั้น ๆ
@@ -108,21 +98,47 @@ text = "หินดำสลักรูปแพะเขาโค้ง เ�
 รอยกีบเท้าขนาดใหญ่เดินวนรอบแท่น... แล้วมุ่งหน้าไปทางตะวันออก"
 label_text = "แท่นบูชาหินดำ"
 
-[node name="AmbientFX" type="Node2D" parent="." unique_id=1858763436]
-script = ExtResource("ambient_fx")
-lantern_positions = PackedVector2Array(4211, 284)
-flame_size = Vector2(18, 36)
-light_radius = 180.0
-light_energy = 0.16
-shaft_positions = PackedVector2Array(730, -95, 2300, -95, 3600, -95)
-shaft_size = Vector2(330, 790)
-shaft_color = Color(0.45, 0.57, 1, 0.09)
-mist_regions = Array[Rect2]([Rect2(0, 510, 4200, 130)])
-mist_color = Color(0.28, 0.37, 0.62, 0.1)
-mote_regions = Array[Rect2]([Rect2(100, 210, 1000, 370), Rect2(1300, 210, 1000, 370), Rect2(2500, 210, 1000, 370), Rect2(3700, 210, 1000, 370)])
-mote_color = Color(0.6, 0.42, 1, 0.55)
-motes_per_region = 12
-glow_positions = PackedVector2Array(52, 522, 954, 546, 1944, 521, 2795, 523, 3460, 518, 3931, 472, 4290, 510)
-glow_color = Color(0.5, 0.25, 0.95, 0.22)
-glow_radius = 115.0
-glow_energy = 0.12
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("c1_parallax")
+anchor_x = 2115.0
+atmosphere = Color(0.40,0.66,0.85,0.23)
+mote_amount = 32
+mist_strength = 0.04
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+texture = ExtResource("c1_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1285, -350.5)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(715, -350.5)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2715, -350.5)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4715, -350.5)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2115.0, 689.5)
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("C1Floor")

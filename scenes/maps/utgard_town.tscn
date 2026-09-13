@@ -362,8 +362,8 @@ fit_actor_size = true
 
 [node name="Sprite2D" parent="NPCs/Asmund" index="0"]
 centered = false
-position = Vector2(-125.69375000000001, -274.4625)
-scale = Vector2(0.371875, 0.371875)
+position = Vector2(-145.234375, -312.15624999999994)
+scale = Vector2(0.4296875, 0.4296875)
 texture = ExtResource("art_asmund")
 script = ExtResource("npc_idle")
 phase = 4.0

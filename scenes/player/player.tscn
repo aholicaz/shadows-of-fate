@@ -20,6 +20,7 @@ fx_book = ExtResource("4_fxbook")
 script = ExtResource("5_shadow")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1373520025]
+texture_filter = 2
 position = Vector2(-1, 0)
 sprite_frames = ExtResource("2_frames")
 animation = &"Dash"
