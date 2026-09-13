@@ -11,7 +11,7 @@ description = "คัมภีร์ต้องห้ามของนัก�
 รีเซ็ตสกิลทุกอย่าง คืนแต้มสกิลให้ครบ"
 icon = ExtResource("2_icon")
 type = 0
-buy_price = 100000
+buy_price = 15000
 sell_price = 1000
 special_effect = &"reset_skills"
 max_stack = 10

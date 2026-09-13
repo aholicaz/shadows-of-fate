@@ -952,6 +952,17 @@ if os.path.exists("dump_stats_ext.py"):
 # ★ รอบ 84 — แท็บ "ยังไม่ทำ" (ไฟล์แยก dump_todo_ext.py) ★ ต้องอยู่หลัง assets เพราะอ่านตัวเลขจากตรงนั้น
 if os.path.exists("dump_todo_ext.py"):
     exec(compile(open("dump_todo_ext.py", encoding="utf-8").read(), "dump_todo_ext.py", "exec"))
+# ---- ตราประทับรอบ/วันที่ (รอบ 105) ----
+try:
+    import datetime as _dt
+    _hdr = open("_docs/สถานะโปรเจกต์.md", encoding="utf-8").readline()
+    _rd = re.search(r"รอบที่\s*(\d+)", _hdr)
+    _TH = ["", "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+    _now = _dt.date.today()
+    data_json["meta"] = {"round": int(_rd.group(1)) if _rd else 0,
+                         "date": "%d %s %d" % (_now.day, _TH[_now.month], _now.year + 543)}
+except Exception:
+    data_json["meta"] = {"round": 0, "date": ""}
 open("gamedata.json", "w", encoding="utf-8").write(json.dumps(data_json, ensure_ascii=False, indent=1))
 print("เขียน gamedata.json (%.0f KB)" % (os.path.getsize("gamedata.json") / 1024))
 # ★ รอบ 46 — สร้างหน้าเว็บ codex.html จากเทมเพลต (เปิดในเบราว์เซอร์ได้เลย / ให้ Claude อัปเดต artifact) ★

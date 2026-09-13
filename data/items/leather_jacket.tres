@@ -16,8 +16,10 @@ metadata/price_base_r47_buy = 1600
 slot = 4
 card_slots = 1
 max_stack = 1
-buy_price = 8000
-sell_price = 640
+buy_price = 1568
+sell_price = 304
 metadata/sell_price_base_r44 = 640
 def = 10
 refinable = true
+
+drop_hint = "คิงโพริง"

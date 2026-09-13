@@ -16,10 +16,12 @@ metadata/price_base_r47_buy = 16000
 slot = 5
 card_slots = 1
 max_stack = 1
-buy_price = 80000
-sell_price = 6400
+buy_price = 10208
+sell_price = 864
 metadata/sell_price_base_r44 = 6400
 def = 8
 mdef = 6
 flee = 4
 refinable = true
+
+drop_hint = "บาฟโฟเมทจูเนียร์ / ค้างคาวถ่านไฟ"

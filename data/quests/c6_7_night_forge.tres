@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 1
+target = &"giant_bone"
+count = 10
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"nidhogg_spawn"
+count = 3
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_7_night_forge"
+title = "C6-7 เตาหลอมกลางคืน"
+description = "หากระดูกยักษ์จากโยตุนเฮมและล่างูนิดฮ็อกก์เล็กให้ช่างกระดูก"
+giver_name = "ช่างกระดูก"
+dialog_offer = "กระดูกยักษ์ 10 ท่อน — จากเสียงสะท้อนในโถงน้ำแข็งบท 4 ถ้าเจ้ายังเก็บไว้ หรือกลับไปเอา\n\nแล้วล่างูเล็ก 3 ตัวที่นาสตรอนด์ให้ข้าด้วย เกล็ดมันใช้ขัดกระดูก"
+dialog_progress = "กระดูกยักษ์ 10 (เสียงสะท้อน · โยตุนเฮม) และงูนิดฮ็อกก์เล็ก 3 (นาสตรอนด์)"
+dialog_complete = "กระดูกดี... ยักษ์ตายอย่างสงบ กระดูกเลยแข็ง\n\nนี่ดาบกระดูก จากนี้ข้าตีบวกด้วยกระดูกให้เจ้าได้ ไขกระดูกแทนหินการันตี"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 90
+required_quests = Array[StringName]([&"c6_3_leave_your_name"])
+set_flag_on_complete = &"bone_refine_unlocked"
+reward_item_id = &"bone_greatsword"
+reward_item_count = 1
+reward_zeny = 30000
+reward_exp = 220000

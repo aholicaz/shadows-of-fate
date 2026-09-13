@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"radiant_alfr"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"siphon_root"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c5_10_the_conduit"
+title = "C5-10 ผู้ที่เป็นท่อ"
+description = "ล้มอัลฟ์เรืองรองที่วิหารบ่อแสง แล้วดูท่อราก"
+giver_name = "ผู้เห็นแสงเอย์ร"
+dialog_offer = "ดาเกอร์หายไปจากเมืองแล้ว... เขาไม่ได้หนี เขาไปที่วิหาร\n\nเจ้าเมืองทุกคนของลโยซาลฟ์ลงเอยที่เดียวกัน — ยืนกลางบ่อแสง เป็นท่อให้แสงไหลผ่านตัว\nไปล้มเขา มนุษย์ แล้วดูว่าท่อนั้นต่อไปไหน"
+dialog_progress = "อัลฟ์เรืองรองอยู่กลางวิหารบ่อแสง ช่วงกลางเขาจะทำให้มืด — ระวังลำแสงจากบน"
+dialog_complete = "ท่อรากขึ้นอิกดราซิล... และลงใต้ดิน\n\nเจ้าตัดสินใจแล้ว ข้าไม่ถามว่าเลือกอะไร ข้าตาบอด ข้าไม่เห็นว่าเมืองมืดหรือสว่าง\n\nแต่ข้าได้ยินอิลวา... เธอกำลังมองฟ้า"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 84
+required_quests = Array[StringName]([&"c5_9_where_the_light_goes"])
+set_flag_on_complete = &"chapter5_done"
+choice_prompt = "แสงหยุดไหล เมืองทั้งเมืองมืดเป็นครั้งแรกในพันปี... เอย์รถามว่าจะทำยังไงกับท่อ"
+choice_options = Array[String](["ปล่อยให้มืด — ให้เอลฟ์กลับมารู้สึก", "ต่อแสงกลับ — ให้เมืองสงบต่อ แต่รู้แล้วว่าแลกอะไร"])
+choice_flags = Array[StringName]([&"let_dark", &"restore_light"])
+cutscene_pan_npc = "เด็กเอลฟ์อิลวา"
+cutscene_text = "อิลวายืนอยู่กลางเมือง เงยหน้าขึ้น... บนฟ้าที่ไม่เคยมืด มีจุดสว่างเล็ก ๆ ปรากฏขึ้น\n\nเธอชี้ขึ้นไป แล้วร้องไห้เป็นครั้งที่สอง"
+reward_item_id = &"dagr_core"
+reward_item_count = 1
+reward_zeny = 90000
+reward_exp = 400000

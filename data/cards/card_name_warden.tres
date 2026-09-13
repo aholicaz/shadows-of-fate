@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_name_warden.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"name_warden"
+fits_slot = 2
+rarity = 5
+monster_level = 90
+id = &"card_name_warden"
+display_name = "การ์ดผู้เฝ้านาม"
+description = "ไม่โจมตีผู้ที่มีชื่อสลักในโถง"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 6400
+max_hp = 300
+def = 22

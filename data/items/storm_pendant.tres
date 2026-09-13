@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/brooch.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"storm_pendant"
+display_name = "สร้อยหัวใจสายฟ้า"
+description = "ล่าจากอสูรสายฟ้า: เพิ่มความเร็วและความรุนแรงของคริติคอล"
+icon = ExtResource("2_icon")
+required_level = 30
+type = 2
+metadata/price_base_r47_sell = 7600
+metadata/price_base_r47_buy = 9500
+slot = 7
+card_slots = 1
+max_stack = 1
+buy_price = 11600
+sell_price = 920
+metadata/sell_price_base_r44 = 3800
+flee = 3
+bonus_agi = 4
+
+aspd_percent = 5.0
+
+crit = 4
+
+damage_percent = 0.0
+
+crit_damage_percent = 10.0
+
+drop_hint = "อสูรสายฟ้า"

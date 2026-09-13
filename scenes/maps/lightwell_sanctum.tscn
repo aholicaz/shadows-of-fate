@@ -1,0 +1,150 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/radiant_alfr.tres" id="md_radiant_alfr"]
+[ext_resource type="Script" path="res://scripts/world/chapter5_parallax.gd" id="c5_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/lightwell_sanctum_depth.png" id="c5_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/lightwell_sanctum_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/lightwell_sanctum_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/lightwell_sanctum_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/lightwell_sanctum_foundation.png" id="foundation"]
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(3800, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"lightwell_sanctum"
+display_name = "วิหารบ่อแสง"
+chapter = 5
+region = "อัลฟ์เฮม"
+map_bounds = Rect2(-100, -200, 3600, 1300)
+player_scene = ExtResource("player")
+variant_flag = &"shade_view"
+variant_tint = Color(0.55, 0.55, 0.68, 1)
+variant_name_suffix = " (ร่างจาง)"
+
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+[node name="Background" type="Node2D" parent="."]
+
+script = ExtResource("c5_parallax")
+anchor_x = 1700.0
+atmosphere = Color(1,0.87,0.48,0.44)
+rising = true
+mote_amount = 90
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1700, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_wood" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_shore" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3100, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="Boss_radiant_alfr" type="Node2D" parent="Spawners"]
+position = Vector2(2500, 850)
+script = ExtResource("spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_radiant_alfr")])
+monster_scene = ExtResource("monster_scene")
+max_alive = 1
+spawn_width = 160
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToWood" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"dimming_wood"
+target_spawn_point = &"from_sanctum"
+label_text = "← ป่าที่แสงจาง"
+destination_name = "ป่าที่แสงจาง"
+
+
+[node name="ToShore" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(3200, 880)
+target_map = &"mist_shore"
+target_spawn_point = &"from_sanctum"
+label_text = "↓ ฝั่งหมอกน้ำแข็ง (บท 6)"
+destination_name = "ฝั่งหมอกน้ำแข็ง — นิฟล์เฮม"
+required_flag = &"chapter5_done"
+locked_text = "ท่อรากลงไปใต้ดิน มืดสนิท มีเสียงกระซิบดังขึ้นมา... แต่ยังมีเรื่องต้องจบที่นี่ก่อน"
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="SiphonRoot" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2400, 790)
+lore_id = &"siphon_root"
+title = "ท่อรากดูดแสง"
+text = "เมื่ออัลฟ์เรืองรองล้มลง แสงหยุดไหล... และเจ้าเห็นมันชัดเป็นครั้งแรก\n\nท่อรากใหญ่โผล่จากบ่อแสง ต่อขึ้นไปบนฟ้า — ขึ้นอิกดราซิล\nแสงของเมืองทั้งเมืองถูกดูดขึ้นท่อนี้มาพันปี พร้อมกับความเศร้า ความแก่ ความสงสัย\n\nรูนวงจร «ดูด» ดวงที่ 4 — ค้อน · บ่อน้ำ · หัวใจ · บ่อแสง\nปลายท่อชี้ขึ้นเหนือ... และมีอีกท่อ ลงใต้ดิน ไปที่ที่ไม่มีแสงเลย"
+label_text = "★ ท่อราก ★"
+required_flag = &"killed_radiant_alfr"
+locked_text = "อัลฟ์เรืองรองยังลอยอยู่กลางบ่อแสง แสงทั้งเมืองไหลผ่านตัวเขาขึ้นไป"
+set_flag = &"saw_siphon_root"
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+position = Vector2(1800.0, 350)
+texture = ExtResource("c5_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200,170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800,170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800,170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(1800.0,1960)
+texture_repeat = 3
+texture = ExtResource("foundation")
+region_enabled = true
+region_rect = Rect2(0,0,16000,1600)

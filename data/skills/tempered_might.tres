@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/tempered_might.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"tempered_might"
+display_name = "พลังเหล็กกล้า"
+description = "ดาบหนักแรงขึ้น 4% และมองข้าม DEF 5% ต่อระดับ ดาบหนักไม่คริ"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+type = 4
+sp_cost_base = 0
+sp_cost_per_level = 0.0
+cooldown = 0.0
+damage_mult_base = 0.0
+damage_mult_per_level = 0.0
+required_skills = {}

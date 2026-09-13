@@ -1,0 +1,363 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="c6_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/eljudnir_depth.png" id="c6_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/eljudnir_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/eljudnir_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/eljudnir_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/eljudnir_3.png" id="organic_3"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="npc_idle"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="npc_shadow"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/hunter_ghost.png" id="npc_0"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/gullveig_ghost.png" id="npc_1"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/shieldbearer_ghost.png" id="npc_2"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/forsaken_ghost.png" id="npc_3"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/hel.png" id="npc_4"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/hel_stone.png" id="npc_5"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/nameless_merchant.png" id="npc_6"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/bone_smith.png" id="npc_7"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/stranger.png" id="npc_8"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_story_art.gd" id="story_art"]
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(4600, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"eljudnir"
+display_name = "เอลยุดเนียร์ เมืองของผู้ตาย"
+chapter = 6
+region = "นิฟล์เฮม"
+map_bounds = Rect2(-100, -200, 4400, 1300)
+player_scene = ExtResource("player")
+enter_flag = &"chapter6_visited"
+
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+[node name="Background" type="Node2D" parent="."]
+
+script = ExtResource("c6_parallax")
+anchor_x = 2100.0
+atmosphere = Color(0.5,0.67,0.76,0.25)
+rising = false
+mote_amount = 35
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2100, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(300, 820)
+
+
+[node name="from_shore" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_river" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4000, 820)
+
+
+[node name="from_seat" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3900, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToShore" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"mist_shore"
+target_spawn_point = &"from_town"
+label_text = "← ฝั่งหมอกน้ำแข็ง"
+destination_name = "ฝั่งหมอกน้ำแข็ง"
+
+
+[node name="ToRiver" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(4140, 880)
+target_map = &"gjoll_river"
+target_spawn_point = &"from_town"
+label_text = "→ แม่น้ำเกียลล์"
+destination_name = "แม่น้ำเกียลล์"
+
+
+[node name="NPCs" type="Node2D" parent="."]
+
+
+[node name="Hunter_ghost" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(350, 820)
+npc_name = "นักล่าที่หายไป (ผี)"
+type = 0
+dialog = "ข้าคือนักล่าที่หายไปในป่าเงาลึก เจ้าอาจเคยเจอเป้ของข้า\n\nผู้กองสั่งห้ามเข้าป่า... ไม่ใช่เพราะมอน เพราะป่ากำลังโดนดูด ข้าเห็นแสงไหลลงดิน แล้วสายฟ้าก็ลงมาที่ข้า\n\nพงศาวดารเขียนว่าข้าตายเพราะหมาป่า"
+modulate = Color(1, 1, 1, 0.70)
+greeting = "...คนเป็น เจ้ามาจากมิดการ์ดใช่ไหม ข้าได้กลิ่นป่าเงาลึก"
+voice_id = "hunter_ghost"
+quest_ids = Array[StringName]([&"c6_4_captains_order"])
+
+
+[node name="Gullveig_ghost" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(800, 820)
+npc_name = "กุลล์ไวก์ (ผี)"
+type = 0
+dialog = "สามครั้งที่พวกเขาเผาข้า ข้าไม่ตาย เพราะข้าไม่ยอม\nครั้งที่สี่ เจ้าเผาข้าด้วยความจำเป็น ไม่ใช่ความเกลียด — ข้าเลยปล่อยได้\n\nข้าเห็นบ่อน้ำถูกดูดก่อนใคร ข้าพูด แล้วพวกเขาก็เผาข้า"
+modulate = Color(1, 1, 1, 0.70)
+greeting = "เจ้า... เจ้าเผาข้าครั้งที่สี่ ขอบใจ ครั้งนี้ข้าได้พัก"
+voice_id = "gullveig_ghost"
+quest_ids = Array[StringName]([&"c6_2_fourth_burning", &"rb12_eighth_rune_ash"])
+dialog_by_flag = {
+"rb_rune_8": "ดวงที่แปดอยู่ในเถ้า... สิ่งที่เหลือหลังถูกเผา\n\nดวงที่เก้าไม่มีใครสลักได้ นอกจากคนที่ถือดาบ ไปโถงแห่งนาม เมื่อเจ้าไม่มีชื่อแล้ว"
+}
+
+
+[node name="Shieldbearer_ghost" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1250, 820)
+npc_name = "ผู้ถือโล่ (ผี)"
+type = 0
+dialog = "ข้าเฝ้ากำแพงจากฝั่งเหนือ รอยักษ์บุก... ทั้งที่กำแพงแตกจากฝั่งใต้\nสามร้อยปี ข้าหันหน้าผิดทาง\n\nผู้ที่เฝ้าความจริงอยู่ที่ประตูการ์ม — เขาก็ถูกล่ามให้หันผิดทางเหมือนข้า"
+modulate = Color(1, 1, 1, 0.70)
+greeting = "ข้ายืนผิดข้าง... ตอนนี้ข้าบอกได้แล้วว่าผิดยังไง"
+voice_id = "shieldbearer_ghost"
+quest_ids = Array[StringName]([&"c6_5_wrong_side"])
+
+
+[node name="Forsaken_ghost" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1600, 820)
+npc_name = "ผู้หลุดจากแสง (ผี)"
+type = 0
+dialog = "ข้าไม่โกรธ ที่นี่ไม่มีแสงเลย... ข้าเลยจำได้ทุกอย่าง\n\nข้าเคยเห็นดาว มนุษย์ ตอนนี้ข้าเห็นมันทุกคืน — ที่นี่มีแต่คืน"
+modulate = Color(1, 1, 1, 0.70)
+greeting = "...เจ้า เจ้าคือคนที่จบข้า"
+show_if_flag = &"killed_forsaken"
+
+
+[node name="Hel" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2050, 820)
+npc_name = "เฮล ผู้ปกครองผู้ตาย"
+type = 0
+dialog = "ข้าเก็บทุกคน มนุษย์ แม้คนที่เจ้าเกลียด แม้คนที่เกลียดเจ้า\n\nผู้ตายจำเฉพาะสิ่งที่ทำให้ตาย ไม่ใช่ความจริงทั้งหมด — จำไว้ก่อนฟังพวกเขา"
+greeting = "คนเป็นในเมืองคนตาย... ข้าไม่ไล่ ข้าไม่เคยไล่ใคร"
+voice_id = "hel"
+quest_ids = Array[StringName]([&"c6_1_those_who_remember", &"c6_6_name_beside_odin", &"c6_8_the_judge", &"c6_9_chains_of_lightning", &"c6_10_empty_seat", &"rb13_the_ninth_wall", &"rb14_edge_that_remembers"])
+dialog_by_flag = {
+"name_left": "เจ้าทิ้งชื่อไว้ที่สะพานแล้ว... ตอนนี้เจ้าเหมือนพวกเขา — ไม่มีชื่อ\n\nโถงแห่งนามเปิดให้เจ้าแล้ว",
+"saw_odin_name": "เจ้าเห็นชื่อนั้นแล้ว... โอดิน\n\nเขาไม่ได้หายไป มนุษย์ เขาอยู่ที่นี่ — เศษของเขา ที่บัลลังก์ว่างหลังประตูการ์ม",
+"job_ninth_edge": "ชื่อของเจ้า... สลักใหม่ในโถงที่ชื่อทุกชื่อถูกลบ\n\nข้าเก็บชื่อทุกชื่อ แต่ชื่อเจ้าข้าไม่ต้องเก็บ — มันไม่มีวันถูกลบแล้ว",
+"chapter6_done": "เจ้าได้ยินคำว่า «ลูกข้า» แล้ว... ข้าก็ได้ยิน\n\nมุสเปลเฮมอยู่ถัดไป ที่นั่นร้อน และเสียงดัง — ตรงข้ามกับที่นี่ทุกอย่าง มนุษย์ ระวังตัว"
+}
+
+
+[node name="Hel_stone" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2500, 820)
+npc_name = "ศิลาแห่งเฮล"
+type = 4
+dialog = "ศิลาที่มี ★ ทั้งตราค้อนและรูนเก่าซ้อนกัน ★ — ธอร์มาถึงที่นี่แล้ว แต่สลักทับไม่สำเร็จ · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
+warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"ljosalf_city"])
+
+
+[node name="Nameless_merchant" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2950, 820)
+npc_name = "พ่อค้าไร้ชื่อ"
+type = 1
+dialog = "รับ «ชื่อที่ทิ้งไว้» เป็นเงินอีกสกุล — ผู้ข้ามฝั่งทิ้งไว้ที่สะพานเยอะ เอามาขายข้าได้\n\nข้าเคยมีชื่อ... ทิ้งไว้ที่สะพานเหมือนกัน แล้วไม่เคยกลับไปเอา"
+modulate = Color(1, 1, 1, 0.70)
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"mist_saber", &"ferryman_oar_blade", &"bone_greatsword", &"drowned_crown", &"bone_armor", &"mist_shroud", &"river_walker", &"prism_blade", &"stag_horn_saber", &"crystal_shield", &"ljosalf_circlet", &"crystal_cloak", &"silent_step"])
+greeting = "ข้าไม่มีชื่อ ร้านข้าไม่มีชื่อ แต่ของมีราคา"
+voice_id = "nameless"
+
+
+[node name="Bone_smith" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3350, 820)
+npc_name = "ช่างกระดูก"
+type = 2
+dialog = "กระดูกยักษ์จากโยตุนเฮม... เจ้ามีไหม ข้าตีดาบจากมันได้\n\nที่นี่ไม่มีกลางวันกลางคืน มีแต่ตอนหมอกลงกับหมอกขึ้น ข้าตีได้เฉพาะตอนหมอกลง"
+modulate = Color(1, 1, 1, 0.70)
+has_socket = true
+has_refine = true
+greeting = "ตีบวกด้วยกระดูก ใช้ไขกระดูกแทนหินการันตี — แต่ทำได้เฉพาะตอนที่หมอกลง"
+voice_id = "bone_smith"
+quest_ids = Array[StringName]([&"c6_7_night_forge"])
+
+
+[node name="Stranger" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3900, 820)
+npc_name = "คนแปลกหน้า"
+type = 0
+dialog = "ผู้ตายทุกคนหันมองข้าตอนเดินผ่าน เจ้าเห็นไหม\n\nพวกเขาจำหน้าข้าได้ จำสิ่งที่ข้าพยายามทำได้ แค่จำชื่อไม่ได้ — เหมือนข้าเอง\n\nนี่ หน้าสุดท้ายของเล่มที่ 7 เจ้าเก็บครึ่งแรกไว้ใช่ไหม... ตอนนี้ครบแล้ว"
+greeting = "...พวกเขาจำข้าได้ ทั้งที่ข้าไม่มีชื่อแล้ว"
+voice_id = "stranger"
+show_if_flag = &"s8_done"
+dialog_by_flag = {
+"s9_done": "ไปเถอะ เจ้ายังมีเรื่องต้องทำที่ประตูการ์ม\n\nข้าจะรออยู่ที่บัลลังก์... ถ้าเจ้าอยากถาม"
+}
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+position = Vector2(2200.0, 350)
+texture = ExtResource("c6_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200,170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800,170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800,170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800,170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="Sprite2D" parent="NPCs/Hunter_ghost" index="0"]
+centered = false
+position = Vector2(-130.46875, -286.6875)
+scale = Vector2(0.390625,0.390625)
+texture = ExtResource("npc_0")
+script = ExtResource("npc_idle")
+phase = 0.0
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Hunter_ghost"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Gullveig_ghost" index="0"]
+centered = false
+position = Vector2(-139.5390625, -301.96875)
+scale = Vector2(0.4140625,0.4140625)
+texture = ExtResource("npc_1")
+script = ExtResource("npc_idle")
+phase = 0.9
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Gullveig_ghost"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Shieldbearer_ghost" index="0"]
+centered = false
+position = Vector2(-168.25, -358.0)
+scale = Vector2(0.5,0.5)
+texture = ExtResource("npc_2")
+script = ExtResource("npc_idle")
+phase = 1.8
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Shieldbearer_ghost"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Forsaken_ghost" index="0"]
+centered = false
+position = Vector2(-147.4375, -317.25)
+scale = Vector2(0.4375,0.4375)
+texture = ExtResource("npc_3")
+script = ExtResource("npc_idle")
+phase = 2.7
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Forsaken_ghost"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Hel" index="0"]
+centered = false
+position = Vector2(-151.1171875, -327.4375)
+scale = Vector2(0.453125,0.453125)
+texture = ExtResource("npc_4")
+script = ExtResource("npc_idle")
+phase = 3.6
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Hel"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Hel_stone" index="0"]
+centered = false
+position = Vector2(-120.5703125, -266.3125)
+scale = Vector2(0.359375,0.359375)
+texture = ExtResource("npc_5")
+script = ExtResource("npc_idle")
+phase = 4.5
+breathe = false
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Hel_stone"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Nameless_merchant" index="0"]
+centered = false
+position = Vector2(-128.05078125, -281.59375)
+scale = Vector2(0.3828125,0.3828125)
+texture = ExtResource("npc_6")
+script = ExtResource("npc_idle")
+phase = 5.4
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Nameless_merchant"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Bone_smith" index="0"]
+centered = false
+position = Vector2(-141.1171875, -307.0625)
+scale = Vector2(0.421875,0.421875)
+texture = ExtResource("npc_7")
+script = ExtResource("npc_idle")
+phase = 6.3
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Bone_smith"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Stranger" index="0"]
+centered = false
+position = Vector2(-135.890625, -296.875)
+scale = Vector2(0.40625,0.40625)
+texture = ExtResource("npc_8")
+script = ExtResource("npc_idle")
+phase = 7.2
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Stranger"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="StoryArt" type="Node2D" parent="."]
+script = ExtResource("story_art")

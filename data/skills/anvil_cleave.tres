@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/anvil_cleave.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"anvil_cleave"
+display_name = "ดาบฟาดทั่ง"
+description = "ฟาดกวาดระยะ 440 px รวม 500–1040% ATK สูงสุด 8 ตัว ไม่คริ เปิดแผลรับดาเมจเพิ่ม 15% นาน 4 วิ"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+type = 0
+sp_cost_base = 18
+sp_cost_per_level = 0.0
+cooldown = 5.0
+damage_mult_base = 5.0
+damage_mult_per_level = 0.6
+required_skills = {"tempered_might": 5}
+
+max_targets = 8
+range_x = 440.0
+
+range_y = 340.0

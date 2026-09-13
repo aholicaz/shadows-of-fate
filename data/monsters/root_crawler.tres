@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/root_crawler_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://rt3ipqb1r0cr" path="res://data/sprites/monsters/root_crawler_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_root_crawler_0"]
 script = ExtResource("2_drop")
@@ -24,7 +24,7 @@ max_count = 2
 [sub_resource type="Resource" id="Drop_root_crawler_3"]
 script = ExtResource("2_drop")
 item_id = &"bark_armor"
-chance = 0.8
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_root_crawler_card"]
 script = ExtResource("2_drop")
@@ -37,8 +37,19 @@ id = &"root_crawler"
 display_name = "รากเลื้อย"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(46, 34)
-hp_bar_offset_y = -64.6
-display_height = 170.0
+hp_bar_offset_y = -308.0
+display_height = 300.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.42857143,
+&"Die": 1.42857143,
+&"Hit": 1.42857143,
+&"Idle": 1.4380531,
+&"Run": 1.4380531,
+&"Skill": 1.42857143,
+&"Walk": 1.4380531
+})
 fit_foot_animations = null
 level = 39
 max_hp = 3600
@@ -65,9 +76,11 @@ attack_cooldown = 1.8
 knockback_force = 170.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 2200
-job_exp_reward = 1540
-zeny_min = 500
-zeny_max = 900
+exp_reward = 340
+job_exp_reward = 238
+zeny_min = 116
+zeny_max = 216
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_root_crawler_0"), SubResource("Drop_root_crawler_1"), SubResource("Drop_root_crawler_2"), SubResource("Drop_root_crawler_3"), SubResource("Drop_root_crawler_card")])
 respawn_time = 18.0
+spawn_lines = null
+death_lines = null

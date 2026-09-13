@@ -23,3 +23,5 @@ buff_effects = {
 "atk_percent": 10.0
 }
 buff_value_per_level = 3.0
+
+job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])

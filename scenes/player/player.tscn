@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://cakbasu4j32b3" path="res://scripts/entities/foot_shadow.gd" id="5_shadow"]
 
 [sub_resource type="CapsuleShape2D" id="Cap_player"]
-radius = 20.0
-height = 240.0
+radius = 24.48
+height = 288.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1488922768]
 collision_layer = 2
@@ -24,7 +24,7 @@ position = Vector2(-1, 0)
 sprite_frames = ExtResource("2_frames")
 animation = &"Dash"
 autoplay = "Idle"
-frame = 11
+frame = 13
 frame_progress = 1.0
 speed_scale = 1.2
 offset = Vector2(-2.475, 0)

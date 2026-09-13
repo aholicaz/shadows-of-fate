@@ -318,6 +318,11 @@ enum AIType {
 @export var projectile_spin: float = 0.0
 ## วิ่งได้ไกลสุดแล้วหาย
 @export var projectile_range: float = 720.0
+## Optional authored hand positions in the registered Attack texture canvas.
+@export var projectile_hand_positions: Dictionary[int, Vector2] = {}
+## Native animated flame, hand flash, and impact sparks; off for other monsters.
+@export var projectile_fire_effect: bool = false
+@export var projectile_aim_at_player: bool = false
 
 @export_group("สกิล — บอลโค้งตกพื้นระเบิด (รอบ 36)")
 ## ★ ใส่รูปแล้วสกิลจะ "ขว้างบอลโค้ง" ไปตกที่ตำแหน่งผู้เล่น แล้วระเบิดทำดาเมจรอบ ๆ ★
@@ -453,9 +458,18 @@ func roll_attack() -> int:
 
 ## ค่าประสบการณ์อาชีพที่ได้จากมอนตัวนี้
 func job_exp() -> int:
+	if exp_reward <= 0 and job_exp_reward <= 0: return 0
 	if job_exp_reward > 0:
 		return job_exp_reward
 	return maxi(1, int(round(exp_reward * 0.7)))
+
+
+## Outlevelled monsters remain useful for loot, while level-appropriate combat gives better EXP.
+## Zero-reward summons/training targets stay at zero; quest rewards use a different path.
+func experience_for(player_level: int) -> Dictionary:
+	var gap := maxi(0, player_level - level - 5)
+	var factor := clampf(1.0 - gap * 0.04, 0.25, 1.0)
+	return {"base": int(round(maxi(0, exp_reward) * factor)), "job": int(round(job_exp() * factor))}
 
 
 ## มอนตัวนี้มีสกิลไหม
@@ -498,6 +512,19 @@ func ranged_reach() -> float:
 
 func roll_zeny() -> int:
 	return randi_range(zeny_min, max(zeny_min, zeny_max))
+
+
+@export_group("★ รอบ 105 — เงื่อนไขพิเศษ")
+## ย้อมสีทั้งตัว — ผีใส่ Color(1,1,1,0.5) · เงาสะท้อนใส่สีดำ
+@export var tint: Color = Color.WHITE
+## ★ มอนใจดีถ้าผู้เล่นมีธงนี้ ★ (ไม่ไล่ตี แต่ยังสู้กลับถ้าโดนตี) เช่น job_ninth_edge
+@export var calm_if_flag: StringName = &""
+## ★ มอนใจดีถ้าผู้เล่นมีไอเทมนี้ในกระเป๋า ★ เช่น giant_child_scarf
+@export var calm_if_item: StringName = &""
+## ★ พูดตอนเกิด ★ สุ่ม 1 ประโยคลอยเหนือหัว (เว้นว่าง = ไม่พูด)
+@export var spawn_lines: PackedStringArray = PackedStringArray()
+## ★ ตายแล้วพูด ★ สุ่ม 1 ประโยค (บอส/มินิบอสใช้บอกความจริงก่อนสลาย)
+@export var death_lines: PackedStringArray = PackedStringArray()
 
 
 ## สุ่มไอเทมที่ดรอปทั้งหมด

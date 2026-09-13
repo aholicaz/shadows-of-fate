@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/wallbreaker_stance.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"wallbreaker_stance"
+display_name = "ท่ายืนทลายกำแพง"
+description = "ดาเมจต่อมอนที่ DEF ≥ 100 เพิ่ม 15.4–25% ตามระดับสกิล"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 70
+type = 4
+sp_cost_base = 0
+sp_cost_per_level = 0.0
+cooldown = 0.0
+damage_mult_base = 0.00
+damage_mult_per_level = 0.00
+required_skills = {}

@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/false_judge_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_false_judge_0"]
+script = ExtResource("2_drop")
+item_id = &"judge_seal"
+chance = 100.0
+
+[sub_resource type="Resource" id="Drop_false_judge_1"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 100.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_false_judge_2"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 5.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_false_judge_3"]
+script = ExtResource("2_drop")
+item_id = &"judge_shield"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_false_judge_4"]
+script = ExtResource("2_drop")
+item_id = &"hel_half_plate"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_false_judge_card"]
+script = ExtResource("2_drop")
+item_id = &"card_false_judge"
+chance = 2.0
+
+[resource]
+script = ExtResource("1_monster")
+id = &"false_judge"
+display_name = "ผู้พิพากษาผู้ตาย"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(90, 120)
+hp_bar_offset_y = -344.0
+display_height = 380.0
+level = 94
+max_hp = 80000
+atk_min = 1200
+atk_max = 1500
+def = 150
+mdef = 140
+hit = 220
+flee = 50
+crit = 8
+element = 6
+race = 6
+size = 2
+ai_type = 1
+move_speed = 105.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 160.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 360.0
+exp_reward = 15707
+job_exp_reward = 10995
+zeny_min = 2114
+zeny_max = 3926
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_false_judge_0"), SubResource("Drop_false_judge_1"), SubResource("Drop_false_judge_2"), SubResource("Drop_false_judge_3"), SubResource("Drop_false_judge_4"), SubResource("Drop_false_judge_card")])
+respawn_time = 300.0
+is_boss = true
+boss_title = "ผู้ที่ยังตัดสินตามพงศาวดาร"
+skill_name = "คำพิพากษา"
+skill_anim = &"Skill"
+skill_range = 520.0
+skill_damage_mult = 1.8
+skill_windup = 0.5
+skill_duration = 1.0
+skill_cooldown = 8.0
+skill_chance = 0.70
+skill_bolt_count = 3
+skill_bolt_start = 140.0
+skill_bolt_spacing = 160.0
+skill_bolt_delay = 0.35
+tint = Color(1, 0.95, 0.85, 0.85)
+death_lines = PackedStringArray("พงศาวดาร... ไม่ผิด... ข้าเขียนเอง...", "ชื่อเจ้า... ข้ายังจำได้... [ชื่อที่ทิ้งไว้]")

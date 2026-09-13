@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"แม่ค้าลอฟน์"
+count = 1
+text = "ถามลอฟน์ว่าโซลไปไหน"
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"หมอน็อตต์"
+count = 1
+text = "ถามน็อตต์ว่าโซลไปไหน"
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 3
+target = &"dimming_wood"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c5_6_those_who_are_missing"
+title = "C5-6 คนที่หายไป"
+description = "ถามลอฟน์กับน็อตต์ว่าโซลไปไหน แล้วตามไปที่ป่าที่แสงจาง"
+giver_name = "ผู้เห็นแสงเอย์ร"
+dialog_offer = "เจ้ากลับมาแล้วไม่เจอโซลที่ประตูใช่ไหม... ในร่างจาง เขาไม่อยู่\n\nไปถามลอฟน์ ถามน็อตต์ ว่าโซลไปไหน ฟังคำตอบให้ดี แล้วตามไปที่ป่าที่แสงจาง"
+dialog_progress = "ถามลอฟน์และน็อตต์เรื่องโซล แล้วไปป่าที่แสงจาง (เลยทะเลสาบไป)"
+dialog_complete = "«โซลไหน» — ทั้งสองคนพูดเหมือนกัน\n\nเมืองลืมเขาแล้ว เพราะแสงกรองเขาออกไป ป่าจางคือที่ที่พวกเขาถูกทิ้ง เจ้าเจอเขาที่นั่นใช่ไหม"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 79
+required_quests = Array[StringName]([&"c5_5_thing_in_the_water"])
+set_flag_on_complete = &"knows_exile"
+reward_zeny = 15000
+reward_exp = 100000

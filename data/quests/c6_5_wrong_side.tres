@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"name_warden"
+count = 10
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"odin_name"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_5_wrong_side"
+title = "C6-5 ข้างที่ผิด"
+description = "ล่าผู้เฝ้านามในโถงแห่งนาม แล้วอ่านชื่อที่ยังอ่านออกตรงกลางผนัง"
+giver_name = "ผู้ถือโล่ (ผี)"
+dialog_offer = "ในโถงแห่งนาม มีผู้เฝ้า... รูปปั้นที่มีอักษรไหลบนตัว พวกมันเฝ้าไม่ให้คนมีชื่อเข้าไป\n\nเจ้าไม่มีชื่อแล้ว เข้าไปได้ ล่าพวกมันให้เงียบ แล้วดูผนังตรงกลาง — ชื่อที่ใหญ่กว่าชื่ออื่น"
+dialog_progress = "ผู้เฝ้านาม 10 แล้วอ่านชื่อกลางผนังในโถงแห่งนาม"
+dialog_complete = "โอดิน... เจ้าเห็นแล้ว\n\nข้าเฝ้ากำแพงหันผิดข้างสามร้อยปี ทั้งโลกก็หันผิดข้างเหมือนกัน — ทุกคนมองหาโอดินข้างบน ทั้งที่เขาอยู่ข้างล่างมาตลอด\n\nเอาเกราะกระดูกนี่ไป"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 88
+required_quests = Array[StringName]([&"c6_3_leave_your_name"])
+set_flag_on_complete = &"c6_5_done"
+reward_item_id = &"bone_armor"
+reward_item_count = 1
+reward_zeny = 30000
+reward_exp = 180000

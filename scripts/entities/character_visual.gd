@@ -16,6 +16,7 @@ class_name CharacterVisual
 extends Node2D
 
 const BLADE_HAND_TRACK = preload("res://scripts/entities/blade_hand_track.gd")
+const RUNE_HAND_TRACK = preload("res://scripts/entities/runeblade_hand_track.gd")
 
 ## ลำดับการวาด (ตัวแรก = อยู่หลังสุด)
 const LAYER_ORDER := [
@@ -53,6 +54,10 @@ func _ready() -> void:
 	if body == null:
 		push_warning("[CharacterVisual] หา AnimatedSprite2D ของตัวเปล่าไม่เจอที่ %s" % body_path)
 		return
+	# Idle weapons share the body's depth, but draw before it so the hand covers
+	# the grip. Negative depth puts them behind map backgrounds at z = 0.
+	if body.get_parent() == get_parent():
+		get_parent().move_child.call_deferred(self, body.get_index())
 
 	_build_layers()
 	_attack_body = Sprite2D.new()
@@ -149,6 +154,9 @@ func _process(_delta: float) -> void:
 
 	for slot in _layers.keys():
 		var layer: AnimatedSprite2D = _layers[slot]
+		if body_anim == &"Idle_Runeblade" and slot != Equipment.EquipSlot.WEAPON:
+			layer.hide()
+			continue
 		layer.modulate = body.modulate
 		var frames := layer.sprite_frames
 		if frames == null:
@@ -203,7 +211,8 @@ func _sync_idle_hand(layer: AnimatedSprite2D, item: ItemData) -> void:
 	if _sync_attack_hand(layer, item):
 		return
 	# Unsupported poses keep their original baked-in equipment.
-	if String(body.animation).to_lower() != "idle" or idle_hand_positions.is_empty():
+	var job_idle := body.animation == &"Idle_Runeblade"
+	if (String(body.animation).to_lower() != "idle" and not job_idle) or idle_hand_positions.is_empty():
 		layer.hide()
 		return
 	var texture := body.sprite_frames.get_frame_texture(body.animation, body.frame)
@@ -211,22 +220,31 @@ func _sync_idle_hand(layer: AnimatedSprite2D, item: ItemData) -> void:
 		layer.hide()
 		return
 	var hand := idle_hand_positions[clampi(body.frame, 0, idle_hand_positions.size() - 1)]
+	var wrist_rotation := 0.0
+	if job_idle:
+		var poses: Array=RUNE_HAND_TRACK.IDLE
+		var current: Vector3=poses[body.frame%poses.size()]
+		var next: Vector3=poses[(body.frame+1)%poses.size()]
+		var pose := current.lerp(next,body.frame_progress)
+		hand=Vector2(pose.x,pose.y)
+		wrist_rotation=pose.z
 	if body.centered:
 		hand -= texture.get_size() * 0.5
 	if body.flip_h:
 		hand.x = -hand.x
 	if body.flip_v:
 		hand.y = -hand.y
-	layer.position = body.offset + hand + item.equip_offset
+	var mirror := Vector2(-1.0 if body.flip_h else 1.0,-1.0 if body.flip_v else 1.0)
+	layer.position = body.offset + hand + item.equip_offset*mirror
 	layer.centered = false
 	layer.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	layer.offset = -item.equip_grip
 	layer.flip_h = false
 	layer.flip_v = false
 	layer.scale = Vector2(-1.0 if body.flip_h else 1.0, -1.0 if body.flip_v else 1.0) * item.equip_hand_scale
-	var angle := deg_to_rad(item.equip_hand_rotation_degrees)
+	var angle := deg_to_rad(item.equip_hand_rotation_degrees+wrist_rotation)
 	layer.rotation = -angle if body.flip_h != body.flip_v else angle
-	layer.z_index = item.equip_z_index
+	layer.z_index = maxi(0, item.equip_z_index)
 	layer.show()
 
 

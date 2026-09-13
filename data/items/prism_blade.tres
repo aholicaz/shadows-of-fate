@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/prism_blade.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"prism_blade"
+display_name = "ดาบปริซึม"
+description = "ดาบผลึกใสที่แยกแสงเป็นสีรุ้งตอนฟัน"
+icon = ExtResource("2_icon")
+required_level = 72
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 63008
+sell_price = 2515
+atk = 310
+crit = 8
+refinable = true
+refine_atk_per_level = 7
+
+bonus_agi = 10
+
+aspd_percent = 11.0
+
+crit_damage_percent = 10.0
+
+damage_percent = 0.0
+
+drop_hint = "เงาสะท้อน"

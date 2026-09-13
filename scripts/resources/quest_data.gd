@@ -34,6 +34,10 @@ extends Resource
 @export var kill_count: int = 100
 ## ต้องเลเวลเท่าไหร่ถึงจะรับเควสได้
 @export var required_level: int = 1
+@export var required_job: StringName = &""
+@export var reward_job: StringName = &""
+## ★ รอบ 105 ★ ต้องส่งเควสเปลี่ยนอาชีพในแมพนี้ (ว่าง = ที่ไหนก็ได้) — ค่าเริ่มต้นวานาเฮมตามพิธี Runeblade เดิม
+@export var reward_job_map: StringName = &"vanir_town"
 ## ★ ต้องทำเควสไหนจบก่อน ★ ใส่ id ของเควสก่อนหน้า (ว่าง = รับได้เลย)
 @export var required_quests: Array[StringName] = []
 ## ★ ต้องมีธงเนื้อเรื่องนี้ก่อน ★ ว่าง = ไม่ต้องมี

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"water_nymph"
+count = 12
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 1
+target = &"nymph_tear"
+count = 5
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c5_7_light_that_breaks"
+title = "C5-7 แสงที่ทำให้พัง"
+description = "ล่านางฟ้าน้ำและเก็บน้ำตาผลึกให้โวลุนด์"
+giver_name = "ช่างแสงโวลุนด์"
+dialog_offer = "น้ำตาผลึกจากนางฟ้าน้ำ — ข้าใช้มันตีบวกด้วยแสง ☺ เพลงของพวกนางทำให้แสงจับตัวได้\n\nเอามา 5 เม็ด แล้วข้าจะตีดาบผลึกแสงให้เจ้า สมบูรณ์แบบ"
+dialog_progress = "นางฟ้าน้ำ 12 น้ำตาผลึก 5 ที่ทะเลสาบกระจก"
+dialog_complete = "สมบูรณ์แบบ ☺ ไม่มีรอยค้อนเลย\n\nจากนี้ข้าตีบวกด้วยแสงให้เจ้าได้ สำเร็จบ่อยกว่า... แต่ถ้าพัง ไม่เหลือซากนะ ☺ นั่นแหละราคา"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 80
+required_quests = Array[StringName]([&"c5_3_garden_that_never_wilts"])
+set_flag_on_complete = &"light_refine_unlocked"
+reward_item_id = &"light_crystal_sword"
+reward_item_count = 1
+reward_zeny = 18000
+reward_exp = 110000

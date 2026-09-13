@@ -29,9 +29,9 @@ const KNOCKBACK_DECAY := 900.0
 ## เปิด/ปิดการพุ่งหลบ
 @export var dodge_enabled: bool = true
 ## พุ่งไปไกลกี่พิกเซล
-@export var dodge_distance: float = 260.0
+@export var dodge_distance: float = 420.0
 ## ความเร็วตอนพุ่ง (พิกเซล/วินาที) — เวลาที่ใช้พุ่ง = ระยะ ÷ ความเร็ว
-@export var dodge_speed: float = 1100.0
+@export var dodge_speed: float = 1750.0
 ## ★ ช่วงอมตะ ★ กี่วินาทีนับจากเริ่มพุ่ง (0 = ไม่มีช่วงอมตะ พุ่งเฉย ๆ)
 @export_range(0.0, 1.0) var dodge_invincible: float = 0.28
 ## รอกี่วินาทีถึงพุ่งได้อีก (นับหลังพุ่งจบ)
@@ -42,6 +42,8 @@ const KNOCKBACK_DECAY := 900.0
 @export var dodge_stop_on_wall: bool = true
 ## ★ ชื่อท่าตอนพุ่ง ★ ไม่มีท่านี้ในชุดภาพ จะยืม "เฟรมลอยกลางอากาศ" ของท่ากระโดดมาใช้ให้
 @export var dodge_anim: StringName = &"Dash"
+## เวลาขั้นต่ำให้ท่า Dash เล่นครบ พุ่งเร็วช่วงต้นแล้วชะลอ (ไม่เพิ่มเวลาอมตะ)
+@export_range(0.1, 1.5, 0.01) var dodge_pose_duration: float = 0.48
 
 # =========================================================
 # ★★ การกระโดด (รอบ 27 · ปรับซ้ำรอบ 28 · ปิดไว้ตั้งแต่รอบ 29) ★★
@@ -89,7 +91,7 @@ const KNOCKBACK_DECAY := 900.0
 @export var sprite_faces_left: bool = true
 ## ★ ระยะโจมตีปกติ ★ วัดจาก "กลางตัวเรา" ไปถึง "ขอบตัวมอน" (ไม่ใช่กลางตัวมอน)
 ## มอนตัวใหญ่อย่างบอสเลยตีโดนตั้งแต่ขอบตัว ไม่ต้องเดินไปประชิดกลางตัว
-@export var attack_range_x: float = 150.0
+@export var attack_range_x: float = 180.0
 ## ดาบเอื้อมขึ้นไปเหนือปลายเท้าได้สูงเท่าไหร่ (ครอบทั้งตัวขึ้นไปบนหัว)
 @export var attack_range_y: float = 200.0
 ## ★ เอื้อมไปข้างหลังได้เท่าไหร่ ★ สำหรับตัวที่ยืนทับ/เราเหยียบอยู่ ให้ฟันโดนด้วย
@@ -207,7 +209,7 @@ signal combo_step_started(step: int, anim: String, mult: float)
 # =========================================================
 @export_group("ขนาดตัวละคร")
 ## ★ อยากให้ตัวละครสูงกี่พิกเซลบนจอ ★ (0 = ปิดระบบนี้ ใช้ค่า Scale ที่ตั้งใน Scene แทน)
-@export var auto_fit_height: float = 240.0:
+@export var auto_fit_height: float = 288.0:
 	set(value):
 		auto_fit_height = value
 		_fit_cache.clear()
@@ -249,9 +251,9 @@ signal combo_step_started(step: int, anim: String, mult: float)
 ## ชื่อท่าที่จะสลับกันเล่น (ว่าง = ทุกท่าในไฟล์) — ท่าที่ 2, 4, ... จะถูกพลิกแนวตั้ง (ฟันสวนขึ้น)
 @export var attack_effect_anims: Array[StringName] = [&"slash", &"slash2"]
 ## จุดเกิดเทียบกับตัวละคร (x = ข้างหน้า)
-@export var attack_effect_offset: Vector2 = Vector2(78, -28)
+@export var attack_effect_offset: Vector2 = Vector2(93.6, -33.6)
 ## ความสูงของภาพบนจอ (0 = ใช้ Scale)
-@export var attack_effect_height: float = 230.0
+@export var attack_effect_height: float = 276.0
 @export var attack_effect_scale: float = 1.0
 ## โผล่หลังกดตีกี่วิ (ให้ตรงจังหวะดาบเหวี่ยง)
 ## ★★ รอบ 100 — รอยฟันแบบเชดเดอร์ (ส่วนโค้งเรืองแสง) ★★
@@ -260,8 +262,8 @@ signal combo_step_started(step: int, anim: String, mult: float)
 ## เปิดพร้อมกับเอฟเฟกต์ชีทภาพเดิมด้วยไหม (ปิดไว้ = ใช้เชดเดอร์อย่างเดียว ไม่ซ้อนกันมั่ว)
 @export var slash_shader_replaces_sprite: bool = true
 ## ขนาดรอยฟันบนจอ (px) · ตำแหน่งเทียบตัวละคร
-@export var slash_size: float = 300.0
-@export var slash_offset: Vector2 = Vector2(76, -30)
+@export var slash_size: float = 360.0
+@export var slash_offset: Vector2 = Vector2(91.2, -36)
 ## ★ องศาการวางส่วนโค้งของแต่ละไม้ ★ (ไม้ 1 ฟันลง · ไม้ 2 สวนขึ้น · ไม้ 3 ฟันลงเต็มแรง)
 @export var slash_rotations: PackedFloat32Array = PackedFloat32Array([205.0, 25.0, 195.0])
 ## ตัวคูณขนาดของแต่ละไม้
@@ -357,6 +359,8 @@ var _collision_synced := false
 
 var facing: int = 1              # 1 = ขวา, -1 = ซ้าย
 var is_attacking := false
+var _rb_attack_tag: StringName = &"basic"
+var runeblade: Node2D
 var attack_cooldown := 0.0
 var knockback := Vector2.ZERO
 var _hurt_flash := 0.0
@@ -374,6 +378,8 @@ var _jump_kick := false     # ★ ลอยเพราะ "กดกระโ�
 
 # ★ สถานะพุ่งหลบ ★
 var _dodge_time := 0.0      # เหลือเวลาพุ่งอีกกี่วินาที (0 = ไม่ได้พุ่งอยู่)
+var _dodge_duration := 0.0
+var _dodge_wall_stopped := false
 var _dodge_cd := 0.0        # รออีกกี่วินาทีถึงพุ่งได้ใหม่
 var _iframe := 0.0          # ★ ช่วงอมตะ ★ เหลืออีกกี่วินาที
 # ★ สถานะท่าโดนตี ★ ล็อกไว้ไม่ให้ Idle/Run มาทับก่อนเล่นจบ
@@ -406,6 +412,8 @@ var _click_pos := Vector2.ZERO
 
 
 func _ready() -> void:
+	runeblade = preload("res://scripts/entities/runeblade_combat.gd").new()
+	add_child(runeblade)
 	add_to_group("player")
 	Events.player_died.connect(_on_died)
 	Events.level_up.connect(_on_level_up)
@@ -469,6 +477,9 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if is_attacking:
+		if runeblade != null and runeblade.approach_left > 0.0:
+			runeblade.approach_step(delta)
+			return
 		velocity.x = knockback.x
 		move_and_slide()
 		return
@@ -591,7 +602,11 @@ func _start_dodge() -> void:
 	if dodge_sp_cost > 0:
 		PlayerState.spend_sp(dodge_sp_cost)
 
-	_dodge_time = dodge_distance / maxf(50.0, dodge_speed)
+	# Quadratic ease-out integrates to exactly dodge_distance; its peak speed
+	# is 2 * distance / duration, so retain dodge_speed as the speed ceiling.
+	_dodge_duration = maxf(dodge_pose_duration, 2.0 * dodge_distance / maxf(50.0, dodge_speed))
+	_dodge_time = _dodge_duration
+	_dodge_wall_stopped = false
 	_dodge_cd = _dodge_time + dodge_cooldown
 	_iframe = dodge_invincible
 	_jump_buffer = 0.0
@@ -604,16 +619,24 @@ func _start_dodge() -> void:
 
 
 func _dodge_step(delta: float) -> void:
-	_dodge_time -= delta
-	velocity.x = facing * dodge_speed
+	var before := clampf(1.0 - _dodge_time / _dodge_duration, 0.0, 1.0)
+	_dodge_time = maxf(0.0, _dodge_time - delta)
+	var after := clampf(1.0 - _dodge_time / _dodge_duration, 0.0, 1.0)
+	var step_distance := dodge_distance * (pow(1.0 - before, 2.0) - pow(1.0 - after, 2.0))
+	velocity.x = 0.0 if _dodge_wall_stopped else facing * step_distance / maxf(delta, 0.0001)
 	velocity.y = 0.0          # ลอยตรง ไม่ตกระหว่างพุ่ง (ข้ามหลุมได้)
 	move_and_slide()
 
 	if dodge_stop_on_wall and is_on_wall():
-		_dodge_time = 0.0
+		_dodge_wall_stopped = true # Stop travel, but finish the artist's pose.
 	if _dodge_time <= 0.0:
 		_dodge_time = 0.0
 		velocity.x = 0.0
+		# Keep the final pose visible for this tick before locomotion resumes.
+		if String(sprite.animation).to_lower() == String(dodge_anim).to_lower():
+			sprite.set_frame_and_progress(sprite.sprite_frames.get_frame_count(sprite.animation) - 1, 1.0)
+			sprite.pause()
+		sprite.speed_scale = 1.0
 
 
 ## ท่าตอนพุ่ง — มีท่า Dash ก็ใช้เลย ไม่มีก็ยืม "เฟรมลอยกลางอากาศ" ของท่ากระโดด
@@ -621,9 +644,9 @@ func _play_dodge() -> void:
 	if sprite.sprite_frames == null:
 		return
 	if _has_anim(String(dodge_anim)):
-		var real := _play(String(dodge_anim))
+		var real := _play(String(dodge_anim), true)
 		if real != "":
-			sprite.frame = 0
+			sprite.speed_scale = maxf(0.01, _anim_length(real) / maxf(0.01, _dodge_duration))
 			sprite.play(real)
 		return
 
@@ -842,6 +865,8 @@ func _update_facing() -> void:
 func _update_animation() -> void:
 	if is_attacking or sprite.sprite_frames == null:
 		return
+	if _dodge_time > 0.0:
+		return
 
 	# ★ รอบ 81 ★ ออกจากท่าฟันแล้วคืนความเร็วภาพเป็นปกติ (กันท่า Idle/Run วิ่งเร็วค้าง)
 	if not is_equal_approx(sprite.speed_scale, 1.0):
@@ -917,8 +942,11 @@ func weapon_suffix() -> String:
 ## 1) ท่าเฉพาะอาวุธที่ถืออยู่  เช่น Idle_falchion / Run_falchion / Attack_falchion
 ## 2) ท่าปกติของท่านั้น        เช่น Idle / Run / Attack
 ## 3) ตัวสำรองอื่น ๆ
-func _fallback_chain(anim: String) -> Array:
+func _fallback_chain(anim: String, include_job: bool = true) -> Array:
 	var chain: Array = []
+	if include_job and anim == "Idle" and PlayerState.stats != null and PlayerState.stats.job_id == &"runeblade":
+		preload("res://scripts/entities/runeblade_visual.gd").install(sprite)
+		chain.append("Idle_Runeblade")
 	# Socket weapons use the existing bare-hand Idle, not a baked-in sword.
 	if anim == "Idle":
 		var equipped := PlayerState.equipment.weapon()
@@ -1120,6 +1148,10 @@ func _feet_y() -> float:
 func _fit_info(anim: StringName) -> Dictionary:
 	if _fit_cache.has(anim):
 		return _fit_cache[anim]
+	if anim == &"Idle_Runeblade":
+		var job_fit := preload("res://scripts/entities/runeblade_visual.gd").fit(sprite.sprite_frames,auto_fit_height)
+		_fit_cache[anim] = job_fit
+		return job_fit
 
 	var frames := sprite.sprite_frames
 	if frames == null or not frames.has_animation(anim):
@@ -1165,7 +1197,7 @@ func _fit_info(anim: StringName) -> Dictionary:
 func _body_on_screen_target() -> float:
 	# ★ รอบ 95 ★ เปลี่ยนอาวุธ = ท่าอ้างอิงเปลี่ยน (Idle → Idle_blade) ต้องคิดใหม่
 	# จำชื่อท่าที่ใช้คิดไว้ด้วย จะได้หมดอายุเองโดยไม่ต้องรอใครมาสั่งล้างแคช
-	if _body_target > 0.0 and _body_target_anim == _resolve_anim(String(fit_reference_anim)):
+	if _body_target > 0.0 and _body_target_anim == _resolve_anim(String(fit_reference_anim),false):
 		return _body_target
 	var frames := sprite.sprite_frames
 	if frames == null:
@@ -1173,7 +1205,7 @@ func _body_on_screen_target() -> float:
 	# ★★ รอบ 95 ★★ ต้องใช้ "ท่าที่เล่นจริง" เป็นตัวตั้ง ไม่ใช่ชื่อดิบ
 	# ถือดาบอยู่ ท่ายืนที่เห็นคือ Idle_blade ไม่ใช่ Idle — เดิมไปวัด Idle (ตัวเปล่า)
 	# ซึ่งวาดมาคนละสเกล ทำให้ทุกท่าถูกขยายราว 11% และท่าพุ่ง (Dash) โตถึง 18%
-	var ref := _resolve_anim(String(fit_reference_anim))
+	var ref := _resolve_anim(String(fit_reference_anim),false)
 	if ref == "":
 		return 0.0
 	var m: Dictionary = SpriteFit.measure(frames, StringName(ref), {}, true)
@@ -1196,10 +1228,10 @@ func _fit_skips(anim: String) -> bool:
 
 
 ## หาชื่อท่าที่ "จะถูกเล่นจริง" ตามลำดับท่าสำรองเดียวกับ _play() (คิดอาวุธที่ถืออยู่ด้วย)
-func _resolve_anim(anim: String) -> String:
+func _resolve_anim(anim: String, include_job: bool = true) -> String:
 	if sprite.sprite_frames == null:
 		return ""
-	for candidate in _fallback_chain(anim):
+	for candidate in _fallback_chain(anim,include_job):
 		var real := _real_anim(String(candidate))
 		if real != "" and sprite.sprite_frames.get_frame_count(real) > 0:
 			return real
@@ -1381,6 +1413,8 @@ func _has_anim(name: String) -> bool:
 # โจมตีปกติ
 # =========================================================
 func start_attack() -> void:
+	if _dodge_time > 0.0:
+		return
 	# ★★ รอบ 97 ★★ กันไม้เก่าทับไม้ใหม่ (บั๊ก "ASPD ต่ำแล้วท่าฟันไม่โผล่เลย")
 	# ASPD ต่ำ → ท่าจบก่อนคูลดาวน์ → animation_finished ปลด is_attacking → ไม้ใหม่เริ่มได้ทันทีที่คูลดาวน์หมด
 	# แต่ coroutine ของไม้เก่ายัง await อยู่ พอ timer มันหมด (ช้ากว่าไม่กี่ ms เพราะคนละนาฬิกากับ _physics_process)
@@ -1402,6 +1436,7 @@ func start_attack() -> void:
 	# คลิกแต่ละครั้งเล่นท่าถัดไป (1→2→3→1) · จังหวะสุดท้ายดาเมจ x1.25 และเอฟเฟกต์ใหญ่ขึ้น
 	# ถ้าเว้นนานเกิน combo_window หลังท่าก่อนจบ กลับไปเริ่มจังหวะ 1 ใหม่
 	var step := _combo_begin_step()
+	_rb_attack_tag = &"basic_finisher" if step == 2 else &"basic"
 	var mult := _combo_mult(step)
 	var is_finisher := combo_enabled and step == _combo_steps() - 1 and _combo_steps() > 1
 	var anim := combo_attack_animation(step)
@@ -1631,8 +1666,12 @@ func _attack_anim_speed(played_anim: String) -> float:
 # ใช้สกิล
 # =========================================================
 func use_skill(skill_id: StringName) -> void:
-	if is_attacking or _dead:
+	if is_attacking or _dead or _dodge_time > 0.0:
 		return
+	if skill_id in SkillBook.RUNE_SKILLS:
+		runeblade.cast(skill_id)
+		return
+	_rb_attack_tag = skill_id
 	var s := GameData.get_skill(skill_id)
 	if s == null:
 		return
@@ -1959,6 +1998,7 @@ func _dash_step(delta: float) -> void:
 
 ## ฟันทุกตัวที่อยู่ในแนวพุ่งตอนนี้ (ตัวที่โดนแล้วข้าม)
 func _dash_damage() -> void:
+	if _dash_max_targets>0 and _dash_hits.size()>=_dash_max_targets: return
 	var my_foot := foot_position()
 	# ระหว่างพุ่งฟันได้รอบตัว (ชนขอบก็นับ) เหมือนกรอบฟันปกติ
 	var blade := attack_rect(_dash_range_x, _dash_range_y, true)
@@ -1975,12 +2015,13 @@ func _dash_damage() -> void:
 		var enemy_foot: Vector2 = enemy.foot_position() if enemy.has_method("foot_position") \
 			else enemy.global_position
 		var offset: Vector2 = enemy_foot - my_foot
+		var ray := PhysicsRayQueryParameters2D.create(my_foot-Vector2(0,80),enemy_foot-Vector2(0,80),1)
+		if not get_world_2d().direct_space_state.intersect_ray(ray).is_empty(): continue
 		enemy.take_damage_from_player(_dash_mult, _dash_use_matk,
 			signi(int(offset.x)) if offset.x != 0.0 else facing)
 		_dash_hits.append(enemy)
 
 		if _dash_max_targets > 0 and _dash_hits.size() >= _dash_max_targets:
-			_dash_time = 0.0
 			return
 
 
@@ -2065,6 +2106,13 @@ func take_damage(amount: int, knockback_force: float = 0.0, from_direction: int 
 			Color("#9be7ff"), 26, 0)
 		return
 
+	if runeblade != null:
+		amount = runeblade.absorb(amount)
+		if amount <= 0: return
+	# ★ รอบ 105 ★ เหตุการณ์ช่วยชีวิต (คนแปลกหน้าดึงขึ้นจากทะเลสาบกระจก) — โหนดในกลุ่ม death_guard ตอบ true = ไม่ตาย
+	var guard := get_tree().get_first_node_in_group("death_guard")
+	if guard != null and guard.has_method("try_rescue") and guard.try_rescue(amount):
+		return
 	PlayerState.take_damage(amount)
 	# ★ ดาเมจที่เราโดน — ตัวใหญ่ สีแดง ★
 	Events.floating_text(global_position + Vector2(0, -40), str(amount), Color("#ff4040"), 32, 2)
@@ -2200,6 +2248,7 @@ func nearest_pickup() -> Node:
 # ต่อ signal animation_finished ของ AnimatedSprite2D มาที่นี่ (ถ้าต้องการ)
 # =========================================================
 func _on_animated_sprite_2d_animation_finished() -> void:
+	if runeblade != null and runeblade.casting: return
 	if String(sprite.animation).begins_with("Attack"):
 		is_attacking = false
 		_update_animation()

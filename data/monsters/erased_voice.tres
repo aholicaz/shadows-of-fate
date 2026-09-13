@@ -1,0 +1,67 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/erased_voice_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_erased_voice_0"]
+script = ExtResource("2_drop")
+item_id = &"erased_ink"
+chance = 45.0
+
+[sub_resource type="Resource" id="Drop_erased_voice_1"]
+script = ExtResource("2_drop")
+item_id = &"blue_potion"
+chance = 20.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_erased_voice_card"]
+script = ExtResource("2_drop")
+item_id = &"card_erased_voice"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"erased_voice"
+display_name = "เสียงที่ถูกลบ"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(36, 40)
+hp_bar_offset_y = -144.0
+display_height = 140.0
+level = 90
+max_hp = 20000
+atk_min = 1100
+atk_max = 1380
+def = 60
+mdef = 140
+hit = 210
+flee = 110
+crit = 14
+element = 8
+race = 1
+size = 0
+ai_type = 1
+move_speed = 180.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 106.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 977
+job_exp_reward = 684
+zeny_min = 259
+zeny_max = 481
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_erased_voice_0"), SubResource("Drop_erased_voice_1"), SubResource("Drop_erased_voice_card")])
+respawn_time = 18.0
+flying = true
+hover_height = 120.0
+flying_no_hop = true
+tint = Color(1, 1, 1, 0.35)
+spawn_lines = PackedStringArray("...ซินดริ...", "...หรุงนีร์...", "...โซล...", "...กุลล์ไวก์...", "...น้อง... ของ...", "...[ลบ]...")
+death_lines = PackedStringArray("ชื่อข้าคือ... ซินดริ", "ชื่อข้าคือ... วาลี", "ชื่อข้าคือ... เอลิน", "ชื่อข้าคือ... [ลบ]")

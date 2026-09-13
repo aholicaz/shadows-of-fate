@@ -20,11 +20,11 @@ weapon_type = &"sword"
 attack_animation = &"Attack_Katana"
 card_slots = 2
 max_stack = 1
-buy_price = 220000
-sell_price = 4800
+buy_price = 13868
+sell_price = 1205
 atk = 61
-crit = 5
-bonus_agi = 5
+crit = 4
+bonus_agi = 6
 bonus_luk = 2
 refinable = true
 refine_atk_per_level = 4
@@ -42,3 +42,11 @@ equip_hand_scale = 0.72
 equip_hand_rotation_degrees = 62.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
+
+aspd_percent = 7.0
+
+crit_damage_percent = 10.0
+
+damage_percent = 0.0
+
+drop_hint = "อสูรสายฟ้า"

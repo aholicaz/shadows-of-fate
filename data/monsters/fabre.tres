@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Drop_fabre_2"]
 script = ExtResource("2_drop")
 item_id = &"cotton_shirt"
-chance = 2.96
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_fabre_card"]
 script = ExtResource("2_drop")
@@ -30,7 +30,7 @@ chance = 15.0
 [sub_resource type="Resource" id="Drop_fabre_eq_wooden_shield"]
 script = ExtResource("2_drop")
 item_id = &"wooden_shield"
-chance = 1.0
+chance = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fe1t8"]
 atlas = ExtResource("3_fisuj")
@@ -238,7 +238,7 @@ wander_pause_chance = 0.7
 wander_walk_min = 1.4
 wander_walk_max = 2.6
 attack_hit_frames = null
-exp_reward = 18
+exp_reward = 2
 zeny_min = 5
 zeny_max = 15
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_fabre_2"), SubResource("Drop_fabre_card"), SubResource("Drop_fabre_junk_fabre_silk"), SubResource("Drop_fabre_junk_feeler"), SubResource("Drop_fabre_eq_wooden_shield")])

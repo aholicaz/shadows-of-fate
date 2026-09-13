@@ -47,3 +47,6 @@ extends Resource
 @export var job_change_level: int = 30
 ## id ของอาชีพที่ต่อยอดได้ (เอาไว้ใช้ในอนาคต)
 @export var next_job_ids: Array[StringName] = []
+## ★ รอบ 108 ★ เลเวลอาชีพสูงสุดของอาชีพนี้ (Job Level ขึ้น 1 = แต้มสกิล 1) — นักดาบ 50 · Runeblade 80 · Ninth Edge 100
+## เปลี่ยนอาชีพแล้วเลเวลอาชีพนับต่อจากเดิม ไม่รีเซ็ต · 0 = ใช้ค่า PlayerStats.MAX_JOB_LEVEL
+@export var max_job_level: int = 50

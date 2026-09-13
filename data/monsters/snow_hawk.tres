@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://b37yvs0qx5dua"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/snow_hawk_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_snow_hawk_0"]
+script = ExtResource("2_drop")
+item_id = &"hawk_down"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_snow_hawk_1"]
+script = ExtResource("2_drop")
+item_id = &"hawk_talon"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_snow_hawk_2"]
+script = ExtResource("2_drop")
+item_id = &"blue_potion"
+chance = 14.0
+
+[sub_resource type="Resource" id="Drop_snow_hawk_card"]
+script = ExtResource("2_drop")
+item_id = &"card_snow_hawk"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"snow_hawk"
+display_name = "เหยี่ยวหิมะ"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(40, 36)
+hp_bar_offset_y = -57.0
+display_height = 150.0
+fit_foot_animations = null
+flying = true
+hover_height = 150.0
+level = 61
+max_hp = 7800
+atk_min = 480
+atk_max = 600
+def = 52
+mdef = 48
+hit = 124
+flee = 80
+crit = 10
+element = 4
+race = 2
+size = 0
+ai_type = 1
+move_speed = 230.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 110.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 610
+job_exp_reward = 427
+zeny_min = 178
+zeny_max = 330
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_snow_hawk_0"), SubResource("Drop_snow_hawk_1"), SubResource("Drop_snow_hawk_2"), SubResource("Drop_snow_hawk_card")])
+respawn_time = 18.0
+spawn_lines = null
+death_lines = null

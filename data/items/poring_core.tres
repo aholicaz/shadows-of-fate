@@ -10,3 +10,5 @@ display_name = "แกนวุ้นโพริง"
 description = "ก้อนวุ้นใสตรงกลางตัวโพริง นาน ๆ ถึงจะเจอสักที"
 icon = ExtResource("2_icon")
 buy_price = 120
+
+sell_price = 5

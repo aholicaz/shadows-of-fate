@@ -13,7 +13,7 @@ type = 2
 slot = 3
 card_slots = 1
 max_stack = 1
-buy_price = 1250
+buy_price = 812
 sell_price = 100
 def = 1
 sp_drain_percent = 0.1
@@ -23,3 +23,5 @@ refinable = true
 metadata/price_base_r47_sell = 200
 metadata/price_base_r47_buy = 250
 metadata/sell_price_base_r44 = 100
+
+drop_hint = "ลูนาติก"

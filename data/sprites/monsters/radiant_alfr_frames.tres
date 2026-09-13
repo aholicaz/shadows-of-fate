@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_0.png" id="1"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_1.png" id="2"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_2.png" id="3"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_3.png" id="4"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_4.png" id="5"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_5.png" id="6"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_6.png" id="7"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter5/radiant_alfr/pose_7.png" id="8"]
+
+[resource]
+animations = [{"frames": [{"duration": 1, "texture": ExtResource("1")}, {"duration": 1, "texture": ExtResource("2")}], "loop": true, "name": &"Idle", "speed": 2.5},
+{"frames": [{"duration": 1, "texture": ExtResource("3")}, {"duration": 1, "texture": ExtResource("4")}], "loop": true, "name": &"Run", "speed": 6.0},
+{"frames": [{"duration": 0.4, "texture": ExtResource("5")}, {"duration": 0.25, "texture": ExtResource("6")}, {"duration": 0.25, "texture": ExtResource("1")}], "loop": false, "name": &"Attack", "speed": 1.0},
+{"frames": [{"duration": 0.2, "texture": ExtResource("7")}], "loop": false, "name": &"Hit", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": ExtResource("8")}], "loop": false, "name": &"Die", "speed": 1.0},
+{"frames": [{"duration": 0.5, "texture": ExtResource("5")}, {"duration": 0.7, "texture": ExtResource("6")}, {"duration": 0.3, "texture": ExtResource("1")}], "loop": false, "name": &"Skill", "speed": 1.0}]

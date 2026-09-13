@@ -1,0 +1,185 @@
+[gd_scene format=3]
+
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/frost_wolf.tres" id="md_frost_wolf"]
+[ext_resource type="Resource" path="res://data/monsters/snow_hawk.tres" id="md_snow_hawk"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_parallax.gd" id="c4_parallax"]
+[ext_resource type="Shader" path="res://Sprites/shaders/chapter4_atmosphere.gdshader" id="c4_weather"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/frost_pass_depth.png" id="c4_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frost_pass_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frost_pass_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frost_pass_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frost_pass_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/frost_pass_foundation.png" id="organic_foundation"]
+
+
+
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(5600, 240)
+
+[sub_resource type="ShaderMaterial" id="ChapterWeather"]
+shader = ExtResource("c4_weather")
+shader_parameter/atmosphere_color = Color(0.62, 0.8, 0.98, 1)
+shader_parameter/mist_strength = 0.1
+shader_parameter/aurora_strength = 0.025
+shader_parameter/storm_strength = 0
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"frost_pass"
+display_name = "ช่องเขาน้ำแข็ง"
+chapter = 4
+region = "โยตุนเฮม"
+map_bounds = Rect2(-100, -200, 5400, 1400)
+player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("c4_parallax")
+anchor_x = 2600.0
+snow_amount = 150
+wind = 1.0
+rising_motes = false
+particle_color = Color(0.62, 0.8, 0.98, 0.45)
+
+
+[node name="Backdrop" type="Polygon2D" parent="Background"]
+z_index = -110
+color = Color(0.05,0.09,0.15,1)
+polygon = PackedVector2Array(-6000,-3000,12000,-3000,12000,3000,-6000,3000)
+
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_filter = 4
+texture_repeat = 3
+position = Vector2(2600.0,303)
+scale = Vector2(1.39,1.39)
+texture = ExtResource("c4_depth")
+region_enabled = true
+region_rect = Rect2(-4914,0,12000,724)
+
+
+[node name="Atmosphere" type="Polygon2D" parent="Background"]
+z_index = -2
+material = SubResource("ChapterWeather")
+polygon = PackedVector2Array(-1200,-350,6600,-350,6600,1350,-1200,1350)
+uv = PackedVector2Array(0,0,1,0,1,1,0,1)
+
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2600, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+visible = false
+color = Color(0.84, 0.86, 0.9, 1)
+polygon = PackedVector2Array(-2800, -120, 2800, -120, 2800, 120, -2800, 120)
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_vanir" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_town" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5000, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_frost_wolf"), ExtResource("md_snow_hawk")])
+count_per_type = 5
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToVanir" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"vanir_town"
+target_spawn_point = &"from_pass"
+label_text = "← วานาเฮม"
+destination_name = "วานาเฮม นครแห่งราก"
+
+
+[node name="ToUtgard" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5140, 880)
+target_map = &"utgard_town"
+target_spawn_point = &"from_pass"
+label_text = "→ อุทการ์ด"
+destination_name = "อุทการ์ด นครแห่งยักษ์"
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="PassSign" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2600, 790)
+lore_id = &"frost_pass_sign"
+title = "ป้ายหินยักษ์"
+text = "ป้ายหินสูงกว่าบ้านหนึ่งหลัง ตัวอักษรใหญ่เท่าตัวเรา\n\n«คนตัวเล็ก — ถ้าเจ้ามาถึงตรงนี้ได้ แปลว่าเจ้าไม่ได้มาฆ่า\nคนที่มาฆ่าไม่เคยผ่านช่องเขานี้ พวกเขาข้ามกำแพง»"
+label_text = "ป้ายหิน"
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200, 170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800, 170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800, 170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800, 170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(2700.0, 1960)
+texture_repeat = 3
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)

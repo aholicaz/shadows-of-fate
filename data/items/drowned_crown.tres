@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/drowned_crown.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"drowned_crown"
+display_name = "มงกุฎผีจม"
+description = "มงกุฎที่จมบึงมาสามร้อยปี ใส่แล้วได้ยินเสียงน้ำ"
+icon = ExtResource("2_icon")
+required_level = 86
+type = 2
+slot = 3
+card_slots = 1
+max_stack = 1
+buy_price = 89552
+sell_price = 2488
+def = 38
+mdef = 10
+max_hp = 250
+bonus_vit = 3
+refinable = true
+
+drop_hint = "ผีจมน้ำ"

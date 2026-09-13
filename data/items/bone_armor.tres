@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/bone_armor.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"bone_armor"
+display_name = "เกราะกระดูก"
+description = "เกราะที่ประกอบจากกระดูกยักษ์ เบากว่าเหล็ก แข็งกว่าหิน"
+icon = ExtResource("2_icon")
+required_level = 88
+type = 2
+slot = 4
+card_slots = 1
+max_stack = 1
+buy_price = 93728
+sell_price = 2544
+def = 82
+max_hp = 650
+refinable = true
+
+skill_damage_percent = 7.0
+
+bonus_str = 6
+
+max_sp = 55
+
+drop_hint = "ผีจมน้ำ / งูนิดฮ็อกก์เล็ก"

@@ -38,3 +38,5 @@ equip_hand_scale = 0.21
 equip_hand_rotation_degrees = 242.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
+
+drop_hint = "poring"

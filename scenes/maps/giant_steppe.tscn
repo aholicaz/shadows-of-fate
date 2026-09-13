@@ -1,0 +1,195 @@
+[gd_scene format=3]
+
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/snow_mammoth.tres" id="md_snow_mammoth"]
+[ext_resource type="Resource" path="res://data/monsters/ice_troll.tres" id="md_ice_troll"]
+[ext_resource type="Resource" path="res://data/monsters/snow_hawk.tres" id="md_snow_hawk"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_parallax.gd" id="c4_parallax"]
+[ext_resource type="Shader" path="res://Sprites/shaders/chapter4_atmosphere.gdshader" id="c4_weather"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/giant_steppe_depth.png" id="c4_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/giant_steppe_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/giant_steppe_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/giant_steppe_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/giant_steppe_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/giant_steppe_foundation.png" id="organic_foundation"]
+
+
+
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(5800, 240)
+
+[sub_resource type="ShaderMaterial" id="ChapterWeather"]
+shader = ExtResource("c4_weather")
+shader_parameter/atmosphere_color = Color(0.93, 0.84, 0.65, 1)
+shader_parameter/mist_strength = 0.055
+shader_parameter/aurora_strength = 0
+shader_parameter/storm_strength = 0
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"giant_steppe"
+display_name = "ทุ่งหญ้ายักษ์"
+chapter = 4
+region = "โยตุนเฮม"
+map_bounds = Rect2(-100, -200, 5600, 1400)
+player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("c4_parallax")
+anchor_x = 2700.0
+snow_amount = 50
+wind = 0.65
+rising_motes = false
+particle_color = Color(0.93, 0.84, 0.65, 0.45)
+
+
+[node name="Backdrop" type="Polygon2D" parent="Background"]
+z_index = -110
+color = Color(0.05,0.09,0.15,1)
+polygon = PackedVector2Array(-6000,-3000,12000,-3000,12000,3000,-6000,3000)
+
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_filter = 4
+texture_repeat = 3
+position = Vector2(2700.0,303)
+scale = Vector2(1.39,1.39)
+texture = ExtResource("c4_depth")
+region_enabled = true
+region_rect = Rect2(-4914,0,12000,724)
+
+
+[node name="Atmosphere" type="Polygon2D" parent="Background"]
+z_index = -2
+material = SubResource("ChapterWeather")
+polygon = PackedVector2Array(-1200,-350,6800,-350,6800,1350,-1200,1350)
+uv = PackedVector2Array(0,0,1,0,1,1,0,1)
+
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2700, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+visible = false
+color = Color(0.7, 0.72, 0.6, 1)
+polygon = PackedVector2Array(-2900, -120, 2900, -120, 2900, 120, -2900, 120)
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_town" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_hall" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5200, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_snow_mammoth")])
+count_per_type = 4
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="MapSpawner2" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_ice_troll"), ExtResource("md_snow_hawk")])
+count_per_type = 4
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToTown" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"utgard_town"
+target_spawn_point = &"from_steppe"
+label_text = "← อุทการ์ด"
+destination_name = "อุทการ์ด นครแห่งยักษ์"
+
+
+[node name="ToHall" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5340, 880)
+target_map = &"frozen_hall"
+target_spawn_point = &"from_steppe"
+label_text = "→ โถงภาพวาดน้ำแข็ง"
+destination_name = "โถงภาพวาดน้ำแข็ง"
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="HerdCrossing" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(4300, 790)
+lore_id = &"mammoth_crossing"
+title = "ทางผ่านของฝูงแมมมอธ"
+text = "ผ่านฝูงแมมมอธมาโดยไม่มีใครต้องตาย"
+label_text = ""
+auto_read = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200, 170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800, 170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800, 170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800, 170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(2800.0, 1960)
+texture_repeat = 3
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)

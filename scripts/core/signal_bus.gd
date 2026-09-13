@@ -34,7 +34,10 @@ signal monster_killed(monster_id: StringName, level: int)
 ## ★ ล้มบอสได้ ★ (ใช้เด้งป้าย MVP)
 signal boss_killed(monster_id: StringName, display_name: String)
 signal damage_dealt(target: Node, amount: int, is_crit: bool)
+signal runic_hit(target: Node, source: StringName, critical: bool)
 signal map_changed(map_id: StringName)
+## ★ รอบ 105 ★ ผู้เล่นเริ่มคุยกับ NPC (ส่งชื่อที่โชว์บนหัว) — ch456_campaign ใช้ทำเหตุการณ์ลับหลังบทสนทนา
+signal npc_talked(npc_name: String)
 ## kind = FloatingTextLayer.Kind (บอกว่าข้อความชนิดไหน จะได้แยกทิศไม่ให้ทับกัน)
 signal floating_text_requested(world_position: Vector2, text: String, color: Color, size: int, kind: int)
 

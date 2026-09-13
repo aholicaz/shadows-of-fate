@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"light_eater_bloom"
+count = 12
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"gardener_note"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c5_3_garden_that_never_wilts"
+title = "C5-3 สวนที่ไม่มีวันเหี่ยว"
+description = "ล่าดอกไม้กลืนแสงในสวนผลึก แล้วอ่านสมุดของคนสวน"
+giver_name = "แม่ค้าลอฟน์"
+dialog_offer = "ดอกไม้ในสวนบานเหมือนทุกวัน ☺ แต่ช่วงนี้มันกินแสงมากไป คนสวนบ่น... ไม่สิ คนสวนไม่บ่น ไม่มีใครบ่น\n\nไปตัดให้บาง แล้วดูสมุดของคนสวนหน่อย เขาจดอะไรทุกวัน"
+dialog_progress = "ดอกไม้กลืนแสง 12 แล้วหาสมุดจดที่ปลายสวน"
+dialog_complete = "«วันนี้ข้าลืมชื่อแม่»... ☺ ...ทำไมข้าถึงหยุดยิ้มไม่ได้\n\nเอาผ้าคลุมนี่ไป ราคาลงท้ายด้วยศูนย์ ฟรี"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 75
+required_quests = Array[StringName]([&"c5_2_gift_of_light"])
+reward_item_id = &"crystal_cloak"
+reward_item_count = 1
+reward_zeny = 15000
+reward_exp = 90000

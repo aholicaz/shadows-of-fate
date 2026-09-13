@@ -32,7 +32,7 @@ max_count = 2
 [sub_resource type="Resource" id="Drop_lunatic_eq_ribbon"]
 script = ExtResource("2_drop")
 item_id = &"ribbon"
-chance = 1.0
+chance = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cntxw"]
 atlas = ExtResource("3_dri1a")
@@ -307,8 +307,8 @@ attack_duration = 0.45
 attack_cooldown = 2.4
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 155
-job_exp_reward = 165
+exp_reward = 66
+job_exp_reward = 46
 zeny_min = 27
 zeny_max = 51
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_lunatic_2"), SubResource("Drop_lunatic_card"), SubResource("Drop_lunatic_junk_lunatic_tail"), SubResource("Drop_lunatic_junk_chewed_carrot"), SubResource("Drop_lunatic_eq_ribbon")])
@@ -319,3 +319,5 @@ projectile_offset = Vector2(40, -100)
 projectile_hit_size = Vector2(70, 70)
 projectile_range = 900.0
 respawn_time = 7.0
+spawn_lines = null
+death_lines = null

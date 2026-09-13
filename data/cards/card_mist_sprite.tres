@@ -17,6 +17,6 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 66000
+sell_price = 3640
 flee = 10
 mdef = 5

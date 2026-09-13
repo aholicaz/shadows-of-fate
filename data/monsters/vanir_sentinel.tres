@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/vanir_sentinel_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://prtx0ckgurhw" path="res://data/sprites/monsters/vanir_sentinel_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_vanir_sentinel_0"]
 script = ExtResource("2_drop")
@@ -24,12 +24,12 @@ max_count = 2
 [sub_resource type="Resource" id="Drop_vanir_sentinel_3"]
 script = ExtResource("2_drop")
 item_id = &"sentinel_blade"
-chance = 1.0
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_vanir_sentinel_4"]
 script = ExtResource("2_drop")
 item_id = &"sentinel_plate"
-chance = 0.8
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_vanir_sentinel_card"]
 script = ExtResource("2_drop")
@@ -43,7 +43,18 @@ display_name = "ผู้พิทักษ์วานีร์"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(62, 66)
 hp_bar_offset_y = -95.0
-display_height = 250.0
+display_height = 390.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.52323232,
+&"Die": 1.12537313,
+&"Hit": 1.12537313,
+&"Idle": 1.12035661,
+&"Run": 1.11373708,
+&"Skill": 1.52323232,
+&"Walk": 1.11373708
+})
 fit_foot_animations = null
 level = 52
 max_hp = 6800
@@ -68,11 +79,13 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 260.0
-attack_hit_frames = null
+attack_hit_frames = PackedInt32Array(8, 19)
 skill_hit_frames = null
-exp_reward = 4600
-job_exp_reward = 3220
-zeny_min = 900
-zeny_max = 1600
+exp_reward = 498
+job_exp_reward = 349
+zeny_min = 153
+zeny_max = 283
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_vanir_sentinel_0"), SubResource("Drop_vanir_sentinel_1"), SubResource("Drop_vanir_sentinel_2"), SubResource("Drop_vanir_sentinel_3"), SubResource("Drop_vanir_sentinel_4"), SubResource("Drop_vanir_sentinel_card")])
 respawn_time = 18.0
+spawn_lines = null
+death_lines = null

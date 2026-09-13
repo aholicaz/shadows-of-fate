@@ -20,6 +20,10 @@ enum Kind {
 	VISIT,    ## ไปให้ถึงแมพ — Target = map_id
 	READ,     ## อ่าน/ตรวจของในแมพ — Target = id ของจุดนั้น (ตั้งเองได้)
 	FLAG,     ## ธงเนื้อเรื่องถูกตั้งแล้ว — Target = ชื่อธง (นับสด ๆ)
+	## ★ รอบ 105 ★ ตีมอนด้วยสกิล — Target = "id มอน|สกิล" เช่น "wall_shieldbearer|sunder"
+	## ฝั่งสกิลใส่ id สกิล หรือชื่อกลุ่ม: sunder (สายหนัก) · edge (สายคริ) · ninth (สกิล Ninth Edge)
+	## ใส่หลายอันคั่นด้วย , · ฝั่งมอนใส่ * = มอนตัวไหนก็ได้
+	SKILL_HIT,
 }
 
 @export var kind: Kind = Kind.KILL
@@ -74,7 +78,65 @@ func describe() -> String:
 			return "ตรวจดู %s" % String(target)
 		Kind.FLAG:
 			return String(target)
+		Kind.SKILL_HIT:
+			var m2 := GameData.get_monster(skill_hit_monster())
+			var who := "มอนตัวไหนก็ได้" if skill_hit_monster() == &"*" else (m2.display_name if m2 != null else String(skill_hit_monster()))
+			return "ใช้%s โดน %s" % [skill_hit_label(), who]
 	return String(target)
+
+
+# =========================================================
+# ★ รอบ 105 ★ SKILL_HIT — "ตีมอน X ด้วยสกิล Y"
+# =========================================================
+## กลุ่มสกิลที่เควสอ้างถึงได้ด้วยชื่อสั้น ๆ
+const SKILL_GROUPS := {
+	"sunder": [&"anvil_cleave", &"faultline", &"worldcleaver"],
+	"edge": [&"rune_flurry", &"unbroken_edge", &"rune_echo"],
+	"ninth": [&"erasing_cut", &"ninth_inscription", &"twin_inscription", &"twin_echo"],
+}
+const SKILL_GROUP_NAMES := {"sunder": "สกิลสาย Sunder (ดาบหนัก)", "edge": "สกิลสาย Edge (คม)", "ninth": "สกิล Ninth Edge"}
+
+
+func skill_hit_monster() -> StringName:
+	var s := String(target)
+	return StringName(s.get_slice("|", 0).strip_edges()) if "|" in s else &"*"
+
+
+func skill_hit_skills() -> Array:
+	var s := String(target)
+	var part := s.get_slice("|", 1) if "|" in s else s
+	var out: Array = []
+	for p in part.split(",", false):
+		var k := String(p).strip_edges()
+		if SKILL_GROUPS.has(k):
+			out.append_array(SKILL_GROUPS[k])
+		elif k != "":
+			out.append(StringName(k))
+	return out
+
+
+func skill_hit_label() -> String:
+	var s := String(target)
+	var part := s.get_slice("|", 1) if "|" in s else s
+	var names: Array[String] = []
+	for p in part.split(",", false):
+		var k := String(p).strip_edges()
+		if SKILL_GROUP_NAMES.has(k):
+			names.append(String(SKILL_GROUP_NAMES[k]))
+		else:
+			var sk := GameData.get_skill(StringName(k))
+			names.append(sk.display_name if sk != null else k)
+	return "/".join(names)
+
+
+## เหตุการณ์ "สกิล skill_id โดนมอน monster_id" ตรงกับเงื่อนไขนี้ไหม
+func matches_skill_hit(monster_id: StringName, skill_id: StringName) -> bool:
+	if kind != Kind.SKILL_HIT:
+		return false
+	var m := skill_hit_monster()
+	if m != &"*" and m != monster_id:
+		return false
+	return skill_id in skill_hit_skills()
 
 
 ## บรรทัดเต็มพร้อมตัวเลข เช่น "ล้ม โพริง  7/10"

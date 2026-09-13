@@ -127,14 +127,14 @@ func total_atk() -> int:
 	var d := data()
 	if d == null:
 		return 0
-	return boosted(d.atk) + refine * d.refine_atk_per_level
+	return boosted(d.atk) + refine * d.refine_atk_gain()
 
 
 func total_def() -> int:
 	var d := data()
 	if d == null:
 		return 0
-	return boosted(d.def) + refine * d.refine_def_per_level
+	return boosted(d.def) + refine * d.refine_def_gain()
 
 
 ## ราคาขาย รวมมูลค่าจากการตีบวก

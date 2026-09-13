@@ -1,0 +1,82 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/light_eater_bloom_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_light_eater_bloom_0"]
+script = ExtResource("2_drop")
+item_id = &"bloom_petal"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_light_eater_bloom_1"]
+script = ExtResource("2_drop")
+item_id = &"bloom_root"
+chance = 25.0
+
+[sub_resource type="Resource" id="Drop_light_eater_bloom_2"]
+script = ExtResource("2_drop")
+item_id = &"blue_potion"
+chance = 20.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_light_eater_bloom_card"]
+script = ExtResource("2_drop")
+item_id = &"card_light_eater_bloom"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"light_eater_bloom"
+display_name = "ดอกไม้กลืนแสง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(70, 70)
+hp_bar_offset_y = -83.6
+display_height = 220.0
+level = 76
+max_hp = 14000
+atk_min = 700
+atk_max = 880
+def = 70
+mdef = 90
+hit = 160
+flee = 10
+crit = 4
+element = 3
+race = 3
+size = 1
+ai_type = 2
+move_speed = 0.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 560.0
+attack_range = 420.0
+leash_range = 800.0
+wander_range = 0.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 799
+job_exp_reward = 559
+zeny_min = 220
+zeny_max = 408
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_light_eater_bloom_0"), SubResource("Drop_light_eater_bloom_1"), SubResource("Drop_light_eater_bloom_2"), SubResource("Drop_light_eater_bloom_card")])
+respawn_time = 18.0
+skill_name = "ละอองแสง"
+skill_anim = &"Skill"
+skill_range = 520.0
+skill_damage_mult = 1.5
+skill_windup = 0.5
+skill_duration = 1.0
+skill_cooldown = 6.0
+skill_chance = 0.70
+skill_bolt_count = 2
+skill_bolt_start = 140.0
+skill_bolt_spacing = 140.0
+skill_bolt_delay = 0.30
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

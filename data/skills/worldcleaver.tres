@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/worldcleaver.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"worldcleaver"
+display_name = "ฝนดาบผ่าโลก"
+description = "ใช้ 3 รูน เรียกฝนดาบ 5 ระลอก รวม 1400–2750% ATK รัศมี 520 px สูงสุด 12 ตัวต่อระลอก ไม่คริ เตรียม 0.7 วิ ยกเลิกด้วยหลบใน 0.35 วิแรกได้"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+type = 0
+sp_cost_base = 36
+sp_cost_per_level = 0.0
+cooldown = 18.0
+damage_mult_base = 14.0
+damage_mult_per_level = 1.5
+required_skills = {"faultline": 5}
+
+max_targets = 12
+range_x = 520.0
+
+hit_count = 5
+
+range_y = 420.0
+
+field_radius = 520.0
+
+field_offset = 220.0

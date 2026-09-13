@@ -21,6 +21,7 @@ const DAMAGE_FONT_CRIT := 40
 
 signal died(monster: Node, data: MonsterData)
 signal ground_slam_impact(origin: Vector2, radius: float, skill: bool, hit_index: int)
+signal projectile_released(projectile: MonsterProjectile, release_frame: int)
 
 const LAVA_SLAM_FX = preload("res://scripts/entities/lava_slam_fx.gd")
 
@@ -89,9 +90,40 @@ func _ready() -> void:
 	hp = data.max_hp
 	_apply_visual()
 	_create_hp_bar()
-	_aggro = data.ai_type == MonsterData.AIType.AGGRESSIVE
+	preload("res://scripts/entities/foot_shadow.gd").attach(self)
+	_aggro = data.ai_type == MonsterData.AIType.AGGRESSIVE and not _calmed()
 	# กันบอสร่ายสกิลใส่ทันทีที่เห็นหน้า
 	_skill_cd = data.skill_cooldown * 0.5
+	# ★ รอบ 105 ★ ย้อมสี + พูดตอนเกิด
+	if data.tint != Color.WHITE:
+		sprite.modulate = data.tint
+	if not data.spawn_lines.is_empty():
+		_say_line(data.spawn_lines[randi() % data.spawn_lines.size()], Color("#c9d6ff"))
+
+
+# =========================================================
+# ★ รอบ 105 ★ มอนใจดีตามเงื่อนไข + พูด
+# =========================================================
+var _calm_cache := -1.0
+var _calm_value := false
+
+## ผู้เล่นมีธง/ไอเทมที่ทำให้มอนตัวนี้ไม่ไล่ตีไหม (เช็คซ้ำทุก 1 วิ ไม่ต้องไล่กระเป๋าทุกเฟรม)
+func _calmed() -> bool:
+	if data == null or (data.calm_if_flag == &"" and data.calm_if_item == &""):
+		return false
+	var now := Time.get_ticks_msec() / 1000.0
+	if now - _calm_cache < 1.0:
+		return _calm_value
+	_calm_cache = now
+	_calm_value = (data.calm_if_flag != &"" and PlayerState.has_flag(data.calm_if_flag)) \
+			or (data.calm_if_item != &"" and PlayerState.inventory != null and PlayerState.inventory.count_of(data.calm_if_item) > 0)
+	return _calm_value
+
+
+func _say_line(text: String, color: Color) -> void:
+	if text.strip_edges() == "":
+		return
+	Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y - hover_lift() - 30), text, color, 16, 0)
 
 
 func _apply_visual() -> void:
@@ -332,6 +364,7 @@ func _apply_hover(delta: float) -> void:
 # =========================================================
 func _physics_process(delta: float) -> void:
 	_tick_wound(delta)
+	_tick_burn(delta)
 	_check_boss_intro()
 	if state == State.DEAD:
 		return
@@ -380,7 +413,8 @@ func _physics_process(delta: float) -> void:
 		to_player_x = to_player.x
 
 	# มอนดุ = เห็นแล้วไล่เลย / มอนใจดี = ไล่เฉพาะตอนถูกตี
-	var hostile: bool = _aggro or data.ai_type == MonsterData.AIType.AGGRESSIVE
+	# ★ รอบ 105 ★ มอนใจดีตามเงื่อนไข (ธง/ไอเทม) = ทำตัวเหมือน PASSIVE จนกว่าจะโดนตี
+	var hostile: bool = _aggro or (data.ai_type == MonsterData.AIType.AGGRESSIVE and not _calmed())
 	# ★★ รอบ 87 — บอสไล่ทั่วสนาม ★★
 	# เดิมบอสรอให้ผู้เล่นเข้าระยะ Detect Range ก่อน ระหว่างนั้นเดินวนอยู่ในวง Wander Range
 	# ของตัวเอง (อสูรสายฟ้า detect 420 · wander 260) → ดูเหมือน "วิ่งวนอยู่กับที่"
@@ -827,6 +861,9 @@ func _attack() -> void:
 	if data.attack_ground_slam:
 		await _run_ground_slam_animation(played, false)
 		return
+	if data.is_ranged() and not data.projectile_hand_positions.is_empty():
+		await _run_hand_projectiles(played)
+		return
 
 	# ★ รอบ 66/69 — จับจังหวะตามภาพ ★ ตั้ง Attack Hit Frames ไว้ = คิดเวลาจากเฟรมจริง
 	# (เปลี่ยน fps ของท่าเมื่อไหร่ ดาเมจก็ยังออกตรงจังหวะเดิม ไม่ต้องแก้ Windup)
@@ -940,7 +977,7 @@ func _ground_slam_hit(skill: bool, hit_index: int) -> void:
 
 ## ★ ดาเมจ 1 ที ของท่าโจมตีปกติ ★ (ท่าที่ตีหลายทีจะเรียกซ้ำตามจำนวนเฟรมที่ตั้งไว้)
 ## hits = ตีทั้งหมดกี่ทีในท่านี้ — ตี 1 ทีจะไม่โดนตัวคูณ "ต่อที" เลย (ของเดิมไม่เปลี่ยน)
-func _attack_hit(hits: int = 1) -> void:
+func _attack_hit(hits: int = 1, release_frame: int = -1) -> void:
 	var mult: float = 1.0
 	if hits > 1 and data.attack_hit_damage_mult > 0.0:
 		mult = data.attack_hit_damage_mult
@@ -949,9 +986,13 @@ func _attack_hit(hits: int = 1) -> void:
 	if data.projectile_texture != null:
 		if _player != null and is_instance_valid(_player):
 			_face_to(_player.global_position.x - global_position.x)
-		var shot := MonsterProjectile.fire_straight(data, self, facing)
+		var aim := Vector2.INF
+		if data.projectile_aim_at_player and is_instance_valid(_player):
+			aim = _player.body_rect().get_center() if _player.has_method("body_rect") else _player.global_position
+		var shot := MonsterProjectile.fire_straight(data, self, facing, projectile_origin(release_frame),aim)
 		if shot != null:
 			shot.damage_mult = mult
+			projectile_released.emit(shot,release_frame)
 		return
 
 	if _player == null or not is_instance_valid(_player) or PlayerState.is_dead():
@@ -969,6 +1010,37 @@ func _attack_hit(hits: int = 1) -> void:
 		return
 	var dir := signi(int(_player.global_position.x - global_position.x))
 	_player.take_damage(maxi(1, int(round(result.damage * mult))), data.knockback_force, dir)
+
+
+func projectile_origin(release_frame: int = -1) -> Vector2:
+	var frame := sprite.frame if release_frame < 0 else release_frame
+	if data.projectile_hand_positions.has(frame):
+		var texture := sprite.sprite_frames.get_frame_texture(sprite.animation,sprite.frame)
+		var point: Vector2 = data.projectile_hand_positions[frame] - texture.get_size()*.5
+		if sprite.flip_h: point.x = -point.x
+		return sprite.to_global(point+sprite.offset)
+	return foot_position()+Vector2(data.projectile_offset.x*facing,data.projectile_offset.y)
+
+
+func _run_hand_projectiles(played: String) -> void:
+	var frames := data.attack_hit_frame_list()
+	frames.sort()
+	if played == "" or not sprite.sprite_frames.has_animation(played):
+		state = State.IDLE
+		return
+	for frame in frames:
+		if frame >= sprite.sprite_frames.get_frame_count(played): continue
+		while state == State.ATTACK and sprite.animation == StringName(played) and sprite.frame < frame:
+			await get_tree().process_frame
+		if state != State.ATTACK or sprite.animation != StringName(played): return
+		if is_instance_valid(_player): _face_to(_player.global_position.x-global_position.x)
+		_apply_fit()
+		_attack_hit(frames.size(),frame)
+	while state == State.ATTACK and sprite.animation == StringName(played) and sprite.is_playing():
+		await get_tree().process_frame
+	if state == State.ATTACK:
+		state = State.IDLE
+		_attack_timer = data.attack_cooldown
 
 
 ## ★ รอบ 66 ★ ท่านี้เล่นถึงเฟรมที่ idx ใช้เวลากี่วินาที (คิดจาก duration ของแต่ละเฟรม / fps)
@@ -992,12 +1064,36 @@ func _anim_time_to_frame(anim: String, idx: int) -> float:
 # รับดาเมจจากผู้เล่น
 # =========================================================
 func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, from_dir: int = 0,
-		wound_bonus: float = 0.0, wound_duration: float = 0.0) -> void:
+		wound_bonus: float = 0.0, wound_duration: float = 0.0, source: StringName = &"") -> void:
 	if state == State.DEAD:
 		return
 
 	var physical_bonus := 1.0 + _wound_bonus if _wound_time > 0.0 and not use_matk else 1.0
-	var result := Combat.player_hits_monster(PlayerState.stats, data, skill_mult * physical_bonus, use_matk)
+	if source == &"":
+		var player := get_tree().get_first_node_in_group("player")
+		if player != null: source = player.get("_rb_attack_tag")
+	var heavy := source in [&"anvil_cleave", &"faultline", &"worldcleaver", &"erasing_cut"]
+	var mastery := PlayerState.skills.level_of(&"tempered_might") if heavy else 0
+	# ★ รอบ 105 ★ Ninth Edge — คมที่มีชื่อ (มองข้าม DEF) · ท่ายืนทลายกำแพง (DEF ≥ 100) · อักขระที่เก้า (วงคริ 100%)
+	var ignore_def := mastery * 0.05 + PlayerState.skills.level_of(&"named_edge") * 0.06
+	var can_crit := not heavy and source != &"rune_echo" and source != &"twin_echo"
+	var wb := PlayerState.skills.level_of(&"wallbreaker_stance")
+	if wb > 0 and data.def >= 100:
+		physical_bonus *= 1.0 + 0.13 + 0.024 * wb
+	# ★ รอบ 105 ★ ดาบนาม (บท 6): ดาเมจ +1% ต่อ «ชื่อที่ทิ้งไว้» ในกระเป๋า สูงสุด +20%
+	var wpn = PlayerState.equipment.weapon() if PlayerState.equipment != null else null
+	if GameData.get_skill(source) != null:
+		physical_bonus *= 1.0 + PlayerState.stats.skill_damage_percent / 100.0
+	if wpn != null and wpn.item_id == &"name_blade" and PlayerState.inventory != null:
+		physical_bonus *= 1.0 + 0.01 * mini(20, PlayerState.inventory.count_of(&"left_name"))
+	var rb_node = get_tree().get_first_node_in_group("player")
+	rb_node = rb_node.get("runeblade") if rb_node != null else null
+	if rb_node != null and rb_node.has_method("inscription_covers") and rb_node.inscription_covers(global_position):
+		ignore_def = 1.0
+		can_crit = true
+	var element := 0
+	if wpn != null and wpn.data() != null: element = wpn.data().attack_element
+	var result := Combat.player_hits_monster(PlayerState.stats, data, skill_mult * physical_bonus * (1.0 + mastery*0.04), use_matk, element, can_crit, minf(1.0, ignore_def))
 
 	# ★ โหมด GM ตีทีเดียวตาย (รอบ 80) ★ ตีปุ๊บตายปั๊บ ไม่พลาด ไม่สนธาตุ/เกราะ
 	# ใช้ไล่เก็บดรอป/ดูท่าตาย/เทสต์เควสฆ่ามอนเร็ว ๆ — เปิดจากหน้าต่าง GM (F10) เท่านั้น
@@ -1010,10 +1106,19 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 		_set_aggro()
 		return
 
+	var dealt := mini(hp, maxi(1, int(result.damage)))
 	take_damage(maxi(1, int(result.damage)), bool(result.crit), from_dir)
-	_drain_to_player(int(result.damage))
+	_drain_to_player(dealt)
+	if source not in [&"rune_echo", &"twin_echo", &"element_burn", &"element_chain"]:
+		_apply_weapon_element(element, dealt, from_dir)
+	Events.runic_hit.emit(self, source, bool(result.crit))
 	if int(result.damage) > 0 and wound_bonus > 0.0:
 		apply_wound(wound_bonus, wound_duration)
+
+
+func take_skill_damage(mult: float, magical: bool, direction: int, source: StringName,
+		wound: float = 0.0, duration: float = 0.0) -> void:
+	take_damage_from_player(mult, magical, direction, wound, duration, source)
 
 
 func apply_wound(bonus: float, duration: float) -> void:
@@ -1038,6 +1143,67 @@ func _tick_wound(delta: float) -> void:
 			_wound_label.hide()
 
 
+var _burn_left := 0.0
+var _burn_tick := 0.0
+var _burn_damage := 0
+var _burn_label: Label
+
+func _apply_weapon_element(element: int, dealt: int, direction: int) -> void:
+	if dealt <= 0: return
+	var caster := get_tree().get_first_node_in_group("player")
+	if caster == null: return
+	if element == 1 and state != State.DEAD:
+		if _burn_left <= 0.0: _burn_tick = 1.0
+		_burn_left = 3.05
+		# A heavy cast cannot snapshot thousands of damage into a minor status effect.
+		_burn_damage = maxi(1, int(minf(dealt * 0.2, PlayerState.stats.atk * 0.2)))
+		if _burn_label == null:
+			_burn_label = UITheme.make_label("เผาไหม้", 13, Color("#ff9457"))
+			add_child(_burn_label)
+		_burn_label.position = Vector2(-30, data.hp_bar_offset_y - hover_lift() - 40)
+		_burn_label.show()
+	elif element == 4:
+		var now := Time.get_ticks_msec()
+		if now < int(caster.get_meta("lightning_ready_ms", 0)) or randf() >= 0.25: return
+		var targets := get_tree().get_nodes_in_group("enemy")
+		targets.sort_custom(func(a,b): return a.global_position.distance_squared_to(global_position) < b.global_position.distance_squared_to(global_position))
+		var count := 0
+		for enemy in targets:
+			if enemy == self or not enemy.has_method("take_damage") or enemy.is_dead(): continue
+			if global_position.distance_to(enemy.global_position) > 280.0: continue
+			var ray := PhysicsRayQueryParameters2D.create(global_position, enemy.global_position, 1)
+			if not get_world_2d().direct_space_state.intersect_ray(ray).is_empty(): continue
+			caster.set_meta("lightning_ready_ms", now + 600)
+			var line := Line2D.new()
+			line.width = 4.0
+			line.default_color = Color("#90e9ff")
+			line.z_index = 65
+			get_parent().add_child(line)
+			line.add_point(line.to_local(global_position))
+			line.add_point(line.to_local((global_position + enemy.global_position) * 0.5 + Vector2(0,-35)))
+			line.add_point(line.to_local(enemy.global_position))
+			var tween := line.create_tween()
+			tween.tween_property(line, "modulate:a", 0.0, 0.18)
+			tween.tween_callback(line.queue_free)
+			# Direct secondary damage deliberately bypasses drains, echoes, runes and further procs.
+			enemy.take_damage(maxi(1, int(minf(dealt * 0.3, PlayerState.stats.atk * 0.6))), false, direction)
+			count += 1
+			if count >= 2: break
+
+func _tick_burn(delta: float) -> void:
+	if _burn_left <= 0.0: return
+	if state == State.DEAD:
+		_burn_left = 0.0
+	else:
+		var active_delta := minf(delta, _burn_left)
+		_burn_left = maxf(0.0, _burn_left - delta)
+		_burn_tick -= active_delta
+		if _burn_tick <= 0.0:
+			_burn_tick += 1.0
+			take_damage(_burn_damage)
+	if _burn_left <= 0.0 and _burn_label != null: _burn_label.hide()
+
+
 ## ★ รอบ 45 — ดูดเลือด/ดูดมานา ★ ได้คืน = % ของดาเมจที่ทำได้ (ตัวเลขลอยสีเขียว/ฟ้าเล็ก ๆ)
 func _drain_to_player(damage: int) -> void:
 	if damage <= 0:
@@ -1046,10 +1212,10 @@ func _drain_to_player(damage: int) -> void:
 	if st == null:
 		return
 	if st.hp_drain_percent > 0.0:
-		var hp_gain := maxi(1, int(damage * st.hp_drain_percent / 100.0))
+		var hp_gain := int(damage * st.hp_drain_percent / 100.0)
 		PlayerState.heal_hp(hp_gain, false)
 	if st.sp_drain_percent > 0.0:
-		var sp_gain := maxi(1, int(damage * st.sp_drain_percent / 100.0))
+		var sp_gain := int(damage * st.sp_drain_percent / 100.0)
 		PlayerState.restore_sp(sp_gain)
 
 
@@ -1120,6 +1286,10 @@ func is_dead() -> bool:
 # ตาย + ดรอปของ
 # =========================================================
 func _die() -> void:
+	# ★ รอบ 105 ★ ตายแล้วพูด (มินิบอส/บอสบท 4-6)
+	if data != null and not data.death_lines.is_empty():
+		_say_line(data.death_lines[randi() % data.death_lines.size()], Color("#ffd8a8"))
+
 	if state == State.DEAD:
 		return
 	state = State.DEAD
@@ -1135,15 +1305,16 @@ func _die() -> void:
 		PlayerState.lock_respawn(data.id, data.persistent_respawn_seconds())
 
 	# --- รางวัล ---
-	var job_exp := data.job_exp()
-	PlayerState.gain_exp(data.exp_reward, job_exp)
+	var rewards := data.experience_for(PlayerState.stats.level)
+	var job_exp: int = rewards.job
+	PlayerState.gain_exp(rewards.base, job_exp)
 	var zeny := data.roll_zeny()
 	if zeny > 0:
 		PlayerState.add_zeny(zeny)
 
 	# ★ EXP กับ Job EXP อยู่บรรทัดเดียวกัน และลอยแยกทางกับตัวเลขดาเมจ ★
 	Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y + sprite.position.y),
-		"+%d EXP   +%d JOB" % [data.exp_reward, job_exp], Color("#8ad6ff"), 18, 4)
+		"+%d EXP   +%d JOB" % [rewards.base, job_exp], Color("#8ad6ff"), 18, 4)
 	Events.monster_killed.emit(data.id, data.level)
 
 	# ★ ล้มบอส = ป้าย MVP เหนือหัวผู้เล่น + ตั้งธงเนื้อเรื่อง killed_<id> (รอบ 38) ★

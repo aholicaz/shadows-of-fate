@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="q"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+
+[sub_resource type="Resource" id="O0"]
+script = ExtResource("o")
+kind = 4
+target = &"rb_ninth_inscription"
+count = 1
+text = "อ่านอักขระจางที่ศิลาลานพิธี"
+
+[resource]
+script = ExtResource("q")
+id = "rb7_ninth_inscription"
+title = "R7 อักขระที่เก้า"
+giver_name = "ผู้อาวุโสญอร์ดา"
+description = "รูนของเจ้ายังมีวงจรที่ไม่สว่าง อ่านบรรทัดสุดท้ายที่ศิลา บางทีการเดินทางนี้เพิ่งเริ่มต้น"
+dialog_offer = "รูนของเจ้ายังมีวงจรที่ไม่สว่าง อ่านบรรทัดสุดท้ายที่ศิลา บางทีการเดินทางนี้เพิ่งเริ่มต้น"
+dialog_progress = "ตรวจเป้าหมายในสมุดเควส แล้วกลับมาคุยเมื่อครบ"
+dialog_complete = "เมื่อถึงเลเวล 90 จงกลับมาตรวจอักขระอีกครั้ง เส้นทางอาชีพขั้นถัดไปยังรอเรื่องราวจากดินแดนทางเหนือ"
+required_flag = ""
+set_flag_on_complete = "rb_next_job_hint"
+required_level = 50
+required_job = &"runeblade"
+required_quests = Array[StringName]([&"rb6_runeblade"])
+objectives = Array[ExtResource("o")]([SubResource("O0")])

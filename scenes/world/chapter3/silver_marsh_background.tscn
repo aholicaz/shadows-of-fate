@@ -1,0 +1,101 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/chapter3_parallax.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/world/map_ambient_fx.gd" id="fx"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/silver_marsh_depth.png" id="silver_marsh_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/silver_marsh_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/silver_marsh_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/silver_marsh_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/silver_marsh_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/silver_marsh_foundation.png" id="organic_foundation"]
+
+[node name="Background" type="Node2D"]
+
+script = ExtResource("script")
+
+anchor_x = 2600.0
+
+floor_y = 900.0
+
+open_bridge = false
+
+metadata/organic_walk_y = 710
+metadata/organic_back_y = 600
+metadata/organic_front_y = 760
+
+[node name="Depth" type="Sprite2D" parent="."]
+
+z_index = -100
+
+texture_repeat = 3
+
+texture = ExtResource("silver_marsh_depth")
+
+region_enabled = true
+
+region_rect = Rect2(-6000, 0, 16000, 724)
+
+
+[node name="Atmosphere" type="Node2D" parent="."]
+
+script = ExtResource("fx")
+
+mist_regions = Array[Rect2]([Rect2(-100, 720, 5400, 180)])
+
+mist_color = Color(0.55, 0.66, 0.61, 0.07)
+
+mote_regions = Array[Rect2]([Rect2(0, 280, 5200, 520)])
+
+motes_per_region = 24
+
+mote_color = Color(0.6, 0.85, 0.58, 0.4)
+
+[node name="Lamp3" type="Node2D" parent="."]
+z_index = -20
+position = Vector2(3000.0000, 658.2075)
+scale = Vector2(0.2074689, 0.2074689)
+metadata/contact_y = 808.0
+metadata/asset_id = "root_lantern"
+
+metadata/baked_fixture = true
+
+[node name="FlameAndLight" type="Node2D" parent="Lamp3"]
+z_index = 40
+script = ExtResource("fx")
+lantern_positions = PackedVector2Array(179.20, -281.09)
+flame_size = Vector2(42, 84)
+light_radius = 700.0
+light_energy = 0.22
+
+
+[node name="OrganicRoad0" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(-1200, 190.0)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(800, 190.0)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(2800, 190.0)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(4800, 190.0)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="."]
+z_index = -45
+position = Vector2(2600.0, 2100.0)
+texture_repeat = 3
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)

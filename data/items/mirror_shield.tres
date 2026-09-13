@@ -16,9 +16,11 @@ metadata/price_base_r47_buy = 21000
 slot = 2
 card_slots = 1
 max_stack = 1
-buy_price = 105000
-sell_price = 8400
+buy_price = 13088
+sell_price = 976
 metadata/sell_price_base_r44 = 8400
 def = 26
 mdef = 8
 refinable = true
+
+drop_hint = "ผู้พิทักษ์เตาหลอม"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/withered_treant_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://c1x81a747ofnb" path="res://data/sprites/monsters/withered_treant_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_withered_treant_0"]
 script = ExtResource("2_drop")
@@ -30,8 +30,19 @@ id = &"withered_treant"
 display_name = "ต้นไม้เหี่ยว"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(70, 70)
-hp_bar_offset_y = -106.4
-display_height = 280.0
+hp_bar_offset_y = -430.0
+display_height = 440.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.14264264,
+&"Die": 1.13244048,
+&"Hit": 1.13244048,
+&"Idle": 1.12908012,
+&"Run": 1.12908012,
+&"Skill": 1.14264264,
+&"Walk": 1.12908012
+})
 fit_foot_animations = null
 level = 49
 max_hp = 7400
@@ -58,9 +69,11 @@ attack_cooldown = 1.8
 knockback_force = 280.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 4000
-job_exp_reward = 2800
-zeny_min = 800
-zeny_max = 1400
+exp_reward = 461
+job_exp_reward = 323
+zeny_min = 144
+zeny_max = 268
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_withered_treant_0"), SubResource("Drop_withered_treant_1"), SubResource("Drop_withered_treant_2"), SubResource("Drop_withered_treant_card")])
 respawn_time = 18.0
+spawn_lines = null
+death_lines = null

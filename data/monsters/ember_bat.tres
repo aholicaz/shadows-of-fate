@@ -23,7 +23,7 @@ chance = 8.0
 [sub_resource type="Resource" id="Drop_ember_bat_3"]
 script = ExtResource("2_drop")
 item_id = &"ember_cape"
-chance = 1.5
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_ember_bat_card"]
 script = ExtResource("2_drop")
@@ -36,8 +36,8 @@ id = &"ember_bat"
 display_name = "ค้างคาวถ่านไฟ"
 sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(34, 30)
-hp_bar_offset_y = -53.2
-display_height = 220.0
+hp_bar_offset_y = -245.0
+display_height = 242.0
 fit_foot_animations = null
 flying = true
 level = 25
@@ -71,9 +71,11 @@ attack_cooldown = 1.8
 knockback_force = 160.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 520
-job_exp_reward = 364
-zeny_min = 150
-zeny_max = 280
+exp_reward = 181
+job_exp_reward = 127
+zeny_min = 77
+zeny_max = 143
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_ember_bat_0"), SubResource("Drop_ember_bat_1"), SubResource("Drop_ember_bat_2"), SubResource("Drop_ember_bat_3"), SubResource("Drop_ember_bat_card")])
 respawn_time = 15.0
+spawn_lines = null
+death_lines = null

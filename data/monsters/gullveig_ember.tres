@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/gullveig_ember_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://dxo0is2n6rq2g" path="res://data/sprites/monsters/gullveig_ember_frames.tres" id="3_frames"]
 [ext_resource type="SpriteFrames" uid="uid://dk6u4x66leahl" path="res://data/sprites/fx_fire_wave.tres" id="4_wave"]
+[ext_resource type="Texture2D" uid="uid://dspxwubn52dkw" path="res://data/sprites/gullveig_fireball_texture.tres" id="5_fireball"]
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_0"]
 script = ExtResource("2_drop")
@@ -30,22 +31,22 @@ max_count = 5
 [sub_resource type="Resource" id="Drop_gullveig_ember_4"]
 script = ExtResource("2_drop")
 item_id = &"ember_of_gullveig"
-chance = 8.0
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_5"]
 script = ExtResource("2_drop")
 item_id = &"ash_ring"
-chance = 8.0
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_6"]
 script = ExtResource("2_drop")
 item_id = &"sentinel_plate"
-chance = 6.0
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_7"]
 script = ExtResource("2_drop")
 item_id = &"spring_amulet"
-chance = 6.0
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_card"]
 script = ExtResource("2_drop")
@@ -58,8 +59,19 @@ id = &"gullveig_ember"
 display_name = "เพลิงกุลล์ไวก์"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(80, 110)
-hp_bar_offset_y = -136.8
-display_height = 360.0
+hp_bar_offset_y = -520.0
+display_height = 550.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.14956012,
+&"Die": 1.15805022,
+&"Hit": 1.15805022,
+&"Idle": 1.15805022,
+&"Run": 1.15805022,
+&"Skill": 1.14956012,
+&"Walk": 1.15805022
+})
 fit_foot_animations = null
 flying = true
 hover_height = 60.0
@@ -84,16 +96,17 @@ attack_range = 150.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
-attack_windup = 0.4
-attack_duration = 0.5
+attack_windup = 0.75
+attack_duration = 3.0
 attack_cooldown = 1.8
 knockback_force = 380.0
-attack_hit_frames = null
+attack_hit_frames = PackedInt32Array(9, 22, 35)
+attack_follow_anim = true
 skill_hit_frames = null
-exp_reward = 40000
-job_exp_reward = 28000
-zeny_min = 12000
-zeny_max = 20000
+exp_reward = 6693
+job_exp_reward = 4685
+zeny_min = 1400
+zeny_max = 2600
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_gullveig_ember_0"), SubResource("Drop_gullveig_ember_1"), SubResource("Drop_gullveig_ember_2"), SubResource("Drop_gullveig_ember_3"), SubResource("Drop_gullveig_ember_4"), SubResource("Drop_gullveig_ember_5"), SubResource("Drop_gullveig_ember_6"), SubResource("Drop_gullveig_ember_7"), SubResource("Drop_gullveig_ember_card")])
 is_boss = true
 boss_title = "ผู้ถูกเผาสามครั้ง"
@@ -106,6 +119,19 @@ skill_duration = 1.3
 skill_cooldown = 8.0
 skill_chance = 0.75
 skill_knockback = 360.0
+projectile_texture = ExtResource("5_fireball")
+ranged_attack_range = 600.0
+projectile_speed = 580.0
+projectile_height = 100.0
+projectile_hit_size = Vector2(52, 52)
+projectile_range = 950.0
+projectile_hand_positions = Dictionary[int, Vector2]({
+9: Vector2(580, 645),
+22: Vector2(580, 645),
+35: Vector2(580, 645)
+})
+projectile_fire_effect = true
+projectile_aim_at_player = true
 skill_wave_count = 3
 skill_wave_both_sides = true
 skill_wave_speed = 560.0
@@ -113,3 +139,5 @@ skill_wave_range = 1000.0
 skill_wave_height = 160.0
 skill_wave_frames = ExtResource("4_wave")
 respawn_time = 600.0
+spawn_lines = null
+death_lines = null

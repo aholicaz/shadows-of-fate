@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"odin_seat_throne"
+count = 1
+text = "ฟังเศษวิญญาณที่บัลลังก์ว่าง"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_10_empty_seat"
+title = "C6-10 บัลลังก์ว่าง"
+description = "ไปที่บัลลังก์ว่างของโอดิน แล้วฟังเศษวิญญาณ"
+giver_name = "เฮล ผู้ปกครองผู้ตาย"
+dialog_offer = "หลังประตูการ์ม... บัลลังก์ว่าง ข้าไม่เคยนั่ง มันไม่ใช่ของข้า\n\nไปที่นั่น มนุษย์ ฟังสิ่งที่เหลืออยู่ มันพูดได้แค่ประโยคเดียว แล้วกลับมาบอกข้าว่าได้ยินอะไร"
+dialog_progress = "ไปบัลลังก์ว่างหลังประตูการ์ม กด F ที่บัลลังก์"
+dialog_complete = "«ลูกข้า—»... ใช่ ข้าก็ได้ยินคำนั้นทุกครั้ง\n\nโอดินมีลูก มนุษย์ คนหนึ่งถือค้อน... อีกคน ชื่อถูกลบ\nเอาเศษบัลลังก์ไป — และชื่อของเจ้า... โมดกุดคืนให้แล้ว เจ้ามีชื่ออีกครั้ง"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0")])
+kill_monster_id = &""
+required_level = 96
+required_quests = Array[StringName]([&"c6_9_chains_of_lightning"])
+set_flag_on_complete = &"chapter6_done"
+cutscene_pan_npc = "คนแปลกหน้า"
+cutscene_text = "คนแปลกหน้ายืนอยู่ท้ายเมือง... ผู้ตายทุกตนหันไปมองเขา เขามองกลับมาที่เจ้า แล้วพยักหน้าครั้งเดียว"
+reward_item_id = &"odin_fragment"
+reward_item_count = 1
+reward_zeny = 150000
+reward_exp = 900000

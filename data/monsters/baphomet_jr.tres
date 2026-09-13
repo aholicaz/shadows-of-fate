@@ -29,7 +29,7 @@ max_count = 3
 [sub_resource type="Resource" id="Drop_baphomet_jr_3"]
 script = ExtResource("2_drop")
 item_id = &"ring"
-chance = 1.73
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_baphomet_jr_card"]
 script = ExtResource("2_drop")
@@ -49,7 +49,7 @@ chance = 15.0
 [sub_resource type="Resource" id="Drop_baphomet_jr_eq_ember_cape"]
 script = ExtResource("2_drop")
 item_id = &"ember_cape"
-chance = 1.73
+chance = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7e6wn"]
 atlas = ExtResource("4_trsba")
@@ -491,8 +491,8 @@ id = &"baphomet_jr"
 display_name = "บาฟโฟเมทจูเนียร์"
 sprite_frames = SubResource("SpriteFrames_dwxqo")
 hitbox_size = Vector2(32, 34)
-hp_bar_offset_y = -56.0
-display_height = 190.0
+hp_bar_offset_y = -308.0
+display_height = 300.0
 fit_foot_animations = null
 hover_height = 0.0
 hover_bob = 0.0
@@ -531,9 +531,9 @@ attack_hit_frame = 11
 attack_hit_frames = null
 attack_follow_anim = true
 skill_hit_frames = null
-exp_reward = 980
-zeny_min = 350
-zeny_max = 700
+exp_reward = 259
+zeny_min = 97
+zeny_max = 179
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_baphomet_jr_0"), SubResource("Drop_baphomet_jr_1"), SubResource("Drop_baphomet_jr_2"), SubResource("Drop_baphomet_jr_3"), SubResource("Drop_baphomet_jr_card"), SubResource("Drop_baphomet_jr_junk_small_horn"), SubResource("Drop_baphomet_jr_junk_imp_tail"), SubResource("Drop_baphomet_jr_eq_ember_cape")])
 projectile_texture = ExtResource("2_qanpk")
 projectile_speed = 820.0

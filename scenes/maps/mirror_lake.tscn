@@ -1,0 +1,181 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/reflection.tres" id="md_reflection"]
+[ext_resource type="Resource" path="res://data/monsters/water_nymph.tres" id="md_water_nymph"]
+[ext_resource type="Script" path="res://scripts/world/chapter5_parallax.gd" id="c5_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/mirror_lake_depth.png" id="c5_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/mirror_lake_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/mirror_lake_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/mirror_lake_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/mirror_lake_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/mirror_lake_foundation.png" id="foundation"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="npc_idle"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="npc_shadow"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/lake_stone.png" id="npc_0"]
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(5800, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"mirror_lake"
+display_name = "ทะเลสาบกระจก"
+chapter = 5
+region = "อัลฟ์เฮม"
+map_bounds = Rect2(-100, -200, 5600, 1400)
+player_scene = ExtResource("player")
+variant_flag = &"shade_view"
+variant_tint = Color(0.55, 0.55, 0.68, 1)
+variant_name_suffix = " (ร่างจาง)"
+
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+[node name="Background" type="Node2D" parent="."]
+
+script = ExtResource("c5_parallax")
+anchor_x = 2700.0
+atmosphere = Color(0.6,0.88,0.86,0.32)
+rising = false
+mote_amount = 55
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2700, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_garden" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_wood" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5200, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_reflection"), ExtResource("md_water_nymph")])
+count_per_type = 4
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToGarden" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"crystal_garden"
+target_spawn_point = &"from_lake"
+label_text = "← สวนผลึก"
+destination_name = "สวนผลึก"
+
+
+[node name="ToWood" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5340, 880)
+target_map = &"dimming_wood"
+target_spawn_point = &"from_lake"
+label_text = "→ ป่าที่แสงจาง"
+destination_name = "ป่าที่แสงจาง"
+
+
+[node name="NPCs" type="Node2D" parent="."]
+
+
+[node name="LakeStone" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(600, 820)
+npc_name = "ศิลาริมทะเลสาบ"
+type = 4
+dialog = "ศิลาเก่าริมน้ำ มีทั้งตราค้อนและรูนเอลฟ์ · เซฟได้แม้ในร่างจาง · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
+warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"eljudnir"])
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="LakeReflection" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2700, 790)
+lore_id = &"lake_reflection"
+title = "เงาในน้ำ"
+text = "ผิวน้ำนิ่งเหมือนกระจก... สะท้อนเมืองลโยซาลฟ์ที่อยู่ไกลออกไป\n\nแต่เมืองในน้ำ «มืด» หอคอยผุ ถนนว่าง มีเงาคนเดินกอดตัวเอง\nเงยหน้าขึ้น — เมืองจริงสว่างจ้า ทุกคนยิ้ม\n\nก้มลงมองอีกครั้ง เงาของเจ้าเองในน้ำ... กำลังมองกลับมา และมันไม่ยิ้ม"
+label_text = "★ เงาในน้ำ ★"
+set_flag = &"saw_lake_reflection"
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+position = Vector2(2800.0, 350)
+texture = ExtResource("c5_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200,170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800,170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800,170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800,170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(2800.0,1960)
+texture_repeat = 3
+texture = ExtResource("foundation")
+region_enabled = true
+region_rect = Rect2(0,0,16000,1600)
+
+[node name="Sprite2D" parent="NPCs/LakeStone" index="0"]
+centered = false
+position = Vector2(-75.03125, -281.59375)
+scale = Vector2(0.3828125,0.3828125)
+texture = ExtResource("npc_0")
+script = ExtResource("npc_idle")
+phase = 0.0
+breathe = false
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/LakeStone"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true

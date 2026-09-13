@@ -20,11 +20,11 @@ weapon_type = &"sword"
 attack_animation = &"Attack_FlameSword"
 card_slots = 3
 max_stack = 1
-buy_price = 225000
-sell_price = 18000
+buy_price = 30800
+sell_price = 1776
 metadata/sell_price_base_r44 = 18000
 atk = 105
-bonus_str = 2
+bonus_str = 8
 refinable = true
 refine_atk_per_level = 5
 
@@ -39,3 +39,15 @@ equip_hand_scale = 0.28
 equip_hand_rotation_degrees = 62.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
+
+skill_damage_percent = 16.0
+
+max_sp = 52
+
+cooldown_reduction_percent = 3.0
+
+damage_percent = 0.0
+
+attack_element = 1
+
+drop_hint = "บาฟโฟเมท"

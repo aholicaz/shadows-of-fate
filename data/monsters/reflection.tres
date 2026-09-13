@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/reflection_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_reflection_0"]
+script = ExtResource("2_drop")
+item_id = &"shadow_flake"
+chance = 45.0
+
+[sub_resource type="Resource" id="Drop_reflection_1"]
+script = ExtResource("2_drop")
+item_id = &"mirror_dust"
+chance = 30.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_reflection_2"]
+script = ExtResource("2_drop")
+item_id = &"shade_crystal"
+chance = 100.0
+
+[sub_resource type="Resource" id="Drop_reflection_3"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_reflection_4"]
+script = ExtResource("2_drop")
+item_id = &"prism_blade"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_reflection_card"]
+script = ExtResource("2_drop")
+item_id = &"card_reflection"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"reflection"
+display_name = "เงาสะท้อน"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(44, 60)
+hp_bar_offset_y = -76.0
+display_height = 200.0
+level = 79
+max_hp = 20000
+atk_min = 760
+atk_max = 960
+def = 80
+mdef = 80
+hit = 170
+flee = 70
+crit = 12
+element = 7
+race = 6
+size = 1
+ai_type = 1
+move_speed = 180.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 114.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 837
+job_exp_reward = 586
+zeny_min = 228
+zeny_max = 424
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_reflection_0"), SubResource("Drop_reflection_1"), SubResource("Drop_reflection_2"), SubResource("Drop_reflection_3"), SubResource("Drop_reflection_4"), SubResource("Drop_reflection_card")])
+respawn_time = 18.0
+tint = Color(0.8, 0.9, 1, 0.9)
+spawn_lines = PackedStringArray("...", "เจ้าคือข้า", "มองข้าสิ")
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

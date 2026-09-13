@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="q"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+
+[sub_resource type="Resource" id="O0"]
+script = ExtResource("o")
+kind = 4
+target = &"rb_rune_tablet"
+count = 1
+text = "อ่านศิลารูนข้างลานพิธีในเมือง"
+
+[resource]
+script = ExtResource("q")
+id = "rb2_unbound_rune"
+title = "R2 อักขระที่ปฏิเสธนาย"
+giver_name = "ผู้อาวุโสญอร์ดา"
+description = "รูนนี้ไม่ยอมรับยศของผู้ถือ อ่านศิลาข้างลานพิธี แล้วนำมันติดตัวไปยังบึงหมอกเงิน"
+dialog_offer = "รูนนี้ไม่ยอมรับยศของผู้ถือ อ่านศิลาข้างลานพิธี แล้วนำมันติดตัวไปยังบึงหมอกเงิน"
+dialog_progress = "ตรวจเป้าหมายในสมุดเควส แล้วกลับมาคุยเมื่อครบ"
+dialog_complete = "คมที่ไร้จังหวะย่อมแตกหัก แรงที่ไร้การควบคุมย่อมย้อนคืน จำคำนี้ไว้"
+required_flag = ""
+set_flag_on_complete = "rb_rune"
+required_level = 38
+required_job = &"swordsman"
+required_quests = Array[StringName]([&"rb1_unsung_iron", &"c3_1_open_gate"])
+objectives = Array[ExtResource("o")]([SubResource("O0")])

@@ -1,0 +1,90 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://b0gw73ljgahj3"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/ice_troll_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_ice_troll_0"]
+script = ExtResource("2_drop")
+item_id = &"troll_hide"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_ice_troll_1"]
+script = ExtResource("2_drop")
+item_id = &"troll_tooth"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_ice_troll_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 12.0
+
+[sub_resource type="Resource" id="Drop_ice_troll_3"]
+script = ExtResource("2_drop")
+item_id = &"troll_boots"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_ice_troll_card"]
+script = ExtResource("2_drop")
+item_id = &"card_ice_troll"
+chance = 0.5
+
+[sub_resource type="Resource" id="Balance_troll_cleaver"]
+script = ExtResource("2_drop")
+item_id = &"troll_cleaver"
+chance = 4.0
+
+[resource]
+script = ExtResource("1_monster")
+id = &"ice_troll"
+display_name = "โทรลล์น้ำแข็ง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(74, 80)
+hp_bar_offset_y = -114.0
+display_height = 300.0
+fit_foot_animations = null
+level = 64
+max_hp = 13500
+atk_min = 520
+atk_max = 660
+def = 84
+mdef = 52
+hit = 126
+flee = 40
+crit = 4
+race = 6
+size = 2
+ai_type = 1
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 144.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 280.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 648
+job_exp_reward = 454
+zeny_min = 186
+zeny_max = 346
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_ice_troll_0"), SubResource("Drop_ice_troll_1"), SubResource("Drop_ice_troll_2"), SubResource("Drop_ice_troll_3"), SubResource("Drop_ice_troll_card"), SubResource("Balance_troll_cleaver")])
+skill_name = "ขว้างก้อนน้ำแข็ง"
+skill_anim = &"Skill"
+skill_range = 520.0
+skill_damage_mult = 1.5
+skill_windup = 0.5
+skill_duration = 1.0
+skill_chance = 0.5
+skill_bolt_count = 1
+skill_bolt_start = 180.0
+skill_bolt_spacing = 120.0
+skill_bolt_delay = 0.3
+respawn_time = 18.0
+spawn_lines = null
+death_lines = null

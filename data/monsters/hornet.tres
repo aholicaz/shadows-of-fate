@@ -37,7 +37,7 @@ chance = 15.0
 [sub_resource type="Resource" id="Drop_hornet_eq_brooch"]
 script = ExtResource("2_drop")
 item_id = &"brooch"
-chance = 0.5
+chance = 3.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -81,3 +81,5 @@ exp_reward = 62
 zeny_min = 18
 zeny_max = 42
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_hornet_0"), SubResource("Drop_hornet_1"), SubResource("Drop_hornet_2"), SubResource("Drop_hornet_card"), SubResource("Drop_hornet_junk_stinger"), SubResource("Drop_hornet_junk_honey_drop"), SubResource("Drop_hornet_eq_brooch")])
+spawn_lines = null
+death_lines = null

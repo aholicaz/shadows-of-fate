@@ -10,6 +10,9 @@ _*.zip
 
 # ★ ไฟล์ทำงานชั่วคราว (รอบ 32) ★ ไม่ต้องขึ้น GitHub
 _to_delete/
+!_to_delete/
+_to_delete/*
+!_to_delete/.gdignore
 *.tgz
 _dims.json
 _asset_report.json
@@ -27,6 +30,9 @@ __pycache__/
 # ★ รอบ 104 ★ โฟลเดอร์ผลงานระหว่างทาง (คลิป · ภาพรีวิว · log · เครื่องมือที่โหลดมา)
 # ไม่ใช่ส่วนหนึ่งของเกม · ~2 GB · มีไฟล์เกิน 100MB ที่ push ขึ้น GitHub ไม่ได้
 output/
+!output/
+output/*
+!output/.gdignore
 
 # วิดีโอต้นฉบับดิบจากการอัดหน้าจอ (ตัวที่ใช้จริงคือ .ogv/.mp4 ที่แปลงแล้ว)
 *.avi

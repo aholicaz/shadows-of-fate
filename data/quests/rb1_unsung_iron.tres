@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="q"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+
+[sub_resource type="Resource" id="O0"]
+script = ExtResource("o")
+kind = 2
+target = &"ผู้อาวุโสญอร์ดา"
+count = 1
+text = "นำชิ้นรูนไร้เสียงไปให้ญอร์ดา"
+
+[resource]
+script = ExtResource("q")
+id = "rb1_unsung_iron"
+title = "R1 สิ่งที่ค้อนมิได้สอน"
+giver_name = "บรอกก์"
+description = "บรอกก์พบว่าแบบร่างค้อนถูกลบวงจรคืนพลังออก รอยช่างบนเครื่องมือเก่ายังเหลือคำใบ้ นำชิ้นรูนไร้เสียงไปให้ผู้อาวุโสญอร์ดาที่เมืองวานาเฮม เพื่อค้นความหมายของรูนที่ค้อนมิได้สอน"
+dialog_offer = "ข้าเทียบแบบร่างที่เจ้าพบกับรอยช่างเก่าแล้ว รูนบนค้อนเหลือแต่การดูด... แต่เส้นที่ถูกขูดทิ้งเคยนำพลังกลับสู่ผู้ถือ\n\nชิ้นรูนบนโต๊ะข้าเงียบไปนานแล้ว จงนำมันไปให้ญอร์ดาที่วานาเฮม นางอาจรู้วิธีคืนเสียงให้เหล็ก และสอนสิ่งที่ค้อนสอนนักดาบไม่ได้"
+dialog_progress = "นำชิ้นรูนไร้เสียงไปคุยกับผู้อาวุโสญอร์ดาที่เมืองวานาเฮม ทางสายรากหลังเตาหลอมจะพาเจ้าเข้าสู่บทที่ 3"
+dialog_complete = "ญอร์ดาอ่านรูนแล้วสินะ จงกลับไปฟังนาง เหล็กมีรูปแล้ว แต่ยังไม่มีคำสัตย์"
+required_flag = "chapter2_done"
+set_flag_on_complete = "rb_iron"
+required_level = 1
+required_job = &"swordsman"
+required_quests = Array[StringName]([&"c2_8_hammer_truth"])
+objectives = Array[ExtResource("o")]([SubResource("O0")])

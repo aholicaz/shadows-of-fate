@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_ice_troll.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"ice_troll"
+fits_slot = 4
+rarity = 4
+monster_level = 64
+id = &"card_ice_troll"
+display_name = "การ์ดโทรลล์น้ำแข็ง"
+description = "แผลสมานได้ ถ้าไม่ใช่ไฟ"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 4840
+max_hp = 300
+mdef = 6

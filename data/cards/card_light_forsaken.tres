@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_light_forsaken.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"light_forsaken"
+fits_slot = 3
+rarity = 5
+monster_level = 83
+id = &"card_light_forsaken"
+display_name = "การ์ดผู้หลุดจากแสง"
+description = "คนเดียวที่จำได้ว่าเคยมีกลางคืน"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 5980
+crit = 6
+bonus_luk = 4

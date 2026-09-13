@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/garm_fang.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"garm_fang"
+display_name = "เขี้ยวการ์ม"
+description = "ดาบจากเขี้ยวสุนัขเฝ้าประตูเฮล ยังมีประจุสายฟ้าจากโซ่ที่ล่ามมัน"
+icon = ExtResource("2_icon")
+required_level = 96
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 111392
+sell_price = 3322
+atk = 640
+crit = 10
+bonus_str = 4
+refinable = true
+refine_atk_per_level = 9
+
+bonus_agi = 12
+
+aspd_percent = 14.0
+
+crit_damage_percent = 10.0
+
+damage_percent = 0.0
+
+drop_hint = "การ์ม ผู้ถูกล่าม"

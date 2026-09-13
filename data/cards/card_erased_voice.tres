@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_erased_voice.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"erased_voice"
+fits_slot = 7
+rarity = 5
+monster_level = 90
+id = &"card_erased_voice"
+display_name = "การ์ดเสียงที่ถูกลบ"
+description = "ชื่อที่ถูกลบ ยังพยายามพูด"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 6400
+crit = 6
+mdef = 10
+bonus_int = 3

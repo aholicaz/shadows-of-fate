@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_mist_ghost.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"mist_ghost"
+fits_slot = 5
+rarity = 4
+monster_level = 84
+id = &"card_mist_ghost"
+display_name = "การ์ดผีหมอก"
+description = "หายเข้าหมอก แล้วโผล่ข้างหลัง"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 6040
+flee = 14
+mdef = 10

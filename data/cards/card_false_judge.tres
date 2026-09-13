@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_false_judge.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"false_judge"
+fits_slot = 3
+rarity = 5
+monster_level = 94
+id = &"card_false_judge"
+display_name = "การ์ดผู้พิพากษาผู้ตาย"
+description = "ตัดสินคนตายด้วยหนังสือที่เขียนใหม่"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 6640
+mdef = 15
+bonus_int = 4

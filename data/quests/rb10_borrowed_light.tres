@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"garden_keeper"
+count = 10
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 6
+target = &"crystal_stag|edge"
+count = 30
+text = "สกิลสาย Edge โดนกวางผลึก"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"rb10_borrowed_light"
+title = "RB10 แสงที่ยืมมา"
+description = "ล่าผู้ดูแลสวน และใช้สกิลสาย Edge โดนกวางผลึก 30 ครั้ง"
+giver_name = "ผู้เห็นแสงเอย์ร"
+dialog_offer = "รูนของเจ้าสว่างได้เพราะ «ยืมแสง» มนุษย์ ห้าดวงแรกยืมจากยักษ์ ดวงที่หกยืมจากที่นี่\n\nไปฟันกวางผลึกด้วยคมของเจ้า — Rune Flurry · Unbroken Edge — ให้ผลึกสะท้อนแสงเข้ารูน 30 ครั้ง แล้วล่าผู้ดูแลสวนที่กินแสงกวาง"
+dialog_progress = "ผู้ดูแลสวน 10 · สกิลสาย Edge โดนกวางผลึก 30 ครั้ง"
+dialog_complete = "«แสง» — ดวงที่หก ข้ามองไม่เห็น แต่ข้ารู้สึกได้ว่าดาบเจ้าอุ่นขึ้น\n\nดวงที่เจ็ดคือ «เงา» — เจ้าต้องไปอยู่ในร่างจางถึงจะสลักได้"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 76
+required_job = &"runeblade"
+required_quests = Array[StringName]([&"rb9_wall_that_held_the_sky", &"c5_4_child_who_never_saw_stars"])
+set_flag_on_complete = &"rb_rune_6"
+reward_zeny = 20000
+reward_exp = 120000

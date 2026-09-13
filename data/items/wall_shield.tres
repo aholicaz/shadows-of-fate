@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/wall_shield.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"wall_shield"
+display_name = "โล่หินกำแพง"
+description = "โล่ที่ตัดจากกำแพงยักษ์ ด้านในยังมีรอยไหม้จากสายฟ้า"
+icon = ExtResource("2_icon")
+required_level = 66
+type = 2
+slot = 2
+card_slots = 1
+max_stack = 1
+buy_price = 53072
+sell_price = 1928
+def = 48
+mdef = 6
+max_hp = 200
+refinable = true
+
+drop_hint = "ทหารหินยักษ์ / ผู้ถือโล่แห่งกำแพง"

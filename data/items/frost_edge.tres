@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/frost_edge.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"frost_edge"
+display_name = "ดาบคมน้ำแข็ง"
+description = "ดาบที่ใบเคลือบน้ำแข็งไม่ละลาย ฟันแล้วแผลชา"
+icon = ExtResource("2_icon")
+required_level = 60
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 44000
+sell_price = 2112
+atk = 205
+flee = 5
+refinable = true
+refine_atk_per_level = 6
+
+bonus_agi = 9
+
+crit = 7
+
+aspd_percent = 10.0
+
+crit_damage_percent = 10.0
+
+damage_percent = 0.0
+
+drop_hint = "หมาป่าน้ำแข็ง"

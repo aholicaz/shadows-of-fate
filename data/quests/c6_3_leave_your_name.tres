@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"ferryman"
+count = 12
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"drowned"
+count = 15
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"ผู้เฝ้าสะพานโมดกุด"
+count = 1
+text = "ยอมทิ้งชื่อไว้ที่สะพาน"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_3_leave_your_name"
+title = "C6-3 ทิ้งชื่อไว้ที่สะพาน"
+description = "ล่าผู้ข้ามฝั่งและผีจมน้ำที่แม่น้ำ แล้ว «ยอมทิ้งชื่อ» เพื่อข้ามสะพาน"
+giver_name = "ผู้เฝ้าสะพานโมดกุด"
+dialog_offer = "ผู้ข้ามฝั่งเรียกค่าข้ามเกินกฎ ผีจมน้ำขึ้นมาจากบึงบท 3 ของเจ้า... จัดการให้ข้าที\n\nแล้วถ้าอยากไปโถงแห่งนาม — ทิ้งชื่อไว้กับข้า คนมีชื่อเข้าโถงแล้วจะถูกลบตาม"
+dialog_progress = "ผู้ข้ามฝั่ง 12 ผีจมน้ำ 15 แล้วกลับมาทำพิธีทิ้งชื่อกับข้า"
+dialog_complete = "...ชื่อของเจ้าอยู่กับข้าแล้ว\n\nรู้สึกยังไง มนุษย์ ว่างเปล่าใช่ไหม พวกเขาทุกคนรู้สึกแบบนี้ตอนข้าม\nไปเถอะ คนไร้นาม"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 86
+required_quests = Array[StringName]([&"c6_2_fourth_burning"])
+set_flag_on_complete = &"name_left"
+reward_zeny = 20000
+reward_exp = 140000

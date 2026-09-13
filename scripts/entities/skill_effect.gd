@@ -25,6 +25,7 @@ var _follow_offset := Vector2.ZERO
 var _damage := false
 var _mult := 1.0
 var _use_matk := false
+var _source: StringName = &""
 var _hit_size := Vector2.ZERO
 var _max_targets := 0
 var _hit_once := true
@@ -151,6 +152,7 @@ static func spawn_config(cfg: Dictionary, caster: Node2D, facing: int) -> SkillE
 
 	var fx := SkillEffect.new()
 	fx.name = "SkillEffect_%s" % String(cfg.get("name", "fx"))
+	fx._source = StringName(cfg.get("name", "fx"))
 	fx._setup(cfg, caster, facing)
 
 	# ★ ตั้งตำแหน่งก่อน add_child เสมอ ★ ไม่งั้นจะเห็นเอฟเฟกต์แวบที่จุด (0,0) 1 เฟรม
@@ -360,8 +362,11 @@ func _damage_step() -> void:
 		var ex: float = enemy.foot_position().x if enemy.has_method("foot_position") \
 			else (enemy as Node2D).global_position.x
 		var dx: float = ex - global_position.x
-		enemy.take_damage_from_player(_mult, _use_matk,
-			signi(int(dx)) if dx != 0.0 else _dir)
+		if enemy.has_method("take_skill_damage"):
+			enemy.take_skill_damage(_mult,_use_matk,signi(int(dx)) if dx!=0 else _dir,_source)
+		else:
+			enemy.take_damage_from_player(_mult, _use_matk,
+				signi(int(dx)) if dx != 0.0 else _dir)
 		_hit_n[enemy] = done + 1
 		_next_hit[enemy] = _hit_interval
 

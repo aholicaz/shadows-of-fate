@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/mist_saber.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"mist_saber"
+display_name = "ดาบหมอก"
+description = "ดาบที่ใบเป็นหมอกน้ำแข็งจับตัว ฟันแล้วไม่มีเสียง"
+icon = ExtResource("2_icon")
+required_level = 84
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 85472
+sell_price = 2918
+atk = 440
+flee = 8
+refinable = true
+refine_atk_per_level = 8
+
+bonus_agi = 11
+
+crit = 9
+
+aspd_percent = 12.0
+
+crit_damage_percent = 10.0
+
+damage_percent = 0.0

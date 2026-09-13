@@ -23,8 +23,8 @@ weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
 card_slots = 1
 max_stack = 1
-buy_price = 160000
-sell_price = 12800
+buy_price = 11600
+sell_price = 1104
 metadata/sell_price_base_r44 = 12800
 atk = 72
 bonus_str = 2
@@ -40,3 +40,5 @@ equip_hand_scale = 0.26
 equip_hand_rotation_degrees = 61.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
+
+drop_hint = "ผู้พิทักษ์เตาหลอม"

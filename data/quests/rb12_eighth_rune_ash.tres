@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"drowned"
+count = 15
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"ferryman"
+count = 5
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 6
+target = &"*|twin_echo"
+count = 20
+text = "เงาดาบจากอักขระคู่โดนศัตรู"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"rb12_eighth_rune_ash"
+title = "RB12 รูนดวงที่แปดในเถ้า"
+description = "ล่าผีจมน้ำและผู้ข้ามฝั่ง แล้วใช้อักขระคู่ (Twin Inscription) ให้เงาดาบโดน 20 ครั้ง"
+giver_name = "กุลล์ไวก์ (ผี)"
+dialog_offer = "ดวงที่แปดคือ «เถ้า» — สิ่งที่เหลือหลังถูกเผา ข้ารู้จักมันดีกว่าใคร\n\nไปที่แม่น้ำ ใช้อักขระคู่ของเจ้า ให้เงาดาบฟันผู้ตาย 20 ครั้ง — เงาคือเถ้าของการโจมตี ล่าผีจมน้ำกับผู้ข้ามฝั่งไปด้วย"
+dialog_progress = "ผีจมน้ำ 15 · ผู้ข้ามฝั่ง 5 · เงาดาบจากอักขระคู่โดน 20 ครั้ง"
+dialog_complete = "«เถ้า» — ดวงที่แปด\n\nเหลืออีกดวงเดียว มนุษย์ และไม่มีใครสลักดวงที่เก้าให้เจ้าได้ เพราะมันคือชื่อของคนที่ถือดาบ\nไปโถงแห่งนาม — เมื่อเจ้าไม่มีชื่อแล้ว และถึงเลเวล 90"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 88
+required_job = &"runeblade"
+required_quests = Array[StringName]([&"rb11_shadow_of_the_blade", &"c6_2_fourth_burning"])
+set_flag_on_complete = &"rb_rune_8"
+reward_zeny = 40000
+reward_exp = 250000

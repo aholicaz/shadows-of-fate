@@ -5,11 +5,9 @@ extends RefCounted
 
 ## โอกาสสำเร็จ (%) ของการตีจาก +index ไป +index+1
 ## index 0 = +0 -> +1, index 9 = +9 -> +10
-const SUCCESS_RATE := [100.0, 100.0, 100.0, 90.0, 80.0, 65.0, 50.0, 35.0, 25.0, 15.0]
+const SUCCESS_RATE := [100.0, 100.0, 100.0, 100.0, 90.0, 80.0, 70.0, 60.0, 50.0, 40.0]
 
-## ค่าธรรมเนียมซีนี = BASE_COST * (refine+1) * COST_GROWTH^refine
-const BASE_COST := 500
-const COST_GROWTH := 1.6
+## Per attempt: equipment level and refine rank only; 1,000–50,000 z.
 
 ## วัตถุดิบที่ต้องใช้ (id ต้องมีไฟล์ .tres อยู่ใน res://data/items/)
 const ORE_NORMAL := &"phracon"      # ใช้ตอน +0 ถึง +4
@@ -47,8 +45,10 @@ static func zeny_cost(inst: ItemInstance) -> int:
 	if inst == null:
 		return 0
 	var d := inst.data()
-	var value_factor: float = 1.0 + (d.buy_price / 2000.0 if d != null else 0.0)
-	return int(BASE_COST * (inst.refine + 1) * pow(COST_GROWTH, inst.refine) * value_factor)
+	var level := clampi(d.required_level if d != null else 1, 1, 99)
+	var tier := float(level - 1) / 98.0
+	var base := lerpf(1000.0, 20000.0, tier)
+	return clampi(int(round(base * (1.0 + 1.5 * clampi(inst.refine, 0, 9) / 9.0) / 100.0)) * 100, 1000, 50000)
 
 
 static func ore_needed(inst: ItemInstance) -> StringName:
@@ -72,8 +72,8 @@ static func preview(inst: ItemInstance) -> Dictionary:
 		"zeny": zeny_cost(inst),
 		"ore_id": ore_needed(inst),
 		"ore_count": ore_count(inst),
-		"atk_gain": d.refine_atk_per_level if d != null else 0,
-		"def_gain": d.refine_def_per_level if d != null else 0,
+		"atk_gain": d.refine_atk_gain() if d != null else 0,
+		"def_gain": d.refine_def_gain() if d != null else 0,
 		"can_downgrade": inst.refine >= DOWNGRADE_FROM,
 	}
 

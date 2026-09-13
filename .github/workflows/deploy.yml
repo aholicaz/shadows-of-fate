@@ -10,8 +10,8 @@
 # ขั้นตอนด้านล่างจึงแปลงเป็น **โหมด 1 Lossy** เฉพาะตอน build เว็บ
 # (แก้เฉพาะสำเนาที่ runner เช็คเอาต์มา — ไฟล์ใน repo ไม่ถูกแตะ เวอร์ชันคอมยังได้ภาพเต็ม)
 #
-# ผลที่วัดได้: index.pck ~890 MB -> ~97 MB · ทดสอบในเบราว์เซอร์จริงแล้ว เข้าเกมได้ error 0
-# อยากให้ภาพคมขึ้น: แก้ตัวเลข WEB_QUALITY ใน build_web.py หรือเลข 0.42 ในขั้น "ย่อชีทมอน"
+# Historical build sizes predate the current assets and are not a current budget.
+# Keep image dimensions intact; tune import compression through build_web.py.
 
 name: build-web
 
@@ -51,11 +51,8 @@ jobs:
       - name: ตั้งค่าภาพเป็นโหมดเว็บ (Lossy) แทนโหมดคอม (BC7)
         run: python3 build_web.py web
 
-      - name: ย่อชีทมอนสำหรับเว็บ
-        # ปลอดภัยเพราะมอนใช้ auto-fit — display_height คิดสเกลจากความสูงเนื้อภาพจริง
-        # ชีทเล็กลง = สเกลคูณขึ้นอัตโนมัติ = ขนาดบนจอเท่าเดิมเป๊ะ (มอนครบ 30 ตัวตั้ง display_height ไว้)
-        # ฉากหลังไม่ย่อ เพราะใส่ scale ตายตัวในไฟล์ฉากและแมพคิดขอบจากกรอบภาพที่วาดจริง
-        run: python3 webtrim.py 0.42 --apply
+      # Preserve source dimensions and frame registration on desktop and mobile.
+      # Blanket 42% monster resizing is disabled; use import compression only.
 
       - name: ติดตั้ง Godot + export templates
         run: |

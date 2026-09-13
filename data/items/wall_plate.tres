@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/wall_plate.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"wall_plate"
+display_name = "เกราะโล่กำแพง"
+description = "เกราะแผ่นหินของผู้ถือโล่ หนักแต่ไม่มีอะไรทะลุ"
+icon = ExtResource("2_icon")
+required_level = 68
+type = 2
+slot = 4
+card_slots = 1
+max_stack = 1
+buy_price = 56288
+sell_price = 1984
+def = 58
+max_hp = 420
+bonus_vit = 3
+aspd_percent = -6.0
+refinable = true
+
+skill_damage_percent = 6.0
+
+bonus_str = 5
+
+max_sp = 45
+
+drop_hint = "หรุงนีร์ศิลา / ผู้ถือโล่แห่งกำแพง"

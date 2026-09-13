@@ -33,6 +33,9 @@ extends Area2D
 @export var give_item: StringName = &""
 @export var give_item_count: int = 1
 
+## ★ รอบ 105 ★ เดินถึงแล้วนับเลย ไม่ต้องกด F (ใช้ทำเงื่อนไข "ไปให้ถึงจุดนี้") — โชว์ Title สั้น ๆ บนจอแทนกล่องสนทนา
+@export var auto_read: bool = false
+
 @export_group("ข้อความบนหัว")
 ## ป้ายที่ลอยอยู่เหนือของชิ้นนี้ (เว้นว่าง = ไม่โชว์)
 @export var label_text: String = ""
@@ -88,8 +91,28 @@ func _build_labels() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		_player_inside = true
+		if auto_read:   # ★ รอบ 105 ★
+			_auto_read()
+			return
 		if _prompt != null:
 			_prompt.show()
+
+
+## ★ รอบ 105 ★ ถึงจุดนี้แล้ว = อ่านให้เองเงียบ ๆ (ครั้งแรกครั้งเดียว) — ไม่เปิดกล่องสนทนา ไม่ขวางการเล่น
+func _auto_read() -> void:
+	if required_flag != &"" and not PlayerState.has_flag(required_flag):
+		return
+	if PlayerState.has_flag(_read_flag()):
+		return
+	PlayerState.set_flag(_read_flag())
+	if give_item != &"" and give_item_count > 0:
+		PlayerState.gain_item_id(give_item, give_item_count)
+	if set_flag != &"":
+		PlayerState.set_flag(set_flag)
+	if title != "":
+		Events.say(title if text.strip_edges() == "" else "%s — %s" % [title, text.get_slice("\n", 0)])
+	if PlayerState.quests != null:
+		PlayerState.quests.on_read(lore_id)
 
 
 func _on_body_exited(body: Node) -> void:

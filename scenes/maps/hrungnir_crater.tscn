@@ -1,0 +1,183 @@
+[gd_scene format=3]
+
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/stone_hrungnir.tres" id="md_stone_hrungnir"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_parallax.gd" id="c4_parallax"]
+[ext_resource type="Shader" path="res://Sprites/shaders/chapter4_atmosphere.gdshader" id="c4_weather"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/hrungnir_crater_depth.png" id="c4_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/hrungnir_crater_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/hrungnir_crater_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/hrungnir_crater_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/hrungnir_crater_foundation.png" id="organic_foundation"]
+
+
+
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(3800, 240)
+
+[sub_resource type="ShaderMaterial" id="ChapterWeather"]
+shader = ExtResource("c4_weather")
+shader_parameter/atmosphere_color = Color(0.3, 0.7, 1, 1)
+shader_parameter/mist_strength = 0.12
+shader_parameter/aurora_strength = 0.015
+shader_parameter/storm_strength = 0.04
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"hrungnir_crater"
+display_name = "หลุมหัวใจสายฟ้า"
+chapter = 4
+region = "โยตุนเฮม"
+map_bounds = Rect2(-100, -200, 3600, 1300)
+player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("c4_parallax")
+anchor_x = 1700.0
+snow_amount = 85
+wind = 0.15
+rising_motes = true
+particle_color = Color(0.3, 0.7, 1, 0.45)
+
+
+[node name="Backdrop" type="Polygon2D" parent="Background"]
+z_index = -110
+color = Color(0.05,0.09,0.15,1)
+polygon = PackedVector2Array(-6000,-3000,12000,-3000,12000,3000,-6000,3000)
+
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_filter = 4
+texture_repeat = 3
+position = Vector2(1700.0,303)
+scale = Vector2(1.39,1.39)
+texture = ExtResource("c4_depth")
+region_enabled = true
+region_rect = Rect2(-4914,0,12000,724)
+
+
+[node name="Atmosphere" type="Polygon2D" parent="Background"]
+z_index = -2
+material = SubResource("ChapterWeather")
+polygon = PackedVector2Array(-1200,-350,4800,-350,4800,1350,-1200,1350)
+uv = PackedVector2Array(0,0,1,0,1,1,0,1)
+
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1700, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+visible = false
+color = Color(0.34, 0.34, 0.4, 1)
+polygon = PackedVector2Array(-1900, -120, 1900, -120, 1900, 120, -1900, 120)
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_wall" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_shimmer" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3200, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="Boss_stone_hrungnir" type="Node2D" parent="Spawners"]
+position = Vector2(2600, 850)
+script = ExtResource("spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_stone_hrungnir")])
+monster_scene = ExtResource("monster_scene")
+max_alive = 1
+spawn_width = 160
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToWall" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"broken_wall"
+target_spawn_point = &"from_crater"
+label_text = "← กำแพงที่แตก"
+destination_name = "กำแพงที่แตก"
+
+
+[node name="ToShimmer" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(3300, 880)
+target_map = &"shimmer_road"
+target_spawn_point = &"from_crater"
+label_text = "↑ ทางประกายแสง (บท 5)"
+destination_name = "ทางประกายแสง — อัลฟ์เฮม"
+required_flag = &"chapter4_done"
+locked_text = "รากอิกดราซิลโผล่ขึ้นจากก้นหลุมเป็นทางลาดขึ้นไป... แสงส่องลงมาจากข้างบน แต่ยังมีเรื่องต้องจบที่นี่ก่อน"
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="LightningHeart" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2600, 790)
+lore_id = &"lightning_heart"
+title = "หัวใจสายฟ้า"
+text = "ร่างหินของจอมพลยักษ์ล้มลงแล้ว แต่ในอกที่แตกออก... หัวใจสีฟ้ายังเต้นอยู่\n\nตุบ... ตุบ...\n\nบนหัวใจมีตราสลัก — ตราค้อน\nหัวใจนี้ไม่ใช่ของหรุงนีร์ มันถูก «ฝัง» เข้าไปหลังจากเขาตาย\nเพื่อให้ศพลุกขึ้นมาทำลายเมืองของตัวเอง\n\nรูนวงจร «ดูด» ดวงที่ 3 — ค้อน · บ่อน้ำ · หัวใจ"
+label_text = "★ หัวใจที่ยังเต้น ★"
+required_flag = &"killed_stone_hrungnir"
+locked_text = "หรุงนีร์ศิลายังยืนอยู่ หัวใจสีฟ้าเรืองอยู่กลางอกมัน"
+set_flag = &"saw_lightning_heart"
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200, 170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800, 170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800, 170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(1800.0, 1960)
+texture_repeat = 3
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)

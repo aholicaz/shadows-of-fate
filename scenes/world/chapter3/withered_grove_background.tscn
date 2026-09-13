@@ -1,0 +1,83 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/chapter3_parallax.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/world/map_ambient_fx.gd" id="fx"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/withered_grove_depth.png" id="withered_grove_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/withered_grove_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/withered_grove_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/withered_grove_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/withered_grove_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter3/organic/withered_grove_foundation.png" id="organic_foundation"]
+
+[node name="Background" type="Node2D"]
+
+script = ExtResource("script")
+
+anchor_x = 2500.0
+
+floor_y = 900.0
+
+open_bridge = false
+
+metadata/organic_walk_y = 710
+metadata/organic_back_y = 600
+metadata/organic_front_y = 760
+
+[node name="Depth" type="Sprite2D" parent="."]
+
+z_index = -100
+
+texture_repeat = 3
+
+texture = ExtResource("withered_grove_depth")
+
+region_enabled = true
+
+region_rect = Rect2(-6000, 0, 16000, 724)
+
+
+[node name="Atmosphere" type="Node2D" parent="."]
+
+script = ExtResource("fx")
+
+mist_regions = Array[Rect2]([Rect2(-100, 720, 5200, 180)])
+
+mist_color = Color(0.55, 0.66, 0.61, 0.07)
+
+mote_regions = Array[Rect2]([Rect2(0, 280, 5000, 520)])
+
+motes_per_region = 24
+
+mote_color = Color(0.6, 0.85, 0.58, 0.4)
+
+[node name="OrganicRoad0" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(-1200, 190.0)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(800, 190.0)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(2800, 190.0)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="."]
+z_index = -40
+position = Vector2(4800, 190.0)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="."]
+z_index = -45
+position = Vector2(2500.0, 2100.0)
+texture_repeat = 3
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)

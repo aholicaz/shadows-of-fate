@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"wall_shieldbearer"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 6
+target = &"wall_shieldbearer|sunder"
+count = 1
+text = "ใช้สกิลสาย Sunder โดนผู้ถือโล่"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"rb9_wall_that_held_the_sky"
+title = "RB9 กำแพงที่ค้ำฟ้า"
+description = "ล้มผู้ถือโล่แห่งกำแพงด้วยสกิลสาย Sunder อย่างน้อยหนึ่งครั้ง"
+giver_name = "ช่างสลักรูนเกอร์ด"
+dialog_offer = "ผู้ถือโล่ยืนเฝ้ากำแพง... เขาคือกำแพงเอง เกราะเขาหนากว่าอะไรที่ดาบเจ้าเคยเจอ\n\nสายหนัก — Tempered Might · Anvil Cleave · Faultline · Worldcleaver — ทลายมันให้ข้าดู ดวงที่ห้าคือ «กำแพง» ต้องทลายกำแพงถึงจะได้"
+dialog_progress = "ล้มผู้ถือโล่ โดยต้องมีสกิลสาย Sunder โดนเขาอย่างน้อย 1 ครั้ง"
+dialog_complete = "«กำแพง» — รูนดวงที่ห้า ยักษ์สลักไว้บนกำแพงจริง ๆ ก่อนมันแตก\n\nจากนี้ดาบเจ้าจะรู้จักทลายสิ่งที่แข็งที่สุด — «ท่ายืนทลายกำแพง» ของเจ้าจะหนักขึ้นเมื่อรูนดวงนี้อยู่ในดาบ\nดวงต่อไปอยู่ในแสง ข้าสลักไม่ได้"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 70
+required_job = &"runeblade"
+required_quests = Array[StringName]([&"rb8_carvers_eye", &"c4_8_shieldbearer"])
+set_flag_on_complete = &"rb_rune_5"
+reward_zeny = 15000
+reward_exp = 90000

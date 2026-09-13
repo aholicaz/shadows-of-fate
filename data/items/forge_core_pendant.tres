@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"forge_core_pendant"
+display_name = "สร้อยแก่นเตาหลอม"
+description = "ล่าจากผู้พิทักษ์เตาหลอม: สะสมพลังไว้ปล่อยสกิลหนัก"
+required_level = 38
+type = 2
+metadata/price_base_r47_sell = 9600
+metadata/price_base_r47_buy = 12000
+slot = 7
+card_slots = 1
+max_stack = 1
+buy_price = 18128
+sell_price = 1144
+metadata/sell_price_base_r44 = 4800
+bonus_str = 5
+
+skill_damage_percent = 10.0
+
+cooldown_reduction_percent = 5.0
+
+max_sp = 50
+
+damage_percent = 0.0
+
+drop_hint = "ผู้พิทักษ์เตาหลอม"

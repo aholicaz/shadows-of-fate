@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/name_blade.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"name_blade"
+display_name = "ดาบนาม"
+description = "ดาบที่จำชื่อทุกชื่อที่ผ่านมือมัน ★ ดาเมจ +1% ต่อ «ชื่อที่ทิ้งไว้» ในกระเป๋า สูงสุด +20% ★"
+icon = ExtResource("2_icon")
+required_level = 92
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 102368
+sell_price = 3187
+atk = 560
+crit = 8
+bonus_luk = 3
+refinable = true
+refine_atk_per_level = 9
+
+skill_damage_percent = 24.0
+
+bonus_str = 10
+
+max_sp = 68
+
+cooldown_reduction_percent = 3.0
+
+damage_percent = 0.0
+
+drop_hint = "การ์ม ผู้ถูกล่าม"

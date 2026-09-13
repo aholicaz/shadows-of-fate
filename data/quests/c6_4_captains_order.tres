@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"bridge_toll"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"เฮล ผู้ปกครองผู้ตาย"
+count = 1
+text = "ถามเฮลเรื่องคำสั่งผู้กอง"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_4_captains_order"
+title = "C6-4 คำสั่งของผู้กอง"
+description = "อ่านแผ่นทองที่หัวสะพาน แล้วถามเฮลว่าทำไมผู้กองถึงห้ามเข้าป่า"
+giver_name = "นักล่าที่หายไป (ผี)"
+dialog_offer = "ที่หัวสะพานมีแผ่นทอง... ข้าเขียนอะไรไว้ข้างล่างตอนข้ามมา ไปอ่านที ข้าจำไม่ได้แล้วว่าเขียนอะไร\n\nแล้วถามเฮลให้ที ว่าผู้กองรู้ไหมว่าป่ากำลังโดนดูด"
+dialog_progress = "อ่านแผ่นทองที่หัวสะพานเกียลล์ แล้วคุยกับเฮล"
+dialog_complete = "เฮลว่าไง... ผู้กองรู้ ผู้กองรู้มาตลอด สั่งห้ามเข้าป่าเพราะไม่อยากให้ใครเห็นแสงไหลลงดิน\n\nข้าไม่ได้บ้า ข้าแค่เห็นก่อน"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 87
+required_quests = Array[StringName]([&"c6_1_those_who_remember"])
+set_flag_on_complete = &"knows_captain_reason"
+reward_zeny = 20000
+reward_exp = 130000

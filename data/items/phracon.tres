@@ -9,5 +9,5 @@ id = &"phracon"
 display_name = "ฟราคอน"
 description = "แร่สำหรับตีบวก +0 ถึง +4"
 icon = ExtResource("1_6i331")
-buy_price = 300000
-sell_price = 80
+buy_price = 1500
+sell_price = 32

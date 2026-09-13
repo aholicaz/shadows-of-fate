@@ -82,6 +82,7 @@ func _ready() -> void:
 	Events.notice.connect(show_notice)
 	Events.map_changed.connect(func(_id): _refresh_map())
 	Events.quest_changed.connect(_refresh_quest)
+	Events.quest_changed.connect(_refresh_level)   # ★ รอบ 105 ★ ธง name_left เปลี่ยน → อัปเดตชื่อ
 	Events.quest_accepted.connect(func(_q): _refresh_quest())
 	Events.quest_progress.connect(func(_q, _c, _n): _refresh_quest())
 	Events.quest_completed.connect(func(_q): _refresh_quest())
@@ -499,7 +500,12 @@ func _refresh_level() -> void:
 	if s == null or level_label == null:
 		return
 	# ★ ภาพตัวอย่าง: "Lv.20  Arlen" — เกมเรามีเลเวลอาชีพด้วย เลยใส่ต่อท้ายเล็ก ๆ ★
-	level_label.text = "Lv.%d  %s  (Job %d)" % [s.level, s.job().display_name, s.job_level]
+	# ★ รอบ 105 ★ ทิ้งชื่อที่สะพานเกียลล์ (C6-3) = ชื่ออาชีพว่างจนกว่าจะสลักชื่อใหม่ (Ninth Edge) หรือจบ C6-10
+	var job_name: String = s.job().display_name
+	if PlayerState.has_flag(&"name_left") and not PlayerState.has_flag(&"chapter6_done") and s.job_id != &"ninth_edge":
+		job_name = "— ไร้นาม —"
+	level_label.text = "Lv.%d  %s  (Job %d)" % [s.level, job_name, s.job_level]
+	level_label.add_theme_color_override("font_color", Color("#ffd86b") if s.job_id == &"ninth_edge" else UITheme.TEXT)
 
 
 func _on_hp_changed(current: int, maximum: int) -> void:

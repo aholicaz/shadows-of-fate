@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"กุลล์ไวก์ (ผี)"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"ผู้ถือโล่ (ผี)"
+count = 1
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"นักล่าที่หายไป (ผี)"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_1_those_who_remember"
+title = "C6-1 ผู้ที่ยังจำได้"
+description = "คุยกับผู้ตายในเอลยุดเนียร์ที่เจ้าเคยพบตอนพวกเขายังมีชีวิต"
+giver_name = "เฮล ผู้ปกครองผู้ตาย"
+dialog_offer = "ในเมืองข้ามีคนที่เจ้ารู้จัก มนุษย์ — คนที่เจ้าฆ่า คนที่เจ้าช่วยไม่ทัน คนที่ตายก่อนเจ้าเกิด\n\nไปฟังพวกเขา กุลล์ไวก์ ผู้ถือโล่ นักล่าที่หายไป... ฟังให้ครบ แล้วกลับมาบอกข้าว่าเจ้าเชื่อใคร"
+dialog_progress = "กุลล์ไวก์ ผู้ถือโล่ นักล่าที่หายไป — ผีทั้งสามอยู่ในเมือง คุยให้ครบ"
+dialog_complete = "เจ้าฟังแล้ว... ทุกคนพูดตรงข้ามกับพงศาวดาร ใช่ไหม\n\nแต่จำไว้ ผู้ตายจำเฉพาะสิ่งที่ทำให้ตาย นี่ตราเฮล — คนเป็นที่ผู้ตายยอมคุยด้วย"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 84
+required_flag = &"chapter5_done"
+set_flag_on_complete = &"eljudnir_intro"
+reward_item_id = &"hel_seal"
+reward_item_count = 1
+reward_zeny = 12000
+reward_exp = 80000

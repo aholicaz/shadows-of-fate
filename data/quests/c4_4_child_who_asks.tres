@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"เด็กยักษ์เลฟ"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"mammoth_crossing"
+count = 1
+text = "เดินผ่านฝูงแมมมอธไปถึงปลายทุ่งโดยไม่ฆ่า"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c4_4_child_who_asks"
+title = "C4-4 เด็กที่ถาม"
+description = "คุยกับเด็กยักษ์เลฟ แล้วเดินผ่านฝูงแมมมอธที่ทุ่งหญ้า «โดยไม่ฆ่า»"
+giver_name = "ผู้อาวุโสสกาดี"
+dialog_offer = "เลฟ หลานข้า ถามทุกคนว่ามนุษย์กินเด็กจริงไหม ไปตอบเขาที\n\nแล้วไปทุ่งหญ้า เดินผ่านฝูงแมมมอธไปจนสุดทุ่ง — โดยไม่ชักดาบ พวกมันไม่ทำร้ายใครที่ไม่ทำร้ายมัน"
+dialog_progress = "เลฟอยู่ท้ายเมืองใกล้สุสาน ส่วนทุ่งหญ้า... เดินไปจนถึงทางผ่านของฝูงที่ปลายทุ่ง อย่าฆ่าแมมมอธ"
+dialog_complete = "เจ้าเดินผ่านฝูงมาได้โดยไม่มีใครตาย... เลฟเห็นแล้ว\n\nเขาถักผ้าพันคอให้เจ้า ใหญ่ไปหน่อย — ใส่ไว้เถอะ ในอัลฟ์เฮมมันจะมีความหมายมากกว่าที่เจ้าคิด"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 63
+required_quests = Array[StringName]([&"c4_1_gate_of_giants"])
+set_flag_on_complete = &"walked_with_mammoths"
+reward_item_id = &"giant_child_scarf"
+reward_item_count = 1
+reward_zeny = 6000
+reward_exp = 44000

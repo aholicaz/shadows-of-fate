@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/ninth_inscription.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"ninth_inscription"
+display_name = "อักขระที่เก้า"
+description = "ใช้ 4 ตรา วงอักขระรัศมี 500 px นาน 3 วิ โจมตีในวงคริ 100% และมองข้าม DEF จบแล้วระเบิด 2000–2800% ATK ต้องมีกายาอักขระที่เก้า Lv.5"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 92
+type = 2
+sp_cost_base = 60
+sp_cost_per_level = 0.0
+cooldown = 60.0
+damage_mult_base = 0.00
+damage_mult_per_level = 0.00
+required_skills = {"ninth_vessel": 5}

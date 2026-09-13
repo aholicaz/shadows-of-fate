@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_reflection.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"reflection"
+fits_slot = 1
+rarity = 5
+monster_level = 79
+id = &"card_reflection"
+display_name = "การ์ดเงาสะท้อน"
+description = "สิ่งที่อยู่ในน้ำ คือเจ้าที่มองอีกด้าน"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 5740
+crit = 8
+percent_effects = {
+"atk_percent": 4.0
+}

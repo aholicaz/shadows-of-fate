@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 5
+target = &"rb11_shadow_kills"
+count = 1
+text = "ล้มเงาสะท้อน 3 ตัวขณะอยู่ร่างจาง"
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"exile_stone"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"rb11_shadow_of_the_blade"
+title = "RB11 เงาของดาบ"
+description = "ล้มเงาสะท้อน 3 ตัวขณะอยู่ในร่างจาง แล้วอ่านศิลาผู้ถูกทิ้ง"
+giver_name = "ผู้เห็นแสงเอย์ร"
+dialog_offer = "เงาสะท้อนในทะเลสาบ... มันคือเจ้า มนุษย์ เจ้าที่มองอีกด้าน\n\nสลับเป็นร่างจางที่ผลึกใหญ่ แล้วไปล้มเงาของเจ้าเอง 3 ตัว จากนั้นอ่านศิลาในป่าจาง — ดวงที่เจ็ดอยู่ในเงาของชื่อที่ถูกลบ"
+dialog_progress = "ต้องอยู่ในร่างจาง (สลับที่ผลึกใหญ่ท้ายเมือง) แล้วล้มเงาสะท้อน 3 · อ่านศิลาผู้ถูกทิ้ง"
+dialog_complete = "«เงา» — ดวงที่เจ็ด รูนที่สว่างได้เฉพาะในที่มืด\n\nจากนี้ดาบเจ้ามีเงาของมันเอง — «อักขระคู่» จะสะท้อนเงาได้ชัดขึ้น ใช้ได้ทั้งคมและแรง\nดวงที่แปดกับเก้า... อยู่ในที่ที่ไม่มีแสงเลย ที่ที่คนตายพูดได้"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 82
+required_job = &"runeblade"
+required_quests = Array[StringName]([&"rb10_borrowed_light", &"c5_5_thing_in_the_water"])
+required_flag = &"has_shade_crystal"
+set_flag_on_complete = &"rb_rune_7"
+reward_zeny = 30000
+reward_exp = 180000

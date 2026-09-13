@@ -97,6 +97,8 @@ func can_accept(quest_id: StringName, level: int) -> bool:
 		return false
 	if level < q.required_level:
 		return false
+	if q.required_job != &"" and PlayerState.stats.job_id != q.required_job:
+		return false
 	# ★ ต้องทำเควสก่อนหน้าจบก่อน ★
 	for prev in q.required_quests:
 		if prev not in completed:
@@ -164,6 +166,29 @@ func on_map_entered(map_id: StringName) -> void:
 ## ตรวจ/อ่านของในแมพ (ป้าย ชั้นหนังสือ หลุมศพ ฯลฯ)
 func on_read(target: StringName) -> void:
 	_advance(ObjectiveData.Kind.READ, target)
+
+
+## ★ รอบ 105 ★ ตีมอนด้วยสกิล — เงื่อนไขชนิด SKILL_HIT (เช่น "ล้มผู้ถือโล่ด้วยสกิลสาย Sunder")
+func on_skill_hit(monster_id: StringName, skill_id: StringName) -> void:
+	for qid in active.duplicate():
+		var q := GameData.get_quest(qid)
+		if q == null:
+			continue
+		var list := q.steps()
+		var touched := false
+		for i in range(list.size()):
+			var o := list[i]
+			if not o.matches_skill_hit(monster_id, skill_id):
+				continue
+			var before := count_of(qid, i)
+			if before >= o.need():
+				continue
+			_set_progress(qid, i, before + 1, list.size())
+			touched = true
+			Events.quest_progress.emit(qid, before + 1, o.need())
+		if touched:
+			Events.quest_changed.emit()
+			_announce_if_ready(qid, q)
 
 
 ## เรียกเมื่อกระเป๋าหรือธงเปลี่ยน — ชนิดที่นับสดไม่ต้องบวกเลข แค่แจ้งให้ UI รู้

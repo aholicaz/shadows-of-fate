@@ -28,7 +28,7 @@ chance = 2.63
 [sub_resource type="Resource" id="Drop_forge_golem_4"]
 script = ExtResource("2_drop")
 item_id = &"chain_mail"
-chance = 1.5
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_forge_golem_card"]
 script = ExtResource("2_drop")
@@ -75,9 +75,11 @@ attack_cooldown = 1.8
 knockback_force = 260.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 950
-job_exp_reward = 665
-zeny_min = 250
-zeny_max = 450
+exp_reward = 236
+job_exp_reward = 165
+zeny_min = 91
+zeny_max = 169
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_golem_0"), SubResource("Drop_forge_golem_1"), SubResource("Drop_forge_golem_2"), SubResource("Drop_forge_golem_3"), SubResource("Drop_forge_golem_4"), SubResource("Drop_forge_golem_card")])
 respawn_time = 15.0
+spawn_lines = null
+death_lines = null

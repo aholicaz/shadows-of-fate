@@ -22,26 +22,36 @@ chance = 2.31
 [sub_resource type="Resource" id="Resource_dwxqo"]
 script = ExtResource("2_drop")
 item_id = &"katana"
-chance = 5.0
+chance = 15.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_4lp3a"]
 script = ExtResource("2_drop")
 item_id = &"ring"
-chance = 5.0
+chance = 15.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_dwirs"]
 script = ExtResource("2_drop")
 item_id = &"boots"
-chance = 7.0
+chance = 15.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_fjn7p"]
 script = ExtResource("2_drop")
 item_id = &"buckler"
-chance = 7.0
+chance = 15.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
+
+[sub_resource type="Resource" id="Balance_storm_runeblade"]
+script = ExtResource("2_drop")
+item_id = &"storm_runeblade"
+chance = 18.0
+
+[sub_resource type="Resource" id="Balance_storm_pendant"]
+script = ExtResource("2_drop")
+item_id = &"storm_pendant"
+chance = 22.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -81,11 +91,11 @@ attack_hit_frames = PackedInt32Array(13, 20)
 attack_hit_damage_mult = 0.65
 attack_follow_anim = true
 skill_hit_frames = null
-exp_reward = 6000
-job_exp_reward = 4200
-zeny_min = 1500
-zeny_max = 2500
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_stormscar_0"), SubResource("Drop_stormscar_1"), SubResource("Drop_stormscar_card"), SubResource("Resource_dwxqo"), SubResource("Resource_4lp3a"), SubResource("Resource_dwirs"), SubResource("Resource_fjn7p")])
+exp_reward = 1793
+job_exp_reward = 1255
+zeny_min = 770
+zeny_max = 1430
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_stormscar_0"), SubResource("Drop_stormscar_1"), SubResource("Drop_stormscar_card"), SubResource("Resource_dwxqo"), SubResource("Resource_4lp3a"), SubResource("Resource_dwirs"), SubResource("Resource_fjn7p"), SubResource("Balance_storm_runeblade"), SubResource("Balance_storm_pendant")])
 is_boss = true
 boss_title = "อสูรสายฟ้า — สิ่งที่ซุ่มอยู่ในรอยสายฟ้า"
 intro_video = "res://Sprites/video/boss_intro_stormscar.ogv"
@@ -107,3 +117,5 @@ skill_bolt_delay = 0.9
 skill_bolt_max_hits = 5
 skill_bolt_damage_mult = 2.0
 respawn_time = 300.0
+spawn_lines = null
+death_lines = null

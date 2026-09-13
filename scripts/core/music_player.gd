@@ -17,6 +17,15 @@ extends Node
 ## โฟลเดอร์ที่จะไปหาไฟล์เพลง (ไล่จากบนลงล่าง เจออันแรกใช้อันนั้น)
 const DIRS := ["res://Sprites/music/", "res://music/", "res://Sprites/Music/", "res://audio/music/"]
 const EXTS := [".mp3", ".ogg", ".wav"]
+## Chapter 4 shares three files; adjoining field maps keep the same playback.
+const MAP_TRACKS := {
+	"utgard_town": "chapter4_town",
+	"frost_pass": "chapter4_field",
+	"giant_steppe": "chapter4_field",
+	"frozen_hall": "chapter4_field",
+	"broken_wall": "chapter4_field",
+	"hrungnir_crater": "chapter4_boss",
+}
 const LAYOUT_PATH := "user://ui_layout.cfg"
 
 ## เวลาไล่เสียงตอนสลับเพลง (วินาที)
@@ -84,6 +93,7 @@ func _ready() -> void:
 # =========================================================
 ## คืน path ของไฟล์เพลงชื่อนี้ (คืน "" ถ้าไม่มี)
 func find_track(key: String) -> String:
+	key = String(MAP_TRACKS.get(key, key))
 	if key == "":
 		return ""
 	if _path_cache.has(key):
@@ -111,7 +121,7 @@ func has_track(key: String) -> bool:
 # =========================================================
 ## เล่นเพลงประจำแมพ — เรียกจาก map_base ตอนโหลดแมพ
 func play_for_map(map_id: StringName) -> void:
-	_map_key = String(map_id)
+	_map_key = String(MAP_TRACKS.get(String(map_id), String(map_id)))
 	_play_track(_map_key)
 
 

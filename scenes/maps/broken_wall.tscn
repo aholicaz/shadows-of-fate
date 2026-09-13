@@ -1,0 +1,216 @@
+[gd_scene format=3]
+
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/ice_troll.tres" id="md_ice_troll"]
+[ext_resource type="Resource" path="res://data/monsters/stone_soldier.tres" id="md_stone_soldier"]
+[ext_resource type="Resource" path="res://data/monsters/wall_shieldbearer.tres" id="md_wall_shieldbearer"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_parallax.gd" id="c4_parallax"]
+[ext_resource type="Shader" path="res://Sprites/shaders/chapter4_atmosphere.gdshader" id="c4_weather"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/broken_wall_depth.png" id="c4_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/broken_wall_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/broken_wall_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/broken_wall_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/broken_wall_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/broken_wall_4.png" id="organic_4"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/broken_wall_foundation.png" id="organic_foundation"]
+
+
+
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(6000, 240)
+
+[sub_resource type="ShaderMaterial" id="ChapterWeather"]
+shader = ExtResource("c4_weather")
+shader_parameter/atmosphere_color = Color(0.52, 0.65, 0.94, 1)
+shader_parameter/mist_strength = 0.11
+shader_parameter/aurora_strength = 0.01
+shader_parameter/storm_strength = 0.025
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"broken_wall"
+display_name = "กำแพงที่แตก"
+chapter = 4
+region = "โยตุนเฮม"
+map_bounds = Rect2(-100, -200, 5800, 1400)
+player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+variant_flag = &"wall_night"
+variant_tint = Color(0.5, 0.56, 0.8, 1)
+variant_name_suffix = " (กลางคืน)"
+
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("c4_parallax")
+anchor_x = 2800.0
+snow_amount = 115
+wind = 0.8
+rising_motes = false
+particle_color = Color(0.52, 0.65, 0.94, 0.45)
+
+
+[node name="Backdrop" type="Polygon2D" parent="Background"]
+z_index = -110
+color = Color(0.05,0.09,0.15,1)
+polygon = PackedVector2Array(-6000,-3000,12000,-3000,12000,3000,-6000,3000)
+
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_filter = 4
+texture_repeat = 3
+position = Vector2(2800.0,303)
+scale = Vector2(1.39,1.39)
+texture = ExtResource("c4_depth")
+region_enabled = true
+region_rect = Rect2(-4914,0,12000,724)
+
+
+[node name="Atmosphere" type="Polygon2D" parent="Background"]
+z_index = -2
+material = SubResource("ChapterWeather")
+polygon = PackedVector2Array(-1200,-350,7000,-350,7000,1350,-1200,1350)
+uv = PackedVector2Array(0,0,1,0,1,1,0,1)
+
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2800, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+visible = false
+color = Color(0.6, 0.6, 0.62, 1)
+polygon = PackedVector2Array(-3000, -120, 3000, -120, 3000, 120, -3000, 120)
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_hall" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_crater" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5400, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_ice_troll"), ExtResource("md_stone_soldier")])
+count_per_type = 4
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="Boss_wall_shieldbearer" type="Node2D" parent="Spawners"]
+position = Vector2(4900, 850)
+script = ExtResource("spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_wall_shieldbearer")])
+monster_scene = ExtResource("monster_scene")
+max_alive = 1
+spawn_width = 160
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToHall" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"frozen_hall"
+target_spawn_point = &"from_wall"
+label_text = "← โถงภาพวาดน้ำแข็ง"
+destination_name = "โถงภาพวาดน้ำแข็ง"
+
+
+[node name="ToCrater" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5540, 880)
+target_map = &"hrungnir_crater"
+target_spawn_point = &"from_wall"
+label_text = "→ หลุมหัวใจสายฟ้า"
+destination_name = "หลุมหัวใจสายฟ้า"
+required_flag = &"killed_wall_shieldbearer"
+locked_text = "ผู้ถือโล่ยังยืนเฝ้าทางไปหลุม... เขาไม่ยอมให้ใครผ่าน"
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="WallInscription" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(1500, 790)
+lore_id = &"wall_inscription"
+title = "จารึกฝั่งยักษ์"
+text = "รูนยักษ์สลักลึกลงในกำแพง ตัวอักษรใหญ่เท่าประตู\n\n«กำแพงนี้สร้างเพื่อกันฟ้า ไม่ใช่กันคน\nคนเดินผ่านประตูได้ ฟ้าต้องหยุดที่นี่»\n\nมนุษย์เรียกมันว่า «กำแพงกันยักษ์» — ยักษ์เรียกมันว่า «กำแพงกันเทพ»"
+label_text = "จารึกบนกำแพง"
+
+
+[node name="WallBreach" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(3250, 790)
+lore_id = &"wall_breach"
+title = "รอยแตกของกำแพง"
+text = "รอยแตกกว้างพอให้กองทัพเดินผ่านสิบแถว\n\nขอบรอยแตกฝั่ง «ใต้» ถูกกะเทาะออก — หินกระเด็นเข้ามาข้าง «ใน» เมืองยักษ์\nถ้ายักษ์ทุบกำแพงออกไปบุกมนุษย์ หินต้องกระเด็นออกไปข้างนอก\n\nแต่หินอยู่ข้างใน\n\nกำแพงไม่ได้ถูกทุบจากข้างใน... มันถูกทุบจากฝั่งมนุษย์"
+label_text = "รอยแตก"
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200, 170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800, 170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800, 170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800, 170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicRoad4" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(6800, 170)
+centered = false
+texture = ExtResource("organic_4")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(2900.0, 1960)
+texture_repeat = 3
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)

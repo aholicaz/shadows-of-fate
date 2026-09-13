@@ -10,4 +10,4 @@ display_name = "แร่เหล็ก"
 description = "แร่ดิบสำหรับหลอม"
 icon = ExtResource("1_hpw1d")
 buy_price = 140
-sell_price = 56
+sell_price = 21

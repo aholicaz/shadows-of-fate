@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"reflection"
+count = 5
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 1
+target = &"shade_crystal"
+count = 1
+consume = false
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"lake_reflection"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c5_5_thing_in_the_water"
+title = "C5-5 สิ่งที่อยู่ในน้ำ"
+description = "ล่าเงาสะท้อนที่ทะเลสาบกระจก เอาผลึกเงามา แล้วดูเงาในน้ำ"
+giver_name = "ทหารยามโซล"
+dialog_offer = "ที่ทะเลสาบมี «อะไร» ในน้ำ ☺ มันเลียนแบบคนที่มอง ข้าไม่ชอบมัน... ไม่สิ ข้าไม่รู้สึกอะไร ☺\n\nไปจัดการ แล้วเอาของที่มันทิ้งไว้มาให้ข้าดู"
+dialog_progress = "เงาสะท้อน 5 ตัว เก็บผลึกเงาที่มันดรอป แล้วดูเงาในน้ำกลางทะเลสาบ"
+dialog_complete = "ผลึกเงา... ☺ ข้า... ข้าจำได้ ข้าเคย...\n\n(โซลเงียบไป รอยยิ้มค้างอยู่บนหน้า แต่ตาไม่ยิ้มแล้ว)\n\n...เก็บผลึกไว้ มนุษย์ ไปที่ผลึกใหญ่ท้ายเมือง แล้วดูว่าใครยังอยู่"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 78
+required_quests = Array[StringName]([&"c5_3_garden_that_never_wilts"])
+set_flag_on_complete = &"has_shade_crystal"
+reward_zeny = 20000
+reward_exp = 120000

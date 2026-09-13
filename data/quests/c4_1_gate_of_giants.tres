@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"ทหารยามธยาซี"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"พ่อค้าฮือเมียร์"
+count = 1
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"นักบวชอาสมุนด์"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c4_1_gate_of_giants"
+title = "C4-1 ประตูที่สูงเกินเอื้อม"
+description = "ทำความรู้จักผู้คนในอุทการ์ด — ทหารยาม พ่อค้า และนักบวชที่ตามมาจากวิหาร"
+giver_name = "ผู้อาวุโสสกาดี"
+dialog_offer = "คนตัวเล็กเดินผ่านช่องเขามาได้... แปลว่าเจ้าไม่ได้มาฆ่า\n\nไปทักทายผู้คนก่อน ธยาซีที่ประตู ฮือเมียร์ที่ตลาด และ... นักบวชของพวกเจ้าที่ตามมา เขายืนอยู่หน้าบ้านข้าตั้งแต่เช้า"
+dialog_progress = "ธยาซีจะด่าเจ้า ปล่อยเขา ฮือเมียร์จะขายของให้เจ้า ส่วนอาสมุนด์... ฟังเขาให้ดี เขาไม่ได้พูดผิดทั้งหมด"
+dialog_complete = "เจ้าคุยกับทุกคนแล้ว... นี่ตราโยตุน ถือไว้ นครนี้จะถือว่าเจ้าเป็นแขก\n\nมนุษย์คนสุดท้ายที่ได้ตรานี้... เขาชื่ออะไรนะ ข้าจำไม่ได้ เหมือนมีใครลบออกจากหัวข้า"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 60
+required_flag = &"chapter3_done"
+set_flag_on_complete = &"utgard_intro"
+reward_item_id = &"jotun_seal"
+reward_item_count = 1
+reward_zeny = 5000
+reward_exp = 20000

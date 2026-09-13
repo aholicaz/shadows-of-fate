@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://cfkkpi52ielg"]
+
+[ext_resource type="Script" uid="uid://bkm257qqtsu1d" path="res://scripts/resources/job_data.gd" id="1_job"]
+
+[resource]
+script = ExtResource("1_job")
+id = &"ninth_edge"
+display_name = "Ninth Edge — คมอักขระที่เก้า"
+description = "ผู้ที่สลักชื่อตัวเองเป็นอักขระที่เก้าในโถงที่ชื่อทุกชื่อถูกลบ คมกับแรงกลายเป็นสิ่งเดียวกัน — ดาบที่ธอร์ยังลบไม่ได้"
+hp_base = 60
+hp_per_level = 18.0
+hp_vit_percent = 1.3
+sp_base = 16
+sp_per_level = 3.5
+sp_int_percent = 1.1
+atk_mod = 1.4
+matk_mod = 0.5
+def_mod = 1.3
+hit_mod = 1.05
+flee_mod = 1.05
+aspd_base = 1.15
+aspd_agi_percent = 1.25
+skill_ids = Array[StringName]([&"sword_mastery", &"hp_recovery", &"bash", &"slash", &"magnum_break", &"endure", &"battle_cry", &"first_aid", &"runic_vessel", &"rune_guard", &"blade_rhythm", &"keen_inscription", &"rune_flurry", &"rune_lunge", &"unbroken_edge", &"tempered_might", &"anvil_cleave", &"faultline", &"worldcleaver", &"ninth_vessel", &"named_edge", &"twin_inscription", &"wallbreaker_stance", &"erasing_cut", &"ninth_inscription"])
+max_job_level = 100
+job_change_level = 999

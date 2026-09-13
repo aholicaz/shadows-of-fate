@@ -9,5 +9,5 @@ id = &"emveretarcon"
 display_name = "เอ็มเวเรทาร์คอน"
 description = "แร่สำหรับตีบวก +5 ขึ้นไป"
 icon = ExtResource("1_rutd5")
-buy_price = 100000
-sell_price = 400
+buy_price = 5000
+sell_price = 47

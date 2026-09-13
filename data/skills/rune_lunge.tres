@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/rune_lunge.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"rune_lunge"
+display_name = "พุ่งกรีดอักขระ"
+description = "พุ่งทะลุฝูงมอน 900–1035 px ฟัน 340–1060% ATK ต่อเป้าหมาย ติดคริได้ เมื่อโดนเสริมหกคมครั้งถัดไป +20% ภายใน 3 วิ หยุดเฉพาะกำแพง"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+required_skills = {"slash": 5}
+type = 5
+sp_cost_base = 14
+sp_cost_per_level = 1.0
+cooldown = 4.0
+cast_windup = 0.06
+damage_mult_base = 3.4
+damage_mult_per_level = 0.8
+max_targets = 0
+range_x = 280.0
+dash_distance = 900.0
+dash_distance_per_level = 15.0
+dash_range_y = 340.0
+dash_speed = 2000.0
+animation = &"Attack_Blade_slash"

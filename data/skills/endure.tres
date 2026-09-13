@@ -22,3 +22,5 @@ buff_effects = {
 "flee": 10.0
 }
 buff_value_per_level = 4.0
+
+job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])

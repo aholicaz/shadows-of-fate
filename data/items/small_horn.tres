@@ -11,4 +11,4 @@ description = "เขาเล็ก ๆ ของบาฟโฟเมทจู
 icon = ExtResource("2_icon")
 type = 3
 buy_price = 780
-sell_price = 260
+sell_price = 95

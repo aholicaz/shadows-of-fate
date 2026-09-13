@@ -93,9 +93,9 @@ func collect_bonus() -> Dictionary:
 		_add_item_bonus(b, d, slot != EquipSlot.WEAPON, inst.bonus_multiplier())
 		# โบนัสจากตีบวก (อาวุธคิด ATK ผ่าน weapon_atk แล้ว / เกราะเท่านั้นที่ได้ DEF)
 		if slot != EquipSlot.WEAPON:
-			_add(b, &"atk", inst.refine * d.refine_atk_per_level)
+			_add(b, &"atk", inst.refine * d.refine_atk_gain())
 		if d.type == ItemData.Type.ARMOR:
-			_add(b, &"def", inst.refine * d.refine_def_per_level)
+			_add(b, &"def", inst.refine * d.refine_def_gain())
 
 		# ★ การ์ดที่ใส่อยู่ในชิ้นนี้ ★
 		for card in inst.card_list():
@@ -125,6 +125,8 @@ func collect_percent_bonus() -> Dictionary:
 ## ★ รอบ 45 — ช่อง % ของ ItemData → คีย์ที่ PlayerStats ใช้ ★
 static func _add_percent_bonus(b: Dictionary, d: ItemData) -> void:
 	_add(b, &"damage_percent", d.damage_percent)
+	_add(b, &"skill_damage_percent", d.skill_damage_percent)
+	_add(b, &"crit_damage_percent", d.crit_damage_percent)
 	_add(b, &"def_percent", d.defense_percent)
 	_add(b, &"max_hp_percent", d.hp_percent)
 	_add(b, &"max_sp_percent", d.sp_percent)

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"erased_name"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"erased_voice"
+count = 15
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_6_name_beside_odin"
+title = "C6-6 ชื่อข้างโอดิน"
+description = "อ่านชื่อที่ถูกลบข้างโอดิน แล้วล่าเสียงที่ถูกลบในโถง"
+giver_name = "เฮล ผู้ปกครองผู้ตาย"
+dialog_offer = "ข้างชื่อโอดิน มีอีกชื่อหนึ่ง... ไปดูสิว่าเจ้าอ่านออกไหม ข้าอ่านไม่ออก ไม่มีใครอ่านออก\n\nเสียงที่ถูกลบในโถงพยายามพูดชื่อนั้น แต่พูดไม่ได้ ล่ามันให้เงียบ — พวกมันทรมาน"
+dialog_progress = "อ่านรอยเปื้อนข้างชื่อโอดิน แล้วเสียงที่ถูกลบ 15 ตน"
+dialog_complete = "อ่านไม่ออกใช่ไหม... ลบสองชั้น\n\nข้าเก็บชื่อทุกชื่อ มนุษย์ แต่ชื่อนั้น... ถูกลบจากปากข้าด้วย"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 89
+required_quests = Array[StringName]([&"c6_5_wrong_side"])
+set_flag_on_complete = &"c6_6_done"
+choice_prompt = "เจ้าจะถามเฮลไหมว่าชื่อนั้นคือใคร"
+choice_options = Array[String](["«ท่านรู้ว่าเขาคือใคร ใช่ไหม»", "ไม่ถาม — ยังไม่ถึงเวลา"])
+choice_flags = Array[StringName]([&"ask_hel_who", &"dont_ask"])
+reward_zeny = 30000
+reward_exp = 200000

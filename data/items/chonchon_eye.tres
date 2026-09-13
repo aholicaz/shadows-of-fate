@@ -10,4 +10,4 @@ display_name = "เขี้ยวหมูป่า"
 description = "เขี้ยวหมูตัน...เป็นเขี้ยวหมูป่าที่ข้างในไม่กลวง"
 icon = ExtResource("2_icon")
 buy_price = 180
-sell_price = 60
+sell_price = 21

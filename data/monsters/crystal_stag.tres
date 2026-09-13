@@ -1,0 +1,91 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/crystal_stag_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_crystal_stag_0"]
+script = ExtResource("2_drop")
+item_id = &"crystal_antler"
+chance = 40.0
+
+[sub_resource type="Resource" id="Drop_crystal_stag_1"]
+script = ExtResource("2_drop")
+item_id = &"stag_hoof"
+chance = 30.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_crystal_stag_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 16.0
+
+[sub_resource type="Resource" id="Drop_crystal_stag_3"]
+script = ExtResource("2_drop")
+item_id = &"stag_horn_saber"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_crystal_stag_4"]
+script = ExtResource("2_drop")
+item_id = &"silent_step"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_crystal_stag_card"]
+script = ExtResource("2_drop")
+item_id = &"card_crystal_stag"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"crystal_stag"
+display_name = "กวางผลึก"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(80, 90)
+hp_bar_offset_y = -106.4
+display_height = 280.0
+level = 74
+max_hp = 16000
+atk_min = 660
+atk_max = 820
+def = 90
+mdef = 70
+hit = 156
+flee = 60
+crit = 6
+element = 6
+race = 2
+size = 2
+ai_type = 0
+move_speed = 130.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 260.0
+attack_range = 150.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 300.0
+exp_reward = 774
+job_exp_reward = 542
+zeny_min = 214
+zeny_max = 398
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_crystal_stag_0"), SubResource("Drop_crystal_stag_1"), SubResource("Drop_crystal_stag_2"), SubResource("Drop_crystal_stag_3"), SubResource("Drop_crystal_stag_4"), SubResource("Drop_crystal_stag_card")])
+respawn_time = 18.0
+skill_name = "ชาร์จพุ่ง"
+skill_anim = &"Skill"
+skill_range = 520.0
+skill_damage_mult = 1.6
+skill_windup = 0.5
+skill_duration = 1.0
+skill_cooldown = 8.0
+skill_chance = 0.50
+skill_bolt_count = 1
+skill_bolt_start = 160.0
+skill_bolt_spacing = 100.0
+skill_bolt_delay = 0.25
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

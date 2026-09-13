@@ -10,5 +10,5 @@ description = "เขาของราชาปีศาจ หายากม�
 type = 3
 max_stack = 99
 buy_price = 0
-sell_price = 25000
+sell_price = 700
 can_drop = false

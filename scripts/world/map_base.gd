@@ -76,6 +76,24 @@ extends Node2D
 ## ★ รอบ 79 ★ เข้าแมพนี้แล้วตั้งธงนี้ให้เอง (ว่าง = ไม่ตั้ง) — ใช้ปลดล็อกปลายทางเสาวาป เช่น chapter3_visited
 @export var enter_flag: StringName = &""
 
+# =========================================================
+# ★★ ร่างที่สองของแมพ (รอบ 105) ★★  กำแพงตอนกลางคืน (บท 4) · ร่างจางของอัลฟ์เฮม (บท 5)
+#
+# แมพเดียวกันมี 2 ร่าง สลับด้วยธงเนื้อเรื่อง ไม่ต้องทำนาฬิกา:
+#   - ธง Variant Flag ตั้งอยู่ → แมพเป็น "ร่างที่สอง": ย้อมทั้งจอด้วย Variant Tint
+#     โหนดในกลุ่ม light_only ถูกเอาออก · โหนดในกลุ่ม dim_only ถูกเปิดขึ้นมา (ตั้ง visible = false ไว้ในฉาก)
+#   - ไม่มีธง → ร่างปกติ: โหนด dim_only ถูกเอาออก
+# ใช้กับ NPC · MapSpawner · LoreObject · ภาพฉาก ฯลฯ ได้ทุกอย่าง แค่ใส่กลุ่มให้โหนดนั้นใน Inspector (แท็บ Node → Groups)
+# =========================================================
+@export_group("ร่างที่สองของแมพ (รอบ 105)")
+## ธงที่ทำให้แมพเป็นร่างที่สอง เช่น wall_night · shade_view (ว่าง = แมพนี้ไม่มีร่างที่สอง)
+@export var variant_flag: StringName = &""
+## แมพนี้เป็นร่างที่สองตลอดเวลา (เช่น ป่าที่แสงจาง บท 5)
+@export var variant_always: bool = false
+## สีย้อมทั้งจอตอนเป็นร่างที่สอง
+@export var variant_tint: Color = Color(0.45, 0.5, 0.72)
+## ต่อท้ายชื่อแมพตอนโชว์ เช่น " (กลางคืน)"
+@export var variant_name_suffix: String = ""
 @export_group("")
 @export var player_scene: PackedScene
 @export var camera_zoom: Vector2 = Vector2.ONE
@@ -103,10 +121,13 @@ extends Node2D
 
 var player: Node2D
 var camera: Camera2D
+## ★ รอบ 105 ★ ตอนนี้แมพอยู่ในร่างที่สองไหม (อ่านได้จากสคริปต์อื่น)
+var is_variant := false
 
 
 func _ready() -> void:
 	add_to_group("map")
+	_apply_variant()   # ★ รอบ 105 ★ ต้องทำก่อนวางผู้เล่น/สปอว์น
 	PlayerState.current_map_id = map_id
 	PlayerState.set_last_town(map_id)      # ★ รอบ 60 — จำเมืองล่าสุดไว้ให้ปีกแห่งวาลคีรี ★
 	if enter_flag != &"" and not PlayerState.has_flag(enter_flag):
@@ -131,6 +152,33 @@ func _ready() -> void:
 		Game.music.play_for_map(map_id)
 	Events.say(display_name)
 	_play_intro_video()
+	if map_id in [&"nidavellir_town", &"vanir_town", &"silver_marsh", &"runeblade_training"]:
+		add_child(preload("res://scripts/world/runeblade_campaign.gd").new())
+	# ★ รอบ 105 ★ เหตุการณ์พิเศษของบท 4-6 (คนแปลกหน้า · พิธี Ninth Edge · โซ่การ์ม ฯลฯ)
+	if chapter >= 4:
+		add_child(preload("res://scripts/world/ch456_campaign.gd").new())
+
+
+## ★ รอบ 105 ★ ร่างที่สองของแมพ — ดูคำอธิบายที่กลุ่ม "ร่างที่สองของแมพ" ข้างบน
+func _apply_variant() -> void:
+	is_variant = variant_always or (variant_flag != &"" and PlayerState.has_flag(variant_flag))
+	var drop_group := "dim_only" if not is_variant else "light_only"
+	for node in get_tree().get_nodes_in_group(drop_group):
+		if is_ancestor_of(node):
+			node.get_parent().remove_child(node)
+			node.queue_free()
+	if not is_variant:
+		return
+	for node in get_tree().get_nodes_in_group("dim_only"):
+		if is_ancestor_of(node) and node is CanvasItem:
+			node.visible = true
+	if get_node_or_null("VariantTint") == null:
+		var cm := CanvasModulate.new()
+		cm.name = "VariantTint"
+		cm.color = variant_tint
+		add_child(cm)
+	if variant_name_suffix != "":
+		display_name += variant_name_suffix
 
 
 ## ★ รอบ 59 ★ วิดีโอตอนเข้าแมพ (ไม่มีไฟล์/ดูไปแล้ว = ไม่ทำอะไร)

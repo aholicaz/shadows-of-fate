@@ -19,13 +19,13 @@ chance = 0.87
 [sub_resource type="Resource" id="Resource_g4v7s"]
 script = ExtResource("2_drop")
 item_id = &"novice_sword"
-chance = 2.0
+chance = 3.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_yf5fn"]
 script = ExtResource("2_drop")
 item_id = &"cotton_shirt"
-chance = 2.0
+chance = 3.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Drop_drops_junk_orange_jelly"]
@@ -311,7 +311,7 @@ wander_walk_max = 2.6
 wander_look_chance = 0.6
 jump_interval = 0.6
 attack_hit_frames = null
-exp_reward = 34
+exp_reward = 13
 zeny_min = 10
 zeny_max = 28
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_drops_2"), SubResource("Drop_drops_card"), SubResource("Resource_g4v7s"), SubResource("Resource_yf5fn"), SubResource("Drop_drops_junk_orange_jelly"), SubResource("Drop_drops_junk_sun_dew")])

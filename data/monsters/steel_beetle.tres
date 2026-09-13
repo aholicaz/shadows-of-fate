@@ -23,11 +23,16 @@ max_count = 3
 [sub_resource type="Resource" id="Drop_steel_beetle_3"]
 script = ExtResource("2_drop")
 item_id = &"iron_shield"
-chance = 1.0
+chance = 3.0
 
 [sub_resource type="Resource" id="Resource_4lp3a"]
 script = ExtResource("2_drop")
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
+
+[sub_resource type="Resource" id="Balance_iron_blade"]
+script = ExtResource("2_drop")
+item_id = &"iron_blade"
+chance = 4.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -35,8 +40,8 @@ id = &"steel_beetle"
 display_name = "ด้วงเหล็ก"
 sprite_frames = ExtResource("frames_new")
 hitbox_size = Vector2(40, 34)
-hp_bar_offset_y = -60.8
-display_height = 260.0
+hp_bar_offset_y = -287.0
+display_height = 286.0
 fit_foot_animations = null
 level = 26
 max_hp = 1200
@@ -67,9 +72,11 @@ attack_cooldown = 1.8
 knockback_force = 160.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 500
-job_exp_reward = 380
-zeny_min = 130
-zeny_max = 240
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_steel_beetle_0"), SubResource("Drop_steel_beetle_1"), SubResource("Drop_steel_beetle_2"), SubResource("Drop_steel_beetle_3"), SubResource("Resource_4lp3a")])
+exp_reward = 192
+job_exp_reward = 134
+zeny_min = 80
+zeny_max = 148
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_steel_beetle_0"), SubResource("Drop_steel_beetle_1"), SubResource("Drop_steel_beetle_2"), SubResource("Drop_steel_beetle_3"), SubResource("Resource_4lp3a"), SubResource("Balance_iron_blade")])
 respawn_time = 15.0
+spawn_lines = null
+death_lines = null

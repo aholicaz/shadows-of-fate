@@ -1,0 +1,164 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/drowned.tres" id="md_drowned"]
+[ext_resource type="Resource" path="res://data/monsters/nidhogg_spawn.tres" id="md_nidhogg_spawn"]
+[ext_resource type="Resource" path="res://data/monsters/false_judge.tres" id="md_false_judge"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="c6_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/nastrond_depth.png" id="c6_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/nastrond_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/nastrond_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/nastrond_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/nastrond_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/nastrond_4.png" id="organic_4"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_story_art.gd" id="story_art"]
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(6000, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"nastrond"
+display_name = "นาสตรอนด์ ฝั่งศพ"
+chapter = 6
+region = "นิฟล์เฮม"
+map_bounds = Rect2(-100, -200, 5800, 1400)
+player_scene = ExtResource("player")
+
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+[node name="Background" type="Node2D" parent="."]
+
+script = ExtResource("c6_parallax")
+anchor_x = 2800.0
+atmosphere = Color(0.44,0.64,0.49,0.25)
+rising = true
+mote_amount = 40
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2800, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_hall" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_gate" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5400, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_drowned"), ExtResource("md_nidhogg_spawn")])
+count_per_type = 4
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="Boss_false_judge" type="Node2D" parent="Spawners"]
+position = Vector2(4900, 850)
+script = ExtResource("spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_false_judge")])
+monster_scene = ExtResource("monster_scene")
+max_alive = 1
+spawn_width = 160
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToHall" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"hall_of_names"
+target_spawn_point = &"from_nastrond"
+label_text = "← โถงแห่งนาม"
+destination_name = "โถงแห่งนาม"
+
+
+[node name="ToGate" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5540, 880)
+target_map = &"garm_gate"
+target_spawn_point = &"from_nastrond"
+label_text = "→ ประตูของการ์ม"
+destination_name = "ประตูของการ์ม"
+required_flag = &"killed_false_judge"
+locked_text = "ผู้พิพากษาผู้ตายยืนขวางประตู: «ยังไม่ได้ตัดสิน ห้ามผ่าน»"
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="NidhoggRoot" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2600, 790)
+lore_id = &"nidhogg_root"
+title = "รากที่ถูกแทะ"
+text = "รากอิกดราซิลลงมาถึงที่นี่ — ปลายสุดของท่อที่ดูดทุกอย่างจากข้างบน\n\nรากถูกแทะ มีรอยฟันงูเต็มไปหมด รากตรงนั้นดำ\n\nและลึกลงไปใต้ราก... มีบางสิ่งขยับ ใหญ่กว่างูตัวไหนที่เจ้าเคยเห็น มันยังไม่ตื่น\n\n(ปูทางสู่บทท้าย — «บางสิ่งใต้ราก»)"
+label_text = "รากดำ"
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+position = Vector2(2900.0, 350)
+texture = ExtResource("c6_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200,170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800,170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800,170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800,170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicRoad4" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(6800,170)
+centered = false
+texture = ExtResource("organic_4")
+
+[node name="StoryArt" type="Node2D" parent="."]
+script = ExtResource("story_art")

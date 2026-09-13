@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="q"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+
+[sub_resource type="Resource" id="O0"]
+script = ExtResource("o")
+kind = 5
+target = &"rb_trial_rhythm"
+count = 1
+text = "ผ่านบททดสอบจังหวะของคม"
+
+[sub_resource type="Resource" id="O1"]
+script = ExtResource("o")
+kind = 5
+target = &"rb_trial_force"
+count = 1
+text = "ผ่านบททดสอบน้ำหนักของดาบ"
+
+[resource]
+script = ExtResource("q")
+id = "rb4_edge_and_force"
+title = "R4 คมและแรง"
+giver_name = "ผู้อาวุโสญอร์ดา"
+description = "ไปยังศิลาทดสอบทางขวาของเมือง ใช้คอมโบปกติ และเปิดแผลด้วย Rending Wave ก่อนตามด้วย Bash ไม่จำเป็นต้องติดคริ"
+dialog_offer = "ไปยังศิลาทดสอบทางขวาของเมือง ใช้คอมโบปกติ และเปิดแผลด้วย Rending Wave ก่อนตามด้วย Bash ไม่จำเป็นต้องติดคริ"
+dialog_progress = "ตรวจเป้าหมายในสมุดเควส แล้วกลับมาคุยเมื่อครบ"
+dialog_complete = "รูนทั้งสองประสานแล้ว เมื่อเจ้าเลเวล 50 ประตูใต้บึงจะเปิดให้ จงระวังลูกอสูรที่ไล่ต้อนจากด้านหลัง"
+required_flag = ""
+set_flag_on_complete = "rb_trials"
+required_level = 48
+required_job = &"swordsman"
+required_quests = Array[StringName]([&"rb3_beneath_marsh", &"c3_6_withering"])
+objectives = Array[ExtResource("o")]([SubResource("O0"), SubResource("O1")])

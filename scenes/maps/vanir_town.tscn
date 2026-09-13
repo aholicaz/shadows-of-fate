@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://0ks8ddgdf1ue"]
 
-[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
-[ext_resource type="Texture2D" uid="uid://dk4u6fstwcdni" path="res://Sprites/map/generated/vanir_town_bg_final.png" id="bg38"]
 [ext_resource type="SpriteFrames" uid="uid://vqtvvnb1gfod" path="res://Sprites/npc/chapter3/idle/arvid_idle.tres" id="idle_arvid"]
 [ext_resource type="SpriteFrames" uid="uid://di8oxmma7qvf0" path="res://Sprites/npc/chapter3/idle/eskil_idle.tres" id="idle_eskil"]
 [ext_resource type="SpriteFrames" uid="uid://ucp11c7m8ljk" path="res://Sprites/npc/chapter3/idle/frida_idle.tres" id="idle_frida"]
@@ -16,8 +14,12 @@
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
+[ext_resource type="PackedScene" path="res://scenes/world/chapter3/vanir_town_background.tscn" id="ch3_background"]
+
+[ext_resource type="Script" path="res://scripts/world/chapter3_contact_shadows.gd" id="npc_contact_shadow"]
+
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
-size = Vector2(4200, 240)
+size = Vector2(6200, 240)
 
 [node name="Map" type="Node2D" unique_id=1203861525]
 script = ExtResource("map_base")
@@ -25,31 +27,16 @@ map_id = &"vanir_town"
 display_name = "วานาเฮม นครแห่งราก"
 chapter = 3
 region = "วานาเฮม"
-map_bounds = Rect2(-100, -200, 4000, 1200)
+map_bounds = Rect2(-100, -200, 6000, 1200)
 enter_flag = &"chapter3_visited"
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="." unique_id=1263129295]
-
-[node name="Sky" type="Polygon2D" parent="Background" unique_id=1792835839]
-z_index = -100
-texture_filter = 2
-position = Vector2(-100, -200)
-texture = ExtResource("bg38")
-polygon = PackedVector2Array(0, 0, 4000, 0, 4000, 1200, 0, 1200)
-uv = PackedVector2Array(0, 0, 4000, 0, 4000, 1200, 0, 1200)
-
-[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1167512838]
-visible = false
-z_index = -90
-position = Vector2(-100, 520)
-color = Color(0.3, 0.42, 0.3, 1)
-polygon = PackedVector2Array(0, 0, 4000, 0, 4000, 360, 0, 360)
+[node name="Background" parent="." instance=ExtResource("ch3_background")]
 
 [node name="Terrain" type="Node2D" parent="." unique_id=363887130]
 
 [node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=33638194]
-position = Vector2(1900, 1000)
+position = Vector2(2900, 1000)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=456845049]
@@ -68,8 +55,11 @@ position = Vector2(300, 820)
 [node name="from_road" type="Marker2D" parent="SpawnPoints" unique_id=1939761725]
 position = Vector2(200, 820)
 
+[node name="from_pass" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4960, 820)
+
 [node name="from_marsh" type="Marker2D" parent="SpawnPoints" unique_id=2016577982]
-position = Vector2(3600, 820)
+position = Vector2(5560, 820)
 
 [node name="Spawners" type="Node2D" parent="." unique_id=1500602055]
 
@@ -82,18 +72,27 @@ target_spawn_point = &"from_town"
 label_text = "← ทางสายราก"
 destination_name = "ทางสายราก"
 
+[node name="ToFrostPass" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5100, 796)
+target_map = &"frost_pass"
+target_spawn_point = &"from_vanir"
+label_text = "ประตูเหนือ ↑ ช่องเขาน้ำแข็ง · บท 4"
+destination_name = "ช่องเขาน้ำแข็ง — โยตุนเฮม"
+required_flag = &"chapter3_done"
+locked_text = "ประตูเหนือของวานาเฮมปิดสนิท ลมหนาวรั่วผ่านร่องประตู... ยังไม่มีเหตุผลจะไปทางเหนือ"
+
 [node name="ToMarsh" parent="Portals" unique_id=654861432 instance=ExtResource("portal")]
-position = Vector2(3740, 796)
+position = Vector2(5740, 796)
 target_map = &"silver_marsh"
 target_spawn_point = &"from_town"
-label_text = "→ บึงหมอกเงิน"
+label_text = "ประตูตะวันออก → บึงหมอกเงิน · บท 3"
 destination_name = "บึงหมอกเงิน"
 
 [node name="NPCs" type="Node2D" parent="." unique_id=1534602422]
 position = Vector2(0, -88)
 
 [node name="Njorda" parent="NPCs" unique_id=636926805 instance=ExtResource("npc")]
-position = Vector2(380, 820)
+position = Vector2(380.0, 784.6800)
 npc_name = "ผู้อาวุโสญอร์ดา"
 type = 0
 dialog = "ที่นี่คือวานาเฮม นครแห่งราก
@@ -123,7 +122,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Eskil" parent="NPCs" unique_id=1781619277 instance=ExtResource("npc")]
-position = Vector2(1100, 820)
+position = Vector2(1300.0, 789.0000)
 npc_name = "นักบันทึกเอสกิล"
 type = 0
 dialog = "ข้าเอสกิล นักบันทึกแห่งวิหาร ถูกส่งมาเขียนพงศาวดารวานาเฮมฉบับสมบูรณ์
@@ -152,7 +151,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Sifa" parent="NPCs" unique_id=1534251735 instance=ExtResource("npc")]
-position = Vector2(1650, 820)
+position = Vector2(1650.0, 784.6800)
 npc_name = "แม่ค้าซิฟา"
 dialog = "แม่ค้าประจำนคร ของทุกชิ้นปลูกเองเก็บเอง
 
@@ -171,7 +170,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Galla" parent="NPCs" unique_id=24761630 instance=ExtResource("npc")]
-position = Vector2(2000, 820)
+position = Vector2(2000.0, 789.0000)
 npc_name = "ช่างรากไม้กัลลา"
 type = 2
 dialog = "ช่างของนครนี้ตีเหล็กด้วยไฟจากรากไม้ ไม่ใช่ถ่านหิน
@@ -191,11 +190,11 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="SavePoint" parent="NPCs" unique_id=1672309599 instance=ExtResource("npc")]
-position = Vector2(2380, 820)
+position = Vector2(2380.0, 820.7750)
 npc_name = "เสาวาปแห่งราก"
 type = 4
 dialog = "เสาหินพันด้วยรากไม้ ลายเถาวัลย์เก่าแก่... แต่บนยอดมีตราค้อนสลักทับไว้ใหม่ ๆ"
-warp_targets = Array[StringName]([&"nidavellir_town", &"prontera_town"])
+warp_targets = Array[StringName]([&"nidavellir_town", &"prontera_town", &"utgard_town", &"ljosalf_city", &"eljudnir"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/SavePoint" unique_id=950293224]
 texture_filter = 2
@@ -206,7 +205,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Leif" parent="NPCs" unique_id=849759889 instance=ExtResource("npc")]
-position = Vector2(2950, 820)
+position = Vector2(3800.0, 784.6800)
 npc_name = "หมอสมุนไพรลีฟ"
 type = 3
 dialog = "สมุนไพรที่นี่ยังใช้ได้ แต่ต้องเดินไปเก็บไกลขึ้นทุกปี
@@ -225,7 +224,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Arvid" parent="NPCs" unique_id=642464448 instance=ExtResource("npc")]
-position = Vector2(3350, 820)
+position = Vector2(4600.0, 795.4800)
 npc_name = "ทหารยามอาร์วิด"
 type = 0
 dialog = "ข้ายามของนคร... ยามที่ไม่มีอะไรให้เฝ้า
@@ -244,7 +243,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Frida" parent="NPCs" unique_id=1925434179 instance=ExtResource("npc")]
-position = Vector2(3570, 820)
+position = Vector2(4240.0, 803.4400)
 npc_name = "เด็กหญิงฟรีดา"
 type = 0
 dialog = "♪ น้ำล้นบ่อ รากเลื้อยไกล ♪
@@ -274,7 +273,7 @@ autoplay = "Idle"
 [node name="Lore" type="Node2D" parent="." unique_id=272207055]
 
 [node name="WarMural" parent="Lore" unique_id=1689767174 instance=ExtResource("lore")]
-position = Vector2(834, 800)
+position = Vector2(1100, 800)
 lore_id = &"war_mural"
 title = "ภาพจิตรกรรมบนกำแพงราก"
 text = "ภาพจิตรกรรมเก่าบนกำแพงราก สีลอกไปครึ่งหนึ่ง
@@ -286,16 +285,46 @@ text = "ภาพจิตรกรรมเก่าบนกำแพงรา
 set_flag = &"saw_mural"
 label_text = "ภาพวาดเก่า"
 
-[node name="AmbientFX" type="Node2D" parent="." unique_id=1286608205]
-script = ExtResource("ambient_fx")
-lantern_positions = PackedVector2Array(50, 166, 66, 535, 263, 294, 317, 325, 1761, 437, 1889, 384, 2158, 406, 2527, 375, 2146, 587, 2706, 375, 2794, 401, 3199, 399, 3390, 238, 3709, 233)
-flame_size = Vector2(18, 36)
-light_radius = 180.0
-light_energy = 0.16
-shaft_positions = PackedVector2Array(500, -190, 2000, -190, 3300, -190)
-shaft_size = Vector2(400, 1050)
-shaft_color = Color(0.86, 0.89, 0.65, 0.065)
-mote_regions = Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370)])
-mote_color = Color(0.62, 0.83, 0.61, 0.4)
-motes_per_region = 12
-wind_regions = Array[Rect2]([Rect2(-34, 49, 89, 547), Rect2(1452, 294, 288, 124), Rect2(2831, 259, 331, 106), Rect2(3478, -37, 152, 319)])
+
+[node name="from_training" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3100, 820)
+
+[node name="FootShadow" type="Node2D" parent="NPCs/Njorda"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-33.0, 87.3200, 66, 10)])
+
+[node name="FootShadow" type="Node2D" parent="NPCs/Eskil"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-33.0, 83.0000, 66, 10)])
+
+[node name="FootShadow" type="Node2D" parent="NPCs/Sifa"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-33.0, 87.3200, 66, 10)])
+
+[node name="FootShadow" type="Node2D" parent="NPCs/Galla"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-33.0, 83.0000, 66, 10)])
+
+[node name="FootShadow" type="Node2D" parent="NPCs/SavePoint"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-45.0, 51.2250, 90, 10)])
+
+[node name="FootShadow" type="Node2D" parent="NPCs/Leif"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-33.0, 87.3200, 66, 10)])
+
+[node name="FootShadow" type="Node2D" parent="NPCs/Arvid"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-33.0, 76.5200, 66, 10)])
+
+[node name="FootShadow" type="Node2D" parent="NPCs/Frida"]
+z_index = -1
+script = ExtResource("npc_contact_shadow")
+patches = Array[Rect2]([Rect2(-21.0, 68.5600, 42, 10)])

@@ -14,7 +14,9 @@ type = 2
 slot = 7
 card_slots = 0
 max_stack = 1
-buy_price = 180000
-sell_price = 72000
+buy_price = 30800
+sell_price = 1480
 max_hp = 150
 bonus_vit = 3
+
+drop_hint = "เพลิงกุลล์ไวก์"

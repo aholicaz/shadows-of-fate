@@ -14,7 +14,17 @@ type = 2
 slot = 7
 card_slots = 0
 max_stack = 1
-buy_price = 260000
-sell_price = 104000
+buy_price = 41168
+sell_price = 1704
 atk = 10
 bonus_str = 3
+
+skill_damage_percent = 5.0
+
+cooldown_reduction_percent = 4.0
+
+max_sp = 35
+
+damage_percent = 0.0
+
+drop_hint = "เพลิงกุลล์ไวก์"

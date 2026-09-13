@@ -14,9 +14,19 @@ type = 2
 slot = 5
 card_slots = 1
 max_stack = 1
-buy_price = 88000
-sell_price = 35200
+buy_price = 24032
+sell_price = 1312
 def = 10
 mdef = 5
 flee = 10
 refinable = true
+
+bonus_agi = 4
+
+aspd_percent = 5.0
+
+crit = 3
+
+damage_percent = 0.0
+
+drop_hint = "ภูตหมอก"

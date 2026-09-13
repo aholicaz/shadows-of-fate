@@ -129,8 +129,8 @@ weapon_type = &"sword"
 attack_animation = &"Attack_Falchion"
 card_slots = 1
 max_stack = 1
-buy_price = 11000
-sell_price = 880
+buy_price = 2528
+sell_price = 499
 metadata/sell_price_base_r44 = 880
 atk = 39
 hit = 5
@@ -146,3 +146,5 @@ equip_hand_scale = 0.68
 equip_hand_rotation_degrees = 59.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
+
+drop_hint = "คิงโพริง"

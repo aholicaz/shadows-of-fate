@@ -14,9 +14,17 @@ type = 2
 slot = 6
 card_slots = 1
 max_stack = 1
-buy_price = 92000
-sell_price = 36800
+buy_price = 26192
+sell_price = 1368
 def = 13
 max_hp = 120
-bonus_agi = 1
+bonus_agi = 4
 refinable = true
+
+aspd_percent = 5.0
+
+crit = 3
+
+damage_percent = 0.0
+
+drop_hint = "หมาป่าหนาม"

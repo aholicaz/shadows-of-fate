@@ -20,3 +20,5 @@ sell_price = 60
 metadata/sell_price_base_r44 = 60
 def = 4
 refinable = true
+
+drop_hint = "แฟเบร"

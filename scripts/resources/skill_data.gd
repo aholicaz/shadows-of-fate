@@ -54,6 +54,8 @@ enum SkillType {
 @export_group("Range")
 @export var range_x: float = 130.0
 @export var range_y: float = 80.0
+@export var field_radius: float = 0.0
+@export var field_offset: float = 0.0
 ## จำนวนเป้าหมายสูงสุด (สำหรับ AOE) 0 = ไม่จำกัด
 @export var max_targets: int = 1
 ## ★ รอบ 56 — จำนวนเป้าหมายตาม "เลเวลสกิล" ★

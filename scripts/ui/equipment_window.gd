@@ -316,6 +316,7 @@ func _build_content() -> void:
 		[&"speed", "SPEED"], [&"damage_percent", "ดาเมจ%"],
 		[&"hp_drain", "ดูดเลือด"], [&"sp_drain", "ดูดมานา"],
 		[&"bag", "ช่องกระเป๋า"], [&"cdr", "ลดคูลดาวน์"],
+		[&"skill_damage", "ดาเมจสกิล"], [&"crit_damage", "ดาเมจคริ"],
 	]
 	for side in [fields_left, fields_right]:
 		var g := GridContainer.new()
@@ -583,7 +584,7 @@ const FLAT_NAMES := {"atk": "ATK", "def": "DEF", "matk": "MATK", "mdef": "MDEF",
 	"str": "STR", "agi": "AGI", "vit": "VIT", "int": "INT", "dex": "DEX", "luk": "LUK"}
 const PCT_NAMES := {"damage_percent": "ดาเมจ", "def_percent": "DEF", "max_hp_percent": "HP", "max_sp_percent": "SP",
 	"hp_drain_percent": "ดูดเลือด", "sp_drain_percent": "ดูดมานา", "atk_percent": "ATK", "matk_percent": "MATK",
-	"aspd_percent": "ASPD", "move_speed_percent": "SPEED", "crit_damage_percent": "ดาเมจคริ",
+	"aspd_percent": "ASPD", "move_speed_percent": "SPEED", "crit_damage_percent": "ดาเมจคริ", "skill_damage_percent": "ดาเมจสกิล",
 	"cooldown_reduction_percent": "ลดคูลดาวน์"}
 
 
@@ -676,6 +677,8 @@ func refresh() -> void:
 	_set_derived(&"sp_regen", "%.2f/s" % s.sp_regen, false)
 	_set_derived(&"speed", str(int(s.move_speed)), pct.has(&"move_speed_percent"))
 	_set_derived(&"damage_percent", "%+.0f%%" % s.damage_percent, s.damage_percent != 0.0)
+	_set_derived(&"skill_damage", "+%.0f%%" % s.skill_damage_percent, s.skill_damage_percent > 0.0)
+	_set_derived(&"crit_damage", "%.0f%%" % (s.crit_damage * 100.0), s.crit_damage > 1.5)
 	_set_derived(&"hp_drain", "%.0f%%" % s.hp_drain_percent, s.hp_drain_percent != 0.0)
 	_set_derived(&"sp_drain", "%.0f%%" % s.sp_drain_percent, s.sp_drain_percent != 0.0)
 	_equip_bonus_label.text = "สีเขียว = มีผลจากของสวมใส่/การ์ด"

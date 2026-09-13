@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/faultline.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"faultline"
+display_name = "ดาบปักอักขระ"
+description = "ดาบที่สวมอยู่ปักด้านหน้า 420 px วงอักขระหมุนฟัน 6 ครั้ง รัศมี 320 px รวม 720–1440% ATK สูงสุด 10 ตัวต่อครั้ง ไม่คริ เคลื่อนที่ต่อได้ สร้างรูนครั้งเดียว"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+type = 0
+sp_cost_base = 24
+sp_cost_per_level = 0.0
+cooldown = 9.0
+damage_mult_base = 7.2
+damage_mult_per_level = 0.8
+required_skills = {"anvil_cleave": 5}
+
+max_targets = 10
+range_x = 320.0
+
+hit_count = 6
+
+range_y = 340.0
+
+field_radius = 320.0
+
+field_offset = 420.0

@@ -1,0 +1,183 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/drowned.tres" id="md_drowned"]
+[ext_resource type="Resource" path="res://data/monsters/ferryman.tres" id="md_ferryman"]
+[ext_resource type="Resource" path="res://data/monsters/hel_hound.tres" id="md_hel_hound"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="c6_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/gjoll_river_depth.png" id="c6_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/gjoll_river_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/gjoll_river_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/gjoll_river_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/gjoll_river_3.png" id="organic_3"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="npc_idle"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="npc_shadow"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/modgud.png" id="npc_0"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_story_art.gd" id="story_art"]
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(5800, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"gjoll_river"
+display_name = "แม่น้ำเกียลล์"
+chapter = 6
+region = "นิฟล์เฮม"
+map_bounds = Rect2(-100, -200, 5600, 1400)
+player_scene = ExtResource("player")
+
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+[node name="Background" type="Node2D" parent="."]
+
+script = ExtResource("c6_parallax")
+anchor_x = 2700.0
+atmosphere = Color(0.5,0.67,0.76,0.25)
+rising = false
+mote_amount = 35
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2700, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_town" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_hall" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5200, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_drowned"), ExtResource("md_ferryman"), ExtResource("md_hel_hound")])
+count_per_type = 4
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToTown" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"eljudnir"
+target_spawn_point = &"from_river"
+label_text = "← เอลยุดเนียร์"
+destination_name = "เอลยุดเนียร์ เมืองของผู้ตาย"
+
+
+[node name="ToHall" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(5340, 880)
+target_map = &"hall_of_names"
+target_spawn_point = &"from_river"
+label_text = "→ โถงแห่งนาม"
+destination_name = "โถงแห่งนาม"
+required_flag = &"name_left"
+locked_text = "โมดกุดยืนขวางสะพาน: «ผู้ข้ามต้องทิ้งชื่อ» — ส่งเควส C6-3 ก่อน"
+
+
+[node name="NPCs" type="Node2D" parent="."]
+
+
+[node name="Modgud" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2700, 820)
+npc_name = "ผู้เฝ้าสะพานโมดกุด"
+type = 0
+dialog = "ข้าเฝ้าสะพานมาตั้งแต่โลกมีคนตาย ทุกคนที่ข้ามไปทิ้งชื่อไว้กับข้า\n\nเจ้าเป็นคนเป็น... แต่กฎเหมือนกัน อยากไปโถงแห่งนาม ต้องไม่มีชื่อ"
+modulate = Color(1, 1, 1, 0.70)
+greeting = "สะพานทองคำ... ผู้ข้ามต้องจ่าย และค่าข้ามคือชื่อ"
+voice_id = "modgud"
+quest_ids = Array[StringName]([&"c6_3_leave_your_name"])
+quest_talk_names = Array[StringName]([&"ผู้เฝ้าสะพานโมดกุด"])
+dialog_by_flag = {
+"name_left": "ชื่อของเจ้าอยู่กับข้าแล้ว... ข้าจะเก็บไว้ดี ๆ\n\nไปเถอะ คนไร้นาม โถงอยู่ข้างหน้า",
+"job_ninth_edge": "เจ้า... เจ้าสลักชื่อใหม่ได้ ในโถงที่ชื่อทุกชื่อถูกลบ\n\nข้าเก็บชื่อเก่าของเจ้าไว้ให้ ถ้าอยากได้คืน... แต่เจ้าคงไม่ต้องแล้ว"
+}
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="BridgeToll" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(1900, 790)
+lore_id = &"bridge_toll"
+title = "ค่าข้ามสะพาน"
+text = "แผ่นทองคำที่หัวสะพาน สลักด้วยอักษรผู้ตาย\n\n«ผู้ข้ามต้องทิ้งชื่อ — เพราะข้างหน้าคือโถงที่ชื่อทุกชื่อถูกลบ\nคนมีชื่อเข้าไปแล้วจะถูกลบตาม\nคนไม่มีชื่อ... ไม่มีอะไรให้ลบ»\n\nข้างล่างมีคนเขียนเพิ่ม ลายมือสั่น:\n«ผู้กองสั่งห้ามเข้าป่า เพราะป่าถูกดูด — ข้าไม่ได้บ้า»"
+label_text = "แผ่นทอง"
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+position = Vector2(2800.0, 350)
+texture = ExtResource("c6_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200,170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800,170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800,170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800,170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="Sprite2D" parent="NPCs/Modgud" index="0"]
+centered = false
+position = Vector2(-148.2890625, -322.34375)
+scale = Vector2(0.4453125,0.4453125)
+texture = ExtResource("npc_0")
+script = ExtResource("npc_idle")
+phase = 0.0
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Modgud"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="StoryArt" type="Node2D" parent="."]
+script = ExtResource("story_art")

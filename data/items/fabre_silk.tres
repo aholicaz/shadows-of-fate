@@ -11,4 +11,4 @@ description = "ใยเหนียว ๆ ที่แฟเบรใช้พ
 icon = ExtResource("2_icon")
 type = 3
 buy_price = 27
-sell_price = 9
+sell_price = 6

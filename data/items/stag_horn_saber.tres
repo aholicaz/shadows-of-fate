@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/stag_horn_saber.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"stag_horn_saber"
+display_name = "ดาบเขากวาง"
+description = "ดาบโค้งจากเขาผลึกของกวาง เบาและคม ข้างในมีรอยร้าวแต่ไม่เคยหัก"
+icon = ExtResource("2_icon")
+required_level = 76
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 70112
+sell_price = 2650
+atk = 340
+flee = 8
+bonus_agi = 10
+refinable = true
+refine_atk_per_level = 7
+
+crit = 8
+
+aspd_percent = 12.0
+
+crit_damage_percent = 10.0
+
+damage_percent = 0.0
+
+drop_hint = "กวางผลึก"

@@ -1,0 +1,102 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://dclaa3cwmbueq"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/light_forsaken_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bamcqoyj16m76" path="res://data/sprites/fx_thorn_wave.tres" id="4_wave"]
+
+[sub_resource type="Resource" id="Drop_light_forsaken_0"]
+script = ExtResource("2_drop")
+item_id = &"forsaken_ash"
+chance = 100.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_light_forsaken_1"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 100.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_light_forsaken_2"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 5.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_light_forsaken_3"]
+script = ExtResource("2_drop")
+item_id = &"elven_plate"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_light_forsaken_4"]
+script = ExtResource("2_drop")
+item_id = &"crystal_shield"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_light_forsaken_card"]
+script = ExtResource("2_drop")
+item_id = &"card_light_forsaken"
+chance = 2.0
+
+[resource]
+script = ExtResource("1_monster")
+id = &"light_forsaken"
+display_name = "ผู้หลุดจากแสง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(80, 100)
+hp_bar_offset_y = -129.2
+display_height = 340.0
+fit_foot_animations = null
+level = 83
+max_hp = 55000
+atk_min = 880
+atk_max = 1100
+def = 110
+mdef = 100
+hit = 182
+flee = 50
+crit = 8
+element = 7
+race = 7
+size = 2
+ai_type = 1
+move_speed = 110.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 150.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 340.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 12400
+job_exp_reward = 8680
+zeny_min = 1883
+zeny_max = 3497
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_light_forsaken_0"), SubResource("Drop_light_forsaken_1"), SubResource("Drop_light_forsaken_2"), SubResource("Drop_light_forsaken_3"), SubResource("Drop_light_forsaken_4"), SubResource("Drop_light_forsaken_card")])
+is_boss = true
+boss_title = "เอลฟ์ที่ยังจำได้"
+skill_name = "เงาที่จำได้"
+skill_anim = &"Skill"
+skill_range = 600.0
+skill_damage_mult = 1.8
+skill_windup = 0.5
+skill_duration = 1.3
+skill_knockback = 360.0
+skill_wave_count = 2
+skill_wave_both_sides = true
+skill_wave_speed = 520.0
+skill_wave_range = 850.0
+skill_wave_frames = ExtResource("4_wave")
+respawn_time = 300.0
+tint = Color(0.75, 0.75, 0.85, 0.85)
+spawn_lines = null
+death_lines = PackedStringArray("...มีดาว... ข้าเคยเห็นดาว...", "อย่าให้พวกเขาลืม... ว่าเคยมีกลางคืน")
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

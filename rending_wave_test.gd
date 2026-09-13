@@ -51,11 +51,11 @@ func _ready() -> void:
 		add_child(caster)
 		var targets: Array[Target] = []
 		# Reverse creation order to test nearest-target ordering.
-		for i in range(7, 0, -1):
+		for i in range(12, 0, -1):
 			targets.append(target(Vector2(direction * i * 80, -100)))
 		var behind := target(Vector2(-direction * 70, -100))
 		var above := target(Vector2(direction * 100, -400))
-		var far := target(Vector2(direction * 800, -100))
+		var far := target(Vector2(direction * 1200, -100))
 		var wave = Wave.spawn(skill, caster, direction, 10)
 		wave.set_physics_process(false)
 		check(wave._custom_visual and wave._art != null, "painted wave replaces procedural fire")
@@ -67,7 +67,7 @@ func _ready() -> void:
 		var hits := 0
 		for enemy in targets:
 			hits += enemy.hits
-		check(hits == 5 and targets[0].hits == 0 and targets[6].hits == 1, "nearest 5 hit even on a large physics step, facing " + str(direction))
+		check(hits == 10 and targets[0].hits == 0 and targets[11].hits == 1, "nearest 10 hit even on a large physics step, facing " + str(direction))
 		check(behind.hits == 0 and above.hits == 0 and far.hits == 0, "no hits behind, above or beyond range")
 		check(is_equal_approx(targets[6].bonus, 0.35), "wave forwards wound strength")
 		for enemy in targets + [behind, above, far]:

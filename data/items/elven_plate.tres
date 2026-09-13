@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/elven_plate.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"elven_plate"
+display_name = "เกราะเอลฟ์"
+description = "เกราะเต็มตัวของทหารลโยซาลฟ์ สลักลายแสงทั้งชิ้น"
+icon = ExtResource("2_icon")
+required_level = 82
+type = 2
+slot = 4
+card_slots = 1
+max_stack = 1
+buy_price = 81488
+sell_price = 2376
+def = 70
+max_hp = 560
+bonus_vit = 3
+refinable = true
+
+skill_damage_percent = 7.0
+
+bonus_str = 6
+
+max_sp = 55
+
+drop_hint = "เอลฟ์กลวง / ผู้หลุดจากแสง / อัลฟ์เรืองรอง"

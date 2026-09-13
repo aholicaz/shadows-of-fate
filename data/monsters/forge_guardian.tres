@@ -24,22 +24,27 @@ max_count = 3
 [sub_resource type="Resource" id="Drop_forge_guardian_3"]
 script = ExtResource("2_drop")
 item_id = &"dwarven_mail"
-chance = 1.49
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_4"]
 script = ExtResource("2_drop")
 item_id = &"mirror_shield"
-chance = 1.49
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_5"]
 script = ExtResource("2_drop")
 item_id = &"forge_saber"
-chance = 1.49
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_card"]
 script = ExtResource("2_drop")
 item_id = &"card_forge_guardian"
 chance = 2.12
+
+[sub_resource type="Resource" id="Balance_forge_core_pendant"]
+script = ExtResource("2_drop")
+item_id = &"forge_core_pendant"
+chance = 22.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -57,7 +62,7 @@ fit_animation_scales = Dictionary[StringName, float]({
 fit_foot_region = Rect2i(260, 390, 150, 80)
 fit_foot_animations = PackedStringArray("Idle", "Run", "Attack", "Skill", "Hit")
 level = 38
-max_hp = 60000
+max_hp = 26000
 atk_min = 350
 atk_max = 600
 def = 85
@@ -91,11 +96,11 @@ skill_ground_slam = true
 attack_slam_sfx = "forge_guardian_slam"
 skill_slam_sfx = "forge_guardian_lava_slam"
 skill_hit_frames = PackedInt32Array(15, 21, 27, 33, 39)
-exp_reward = 6000
-job_exp_reward = 4200
-zeny_min = 2000
-zeny_max = 3500
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_guardian_0"), SubResource("Drop_forge_guardian_1"), SubResource("Drop_forge_guardian_2"), SubResource("Drop_forge_guardian_3"), SubResource("Drop_forge_guardian_4"), SubResource("Drop_forge_guardian_5"), SubResource("Drop_forge_guardian_card")])
+exp_reward = 2810
+job_exp_reward = 1967
+zeny_min = 938
+zeny_max = 1742
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_guardian_0"), SubResource("Drop_forge_guardian_1"), SubResource("Drop_forge_guardian_2"), SubResource("Drop_forge_guardian_3"), SubResource("Drop_forge_guardian_4"), SubResource("Drop_forge_guardian_5"), SubResource("Drop_forge_guardian_card"), SubResource("Balance_forge_core_pendant")])
 is_boss = true
 boss_title = "ผู้พิทักษ์เตาหลอม"
 skill_name = "พิพากษาเตาหลอม · ห้าทุบลาวา"
@@ -108,3 +113,5 @@ skill_windup = 0.9
 skill_duration = 0.9
 skill_knockback = 65.0
 respawn_time = 60.0
+spawn_lines = null
+death_lines = null

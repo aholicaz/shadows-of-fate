@@ -10,4 +10,4 @@ display_name = "หางกระต่ายขาว"
 description = "หางฟูนุ่ม เชื่อกันว่านำโชค"
 icon = ExtResource("2_icon")
 buy_price = 89
-sell_price = 58
+sell_price = 32

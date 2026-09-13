@@ -13,3 +13,5 @@ type = 4
 passive_effects = {
 "atk": 4.0
 }
+
+job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])

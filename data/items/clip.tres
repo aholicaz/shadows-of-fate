@@ -15,7 +15,9 @@ metadata/price_base_r47_buy = 9000
 slot = 7
 card_slots = 1
 max_stack = 1
-buy_price = 45000
-sell_price = 3600
+buy_price = 812
+sell_price = 108
 metadata/sell_price_base_r44 = 3600
 max_sp = 40
+
+drop_hint = "คิงโพริง"

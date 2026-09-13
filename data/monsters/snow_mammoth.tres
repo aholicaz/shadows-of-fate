@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://bjbs0vfk41lji"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/snow_mammoth_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_snow_mammoth_0"]
+script = ExtResource("2_drop")
+item_id = &"mammoth_tusk"
+chance = 40.0
+
+[sub_resource type="Resource" id="Drop_snow_mammoth_1"]
+script = ExtResource("2_drop")
+item_id = &"mammoth_wool"
+chance = 45.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_snow_mammoth_2"]
+script = ExtResource("2_drop")
+item_id = &"meat"
+chance = 40.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_snow_mammoth_3"]
+script = ExtResource("2_drop")
+item_id = &"mammoth_wool_cloak"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_snow_mammoth_card"]
+script = ExtResource("2_drop")
+item_id = &"card_snow_mammoth"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"snow_mammoth"
+display_name = "แมมมอธหิมะ"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(110, 100)
+hp_bar_offset_y = -129.2
+display_height = 340.0
+fit_foot_animations = null
+level = 65
+max_hp = 18000
+atk_min = 500
+atk_max = 620
+def = 96
+mdef = 44
+hit = 120
+flee = 20
+crit = 2
+race = 2
+size = 2
+move_speed = 70.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 260.0
+attack_range = 180.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 340.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 660
+job_exp_reward = 462
+zeny_min = 189
+zeny_max = 351
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_snow_mammoth_0"), SubResource("Drop_snow_mammoth_1"), SubResource("Drop_snow_mammoth_2"), SubResource("Drop_snow_mammoth_3"), SubResource("Drop_snow_mammoth_card")])
+respawn_time = 18.0
+spawn_lines = null
+death_lines = null

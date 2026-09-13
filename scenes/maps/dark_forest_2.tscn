@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
-[ext_resource type="Resource" uid="uid://13phq5jcelit" path="res://data/monsters/baphomet.tres" id="md_baphomet"]
-[ext_resource type="Resource" uid="uid://dgsfob2sq00bs" path="res://data/monsters/baphomet_jr.tres" id="md_baphomet_jr"]
 [ext_resource type="Resource" uid="uid://4r34mu13twir" path="res://data/monsters/munak.tres" id="md_munak"]
 [ext_resource type="Resource" uid="uid://ceqyi7tlmk7pe" path="res://data/monsters/orc_warrior.tres" id="md_orc_warrior"]
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
@@ -76,18 +74,10 @@ position = Vector2(4010, 496)
 
 [node name="MapSpawner" type="Node2D" parent="Spawners" unique_id=1022435623]
 script = ExtResource("map_spawner")
-monster_types = Array[ExtResource("monster_data")]([ExtResource("md_munak"), ExtResource("md_orc_warrior"), ExtResource("md_baphomet_jr")])
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_munak"), ExtResource("md_orc_warrior")])
 count_per_type = 4
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
-
-[node name="Boss_baphomet" type="Node2D" parent="Spawners" unique_id=546515102]
-position = Vector2(4004, 502)
-script = ExtResource("spawner")
-monster_types = Array[ExtResource("monster_data")]([ExtResource("md_baphomet")])
-monster_scene = ExtResource("monster_scene")
-max_alive = 1
-spawn_width = 160
 
 [node name="Portals" type="Node2D" parent="." unique_id=771676892]
 

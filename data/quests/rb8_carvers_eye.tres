@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"stone_soldier"
+count = 10
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 1
+target = &"stone_core"
+count = 3
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"wall_inscription"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"rb8_carvers_eye"
+title = "RB8 ตาของช่างสลัก"
+description = "เกอร์ดจะสลักรูนดวงที่สี่ «กำเนิด» ลงในดาบรูนของเจ้า"
+giver_name = "ช่างสลักรูนเกอร์ด"
+dialog_offer = "เจ้าถือรูนที่ธอร์ขโมยไป... ไม่เป็นไร รูนไม่สนใจว่าใครถือ มันสนใจว่าถือยังไง\n\nเอาแกนหินมาอีก 3 ก้อน ล่าทหารหินให้ข้าฟังเสียงดาบเจ้า แล้วอ่านจารึกบนกำแพง — รูนดวงที่สี่อยู่ในนั้น"
+dialog_progress = "ทหารหิน 10 · แกนหินยักษ์ 3 · อ่านจารึกฝั่งยักษ์ที่กำแพง"
+dialog_complete = "«กำเนิด» — รูนที่ยักษ์สลักดวงแรกในโลก ก่อนมีเทพ\n\nดาบเจ้าสว่างขึ้นดวงหนึ่งแล้ว ตาข้ามองไม่เห็น แต่ข้าได้ยินมัน"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 66
+required_job = &"runeblade"
+required_quests = Array[StringName]([&"rb7_ninth_inscription", &"c4_6_fourth_rune"])
+set_flag_on_complete = &"rb_rune_4"
+reward_zeny = 10000
+reward_exp = 60000

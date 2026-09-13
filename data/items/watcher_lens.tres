@@ -11,4 +11,4 @@ description = "เลนส์แก้วใสจากดวงตาผู�
 icon = ExtResource("2_icon")
 type = 3
 buy_price = 4500
-sell_price = 1500
+sell_price = 106

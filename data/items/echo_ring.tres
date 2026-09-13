@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/echo_ring.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"echo_ring"
+display_name = "แหวนเสียงสะท้อน"
+description = "แหวนผลึกเสียง ใส่แล้วได้ยินเสียงกระซิบ «ข้างใน... ข้างใน»"
+icon = ExtResource("2_icon")
+required_level = 67
+type = 2
+slot = 7
+card_slots = 0
+max_stack = 1
+buy_price = 54668
+sell_price = 1956
+crit = 4
+bonus_dex = 2
+
+skill_damage_percent = 6.0
+
+cooldown_reduction_percent = 5.0
+
+max_sp = 45
+
+damage_percent = 0.0
+
+drop_hint = "เสียงสะท้อน / หรุงนีร์ศิลา"

@@ -1,0 +1,75 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_01.png" id="f1"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_02.png" id="f2"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_03.png" id="f3"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_04.png" id="f4"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_05.png" id="f5"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_06.png" id="f6"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_07.png" id="f7"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_08.png" id="f8"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_09.png" id="f9"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_10.png" id="f10"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_11.png" id="f11"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_12.png" id="f12"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_13.png" id="f13"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_14.png" id="f14"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_15.png" id="f15"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_16.png" id="f16"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_17.png" id="f17"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_18.png" id="f18"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_19.png" id="f19"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_20.png" id="f20"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_21.png" id="f21"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_22.png" id="f22"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_23.png" id="f23"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_24.png" id="f24"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_25.png" id="f25"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_26.png" id="f26"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_27.png" id="f27"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_28.png" id="f28"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_29.png" id="f29"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_30.png" id="f30"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_31.png" id="f31"]
+[ext_resource type="Texture2D" path="res://Sprites/player/runeblade/idle/frame_32.png" id="f32"]
+
+[resource]
+animations = [{
+"frames": [
+{"duration": 1.0, "texture": ExtResource("f1")},
+{"duration": 1.0, "texture": ExtResource("f2")},
+{"duration": 1.0, "texture": ExtResource("f3")},
+{"duration": 1.0, "texture": ExtResource("f4")},
+{"duration": 1.0, "texture": ExtResource("f5")},
+{"duration": 1.0, "texture": ExtResource("f6")},
+{"duration": 1.0, "texture": ExtResource("f7")},
+{"duration": 1.0, "texture": ExtResource("f8")},
+{"duration": 1.0, "texture": ExtResource("f9")},
+{"duration": 1.0, "texture": ExtResource("f10")},
+{"duration": 1.0, "texture": ExtResource("f11")},
+{"duration": 1.0, "texture": ExtResource("f12")},
+{"duration": 1.0, "texture": ExtResource("f13")},
+{"duration": 1.0, "texture": ExtResource("f14")},
+{"duration": 1.0, "texture": ExtResource("f15")},
+{"duration": 1.0, "texture": ExtResource("f16")},
+{"duration": 1.0, "texture": ExtResource("f17")},
+{"duration": 1.0, "texture": ExtResource("f18")},
+{"duration": 1.0, "texture": ExtResource("f19")},
+{"duration": 1.0, "texture": ExtResource("f20")},
+{"duration": 1.0, "texture": ExtResource("f21")},
+{"duration": 1.0, "texture": ExtResource("f22")},
+{"duration": 1.0, "texture": ExtResource("f23")},
+{"duration": 1.0, "texture": ExtResource("f24")},
+{"duration": 1.0, "texture": ExtResource("f25")},
+{"duration": 1.0, "texture": ExtResource("f26")},
+{"duration": 1.0, "texture": ExtResource("f27")},
+{"duration": 1.0, "texture": ExtResource("f28")},
+{"duration": 1.0, "texture": ExtResource("f29")},
+{"duration": 1.0, "texture": ExtResource("f30")},
+{"duration": 1.0, "texture": ExtResource("f31")},
+{"duration": 1.0, "texture": ExtResource("f32")},
+], "loop": true, "name": &"Idle_Runeblade", "speed": 8.0
+}]
+metadata/runeblade_idle_anchor = Vector2(560, 767)
+metadata/runeblade_idle_height = 694.0
+metadata/runeblade_idle_hand = Vector2(462, 435)

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/named_edge.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"named_edge"
+display_name = "คมที่มีชื่อ"
+description = "คริ +3 จุดเปอร์เซ็นต์ และมองข้าม DEF 6% ต่อระดับ"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 90
+type = 4
+sp_cost_base = 0
+sp_cost_per_level = 0.0
+cooldown = 0.0
+damage_mult_base = 0.00
+damage_mult_per_level = 0.00
+required_skills = {}
+passive_effects = {"crit": 3.0}

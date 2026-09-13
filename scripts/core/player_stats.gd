@@ -57,6 +57,75 @@ const STR_PER_BAG_SLOT := 5
 @export var job_level: int = 1
 @export var job_exp_current: int = 0
 @export var skill_points: int = 0
+## Archived profession records; current profession remains in the public fields above.
+@export var job_progress: Dictionary = {}
+var progression_version := 1
+
+func profession_state(id: StringName) -> Dictionary:
+	if id == job_id: return {"level":job_level,"exp":job_exp_current,"points":skill_points}
+	return job_progress.get(String(id), {"level":0,"exp":0,"points":0}).duplicate()
+
+func has_profession(id: StringName) -> bool:
+	return id == job_id or int(profession_state(id).level)>0
+
+func points_for(id: StringName) -> int:
+	return int(profession_state(id).points)
+
+func add_skill_points(id: StringName, amount: int) -> void:
+	if amount==0: return
+	if id == job_id:
+		skill_points = maxi(0,skill_points+amount)
+		return
+	var record := profession_state(id)
+	record.points = maxi(0,int(record.points)+amount)
+	job_progress[String(id)] = record
+
+func all_skill_points() -> int:
+	var total := skill_points
+	for id in job_progress:
+		if StringName(id) != job_id: total += int(job_progress[id].get("points",0))
+	return total
+
+func change_profession(id: StringName) -> void:
+	if id == job_id or GameData.get_job(id)==null: return
+	job_progress[String(job_id)] = profession_state(job_id)
+	var next: Dictionary = job_progress.get(String(id), {"level":1,"exp":0,"points":0})
+	job_id = id
+	job_level = maxi(1,int(next.level))
+	job_exp_current = int(next.exp)
+	skill_points = int(next.points)
+	job_progress.erase(String(id))
+
+func earned_job_levels() -> int:
+	var total := job_level-1
+	for id in job_progress:
+		if StringName(id)!=job_id: total += maxi(0,int(job_progress[id].get("level",1))-1)
+	return total
+
+## One-time conversion: preserve learned ranks and total unspent points, never mint points.
+func migrate_job_progress(book: SkillBook, flags: Dictionary) -> void:
+	if progression_version>=1: return
+	progression_version=1
+	if job_id not in [&"runeblade",&"ninth_edge"]: return
+	var old_level := job_level
+	var old_exp_fraction := float(job_exp_current)/maxf(1.0,round(28.0*pow(old_level,1.85)))
+	var sword_end := clampi(int(flags.get(&"runeblade_start_job_level",50)),1,mini(50,old_level))
+	var stages: Array = [[&"swordsman",sword_end]]
+	if job_id==&"ninth_edge":
+		var rune_end := clampi(int(flags.get(&"ninth_edge_start_job_level",80)),sword_end,old_level)
+		stages.append([&"runeblade",rune_end-sword_end+1])
+		job_level=old_level-rune_end+1
+	else: job_level=old_level-sword_end+1
+	job_exp_current=int(clampf(old_exp_fraction,0,0.999999)*job_exp_to_next())
+	for stage in stages:
+		var owner: StringName=stage[0]
+		var spent := 0
+		for id in book.learned:
+			if SkillBook.profession_of(id)==owner: spent+=book.level_of(id)
+		var remaining := mini(skill_points,maxi(0,int(stage[1])-1-spent))
+		skill_points-=remaining
+		job_progress[String(owner)]={"level":int(stage[1]),"exp":0,"points":remaining}
+
 
 @export var base_str: int = 1
 @export var base_agi: int = 1
@@ -96,6 +165,7 @@ var hit: int = 1
 var flee: int = 1
 var crit: float = 1.0
 var crit_damage: float = 1.5
+var skill_damage_percent: float = 0.0
 var aspd: float = 1.0            ## ครั้ง/วินาที
 var move_speed: float = BASE_MOVE_SPEED
 var hp_regen: float = 1.0        ## ต่อวินาที
@@ -164,11 +234,13 @@ func recalculate(keep_ratio: bool = false) -> void:
 	hit = int((100 + level + total_dex * HIT_PER_DEX + _flat(&"hit")) * j.hit_mod)
 	flee = int((100 + level + total_agi * AGI_FLEE + _flat(&"flee")) * j.flee_mod)
 	crit = 1.0 + total_luk * LUK_CRIT + _flat(&"crit")
-	crit_damage = 1.5 + _pct(&"crit_damage_percent") / 100.0
+	crit = clampf(crit, 0.0, 100.0)
+	crit_damage = 1.5 + clampf(_pct(&"crit_damage_percent"), 0.0, 100.0) / 100.0
+	skill_damage_percent = clampf(_pct(&"skill_damage_percent"), 0.0, 80.0)
 
 	# ---------- โบนัสจากเลเวลอาชีพ (Job Level) ----------
 	# ทุก ๆ 1 job level: ATK +1 · HIT +1 · ทุก 2 ระดับได้ DEF +1
-	var jb := job_level - 1
+	var jb := earned_job_levels()
 	if jb > 0:
 		atk += jb
 		hit += jb
@@ -176,7 +248,7 @@ func recalculate(keep_ratio: bool = false) -> void:
 
 	# ---------- ASPD ----------
 	var aspd_raw := j.aspd_base * (1.0 + total_agi * j.aspd_agi_percent / 100.0 + total_dex * DEX_ASPD)
-	aspd = maxf(0.2, aspd_raw * (1.0 + (_pct(&"aspd_percent") + _flat(&"aspd_percent")) / 100.0))
+	aspd = clampf(aspd_raw * (1.0 + (_pct(&"aspd_percent") + _flat(&"aspd_percent")) / 100.0), 0.2, 5.0)
 
 	# ---------- ความเร็วเดิน ----------
 	move_speed = BASE_MOVE_SPEED * (1.0 + _pct(&"move_speed_percent") / 100.0)
@@ -224,7 +296,7 @@ func attack_interval() -> float:
 func exp_to_next() -> int:
 	if level >= MAX_LEVEL:
 		return 0
-	return int(round(35.0 * pow(level, 1.9)))
+	return int(round(35.0 * pow(level, 1.9) * (1.0 + maxf(0.0, level - 70.0) * 0.035)))
 
 
 func add_exp(amount: int) -> int:
@@ -246,23 +318,34 @@ func add_exp(amount: int) -> int:
 # ★ เลเวลอาชีพ (Job Level) — คนละหลอดกับ Base ★
 # Job Level ขึ้น 1 ระดับ = ได้แต้มสกิล 1 แต้ม
 # =========================================================
+## ★ รอบ 108 ★ เพดานเลเวลอาชีพขึ้นกับอาชีพ (JobData.max_job_level) — นักดาบ 50 · Runeblade 80 · Ninth Edge 100
+## เปลี่ยนอาชีพแล้วเพดานขยาย เก็บจ๊อบต่อได้เลย แต้มสกิลที่ได้ใช้เรียนสกิลรูนด้วย (ไม่มีแต้มรูนแยกแล้ว)
+func max_job_level() -> int:
+	var j := job()
+	if j != null and j.max_job_level > 0:
+		return j.max_job_level
+	return MAX_JOB_LEVEL
+
+
 func job_exp_to_next() -> int:
-	if job_level >= MAX_JOB_LEVEL:
+	if job_level >= max_job_level():
 		return 0
-	return int(round(28.0 * pow(job_level, 1.85)))
+	var offset := 12 if job_id==&"runeblade" else (30 if job_id==&"ninth_edge" else 0)
+	return int(round(28.0 * pow(job_level+offset, 1.85)))
 
 
 func add_job_exp(amount: int) -> int:
-	if job_level >= MAX_JOB_LEVEL:
+	var cap := max_job_level()
+	if job_level >= cap:
 		return 0
 	var levels_gained := 0
 	job_exp_current += amount
-	while job_level < MAX_JOB_LEVEL and job_exp_current >= job_exp_to_next():
+	while job_level < cap and job_exp_current >= job_exp_to_next():
 		job_exp_current -= job_exp_to_next()
 		job_level += 1
 		levels_gained += 1
 		skill_points += 1
-	if job_level >= MAX_JOB_LEVEL:
+	if job_level >= cap:
 		job_exp_current = 0
 	return levels_gained
 
@@ -350,6 +433,7 @@ func spent_stat_points() -> int:
 # =========================================================
 func to_dict() -> Dictionary:
 	return {
+		"job_progress_version": 1, "job_progress": job_progress.duplicate(true),
 		"job_id": String(job_id), "level": level, "exp": exp_current,
 		"job_level": job_level, "job_exp": job_exp_current,
 		"stat_points": stat_points, "skill_points": skill_points,
@@ -361,6 +445,9 @@ func to_dict() -> Dictionary:
 
 func from_dict(d: Dictionary) -> void:
 	job_id = StringName(d.get("job_id", "swordsman"))
+	progression_version = int(d.get("job_progress_version",0))
+	job_progress = d.get("job_progress",{}).duplicate(true)
+	job_progress.erase(String(job_id))
 	level = int(d.get("level", 1))
 	exp_current = int(d.get("exp", 0))
 	job_level = maxi(1, int(d.get("job_level", 1)))

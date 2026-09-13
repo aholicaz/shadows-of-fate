@@ -92,6 +92,7 @@ func _ready() -> void:
 	# ★ เดินความคืบหน้าเควสชนิดใหม่ ★
 	Events.map_changed.connect(_on_map_changed)
 	Events.inventory_changed.connect(_on_inventory_changed)
+	Events.runic_hit.connect(_on_runic_hit)   # ★ รอบ 105 ★ เควสชนิด "ตีมอนด้วยสกิล"
 
 
 func _on_monster_killed(monster_id: StringName, _level: int) -> void:
@@ -101,6 +102,20 @@ func _on_monster_killed(monster_id: StringName, _level: int) -> void:
 	# ใช้เป็นเงื่อนไขของเสาวาป ("ล่ามอนในแมพนั้นครบทุกชนิดก่อนถึงวาปไปได้")
 	# และโชว์เป็นความคืบหน้าในหน้าแผนที่โลก
 	kills[monster_id] = int(kills.get(monster_id, 0)) + 1
+
+
+## ★ รอบ 105 ★ สกิลโดนมอน → เดินเควสชนิด SKILL_HIT
+func _on_runic_hit(target: Node, source: StringName, _critical: bool) -> void:
+	if quests == null or target == null or not is_instance_valid(target):
+		return
+	var d = target.get("data")
+	if d != null and source != &"":
+		quests.on_skill_hit(d.id, source)
+
+
+## ★ รอบ 105 ★ อาชีพสายรูน (Runeblade และขั้นถัดไป Ninth Edge) — ใช้แทนการเช็ค == &"runeblade" ตรง ๆ
+func is_rune_job() -> bool:
+	return stats != null and stats.job_id in [&"runeblade", &"ninth_edge"]
 
 
 func _on_map_changed(map_id: StringName) -> void:
@@ -151,6 +166,10 @@ func turn_in_quest(quest_id: StringName) -> bool:
 	var q := GameData.get_quest(quest_id)
 	if q == null or not quests.is_ready(quest_id):
 		return false
+	if q.reward_job != &"" and (stats.level < q.required_level or
+			(q.required_job != &"" and stats.job_id != q.required_job) or
+			(q.reward_job_map != &"" and current_map_id != q.reward_job_map)):   # ★ รอบ 105 ★
+		return false
 
 	# ต้องมีที่ว่างในกระเป๋าก่อน
 	if q.reward_item_id != &"" and q.reward_item_count > 0:
@@ -167,6 +186,16 @@ func turn_in_quest(quest_id: StringName) -> bool:
 	if q.reward_exp > 0:
 		var jx: int = q.reward_job_exp if q.reward_job_exp > 0 else int(round(q.reward_exp * 0.7))
 		gain_exp(q.reward_exp, jx)
+	# ★ รอบ 105 ★ เปลี่ยนอาชีพได้ทุกอาชีพที่มีไฟล์ data/jobs/<id>.tres (runeblade · ninth_edge ...)
+	if q.reward_job != &"" and GameData.get_job(q.reward_job) != null:
+		var jid := String(q.reward_job)
+		stats.change_profession(q.reward_job)
+		set_flag(StringName(jid + "_awakened"))
+		set_flag(StringName(jid + "_start_job_level"), stats.job_level)
+		set_flag(StringName(jid + "_start_level"), stats.level)
+		set_flag(StringName("job_" + jid))
+		refresh()
+		Events.skills_changed.emit()
 	Events.say("[เควสสำเร็จ] %s — ได้รับ %s" % [q.title, q.reward_text()])
 	return true
 
@@ -704,11 +733,11 @@ func use_item(inv_index: int) -> bool:
 				Game.warp_to_town()
 				return true
 			&"reset_skills":
-				var before := stats.skill_points
+				var before := stats.all_skill_points()
 				skills.reset(stats)
 				inventory.take_from_slot(inv_index, 1)
 				refresh()
-				Events.say("รีเซ็ตสกิลแล้ว — ได้แต้มสกิลคืน %d แต้ม" % (stats.skill_points - before))
+				Events.say("รีเซ็ตสกิลแล้ว — ได้แต้มสกิลคืน %d แต้ม" % (stats.all_skill_points() - before))
 			&"reset_stats":
 				var refund := stats.reset_stats()
 				inventory.take_from_slot(inv_index, 1)
@@ -1049,5 +1078,6 @@ func from_dict(d: Dictionary) -> void:
 		for k in fl.keys():
 			story_flags[StringName(k)] = fl[k]
 
+	stats.migrate_job_progress(skills,story_flags)
 	refresh(false)
 	_emit_all()

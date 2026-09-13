@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/hel_hound_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_hel_hound_0"]
+script = ExtResource("2_drop")
+item_id = &"hel_fang"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_hel_hound_1"]
+script = ExtResource("2_drop")
+item_id = &"hound_eye"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_hel_hound_2"]
+script = ExtResource("2_drop")
+item_id = &"meat"
+chance = 30.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_hel_hound_3"]
+script = ExtResource("2_drop")
+item_id = &"river_walker"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_hel_hound_card"]
+script = ExtResource("2_drop")
+item_id = &"card_hel_hound"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"hel_hound"
+display_name = "หมาป่าเฮล"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(56, 50)
+hp_bar_offset_y = -229.0
+display_height = 230.0
+level = 85
+max_hp = 26000
+atk_min = 950
+atk_max = 1180
+def = 90
+mdef = 80
+hit = 194
+flee = 84
+crit = 12
+element = 7
+race = 2
+size = 1
+ai_type = 1
+move_speed = 210.0
+jump_force = -320.0
+jump_while_chasing = true
+detect_range = 460.0
+attack_range = 126.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = true
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 914
+job_exp_reward = 640
+zeny_min = 245
+zeny_max = 455
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_hel_hound_0"), SubResource("Drop_hel_hound_1"), SubResource("Drop_hel_hound_2"), SubResource("Drop_hel_hound_3"), SubResource("Drop_hel_hound_card")])
+respawn_time = 18.0

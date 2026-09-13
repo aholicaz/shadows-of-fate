@@ -828,7 +828,7 @@ function render(){
   else n = renderHealth();
   $('#count').textContent = query ? `เจอ ${n} รายการ` : `${n} รายการ`;
 }
-$('#stamp').textContent = `ไอเทม ${D.items.length} · มอน ${D.monsters.length} · แมพ ${D.maps.length} · เควส ${D.quests.length} · NPC ${(D.npcs||[]).length}${D.assets?` · งานภาพค้าง ${Object.values(D.assets.counts).reduce((a,b)=>a+b,0)}`:''}`;
-$('#foot').innerHTML = `สร้างจากไฟล์จริงในโปรเจกต์ด้วย dump_gamedata.py — รันใหม่เมื่อข้อมูลเปลี่ยน แล้วหน้านี้จะตรงกับเกมเสมอ · กด / เพื่อค้นหา`;
+$('#stamp').textContent = `${D.meta&&D.meta.round?`รอบ ${D.meta.round} · `:''}ไอเทม ${D.items.length} · มอน ${D.monsters.length} · แมพ ${D.maps.length} · เควส ${D.quests.length} · NPC ${(D.npcs||[]).length}${D.assets?` · งานภาพค้าง ${Object.values(D.assets.counts).reduce((a,b)=>a+b,0)}`:''}`;
+$('#foot').innerHTML = `${D.meta&&D.meta.round?`อัปเดตรอบ ${D.meta.round} · ${D.meta.date} · `:''}สร้างจากไฟล์จริงในโปรเจกต์ด้วย dump_gamedata.py — รันใหม่เมื่อข้อมูลเปลี่ยน แล้วหน้านี้จะตรงกับเกมเสมอ · กด / เพื่อค้นหา`;
 render();
 </script>

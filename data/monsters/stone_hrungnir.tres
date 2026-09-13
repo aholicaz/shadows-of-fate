@@ -1,0 +1,110 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://cvluh5mrbjo7i"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/stone_hrungnir_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_0"]
+script = ExtResource("2_drop")
+item_id = &"lightning_dust"
+chance = 100.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_1"]
+script = ExtResource("2_drop")
+item_id = &"hrungnir_shard"
+chance = 60.0
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 100.0
+max_count = 5
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_3"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 5.0
+max_count = 5
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_4"]
+script = ExtResource("2_drop")
+item_id = &"stone_hrungnir_blade"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_5"]
+script = ExtResource("2_drop")
+item_id = &"heart_pendant"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_6"]
+script = ExtResource("2_drop")
+item_id = &"wall_plate"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_7"]
+script = ExtResource("2_drop")
+item_id = &"echo_ring"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_stone_hrungnir_card"]
+script = ExtResource("2_drop")
+item_id = &"card_stone_hrungnir"
+chance = 2.0
+
+[resource]
+script = ExtResource("1_monster")
+id = &"stone_hrungnir"
+display_name = "หรุงนีร์ศิลา"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(110, 130)
+hp_bar_offset_y = -167.2
+display_height = 440.0
+fit_foot_animations = null
+level = 72
+max_hp = 60000
+atk_min = 700
+atk_max = 900
+def = 120
+mdef = 80
+hit = 150
+flee = 44
+crit = 6
+element = 4
+race = 6
+size = 2
+ai_type = 1
+move_speed = 105.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 180.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 420.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 9464
+job_exp_reward = 6625
+zeny_min = 1652
+zeny_max = 3068
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_stone_hrungnir_0"), SubResource("Drop_stone_hrungnir_1"), SubResource("Drop_stone_hrungnir_2"), SubResource("Drop_stone_hrungnir_3"), SubResource("Drop_stone_hrungnir_4"), SubResource("Drop_stone_hrungnir_5"), SubResource("Drop_stone_hrungnir_6"), SubResource("Drop_stone_hrungnir_7"), SubResource("Drop_stone_hrungnir_card")])
+is_boss = true
+boss_title = "ยักษ์ที่ถูกทำให้เป็นอาวุธ"
+skill_name = "หัวใจสายฟ้า"
+skill_anim = &"Skill"
+skill_range = 520.0
+skill_damage_mult = 1.7
+skill_windup = 0.5
+skill_duration = 1.0
+skill_cooldown = 8.0
+skill_chance = 0.7
+skill_bolt_count = 3
+skill_bolt_delay = 0.35
+respawn_time = 600.0
+spawn_lines = null
+death_lines = PackedStringArray("...ตุบ... ตุบ... หัวใจ... ยังเต้น...")

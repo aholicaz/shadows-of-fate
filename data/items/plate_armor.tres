@@ -14,8 +14,8 @@ metadata/price_base_r47_buy = 18000
 slot = 4
 card_slots = 2
 max_stack = 1
-buy_price = 90000
-sell_price = 7200
+buy_price = 11600
+sell_price = 920
 metadata/sell_price_base_r44 = 7200
 def = 32
 max_hp = 150
@@ -24,3 +24,5 @@ refinable = true
 max_refine = 10
 refine_atk_per_level = 3
 refine_def_per_level = 2
+
+drop_hint = "บาฟโฟเมท"

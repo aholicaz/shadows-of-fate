@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/ferryman_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_ferryman_0"]
+script = ExtResource("2_drop")
+item_id = &"left_name"
+chance = 60.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_ferryman_1"]
+script = ExtResource("2_drop")
+item_id = &"oar_splinter"
+chance = 40.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_ferryman_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 18.0
+
+[sub_resource type="Resource" id="Drop_ferryman_3"]
+script = ExtResource("2_drop")
+item_id = &"ferryman_oar_blade"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_ferryman_card"]
+script = ExtResource("2_drop")
+item_id = &"card_ferryman"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"ferryman"
+display_name = "ผู้ข้ามฝั่ง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(70, 96)
+hp_bar_offset_y = -296.0
+display_height = 320.0
+level = 88
+max_hp = 24000
+atk_min = 1000
+atk_max = 1250
+def = 80
+mdef = 100
+hit = 200
+flee = 70
+crit = 8
+element = 8
+race = 6
+size = 2
+ai_type = 1
+move_speed = 120.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 260.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 952
+job_exp_reward = 666
+zeny_min = 253
+zeny_max = 471
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_ferryman_0"), SubResource("Drop_ferryman_1"), SubResource("Drop_ferryman_2"), SubResource("Drop_ferryman_3"), SubResource("Drop_ferryman_card")])
+respawn_time = 18.0
+tint = Color(0.85, 0.9, 1, 0.55)
+spawn_lines = PackedStringArray("ค่าข้ามฝั่ง... คือชื่อ", "ทิ้งชื่อไว้ แล้วข้ามมา")

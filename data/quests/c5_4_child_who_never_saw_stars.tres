@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"เด็กเอลฟ์อิลวา"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c5_4_child_who_never_saw_stars"
+title = "C5-4 เด็กที่ไม่เคยเห็นดาว"
+description = "คุยกับเด็กเอลฟ์อิลวา — ถ้าเจ้ามีเพลงของฟรีดา ให้เธอฟัง"
+giver_name = "ผู้เห็นแสงเอย์ร"
+dialog_offer = "อิลวา เด็กท้ายเมือง ถามทุกคนว่าดาวคืออะไร ไม่มีใครตอบได้\n\nเจ้ามีเพลงจากวานาเฮมไหม เพลงของเด็กที่เห็นดาวจริง... ถ้ามี ให้เธอฟัง"
+dialog_progress = "อิลวาอยู่ท้ายเมืองใกล้ผลึกใหญ่ คุยกับเธอ"
+dialog_complete = "เธอร้องไห้... ครั้งแรกในชีวิต\n\nแสงของเมืองนี้กรองความเศร้าออกไป แต่กรองเพลงของเด็กอีกโลกหนึ่งไม่ได้\nเธอแต่งเพลงตอบ นี่ — เพลงของอิลวา"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0")])
+kill_monster_id = &""
+required_level = 76
+required_quests = Array[StringName]([&"c5_1_city_without_night"])
+set_flag_on_complete = &"ylva_cried"
+reward_item_id = &"ylva_song"
+reward_item_count = 1
+reward_zeny = 8000
+reward_exp = 80000

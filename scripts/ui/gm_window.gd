@@ -5,7 +5,7 @@
 ## 4 แท็บ:
 ##   มอน      — ค้นหา/เรียกมอนมาเกิดตรงหน้า · ลบมอนทั้งแมพ · ตั้งเลเวลมอนชั่วคราว
 ##   ไอเทม    — ค้นหา/ใส่ของลงกระเป๋าทีละกี่ชิ้นก็ได้ · ชุดของที่ใช้บ่อย
-##   ตัวละคร  — ตั้งเลเวล/เลเวลอาชีพ · เติมเลือด/มานา/แต้ม/ซีนี · อมตะ · ตีทีเดียวตาย
+##   ตัวละคร  — ตั้งเลเวล/เลเวลอาชีพ · ★ รอบ 106: เปลี่ยนอาชีพ (นักดาบ/Runeblade/Ninth Edge) + ปลดล็อกรูน ★ · เติมเลือด/มานา/แต้ม/ซีนี · อมตะ · ตีทีเดียวตาย
 ##   ระบบ     — วาปไปแมพไหนก็ได้ (รวมห้อง GM) · ตั้งธงเนื้อเรื่องรายบท · ล้างของตก
 ##
 ## ทั้งหมดทำงานผ่าน PlayerState/GameData ปกติ ไม่มีอะไรพิเศษที่เกมจริงไม่ใช้
@@ -19,7 +19,15 @@ const QUICK_KITS := {
 	"ของเควสบท 1-3": [["glow_shard", 1], ["hunter_journal", 1], ["burnt_bark_piece", 3],
 		["vanir_seal", 1], ["spring_vial", 1], ["frida_song", 1], ["eskil_chronicle", 1]],
 	"ปีกวาลคีรี x50": [["wing_of_valkyrie", 50]],
+	# ★ รอบ 106 ★ ของเควสบท 4-6 (ตราเมือง · ผ้าพันคอเด็กยักษ์ (แมมมอธ/เอลฟ์กลวงสงบ) · สิ่วเกอร์ด (พิธี Ninth Edge) · ผลึกเงา (ร่างมืดบท 5) · สมุดเล่มเจ็ด)
+	"ของเควสบท 4-6": [["jotun_seal", 1], ["giant_child_scarf", 1], ["gerd_chisel", 1], ["mural_fragment", 1],
+		["light_seal", 1], ["shade_crystal", 1], ["light_crystal", 1], ["hel_seal", 1], ["judge_seal", 1],
+		["book_seven_half", 1], ["book_seven_half_2", 1], ["book_seven_complete", 1]],
 }
+## ★ รอบ 106 ★ ลำดับอาชีพในเมนูเปลี่ยนอาชีพ (อาชีพอื่นที่มีไฟล์ data/jobs/ ต่อท้ายอัตโนมัติ)
+const JOB_ORDER: Array[StringName] = [&"novice", &"swordsman", &"runeblade", &"ninth_edge"]
+## ธงที่ต้องมีเพื่อให้สกิลรูนทุกท่าเรียนได้ (ดู SkillBook.RUNE_SKILL_FLAGS + rune_points)
+const RUNE_UNLOCK_FLAGS: Array[StringName] = [&"rb_rune_4", &"rb_rune_5", &"rb_rune_6", &"rb_rune_7"]
 ## ธงเนื้อเรื่องที่กดเปิด/ปิดได้ (ป้าย, ธง)
 const STORY_FLAGS := [
 	["บท 2 เปิด", "chapter2_open"], ["บท 2 จบ", "chapter2_done"],
@@ -27,6 +35,14 @@ const STORY_FLAGS := [
 	["ดูพิธี M6", "saw_ceremony"], ["ล้มอสูรสายฟ้า", "killed_stormscar"],
 	["ล้มผู้พิทักษ์", "killed_forge_guardian"], ["ล้มราชินีหนาม", "killed_thorn_matriarch"],
 	["ล้มกุลล์ไวก์", "killed_gullveig_ember"],
+	# ★ รอบ 106 ★ บท 4-6
+	["บท 4 เคยไป", "chapter4_visited"], ["บท 4 จบ", "chapter4_done"],
+	["บท 5 เคยไป", "chapter5_visited"], ["บท 5 จบ", "chapter5_done"],
+	["บท 6 เคยไป", "chapter6_visited"], ["บท 6 จบ", "chapter6_done"],
+	["ผลึกเงา (ร่างมืดบท 5)", "has_shade_crystal"], ["ทิ้งชื่อแล้ว (กยอลล์)", "name_left"],
+	["ล้มหรุงนีร์", "killed_stone_hrungnir"], ["ล้มดาเกอร์", "killed_radiant_alfr"],
+	["การ์มจบแล้ว", "garm_resolved"], ["ปล่อยการ์ม", "freed_garm"],
+	["ร่องรอยอาชีพ 3", "rb_next_job_hint"], ["Lv90 พร้อมอาชีพ 3", "rb_next_job_ready"],
 ]
 
 var _mon_ids: Array[StringName] = []
@@ -39,6 +55,9 @@ var _mon_count: SpinBox
 var _item_count: SpinBox
 var _level_box: SpinBox
 var _job_box: SpinBox
+var _job_option: OptionButton        # ★ รอบ 106 ★
+var _job_ids: Array[StringName] = []
+var _unlock_check: CheckBox
 var _god_check: CheckBox
 var _onehit_check: CheckBox
 var _map_option: OptionButton
@@ -265,7 +284,7 @@ func _build_player_tab(box: VBoxContainer) -> void:
 	r1.add_child(UITheme.make_label("อาชีพ", 13))
 	_job_box = SpinBox.new()
 	_job_box.min_value = 1
-	_job_box.max_value = PlayerStats.MAX_JOB_LEVEL
+	_job_box.max_value = 100   # ★ รอบ 108 ★ เพดานจ๊อบสูงสุดของทุกอาชีพ (clamp จริงตามอาชีพใน _set_level)
 	_job_box.value = 1
 	r1.add_child(_job_box)
 	_button(r1, "ตั้งเลเวล", _apply_level, 110)
@@ -273,8 +292,27 @@ func _build_player_tab(box: VBoxContainer) -> void:
 	var r2 := _row(box)
 	_button(r2, "+10 เลเวล", func(): _bump_level(10))
 	_button(r2, "−10 เลเวล", func(): _bump_level(-10))
-	_button(r2, "เลเวลสูงสุด", func(): _set_level(PlayerStats.MAX_LEVEL, PlayerStats.MAX_JOB_LEVEL))
+	_button(r2, "เลเวลสูงสุด", func(): _set_level(PlayerStats.MAX_LEVEL, PlayerState.stats.max_job_level()))
 	_button(r2, "รีเซ็ตเป็น Lv1", func(): _set_level(1, 1))
+
+	# ★ รอบ 106 ★ เปลี่ยนอาชีพ
+	box.add_child(UITheme.separator())
+	var rj := _row(box)
+	rj.add_child(UITheme.make_label("เปลี่ยนอาชีพ", 13))
+	_job_option = OptionButton.new()
+	_job_option.custom_minimum_size = Vector2(230, 0)
+	_fill_jobs()
+	rj.add_child(_job_option)
+	_button(rj, "เปลี่ยน", _apply_job, 90)
+	var rj2 := _row(box)
+	_unlock_check = CheckBox.new()   # ★ รอบ 108 ★ ธงรูนเป็นธงเนื้อเรื่องอย่างเดียวแล้ว — ช่องนี้ตั้งธงเควส RB8-RB14 ให้ (ไม่มีผลกับสกิล)
+	_unlock_check.text = "ตั้งธงเควสรูน RB8-RB14 ให้ด้วย (เนื้อเรื่อง)"
+	_unlock_check.button_pressed = true
+	rj2.add_child(_unlock_check)
+	_button(rj2, "ล้างสกิลทั้งหมด", func():
+		PlayerState.skills.reset(PlayerState.stats)
+		PlayerState.refresh()
+		_say("ล้างสกิลแล้ว · แต้มสกิล %d" % PlayerState.stats.skill_points))
 
 	box.add_child(UITheme.separator())
 	var r3 := _row(box)
@@ -323,14 +361,17 @@ func _build_player_tab(box: VBoxContainer) -> void:
 func _set_level(lv: int, job: int) -> void:
 	var st := PlayerState.stats
 	var old := st.level
+	var old_job := st.job_level
 	st.level = clampi(lv, 1, PlayerStats.MAX_LEVEL)
 	st.exp_current = 0
-	st.job_level = clampi(job, 1, PlayerStats.MAX_JOB_LEVEL)
+	st.job_level = clampi(job, 1, st.max_job_level())   # ★ รอบ 108 ★
 	st.job_exp_current = 0
 	# แจกแต้มย้อนหลังตอนเลเวลขึ้น (ลดเลเวลไม่ยึดคืน — ของทดสอบ)
 	if st.level > old:
 		for l in range(old + 1, st.level + 1):
 			st.stat_points += 3 + floori(l / 5.0)
+	if st.job_level > old_job:   # ★ รอบ 108 ★ แต้มสกิลตามเลเวลอาชีพที่เพิ่ม (เหมือนจ๊อบขึ้นจริง)
+		st.skill_points += st.job_level - old_job
 	PlayerState.refresh(false)
 	PlayerState.heal_hp(st.max_hp, false)
 	PlayerState.restore_sp(st.max_sp)
@@ -344,6 +385,67 @@ func _set_level(lv: int, job: int) -> void:
 
 func _apply_level() -> void:
 	_set_level(int(_level_box.value), int(_job_box.value))
+
+
+# ---------- ★ รอบ 106 ★ เปลี่ยนอาชีพ ----------
+func _fill_jobs() -> void:
+	_job_option.clear()
+	_job_ids.clear()
+	var ids: Array[StringName] = []
+	for j in JOB_ORDER:
+		if GameData.get_job(j) != null: ids.append(j)
+	var rest: Array = GameData.jobs.keys().filter(func(k): return StringName(k) not in ids)
+	rest.sort()
+	for k in rest: ids.append(StringName(k))
+	for j in ids:
+		var jd: JobData = GameData.get_job(j)
+		_job_option.add_item("%s  (%s)" % [jd.display_name, String(j)])
+		_job_ids.append(j)
+
+
+func _apply_job() -> void:
+	var i := _job_option.selected
+	if i < 0 or i >= _job_ids.size(): return
+	change_job(_job_ids[i], _unlock_check.button_pressed)
+
+
+## เปลี่ยนอาชีพทันที — ตั้งธงชุดเดียวกับการเปลี่ยนอาชีพจริงใน PlayerState.turn_in_quest
+## (job_<id> · <id>_awakened · <id>_start_level / _start_job_level) · เลือก Ninth Edge = ผ่าน Runeblade มาด้วย
+## unlock = ตั้งธงรูนดวง 4-7 + ninth_inscription_unlocked ให้สกิลรูนเรียนได้ครบ
+func change_job(job_id: StringName, unlock: bool = true) -> void:
+	var jd: JobData = GameData.get_job(job_id)
+	if jd == null:
+		_say("ไม่พบอาชีพ %s" % job_id)
+		return
+	var st := PlayerState.stats
+	var old_name: String = st.job().display_name
+	st.change_profession(job_id)
+	var chain: Array[StringName] = []
+	if job_id == &"ninth_edge": chain = [&"runeblade", &"ninth_edge"]
+	elif job_id != &"swordsman" and job_id != &"novice": chain = [job_id]
+	for jid in chain:
+		var sid := String(jid)
+		if not PlayerState.has_flag(StringName(sid + "_awakened")):
+			PlayerState.set_flag(StringName(sid + "_awakened"))
+			PlayerState.set_flag(StringName(sid + "_start_job_level"), st.job_level)
+			PlayerState.set_flag(StringName(sid + "_start_level"), st.level)
+		PlayerState.set_flag(StringName("job_" + sid))
+	# ธง job_<x> ของอาชีพที่ไม่ได้เป็นแล้ว เอาออก (มอนบางตัวสงบตามธงนี้)
+	for other in GameData.jobs.keys():
+		if StringName(other) not in chain and StringName(other) != job_id:
+			PlayerState.clear_flag(StringName("job_" + String(other)))
+	if unlock and PlayerState.is_rune_job():
+		for f in RUNE_UNLOCK_FLAGS: PlayerState.set_flag(f)
+		if job_id == &"ninth_edge": PlayerState.set_flag(&"ninth_inscription_unlocked")
+	# Profession switches preserve learned skills and their own point banks.
+	PlayerState.refresh()
+	PlayerState.heal_hp(st.max_hp, false)
+	PlayerState.restore_sp(st.max_sp)
+	Events.skills_changed.emit()
+	Events.stats_changed.emit()
+	Events.job_level_up.emit(st.job_level)
+	refresh()
+	_say("เปลี่ยนอาชีพ %s → %s · เพดานจ๊อบ %d" % [old_name, jd.display_name, st.max_job_level()])
 
 
 func _bump_level(delta: int) -> void:
@@ -442,6 +544,9 @@ func refresh() -> void:
 	if _level_box != null:
 		_level_box.value = st.level
 		_job_box.value = st.job_level
+	if _job_option != null:
+		var idx := _job_ids.find(st.job_id)
+		if idx >= 0: _job_option.select(idx)
 	if _god_check != null:
 		_god_check.set_pressed_no_signal(PlayerState.gm_god_mode)
 		_onehit_check.set_pressed_no_signal(PlayerState.gm_one_hit)

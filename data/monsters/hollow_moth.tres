@@ -1,0 +1,77 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://cy3wa6frh66b8"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/hollow_moth_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_hollow_moth_0"]
+script = ExtResource("2_drop")
+item_id = &"moth_dust"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_hollow_moth_1"]
+script = ExtResource("2_drop")
+item_id = &"blue_potion"
+chance = 16.0
+
+[sub_resource type="Resource" id="Drop_hollow_moth_2"]
+script = ExtResource("2_drop")
+item_id = &"light_scale"
+chance = 20.0
+
+[sub_resource type="Resource" id="Drop_hollow_moth_card"]
+script = ExtResource("2_drop")
+item_id = &"card_hollow_moth"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"hollow_moth"
+display_name = "มอดกลวง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(40, 36)
+hp_bar_offset_y = -57.0
+display_height = 150.0
+fit_foot_animations = null
+flying = true
+hover_height = 140.0
+level = 72
+max_hp = 12000
+atk_min = 640
+atk_max = 780
+def = 60
+mdef = 80
+hit = 150
+flee = 88
+crit = 8
+element = 7
+race = 4
+size = 0
+ai_type = 1
+move_speed = 170.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 110.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 749
+job_exp_reward = 524
+zeny_min = 209
+zeny_max = 387
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_hollow_moth_0"), SubResource("Drop_hollow_moth_1"), SubResource("Drop_hollow_moth_2"), SubResource("Drop_hollow_moth_card")])
+respawn_time = 18.0
+tint = Color(0.6, 0.6, 0.7, 0.8)
+spawn_lines = null
+death_lines = null
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

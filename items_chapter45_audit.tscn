@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://items_chapter45_audit.gd" id="1"]
+
+[node name="Chapter45ArtAudit" type="Node"]
+script = ExtResource("1")

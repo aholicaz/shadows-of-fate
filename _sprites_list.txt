@@ -1,0 +1,2478 @@
+Sprites/Asgard forest 1.png	12377618
+Sprites/Asgard forest 1.png.import	1004
+Sprites/Attack falchion.png	1681767
+Sprites/Attack falchion.png.import	1004
+Sprites/Battle Cry.png	2469481
+Sprites/Battle Cry.png.import	989
+Sprites/Chonchon attack.png	2085351
+Sprites/Chonchon attack.png.import	1004
+Sprites/Dash1.png	197986
+Sprites/Dash1.png.import	973
+Sprites/Dash2.png	209736
+Sprites/Dash2.png.import	974
+Sprites/Dash3.png	225972
+Sprites/Dash3.png.import	974
+Sprites/Dash4.png	230102
+Sprites/Dash4.png.import	974
+Sprites/Dash5.png	223908
+Sprites/Dash5.png.import	974
+Sprites/Dash6.png	282464
+Sprites/Dash6.png.import	974
+Sprites/Dash7.png	240734
+Sprites/Dash7.png.import	974
+Sprites/Dash8.png	190756
+Sprites/Dash8.png.import	974
+Sprites/Dash9.png	192938
+Sprites/Dash9.png.import	974
+Sprites/Drops_Idle.png	3078918
+Sprites/Drops_Idle.png.import	988
+Sprites/Endure.png	2519519
+Sprites/Endure.png.import	977
+Sprites/First Aid.png	2092535
+Sprites/First Aid.png.import	985
+Sprites/HP Recovery.png	2032195
+Sprites/HP Recovery.png.import	992
+Sprites/Magnum Break.png	2555997
+Sprites/Magnum Break.png.import	995
+Sprites/Map_Asgard.png	10561472
+Sprites/Map_Asgard.png.import	989
+Sprites/NPC_1_Idle.png	3626161
+Sprites/NPC_1_Idle.png.import	989
+Sprites/NPC_1_Joke.png	3793294
+Sprites/NPC_1_Joke.png.import	989
+Sprites/Skill_bash.png	2052574
+Sprites/Skill_bash.png.import	989
+Sprites/Sword Mastery.png	2246474
+Sprites/Sword Mastery.png.import	998
+Sprites/attack.tscn	1016
+Sprites/card/card_baphomet.webp	234542
+Sprites/card/card_baphomet.webp.import	1006
+Sprites/card/card_baphomet_jr.webp	261646
+Sprites/card/card_baphomet_jr.webp.import	1014
+Sprites/card/card_chonchon.webp	219312
+Sprites/card/card_chonchon.webp.import	1006
+Sprites/card/card_drops.webp	231266
+Sprites/card/card_drops.webp.import	997
+Sprites/card/card_ember_bat.webp	198280
+Sprites/card/card_ember_bat.webp.import	1009
+Sprites/card/card_fabre.webp	192356
+Sprites/card/card_fabre.webp.import	997
+Sprites/card/card_forge_golem.webp	251676
+Sprites/card/card_forge_golem.webp.import	1015
+Sprites/card/card_forge_guardian.webp	239938
+Sprites/card/card_forge_guardian.webp.import	1024
+Sprites/card/card_hornet.webp	215006
+Sprites/card/card_hornet.webp.import	1000
+Sprites/card/card_king_poring.webp	217016
+Sprites/card/card_king_poring.webp.import	1015
+Sprites/card/card_lunatic.webp	206072
+Sprites/card/card_lunatic.webp.import	1003
+Sprites/card/card_magma_slug.webp	223316
+Sprites/card/card_magma_slug.webp.import	1011
+Sprites/card/card_munak.webp	218146
+Sprites/card/card_munak.webp.import	996
+Sprites/card/card_orc_warrior.webp	269162
+Sprites/card/card_orc_warrior.webp.import	1014
+Sprites/card/card_pitman.webp	245450
+Sprites/card/card_pitman.webp.import	999
+Sprites/card/card_poring.webp	191324
+Sprites/card/card_poring.webp.import	1000
+Sprites/card/card_silent_wraith.webp	255018
+Sprites/card/card_silent_wraith.webp.import	1021
+Sprites/card/card_steel_beetle.webp	244346
+Sprites/card/card_steel_beetle.webp.import	1018
+Sprites/card/card_stormscar.webp	291072
+Sprites/card/card_stormscar.webp.import	1009
+Sprites/card/card_wolf.webp	192380
+Sprites/card/card_wolf.webp.import	994
+Sprites/character sprites/Idle_new1.png	1037254
+Sprites/character sprites/Idle_new1.png.import	1005
+Sprites/character sprites/Idle_new2.png	1170201
+Sprites/character sprites/Idle_new2.png.import	957
+Sprites/character sprites/attack 3hit falcon.png	2534909
+Sprites/character sprites/attack 3hit falcon.png.import	983
+Sprites/character sprites/attack 3hit katana.png	2443743
+Sprites/character sprites/attack 3hit katana.png.import	984
+Sprites/character sprites/attack 3hit rapier.png	2647369
+Sprites/character sprites/attack 3hit rapier.png.import	983
+Sprites/character sprites/attack 3hit.png	2301809
+Sprites/character sprites/attack 3hit.png.import	963
+Sprites/character sprites/attack_3hit_bare_hands.png	2123374
+Sprites/character sprites/attack_3hit_bare_hands.png.import	996
+Sprites/character sprites/dash v2.png	3246330
+Sprites/character sprites/dash v2.png.import	951
+Sprites/character sprites/dashblink.png	2417939
+Sprites/character sprites/dashblink.png.import	957
+Sprites/character sprites/idle_ba 1.png	283486
+Sprites/character sprites/idle_ba 1.png.import	1004
+Sprites/character sprites/idle_ba 2.png	285117
+Sprites/character sprites/idle_ba 2.png.import	1004
+Sprites/character sprites/idle_ba 3.png	284091
+Sprites/character sprites/idle_ba 3.png.import	1004
+Sprites/character sprites/idle_ba 4.png	287177
+Sprites/character sprites/idle_ba 4.png.import	1004
+Sprites/character sprites/idle_ba 5.png	288827
+Sprites/character sprites/idle_ba 5.png.import	1004
+Sprites/character sprites/idle_ba 6.png	289352
+Sprites/character sprites/idle_ba 6.png.import	1003
+Sprites/character sprites/idle_ba 7.png	286612
+Sprites/character sprites/idle_ba 7.png.import	1004
+Sprites/character sprites/idle_ba 8.png	284562
+Sprites/character sprites/idle_ba 8.png.import	1003
+Sprites/character sprites/idle_ba 9.png	282349
+Sprites/character sprites/idle_ba 9.png.import	1003
+Sprites/character sprites/idle_blade 2.png	257620
+Sprites/character sprites/idle_blade 2.png.import	1013
+Sprites/character sprites/idle_blade 3.png	258495
+Sprites/character sprites/idle_blade 3.png.import	1012
+Sprites/character sprites/idle_blade 4.png	261569
+Sprites/character sprites/idle_blade 4.png.import	1013
+Sprites/character sprites/idle_blade 5.png	263565
+Sprites/character sprites/idle_blade 5.png.import	1013
+Sprites/character sprites/idle_blade 6.png	263724
+Sprites/character sprites/idle_blade 6.png.import	1013
+Sprites/character sprites/idle_blade 7.png	261118
+Sprites/character sprites/idle_blade 7.png.import	1013
+Sprites/character sprites/idle_blade 8.png	259021
+Sprites/character sprites/idle_blade 8.png.import	1013
+Sprites/character sprites/idle_blade 9.png	257150
+Sprites/character sprites/idle_blade 9.png.import	1013
+Sprites/character sprites/idle_blade.png	255449
+Sprites/character sprites/idle_blade.png.import	1007
+Sprites/character sprites/idle_fa 1.png	258869
+Sprites/character sprites/idle_fa 1.png.import	1003
+Sprites/character sprites/idle_fa 2.png	261046
+Sprites/character sprites/idle_fa 2.png.import	1004
+Sprites/character sprites/idle_fa 3.png	262152
+Sprites/character sprites/idle_fa 3.png.import	1003
+Sprites/character sprites/idle_fa 4.png	264815
+Sprites/character sprites/idle_fa 4.png.import	1003
+Sprites/character sprites/idle_fa 5.png	266786
+Sprites/character sprites/idle_fa 5.png.import	1004
+Sprites/character sprites/idle_fa 6.png	267062
+Sprites/character sprites/idle_fa 6.png.import	1004
+Sprites/character sprites/idle_fa 7.png	264797
+Sprites/character sprites/idle_fa 7.png.import	1003
+Sprites/character sprites/idle_fa 8.png	263085
+Sprites/character sprites/idle_fa 8.png.import	1003
+Sprites/character sprites/idle_fa 9.png	260525
+Sprites/character sprites/idle_fa 9.png.import	1003
+Sprites/character sprites/idle_ka 1.png	259800
+Sprites/character sprites/idle_ka 1.png.import	1004
+Sprites/character sprites/idle_ka 2.png	262060
+Sprites/character sprites/idle_ka 2.png.import	1004
+Sprites/character sprites/idle_ka 3.png	263076
+Sprites/character sprites/idle_ka 3.png.import	1004
+Sprites/character sprites/idle_ka 4.png	266238
+Sprites/character sprites/idle_ka 4.png.import	1003
+Sprites/character sprites/idle_ka 5.png	268196
+Sprites/character sprites/idle_ka 5.png.import	1003
+Sprites/character sprites/idle_ka 6.png	268610
+Sprites/character sprites/idle_ka 6.png.import	1004
+Sprites/character sprites/idle_ka 7.png	266438
+Sprites/character sprites/idle_ka 7.png.import	1004
+Sprites/character sprites/idle_ka 8.png	263963
+Sprites/character sprites/idle_ka 8.png.import	1003
+Sprites/character sprites/idle_ka 9.png	261730
+Sprites/character sprites/idle_ka 9.png.import	1004
+Sprites/character sprites/idle_ra 1.png	282361
+Sprites/character sprites/idle_ra 1.png.import	1004
+Sprites/character sprites/idle_ra 2.png	284969
+Sprites/character sprites/idle_ra 2.png.import	1004
+Sprites/character sprites/idle_ra 3.png	286474
+Sprites/character sprites/idle_ra 3.png.import	1004
+Sprites/character sprites/idle_ra 4.png	289448
+Sprites/character sprites/idle_ra 4.png.import	1004
+Sprites/character sprites/idle_ra 5.png	291629
+Sprites/character sprites/idle_ra 5.png.import	1004
+Sprites/character sprites/idle_ra 6.png	291791
+Sprites/character sprites/idle_ra 6.png.import	1004
+Sprites/character sprites/idle_ra 7.png	289153
+Sprites/character sprites/idle_ra 7.png.import	1003
+Sprites/character sprites/idle_ra 8.png	286398
+Sprites/character sprites/idle_ra 8.png.import	1004
+Sprites/character sprites/idle_ra 9.png	283970
+Sprites/character sprites/idle_ra 9.png.import	1004
+Sprites/character sprites/run 2.png	3294132
+Sprites/character sprites/run 2.png.import	945
+Sprites/character sprites/skill wave.png	2925939
+Sprites/character sprites/skill wave.png.import	959
+Sprites/character sprites/slash.png	3018626
+Sprites/character sprites/slash.png.import	945
+Sprites/chonchon_attack.png	1476247
+Sprites/chonchon_attack.png.import	1004
+Sprites/chonchon_die.png	1092050
+Sprites/chonchon_die.png.import	994
+Sprites/chonchon_hit.png	588572
+Sprites/chonchon_hit.png.import	995
+Sprites/chonchon_idle.png	1412623
+Sprites/chonchon_idle.png.import	998
+Sprites/dash.png	2504161
+Sprites/dash.png.import	970
+Sprites/drops die.png	2997900
+Sprites/drops die.png.import	986
+Sprites/drops_attack.png	2684099
+Sprites/drops_attack.png.import	995
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_1.png	3430
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_1.png.import	977
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_2.png	3460
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_2.png.import	976
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_3.png	6249
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_3.png.import	977
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_4.png	5919
+Sprites/effects/5. Anokolisa/SlashFX 5A v1_4.png.import	975
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_1.png	3430
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_1.png.import	977
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_2.png	3460
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_2.png.import	976
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_3.png	6249
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_3.png.import	976
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_4.png	5919
+Sprites/effects/5. Anokolisa/SlashFX 5A v2_4.png.import	976
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_1.png	3430
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_1.png.import	977
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_2.png	3460
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_2.png.import	977
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_3.png	6249
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_3.png.import	976
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_4.png	5919
+Sprites/effects/5. Anokolisa/SlashFX 5A v3_4.png.import	977
+Sprites/effects/SlashFX 5A Attack.png	25127
+Sprites/effects/SlashFX 5A Attack.png.import	970
+Sprites/effects/SlashFX 5A v2_2.png	11508
+Sprites/effects/SlashFX 5A v2_2.png.import	964
+Sprites/effects/SlashFX 5A v2_2_2.png	18300
+Sprites/effects/SlashFX 5A v2_2_2.png.import	970
+Sprites/effects/SlashFX 5A v2_3.png	6085
+Sprites/effects/SlashFX 5A v2_3.png.import	963
+Sprites/effects/SlashFX bash v2.png	48360
+Sprites/effects/SlashFX bash v2.png.import	964
+Sprites/effects/SlashFX bash.png	5897
+Sprites/effects/SlashFX bash.png.import	955
+Sprites/effects/anvil_cleave_icon.svg	297
+Sprites/effects/anvil_cleave_icon.svg.import	1068
+Sprites/effects/attack_slash.png	228675
+Sprites/effects/attack_slash.png.import	1002
+Sprites/effects/bash_slash.png	1364251
+Sprites/effects/bash_slash.png.import	997
+Sprites/effects/blade_rhythm_icon.svg	279
+Sprites/effects/blade_rhythm_icon.svg.import	1068
+Sprites/effects/dark_wave.png	259529
+Sprites/effects/dark_wave.png.import	946
+Sprites/effects/faultline_icon.svg	282
+Sprites/effects/faultline_icon.svg.import	1059
+Sprites/effects/fire_wave.png	65959
+Sprites/effects/fire_wave.png.import	945
+Sprites/effects/idle-draft-NOT-GAME-READY.png	2779938
+Sprites/effects/idle-draft-NOT-GAME-READY.png.import	995
+Sprites/effects/keen_inscription_icon.svg	283
+Sprites/effects/keen_inscription_icon.svg.import	1080
+Sprites/effects/king_poring_ball.png	24350
+Sprites/effects/king_poring_ball.png.import	967
+Sprites/effects/lightning_bolt.png	1779510
+Sprites/effects/lightning_bolt.png.import	1009
+Sprites/effects/lunatic_ball.png	129869
+Sprites/effects/lunatic_ball.png.import	955
+Sprites/effects/magnum_break.png	829421
+Sprites/effects/magnum_break.png.import	1003
+Sprites/effects/rending_wave_gold.png	1204774
+Sprites/effects/rending_wave_gold.png.import	971
+Sprites/effects/rending_wave_icon.svg	369
+Sprites/effects/rending_wave_icon.svg.import	1068
+Sprites/effects/rune_flurry_icon.svg	289
+Sprites/effects/rune_flurry_icon.svg.import	1064
+Sprites/effects/rune_guard_icon.svg	310
+Sprites/effects/rune_guard_icon.svg.import	1062
+Sprites/effects/runic_vessel_icon.svg	283
+Sprites/effects/runic_vessel_icon.svg.import	1067
+Sprites/effects/slime_burst.png	491788
+Sprites/effects/slime_burst.png.import	951
+Sprites/effects/tempered_might_icon.svg	277
+Sprites/effects/tempered_might_icon.svg.import	1074
+Sprites/effects/thorn_wave.png	61721
+Sprites/effects/thorn_wave.png.import	949
+Sprites/effects/unbroken_edge_icon.svg	293
+Sprites/effects/unbroken_edge_icon.svg.import	1071
+Sprites/effects/worldcleaver_icon.svg	289
+Sprites/effects/worldcleaver_icon.svg.import	1068
+Sprites/equip/aesir_warblade_hand.png	36016
+Sprites/equip/aesir_warblade_hand.png.import	973
+Sprites/equip/bastard_sword_hand.png	708451
+Sprites/equip/bastard_sword_hand.png.import	971
+Sprites/equip/bladeframe1.png	51052
+Sprites/equip/bladeframe1.png.import	998
+Sprites/equip/claymore_hand.png	446797
+Sprites/equip/claymore_hand.png.import	955
+Sprites/equip/ember_of_gullveig_hand.png	42026
+Sprites/equip/ember_of_gullveig_hand.png.import	983
+Sprites/equip/falchion_hand.png	97821
+Sprites/equip/falchion_hand.png.import	956
+Sprites/equip/flame_sword_hand.png	876555
+Sprites/equip/flame_sword_hand.png.import	965
+Sprites/equip/forge_saber_hand.png	713129
+Sprites/equip/forge_saber_hand.png.import	965
+Sprites/equip/iron_blade_hand.png	1105875
+Sprites/equip/iron_blade_hand.png.import	962
+Sprites/equip/katana_hand.png	160934
+Sprites/equip/katana_hand.png.import	950
+Sprites/equip/marsh_cutter_hand.png	41943
+Sprites/equip/marsh_cutter_hand.png.import	968
+Sprites/equip/novice_sword_hand.png	90263
+Sprites/equip/novice_sword_hand.png.import	968
+Sprites/equip/rapier_hand.png	581985
+Sprites/equip/rapier_hand.png.import	950
+Sprites/equip/root_sword_hand.png	34704
+Sprites/equip/root_sword_hand.png.import	962
+Sprites/equip/runic_blade_hand.png	813292
+Sprites/equip/runic_blade_hand.png.import	965
+Sprites/equip/sentinel_blade_hand.png	46130
+Sprites/equip/sentinel_blade_hand.png.import	974
+Sprites/equip/short_sword_hand.png	769818
+Sprites/equip/short_sword_hand.png.import	964
+Sprites/equip/wooden_sword_hand.png	959953
+Sprites/equip/wooden_sword_hand.png.import	968
+Sprites/example/body/body_attack_1.png	1171
+Sprites/example/body/body_attack_1.png.import	962
+Sprites/example/body/body_attack_2.png	1158
+Sprites/example/body/body_attack_2.png.import	963
+Sprites/example/body/body_attack_3.png	1174
+Sprites/example/body/body_attack_3.png.import	963
+Sprites/example/body/body_attack_4.png	1188
+Sprites/example/body/body_attack_4.png.import	963
+Sprites/example/body/body_attack_5.png	1188
+Sprites/example/body/body_attack_5.png.import	963
+Sprites/example/body/body_attack_6.png	1187
+Sprites/example/body/body_attack_6.png.import	963
+Sprites/example/body/body_idle_1.png	1167
+Sprites/example/body/body_idle_1.png.import	957
+Sprites/example/body/body_idle_2.png	1167
+Sprites/example/body/body_idle_2.png.import	957
+Sprites/example/body/body_idle_3.png	1154
+Sprites/example/body/body_idle_3.png.import	956
+Sprites/example/body/body_idle_4.png	1154
+Sprites/example/body/body_idle_4.png.import	957
+Sprites/example/body/body_idle_5.png	1167
+Sprites/example/body/body_idle_5.png.import	956
+Sprites/example/body/body_idle_6.png	1167
+Sprites/example/body/body_idle_6.png.import	957
+Sprites/example/body/body_run_1.png	1206
+Sprites/example/body/body_run_1.png.import	954
+Sprites/example/body/body_run_2.png	1224
+Sprites/example/body/body_run_2.png.import	954
+Sprites/example/body/body_run_3.png	1130
+Sprites/example/body/body_run_3.png.import	954
+Sprites/example/body/body_run_4.png	1199
+Sprites/example/body/body_run_4.png.import	954
+Sprites/example/body/body_run_5.png	1159
+Sprites/example/body/body_run_5.png.import	954
+Sprites/example/body/body_run_6.png	1171
+Sprites/example/body/body_run_6.png.import	954
+Sprites/example/sword/sword_attack_1.png	650
+Sprites/example/sword/sword_attack_1.png.import	967
+Sprites/example/sword/sword_attack_2.png	491
+Sprites/example/sword/sword_attack_2.png.import	967
+Sprites/example/sword/sword_attack_3.png	625
+Sprites/example/sword/sword_attack_3.png.import	967
+Sprites/example/sword/sword_attack_4.png	627
+Sprites/example/sword/sword_attack_4.png.import	967
+Sprites/example/sword/sword_attack_5.png	447
+Sprites/example/sword/sword_attack_5.png.import	967
+Sprites/example/sword/sword_attack_6.png	662
+Sprites/example/sword/sword_attack_6.png.import	967
+Sprites/example/sword/sword_idle_1.png	662
+Sprites/example/sword/sword_idle_1.png.import	961
+Sprites/example/sword/sword_idle_2.png	662
+Sprites/example/sword/sword_idle_2.png.import	960
+Sprites/example/sword/sword_idle_3.png	621
+Sprites/example/sword/sword_idle_3.png.import	960
+Sprites/example/sword/sword_idle_4.png	621
+Sprites/example/sword/sword_idle_4.png.import	960
+Sprites/example/sword/sword_idle_5.png	662
+Sprites/example/sword/sword_idle_5.png.import	960
+Sprites/example/sword/sword_idle_6.png	662
+Sprites/example/sword/sword_idle_6.png.import	961
+Sprites/example/sword/sword_run_1.png	679
+Sprites/example/sword/sword_run_1.png.import	957
+Sprites/example/sword/sword_run_2.png	596
+Sprites/example/sword/sword_run_2.png.import	957
+Sprites/example/sword/sword_run_3.png	662
+Sprites/example/sword/sword_run_3.png.import	958
+Sprites/example/sword/sword_run_4.png	590
+Sprites/example/sword/sword_run_4.png.import	958
+Sprites/example/sword/sword_run_5.png	662
+Sprites/example/sword/sword_run_5.png.import	958
+Sprites/example/sword/sword_run_6.png	595
+Sprites/example/sword/sword_run_6.png.import	958
+Sprites/fable_attack.png	3011518
+Sprites/fable_attack.png.import	994
+Sprites/fable_die.png	3940988
+Sprites/fable_die.png.import	985
+Sprites/fabre_idle.png	2892426
+Sprites/fabre_idle.png.import	989
+Sprites/frame_01.png	464540
+Sprites/frame_01.png.import	934
+Sprites/frame_02.png	477764
+Sprites/frame_02.png.import	934
+Sprites/frame_03.png	487001
+Sprites/frame_03.png.import	934
+Sprites/frame_04.png	494348
+Sprites/frame_04.png.import	933
+Sprites/frame_05.png	498817
+Sprites/frame_05.png.import	934
+Sprites/frame_06.png	499128
+Sprites/frame_06.png.import	983
+Sprites/frame_07.png	496714
+Sprites/frame_07.png.import	934
+Sprites/frame_08.png	492561
+Sprites/frame_08.png.import	933
+Sprites/frame_09.png	489115
+Sprites/frame_09.png.import	934
+Sprites/frame_10.png	488364
+Sprites/frame_10.png.import	934
+Sprites/hero jump.png	1247370
+Sprites/hero jump.png.import	986
+Sprites/hero magnum break falchion.png	1580109
+Sprites/hero magnum break falchion.png.import	1037
+Sprites/hero magnum break katana.png	1577915
+Sprites/hero magnum break katana.png.import	1031
+Sprites/hero magnum break.png	1565965
+Sprites/hero magnum break.png.import	1010
+Sprites/hit1.png	286884
+Sprites/hit1.png.import	970
+Sprites/hit2.png	269801
+Sprites/hit2.png.import	971
+Sprites/hit3.png	279550
+Sprites/hit3.png.import	971
+Sprites/items/Blue potion.png	49821
+Sprites/items/Blue potion.png.import	998
+Sprites/items/Katana.png	34923
+Sprites/items/Katana.png.import	983
+Sprites/items/Red potion.png	51195
+Sprites/items/Red potion.png.import	994
+Sprites/items/adventurer_suit.png	85549
+Sprites/items/adventurer_suit.png.import	1010
+Sprites/items/animal_skin.png	75097
+Sprites/items/animal_skin.png.import	998
+Sprites/items/blade.png	27591
+Sprites/items/blade.png.import	979
+Sprites/items/cap.png	61090
+Sprites/items/cap.png.import	974
+Sprites/items/clip.png	51099
+Sprites/items/clip.png.import	976
+Sprites/items/clover.png	78066
+Sprites/items/clover.png.import	982
+Sprites/items/cotton_shirt.png	75696
+Sprites/items/cotton_shirt.png.import	1001
+Sprites/items/emveretarcon.png	83011
+Sprites/items/emveretarcon.png.import	1001
+Sprites/items/falchion.png	32673
+Sprites/items/falchion.png.import	989
+Sprites/items/fluff.png	74718
+Sprites/items/fluff.png.import	980
+Sprites/items/guard.png	82169
+Sprites/items/guard.png.import	978
+Sprites/items/hood.png	66853
+Sprites/items/hood.png.import	976
+Sprites/items/iron_ore.png	68755
+Sprites/items/iron_ore.png.import	941
+Sprites/items/meat.png	63979
+Sprites/items/meat.png.import	976
+Sprites/items/orange potion.png	50985
+Sprites/items/orange potion.png.import	1004
+Sprites/items/phracon.png	37231
+Sprites/items/phracon.png.import	938
+Sprites/items/placeholder/adventurer_badge.png	106110
+Sprites/items/placeholder/adventurer_badge.png.import	1025
+Sprites/items/placeholder/aesir_helm_rusted.png	79967
+Sprites/items/placeholder/aesir_helm_rusted.png.import	978
+Sprites/items/placeholder/aesir_warblade.png	36016
+Sprites/items/placeholder/aesir_warblade.png.import	971
+Sprites/items/placeholder/animal_skin.png	96312
+Sprites/items/placeholder/animal_skin.png.import	1010
+Sprites/items/placeholder/ash_ring.png	62544
+Sprites/items/placeholder/ash_ring.png.import	953
+Sprites/items/placeholder/baphomet_horn.png	91258
+Sprites/items/placeholder/baphomet_horn.png.import	968
+Sprites/items/placeholder/bark_armor.png	95011
+Sprites/items/placeholder/bark_armor.png.import	958
+Sprites/items/placeholder/bastard_sword.png	38027
+Sprites/items/placeholder/bastard_sword.png.import	1015
+Sprites/items/placeholder/bat_fang.png	76499
+Sprites/items/placeholder/bat_fang.png.import	1000
+Sprites/items/placeholder/beetle_horn.png	66196
+Sprites/items/placeholder/beetle_horn.png.import	1010
+Sprites/items/placeholder/belt.png	74478
+Sprites/items/placeholder/belt.png.import	989
+Sprites/items/placeholder/bloom_petal.png	1612
+Sprites/items/placeholder/bloom_petal.png.import	963
+Sprites/items/placeholder/bloom_root.png	1842
+Sprites/items/placeholder/bloom_root.png.import	960
+Sprites/items/placeholder/blue_jelly.png	52113
+Sprites/items/placeholder/blue_jelly.png.import	1007
+Sprites/items/placeholder/bog_bone.png	63694
+Sprites/items/placeholder/bog_bone.png.import	953
+Sprites/items/placeholder/bone_armor.png	1947
+Sprites/items/placeholder/bone_armor.png.import	959
+Sprites/items/placeholder/bone_greatsword.png	2057
+Sprites/items/placeholder/bone_greatsword.png.import	975
+Sprites/items/placeholder/book_seven_complete.png	1897
+Sprites/items/placeholder/book_seven_complete.png.import	987
+Sprites/items/placeholder/book_seven_half.png	1897
+Sprites/items/placeholder/book_seven_half.png.import	975
+Sprites/items/placeholder/book_seven_half_2.png	1897
+Sprites/items/placeholder/book_seven_half_2.png.import	981
+Sprites/items/placeholder/boots.png	103422
+Sprites/items/placeholder/boots.png.import	992
+Sprites/items/placeholder/bramble_pelt.png	92827
+Sprites/items/placeholder/bramble_pelt.png.import	965
+Sprites/items/placeholder/broken_axe_blade.png	53605
+Sprites/items/placeholder/broken_axe_blade.png.import	977
+Sprites/items/placeholder/broken_rune.png	115429
+Sprites/items/placeholder/broken_rune.png.import	1010
+Sprites/items/placeholder/brooch.png	78627
+Sprites/items/placeholder/brooch.png.import	995
+Sprites/items/placeholder/buckler.png	103665
+Sprites/items/placeholder/buckler.png.import	997
+Sprites/items/placeholder/burial_cloth.png	66398
+Sprites/items/placeholder/burial_cloth.png.import	965
+Sprites/items/placeholder/burnt_bark_piece.png	92480
+Sprites/items/placeholder/burnt_bark_piece.png.import	1025
+Sprites/items/placeholder/card_bog_lurker.png	1537241
+Sprites/items/placeholder/card_bog_lurker.png.import	973
+Sprites/items/placeholder/card_chained_garm.png	2166
+Sprites/items/placeholder/card_chained_garm.png.import	981
+Sprites/items/placeholder/card_crystal_stag.png	1588
+Sprites/items/placeholder/card_crystal_stag.png.import	979
+Sprites/items/placeholder/card_drowned.png	2203
+Sprites/items/placeholder/card_drowned.png.import	965
+Sprites/items/placeholder/card_echo_wraith.png	1758
+Sprites/items/placeholder/card_echo_wraith.png.import	978
+Sprites/items/placeholder/card_ember_bat.png	1263167
+Sprites/items/placeholder/card_ember_bat.png.import	971
+Sprites/items/placeholder/card_erased_voice.png	1758
+Sprites/items/placeholder/card_erased_voice.png.import	981
+Sprites/items/placeholder/card_false_judge.png	1726
+Sprites/items/placeholder/card_false_judge.png.import	977
+Sprites/items/placeholder/card_ferryman.png	1726
+Sprites/items/placeholder/card_ferryman.png.import	969
+Sprites/items/placeholder/card_forge_golem.png	1407131
+Sprites/items/placeholder/card_forge_golem.png.import	977
+Sprites/items/placeholder/card_forge_guardian.png	1362610
+Sprites/items/placeholder/card_forge_guardian.png.import	986
+Sprites/items/placeholder/card_frost_wolf.png	1726
+Sprites/items/placeholder/card_frost_wolf.png.import	975
+Sprites/items/placeholder/card_garden_keeper.png	2166
+Sprites/items/placeholder/card_garden_keeper.png.import	983
+Sprites/items/placeholder/card_gullveig_ember.png	1419595
+Sprites/items/placeholder/card_gullveig_ember.png.import	986
+Sprites/items/placeholder/card_hel_hound.png	1806
+Sprites/items/placeholder/card_hel_hound.png.import	972
+Sprites/items/placeholder/card_hollow_elf.png	1806
+Sprites/items/placeholder/card_hollow_elf.png.import	975
+Sprites/items/placeholder/card_hollow_moth.png	1806
+Sprites/items/placeholder/card_hollow_moth.png.import	978
+Sprites/items/placeholder/card_ice_troll.png	1650
+Sprites/items/placeholder/card_ice_troll.png.import	971
+Sprites/items/placeholder/card_light_eater_bloom.png	1682
+Sprites/items/placeholder/card_light_eater_bloom.png.import	995
+Sprites/items/placeholder/card_light_forsaken.png	1682
+Sprites/items/placeholder/card_light_forsaken.png.import	987
+Sprites/items/placeholder/card_light_moth.png	1682
+Sprites/items/placeholder/card_light_moth.png.import	975
+Sprites/items/placeholder/card_magma_slug.png	1296009
+Sprites/items/placeholder/card_magma_slug.png.import	974
+Sprites/items/placeholder/card_mist_ghost.png	2154
+Sprites/items/placeholder/card_mist_ghost.png.import	973
+Sprites/items/placeholder/card_mist_sprite.png	1345314
+Sprites/items/placeholder/card_mist_sprite.png.import	977
+Sprites/items/placeholder/card_name_warden.png	2086
+Sprites/items/placeholder/card_name_warden.png.import	978
+Sprites/items/placeholder/card_nidhogg_spawn.png	2086
+Sprites/items/placeholder/card_nidhogg_spawn.png.import	984
+Sprites/items/placeholder/card_pitman.png	1411142
+Sprites/items/placeholder/card_pitman.png.import	962
+Sprites/items/placeholder/card_radiant_alfr.png	2158
+Sprites/items/placeholder/card_radiant_alfr.png.import	981
+Sprites/items/placeholder/card_reflection.png	2158
+Sprites/items/placeholder/card_reflection.png.import	974
+Sprites/items/placeholder/card_root_crawler.png	1422244
+Sprites/items/placeholder/card_root_crawler.png.import	980
+Sprites/items/placeholder/card_rune_watcher.png	1423387
+Sprites/items/placeholder/card_rune_watcher.png.import	980
+Sprites/items/placeholder/card_silent_wraith.png	1448375
+Sprites/items/placeholder/card_silent_wraith.png.import	983
+Sprites/items/placeholder/card_snow_hawk.png	2472
+Sprites/items/placeholder/card_snow_hawk.png.import	972
+Sprites/items/placeholder/card_snow_mammoth.png	2472
+Sprites/items/placeholder/card_snow_mammoth.png.import	981
+Sprites/items/placeholder/card_steel_beetle.png	1401009
+Sprites/items/placeholder/card_steel_beetle.png.import	980
+Sprites/items/placeholder/card_stone_hrungnir.png	1806
+Sprites/items/placeholder/card_stone_hrungnir.png.import	987
+Sprites/items/placeholder/card_stone_soldier.png	2472
+Sprites/items/placeholder/card_stone_soldier.png.import	984
+Sprites/items/placeholder/card_thorn_hound.png	1428246
+Sprites/items/placeholder/card_thorn_hound.png.import	977
+Sprites/items/placeholder/card_thorn_matriarch.png	1336275
+Sprites/items/placeholder/card_thorn_matriarch.png.import	989
+Sprites/items/placeholder/card_vanir_sentinel.png	1521777
+Sprites/items/placeholder/card_vanir_sentinel.png.import	985
+Sprites/items/placeholder/card_wall_shieldbearer.png	2558
+Sprites/items/placeholder/card_wall_shieldbearer.png.import	995
+Sprites/items/placeholder/card_war_wraith.png	1420623
+Sprites/items/placeholder/card_war_wraith.png.import	974
+Sprites/items/placeholder/card_water_nymph.png	2558
+Sprites/items/placeholder/card_water_nymph.png.import	978
+Sprites/items/placeholder/card_withered_treant.png	1425163
+Sprites/items/placeholder/card_withered_treant.png.import	988
+Sprites/items/placeholder/carved_stone.png	74523
+Sprites/items/placeholder/carved_stone.png.import	965
+Sprites/items/placeholder/chain_mail.png	123594
+Sprites/items/placeholder/chain_mail.png.import	1007
+Sprites/items/placeholder/charged_horn.png	80162
+Sprites/items/placeholder/charged_horn.png.import	965
+Sprites/items/placeholder/chewed_carrot.png	62577
+Sprites/items/placeholder/chewed_carrot.png.import	1014
+Sprites/items/placeholder/chonchon_eye.png	56665
+Sprites/items/placeholder/chonchon_eye.png.import	1013
+Sprites/items/placeholder/clover.png	78066
+Sprites/items/placeholder/clover.png.import	994
+Sprites/items/placeholder/conduit_edge.png	1800
+Sprites/items/placeholder/conduit_edge.png.import	966
+Sprites/items/placeholder/crystal_antler.png	2373
+Sprites/items/placeholder/crystal_antler.png.import	972
+Sprites/items/placeholder/crystal_cloak.png	1608
+Sprites/items/placeholder/crystal_cloak.png.import	969
+Sprites/items/placeholder/crystal_shield.png	2560
+Sprites/items/placeholder/crystal_shield.png.import	972
+Sprites/items/placeholder/cursed_scythe_shard.png	92609
+Sprites/items/placeholder/cursed_scythe_shard.png.import	1034
+Sprites/items/placeholder/dagr_core.png	1897
+Sprites/items/placeholder/dagr_core.png.import	957
+Sprites/items/placeholder/dirt_clump.png	107092
+Sprites/items/placeholder/dirt_clump.png.import	959
+Sprites/items/placeholder/drowned_crown.png	2191
+Sprites/items/placeholder/drowned_crown.png.import	969
+Sprites/items/placeholder/drowned_helm.png	1567
+Sprites/items/placeholder/drowned_helm.png.import	966
+Sprites/items/placeholder/dwarven_mail.png	116962
+Sprites/items/placeholder/dwarven_mail.png.import	1013
+Sprites/items/placeholder/earring.png	55673
+Sprites/items/placeholder/earring.png.import	998
+Sprites/items/placeholder/echo_ring.png	1455
+Sprites/items/placeholder/echo_ring.png.import	957
+Sprites/items/placeholder/echo_shard.png	1919
+Sprites/items/placeholder/echo_shard.png.import	960
+Sprites/items/placeholder/elven_plate.png	1227
+Sprites/items/placeholder/elven_plate.png.import	963
+Sprites/items/placeholder/ember_cape.png	87939
+Sprites/items/placeholder/ember_cape.png.import	1007
+Sprites/items/placeholder/ember_heart.png	63821
+Sprites/items/placeholder/ember_heart.png.import	962
+Sprites/items/placeholder/ember_of_gullveig.png	42026
+Sprites/items/placeholder/ember_of_gullveig.png.import	980
+Sprites/items/placeholder/ember_wing.png	77623
+Sprites/items/placeholder/ember_wing.png.import	1007
+Sprites/items/placeholder/erased_ink.png	889
+Sprites/items/placeholder/erased_ink.png.import	960
+Sprites/items/placeholder/eskil_chronicle.png	94934
+Sprites/items/placeholder/eskil_chronicle.png.import	974
+Sprites/items/placeholder/fabre_silk.png	92703
+Sprites/items/placeholder/fabre_silk.png.import	1007
+Sprites/items/placeholder/feeler.png	43150
+Sprites/items/placeholder/feeler.png.import	995
+Sprites/items/placeholder/ferryman_oar_blade.png	1945
+Sprites/items/placeholder/ferryman_oar_blade.png.import	983
+Sprites/items/placeholder/flame_sword.png	49168
+Sprites/items/placeholder/flame_sword.png.import	1010
+Sprites/items/placeholder/forge_saber.png	38675
+Sprites/items/placeholder/forge_saber.png.import	1009
+Sprites/items/placeholder/forsaken_ash.png	1548
+Sprites/items/placeholder/forsaken_ash.png.import	966
+Sprites/items/placeholder/frida_song.png	79671
+Sprites/items/placeholder/frida_song.png.import	959
+Sprites/items/placeholder/frost_edge.png	850
+Sprites/items/placeholder/frost_edge.png.import	960
+Sprites/items/placeholder/frost_fang.png	795
+Sprites/items/placeholder/frost_fang.png.import	960
+Sprites/items/placeholder/frost_marrow.png	1357
+Sprites/items/placeholder/frost_marrow.png.import	965
+Sprites/items/placeholder/frost_wolf_coat.png	1834
+Sprites/items/placeholder/frost_wolf_coat.png.import	974
+Sprites/items/placeholder/frozen_tear.png	913
+Sprites/items/placeholder/frozen_tear.png.import	963
+Sprites/items/placeholder/garm_chain_link.png	2222
+Sprites/items/placeholder/garm_chain_link.png.import	974
+Sprites/items/placeholder/garm_fang.png	1819
+Sprites/items/placeholder/garm_fang.png.import	957
+Sprites/items/placeholder/gerd_chisel.png	1897
+Sprites/items/placeholder/gerd_chisel.png.import	963
+Sprites/items/placeholder/ghost_thread.png	1706
+Sprites/items/placeholder/ghost_thread.png.import	966
+Sprites/items/placeholder/giant_bone.png	2189
+Sprites/items/placeholder/giant_bone.png.import	960
+Sprites/items/placeholder/giant_child_scarf.png	2214
+Sprites/items/placeholder/giant_child_scarf.png.import	981
+Sprites/items/placeholder/giant_hoof.png	94826
+Sprites/items/placeholder/giant_hoof.png.import	1007
+Sprites/items/placeholder/glove.png	87226
+Sprites/items/placeholder/glove.png.import	992
+Sprites/items/placeholder/glow_shard.png	93206
+Sprites/items/placeholder/glow_shard.png.import	1007
+Sprites/items/placeholder/golem_plate.png	84140
+Sprites/items/placeholder/golem_plate.png.import	962
+Sprites/items/placeholder/guardian_core.png	117908
+Sprites/items/placeholder/guardian_core.png.import	1016
+Sprites/items/placeholder/gullveig_ash.png	69444
+Sprites/items/placeholder/gullveig_ash.png.import	965
+Sprites/items/placeholder/gullveig_flame.png	1897
+Sprites/items/placeholder/gullveig_flame.png.import	971
+Sprites/items/placeholder/hawk_down.png	1588
+Sprites/items/placeholder/hawk_down.png.import	957
+Sprites/items/placeholder/hawk_talon.png	980
+Sprites/items/placeholder/hawk_talon.png.import	960
+Sprites/items/placeholder/heart_pendant.png	1245
+Sprites/items/placeholder/heart_pendant.png.import	969
+Sprites/items/placeholder/heartwood_chip.png	72245
+Sprites/items/placeholder/heartwood_chip.png.import	970
+Sprites/items/placeholder/hel_fang.png	995
+Sprites/items/placeholder/hel_fang.png.import	954
+Sprites/items/placeholder/hel_half_plate.png	817
+Sprites/items/placeholder/hel_half_plate.png.import	972
+Sprites/items/placeholder/hel_seal.png	1897
+Sprites/items/placeholder/hel_seal.png.import	953
+Sprites/items/placeholder/hollow_thread.png	978
+Sprites/items/placeholder/hollow_thread.png.import	968
+Sprites/items/placeholder/honey_drop.png	90824
+Sprites/items/placeholder/honey_drop.png.import	1006
+Sprites/items/placeholder/hot_gear.png	113391
+Sprites/items/placeholder/hot_gear.png.import	1001
+Sprites/items/placeholder/hound_eye.png	1053
+Sprites/items/placeholder/hound_eye.png.import	957
+Sprites/items/placeholder/hrungnir_shard.png	1929
+Sprites/items/placeholder/hrungnir_shard.png.import	971
+Sprites/items/placeholder/hunter_journal.png	131716
+Sprites/items/placeholder/hunter_journal.png.import	1019
+Sprites/items/placeholder/ice_bloom.png	1284
+Sprites/items/placeholder/ice_bloom.png.import	957
+Sprites/items/placeholder/imp_tail.png	55793
+Sprites/items/placeholder/imp_tail.png.import	1000
+Sprites/items/placeholder/insect_wing.png	79089
+Sprites/items/placeholder/insect_wing.png.import	1010
+Sprites/items/placeholder/iron_blade.png	56449
+Sprites/items/placeholder/iron_blade.png.import	1007
+Sprites/items/placeholder/iron_greaves.png	77361
+Sprites/items/placeholder/iron_greaves.png.import	1012
+Sprites/items/placeholder/iron_helm.png	97654
+Sprites/items/placeholder/iron_helm.png.import	1004
+Sprites/items/placeholder/iron_shield.png	69182
+Sprites/items/placeholder/iron_shield.png.import	1010
+Sprites/items/placeholder/jotun_helm.png	1138
+Sprites/items/placeholder/jotun_helm.png.import	960
+Sprites/items/placeholder/jotun_seal.png	1897
+Sprites/items/placeholder/jotun_seal.png.import	960
+Sprites/items/placeholder/judge_seal.png	2002
+Sprites/items/placeholder/judge_seal.png.import	960
+Sprites/items/placeholder/judge_shield.png	2005
+Sprites/items/placeholder/judge_shield.png.import	966
+Sprites/items/placeholder/keeper_glove.png	2305
+Sprites/items/placeholder/keeper_glove.png.import	965
+Sprites/items/placeholder/leather_cap.png	99604
+Sprites/items/placeholder/leather_cap.png.import	1009
+Sprites/items/placeholder/leather_jacket.png	85240
+Sprites/items/placeholder/leather_jacket.png.import	1019
+Sprites/items/placeholder/leather_shoes.png	95981
+Sprites/items/placeholder/leather_shoes.png.import	1016
+Sprites/items/placeholder/left_name.png	1229
+Sprites/items/placeholder/left_name.png.import	957
+Sprites/items/placeholder/light_crystal.png	1771
+Sprites/items/placeholder/light_crystal.png.import	969
+Sprites/items/placeholder/light_crystal_sword.png	1705
+Sprites/items/placeholder/light_crystal_sword.png.import	987
+Sprites/items/placeholder/light_scale.png	1803
+Sprites/items/placeholder/light_scale.png.import	963
+Sprites/items/placeholder/light_seal.png	1897
+Sprites/items/placeholder/light_seal.png.import	960
+Sprites/items/placeholder/lightning_dust.png	1470
+Sprites/items/placeholder/lightning_dust.png.import	972
+Sprites/items/placeholder/lightning_heart.png	1897
+Sprites/items/placeholder/lightning_heart.png.import	975
+Sprites/items/placeholder/ljosalf_circlet.png	940
+Sprites/items/placeholder/ljosalf_circlet.png.import	975
+Sprites/items/placeholder/lunatic_tail.png	55521
+Sprites/items/placeholder/lunatic_tail.png.import	1013
+Sprites/items/placeholder/magma_core.png	78591
+Sprites/items/placeholder/magma_core.png.import	958
+Sprites/items/placeholder/mammoth_tusk.png	1345
+Sprites/items/placeholder/mammoth_tusk.png.import	966
+Sprites/items/placeholder/mammoth_wool.png	2235
+Sprites/items/placeholder/mammoth_wool.png.import	966
+Sprites/items/placeholder/mammoth_wool_cloak.png	2220
+Sprites/items/placeholder/mammoth_wool_cloak.png.import	983
+Sprites/items/placeholder/marsh_cutter.png	41943
+Sprites/items/placeholder/marsh_cutter.png.import	965
+Sprites/items/placeholder/matriarch_thorn.png	40139
+Sprites/items/placeholder/matriarch_thorn.png.import	974
+Sprites/items/placeholder/miner_boots.png	114497
+Sprites/items/placeholder/miner_boots.png.import	1010
+Sprites/items/placeholder/miner_helmet.png	69788
+Sprites/items/placeholder/miner_helmet.png.import	1013
+Sprites/items/placeholder/mirror_dust.png	1928
+Sprites/items/placeholder/mirror_dust.png.import	963
+Sprites/items/placeholder/mirror_shield.png	79725
+Sprites/items/placeholder/mirror_shield.png.import	1016
+Sprites/items/placeholder/mist_cloak.png	67151
+Sprites/items/placeholder/mist_cloak.png.import	959
+Sprites/items/placeholder/mist_essence.png	72466
+Sprites/items/placeholder/mist_essence.png.import	964
+Sprites/items/placeholder/mist_saber.png	2219
+Sprites/items/placeholder/mist_saber.png.import	960
+Sprites/items/placeholder/mist_shroud.png	1477
+Sprites/items/placeholder/mist_shroud.png.import	963
+Sprites/items/placeholder/mist_wisp.png	2211
+Sprites/items/placeholder/mist_wisp.png.import	957
+Sprites/items/placeholder/mole_claw.png	54428
+Sprites/items/placeholder/mole_claw.png.import	955
+Sprites/items/placeholder/moth_dust.png	1928
+Sprites/items/placeholder/moth_dust.png.import	957
+Sprites/items/placeholder/moth_wing_cape.png	2205
+Sprites/items/placeholder/moth_wing_cape.png.import	972
+Sprites/items/placeholder/muffler.png	93079
+Sprites/items/placeholder/muffler.png.import	998
+Sprites/items/placeholder/mural_fragment.png	1897
+Sprites/items/placeholder/mural_fragment.png.import	972
+Sprites/items/placeholder/name_blade.png	1631
+Sprites/items/placeholder/name_blade.png.import	960
+Sprites/items/placeholder/name_pendant_eq.png	1530
+Sprites/items/placeholder/name_pendant_eq.png.import	974
+Sprites/items/placeholder/necklace.png	41551
+Sprites/items/placeholder/necklace.png.import	1000
+Sprites/items/placeholder/nidhogg_scale.png	2206
+Sprites/items/placeholder/nidhogg_scale.png.import	969
+Sprites/items/placeholder/nymph_pearl.png	1540
+Sprites/items/placeholder/nymph_pearl.png.import	963
+Sprites/items/placeholder/nymph_tear.png	1235
+Sprites/items/placeholder/nymph_tear.png.import	959
+Sprites/items/placeholder/oar_splinter.png	2680
+Sprites/items/placeholder/oar_splinter.png.import	965
+Sprites/items/placeholder/odin_fragment.png	1897
+Sprites/items/placeholder/odin_fragment.png.import	969
+Sprites/items/placeholder/odin_ring.png	2422
+Sprites/items/placeholder/odin_ring.png.import	957
+Sprites/items/placeholder/old_hairpin.png	61698
+Sprites/items/placeholder/old_hairpin.png.import	1009
+Sprites/items/placeholder/orange_jelly.png	52113
+Sprites/items/placeholder/orange_jelly.png.import	1011
+Sprites/items/placeholder/orc_bandana.png	72000
+Sprites/items/placeholder/orc_bandana.png.import	1010
+Sprites/items/placeholder/orc_tooth.png	72188
+Sprites/items/placeholder/orc_tooth.png.import	1004
+Sprites/items/placeholder/pale_sap.png	60752
+Sprites/items/placeholder/pale_sap.png.import	953
+Sprites/items/placeholder/plate_armor.png	98326
+Sprites/items/placeholder/plate_armor.png.import	1010
+Sprites/items/placeholder/poring_core.png	38038
+Sprites/items/placeholder/poring_core.png.import	1010
+Sprites/items/placeholder/prism_blade.png	1581
+Sprites/items/placeholder/prism_blade.png.import	963
+Sprites/items/placeholder/prism_shard.png	2115
+Sprites/items/placeholder/prism_shard.png.import	963
+Sprites/items/placeholder/radiant_core.png	2249
+Sprites/items/placeholder/radiant_core.png.import	966
+Sprites/items/placeholder/radiant_ring.png	1335
+Sprites/items/placeholder/radiant_ring.png.import	966
+Sprites/items/placeholder/rapier.png	33209
+Sprites/items/placeholder/rapier.png.import	995
+Sprites/items/placeholder/reset_skill.png	120199
+Sprites/items/placeholder/reset_skill.png.import	1009
+Sprites/items/placeholder/reset_stat.png	96997
+Sprites/items/placeholder/reset_stat.png.import	1006
+Sprites/items/placeholder/ribbon.png	80227
+Sprites/items/placeholder/ribbon.png.import	995
+Sprites/items/placeholder/ring.png	86942
+Sprites/items/placeholder/ring.png.import	988
+Sprites/items/placeholder/river_gold.png	2230
+Sprites/items/placeholder/river_gold.png.import	959
+Sprites/items/placeholder/river_walker.png	2300
+Sprites/items/placeholder/river_walker.png.import	966
+Sprites/items/placeholder/root_boots.png	94158
+Sprites/items/placeholder/root_boots.png.import	959
+Sprites/items/placeholder/root_fiber.png	71924
+Sprites/items/placeholder/root_fiber.png.import	958
+Sprites/items/placeholder/root_sword.png	34704
+Sprites/items/placeholder/root_sword.png.import	959
+Sprites/items/placeholder/root_venom.png	2074
+Sprites/items/placeholder/root_venom.png.import	960
+Sprites/items/placeholder/rosary.png	75856
+Sprites/items/placeholder/rosary.png.import	995
+Sprites/items/placeholder/royal_bloom.png	73481
+Sprites/items/placeholder/royal_bloom.png.import	962
+Sprites/items/placeholder/royal_jelly.png	112915
+Sprites/items/placeholder/royal_jelly.png.import	1009
+Sprites/items/placeholder/runic_blade.png	44991
+Sprites/items/placeholder/runic_blade.png.import	1010
+Sprites/items/placeholder/scale_mail.png	105105
+Sprites/items/placeholder/scale_mail.png.import	1007
+Sprites/items/placeholder/sentinel_blade.png	46130
+Sprites/items/placeholder/sentinel_blade.png.import	971
+Sprites/items/placeholder/sentinel_core.png	101563
+Sprites/items/placeholder/sentinel_core.png.import	968
+Sprites/items/placeholder/sentinel_plate.png	81103
+Sprites/items/placeholder/sentinel_plate.png.import	971
+Sprites/items/placeholder/shade_crystal.png	2650
+Sprites/items/placeholder/shade_crystal.png.import	969
+Sprites/items/placeholder/shadow_flake.png	1925
+Sprites/items/placeholder/shadow_flake.png.import	966
+Sprites/items/placeholder/short_sword.png	42637
+Sprites/items/placeholder/short_sword.png.import	1010
+Sprites/items/placeholder/silent_step.png	1818
+Sprites/items/placeholder/silent_step.png.import	963
+Sprites/items/placeholder/silent_veil.png	107694
+Sprites/items/placeholder/silent_veil.png.import	1009
+Sprites/items/placeholder/silver_dust.png	65970
+Sprites/items/placeholder/silver_dust.png.import	962
+Sprites/items/placeholder/skill_erasing_cut.png	1731
+Sprites/items/placeholder/skill_erasing_cut.png.import	981
+Sprites/items/placeholder/skill_named_edge.png	1330
+Sprites/items/placeholder/skill_named_edge.png.import	978
+Sprites/items/placeholder/skill_ninth_inscription.png	2056
+Sprites/items/placeholder/skill_ninth_inscription.png.import	998
+Sprites/items/placeholder/skill_ninth_vessel.png	2324
+Sprites/items/placeholder/skill_ninth_vessel.png.import	984
+Sprites/items/placeholder/skill_twin_inscription.png	821
+Sprites/items/placeholder/skill_twin_inscription.png.import	996
+Sprites/items/placeholder/skill_wallbreaker_stance.png	2280
+Sprites/items/placeholder/skill_wallbreaker_stance.png.import	1001
+Sprites/items/placeholder/slug_slime.png	96825
+Sprites/items/placeholder/slug_slime.png.import	1007
+Sprites/items/placeholder/small_horn.png	58182
+Sprites/items/placeholder/small_horn.png.import	1007
+Sprites/items/placeholder/snow_lichen.png	1853
+Sprites/items/placeholder/snow_lichen.png.import	963
+Sprites/items/placeholder/spectral_plume.png	62856
+Sprites/items/placeholder/spectral_plume.png.import	970
+Sprites/items/placeholder/spring_amulet.png	53086
+Sprites/items/placeholder/spring_amulet.png.import	968
+Sprites/items/placeholder/spring_vial.png	50550
+Sprites/items/placeholder/spring_vial.png.import	961
+Sprites/items/placeholder/stag_hoof.png	1952
+Sprites/items/placeholder/stag_hoof.png.import	956
+Sprites/items/placeholder/stag_horn_saber.png	1733
+Sprites/items/placeholder/stag_horn_saber.png.import	975
+Sprites/items/placeholder/steel_shell.png	93588
+Sprites/items/placeholder/steel_shell.png.import	1010
+Sprites/items/placeholder/stinger.png	53418
+Sprites/items/placeholder/stinger.png.import	998
+Sprites/items/placeholder/stone_core.png	2549
+Sprites/items/placeholder/stone_core.png.import	960
+Sprites/items/placeholder/stone_hrungnir_blade.png	1912
+Sprites/items/placeholder/stone_hrungnir_blade.png.import	989
+Sprites/items/placeholder/storm_medal.png	86470
+Sprites/items/placeholder/storm_medal.png.import	962
+Sprites/items/placeholder/storm_scale.png	92401
+Sprites/items/placeholder/storm_scale.png.import	1010
+Sprites/items/placeholder/sun_dew.png	75700
+Sprites/items/placeholder/sun_dew.png.import	998
+Sprites/items/placeholder/sunless_leaf.png	1856
+Sprites/items/placeholder/sunless_leaf.png.import	965
+Sprites/items/placeholder/temple_primer.png	1897
+Sprites/items/placeholder/temple_primer.png.import	969
+Sprites/items/placeholder/thorn_fang.png	44493
+Sprites/items/placeholder/thorn_fang.png.import	959
+Sprites/items/placeholder/thorn_shield.png	73320
+Sprites/items/placeholder/thorn_shield.png.import	964
+Sprites/items/placeholder/throne_splinter.png	1824
+Sprites/items/placeholder/throne_splinter.png.import	975
+Sprites/items/placeholder/thunder_blessing.png	110567
+Sprites/items/placeholder/thunder_blessing.png.import	1025
+Sprites/items/placeholder/tiny_crown.png	83091
+Sprites/items/placeholder/tiny_crown.png.import	1007
+Sprites/items/placeholder/troll_boots.png	1320
+Sprites/items/placeholder/troll_boots.png.import	963
+Sprites/items/placeholder/troll_cleaver.png	1707
+Sprites/items/placeholder/troll_cleaver.png.import	968
+Sprites/items/placeholder/troll_hide.png	963
+Sprites/items/placeholder/troll_hide.png.import	960
+Sprites/items/placeholder/troll_tooth.png	759
+Sprites/items/placeholder/troll_tooth.png.import	963
+Sprites/items/placeholder/undead_bone.png	73368
+Sprites/items/placeholder/undead_bone.png.import	1010
+Sprites/items/placeholder/vanir_circlet.png	59383
+Sprites/items/placeholder/vanir_circlet.png.import	968
+Sprites/items/placeholder/vanir_seal.png	80695
+Sprites/items/placeholder/vanir_seal.png.import	959
+Sprites/items/placeholder/wall_fragment.png	1939
+Sprites/items/placeholder/wall_fragment.png.import	969
+Sprites/items/placeholder/wall_greatsword.png	2691
+Sprites/items/placeholder/wall_greatsword.png.import	975
+Sprites/items/placeholder/wall_plate.png	2173
+Sprites/items/placeholder/wall_plate.png.import	960
+Sprites/items/placeholder/wall_shield.png	2703
+Sprites/items/placeholder/wall_shield.png.import	963
+Sprites/items/placeholder/warden_letter.png	1807
+Sprites/items/placeholder/warden_letter.png.import	969
+Sprites/items/placeholder/watcher_lens.png	103724
+Sprites/items/placeholder/watcher_lens.png.import	1012
+Sprites/items/placeholder/white_potion.png	73472
+Sprites/items/placeholder/white_potion.png.import	1013
+Sprites/items/placeholder/wing_of_valkyrie.png	1479894
+Sprites/items/placeholder/wing_of_valkyrie.png.import	1025
+Sprites/items/placeholder/withered_bark.png	83822
+Sprites/items/placeholder/withered_bark.png.import	968
+Sprites/items/placeholder/wolf_claw.png	61452
+Sprites/items/placeholder/wolf_claw.png.import	1003
+Sprites/items/placeholder/wolf_cloak.png	101211
+Sprites/items/placeholder/wolf_cloak.png.import	1007
+Sprites/items/placeholder/wolf_fang.png	78616
+Sprites/items/placeholder/wolf_fang.png.import	1004
+Sprites/items/placeholder/wooden_shield.png	107172
+Sprites/items/placeholder/wooden_shield.png.import	1016
+Sprites/items/placeholder/wooden_sword.png	50498
+Sprites/items/placeholder/wooden_sword.png.import	1013
+Sprites/items/placeholder/wraith_dust.png	84609
+Sprites/items/placeholder/wraith_dust.png.import	1010
+Sprites/items/placeholder/ylva_song.png	1897
+Sprites/items/placeholder/ylva_song.png.import	956
+Sprites/items/sandals.png	76638
+Sprites/items/sandals.png.import	986
+Sprites/items/sticky_mucus.png	53434
+Sprites/items/sticky_mucus.png.import	1001
+Sprites/kingporing_attack.png	1429709
+Sprites/kingporing_attack.png.import	1009
+Sprites/kingporing_die.png	2801856
+Sprites/kingporing_die.png.import	1001
+Sprites/kingporing_idle.png	1605670
+Sprites/kingporing_idle.png.import	1003
+Sprites/kingporing_skill.png	1522219
+Sprites/kingporing_skill.png.import	1007
+Sprites/lunatic attack.png	1825406
+Sprites/lunatic attack.png.import	1001
+Sprites/lunatic die.png	1601648
+Sprites/lunatic die.png.import	992
+Sprites/lunatic idle.png	2057263
+Sprites/lunatic idle.png.import	994
+Sprites/lunatic run.png	1849641
+Sprites/lunatic run.png.import	992
+Sprites/map/asgard forest2 sky.png	12442139
+Sprites/map/asgard forest2 sky.png.import	1017
+Sprites/map/dark forest.png	3789519
+Sprites/map/dark forest.png.import	996
+Sprites/map/generated/cold_forge_bg.png	18672
+Sprites/map/generated/cold_forge_bg.png.import	1012
+Sprites/map/generated/cold_forge_bg_final.png	10513168
+Sprites/map/generated/cold_forge_bg_final.png.import	1029
+Sprites/map/generated/dark_forest_2_bg.png	15022275
+Sprites/map/generated/dark_forest_2_bg.png.import	1021
+Sprites/map/generated/dark_forest_2_bg_final.png	11023029
+Sprites/map/generated/dark_forest_2_bg_final.png.import	992
+Sprites/map/generated/ember_mine_bg.png	57162
+Sprites/map/generated/ember_mine_bg.png.import	1012
+Sprites/map/generated/ember_mine_bg_final.png	17299274
+Sprites/map/generated/ember_mine_bg_final.png.import	1030
+Sprites/map/generated/forgotten_battlefield_bg_final.png	17323348
+Sprites/map/generated/forgotten_battlefield_bg_final.png.import	1016
+Sprites/map/generated/hall_of_silence_bg.png	39045
+Sprites/map/generated/hall_of_silence_bg.png.import	1027
+Sprites/map/generated/hall_of_silence_bg_final.png	16451146
+Sprites/map/generated/hall_of_silence_bg_final.png.import	1045
+Sprites/map/generated/iron_road_bg.png	10153372
+Sprites/map/generated/iron_road_bg.png.import	1009
+Sprites/map/generated/nidavellir_town_bg.png	8359121
+Sprites/map/generated/nidavellir_town_bg.png.import	1027
+Sprites/map/generated/nidavellir_town_bg_final.png	13391466
+Sprites/map/generated/nidavellir_town_bg_final.png.import	997
+Sprites/map/generated/root_ledge.png	2481920
+Sprites/map/generated/root_ledge.png.import	956
+Sprites/map/generated/root_road_bg_final.png	20456596
+Sprites/map/generated/root_road_bg_final.png.import	980
+Sprites/map/generated/silver_marsh_bg_final.png	19334201
+Sprites/map/generated/silver_marsh_bg_final.png.import	989
+Sprites/map/generated/spring_of_life_bg_final.png	11613393
+Sprites/map/generated/spring_of_life_bg_final.png.import	995
+Sprites/map/generated/thunder_scar_bg.png	2101400
+Sprites/map/generated/thunder_scar_bg.png.import	1018
+Sprites/map/generated/vanir_town_bg_final.png	14218217
+Sprites/map/generated/vanir_town_bg_final.png.import	983
+Sprites/map/generated/withered_grove_bg_final.png	19653452
+Sprites/map/generated/withered_grove_bg_final.png.import	994
+Sprites/map/test.png	3955803
+Sprites/map/test.png.import	974
+Sprites/monster/Baphomet Sprite/attack.png	6154093
+Sprites/monster/Baphomet Sprite/attack.png.import	1000
+Sprites/monster/Baphomet Sprite/hit and die.png	4483337
+Sprites/monster/Baphomet Sprite/hit and die.png.import	1015
+Sprites/monster/Baphomet Sprite/idle v1.png	6401901
+Sprites/monster/Baphomet Sprite/idle v1.png.import	1003
+Sprites/monster/Baphomet Sprite/idle.png	6168687
+Sprites/monster/Baphomet Sprite/idle.png.import	994
+Sprites/monster/Baphomet Sprite/walk.png	5570950
+Sprites/monster/Baphomet Sprite/walk.png.import	995
+Sprites/monster/Baphomet Sprite/รูปภาพ Codex 6 ก.ย. 2569 20_52_54.png	2762974
+Sprites/monster/Baphomet Sprite/รูปภาพ Codex 6 ก.ย. 2569 20_52_54.png.import	1130
+Sprites/monster/Baphomet Sprite/รูปภาพ Codex 6 ก.ย. 2569 20_59_35.png	2525872
+Sprites/monster/Baphomet Sprite/รูปภาพ Codex 6 ก.ย. 2569 20_59_35.png.import	1130
+Sprites/monster/Baphomet Sprite/รูปภาพ Codex 6 ก.ย. 2569 21_36_46.png	2751675
+Sprites/monster/Baphomet Sprite/รูปภาพ Codex 6 ก.ย. 2569 21_36_46.png.import	1130
+Sprites/monster/Stormscar/Scar die.png	7243434
+Sprites/monster/Stormscar/Scar die.png.import	1001
+Sprites/monster/Stormscar/Skill Storm.png	11084624
+Sprites/monster/Stormscar/Skill Storm.png.import	1010
+Sprites/monster/Stormscar/attack v2.png	10227339
+Sprites/monster/Stormscar/attack v2.png.import	1004
+Sprites/monster/Stormscar/attack.png	11206842
+Sprites/monster/Stormscar/attack.png.import	995
+Sprites/monster/Stormscar/idle.png	11857828
+Sprites/monster/Stormscar/idle.png.import	989
+Sprites/monster/Stormscar/run/frame_01.png	1923711
+Sprites/monster/Stormscar/run/frame_01.png.import	1005
+Sprites/monster/Stormscar/run/frame_02.png	1925551
+Sprites/monster/Stormscar/run/frame_02.png.import	1004
+Sprites/monster/Stormscar/run/frame_03.png	1815538
+Sprites/monster/Stormscar/run/frame_03.png.import	1005
+Sprites/monster/Stormscar/run/frame_04.png	1655037
+Sprites/monster/Stormscar/run/frame_04.png.import	1005
+Sprites/monster/Stormscar/run/frame_05.png	1677562
+Sprites/monster/Stormscar/run/frame_05.png.import	1004
+Sprites/monster/Stormscar/run/frame_06.png	1848773
+Sprites/monster/Stormscar/run/frame_06.png.import	1004
+Sprites/monster/Stormscar/run/frame_07.png	1877997
+Sprites/monster/Stormscar/run/frame_07.png.import	1005
+Sprites/monster/Stormscar/run/frame_08.png	1801621
+Sprites/monster/Stormscar/run/frame_08.png.import	1005
+Sprites/monster/Stormscar/run/frame_09.png	1703380
+Sprites/monster/Stormscar/run/frame_09.png.import	1005
+Sprites/monster/Stormscar/run/frame_10.png	1720701
+Sprites/monster/Stormscar/run/frame_10.png.import	1005
+Sprites/monster/Stormscar/run/frame_11.png	1847900
+Sprites/monster/Stormscar/run/frame_11.png.import	1005
+Sprites/monster/Stormscar/run/frame_12.png	1870448
+Sprites/monster/Stormscar/run/frame_12.png.import	1005
+Sprites/monster/Stormscar/run/frame_13.png	1812004
+Sprites/monster/Stormscar/run/frame_13.png.import	1005
+Sprites/monster/Stormscar/run/frame_14.png	1754135
+Sprites/monster/Stormscar/run/frame_14.png.import	1005
+Sprites/monster/Stormscar/run/frame_15.png	1782350
+Sprites/monster/Stormscar/run/frame_15.png.import	1005
+Sprites/monster/Stormscar/run/frame_16.png	1858890
+Sprites/monster/Stormscar/run/frame_16.png.import	1004
+Sprites/monster/Stormscar/run/frame_17.png	1822928
+Sprites/monster/Stormscar/run/frame_17.png.import	1005
+Sprites/monster/Stormscar/run/frame_18.png	1785727
+Sprites/monster/Stormscar/run/frame_18.png.import	1005
+Sprites/monster/Stormscar/run/frame_19.png	1688771
+Sprites/monster/Stormscar/run/frame_19.png.import	1005
+Sprites/monster/Stormscar/run/frame_20.png	1760119
+Sprites/monster/Stormscar/run/frame_20.png.import	1004
+Sprites/monster/Stormscar/run/frame_21.png	1764677
+Sprites/monster/Stormscar/run/frame_21.png.import	1005
+Sprites/monster/Stormscar/run/frame_22.png	1798907
+Sprites/monster/Stormscar/run/frame_22.png.import	1005
+Sprites/monster/Stormscar/run/frame_23.png	1711921
+Sprites/monster/Stormscar/run/frame_23.png.import	1005
+Sprites/monster/Stormscar/run/frame_24.png	1734736
+Sprites/monster/Stormscar/run/frame_24.png.import	1005
+Sprites/monster/Stormscar/run/frame_25.png	1823357
+Sprites/monster/Stormscar/run/frame_25.png.import	1005
+Sprites/monster/Stormscar/run/frame_26.png	1910790
+Sprites/monster/Stormscar/run/frame_26.png.import	1005
+Sprites/monster/Stormscar/run/frame_27.png	1763120
+Sprites/monster/Stormscar/run/frame_27.png.import	1004
+Sprites/monster/Stormscar/run/frame_28.png	1738160
+Sprites/monster/Stormscar/run/frame_28.png.import	1005
+Sprites/monster/Stormscar/run/frame_29.png	1799018
+Sprites/monster/Stormscar/run/frame_29.png.import	1005
+Sprites/monster/Stormscar/run/frame_30.png	1882676
+Sprites/monster/Stormscar/run/frame_30.png.import	1005
+Sprites/monster/Stormscar/run/frame_31.png	1788277
+Sprites/monster/Stormscar/run/frame_31.png.import	1004
+Sprites/monster/Stormscar/run/frame_32.png	1691897
+Sprites/monster/Stormscar/run/frame_32.png.import	1005
+Sprites/monster/baphomet jr/attack.png	7712812
+Sprites/monster/baphomet jr/attack.png.import	997
+Sprites/monster/baphomet jr/bafor jr.png	7179163
+Sprites/monster/baphomet jr/bafor jr.png.import	1003
+Sprites/monster/baphomet jr/baphomet jr  walk.png	7251798
+Sprites/monster/baphomet jr/baphomet jr  walk.png.import	1029
+Sprites/monster/baphomet jr/goat_hurt_death.png	1286341
+Sprites/monster/baphomet jr/goat_hurt_death.png.import	1024
+Sprites/monster/baphomet jr/soul ball.png	9447
+Sprites/monster/baphomet jr/soul ball.png.import	957
+Sprites/monster/bee attack.png	1078610
+Sprites/monster/bee attack.png.import	997
+Sprites/monster/bee die.png	551661
+Sprites/monster/bee die.png.import	988
+Sprites/monster/bee hi.png	766957
+Sprites/monster/bee hi.png.import	984
+Sprites/monster/bee run.png	1497556
+Sprites/monster/bee run.png.import	988
+Sprites/monster/ember_bat/attack.png	3618802
+Sprites/monster/ember_bat/attack.png.import	948
+Sprites/monster/ember_bat/hit and die.png	2510471
+Sprites/monster/ember_bat/hit and die.png.import	963
+Sprites/monster/ember_bat/idle.png	4368233
+Sprites/monster/ember_bat/idle.png.import	941
+Sprites/monster/ember_bat/manifest.json	10281
+Sprites/monster/ember_bat/spritesheet.png	7473541
+Sprites/monster/ember_bat/spritesheet.png.import	963
+Sprites/monster/forge_golem/attack.png	8187268
+Sprites/monster/forge_golem/attack.png.import	997
+Sprites/monster/forge_golem/hit and die.png	6360121
+Sprites/monster/forge_golem/hit and die.png.import	965
+Sprites/monster/forge_golem/idle.png	8139658
+Sprites/monster/forge_golem/idle.png.import	990
+Sprites/monster/forge_golem/manifest.json	10281
+Sprites/monster/forge_golem/walk.png	7514535
+Sprites/monster/forge_golem/walk.png.import	990
+Sprites/monster/forge_guardian/attack boss.psd	17330840
+Sprites/monster/forge_guardian/attack.png	6307807
+Sprites/monster/forge_guardian/attack.png.import	1000
+Sprites/monster/forge_guardian/idle.png	7169022
+Sprites/monster/forge_guardian/idle.png.import	994
+Sprites/monster/forge_guardian/manifest.json	10281
+Sprites/monster/forge_guardian/spritemotion-spritesheet-1788764441635.png.import	1047
+Sprites/monster/forge_guardian/spritesheet.png	5300327
+Sprites/monster/forge_guardian/spritesheet.png.import	1015
+Sprites/monster/forge_guardian/walk.png	7085663
+Sprites/monster/forge_guardian/walk.png.import	994
+Sprites/monster/magma/spritesheet.png	5130840
+Sprites/monster/magma/spritesheet.png.import	959
+Sprites/monster/magma/walk.png	7066023
+Sprites/monster/magma/walk.png.import	938
+Sprites/monster/munak attack.png	1651847
+Sprites/monster/munak attack.png.import	1002
+Sprites/monster/munak walk/frame_01.png	1132893
+Sprites/monster/munak walk/frame_01.png.import	1002
+Sprites/monster/munak walk/frame_02.png	1177000
+Sprites/monster/munak walk/frame_02.png.import	1002
+Sprites/monster/munak walk/frame_03.png	1138857
+Sprites/monster/munak walk/frame_03.png.import	1002
+Sprites/monster/munak walk/frame_04.png	1091534
+Sprites/monster/munak walk/frame_04.png.import	1002
+Sprites/monster/munak walk/frame_05.png	1050182
+Sprites/monster/munak walk/frame_05.png.import	1002
+Sprites/monster/munak walk/frame_06.png	1040614
+Sprites/monster/munak walk/frame_06.png.import	1002
+Sprites/monster/munak walk/frame_07.png	1060841
+Sprites/monster/munak walk/frame_07.png.import	1002
+Sprites/monster/munak walk/frame_08.png	1114230
+Sprites/monster/munak walk/frame_08.png.import	1002
+Sprites/monster/munak walk/frame_09.png	1135017
+Sprites/monster/munak walk/frame_09.png.import	1002
+Sprites/monster/munak walk/monster_attack_godot.png	1651077
+Sprites/monster/munak walk/monster_attack_godot.png.import	1038
+Sprites/monster/munak walk/monster_idle.png	5020250
+Sprites/monster/munak walk/monster_idle.png.import	1013
+Sprites/monster/orc walk/Orc.png	5440903
+Sprites/monster/orc walk/Orc.png.import	984
+Sprites/monster/orc walk/frame_01.png	693025
+Sprites/monster/orc walk/frame_01.png.import	1000
+Sprites/monster/orc walk/frame_02.png	738976
+Sprites/monster/orc walk/frame_02.png.import	999
+Sprites/monster/orc walk/frame_03.png	724899
+Sprites/monster/orc walk/frame_03.png.import	999
+Sprites/monster/orc walk/frame_04.png	705117
+Sprites/monster/orc walk/frame_04.png.import	1000
+Sprites/monster/orc walk/frame_05.png	691016
+Sprites/monster/orc walk/frame_05.png.import	1000
+Sprites/monster/orc walk/frame_06.png	744316
+Sprites/monster/orc walk/frame_06.png.import	1000
+Sprites/monster/orc walk/frame_07.png	724634
+Sprites/monster/orc walk/frame_07.png.import	1000
+Sprites/monster/orc walk/frame_08.png	711050
+Sprites/monster/orc walk/frame_08.png.import	999
+Sprites/monster/orc walk/frame_09.png	698450
+Sprites/monster/orc walk/frame_09.png.import	1000
+Sprites/monster/orc walk/frame_10.png	730127
+Sprites/monster/orc walk/frame_10.png.import	1000
+Sprites/monster/orc walk/frame_11.png	714267
+Sprites/monster/orc walk/frame_11.png.import	1000
+Sprites/monster/orc walk/frame_12.png	698666
+Sprites/monster/orc walk/frame_12.png.import	1000
+Sprites/monster/orc walk/frame_13.png	691028
+Sprites/monster/orc walk/frame_13.png.import	999
+Sprites/monster/orc walk/frame_14.png	743079
+Sprites/monster/orc walk/frame_14.png.import	1000
+Sprites/monster/orc walk/frame_15.png	723806
+Sprites/monster/orc walk/frame_15.png.import	1000
+Sprites/monster/orc walk/frame_16.png	710013
+Sprites/monster/orc walk/frame_16.png.import	1000
+Sprites/monster/orc walk/frame_17.png	698790
+Sprites/monster/orc walk/frame_17.png.import	1000
+Sprites/monster/orc walk/frame_18.png	731844
+Sprites/monster/orc walk/frame_18.png.import	1000
+Sprites/monster/orc walk/frame_19.png	713296
+Sprites/monster/orc walk/frame_19.png.import	1000
+Sprites/monster/orc walk/frame_20.png	697366
+Sprites/monster/orc walk/frame_20.png.import	999
+Sprites/monster/orc walk/frame_21.png	690326
+Sprites/monster/orc walk/frame_21.png.import	1000
+Sprites/monster/orc walk/frame_22.png	742449
+Sprites/monster/orc walk/frame_22.png.import	999
+Sprites/monster/orc walk/frame_23.png	725302
+Sprites/monster/orc walk/frame_23.png.import	1000
+Sprites/monster/orc walk/frame_24.png	712418
+Sprites/monster/orc walk/frame_24.png.import	999
+Sprites/monster/orc walk/frame_25.png	697139
+Sprites/monster/orc walk/frame_25.png.import	1000
+Sprites/monster/orc walk/frame_26.png	730958
+Sprites/monster/orc walk/frame_26.png.import	1000
+Sprites/monster/orc walk/frame_27.png	715893
+Sprites/monster/orc walk/frame_27.png.import	1000
+Sprites/monster/orc walk/frame_28.png	699478
+Sprites/monster/orc walk/frame_28.png.import	1000
+Sprites/monster/orc walk/frame_29.png	692963
+Sprites/monster/orc walk/frame_29.png.import	1000
+Sprites/monster/orc walk/frame_30.png	742223
+Sprites/monster/orc walk/frame_30.png.import	1000
+Sprites/monster/orc walk/frame_31.png	725474
+Sprites/monster/orc walk/frame_31.png.import	1000
+Sprites/monster/orc walk/frame_32.png	711558
+Sprites/monster/orc walk/frame_32.png.import	1000
+Sprites/monster/orc walk/orc attack.png	5999768
+Sprites/monster/orc walk/orc attack.png.import	1006
+Sprites/monster/pitman/attact.png	5249729
+Sprites/monster/pitman/attact.png.import	944
+Sprites/monster/pitman/idle hit and die.png	3064831
+Sprites/monster/pitman/idle hit and die.png.import	975
+Sprites/monster/pitman/manifest.json	10281
+Sprites/monster/pitman/spritesheet.png	6149308
+Sprites/monster/pitman/spritesheet.png.import	960
+Sprites/monster/rune/attack.png	3978338
+Sprites/monster/rune/attack.png.import	943
+Sprites/monster/rune/idle and walk.png	4029953
+Sprites/monster/rune/idle and walk.png.import	964
+Sprites/monster/silent_wraith/attack.png	8132087
+Sprites/monster/silent_wraith/attack.png.import	999
+Sprites/monster/silent_wraith/hit and die.png	5136979
+Sprites/monster/silent_wraith/hit and die.png.import	1014
+Sprites/monster/silent_wraith/manifest.json	10281
+Sprites/monster/silent_wraith/soul ball.png	1616452
+Sprites/monster/silent_wraith/soul ball.png.import	1007
+Sprites/monster/silent_wraith/spritesheet.png	8221436
+Sprites/monster/silent_wraith/spritesheet.png.import	1014
+Sprites/monster/sprites hornet hit.png	614100
+Sprites/monster/sprites hornet hit.png.import	1020
+Sprites/monster/steel_beetle Sprite/attack.png	7775757
+Sprites/monster/steel_beetle Sprite/attack.png.import	1003
+Sprites/monster/steel_beetle Sprite/beetle_hurt_death.png	1114017
+Sprites/monster/steel_beetle Sprite/beetle_hurt_death.png.import	1038
+Sprites/monster/steel_beetle Sprite/spritesheet.png	8156513
+Sprites/monster/steel_beetle Sprite/spritesheet.png.import	1020
+Sprites/monster/wolf attack.png	2004471
+Sprites/monster/wolf attack.png.import	1000
+Sprites/monster/wolf die.png	1497652
+Sprites/monster/wolf die.png.import	991
+Sprites/monster/wolf hit.png	946809
+Sprites/monster/wolf hit.png.import	991
+Sprites/monster/wolf idle.png	1693108
+Sprites/monster/wolf idle.png.import	994
+Sprites/monster/wolf walk.png	6533665
+Sprites/monster/wolf walk.png.import	994
+Sprites/monster/รูปภาพ Codex 5 ก.ย. 2569 19_30_03.png	2292591
+Sprites/monster/รูปภาพ Codex 5 ก.ย. 2569 19_30_03.png.import	1114
+Sprites/monsters/generated/chapter2/ember_bat.png	2440188
+Sprites/monsters/generated/chapter2/ember_bat.png.import	966
+Sprites/monsters/generated/chapter2/forge_golem.png	2291966
+Sprites/monsters/generated/chapter2/forge_golem.png.import	973
+Sprites/monsters/generated/chapter2/forge_guardian.png	2244092
+Sprites/monsters/generated/chapter2/forge_guardian.png.import	981
+Sprites/monsters/generated/chapter2/magma_slug.png	1896219
+Sprites/monsters/generated/chapter2/magma_slug.png.import	969
+Sprites/monsters/generated/chapter2/pitman.png	2357443
+Sprites/monsters/generated/chapter2/pitman.png.import	958
+Sprites/monsters/generated/chapter2/rune_watcher.png	1134379
+Sprites/monsters/generated/chapter2/rune_watcher.png.import	976
+Sprites/monsters/generated/chapter2/silent_wraith.png	1909846
+Sprites/monsters/generated/chapter2/silent_wraith.png.import	979
+Sprites/monsters/generated/chapter2/steel_beetle.png	2216909
+Sprites/monsters/generated/chapter2/steel_beetle.png.import	976
+Sprites/monsters/generated/chapter3/bog_lurker.png	2104318
+Sprites/monsters/generated/chapter3/bog_lurker.png.import	970
+Sprites/monsters/generated/chapter3/gullveig_ember.png	1730236
+Sprites/monsters/generated/chapter3/gullveig_ember.png.import	982
+Sprites/monsters/generated/chapter3/mist_sprite.png	1046749
+Sprites/monsters/generated/chapter3/mist_sprite.png.import	971
+Sprites/monsters/generated/chapter3/root_crawler.png	1335221
+Sprites/monsters/generated/chapter3/root_crawler.png.import	975
+Sprites/monsters/generated/chapter3/thorn_hound.png	1675052
+Sprites/monsters/generated/chapter3/thorn_hound.png.import	972
+Sprites/monsters/generated/chapter3/thorn_matriarch.png	1919118
+Sprites/monsters/generated/chapter3/thorn_matriarch.png.import	985
+Sprites/monsters/generated/chapter3/vanir_sentinel.png	1753553
+Sprites/monsters/generated/chapter3/vanir_sentinel.png.import	982
+Sprites/monsters/generated/chapter3/war_wraith.png	1589406
+Sprites/monsters/generated/chapter3/war_wraith.png.import	970
+Sprites/monsters/generated/chapter3/withered_treant.png	1916280
+Sprites/monsters/generated/chapter3/withered_treant.png.import	985
+Sprites/monsters/generated/chapter3_margin_20/README.txt	568
+Sprites/monsters/generated/chapter3_margin_20/bog_lurker.png	1829846
+Sprites/monsters/generated/chapter3_margin_20/bog_lurker.png.import	979
+Sprites/monsters/generated/chapter3_margin_20/gullveig_ember.png	1461974
+Sprites/monsters/generated/chapter3_margin_20/gullveig_ember.png.import	992
+Sprites/monsters/generated/chapter3_margin_20/mist_sprite.png	884022
+Sprites/monsters/generated/chapter3_margin_20/mist_sprite.png.import	983
+Sprites/monsters/generated/chapter3_margin_20/resize_report.json	2556
+Sprites/monsters/generated/chapter3_margin_20/root_crawler.png	1114368
+Sprites/monsters/generated/chapter3_margin_20/root_crawler.png.import	986
+Sprites/monsters/generated/chapter3_margin_20/thorn_hound.png	1434453
+Sprites/monsters/generated/chapter3_margin_20/thorn_hound.png.import	983
+Sprites/monsters/generated/chapter3_margin_20/thorn_matriarch.png	1312222
+Sprites/monsters/generated/chapter3_margin_20/thorn_matriarch.png.import	995
+Sprites/monsters/generated/chapter3_margin_20/vanir_sentinel.png	1382549
+Sprites/monsters/generated/chapter3_margin_20/vanir_sentinel.png.import	992
+Sprites/monsters/generated/chapter3_margin_20/war_wraith.png	1289091
+Sprites/monsters/generated/chapter3_margin_20/war_wraith.png.import	980
+Sprites/monsters/generated/chapter3_margin_20/withered_treant.png	1517840
+Sprites/monsters/generated/chapter3_margin_20/withered_treant.png.import	995
+Sprites/monsters/placeholder/baphomet.png	890
+Sprites/monsters/placeholder/baphomet.png.import	1004
+Sprites/monsters/placeholder/bog_lurker.png	2877
+Sprites/monsters/placeholder/bog_lurker.png.import	962
+Sprites/monsters/placeholder/chained_garm.png	9676
+Sprites/monsters/placeholder/chained_garm.png.import	969
+Sprites/monsters/placeholder/crystal_stag.png	7030
+Sprites/monsters/placeholder/crystal_stag.png.import	968
+Sprites/monsters/placeholder/drowned.png	4912
+Sprites/monsters/placeholder/drowned.png.import	954
+Sprites/monsters/placeholder/echo_wraith.png	4288
+Sprites/monsters/placeholder/echo_wraith.png.import	966
+Sprites/monsters/placeholder/ember_bat.png	2133
+Sprites/monsters/placeholder/ember_bat.png.import	959
+Sprites/monsters/placeholder/erased_voice.png	2498
+Sprites/monsters/placeholder/erased_voice.png.import	969
+Sprites/monsters/placeholder/false_judge.png	5098
+Sprites/monsters/placeholder/false_judge.png.import	966
+Sprites/monsters/placeholder/ferryman.png	5064
+Sprites/monsters/placeholder/ferryman.png.import	956
+Sprites/monsters/placeholder/forge_golem.png	4642
+Sprites/monsters/placeholder/forge_golem.png.import	965
+Sprites/monsters/placeholder/forge_guardian.png	7494
+Sprites/monsters/placeholder/forge_guardian.png.import	1022
+Sprites/monsters/placeholder/frost_wolf.png	3747
+Sprites/monsters/placeholder/frost_wolf.png.import	962
+Sprites/monsters/placeholder/garden_keeper.png	5196
+Sprites/monsters/placeholder/garden_keeper.png.import	972
+Sprites/monsters/placeholder/gullveig_ember.png	7008
+Sprites/monsters/placeholder/gullveig_ember.png.import	1022
+Sprites/monsters/placeholder/hel_hound.png	2730
+Sprites/monsters/placeholder/hel_hound.png.import	960
+Sprites/monsters/placeholder/hollow_elf.png	3086
+Sprites/monsters/placeholder/hollow_elf.png.import	963
+Sprites/monsters/placeholder/hollow_moth.png	2450
+Sprites/monsters/placeholder/hollow_moth.png.import	966
+Sprites/monsters/placeholder/ice_troll.png	3502
+Sprites/monsters/placeholder/ice_troll.png.import	960
+Sprites/monsters/placeholder/light_eater_bloom.png	3391
+Sprites/monsters/placeholder/light_eater_bloom.png.import	983
+Sprites/monsters/placeholder/light_forsaken.png	4166
+Sprites/monsters/placeholder/light_forsaken.png.import	975
+Sprites/monsters/placeholder/light_moth.png	2380
+Sprites/monsters/placeholder/light_moth.png.import	962
+Sprites/monsters/placeholder/magma_slug.png	3034
+Sprites/monsters/placeholder/magma_slug.png.import	962
+Sprites/monsters/placeholder/mist_ghost.png	4721
+Sprites/monsters/placeholder/mist_ghost.png.import	963
+Sprites/monsters/placeholder/mist_sprite.png	3124
+Sprites/monsters/placeholder/mist_sprite.png.import	965
+Sprites/monsters/placeholder/name_warden.png	7374
+Sprites/monsters/placeholder/name_warden.png.import	966
+Sprites/monsters/placeholder/nidhogg_spawn.png	6602
+Sprites/monsters/placeholder/nidhogg_spawn.png.import	971
+Sprites/monsters/placeholder/pitman.png	2637
+Sprites/monsters/placeholder/pitman.png.import	950
+Sprites/monsters/placeholder/radiant_alfr.png	8725
+Sprites/monsters/placeholder/radiant_alfr.png.import	969
+Sprites/monsters/placeholder/root_crawler.png	3698
+Sprites/monsters/placeholder/root_crawler.png.import	968
+Sprites/monsters/placeholder/rune_watcher.png	5088
+Sprites/monsters/placeholder/rune_watcher.png.import	968
+Sprites/monsters/placeholder/silent_wraith.png	4676
+Sprites/monsters/placeholder/silent_wraith.png.import	970
+Sprites/monsters/placeholder/snow_hawk.png	2907
+Sprites/monsters/placeholder/snow_hawk.png.import	960
+Sprites/monsters/placeholder/snow_mammoth.png	8026
+Sprites/monsters/placeholder/snow_mammoth.png.import	969
+Sprites/monsters/placeholder/steel_beetle.png	3358
+Sprites/monsters/placeholder/steel_beetle.png.import	967
+Sprites/monsters/placeholder/stone_hrungnir.png	7183
+Sprites/monsters/placeholder/stone_hrungnir.png.import	974
+Sprites/monsters/placeholder/stone_soldier.png	6203
+Sprites/monsters/placeholder/stone_soldier.png.import	971
+Sprites/monsters/placeholder/stormscar.png	3761
+Sprites/monsters/placeholder/stormscar.png.import	959
+Sprites/monsters/placeholder/thorn_hound.png	2459
+Sprites/monsters/placeholder/thorn_hound.png.import	965
+Sprites/monsters/placeholder/thorn_matriarch.png	5031
+Sprites/monsters/placeholder/thorn_matriarch.png.import	1025
+Sprites/monsters/placeholder/vanir_sentinel.png	6160
+Sprites/monsters/placeholder/vanir_sentinel.png.import	974
+Sprites/monsters/placeholder/wall_shieldbearer.png	8654
+Sprites/monsters/placeholder/wall_shieldbearer.png.import	984
+Sprites/monsters/placeholder/war_wraith.png	3936
+Sprites/monsters/placeholder/war_wraith.png.import	962
+Sprites/monsters/placeholder/water_nymph.png	4596
+Sprites/monsters/placeholder/water_nymph.png.import	965
+Sprites/monsters/placeholder/withered_treant.png	5207
+Sprites/monsters/placeholder/withered_treant.png.import	976
+Sprites/music/asgard_forest_2.mp3	2509871
+Sprites/music/asgard_forest_2.mp3.import	387
+Sprites/music/boss_forge_guardian.ogg	2688363
+Sprites/music/boss_forge_guardian.ogg.import	427
+Sprites/music/cold_forge.ogg	2462893
+Sprites/music/cold_forge.ogg.import	400
+Sprites/music/dark_forest.mp3	2850479
+Sprites/music/dark_forest.mp3.import	376
+Sprites/music/dark_forest_2.ogg	2489913
+Sprites/music/dark_forest_2.ogg.import	409
+Sprites/music/ember_mine.ogg	2188494
+Sprites/music/ember_mine.ogg.import	400
+Sprites/music/forgotten_battlefield.ogg	1764356
+Sprites/music/forgotten_battlefield.ogg.import	433
+Sprites/music/hall_of_silence.ogg	1302909
+Sprites/music/hall_of_silence.ogg.import	415
+Sprites/music/iron_road.ogg	2316014
+Sprites/music/iron_road.ogg.import	396
+Sprites/music/nidavellir_town.ogg	2550004
+Sprites/music/nidavellir_town.ogg.import	415
+Sprites/music/prontera_field.mp3	2671151
+Sprites/music/prontera_field.mp3.import	384
+Sprites/music/prontera_town.mp3	2886191
+Sprites/music/prontera_town.mp3.import	382
+Sprites/music/root_road.ogg	2376714
+Sprites/music/root_road.ogg.import	397
+Sprites/music/silver_marsh.ogg	2578107
+Sprites/music/silver_marsh.ogg.import	406
+Sprites/music/spring_of_life.ogg	2475024
+Sprites/music/spring_of_life.ogg.import	411
+Sprites/music/thunder_scar.mp3	2870831
+Sprites/music/thunder_scar.mp3.import	378
+Sprites/music/vanir_town.ogg	2346101
+Sprites/music/vanir_town.ogg.import	400
+Sprites/music/withered_grove.ogg	1784219
+Sprites/music/withered_grove.ogg.import	412
+Sprites/npc/Healer.png	2332903
+Sprites/npc/Healer.png.import	980
+Sprites/npc/HighPriest.png	2303126
+Sprites/npc/HighPriest.png.import	993
+Sprites/npc/adventurer_idle.png	5509996
+Sprites/npc/adventurer_idle.png.import	1008
+Sprites/npc/bishop-idle-6frames.png	2511712
+Sprites/npc/bishop-idle-6frames.png.import	1019
+Sprites/npc/blacksmith-idle-6frames.png	2066202
+Sprites/npc/blacksmith-idle-6frames.png.import	1032
+Sprites/npc/chapter2/idle/README.md	1338
+Sprites/npc/chapter2/idle/brokk/idle_00.png	221920
+Sprites/npc/chapter2/idle/brokk/idle_00.png.import	956
+Sprites/npc/chapter2/idle/brokk/idle_01.png	225811
+Sprites/npc/chapter2/idle/brokk/idle_01.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_02.png	222696
+Sprites/npc/chapter2/idle/brokk/idle_02.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_03.png	220950
+Sprites/npc/chapter2/idle/brokk/idle_03.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_04.png	225426
+Sprites/npc/chapter2/idle/brokk/idle_04.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_05.png	228397
+Sprites/npc/chapter2/idle/brokk/idle_05.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_06.png	224974
+Sprites/npc/chapter2/idle/brokk/idle_06.png.import	956
+Sprites/npc/chapter2/idle/brokk/idle_07.png	223326
+Sprites/npc/chapter2/idle/brokk/idle_07.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_08.png	226599
+Sprites/npc/chapter2/idle/brokk/idle_08.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_09.png	226199
+Sprites/npc/chapter2/idle/brokk/idle_09.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_10.png	224431
+Sprites/npc/chapter2/idle/brokk/idle_10.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_11.png	221865
+Sprites/npc/chapter2/idle/brokk/idle_11.png.import	956
+Sprites/npc/chapter2/idle/brokk/idle_12.png	224086
+Sprites/npc/chapter2/idle/brokk/idle_12.png.import	956
+Sprites/npc/chapter2/idle/brokk/idle_13.png	226508
+Sprites/npc/chapter2/idle/brokk/idle_13.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_14.png	223631
+Sprites/npc/chapter2/idle/brokk/idle_14.png.import	957
+Sprites/npc/chapter2/idle/brokk/idle_15.png	223492
+Sprites/npc/chapter2/idle/brokk/idle_15.png.import	957
+Sprites/npc/chapter2/idle/brokk_idle.png	3565157
+Sprites/npc/chapter2/idle/brokk_idle.png.import	960
+Sprites/npc/chapter2/idle/brokk_idle.tres	2765
+Sprites/npc/chapter2/idle/brokk_standing.png	221920
+Sprites/npc/chapter2/idle/brokk_standing.png.import	972
+Sprites/npc/chapter2/idle/dvalin/idle_00.png	213316
+Sprites/npc/chapter2/idle/dvalin/idle_00.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_01.png	212165
+Sprites/npc/chapter2/idle/dvalin/idle_01.png.import	957
+Sprites/npc/chapter2/idle/dvalin/idle_02.png	210545
+Sprites/npc/chapter2/idle/dvalin/idle_02.png.import	957
+Sprites/npc/chapter2/idle/dvalin/idle_03.png	212398
+Sprites/npc/chapter2/idle/dvalin/idle_03.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_04.png	215393
+Sprites/npc/chapter2/idle/dvalin/idle_04.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_05.png	214536
+Sprites/npc/chapter2/idle/dvalin/idle_05.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_06.png	216518
+Sprites/npc/chapter2/idle/dvalin/idle_06.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_07.png	215472
+Sprites/npc/chapter2/idle/dvalin/idle_07.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_08.png	214433
+Sprites/npc/chapter2/idle/dvalin/idle_08.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_09.png	216549
+Sprites/npc/chapter2/idle/dvalin/idle_09.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_10.png	214039
+Sprites/npc/chapter2/idle/dvalin/idle_10.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_11.png	214937
+Sprites/npc/chapter2/idle/dvalin/idle_11.png.import	958
+Sprites/npc/chapter2/idle/dvalin/idle_12.png	217338
+Sprites/npc/chapter2/idle/dvalin/idle_12.png.import	957
+Sprites/npc/chapter2/idle/dvalin/idle_13.png	215710
+Sprites/npc/chapter2/idle/dvalin/idle_13.png.import	957
+Sprites/npc/chapter2/idle/dvalin/idle_14.png	216299
+Sprites/npc/chapter2/idle/dvalin/idle_14.png.import	957
+Sprites/npc/chapter2/idle/dvalin/idle_15.png	215781
+Sprites/npc/chapter2/idle/dvalin/idle_15.png.import	958
+Sprites/npc/chapter2/idle/dvalin_idle.png	3412065
+Sprites/npc/chapter2/idle/dvalin_idle.png.import	963
+Sprites/npc/chapter2/idle/dvalin_idle.tres	2766
+Sprites/npc/chapter2/idle/dvalin_standing.png	213316
+Sprites/npc/chapter2/idle/dvalin_standing.png.import	975
+Sprites/npc/chapter2/idle/hans_idle.tres	1043
+Sprites/npc/chapter2/idle/hedin/idle_00.png	232518
+Sprites/npc/chapter2/idle/hedin/idle_00.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_01.png	231614
+Sprites/npc/chapter2/idle/hedin/idle_01.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_02.png	231463
+Sprites/npc/chapter2/idle/hedin/idle_02.png.import	956
+Sprites/npc/chapter2/idle/hedin/idle_03.png	230906
+Sprites/npc/chapter2/idle/hedin/idle_03.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_04.png	231621
+Sprites/npc/chapter2/idle/hedin/idle_04.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_05.png	231751
+Sprites/npc/chapter2/idle/hedin/idle_05.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_06.png	231249
+Sprites/npc/chapter2/idle/hedin/idle_06.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_07.png	230641
+Sprites/npc/chapter2/idle/hedin/idle_07.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_08.png	232062
+Sprites/npc/chapter2/idle/hedin/idle_08.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_09.png	231899
+Sprites/npc/chapter2/idle/hedin/idle_09.png.import	956
+Sprites/npc/chapter2/idle/hedin/idle_10.png	231608
+Sprites/npc/chapter2/idle/hedin/idle_10.png.import	956
+Sprites/npc/chapter2/idle/hedin/idle_11.png	231237
+Sprites/npc/chapter2/idle/hedin/idle_11.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_12.png	231809
+Sprites/npc/chapter2/idle/hedin/idle_12.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_13.png	230886
+Sprites/npc/chapter2/idle/hedin/idle_13.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_14.png	231047
+Sprites/npc/chapter2/idle/hedin/idle_14.png.import	957
+Sprites/npc/chapter2/idle/hedin/idle_15.png	230853
+Sprites/npc/chapter2/idle/hedin/idle_15.png.import	957
+Sprites/npc/chapter2/idle/hedin_idle.png	3672834
+Sprites/npc/chapter2/idle/hedin_idle.png.import	960
+Sprites/npc/chapter2/idle/hedin_idle.tres	2764
+Sprites/npc/chapter2/idle/hedin_standing.png	232518
+Sprites/npc/chapter2/idle/hedin_standing.png.import	972
+Sprites/npc/chapter2/idle/helga/idle_00.png	226065
+Sprites/npc/chapter2/idle/helga/idle_00.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_01.png	226010
+Sprites/npc/chapter2/idle/helga/idle_01.png.import	956
+Sprites/npc/chapter2/idle/helga/idle_02.png	227449
+Sprites/npc/chapter2/idle/helga/idle_02.png.import	956
+Sprites/npc/chapter2/idle/helga/idle_03.png	227017
+Sprites/npc/chapter2/idle/helga/idle_03.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_04.png	227572
+Sprites/npc/chapter2/idle/helga/idle_04.png.import	956
+Sprites/npc/chapter2/idle/helga/idle_05.png	228060
+Sprites/npc/chapter2/idle/helga/idle_05.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_06.png	228888
+Sprites/npc/chapter2/idle/helga/idle_06.png.import	956
+Sprites/npc/chapter2/idle/helga/idle_07.png	227942
+Sprites/npc/chapter2/idle/helga/idle_07.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_08.png	227853
+Sprites/npc/chapter2/idle/helga/idle_08.png.import	956
+Sprites/npc/chapter2/idle/helga/idle_09.png	228467
+Sprites/npc/chapter2/idle/helga/idle_09.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_10.png	228786
+Sprites/npc/chapter2/idle/helga/idle_10.png.import	956
+Sprites/npc/chapter2/idle/helga/idle_11.png	228660
+Sprites/npc/chapter2/idle/helga/idle_11.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_12.png	227033
+Sprites/npc/chapter2/idle/helga/idle_12.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_13.png	226714
+Sprites/npc/chapter2/idle/helga/idle_13.png.import	956
+Sprites/npc/chapter2/idle/helga/idle_14.png	226791
+Sprites/npc/chapter2/idle/helga/idle_14.png.import	957
+Sprites/npc/chapter2/idle/helga/idle_15.png	226155
+Sprites/npc/chapter2/idle/helga/idle_15.png.import	957
+Sprites/npc/chapter2/idle/helga_idle.png	3614528
+Sprites/npc/chapter2/idle/helga_idle.png.import	960
+Sprites/npc/chapter2/idle/helga_idle.tres	2764
+Sprites/npc/chapter2/idle/helga_standing.png	226065
+Sprites/npc/chapter2/idle/helga_standing.png.import	972
+Sprites/npc/chapter2/idle/thor_warp/idle_00.png	234610
+Sprites/npc/chapter2/idle/thor_warp/idle_00.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_01.png	233798
+Sprites/npc/chapter2/idle/thor_warp/idle_01.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_02.png	234928
+Sprites/npc/chapter2/idle/thor_warp/idle_02.png.import	960
+Sprites/npc/chapter2/idle/thor_warp/idle_03.png	234077
+Sprites/npc/chapter2/idle/thor_warp/idle_03.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_04.png	232705
+Sprites/npc/chapter2/idle/thor_warp/idle_04.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_05.png	232695
+Sprites/npc/chapter2/idle/thor_warp/idle_05.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_06.png	232766
+Sprites/npc/chapter2/idle/thor_warp/idle_06.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_07.png	233435
+Sprites/npc/chapter2/idle/thor_warp/idle_07.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_08.png	231438
+Sprites/npc/chapter2/idle/thor_warp/idle_08.png.import	960
+Sprites/npc/chapter2/idle/thor_warp/idle_09.png	230203
+Sprites/npc/chapter2/idle/thor_warp/idle_09.png.import	960
+Sprites/npc/chapter2/idle/thor_warp/idle_10.png	229998
+Sprites/npc/chapter2/idle/thor_warp/idle_10.png.import	960
+Sprites/npc/chapter2/idle/thor_warp/idle_11.png	231003
+Sprites/npc/chapter2/idle/thor_warp/idle_11.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_12.png	235110
+Sprites/npc/chapter2/idle/thor_warp/idle_12.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_13.png	235510
+Sprites/npc/chapter2/idle/thor_warp/idle_13.png.import	960
+Sprites/npc/chapter2/idle/thor_warp/idle_14.png	235736
+Sprites/npc/chapter2/idle/thor_warp/idle_14.png.import	961
+Sprites/npc/chapter2/idle/thor_warp/idle_15.png	236633
+Sprites/npc/chapter2/idle/thor_warp/idle_15.png.import	961
+Sprites/npc/chapter2/idle/thor_warp_idle.png	3710144
+Sprites/npc/chapter2/idle/thor_warp_idle.png.import	971
+Sprites/npc/chapter2/idle/thor_warp_idle.tres	2768
+Sprites/npc/chapter2/idle/thor_warp_standing.png	234610
+Sprites/npc/chapter2/idle/thor_warp_standing.png.import	984
+Sprites/npc/chapter3/idle/README.md	2465
+Sprites/npc/chapter3/idle/arvid/idle_00.png	164083
+Sprites/npc/chapter3/idle/arvid/idle_00.png.import	957
+Sprites/npc/chapter3/idle/arvid/idle_01.png	165625
+Sprites/npc/chapter3/idle/arvid/idle_01.png.import	957
+Sprites/npc/chapter3/idle/arvid/idle_02.png	165443
+Sprites/npc/chapter3/idle/arvid/idle_02.png.import	956
+Sprites/npc/chapter3/idle/arvid/idle_03.png	166738
+Sprites/npc/chapter3/idle/arvid/idle_03.png.import	957
+Sprites/npc/chapter3/idle/arvid/idle_04.png	166126
+Sprites/npc/chapter3/idle/arvid/idle_04.png.import	956
+Sprites/npc/chapter3/idle/arvid/idle_05.png	167244
+Sprites/npc/chapter3/idle/arvid/idle_05.png.import	957
+Sprites/npc/chapter3/idle/arvid_idle.png	988934
+Sprites/npc/chapter3/idle/arvid_idle.png.import	960
+Sprites/npc/chapter3/idle/arvid_idle.tres	1194
+Sprites/npc/chapter3/idle/arvid_standing.png	164083
+Sprites/npc/chapter3/idle/arvid_standing.png.import	972
+Sprites/npc/chapter3/idle/eskil/idle_00.png	167952
+Sprites/npc/chapter3/idle/eskil/idle_00.png.import	956
+Sprites/npc/chapter3/idle/eskil/idle_01.png	169001
+Sprites/npc/chapter3/idle/eskil/idle_01.png.import	957
+Sprites/npc/chapter3/idle/eskil/idle_02.png	169984
+Sprites/npc/chapter3/idle/eskil/idle_02.png.import	957
+Sprites/npc/chapter3/idle/eskil/idle_03.png	168453
+Sprites/npc/chapter3/idle/eskil/idle_03.png.import	957
+Sprites/npc/chapter3/idle/eskil/idle_04.png	168781
+Sprites/npc/chapter3/idle/eskil/idle_04.png.import	957
+Sprites/npc/chapter3/idle/eskil/idle_05.png	169138
+Sprites/npc/chapter3/idle/eskil/idle_05.png.import	957
+Sprites/npc/chapter3/idle/eskil_idle.png	1004339
+Sprites/npc/chapter3/idle/eskil_idle.png.import	960
+Sprites/npc/chapter3/idle/eskil_idle.tres	1195
+Sprites/npc/chapter3/idle/eskil_standing.png	167952
+Sprites/npc/chapter3/idle/eskil_standing.png.import	971
+Sprites/npc/chapter3/idle/frida/idle_00.png	135106
+Sprites/npc/chapter3/idle/frida/idle_00.png.import	956
+Sprites/npc/chapter3/idle/frida/idle_01.png	138195
+Sprites/npc/chapter3/idle/frida/idle_01.png.import	957
+Sprites/npc/chapter3/idle/frida/idle_02.png	137447
+Sprites/npc/chapter3/idle/frida/idle_02.png.import	956
+Sprites/npc/chapter3/idle/frida/idle_03.png	135553
+Sprites/npc/chapter3/idle/frida/idle_03.png.import	956
+Sprites/npc/chapter3/idle/frida/idle_04.png	135906
+Sprites/npc/chapter3/idle/frida/idle_04.png.import	956
+Sprites/npc/chapter3/idle/frida/idle_05.png	134627
+Sprites/npc/chapter3/idle/frida/idle_05.png.import	957
+Sprites/npc/chapter3/idle/frida_idle.png	805715
+Sprites/npc/chapter3/idle/frida_idle.png.import	960
+Sprites/npc/chapter3/idle/frida_idle.tres	1194
+Sprites/npc/chapter3/idle/frida_standing.png	135106
+Sprites/npc/chapter3/idle/frida_standing.png.import	972
+Sprites/npc/chapter3/idle/galla/idle_00.png	157899
+Sprites/npc/chapter3/idle/galla/idle_00.png.import	957
+Sprites/npc/chapter3/idle/galla/idle_01.png	161137
+Sprites/npc/chapter3/idle/galla/idle_01.png.import	957
+Sprites/npc/chapter3/idle/galla/idle_02.png	160978
+Sprites/npc/chapter3/idle/galla/idle_02.png.import	957
+Sprites/npc/chapter3/idle/galla/idle_03.png	159616
+Sprites/npc/chapter3/idle/galla/idle_03.png.import	957
+Sprites/npc/chapter3/idle/galla/idle_04.png	160257
+Sprites/npc/chapter3/idle/galla/idle_04.png.import	957
+Sprites/npc/chapter3/idle/galla/idle_05.png	158839
+Sprites/npc/chapter3/idle/galla/idle_05.png.import	957
+Sprites/npc/chapter3/idle/galla_idle.png	951822
+Sprites/npc/chapter3/idle/galla_idle.png.import	959
+Sprites/npc/chapter3/idle/galla_idle.tres	1194
+Sprites/npc/chapter3/idle/galla_standing.png	157899
+Sprites/npc/chapter3/idle/galla_standing.png.import	972
+Sprites/npc/chapter3/idle/leif/idle_00.png	153439
+Sprites/npc/chapter3/idle/leif/idle_00.png.import	956
+Sprites/npc/chapter3/idle/leif/idle_01.png	156847
+Sprites/npc/chapter3/idle/leif/idle_01.png.import	956
+Sprites/npc/chapter3/idle/leif/idle_02.png	158743
+Sprites/npc/chapter3/idle/leif/idle_02.png.import	956
+Sprites/npc/chapter3/idle/leif/idle_03.png	156098
+Sprites/npc/chapter3/idle/leif/idle_03.png.import	955
+Sprites/npc/chapter3/idle/leif/idle_04.png	155262
+Sprites/npc/chapter3/idle/leif/idle_04.png.import	956
+Sprites/npc/chapter3/idle/leif/idle_05.png	155342
+Sprites/npc/chapter3/idle/leif/idle_05.png.import	956
+Sprites/npc/chapter3/idle/leif_idle.png	927188
+Sprites/npc/chapter3/idle/leif_idle.png.import	957
+Sprites/npc/chapter3/idle/leif_idle.tres	1193
+Sprites/npc/chapter3/idle/leif_standing.png	153439
+Sprites/npc/chapter3/idle/leif_standing.png.import	969
+Sprites/npc/chapter3/idle/njorda/idle_00.png	200965
+Sprites/npc/chapter3/idle/njorda/idle_00.png.import	958
+Sprites/npc/chapter3/idle/njorda/idle_01.png	209529
+Sprites/npc/chapter3/idle/njorda/idle_01.png.import	958
+Sprites/npc/chapter3/idle/njorda/idle_02.png	210917
+Sprites/npc/chapter3/idle/njorda/idle_02.png.import	958
+Sprites/npc/chapter3/idle/njorda/idle_03.png	210875
+Sprites/npc/chapter3/idle/njorda/idle_03.png.import	958
+Sprites/npc/chapter3/idle/njorda/idle_04.png	213340
+Sprites/npc/chapter3/idle/njorda/idle_04.png.import	958
+Sprites/npc/chapter3/idle/njorda/idle_05.png	206941
+Sprites/npc/chapter3/idle/njorda/idle_05.png.import	958
+Sprites/npc/chapter3/idle/njorda_idle.png	1247150
+Sprites/npc/chapter3/idle/njorda_idle.png.import	963
+Sprites/npc/chapter3/idle/njorda_idle.tres	1196
+Sprites/npc/chapter3/idle/njorda_standing.png	200965
+Sprites/npc/chapter3/idle/njorda_standing.png.import	975
+Sprites/npc/chapter3/idle/root_warp/idle_00.png	233621
+Sprites/npc/chapter3/idle/root_warp/idle_00.png.import	960
+Sprites/npc/chapter3/idle/root_warp/idle_01.png	235228
+Sprites/npc/chapter3/idle/root_warp/idle_01.png.import	961
+Sprites/npc/chapter3/idle/root_warp/idle_02.png	243037
+Sprites/npc/chapter3/idle/root_warp/idle_02.png.import	961
+Sprites/npc/chapter3/idle/root_warp/idle_03.png	232191
+Sprites/npc/chapter3/idle/root_warp/idle_03.png.import	961
+Sprites/npc/chapter3/idle/root_warp/idle_04.png	234083
+Sprites/npc/chapter3/idle/root_warp/idle_04.png.import	961
+Sprites/npc/chapter3/idle/root_warp/idle_05.png	232216
+Sprites/npc/chapter3/idle/root_warp/idle_05.png.import	961
+Sprites/npc/chapter3/idle/root_warp_idle.png	1406093
+Sprites/npc/chapter3/idle/root_warp_idle.png.import	972
+Sprites/npc/chapter3/idle/root_warp_idle.tres	1198
+Sprites/npc/chapter3/idle/root_warp_standing.png	233621
+Sprites/npc/chapter3/idle/root_warp_standing.png.import	984
+Sprites/npc/chapter3/idle/sifa/idle_00.png	156962
+Sprites/npc/chapter3/idle/sifa/idle_00.png.import	956
+Sprites/npc/chapter3/idle/sifa/idle_01.png	158121
+Sprites/npc/chapter3/idle/sifa/idle_01.png.import	955
+Sprites/npc/chapter3/idle/sifa/idle_02.png	161438
+Sprites/npc/chapter3/idle/sifa/idle_02.png.import	956
+Sprites/npc/chapter3/idle/sifa/idle_03.png	158086
+Sprites/npc/chapter3/idle/sifa/idle_03.png.import	956
+Sprites/npc/chapter3/idle/sifa/idle_04.png	160564
+Sprites/npc/chapter3/idle/sifa/idle_04.png.import	956
+Sprites/npc/chapter3/idle/sifa/idle_05.png	156599
+Sprites/npc/chapter3/idle/sifa/idle_05.png.import	956
+Sprites/npc/chapter3/idle/sifa_idle.png	943471
+Sprites/npc/chapter3/idle/sifa_idle.png.import	957
+Sprites/npc/chapter3/idle/sifa_idle.tres	1194
+Sprites/npc/chapter3/idle/sifa_standing.png	156962
+Sprites/npc/chapter3/idle/sifa_standing.png.import	968
+Sprites/npc/elder-traveler-idle-6frames.png	2818327
+Sprites/npc/elder-traveler-idle-6frames.png.import	1043
+Sprites/npc/erik_idle.png	3831258
+Sprites/npc/erik_idle.png.import	990
+Sprites/npc/ingrid.png	1714270
+Sprites/npc/ingrid.png.import	981
+Sprites/npc/priestess-idle-6frames.png	2499810
+Sprites/npc/priestess-idle-6frames.png.import	1029
+Sprites/npc/teleport-shrine-loop-6frames.png	3180765
+Sprites/npc/teleport-shrine-loop-6frames.png.import	1047
+Sprites/npc/traveler-idle-6frames.png	2133097
+Sprites/npc/traveler-idle-6frames.png.import	1026
+Sprites/npc/x1.png	298567
+Sprites/npc/x1.png.import	969
+Sprites/npc/x2.png	299603
+Sprites/npc/x2.png.import	969
+Sprites/npc/x3.png	301793
+Sprites/npc/x3.png.import	969
+Sprites/npc/ทหารยามเอริค.png	2870363
+Sprites/npc/ทหารยามเอริค.png.import	1071
+Sprites/npc/หัวหน้ากิลด์บียอร์น.png	2673924
+Sprites/npc/หัวหน้ากิลด์บียอร์น.png.import	1134
+Sprites/opening game.mp4	9668854
+Sprites/opening_game.ogv	5789451
+Sprites/opening_game.ogv.uid	19
+Sprites/p1.png	1147
+Sprites/p1.png.import	917
+Sprites/p2.png	1130
+Sprites/p2.png.import	916
+Sprites/p4.png	1095
+Sprites/p4.png.import	917
+Sprites/p5.png	1144
+Sprites/p5.png.import	917
+Sprites/player.gd	6290
+Sprites/player.gd.uid	19
+Sprites/poring attack.png	2366430
+Sprites/poring attack.png.import	998
+Sprites/poring die.png	2886528
+Sprites/poring die.png.import	988
+Sprites/poring idle.png	2936300
+Sprites/poring idle.png.import	992
+Sprites/poring jump.png	2882639
+Sprites/poring jump.png.import	992
+Sprites/poring.tscn	4241
+Sprites/portal/portal_idle.png	11011558
+Sprites/portal/portal_idle.png.import	998
+Sprites/portal/portal_idle.tscn	353
+Sprites/portal/shrine_idle.png	17577225
+Sprites/portal/shrine_idle.png.import	999
+Sprites/portraits/Guide.png	263056
+Sprites/portraits/Guide.png.import	984
+Sprites/portraits/GuildMaster.png	297636
+Sprites/portraits/GuildMaster.png.import	1002
+Sprites/portraits/Healer.png	279433
+Sprites/portraits/Healer.png.import	987
+Sprites/portraits/Hight.png	258318
+Sprites/portraits/Hight.png.import	984
+Sprites/portraits/Ingrid.png	299478
+Sprites/portraits/Ingrid.png.import	986
+Sprites/portraits/Merchant.png	249425
+Sprites/portraits/Merchant.png.import	992
+Sprites/portraits/OldMan.png	294205
+Sprites/portraits/OldMan.png.import	987
+Sprites/portraits/hans.png	452359
+Sprites/portraits/hans.png.import	981
+Sprites/run_01.png	433377
+Sprites/run_01.png.import	977
+Sprites/run_02.png	471730
+Sprites/run_02.png.import	977
+Sprites/run_03.png	510329
+Sprites/run_03.png.import	975
+Sprites/run_04.png	487843
+Sprites/run_04.png.import	976
+Sprites/run_05.png	543460
+Sprites/run_05.png.import	977
+Sprites/run_06.png	513367
+Sprites/run_06.png.import	976
+Sprites/sfx/attack_blade.ogg	22823
+Sprites/sfx/attack_blade.ogg.import	404
+Sprites/sfx/critical_impact.wav	26504
+Sprites/sfx/critical_impact.wav.import	514
+Sprites/sfx/dark_wave.ogg	8558
+Sprites/sfx/dark_wave.ogg.import	394
+Sprites/sfx/forge_guardian_lava_slam.wav	63548
+Sprites/sfx/forge_guardian_lava_slam.wav.import	541
+Sprites/sfx/forge_guardian_slam.wav	92654
+Sprites/sfx/forge_guardian_slam.wav.import	527
+Sprites/sfx/refine_fail.ogg	13394
+Sprites/sfx/refine_fail.ogg.import	400
+Sprites/sfx/refine_roll.ogg	19796
+Sprites/sfx/refine_roll.ogg.import	401
+Sprites/sfx/refine_success.ogg	11735
+Sprites/sfx/refine_success.ogg.import	410
+Sprites/sfx/skill_bash.ogg	16877
+Sprites/sfx/skill_bash.ogg.import	397
+Sprites/sfx/skill_battle_cry.ogg	20440
+Sprites/sfx/skill_battle_cry.ogg.import	416
+Sprites/sfx/skill_endure.ogg	6512
+Sprites/sfx/skill_endure.ogg.import	403
+Sprites/sfx/skill_first_aid.ogg	6523
+Sprites/sfx/skill_first_aid.ogg.import	413
+Sprites/sfx/skill_magnum_break.ogg	35638
+Sprites/sfx/skill_magnum_break.ogg.import	422
+Sprites/sfx/skill_slash.ogg	10790
+Sprites/sfx/skill_slash.ogg.import	401
+Sprites/sfx/thunder_strike.ogg	15600
+Sprites/sfx/thunder_strike.ogg.import	409
+Sprites/shaders/Alternative 1/1/Alternative_1_01.png	8698
+Sprites/shaders/Alternative 1/1/Alternative_1_01.png.import	983
+Sprites/shaders/Alternative 1/1/Alternative_1_02.png	10551
+Sprites/shaders/Alternative 1/1/Alternative_1_02.png.import	984
+Sprites/shaders/Alternative 1/1/Alternative_1_03.png	9006
+Sprites/shaders/Alternative 1/1/Alternative_1_03.png.import	984
+Sprites/shaders/Alternative 1/1/Alternative_1_04.png	11969
+Sprites/shaders/Alternative 1/1/Alternative_1_04.png.import	984
+Sprites/shaders/Alternative 1/1/Alternative_1_05.png	11669
+Sprites/shaders/Alternative 1/1/Alternative_1_05.png.import	984
+Sprites/shaders/Alternative 1/1/Alternative_1_06.png	9079
+Sprites/shaders/Alternative 1/1/Alternative_1_06.png.import	984
+Sprites/shaders/Alternative 1/2/Alternative_1_07.png	5461
+Sprites/shaders/Alternative 1/2/Alternative_1_07.png.import	983
+Sprites/shaders/Alternative 1/2/Alternative_1_08.png	9254
+Sprites/shaders/Alternative 1/2/Alternative_1_08.png.import	983
+Sprites/shaders/Alternative 1/2/Alternative_1_09.png	9902
+Sprites/shaders/Alternative 1/2/Alternative_1_09.png.import	984
+Sprites/shaders/Alternative 1/2/Alternative_1_10.png	8137
+Sprites/shaders/Alternative 1/2/Alternative_1_10.png.import	984
+Sprites/shaders/Alternative 1/2/Alternative_1_11.png	7396
+Sprites/shaders/Alternative 1/2/Alternative_1_11.png.import	983
+Sprites/shaders/Alternative 1/2/Alternative_1_12.png	5299
+Sprites/shaders/Alternative 1/2/Alternative_1_12.png.import	984
+Sprites/shaders/Alternative 1/3/Alternative_1_13.png	7631
+Sprites/shaders/Alternative 1/3/Alternative_1_13.png.import	984
+Sprites/shaders/Alternative 1/3/Alternative_1_14.png	8601
+Sprites/shaders/Alternative 1/3/Alternative_1_14.png.import	983
+Sprites/shaders/Alternative 1/3/Alternative_1_15.png	8630
+Sprites/shaders/Alternative 1/3/Alternative_1_15.png.import	984
+Sprites/shaders/Alternative 1/3/Alternative_1_16.png	8368
+Sprites/shaders/Alternative 1/3/Alternative_1_16.png.import	984
+Sprites/shaders/Alternative 1/3/Alternative_1_17.png	10618
+Sprites/shaders/Alternative 1/3/Alternative_1_17.png.import	984
+Sprites/shaders/Alternative 1/3/Alternative_1_18.png	7552
+Sprites/shaders/Alternative 1/3/Alternative_1_18.png.import	984
+Sprites/shaders/Alternative 1/4/Alternative_1_19.png	5972
+Sprites/shaders/Alternative 1/4/Alternative_1_19.png.import	984
+Sprites/shaders/Alternative 1/4/Alternative_1_20.png	8964
+Sprites/shaders/Alternative 1/4/Alternative_1_20.png.import	984
+Sprites/shaders/Alternative 1/4/Alternative_1_21.png	11039
+Sprites/shaders/Alternative 1/4/Alternative_1_21.png.import	984
+Sprites/shaders/Alternative 1/4/Alternative_1_22.png	8338
+Sprites/shaders/Alternative 1/4/Alternative_1_22.png.import	983
+Sprites/shaders/Alternative 1/4/Alternative_1_23.png	3989
+Sprites/shaders/Alternative 1/4/Alternative_1_23.png.import	983
+Sprites/shaders/Alternative 1/4/Alternative_1_24.png	2828
+Sprites/shaders/Alternative 1/4/Alternative_1_24.png.import	984
+Sprites/shaders/Alternative 1/5/Alternative_1_25.png	8895
+Sprites/shaders/Alternative 1/5/Alternative_1_25.png.import	984
+Sprites/shaders/Alternative 1/5/Alternative_1_26.png	9378
+Sprites/shaders/Alternative 1/5/Alternative_1_26.png.import	983
+Sprites/shaders/Alternative 1/5/Alternative_1_27.png	9841
+Sprites/shaders/Alternative 1/5/Alternative_1_27.png.import	984
+Sprites/shaders/Alternative 1/5/Alternative_1_28.png	10762
+Sprites/shaders/Alternative 1/5/Alternative_1_28.png.import	984
+Sprites/shaders/Alternative 1/5/Alternative_1_29.png	10934
+Sprites/shaders/Alternative 1/5/Alternative_1_29.png.import	983
+Sprites/shaders/Alternative 1/5/Alternative_1_30.png	9056
+Sprites/shaders/Alternative 1/5/Alternative_1_30.png.import	983
+Sprites/shaders/Alternative 1/Preview_Alternative_1.png	171875
+Sprites/shaders/Alternative 1/Preview_Alternative_1.png.import	996
+Sprites/shaders/Alternative 2/1/Alternative_2_01.png	7623
+Sprites/shaders/Alternative 2/1/Alternative_2_01.png.import	984
+Sprites/shaders/Alternative 2/1/Alternative_2_02.png	9334
+Sprites/shaders/Alternative 2/1/Alternative_2_02.png.import	983
+Sprites/shaders/Alternative 2/1/Alternative_2_03.png	8689
+Sprites/shaders/Alternative 2/1/Alternative_2_03.png.import	984
+Sprites/shaders/Alternative 2/1/Alternative_2_04.png	10636
+Sprites/shaders/Alternative 2/1/Alternative_2_04.png.import	984
+Sprites/shaders/Alternative 2/1/Alternative_2_05.png	10637
+Sprites/shaders/Alternative 2/1/Alternative_2_05.png.import	984
+Sprites/shaders/Alternative 2/1/Alternative_2_06.png	7681
+Sprites/shaders/Alternative 2/1/Alternative_2_06.png.import	983
+Sprites/shaders/Alternative 2/2/Alternative_2_07.png	5040
+Sprites/shaders/Alternative 2/2/Alternative_2_07.png.import	984
+Sprites/shaders/Alternative 2/2/Alternative_2_08.png	8246
+Sprites/shaders/Alternative 2/2/Alternative_2_08.png.import	984
+Sprites/shaders/Alternative 2/2/Alternative_2_09.png	8138
+Sprites/shaders/Alternative 2/2/Alternative_2_09.png.import	984
+Sprites/shaders/Alternative 2/2/Alternative_2_10.png	7797
+Sprites/shaders/Alternative 2/2/Alternative_2_10.png.import	984
+Sprites/shaders/Alternative 2/2/Alternative_2_11.png	7076
+Sprites/shaders/Alternative 2/2/Alternative_2_11.png.import	983
+Sprites/shaders/Alternative 2/2/Alternative_2_12.png	5009
+Sprites/shaders/Alternative 2/2/Alternative_2_12.png.import	984
+Sprites/shaders/Alternative 2/3/Alternative_2_13.png	5495
+Sprites/shaders/Alternative 2/3/Alternative_2_13.png.import	984
+Sprites/shaders/Alternative 2/3/Alternative_2_14.png	7070
+Sprites/shaders/Alternative 2/3/Alternative_2_14.png.import	984
+Sprites/shaders/Alternative 2/3/Alternative_2_15.png	6996
+Sprites/shaders/Alternative 2/3/Alternative_2_15.png.import	984
+Sprites/shaders/Alternative 2/3/Alternative_2_16.png	7275
+Sprites/shaders/Alternative 2/3/Alternative_2_16.png.import	984
+Sprites/shaders/Alternative 2/3/Alternative_2_17.png	6460
+Sprites/shaders/Alternative 2/3/Alternative_2_17.png.import	984
+Sprites/shaders/Alternative 2/3/Alternative_2_18.png	4769
+Sprites/shaders/Alternative 2/3/Alternative_2_18.png.import	983
+Sprites/shaders/Alternative 2/4/Alternative_2_19.png	4713
+Sprites/shaders/Alternative 2/4/Alternative_2_19.png.import	984
+Sprites/shaders/Alternative 2/4/Alternative_2_20.png	7726
+Sprites/shaders/Alternative 2/4/Alternative_2_20.png.import	984
+Sprites/shaders/Alternative 2/4/Alternative_2_21.png	10284
+Sprites/shaders/Alternative 2/4/Alternative_2_21.png.import	984
+Sprites/shaders/Alternative 2/4/Alternative_2_22.png	7756
+Sprites/shaders/Alternative 2/4/Alternative_2_22.png.import	983
+Sprites/shaders/Alternative 2/4/Alternative_2_23.png	3040
+Sprites/shaders/Alternative 2/4/Alternative_2_23.png.import	983
+Sprites/shaders/Alternative 2/4/Alternative_2_24.png	2267
+Sprites/shaders/Alternative 2/4/Alternative_2_24.png.import	984
+Sprites/shaders/Alternative 2/5/Alternative_2_25.png	6909
+Sprites/shaders/Alternative 2/5/Alternative_2_25.png.import	984
+Sprites/shaders/Alternative 2/5/Alternative_2_26.png	8209
+Sprites/shaders/Alternative 2/5/Alternative_2_26.png.import	984
+Sprites/shaders/Alternative 2/5/Alternative_2_27.png	9063
+Sprites/shaders/Alternative 2/5/Alternative_2_27.png.import	984
+Sprites/shaders/Alternative 2/5/Alternative_2_28.png	9747
+Sprites/shaders/Alternative 2/5/Alternative_2_28.png.import	984
+Sprites/shaders/Alternative 2/5/Alternative_2_29.png	9835
+Sprites/shaders/Alternative 2/5/Alternative_2_29.png.import	984
+Sprites/shaders/Alternative 2/5/Alternative_2_30.png	7680
+Sprites/shaders/Alternative 2/5/Alternative_2_30.png.import	984
+Sprites/shaders/Alternative 2/Preview_Alternative_2.png	152330
+Sprites/shaders/Alternative 2/Preview_Alternative_2.png.import	997
+Sprites/shaders/Alternative 3/1/Alternative_3_01.png	6639
+Sprites/shaders/Alternative 3/1/Alternative_3_01.png.import	984
+Sprites/shaders/Alternative 3/1/Alternative_3_02.png	7809
+Sprites/shaders/Alternative 3/1/Alternative_3_02.png.import	984
+Sprites/shaders/Alternative 3/1/Alternative_3_03.png	7145
+Sprites/shaders/Alternative 3/1/Alternative_3_03.png.import	984
+Sprites/shaders/Alternative 3/1/Alternative_3_04.png	8759
+Sprites/shaders/Alternative 3/1/Alternative_3_04.png.import	984
+Sprites/shaders/Alternative 3/1/Alternative_3_05.png	8790
+Sprites/shaders/Alternative 3/1/Alternative_3_05.png.import	983
+Sprites/shaders/Alternative 3/1/Alternative_3_06.png	6513
+Sprites/shaders/Alternative 3/1/Alternative_3_06.png.import	984
+Sprites/shaders/Alternative 3/2/Alternative_3_07.png	4659
+Sprites/shaders/Alternative 3/2/Alternative_3_07.png.import	984
+Sprites/shaders/Alternative 3/2/Alternative_3_08.png	7038
+Sprites/shaders/Alternative 3/2/Alternative_3_08.png.import	984
+Sprites/shaders/Alternative 3/2/Alternative_3_09.png	7162
+Sprites/shaders/Alternative 3/2/Alternative_3_09.png.import	984
+Sprites/shaders/Alternative 3/2/Alternative_3_10.png	7073
+Sprites/shaders/Alternative 3/2/Alternative_3_10.png.import	984
+Sprites/shaders/Alternative 3/2/Alternative_3_11.png	6142
+Sprites/shaders/Alternative 3/2/Alternative_3_11.png.import	983
+Sprites/shaders/Alternative 3/2/Alternative_3_12.png	4573
+Sprites/shaders/Alternative 3/2/Alternative_3_12.png.import	983
+Sprites/shaders/Alternative 3/3/Alternative_3_13.png	5853
+Sprites/shaders/Alternative 3/3/Alternative_3_13.png.import	984
+Sprites/shaders/Alternative 3/3/Alternative_3_14.png	6721
+Sprites/shaders/Alternative 3/3/Alternative_3_14.png.import	984
+Sprites/shaders/Alternative 3/3/Alternative_3_15.png	6806
+Sprites/shaders/Alternative 3/3/Alternative_3_15.png.import	984
+Sprites/shaders/Alternative 3/3/Alternative_3_16.png	6768
+Sprites/shaders/Alternative 3/3/Alternative_3_16.png.import	984
+Sprites/shaders/Alternative 3/3/Alternative_3_17.png	7299
+Sprites/shaders/Alternative 3/3/Alternative_3_17.png.import	984
+Sprites/shaders/Alternative 3/3/Alternative_3_18.png	5454
+Sprites/shaders/Alternative 3/3/Alternative_3_18.png.import	984
+Sprites/shaders/Alternative 3/4/Alternative_3_19.png	4401
+Sprites/shaders/Alternative 3/4/Alternative_3_19.png.import	984
+Sprites/shaders/Alternative 3/4/Alternative_3_20.png	6740
+Sprites/shaders/Alternative 3/4/Alternative_3_20.png.import	984
+Sprites/shaders/Alternative 3/4/Alternative_3_21.png	8338
+Sprites/shaders/Alternative 3/4/Alternative_3_21.png.import	984
+Sprites/shaders/Alternative 3/4/Alternative_3_22.png	6576
+Sprites/shaders/Alternative 3/4/Alternative_3_22.png.import	984
+Sprites/shaders/Alternative 3/4/Alternative_3_23.png	3041
+Sprites/shaders/Alternative 3/4/Alternative_3_23.png.import	983
+Sprites/shaders/Alternative 3/4/Alternative_3_24.png	2214
+Sprites/shaders/Alternative 3/4/Alternative_3_24.png.import	984
+Sprites/shaders/Alternative 3/5/Alternative_3_25.png	6165
+Sprites/shaders/Alternative 3/5/Alternative_3_25.png.import	984
+Sprites/shaders/Alternative 3/5/Alternative_3_26.png	6683
+Sprites/shaders/Alternative 3/5/Alternative_3_26.png.import	984
+Sprites/shaders/Alternative 3/5/Alternative_3_27.png	7401
+Sprites/shaders/Alternative 3/5/Alternative_3_27.png.import	984
+Sprites/shaders/Alternative 3/5/Alternative_3_28.png	7798
+Sprites/shaders/Alternative 3/5/Alternative_3_28.png.import	984
+Sprites/shaders/Alternative 3/5/Alternative_3_29.png	8066
+Sprites/shaders/Alternative 3/5/Alternative_3_29.png.import	984
+Sprites/shaders/Alternative 3/5/Alternative_3_30.png	6497
+Sprites/shaders/Alternative 3/5/Alternative_3_30.png.import	984
+Sprites/shaders/Alternative 3/Preview_Alternative_3.png	164298
+Sprites/shaders/Alternative 3/Preview_Alternative_3.png.import	996
+Sprites/shaders/Classic/1/Classic_01.png	8759
+Sprites/shaders/Classic/1/Classic_01.png.import	960
+Sprites/shaders/Classic/1/Classic_02.png	10839
+Sprites/shaders/Classic/1/Classic_02.png.import	959
+Sprites/shaders/Classic/1/Classic_03.png	9958
+Sprites/shaders/Classic/1/Classic_03.png.import	959
+Sprites/shaders/Classic/1/Classic_04.png	12598
+Sprites/shaders/Classic/1/Classic_04.png.import	960
+Sprites/shaders/Classic/1/Classic_05.png	12521
+Sprites/shaders/Classic/1/Classic_05.png.import	960
+Sprites/shaders/Classic/1/Classic_06.png	8469
+Sprites/shaders/Classic/1/Classic_06.png.import	958
+Sprites/shaders/Classic/2/Classic_07.png	5615
+Sprites/shaders/Classic/2/Classic_07.png.import	959
+Sprites/shaders/Classic/2/Classic_08.png	9393
+Sprites/shaders/Classic/2/Classic_08.png.import	960
+Sprites/shaders/Classic/2/Classic_09.png	9567
+Sprites/shaders/Classic/2/Classic_09.png.import	960
+Sprites/shaders/Classic/2/Classic_10.png	8916
+Sprites/shaders/Classic/2/Classic_10.png.import	960
+Sprites/shaders/Classic/2/Classic_11.png	7998
+Sprites/shaders/Classic/2/Classic_11.png.import	960
+Sprites/shaders/Classic/2/Classic_12.png	5480
+Sprites/shaders/Classic/2/Classic_12.png.import	960
+Sprites/shaders/Classic/3/Classic_13.png	6848
+Sprites/shaders/Classic/3/Classic_13.png.import	959
+Sprites/shaders/Classic/3/Classic_14.png	8435
+Sprites/shaders/Classic/3/Classic_14.png.import	960
+Sprites/shaders/Classic/3/Classic_15.png	8853
+Sprites/shaders/Classic/3/Classic_15.png.import	959
+Sprites/shaders/Classic/3/Classic_16.png	8446
+Sprites/shaders/Classic/3/Classic_16.png.import	960
+Sprites/shaders/Classic/3/Classic_17.png	9199
+Sprites/shaders/Classic/3/Classic_17.png.import	959
+Sprites/shaders/Classic/3/Classic_18.png	6577
+Sprites/shaders/Classic/3/Classic_18.png.import	959
+Sprites/shaders/Classic/4/Classic_19.png	5273
+Sprites/shaders/Classic/4/Classic_19.png.import	960
+Sprites/shaders/Classic/4/Classic_20.png	8630
+Sprites/shaders/Classic/4/Classic_20.png.import	960
+Sprites/shaders/Classic/4/Classic_21.png	11371
+Sprites/shaders/Classic/4/Classic_21.png.import	959
+Sprites/shaders/Classic/4/Classic_22.png	8658
+Sprites/shaders/Classic/4/Classic_22.png.import	960
+Sprites/shaders/Classic/4/Classic_23.png	3509
+Sprites/shaders/Classic/4/Classic_23.png.import	959
+Sprites/shaders/Classic/4/Classic_24.png	2559
+Sprites/shaders/Classic/4/Classic_24.png.import	959
+Sprites/shaders/Classic/5/Classic_25.png	8298
+Sprites/shaders/Classic/5/Classic_25.png.import	960
+Sprites/shaders/Classic/5/Classic_26.png	9559
+Sprites/shaders/Classic/5/Classic_26.png.import	960
+Sprites/shaders/Classic/5/Classic_27.png	10344
+Sprites/shaders/Classic/5/Classic_27.png.import	960
+Sprites/shaders/Classic/5/Classic_28.png	11142
+Sprites/shaders/Classic/5/Classic_28.png.import	960
+Sprites/shaders/Classic/5/Classic_29.png	10781
+Sprites/shaders/Classic/5/Classic_29.png.import	960
+Sprites/shaders/Classic/5/Classic_30.png	8464
+Sprites/shaders/Classic/5/Classic_30.png.import	960
+Sprites/shaders/Classic/Preview.png	164579
+Sprites/shaders/Classic/Preview.png.import	949
+Sprites/shaders/ambient_mist.gdshader	635
+Sprites/shaders/ambient_mist.gdshader.uid	20
+Sprites/shaders/environment_motion.gdshader	1047
+Sprites/shaders/environment_motion.gdshader.uid	20
+Sprites/shaders/flame.gdshader	644
+Sprites/shaders/flame.gdshader.uid	19
+Sprites/shaders/lava_slam.gdshader	1417
+Sprites/shaders/lava_slam.gdshader.uid	19
+Sprites/shaders/light_shaft.gdshader	768
+Sprites/shaders/light_shaft.gdshader.uid	20
+Sprites/shaders/rune_glow.gdshader	815
+Sprites/shaders/rune_glow.gdshader.uid	20
+Sprites/shaders/slash/base_noise.png	86580
+Sprites/shaders/slash/base_noise.png.import	956
+Sprites/shaders/slash/color_cyan.tres	657
+Sprites/shaders/slash/color_ember.tres	481
+Sprites/shaders/slash/highlight.png	1108
+Sprites/shaders/slash/highlight.png.import	953
+Sprites/shaders/slash/length_mask.tres	829
+Sprites/shaders/slash/quad_white.png	854
+Sprites/shaders/slash/quad_white.png.import	956
+Sprites/shaders/slash/slash_arc.gdshader	9884
+Sprites/shaders/slash/slash_arc.gdshader.uid	20
+Sprites/shaders/slash/slash_crescent.gdshader	1744
+Sprites/shaders/slash/slash_crescent.gdshader.uid	20
+Sprites/shaders/slash/width_mask.tres	937
+Sprites/skill/blade_slash.png	1835588
+Sprites/skill/blade_slash.png.import	997
+Sprites/skill_icons/STYLE.md	1811
+Sprites/skill_icons/rending_wave.png	107170
+Sprites/skill_icons/rending_wave.png.import	960
+Sprites/skill_slash.png	1765830
+Sprites/skill_slash.png.import	992
+Sprites/sprite-original-Die.png	1724154
+Sprites/sprite-original-Die.png.import	1016
+Sprites/spritesheet Attack Katana bash.png	1916289
+Sprites/spritesheet Attack Katana bash.png.import	1048
+Sprites/spritesheet Attack Katana.png	1851578
+Sprites/spritesheet Attack Katana.png.import	1034
+Sprites/spritesheet Attack blade.png	3768943
+Sprites/spritesheet Attack blade.png.import	1031
+Sprites/spritesheet Attack blade_bash v2.png	1452552
+Sprites/spritesheet Attack blade_bash v2.png.import	1055
+Sprites/spritesheet Attack blade_bash.png	1679935
+Sprites/spritesheet Attack blade_bash.png.import	1046
+Sprites/spritesheet Attack falchion bash.png	1595378
+Sprites/spritesheet Attack falchion bash.png.import	1054
+Sprites/spritesheet.png	3421122
+Sprites/spritesheet.png.import	992
+Sprites/ui/damage_digits.png	163459
+Sprites/ui/damage_digits.png.import	953
+Sprites/ui/petrol/components/action-pressed.svg	215
+Sprites/ui/petrol/components/action-pressed.svg.import	1071
+Sprites/ui/petrol/components/action.svg	254
+Sprites/ui/petrol/components/action.svg.import	1047
+Sprites/ui/petrol/components/close.svg	171
+Sprites/ui/petrol/components/close.svg.import	1044
+Sprites/ui/petrol/components/slot-selected.svg	266
+Sprites/ui/petrol/components/slot-selected.svg.import	1067
+Sprites/ui/petrol/components/slot.svg	210
+Sprites/ui/petrol/components/slot.svg.import	1041
+Sprites/ui/petrol/glyphs/README.txt	125
+Sprites/ui/petrol/glyphs/all.png	880
+Sprites/ui/petrol/glyphs/all.png.import	938
+Sprites/ui/petrol/glyphs/armor.png	1813
+Sprites/ui/petrol/glyphs/armor.png.import	944
+Sprites/ui/petrol/glyphs/attack.png	1405
+Sprites/ui/petrol/glyphs/attack.png.import	947
+Sprites/ui/petrol/glyphs/bag_empty.png	1509
+Sprites/ui/petrol/glyphs/bag_empty.png.import	956
+Sprites/ui/petrol/glyphs/coin.png	2728
+Sprites/ui/petrol/glyphs/coin.png.import	941
+Sprites/ui/petrol/glyphs/consumables.png	1329
+Sprites/ui/petrol/glyphs/consumables.png.import	961
+Sprites/ui/petrol/glyphs/crit.png	1444
+Sprites/ui/petrol/glyphs/crit.png.import	941
+Sprites/ui/petrol/glyphs/dash.png	1506
+Sprites/ui/petrol/glyphs/dash.png.import	941
+Sprites/ui/petrol/glyphs/defense.png	1366
+Sprites/ui/petrol/glyphs/defense.png.import	950
+Sprites/ui/petrol/glyphs/emblem.png	1558
+Sprites/ui/petrol/glyphs/emblem.png.import	947
+Sprites/ui/petrol/glyphs/hp.png	1133
+Sprites/ui/petrol/glyphs/hp.png.import	935
+Sprites/ui/petrol/glyphs/materials.png	1547
+Sprites/ui/petrol/glyphs/materials.png.import	956
+Sprites/ui/petrol/glyphs/portrait.png	93534
+Sprites/ui/petrol/glyphs/portrait.png.import	952
+Sprites/ui/petrol/glyphs/quest.png	1630
+Sprites/ui/petrol/glyphs/quest.png.import	944
+Sprites/ui/petrol/glyphs/search.png	1643
+Sprites/ui/petrol/glyphs/search.png.import	947
+Sprites/ui/petrol/glyphs/signal.png	873
+Sprites/ui/petrol/glyphs/signal.png.import	946
+Sprites/ui/petrol/glyphs/slot_accessory.png	1712
+Sprites/ui/petrol/glyphs/slot_accessory.png.import	970
+Sprites/ui/petrol/glyphs/slot_armor.png	1777
+Sprites/ui/petrol/glyphs/slot_armor.png.import	959
+Sprites/ui/petrol/glyphs/slot_garment.png	1731
+Sprites/ui/petrol/glyphs/slot_garment.png.import	965
+Sprites/ui/petrol/glyphs/slot_head.png	1368
+Sprites/ui/petrol/glyphs/slot_head.png.import	955
+Sprites/ui/petrol/glyphs/slot_offhand.png	1870
+Sprites/ui/petrol/glyphs/slot_offhand.png.import	964
+Sprites/ui/petrol/glyphs/slot_shoes.png	1597
+Sprites/ui/petrol/glyphs/slot_shoes.png.import	959
+Sprites/ui/petrol/glyphs/slot_weapon.png	1292
+Sprites/ui/petrol/glyphs/slot_weapon.png.import	962
+Sprites/ui/petrol/glyphs/sp.png	1145
+Sprites/ui/petrol/glyphs/sp.png.import	935
+Sprites/ui/petrol/glyphs/speed.png	1548
+Sprites/ui/petrol/glyphs/speed.png.import	944
+Sprites/ui/petrol/glyphs/swords.png	31039
+Sprites/ui/petrol/glyphs/swords.png.import	947
+Sprites/ui/petrol/glyphs/weapons.png	1361
+Sprites/ui/petrol/glyphs/weapons.png.import	950
+Sprites/ui/petrol/icons/cards.svg	245
+Sprites/ui/petrol/icons/cards.svg.import	1039
+Sprites/ui/petrol/icons/equipment.svg	177
+Sprites/ui/petrol/icons/equipment.svg.import	1051
+Sprites/ui/petrol/icons/inventory.svg	258
+Sprites/ui/petrol/icons/inventory.svg.import	1050
+Sprites/ui/petrol/icons/map.svg	176
+Sprites/ui/petrol/icons/map.svg.import	1033
+Sprites/ui/petrol/icons/quests.svg	316
+Sprites/ui/petrol/icons/quests.svg.import	1042
+Sprites/ui/petrol/icons/skills.svg	234
+Sprites/ui/petrol/icons/skills.svg.import	1042
+Sprites/ui/petrol/icons/status.svg	188
+Sprites/ui/petrol/icons/status.svg.import	1042
+Sprites/ui/petrol/icons/system.svg	273
+Sprites/ui/petrol/icons/system.svg.import	1041
+Sprites/ui/title_key_art.jpg	509329
+Sprites/ui/title_key_art.jpg.import	953
+Sprites/ui_icons/cards.png	139360
+Sprites/ui_icons/cards.png.import	983
+Sprites/ui_icons/equipment.png	152139
+Sprites/ui_icons/equipment.png.import	995
+Sprites/ui_icons/inventory.png	124682
+Sprites/ui_icons/inventory.png.import	995
+Sprites/ui_icons/map.png	151459
+Sprites/ui_icons/map.png.import	976
+Sprites/ui_icons/quests.png	142874
+Sprites/ui_icons/quests.png.import	985
+Sprites/ui_icons/skills.png	148291
+Sprites/ui_icons/skills.png.import	986
+Sprites/ui_icons/status.png	132664
+Sprites/ui_icons/status.png.import	986
+Sprites/ui_icons/system.png	145594
+Sprites/ui_icons/system.png.import	986
+Sprites/video/boss_death_king_poring.ogv	10523482
+Sprites/video/boss_death_king_poring.ogv.uid	20
+Sprites/video/boss_death_stormscar.ogv	7667982
+Sprites/video/boss_death_stormscar.ogv.uid	20
+Sprites/video/boss_intro_baphomet.ogv	5668003
+Sprites/video/boss_intro_baphomet.ogv.uid	20
+Sprites/video/boss_intro_king_poring.ogv	6469950
+Sprites/video/boss_intro_king_poring.ogv.uid	20
+Sprites/video/boss_intro_stormscar.ogv	7707771
+Sprites/video/boss_intro_stormscar.ogv.uid	20
+Sprites/video/kingporing die.mp4	13039726
+Sprites/video/m6_ceremony.mp4	6807500
+Sprites/video/m6_ceremony.ogv	5800558
+Sprites/video/m6_ceremony.ogv.uid	20
+Sprites/video/opening boss fight baphomet.mp4	7256726
+Sprites/video/opening boss fight kingporing.mp4	7094375
+Sprites/video/opening boss fight stormscar.mp4	9125304
+Sprites/video/stormscar die.mp4	9456909
+Sprites/voice/hans/dialog_1.ogg	18555
+Sprites/voice/hans/dialog_1.ogg.import	399
+Sprites/voice/hans/dialog_2.ogg	84131
+Sprites/voice/hans/dialog_2.ogg.import	399
+Sprites/voice/hans/greeting.ogg	14617
+Sprites/voice/hans/greeting.ogg.import	399
+Sprites/voice/hans/hans_poring_complete.ogg	43920
+Sprites/voice/hans/hans_poring_complete.ogg.import	435
+Sprites/voice/hans/hans_poring_offer_1.ogg	47710
+Sprites/voice/hans/hans_poring_offer_1.ogg.import	432
+Sprites/voice/hans/hans_poring_offer_ask.ogg	22203
+Sprites/voice/hans/hans_poring_offer_ask.ogg.import	438
+Sprites/voice/hans/hans_poring_progress.ogg	26488
+Sprites/voice/hans/hans_poring_progress.ogg.import	435
+Sprites/voice/hans/m5_old_mine_iron_complete.ogg	105722
+Sprites/voice/hans/m5_old_mine_iron_complete.ogg.import	449
+Sprites/voice/hans/m5_old_mine_iron_offer_1.ogg	82057
+Sprites/voice/hans/m5_old_mine_iron_offer_1.ogg.import	447
+Sprites/voice/hans/m5_old_mine_iron_offer_2.ogg	53769
+Sprites/voice/hans/m5_old_mine_iron_offer_2.ogg.import	446
+Sprites/voice/hans/m5_old_mine_iron_offer_ask.ogg	22203
+Sprites/voice/hans/m5_old_mine_iron_offer_ask.ogg.import	453
+Sprites/voice/hans/m5_old_mine_iron_progress.ogg	33311
+Sprites/voice/hans/m5_old_mine_iron_progress.ogg.import	450
+Sprites/warp.png	10326
+Sprites/warp.png.import	922
+Sprites/world_node_2d.gd	1399
+Sprites/world_node_2d.gd.uid	19
+Sprites/world_node_2d.tscn	767320
+Sprites/world_node_2d_ก่อนต่อ forest2.tscn.bak	767137
+Sprites/world_node_2d_ก่อนแก้.tscn.bak	766860
+Sprites/world_node_2d_ก่อนแก้ขอบแมพ.tscn.bak	767412
+Sprites/world_node_2d_ก่อนใส่เนื้อเรื่อง.tscn.bak	767353
+Sprites/z1.png	61453
+Sprites/z1.png.import	965
+Sprites/z2.png	58971
+Sprites/z2.png.import	964
+Sprites/z3.png	58292
+Sprites/z3.png.import	965
+Sprites/z4.png	57822
+Sprites/z4.png.import	964
+Sprites/z5.png	58862
+Sprites/z5.png.import	965
+Sprites/z6.png	57839
+Sprites/z6.png.import	965
+Sprites/รูปภาพ Codex 2 ก.ย. 2569 22_37_05.png	2789789
+Sprites/รูปภาพ Codex 2 ก.ย. 2569 22_37_05.png.import	1106
+Sprites/รูปภาพ Codex 2 ก.ย. 2569 22_48_52.png	2257797
+Sprites/รูปภาพ Codex 2 ก.ย. 2569 22_48_52.png.import	1106
+fonts/NOTICE.txt	898
+fonts/NotoSansThai-Regular.ttf	47484
+data/sprites/example_body_frames.tres	2586
+data/sprites/example_sword_frames.tres	3049
+data/sprites/fx_attack.tres	2248
+data/sprites/fx_bash.tres	2764
+data/sprites/fx_magnum.tres	2543
+data/sprites/placeholder/ember_bat_frames.tres	969
+data/sprites/placeholder/forge_golem_frames.tres	971
+data/sprites/placeholder/forge_guardian_frames.tres	974
+data/sprites/placeholder/magma_slug_frames.tres	970
+data/sprites/placeholder/pitman_frames.tres	966
+data/sprites/placeholder/rune_watcher_frames.tres	972
+data/sprites/placeholder/silent_wraith_frames.tres	973
+data/sprites/placeholder/steel_beetle_frames.tres	972
+data/sprites/placeholder/stormscar_frames.tres	969
+data/sprites/player.tscn	103
+data/sprites/player_frames.tres	31832
+data/sprites/player_frames_ก่อนใส่ katana.tres.bak	17537
+data/sprites/poring_frames.tres	5411

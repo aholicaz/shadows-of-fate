@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_drowned.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"drowned"
+fits_slot = 4
+rarity = 4
+monster_level = 87
+id = &"card_drowned"
+display_name = "การ์ดผีจมน้ำ"
+description = "ทหารที่ยังจมอยู่ในบึงบท 3"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 6220
+max_hp = 500
+mdef = 10

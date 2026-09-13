@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"mist_ghost"
+count = 20
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"hel_hound"
+count = 10
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 1
+target = &"gullveig_ash"
+count = 1
+text = "นำเถ้ากุลล์ไวก์ (บท 3) มาคืน"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_2_fourth_burning"
+title = "C6-2 การเผาครั้งที่สี่"
+description = "ล่าผีหมอกกับหมาป่าเฮลที่ฝั่งหมอก แล้วนำเถ้ากุลล์ไวก์มาคืนเธอ"
+giver_name = "กุลล์ไวก์ (ผี)"
+dialog_offer = "ผีหมอกที่ฝั่ง... พวกเขาคือคนที่ตายเพราะหมอกดูดลมหายใจ หมาป่าเฮลไล่พวกเขาไม่ให้ขึ้นฝั่ง\n\nช่วยพวกเขาที แล้ว... ถ้าเจ้ายังเก็บเถ้าของข้าไว้ เอามาคืนข้าได้ไหม ข้าอยากเห็นว่าเหลืออะไร"
+dialog_progress = "ผีหมอก 20 หมาป่าเฮล 10 ที่ฝั่งหมอกน้ำแข็ง แล้วเอาเถ้ากุลล์ไวก์มาให้ (ถ้ายังมี)"
+dialog_complete = "เถ้าของข้า... ยังอุ่น\n\nเอาเพลิงนี่ไป ไฟที่เผาสามครั้งแล้วไม่มอด มันจะอยู่บนดาบเจ้า — ผู้ตายที่นี่กลัวไฟ เพราะไฟคือสิ่งเดียวที่พวกเขาจำได้ว่าอุ่น"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
+kill_monster_id = &""
+required_level = 85
+required_quests = Array[StringName]([&"c6_1_those_who_remember"])
+reward_item_id = &"gullveig_flame"
+reward_item_count = 1
+reward_zeny = 18000
+reward_exp = 120000

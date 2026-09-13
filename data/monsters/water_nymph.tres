@@ -1,0 +1,89 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://b6bd4ms14y0qr"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/water_nymph_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://dk6u4x66leahl" path="res://data/sprites/fx_fire_wave.tres" id="4_wave"]
+
+[sub_resource type="Resource" id="Drop_water_nymph_0"]
+script = ExtResource("2_drop")
+item_id = &"nymph_tear"
+chance = 40.0
+
+[sub_resource type="Resource" id="Drop_water_nymph_1"]
+script = ExtResource("2_drop")
+item_id = &"nymph_pearl"
+chance = 12.0
+
+[sub_resource type="Resource" id="Drop_water_nymph_2"]
+script = ExtResource("2_drop")
+item_id = &"blue_potion"
+chance = 20.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_water_nymph_card"]
+script = ExtResource("2_drop")
+item_id = &"card_water_nymph"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"water_nymph"
+display_name = "นางฟ้าน้ำ"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(46, 62)
+hp_bar_offset_y = -79.8
+display_height = 270.0
+fit_foot_animations = null
+level = 80
+max_hp = 15000
+atk_min = 780
+atk_max = 980
+def = 64
+mdef = 110
+hit = 172
+flee = 82
+crit = 8
+ai_type = 1
+move_speed = 160.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 116.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 850
+job_exp_reward = 595
+zeny_min = 231
+zeny_max = 429
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_water_nymph_0"), SubResource("Drop_water_nymph_1"), SubResource("Drop_water_nymph_2"), SubResource("Drop_water_nymph_card")])
+skill_name = "เพลงกล่อม"
+skill_anim = &"Skill"
+skill_range = 600.0
+skill_damage_mult = 1.5
+skill_windup = 0.5
+skill_duration = 1.3
+skill_cooldown = 8.0
+skill_chance = 0.55
+skill_knockback = 360.0
+skill_wave_count = 2
+skill_wave_both_sides = true
+skill_wave_speed = 420.0
+skill_wave_range = 700.0
+skill_wave_delay = 0.5
+skill_wave_height = 130.0
+skill_wave_frames = ExtResource("4_wave")
+respawn_time = 18.0
+tint = Color(0.8, 0.95, 1, 0.85)
+spawn_lines = null
+death_lines = null
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

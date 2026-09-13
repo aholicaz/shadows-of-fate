@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/troll_boots.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"troll_boots"
+display_name = "รองเท้าโทรลล์"
+description = "รองเท้าหนังโทรลล์ ไม่ลื่นบนน้ำแข็ง"
+icon = ExtResource("2_icon")
+required_level = 63
+type = 2
+slot = 6
+card_slots = 1
+max_stack = 1
+buy_price = 48428
+sell_price = 1844
+def = 18
+max_hp = 160
+bonus_agi = 5
+refinable = true
+
+aspd_percent = 6.0
+
+crit = 4
+
+damage_percent = 0.0
+
+drop_hint = "โทรลล์น้ำแข็ง"

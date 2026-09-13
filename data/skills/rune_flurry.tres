@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/rune_flurry.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"rune_flurry"
+display_name = "หกคมอักขระ"
+description = "เข้าประชิดได้ 480 px แล้วกวาด 6 คม ระยะฟัน 400 px รวม 540–1080% ATK สูงสุด 8 ตัว คริได้ ฟันเร็วขึ้นตาม ASPD สร้างรูนครั้งเดียว"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+type = 0
+sp_cost_base = 16
+sp_cost_per_level = 0.0
+cooldown = 5.0
+damage_mult_base = 5.4
+damage_mult_per_level = 0.6
+required_skills = {"keen_inscription": 5}
+
+max_targets = 8
+
+range_x = 400.0
+
+hit_count = 6
+
+range_y = 330.0

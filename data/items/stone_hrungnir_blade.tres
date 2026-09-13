@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/stone_hrungnir_blade.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"stone_hrungnir_blade"
+display_name = "ดาบหรุงนีร์ศิลา"
+description = "ดาบที่ตีจากเศษร่างจอมพลยักษ์ ทุกครั้งที่ฟันมีประจุสายฟ้ากระเด็น"
+icon = ExtResource("2_icon")
+required_level = 72
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 63008
+sell_price = 2515
+atk = 300
+crit = 5
+bonus_str = 9
+refinable = true
+refine_atk_per_level = 7
+
+skill_damage_percent = 20.0
+
+max_sp = 60
+
+cooldown_reduction_percent = 3.0
+
+damage_percent = 0.0
+
+drop_hint = "หรุงนีร์ศิลา"

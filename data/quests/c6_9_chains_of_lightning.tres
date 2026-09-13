@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 5
+target = &"garm_resolved"
+count = 1
+text = "ปลดโซ่ทั้ง 4 หรือล้มการ์ม"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_9_chains_of_lightning"
+title = "C6-9 โซ่สายฟ้า"
+description = "ปลดโซ่สายฟ้าทั้ง 4 เส้นที่ล่ามการ์ม — หรือล้มมัน"
+giver_name = "เฮล ผู้ปกครองผู้ตาย"
+dialog_offer = "การ์ม สุนัขเฝ้าประตูของข้า... ธอร์ล่ามมันด้วยโซ่สายฟ้าสี่เส้น ให้เฝ้าไม่ให้ผู้ตายออกไปบอกความจริง\n\nมันไม่ใช่ศัตรูเจ้า มนุษย์ มันคือนักโทษ ปลดโซ่ให้มันถ้าทำได้ — หรือล้มมัน ถ้าเจ้าเลือกทางนั้น"
+dialog_progress = "ที่ประตูการ์ม โซ่ 4 เส้นกด F ปลดได้ระหว่างสู้ ปลดครบการ์มจะหยุด — หรือล้มมันตรง ๆ"
+dialog_complete = "การ์ม... เป็นอิสระ หรือไม่ ข้ารู้แล้วจากเสียงหอน\n\nประตูเปิดแล้ว หลังประตูคือบัลลังก์ว่าง — ไปฟังสิ่งที่เหลืออยู่ที่นั่น"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0")])
+kill_monster_id = &""
+required_level = 95
+required_quests = Array[StringName]([&"c6_8_the_judge"])
+set_flag_on_complete = &"c6_9_done"
+reward_zeny = 60000
+reward_exp = 400000

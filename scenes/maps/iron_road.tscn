@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://cstke3ruws5y6"]
 
-[ext_resource type="Texture2D" uid="uid://bhb072fo04ylv" path="res://Sprites/map/generated/iron_road_bg.png" id="bg38"]
+[ext_resource type="Texture2D" uid="uid://cmgml0wcoser3" path="res://Sprites/map/chapter2/iron_bridge_arches.png" id="bridge_arches"]
+[ext_resource type="Texture2D" uid="uid://caprptiypttl3" path="res://Sprites/map/chapter2/dwarf_lantern.png" id="c2_dwarf_lantern"]
+[ext_resource type="Texture2D" uid="uid://bukthvtksnaoe" path="res://Sprites/map/chapter2/iron_bridge_walkway.png" id="c2_forge_ground"]
+[ext_resource type="Texture2D" uid="uid://bdvhsnvyt1u6i" path="res://Sprites/map/chapter2/forge_pillar.png" id="c2_forge_pillar"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="c2_fx"]
+[ext_resource type="Texture2D" uid="uid://dgleyet1q1p5f" path="res://Sprites/map/chapter2/iron_road_depth.png" id="c2_iron_road_depth"]
+[ext_resource type="Script" uid="uid://cm32004roptyp" path="res://scripts/world/chapter2_parallax.gd" id="c2_parallax"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
 [ext_resource type="Resource" uid="uid://060ft8qpolib" path="res://data/monsters/pitman.tres" id="md_pitman"]
@@ -21,32 +27,146 @@ display_name = "ทางเหล็ก"
 chapter = 2
 region = "สวาร์ทัลฟ์เฮม"
 map_bounds = Rect2(-100, 94, 5000, 1161)
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="." unique_id=1182608714]
+[node name="Background" type="Node2D" parent="." unique_id=1573494172]
+process_priority = 100
+texture_filter = 4
+script = ExtResource("c2_parallax")
+anchor_x = 2400.0
+floor_y = 925.0
+open_bridge = true
+metadata/ignore_map_bounds = true
 
-[node name="Sky" type="Polygon2D" parent="Background" unique_id=2110392067]
+[node name="Depth" type="Sprite2D" parent="Background" unique_id=1292692463]
 z_index = -100
-position = Vector2(-100, 94)
-texture = ExtResource("bg38")
-polygon = PackedVector2Array(0, 0, 5000, 0, 5000, 1161, 0, 1161)
-uv = PackedVector2Array(0, 0, 5600, 0, 5600, 1300, 0, 1300)
+texture_repeat = 3
+position = Vector2(2400, 465)
+texture = ExtResource("c2_iron_road_depth")
+region_enabled = true
+region_rect = Rect2(-5000, 0, 12000, 724)
 
-[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1246306547]
+[node name="Floor" type="Sprite2D" parent="Background" unique_id=238652036]
+z_index = -50
+texture_repeat = 3
+position = Vector2(2400, 1017.00006)
+scale = Vector2(0.75, 1)
+texture = ExtResource("c2_forge_ground")
+region_enabled = true
+region_rect = Rect2(-5000, 0, 12000, 120)
+
+[node name="Pillar0" type="Sprite2D" parent="Background" unique_id=867915647]
 visible = false
-z_index = -90
-position = Vector2(-100, 520)
-color = Color(0.22, 0.2, 0.2, 1)
-polygon = PackedVector2Array(0, 0, 5000, 0, 5000, 360, 0, 360)
+z_index = -30
+position = Vector2(700, 717.32935)
+scale = Vector2(0.32938075, 0.32938075)
+texture = ExtResource("c2_forge_pillar")
 
-[node name="Art" type="Sprite2D" parent="Background" unique_id=1411866397]
-z_index = -80
-position = Vector2(2400, 550)
+[node name="Pillar1" type="Sprite2D" parent="Background" unique_id=770671433]
+visible = false
+z_index = -30
+position = Vector2(2900, 717.32935)
+scale = Vector2(0.32938075, 0.32938075)
+texture = ExtResource("c2_forge_pillar")
+
+[node name="Pillar2" type="Sprite2D" parent="Background" unique_id=1072283844]
+visible = false
+z_index = -30
+position = Vector2(4200, 717.32935)
+scale = Vector2(0.32938075, 0.32938075)
+texture = ExtResource("c2_forge_pillar")
+
+[node name="Lamp0" type="Sprite2D" parent="Background" unique_id=619104874]
+z_index = -20
+position = Vector2(450, 859.3445)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp0" unique_id=470414347]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 780.0
+light_energy = 2.0
+light_background = true
+
+[node name="Lamp1" type="Sprite2D" parent="Background" unique_id=1349448884]
+z_index = -20
+position = Vector2(1350, 859.3445)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp1" unique_id=653428095]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 780.0
+light_energy = 2.0
+light_background = true
+
+[node name="Lamp2" type="Sprite2D" parent="Background" unique_id=678884424]
+z_index = -20
+position = Vector2(2400, 859.3445)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp2" unique_id=206783180]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 780.0
+light_energy = 2.0
+light_background = true
+
+[node name="Lamp3" type="Sprite2D" parent="Background" unique_id=168158585]
+z_index = -20
+position = Vector2(3500, 859.3445)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp3" unique_id=910905787]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 780.0
+light_energy = 2.0
+light_background = true
+
+[node name="Lamp4" type="Sprite2D" parent="Background" unique_id=819559613]
+z_index = -20
+position = Vector2(4450, 859.3445)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp4" unique_id=141817795]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 780.0
+light_energy = 2.0
+light_background = true
+
+[node name="BridgeArches" type="Sprite2D" parent="Background" unique_id=1824369489]
+z_index = -55
+texture_repeat = 3
+position = Vector2(2400, 1377)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("bridge_arches")
+region_enabled = true
+region_rect = Rect2(-6000, 0, 15000, 724)
 
 [node name="Terrain" type="Node2D" parent="." unique_id=1068075655]
+position = Vector2(0, 6)
 
 [node name="Ground" type="StaticBody2D" parent="Terrain" unique_id=1770014408]
-position = Vector2(2400, 1000)
+position = Vector2(2400, 1086)
 collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Terrain/Ground" unique_id=1351160428]
@@ -81,14 +201,14 @@ max_spawn_distance = 1700.0
 [node name="Portals" type="Node2D" parent="." unique_id=507955938]
 
 [node name="ToForest" parent="Portals" unique_id=2014942267 instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(56, 969)
 target_map = &"dark_forest_2"
 target_spawn_point = &"from_iron_road"
 label_text = "← ป่าเงาลึกชั้นใน"
 destination_name = "ป่าเงาลึกชั้นใน"
 
 [node name="ToTown" parent="Portals" unique_id=834281780 instance=ExtResource("portal")]
-position = Vector2(4740, 880)
+position = Vector2(4736, 974)
 target_map = &"nidavellir_town"
 target_spawn_point = &"from_road"
 label_text = "→ นิดาเวลลิร์"

@@ -20,8 +20,8 @@ weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
 card_slots = 1
 max_stack = 1
-buy_price = 78000
-sell_price = 31200
+buy_price = 20000
+sell_price = 1440
 atk = 108
 flee = 4
 refinable = true
@@ -36,3 +36,13 @@ equip_hand_scale = 1.25
 equip_hand_rotation_degrees = 243.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
+
+skill_damage_percent = 12.0
+
+bonus_str = 7
+
+max_sp = 44
+
+cooldown_reduction_percent = 3.0
+
+damage_percent = 0.0

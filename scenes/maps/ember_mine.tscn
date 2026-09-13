@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://dk7g1br4bh34n"]
 
-[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
-[ext_resource type="Texture2D" uid="uid://cc8fgdjxdc0ml" path="res://Sprites/map/generated/ember_mine_bg_final.png" id="bg38"]
+[ext_resource type="Texture2D" uid="uid://caprptiypttl3" path="res://Sprites/map/chapter2/dwarf_lantern.png" id="c2_dwarf_lantern"]
+[ext_resource type="Texture2D" uid="uid://dgf0yg6h5dcgv" path="res://Sprites/map/chapter2/ember_mine_depth.png" id="c2_ember_mine_depth"]
+[ext_resource type="Texture2D" uid="uid://bep3jwh4tlx7u" path="res://Sprites/map/chapter2/forge_ground.png" id="c2_forge_ground"]
+[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="c2_fx"]
+[ext_resource type="Script" uid="uid://cm32004roptyp" path="res://scripts/world/chapter2_parallax.gd" id="c2_parallax"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
 [ext_resource type="Resource" uid="uid://bxem6i08xr73k" path="res://data/monsters/ember_bat.tres" id="md_ember_bat"]
@@ -21,38 +24,113 @@ display_name = "เหมืองถ่านไฟ"
 chapter = 2
 region = "สวาร์ทัลฟ์เฮม"
 map_bounds = Rect2(-100, -200, 5200, 1400)
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
 player_scene = ExtResource("player")
 
-[node name="AmbientFX" type="Node2D" parent="." unique_id=1912726915]
-script = ExtResource("ambient_fx")
-lantern_positions = PackedVector2Array(128, 453, 508, 457, 895, 408, 1076, 515, 3111, 479, 4456, 440, 4960, 492)
-light_radius = 450.0
-light_energy = 4.22
-shaft_positions = PackedVector2Array(1420, -150, 2350, -100)
-shaft_size = Vector2(360, 970)
-shaft_angle = 8.0
-shaft_color = Color(0.82, 0.74, 0.6, 0.035)
-
-[node name="Background" type="Node2D" parent="." unique_id=901953463]
-
-[node name="Sky" type="Polygon2D" parent="Background" unique_id=648218802]
-z_index = -100
+[node name="Background" type="Node2D" parent="." unique_id=400673518]
+process_priority = 100
 texture_filter = 4
-position = Vector2(-100, -200)
-texture = ExtResource("bg38")
-polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 1400, 0, 1400)
-uv = PackedVector2Array(0, 0, 5200, 0, 5200, 1400, 0, 1400)
+script = ExtResource("c2_parallax")
+open_bridge = null
+metadata/ignore_map_bounds = true
 
-[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1865573880]
-visible = false
-z_index = -90
-position = Vector2(-100, 540)
-color = Color(0.3, 0.1, 0.06, 1)
-polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 360, 0, 360)
+[node name="Depth" type="Sprite2D" parent="Background" unique_id=1677008758]
+z_index = -100
+texture_repeat = 3
+position = Vector2(2500, 424)
+texture = ExtResource("c2_ember_mine_depth")
+region_enabled = true
+region_rect = Rect2(-5000, 0, 12000, 724)
 
-[node name="Art" type="Sprite2D" parent="Background" unique_id=940613954]
-z_index = -80
-position = Vector2(2500, 600)
+[node name="Floor" type="Sprite2D" parent="Background" unique_id=2090107329]
+z_index = -50
+texture_repeat = 3
+position = Vector2(2500, 1069)
+scale = Vector2(0.75, 1)
+texture = ExtResource("c2_forge_ground")
+region_enabled = true
+region_rect = Rect2(-5000, 0, 12000, 550)
+
+[node name="FoundationFill" type="Polygon2D" parent="Background" unique_id=201561955]
+z_index = -51
+color = Color(0.1, 0.09, 0.08, 1)
+polygon = PackedVector2Array(-6000, 1339, 12000, 1339, 12000, 2000, -6000, 2000)
+
+[node name="Lamp0" type="Sprite2D" parent="Background" unique_id=1550931528]
+z_index = -20
+position = Vector2(400, 679.34436)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp0" unique_id=840805469]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 480.0
+light_energy = 1.4
+light_background = true
+
+[node name="Lamp1" type="Sprite2D" parent="Background" unique_id=1813292535]
+z_index = -20
+position = Vector2(1400, 679.34436)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp1" unique_id=422436629]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 480.0
+light_energy = 1.4
+light_background = true
+
+[node name="Lamp2" type="Sprite2D" parent="Background" unique_id=1942618324]
+z_index = -20
+position = Vector2(2500, 679.34436)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp2" unique_id=9961291]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 480.0
+light_energy = 1.4
+light_background = true
+
+[node name="Lamp3" type="Sprite2D" parent="Background" unique_id=901339308]
+z_index = -20
+position = Vector2(3600, 679.34436)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp3" unique_id=688328980]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 480.0
+light_energy = 1.4
+light_background = true
+
+[node name="Lamp4" type="Sprite2D" parent="Background" unique_id=861983603]
+z_index = -20
+position = Vector2(4650, 679.34436)
+scale = Vector2(0.16887417, 0.16887417)
+texture = ExtResource("c2_dwarf_lantern")
+
+[node name="FlameAndLight" type="Node2D" parent="Background/Lamp4" unique_id=1327067341]
+z_index = 40
+script = ExtResource("c2_fx")
+lantern_positions = PackedVector2Array(0, -378)
+flame_size = Vector2(32, 65)
+light_radius = 480.0
+light_energy = 1.4
+light_background = true
 
 [node name="Terrain" type="Node2D" parent="." unique_id=705544492]
 
@@ -105,4 +183,4 @@ label_text = "→ ห้องโถงเงียบ"
 destination_name = "ห้องโถงเงียบ"
 
 [node name="Darkness" type="CanvasModulate" parent="." unique_id=1936514667]
-color = Color(0.46849567, 0.50327855, 0.5897615, 1)
+color = Color(0.8074341, 0.83379424, 0.8919318, 1)

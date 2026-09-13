@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"false_judge"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 6
+target = &"false_judge|ninth"
+count = 1
+text = "สกิล Ninth Edge โดนผู้พิพากษา"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"rb14_edge_that_remembers"
+title = "RB14 คมที่จำได้"
+description = "ล้มผู้พิพากษาผู้ตายด้วยสกิล Ninth Edge อย่างน้อยหนึ่งครั้ง"
+giver_name = "เฮล ผู้ปกครองผู้ตาย"
+dialog_offer = "ผู้พิพากษาผู้ตายตัดสินคนตามชื่อในหนังสือ... ไปให้เขาเจอชื่อที่ไม่อยู่ในหนังสือเล่มไหน — ชื่อที่เจ้าสลักเอง\n\nล้มเขาด้วยคมอักขระที่เก้า — ฟันลบนาม · อักขระคู่ · กายาอักขระ — อย่างน้อยหนึ่งครั้ง"
+dialog_progress = "ล้มผู้พิพากษาผู้ตาย โดยมีสกิล Ninth Edge (ฟันลบนาม / อักขระคู่) โดนเขาอย่างน้อย 1 ครั้ง"
+dialog_complete = "เขาอ่านชื่อเจ้าออก... แม้ไม่อยู่ในหนังสือ\n\nอักขระที่เก้าตอบรับเจ้าเต็มที่แล้ว — เรียน «อักขระที่เก้า» ได้ สลักชื่อลงพื้น แล้วให้ทุกอย่างในวงจำมันไว้"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 92
+required_job = &"ninth_edge"
+required_quests = Array[StringName]([&"rb13_the_ninth_wall"])
+set_flag_on_complete = &"ninth_inscription_unlocked"
+reward_zeny = 80000
+reward_exp = 500000

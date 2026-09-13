@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/keen_inscription.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"keen_inscription"
+display_name = "รูนคมสังหาร"
+description = "คริ +2 จุดเปอร์เซ็นต์ และตัวคูณคริ +0.04 ต่อระดับ"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+type = 4
+sp_cost_base = 0
+sp_cost_per_level = 0.0
+cooldown = 0.0
+damage_mult_base = 0.0
+damage_mult_per_level = 0.0
+required_skills = {"blade_rhythm": 5}
+passive_effects = {"crit": 2.0, "crit_damage_percent": 4.0}

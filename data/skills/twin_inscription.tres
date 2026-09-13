@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/twin_inscription.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"twin_inscription"
+display_name = "อักขระคู่"
+description = "ใช้ 2 ตรา · 6 วินาที ทุกการโจมตีมีเงาดาบตาม 50–70% ATK ไม่คริ"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 82
+type = 2
+sp_cost_base = 28
+sp_cost_per_level = 0.0
+cooldown = 14.0
+damage_mult_base = 0.00
+damage_mult_per_level = 0.00
+required_skills = {}

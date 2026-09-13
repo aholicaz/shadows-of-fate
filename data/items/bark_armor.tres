@@ -14,8 +14,16 @@ type = 2
 slot = 4
 card_slots = 1
 max_stack = 1
-buy_price = 95000
-sell_price = 38000
+buy_price = 21968
+sell_price = 1256
 def = 30
 max_hp = 150
 refinable = true
+
+skill_damage_percent = 5.0
+
+bonus_str = 4
+
+max_sp = 35
+
+drop_hint = "รากเลื้อย"

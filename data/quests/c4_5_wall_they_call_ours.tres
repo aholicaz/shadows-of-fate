@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"stone_soldier"
+count = 12
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"wall_inscription"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c4_5_wall_they_call_ours"
+title = "C4-5 กำแพงที่พวกเขาเรียกว่าของเรา"
+description = "ล่าทหารหินยักษ์ที่กำแพง แล้วอ่านจารึกฝั่งยักษ์บนกำแพง"
+giver_name = "ทหารยามธยาซี"
+dialog_offer = "มนุษย์เรียกมันว่ากำแพงกันยักษ์ พวกเจ้าสร้างมัน... ใช่ไหม\n\nไปที่กำแพง ล่าทหารหินที่ยังเดินตามคำสั่งเก่า แล้วอ่านจารึกบนกำแพง — จารึกฝั่งเรา ไม่ใช่ฝั่งเจ้า"
+dialog_progress = "ทหารหิน 12 ตัว แล้วหาจารึกรูนยักษ์ที่กำแพง ตัวอักษรใหญ่เท่าประตู มองไม่พลาดหรอก"
+dialog_complete = "«สร้างเพื่อกันฟ้า ไม่ใช่กันคน» — ยักษ์สร้างกำแพงนั้น มนุษย์ ไม่ใช่พวกเจ้า\n\nเอาโล่หินนี่ไป ตัดจากกำแพงเดียวกัน"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 65
+required_quests = Array[StringName]([&"c4_2_wolves_at_the_pass"])
+reward_item_id = &"wall_shield"
+reward_item_count = 1
+reward_zeny = 12000
+reward_exp = 60000

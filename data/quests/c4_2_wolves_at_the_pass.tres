@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"frost_wolf"
+count = 20
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"snow_hawk"
+count = 12
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c4_2_wolves_at_the_pass"
+title = "C4-2 หมาป่าที่ช่องเขา"
+description = "หมาป่าน้ำแข็งกับเหยี่ยวหิมะดักกองคาราวานที่ช่องเขา ไปตัดให้บางลง"
+giver_name = "พ่อค้าฮือเมียร์"
+dialog_offer = "กองคาราวานของข้าเข้าเมืองไม่ได้สามอาทิตย์แล้ว หมาป่าน้ำแข็งล่าเป็นฝูง เหยี่ยวโฉบจากบน\n\nช่วยตัดให้บางลงที ข้าจ่ายเป็นของ — เสื้อขนหมาป่าตัวที่ดีที่สุดในร้าน"
+dialog_progress = "หมาป่าน้ำแข็ง 20 เหยี่ยวหิมะ 12 ที่ช่องเขาที่เจ้าเดินมานั่นแหละ"
+dialog_complete = "เบาลงเยอะ... นี่เสื้อขนหมาป่า ตัดให้พอดีตัวเจ้าแล้ว\n\nรู้ไหมว่าทำไมหมาป่าถึงลงมาถึงช่องเขา — ทางเหนือมีอะไรบางอย่างที่มันกลัว"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 60
+required_quests = Array[StringName]([&"c4_1_gate_of_giants"])
+reward_item_id = &"frost_wolf_coat"
+reward_item_count = 1
+reward_zeny = 9000
+reward_exp = 36000

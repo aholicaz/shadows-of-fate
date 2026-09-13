@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://bgkx2p5jw1w46"]
 
-[ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="ambient_fx"]
-[ext_resource type="Texture2D" uid="uid://ckj08soqguxrv" path="res://Sprites/map/generated/root_road_bg_final.png" id="bg38"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
 [ext_resource type="Resource" uid="uid://depeulhjexcp7" path="res://data/monsters/root_crawler.tres" id="md_root_crawler"]
@@ -10,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
+
+[ext_resource type="PackedScene" path="res://scenes/world/chapter3/root_road_background.tscn" id="ch3_background"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(5400, 240)
@@ -23,22 +23,7 @@ region = "วานาเฮม"
 map_bounds = Rect2(-100, -200, 5200, 1300)
 player_scene = ExtResource("player")
 
-[node name="Background" type="Node2D" parent="." unique_id=1380898911]
-
-[node name="Sky" type="Polygon2D" parent="Background" unique_id=659590771]
-z_index = -100
-texture_filter = 2
-position = Vector2(-100, -200)
-texture = ExtResource("bg38")
-polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 1300, 0, 1300)
-uv = PackedVector2Array(0, 0, 5200, 0, 5200, 1300, 0, 1300)
-
-[node name="FarLayer" type="Polygon2D" parent="Background" unique_id=1976523962]
-visible = false
-z_index = -90
-position = Vector2(-100, 520)
-color = Color(0.18, 0.26, 0.2, 1)
-polygon = PackedVector2Array(0, 0, 5200, 0, 5200, 360, 0, 360)
+[node name="Background" parent="." instance=ExtResource("ch3_background")]
 
 [node name="Terrain" type="Node2D" parent="." unique_id=358408185]
 
@@ -89,16 +74,3 @@ target_spawn_point = &"from_road"
 label_text = "→ วานาเฮม"
 destination_name = "วานาเฮม นครแห่งราก"
 
-[node name="AmbientFX" type="Node2D" parent="." unique_id=1433035637]
-script = ExtResource("ambient_fx")
-lantern_positions = PackedVector2Array(177, 568)
-flame_size = Vector2(18, 36)
-light_radius = 180.0
-light_energy = 0.16
-shaft_positions = PackedVector2Array(700, -190, 2000, -190, 3400, -190, 4600, -190)
-shaft_size = Vector2(400, 1050)
-shaft_color = Color(0.86, 0.89, 0.65, 0.065)
-mote_regions = Array[Rect2]([Rect2(100, 430, 1000, 370), Rect2(1300, 430, 1000, 370), Rect2(2500, 430, 1000, 370), Rect2(3700, 430, 1000, 370)])
-mote_color = Color(0.62, 0.83, 0.61, 0.4)
-motes_per_region = 12
-wind_regions = Array[Rect2]([Rect2(311, 421, 61, 209)])

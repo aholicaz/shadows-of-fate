@@ -14,8 +14,8 @@ metadata/price_base_r47_buy = 3800
 slot = 2
 card_slots = 1
 max_stack = 1
-buy_price = 19000
-sell_price = 1520
+buy_price = 2528
+sell_price = 416
 metadata/sell_price_base_r44 = 1520
 def = 17
 max_hp = 40
@@ -23,3 +23,5 @@ refinable = true
 max_refine = 10
 refine_atk_per_level = 3
 refine_def_per_level = 1
+
+drop_hint = "อสูรสายฟ้า"

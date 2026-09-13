@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/light_crystal_sword.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"light_crystal_sword"
+display_name = "ดาบผลึกแสง"
+description = "ดาบที่โวลุนด์ตีด้วยแสง สมบูรณ์แบบ ไม่มีรอยตีค้อนเลย"
+icon = ExtResource("2_icon")
+required_level = 80
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 77600
+sell_price = 2784
+atk = 385
+hit = 10
+bonus_dex = 2
+refinable = true
+refine_atk_per_level = 8
+
+skill_damage_percent = 22.0
+
+bonus_str = 9
+
+max_sp = 64
+
+cooldown_reduction_percent = 3.0
+
+damage_percent = 0.0
+
+drop_hint = "อัลฟ์เรืองรอง"

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"echo_wraith"
+count = 15
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"invasion_mural"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c4_7_hall_of_ice"
+title = "C4-7 โถงที่น้ำแข็งจำได้"
+description = "ล่าเสียงสะท้อนในโถงน้ำแข็ง แล้วดูภาพวาดโบราณบนผนัง"
+giver_name = "นักบวชอาสมุนด์"
+dialog_offer = "ยักษ์บอกว่าในโถงน้ำแข็งมีภาพวาดที่ «พิสูจน์ทุกอย่าง» ข้าอยากเห็นกับตา... และอยากให้เจ้าเห็นด้วย\n\nโถงนั้นมีผีของทั้งสองฝ่าย ล่ามันให้เงียบก่อน แล้วดูภาพ"
+dialog_progress = "เสียงสะท้อน 15 ตน แล้วดูภาพวาดกลางโถง ข้าจะรออยู่ที่นี่... ข้ายังไม่กล้าไปดูเอง"
+dialog_complete = "...เจ้าเห็นแล้ว ข้าก็เห็นแล้ว ข้าตามไปดูหลังเจ้า\n\nกองทัพเดินเข้าเมือง ไม่ใช่ป้องกัน ชายถือค้อนนำหน้า\n\nนี่พงศาวดารเล่มที่ 7 — เล่มที่วิหารบอกว่า «ไม่เคยมี» ข้าฉีกมาได้ครึ่งเล่ม"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 67
+required_quests = Array[StringName]([&"c4_3_what_the_temple_teaches", &"c4_5_wall_they_call_ours"])
+choice_prompt = "อาสมุนด์: «ภาพวาด... อาจโกหก ยักษ์วาดเองย่อมวาดให้ตัวเองถูก»\nเจ้าจะพูดว่าอะไร"
+choice_options = Array[String](["«ท่านเห็นแล้วยังพูดแบบนี้?»", "«ภาพวาดอาจโกหกจริง เราต้องหาหลักฐานอื่น»"])
+choice_flags = Array[StringName]([&"doubt_asmund", &"trust_asmund"])
+reward_item_id = &"book_seven_half"
+reward_item_count = 1
+reward_zeny = 15000
+reward_exp = 90000

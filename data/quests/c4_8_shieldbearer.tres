@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"wall_shieldbearer"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c4_8_shieldbearer"
+title = "C4-8 ผู้ที่ยังยืนเฝ้า"
+description = "ล้มผู้ถือโล่แห่งกำแพงที่ยังยืนเฝ้าทางไปหลุมหัวใจสายฟ้า"
+giver_name = "ทหารยามธยาซี"
+dialog_offer = "ผู้ถือโล่... เขาเป็นทหารยักษ์คนสุดท้ายที่ยังเฝ้ากำแพง เฝ้ามาสามร้อยปีจนไม่รู้แล้วว่าเฝ้าอะไร\n\nเขาไม่ให้ใครผ่านไปหลุม ไม่ว่ายักษ์หรือมนุษย์ ข้าไม่อยากสั่งให้เจ้าฆ่าเขา... แต่ไม่มีทางอื่น"
+dialog_progress = "ผู้ถือโล่อยู่ป้อมสุดกำแพงทางตะวันออก ระวังคลื่นกระแทกโล่ มันมาทั้งสองข้าง"
+dialog_complete = "เขาพูดอะไรก่อนตายไหม... «ยืนผิดข้าง» สินะ\n\nนี่เกราะของเขา ยักษ์คนสุดท้ายของกำแพง — ใส่ให้เขาด้วย\n\nคืนนี้อย่าเพิ่งไปหลุม กำแพงตอนกลางคืน... มีบางอย่างที่คนเป็นไม่ควรเห็น แต่เจ้าอาจต้องเห็น"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0")])
+kill_monster_id = &""
+required_level = 69
+required_quests = Array[StringName]([&"c4_7_hall_of_ice"])
+set_flag_on_complete = &"c4_8_done"
+reward_item_id = &"wall_plate"
+reward_item_count = 1
+reward_zeny = 25000
+reward_exp = 120000

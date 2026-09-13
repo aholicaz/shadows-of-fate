@@ -34,7 +34,7 @@ chance = 3.12
 [sub_resource type="Resource" id="Drop_orc_warrior_3"]
 script = ExtResource("2_drop")
 item_id = &"novice_sword"
-chance = 2.0
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_orc_warrior_card"]
 script = ExtResource("2_drop")
@@ -54,12 +54,12 @@ chance = 12.0
 [sub_resource type="Resource" id="Drop_orc_warrior_eq_bastard_sword"]
 script = ExtResource("2_drop")
 item_id = &"bastard_sword"
-chance = 1.5
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_orc_warrior_eq_iron_helm"]
 script = ExtResource("2_drop")
 item_id = &"iron_helm"
-chance = 1.0
+chance = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2v5kt"]
 atlas = ExtResource("3_pc4ti")
@@ -626,8 +626,10 @@ attack_cooldown = 1.8
 knockback_force = 200.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 480
-zeny_min = 160
-zeny_max = 320
+exp_reward = 171
+zeny_min = 74
+zeny_max = 138
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_orc_warrior_0"), SubResource("Drop_orc_warrior_1"), SubResource("Drop_orc_warrior_2"), SubResource("Drop_orc_warrior_3"), SubResource("Drop_orc_warrior_card"), SubResource("Drop_orc_warrior_junk_broken_axe_blade"), SubResource("Drop_orc_warrior_junk_orc_bandana"), SubResource("Drop_orc_warrior_eq_bastard_sword"), SubResource("Drop_orc_warrior_eq_iron_helm")])
 respawn_time = 15.0
+spawn_lines = null
+death_lines = null

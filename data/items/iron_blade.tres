@@ -25,11 +25,23 @@ attack_animation = &"Attack_Blade"
 equip_z_index = -1
 card_slots = 1
 max_stack = 1
-buy_price = 70000
-sell_price = 5600
+buy_price = 6608
+sell_price = 835
 atk = 50
 def = 3
 refinable = true
 metadata/price_base_r47_sell = 11200
 metadata/price_base_r47_buy = 14000
 metadata/sell_price_base_r44 = 5600
+
+skill_damage_percent = 8.0
+
+bonus_str = 6
+
+max_sp = 36
+
+cooldown_reduction_percent = 3.0
+
+damage_percent = 0.0
+
+drop_hint = "ด้วงเหล็ก"

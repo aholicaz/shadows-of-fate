@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://ctqlel5r8p1ce"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/hollow_elf_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_hollow_elf_0"]
+script = ExtResource("2_drop")
+item_id = &"hollow_thread"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_hollow_elf_1"]
+script = ExtResource("2_drop")
+item_id = &"prism_shard"
+chance = 20.0
+
+[sub_resource type="Resource" id="Drop_hollow_elf_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 18.0
+
+[sub_resource type="Resource" id="Drop_hollow_elf_3"]
+script = ExtResource("2_drop")
+item_id = &"elven_plate"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_hollow_elf_4"]
+script = ExtResource("2_drop")
+item_id = &"crystal_shield"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_hollow_elf_card"]
+script = ExtResource("2_drop")
+item_id = &"card_hollow_elf"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"hollow_elf"
+display_name = "เอลฟ์กลวง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(48, 66)
+hp_bar_offset_y = -87.4
+display_height = 230.0
+fit_foot_animations = null
+level = 82
+max_hp = 22000
+atk_min = 820
+atk_max = 1020
+def = 76
+mdef = 90
+hit = 178
+flee = 64
+crit = 10
+element = 7
+race = 7
+ai_type = 1
+move_speed = 140.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 118.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 876
+job_exp_reward = 613
+zeny_min = 237
+zeny_max = 439
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_hollow_elf_0"), SubResource("Drop_hollow_elf_1"), SubResource("Drop_hollow_elf_2"), SubResource("Drop_hollow_elf_3"), SubResource("Drop_hollow_elf_4"), SubResource("Drop_hollow_elf_card")])
+respawn_time = 18.0
+tint = Color(0.7, 0.7, 0.8, 0.6)
+calm_if_item = &"giant_child_scarf"
+spawn_lines = PackedStringArray("หนาว... ทำไมถึงหนาว", "แสงไปไหน...", "ข้าจำชื่อแม่ไม่ได้")
+death_lines = null
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/prism_shard.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"prism_shard"
+display_name = "เศษปริซึม"
+description = "เศษผลึกที่แยกแสงเป็นสี... และแยกสิ่งที่ซ่อนในแสงออกมาด้วย"
+icon = ExtResource("2_icon")
+type = 3
+buy_price = 7200
+sell_price = 312

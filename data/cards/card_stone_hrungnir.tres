@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_stone_hrungnir.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_card")
+monster_id = &"stone_hrungnir"
+fits_slot = 1
+rarity = 5
+monster_level = 72
+id = &"card_stone_hrungnir"
+display_name = "การ์ดหรุงนีร์ศิลา"
+description = "หัวใจที่ไม่ใช่ของตัวเอง"
+icon = ExtResource("2_icon")
+type = 5
+slot = 0
+max_stack = 99
+buy_price = 0
+sell_price = 5320
+atk = 20
+crit = 6

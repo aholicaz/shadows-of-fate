@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/runic_blade.png" id="2_icon"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/equip_sword_idle.tres" id="equipframes"]
+
+
+[ext_resource type="Texture2D" path="res://Sprites/equip/runic_blade_hand.png" id="hand_texture"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/attack_blade_bare_hands.tres" id="bare_combo"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"storm_runeblade"
+display_name = "ดาบรูนอสูรสายฟ้า"
+description = "คมดาบที่เก็บเสียงคำรามของอสูรสายฟ้าไว้ในร่องรูน เมื่อฟันผ่านอากาศจะเกิดประกายแล่นไปยังศัตรูใกล้เคียง พบจากอสูรสายฟ้า"
+icon = ExtResource("2_icon")
+required_level = 30
+type = 1
+metadata/price_base_r47_sell = 48000
+metadata/price_base_r47_buy = 60000
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+card_slots = 1
+max_stack = 1
+buy_price = 11600
+sell_price = 1104
+metadata/sell_price_base_r44 = 24000
+atk = 76
+matk = 0
+bonus_int = 0
+refinable = true
+refine_atk_per_level = 4
+
+
+
+equip_texture = ExtResource("hand_texture")
+equip_follow_idle_hand = true
+equip_grip = Vector2(990, 233)
+equip_hand_scale = 0.28
+equip_hand_rotation_degrees = 63.0
+equip_attack_body_frames = ExtResource("bare_combo")
+equip_z_index = -1
+
+skill_damage_percent = 0.0
+
+bonus_str = 0
+
+max_sp = 0
+
+cooldown_reduction_percent = 0.0
+
+damage_percent = 0.0
+
+bonus_agi = 7
+
+crit = 6
+
+aspd_percent = 10.0
+
+crit_damage_percent = 12.0
+
+attack_element = 4
+
+drop_hint = "อสูรสายฟ้า"

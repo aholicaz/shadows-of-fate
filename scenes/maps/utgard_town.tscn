@@ -1,0 +1,403 @@
+[gd_scene format=3]
+
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_parallax.gd" id="c4_parallax"]
+[ext_resource type="Shader" path="res://Sprites/shaders/chapter4_atmosphere.gdshader" id="c4_weather"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/utgard_town_depth.png" id="c4_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/utgard_town_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/utgard_town_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/utgard_town_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/utgard_town_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter4/organic/utgard_town_foundation.png" id="organic_foundation"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="npc_idle"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="npc_contact"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/thjazi.png" id="art_thjazi"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/skadi.png" id="art_skadi"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/hymir.png" id="art_hymir"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/bestla.png" id="art_bestla"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/gerd.png" id="art_gerd"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/asmund.png" id="art_asmund"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/leif_kid.png" id="art_leif_kid"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter4/idle/jotun_stone.png" id="art_jotun_stone"]
+
+
+
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(4600, 240)
+
+[sub_resource type="ShaderMaterial" id="ChapterWeather"]
+shader = ExtResource("c4_weather")
+shader_parameter/atmosphere_color = Color(0.67, 0.73, 0.98, 1)
+shader_parameter/mist_strength = 0.055
+shader_parameter/aurora_strength = 0.04
+shader_parameter/storm_strength = 0
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"utgard_town"
+display_name = "อุทการ์ด นครแห่งยักษ์"
+chapter = 4
+region = "โยตุนเฮม"
+map_bounds = Rect2(-100, -200, 4400, 1300)
+player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+enter_flag = &"chapter4_visited"
+
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("c4_parallax")
+anchor_x = 2100.0
+snow_amount = 65
+wind = 0.15
+rising_motes = false
+particle_color = Color(0.67, 0.73, 0.98, 0.45)
+
+
+[node name="Backdrop" type="Polygon2D" parent="Background"]
+z_index = -110
+color = Color(0.05,0.09,0.15,1)
+polygon = PackedVector2Array(-6000,-3000,12000,-3000,12000,3000,-6000,3000)
+
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_filter = 4
+texture_repeat = 3
+position = Vector2(2100.0,303)
+scale = Vector2(1.39,1.39)
+texture = ExtResource("c4_depth")
+region_enabled = true
+region_rect = Rect2(-4914,0,12000,724)
+
+
+[node name="Atmosphere" type="Polygon2D" parent="Background"]
+z_index = -2
+material = SubResource("ChapterWeather")
+polygon = PackedVector2Array(-1200,-350,5600,-350,5600,1350,-1200,1350)
+uv = PackedVector2Array(0,0,1,0,1,1,0,1)
+
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2100, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="Visual" type="Polygon2D" parent="Terrain/Ground"]
+visible = false
+color = Color(0.62, 0.6, 0.62, 1)
+polygon = PackedVector2Array(-2300, -120, 2300, -120, 2300, 120, -2300, 120)
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(300, 820)
+
+
+[node name="from_pass" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_steppe" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4000, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToPass" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"frost_pass"
+target_spawn_point = &"from_town"
+label_text = "← ช่องเขาน้ำแข็ง"
+destination_name = "ช่องเขาน้ำแข็ง"
+
+
+[node name="ToSteppe" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(4140, 880)
+target_map = &"giant_steppe"
+target_spawn_point = &"from_town"
+label_text = "→ ทุ่งหญ้ายักษ์"
+destination_name = "ทุ่งหญ้ายักษ์"
+
+
+[node name="NPCs" type="Node2D" parent="."]
+
+
+[node name="Thjazi" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(330, 820)
+npc_name = "ทหารยามธยาซี"
+type = 0
+dialog = "ไป ไปคุยกับผู้อาวุโสสกาดี ท่านบอกให้ปล่อยเจ้าเข้ามา ข้าไม่เห็นด้วย\n\nมนุษย์คนสุดท้ายที่เดินเข้าประตูนี้ เดินออกไปพร้อมกองทัพ"
+greeting = "มนุษย์... ข้าได้กลิ่นค้อนตั้งแต่เจ้าอยู่ที่ช่องเขา"
+voice_id = "thjazi"
+quest_ids = Array[StringName]([&"c4_5_wall_they_call_ours", &"c4_8_shieldbearer"])
+dialog_by_flag = {
+"utgard_intro": "ผู้อาวุโสให้ตราเจ้าแล้วสินะ... ก็ได้ เดินในเมืองได้ แต่อย่าเข้าใกล้เด็ก",
+"walked_with_mammoths": "เลฟบอกว่าเจ้าเดินผ่านฝูงแมมมอธโดยไม่ชักดาบ... มนุษย์แบบนั้นมีอยู่จริงหรือ",
+"saw_invasion_mural": "เจ้าเห็นภาพวาดแล้ว ข้าไม่ต้องพูดอะไรอีก\n\n...ขอโทษเรื่องวันแรก",
+"chapter4_done": "ธยาซี ทหารยามแห่งอุทการ์ด ยืนตรงต่อหน้าเจ้า มนุษย์\n\nถ้าเจ้ากลับมาพร้อมกองทัพ ข้าจะยืนขวาง ถ้าเจ้ากลับมาคนเดียว ประตูนี้เปิดเสมอ"
+}
+
+
+[node name="Skadi" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(650, 820)
+npc_name = "ผู้อาวุโสสกาดี"
+type = 0
+dialog = "ที่นี่คืออุทการ์ด นครแห่งยักษ์ — ที่ที่มนุษย์เรียกว่า «รังของสัตว์ประหลาด»\n\nมองไปรอบ ๆ สิ มีตลาด มีเด็ก มีคนแก่ มีหลุมศพ\nสัตว์ประหลาดไม่ฝังศพกัน มนุษย์"
+greeting = "ข้าไม่ต้องเห็นเจ้า ข้าได้กลิ่นค้อน... และกลิ่นของคนที่เริ่มสงสัยมัน"
+voice_id = "skadi"
+quest_ids = Array[StringName]([&"c4_1_gate_of_giants", &"c4_4_child_who_asks", &"c4_9_breach_on_the_south", &"c4_10_heart_of_lightning"])
+dialog_by_flag = {
+"saw_invasion_mural": "เจ้าเห็นภาพวาดแล้ว... ข้าตาบอดมาตั้งแต่เด็ก แต่ข้าจำภาพนั้นได้ทุกเส้น\n\nนักบวชของเจ้าว่ายังไง ยักษ์วาดโกหกหรือ",
+"chapter4_done": "เจ้าเอาหัวใจไปแล้ว หรือทุบมันทิ้ง ข้าไม่ถาม\n\nไปทางเหนือ อัลฟ์เฮมอยู่ตรงที่รากอิกดราซิลโผล่จากหลุม... ที่นั่นสว่างมาก ระวังตา — และระวังสิ่งที่แสงไม่ยอมให้เห็น"
+}
+
+
+[node name="Hymir" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1150, 820)
+npc_name = "พ่อค้าฮือเมียร์"
+type = 1
+dialog = "ข้าขายของขนาดยักษ์ ตัดให้พอดีตัวเจ้าได้ ค่าแรงไม่คิด\n\nแค่อย่าบอกวิหารว่าซื้อมาจากยักษ์ พวกนั้นเผาร้านข้ามาแล้วสองรอบ"
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"frost_edge", &"troll_cleaver", &"wall_greatsword", &"wall_shield", &"jotun_helm", &"frost_wolf_coat", &"mammoth_wool_cloak", &"troll_boots", &"echo_ring", &"root_sword", &"marsh_cutter", &"bark_armor", &"mist_cloak"])
+greeting = "ของพวกเจ้าเล็กจนข้าคิดราคาไม่ถูก เอาเถอะ ถูก ๆ ไปเลย"
+voice_id = "hymir"
+quest_ids = Array[StringName]([&"c4_2_wolves_at_the_pass"])
+
+
+[node name="Bestla" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1820, 820)
+npc_name = "หมอเบสต์ลา"
+type = 3
+dialog = "เด็กยักษ์ตัวเท่าเจ้าคือเด็กอายุสองขวบ ข้ารักษามาเยอะ\n\nพวกเขาป่วยเพราะความหนาว ไม่ใช่เพราะสายฟ้า... ยังไม่ใช่"
+heal_price = 1500
+greeting = "หมอยักษ์รักษามนุษย์ได้ ยาแค่ต้องแบ่งสิบ"
+voice_id = "bestla"
+
+
+[node name="Gerd" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2450, 820)
+npc_name = "ช่างสลักรูนเกอร์ด"
+type = 2
+dialog = "รูนเป็นของยักษ์มาก่อน มนุษย์ ธอร์เอามันไปทำอาวุธ\n\nวงจรเก้าดวง — พวกเจ้าอ่านออกสามดวง ข้าสลักได้เจ็ด\nดวงที่แปดกับเก้า... ไม่มีใครในโลกที่ยังมีชีวิตอ่านออก"
+has_socket = true
+has_refine = true
+greeting = "รูนที่เจ้าถือ... ตาของข้าสลักดวงที่สี่"
+voice_id = "gerd"
+quest_ids = Array[StringName]([&"c4_6_fourth_rune", &"rb8_carvers_eye", &"rb9_wall_that_held_the_sky"])
+dialog_by_flag = {
+"rb_rune_5": "ห้าดวงแล้ว «กำเนิด» กับ «กำแพง» — ดวงต่อไปอยู่ในแสง ข้าสลักไม่ได้ ตาข้าไม่เห็นแสง\n\nไปหาคนที่ตาบอดเพราะแสง"
+}
+
+
+[node name="Asmund" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3200, 820)
+npc_name = "นักบวชอาสมุนด์"
+type = 0
+dialog = "วิหารส่งข้ามาดูว่าเจ้าจะพูดกับยักษ์ยังไง ข้าไม่ปิดบัง\n\nพวกเขาเขียนประวัติศาสตร์ฝั่งตัวเองเหมือนกัน ทุกคนทำ\nเจ้าเชื่อภาพวาดของศัตรูง่ายกว่าคำสอนที่เลี้ยงเจ้ามาหรือ"
+greeting = "ข้าตามเจ้ามาจากวิหาร... ที่นี่หนาวกว่าที่คิด และเงียบกว่าที่กลัว"
+voice_id = "asmund"
+quest_ids = Array[StringName]([&"c4_3_what_the_temple_teaches", &"c4_7_hall_of_ice"])
+hide_if_flag = &"asmund_left"
+dialog_by_flag = {
+"saw_invasion_mural": "ข้าเห็นภาพวาดแล้ว... ข้าเห็น\n\nอย่าถามข้าตอนนี้ ข้าต้องกลับไปถามวิหาร",
+"trust_asmund": "เจ้ายังเชื่อข้า... ขอบใจ ข้าจะพยายามคู่ควรกับมัน\n\nแต่ข้าจะกลับไปถามวิหารอยู่ดี — ถ้าคำตอบไม่ดี เจ้าจะได้เจอข้าอีกที่แอสการ์ด",
+"doubt_asmund": "เจ้าสงสัยข้า... ก็สมควร ข้าก็สงสัยตัวเอง\n\nข้าจะกลับวิหาร รายงานสิ่งที่เห็น — ทั้งหมด รวมทั้งเรื่องเจ้า"
+}
+
+
+[node name="SavePoint" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2850, 820)
+npc_name = "ศิลาแห่งโยตุน"
+type = 4
+dialog = "ศิลารูนของยักษ์ · ★ ไม่มีตราค้อนสลักทับ ★ รูนบนศิลาเหมือนรูนที่อยู่ใต้ตราค้อนในมิดการ์ด · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
+warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"ljosalf_city", &"eljudnir"])
+
+
+[node name="Leif_kid" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3550, 820)
+npc_name = "เด็กยักษ์เลฟ"
+type = 0
+dialog = "พี่ตัวเล็กจัง เล็กกว่าเลฟอีก\n\nที่วิหารของพี่เขาสอนว่ายักษ์กินเด็กใช่ไหม แม่ก็สอนเลฟว่ามนุษย์กินเด็ก\nแล้วใครกินจริง"
+greeting = "แม่บอกว่ามนุษย์กินเด็ก... พี่กินเด็กจริงเหรอ"
+voice_id = "leif"
+dialog_by_flag = {
+"killed_mammoth_many": "...พี่ฆ่าแมมมอธ เลฟเห็น\n\nพวกมันไม่เคยทำร้ายใคร เลฟไม่คุยกับพี่แล้ว",
+"walked_with_mammoths": "พี่เดินผ่านฝูงแมมมอธโดยไม่ชักดาบ! ตัวแม่ยังดมหัวพี่เลย\n\nเลฟถักผ้าพันคอให้ ใหญ่ไปหน่อยแต่อุ่นนะ",
+"chapter4_done": "พี่จะไปแล้วเหรอ... เลฟเห็นพี่ที่หลุมหัวใจ เลฟยืนดูอยู่ไกล ๆ\n\nถ้ามนุษย์เป็นเหมือนพี่ทุกคน... เลฟจะบอกแม่ว่าตำราผิด"
+}
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="GiantGraves" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(3900, 790)
+lore_id = &"giant_graves"
+title = "สุสานยักษ์"
+text = "หลุมศพยักษ์เรียงเป็นแถวยาว แต่ละหลุมใหญ่เท่าบ้าน ชื่อสลักด้วยรูน\n\nมีหลุมหนึ่ง... ชื่อถูกสกัดออก รอยสกัดเหมือนกับหลุมของซินดริในนิดาเวลลีร์ และศิลาในมิดการ์ด\n\nใครก็ตามที่ลบชื่อ เดินทางมาไกลถึงที่นี่"
+label_text = "สุสาน"
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200, 170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800, 170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800, 170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800, 170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(2200.0, 1960)
+texture_repeat = 3
+texture = ExtResource("organic_foundation")
+region_enabled = true
+region_rect = Rect2(0, 0, 16000, 1600)
+
+[node name="Sprite2D" parent="NPCs/Thjazi" index="0"]
+centered = false
+position = Vector2(-198.3125, -419.125)
+scale = Vector2(0.59375, 0.59375)
+texture = ExtResource("art_thjazi")
+script = ExtResource("npc_idle")
+phase = 0.0
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Thjazi"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Skadi" index="0"]
+centered = false
+position = Vector2(-124.140625, -388.5625)
+scale = Vector2(0.546875, 0.546875)
+texture = ExtResource("art_skadi")
+script = ExtResource("npc_idle")
+phase = 0.8
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Skadi"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Hymir" index="0"]
+centered = false
+position = Vector2(-132.1015625, -408.9375)
+scale = Vector2(0.578125, 0.578125)
+texture = ExtResource("art_hymir")
+script = ExtResource("npc_idle")
+phase = 1.6
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Hymir"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Bestla" index="0"]
+centered = false
+position = Vector2(-186.375, -393.65625)
+scale = Vector2(0.5546875, 0.5546875)
+texture = ExtResource("art_bestla")
+script = ExtResource("npc_idle")
+phase = 2.4000000000000004
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Bestla"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Gerd" index="0"]
+centered = false
+position = Vector2(-184.84375, -388.5625)
+scale = Vector2(0.546875, 0.546875)
+texture = ExtResource("art_gerd")
+script = ExtResource("npc_idle")
+phase = 3.2
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Gerd"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Asmund" index="0"]
+centered = false
+position = Vector2(-125.69375000000001, -274.4625)
+scale = Vector2(0.371875, 0.371875)
+texture = ExtResource("art_asmund")
+script = ExtResource("npc_idle")
+phase = 4.0
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Asmund"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Leif_kid" index="0"]
+centered = false
+position = Vector2(-150.28125, -317.25)
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("art_leif_kid")
+script = ExtResource("npc_idle")
+phase = 4.800000000000001
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Leif_kid"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/SavePoint" index="0"]
+centered = false
+position = Vector2(-121.9609375, -373.28125)
+scale = Vector2(0.5234375, 0.5234375)
+texture = ExtResource("art_jotun_stone")
+script = ExtResource("npc_idle")
+phase = 5.6000000000000005
+breathe = false
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/SavePoint"]
+z_index = -1
+script = ExtResource("npc_contact")
+fit_actor_size = true

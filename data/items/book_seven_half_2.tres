@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/book_seven_half_2.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"book_seven_half_2"
+display_name = "พงศาวดารเล่มที่ 7 (อีกครึ่ง)"
+description = "หน้าที่ขาดจากเล่มที่ 7 — พูดถึง «สัญญาแห่งแสง» ที่เอลฟ์ทำกับผู้ถือค้อน... และชื่อคนที่คัดค้าน ถูกลบ"
+icon = ExtResource("2_icon")
+type = 4
+buy_price = 0
+sell_price = 0

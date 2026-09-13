@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/erasing_cut.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"erasing_cut"
+display_name = "ฟันลบนาม"
+description = "ใช้ 3 ตรา ฟันลบนามระยะ 500 px สูงสุด 8 ตัว รวม 900–1500% ATK ไม่คริ ได้ผลจากพลังเหล็กกล้า"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 90
+type = 0
+sp_cost_base = 40
+sp_cost_per_level = 0.0
+cooldown = 12.0
+damage_mult_base = 9.00
+damage_mult_per_level = 1.50
+required_skills = {}
+max_targets = 8
+range_x = 500.0
+
+range_y = 350.0

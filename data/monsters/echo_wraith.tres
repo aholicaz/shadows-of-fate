@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://cvuu0ujmaunxn"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/echo_wraith_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_echo_wraith_0"]
+script = ExtResource("2_drop")
+item_id = &"echo_shard"
+chance = 40.0
+
+[sub_resource type="Resource" id="Drop_echo_wraith_1"]
+script = ExtResource("2_drop")
+item_id = &"giant_bone"
+chance = 30.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_echo_wraith_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_echo_wraith_3"]
+script = ExtResource("2_drop")
+item_id = &"echo_ring"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_echo_wraith_card"]
+script = ExtResource("2_drop")
+item_id = &"card_echo_wraith"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"echo_wraith"
+display_name = "เสียงสะท้อน"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(46, 60)
+hp_bar_offset_y = -83.6
+display_height = 220.0
+fit_foot_animations = null
+level = 68
+max_hp = 11000
+atk_min = 600
+atk_max = 760
+def = 60
+mdef = 90
+hit = 138
+flee = 78
+crit = 9
+element = 8
+race = 1
+ai_type = 1
+move_speed = 150.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 116.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 698
+job_exp_reward = 489
+zeny_min = 197
+zeny_max = 367
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_echo_wraith_0"), SubResource("Drop_echo_wraith_1"), SubResource("Drop_echo_wraith_2"), SubResource("Drop_echo_wraith_3"), SubResource("Drop_echo_wraith_card")])
+respawn_time = 18.0
+tint = Color(0.8, 0.9, 1, 0.6)
+spawn_lines = PackedStringArray("กำแพง...แตกจากข้างใน", "พวกเขามาจากทางใต้...", "อย่าเปิดประตู! อย่า—", "ท่านจอมพล... หัวใจของท่าน...", "ข้าเห็นค้อน... สีฟ้า...", "เด็ก ๆ อยู่ในโถง... อย่าให้พวกมันเข้ามา")
+death_lines = null

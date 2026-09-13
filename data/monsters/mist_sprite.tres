@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/mist_sprite_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bwa433ayhc51b" path="res://data/sprites/monsters/mist_sprite_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_mist_sprite_0"]
 script = ExtResource("2_drop")
@@ -24,7 +24,7 @@ chance = 12.0
 [sub_resource type="Resource" id="Drop_mist_sprite_3"]
 script = ExtResource("2_drop")
 item_id = &"mist_cloak"
-chance = 1.0
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_mist_sprite_card"]
 script = ExtResource("2_drop")
@@ -37,8 +37,19 @@ id = &"mist_sprite"
 display_name = "ภูตหมอก"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(36, 36)
-hp_bar_offset_y = -57.0
-display_height = 150.0
+hp_bar_offset_y = -307.0
+display_height = 300.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.20726172,
+&"Die": 1.20726172,
+&"Hit": 1.20726172,
+&"Idle": 1.20909091,
+&"Run": 1.20909091,
+&"Skill": 1.20726172,
+&"Walk": 1.20909091
+})
 fit_foot_animations = null
 flying = true
 level = 44
@@ -67,9 +78,11 @@ attack_cooldown = 1.8
 knockback_force = 170.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 3000
-job_exp_reward = 2100
-zeny_min = 650
-zeny_max = 1100
+exp_reward = 400
+job_exp_reward = 280
+zeny_min = 130
+zeny_max = 242
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_mist_sprite_0"), SubResource("Drop_mist_sprite_1"), SubResource("Drop_mist_sprite_2"), SubResource("Drop_mist_sprite_3"), SubResource("Drop_mist_sprite_card")])
 respawn_time = 18.0
+spawn_lines = null
+death_lines = null

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/crystal_cloak.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"crystal_cloak"
+display_name = "เกราะผลึก"
+description = "เกราะทอจากเส้นใยผลึก เบาเหมือนผ้า แข็งเหมือนหิน"
+icon = ExtResource("2_icon")
+required_level = 75
+type = 2
+slot = 4
+card_slots = 1
+max_stack = 1
+buy_price = 68300
+sell_price = 2180
+def = 52
+mdef = 10
+max_hp = 400
+refinable = true
+
+skill_damage_percent = 6.0
+
+bonus_str = 5
+
+max_sp = 45
+
+drop_hint = "ผู้ดูแลสวน"

@@ -16,9 +16,11 @@ metadata/price_base_r47_buy = 5200
 slot = 3
 card_slots = 1
 max_stack = 1
-buy_price = 26000
-sell_price = 2080
+buy_price = 4688
+sell_price = 584
 metadata/sell_price_base_r44 = 2080
 def = 11
 max_hp = 40
 refinable = true
+
+drop_hint = "ออร์คนักรบ"

@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="q"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+
+[sub_resource type="Resource" id="O0"]
+script = ExtResource("o")
+kind = 4
+target = &"rb_clue_stone"
+count = 1
+text = "ตรวจศิลารูนแตกในบึง"
+
+[sub_resource type="Resource" id="O1"]
+script = ExtResource("o")
+kind = 4
+target = &"rb_clue_shadow"
+count = 1
+text = "ตรวจเงารูปเขาในน้ำ"
+
+[sub_resource type="Resource" id="O2"]
+script = ExtResource("o")
+kind = 4
+target = &"rb_clue_bell"
+count = 1
+text = "ฟังกระดิ่งใต้รากใหญ่"
+
+[resource]
+script = ExtResource("q")
+id = "rb3_beneath_marsh"
+title = "R3 เสียงจากใต้บึง"
+giver_name = "ผู้อาวุโสญอร์ดา"
+description = "ตามเสียงรูนในบึงหมอกเงิน ศิลา เงา และเสียงกระดิ่งจะนำเจ้าไปสู่ประตู"
+dialog_offer = "ตามเสียงรูนในบึงหมอกเงิน ศิลา เงา และเสียงกระดิ่งจะนำเจ้าไปสู่ประตู"
+dialog_progress = "ตรวจเป้าหมายในสมุดเควส แล้วกลับมาคุยเมื่อครบ"
+dialog_complete = "ใต้บึงมีวิหารที่อสูรเขาทมิฬยึดครอง เจ้าพบประตูแล้ว แต่ต้องเรียนรู้การควบคุมก่อน"
+required_flag = ""
+set_flag_on_complete = "rb_clues"
+required_level = 42
+required_job = &"swordsman"
+required_quests = Array[StringName]([&"rb2_unbound_rune", &"c3_3_mist_that_lingers", &"c3_4_song_of_child"])
+objectives = Array[ExtResource("o")]([SubResource("O0"), SubResource("O1"), SubResource("O2")])

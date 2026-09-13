@@ -8,6 +8,7 @@
 ## monster_base.gd จะเรียกให้เองตอนโจมตี/ร่ายสกิล
 class_name MonsterProjectile
 extends Node2D
+signal impacted(kind: StringName, at: Vector2)
 
 const DEFAULT_BURST := "res://Sprites/effects/slime_burst.png"
 const BURST_FRAMES := 8
@@ -15,12 +16,15 @@ const BURST_FRAMES := 8
 ## เปลี่ยนภาพชีทใหม่แล้วไม่ต้องมาแก้โค้ด ขอแค่เป็นแถวเดียว 8 ช่องเท่ากัน
 ## ตัวคูณตำแหน่ง: ยกภาพขึ้นจากจุดตกเท่าไหร่ (0.5 = กึ่งกลางภาพอยู่ที่จุดตกพอดี)
 const BURST_LIFT := 0.46
+const FIRE_SHADER = preload("res://Sprites/effects/gullveig_fireball.gdshader")
+const FIRE_BURST = preload("res://scripts/entities/fireball_burst.gd")
 
 enum Mode { STRAIGHT, LOB }
 
 var data: MonsterData
 var mode: Mode = Mode.STRAIGHT
 var _dir := 1
+var _velocity_direction := Vector2.RIGHT
 var _speed := 0.0
 var _range := 0.0
 var _travelled := 0.0
@@ -44,7 +48,7 @@ var _shadow_y := 0.0
 # สร้าง
 # =========================================================
 ## ยิงตรงจากตัวมอน — facing: 1 = ขวา · -1 = ซ้าย
-static func fire_straight(d: MonsterData, caster: Node2D, facing: int) -> MonsterProjectile:
+static func fire_straight(d: MonsterData, caster: Node2D, facing: int, origin: Vector2 = Vector2.INF, target: Vector2 = Vector2.INF) -> MonsterProjectile:
 	if d == null or d.projectile_texture == null:
 		return null
 	var p := MonsterProjectile.new()
@@ -57,8 +61,16 @@ static func fire_straight(d: MonsterData, caster: Node2D, facing: int) -> Monste
 	p._spin = d.projectile_spin
 	var foot: Vector2 = caster.foot_position() if caster.has_method("foot_position") else caster.global_position
 	p.global_position = foot + Vector2(d.projectile_offset.x * p._dir, d.projectile_offset.y)
+	if origin != Vector2.INF:
+		p.global_position = origin
+	p._velocity_direction = Vector2(p._dir,0)
+	if target != Vector2.INF and p.global_position.distance_to(target) > .01:
+		p._velocity_direction = (target-p.global_position).normalized()
+		p.rotation = p._velocity_direction.angle() - (PI if p._dir < 0 else 0.0)
 	p._build_sprite(d.projectile_texture, d.projectile_height, d.projectile_faces_left)
 	_add_to_map(caster, p)
+	if d.projectile_fire_effect:
+		FIRE_BURST.spawn(p.get_parent(),p.global_position,p._dir)
 	return p
 
 
@@ -98,9 +110,17 @@ func _build_sprite(tex: Texture2D, height: float, faces_left: bool) -> void:
 	_sprite.scale = Vector2(k, k)
 	# รูปต้นฉบับหันซ้าย → ยิงไปขวาต้องพลิก
 	_sprite.flip_h = faces_left and _dir > 0
+	if data != null and data.projectile_fire_effect and mode == Mode.STRAIGHT:
+		var material := ShaderMaterial.new()
+		material.shader = FIRE_SHADER
+		_sprite.material = material
+		# The glowing head, not the tail's canvas center, is the collision origin.
+		_sprite.position.x = -_dir * float(tex.get_width()) * .24 * k
 	add_child(_sprite)
 	if _hit_size == Vector2.ZERO:
 		_hit_size = tex.get_size() * k * 0.7
+	if data != null and data.projectile_fire_effect and mode == Mode.STRAIGHT:
+		return
 	# โผล่มาแบบเด้งเล็กน้อย
 	_sprite.scale = Vector2(k, k) * 0.4
 	var tw := create_tween()
@@ -118,11 +138,26 @@ func _process(delta: float) -> void:
 
 	if mode == Mode.STRAIGHT:
 		var step: float = _speed * delta
-		position.x += _dir * step
+		var previous := global_position
+		position += _velocity_direction * step
 		_travelled += step
+		# Fireballs sweep the travelled segment so low FPS cannot skip a wall/player.
+		if data.projectile_fire_effect:
+			var query := PhysicsRayQueryParameters2D.create(previous,global_position)
+			query.collision_mask = 1
+			var wall := get_world_2d().direct_space_state.intersect_ray(query)
+			var end: Vector2 = wall.position if not wall.is_empty() else global_position
+			if _swept_player(previous,end):
+				_hit_player_direct()
+				_pop(&"player")
+				return
+			if not wall.is_empty():
+				global_position = end
+				_pop(&"terrain")
+				return
 		if _hits_player():
 			_hit_player_direct()
-			_pop()
+			_pop(&"player")
 			return
 		if _travelled >= _range or _hits_terrain():
 			_pop()
@@ -170,9 +205,30 @@ func _hits_player() -> bool:
 	return mine.intersects(pr, true)
 
 
+func _swept_player(start: Vector2, finish: Vector2) -> bool:
+	var rect := _player_rect()
+	if not rect.has_area(): return false
+	# Minkowski expansion turns the ball's box into a point/rectangle sweep.
+	rect = Rect2(rect.position-_hit_size*.5,rect.size+_hit_size)
+	var delta := finish-start
+	var enter := 0.0
+	var leave := 1.0
+	for axis in range(2):
+		if absf(delta[axis]) < .0001:
+			if start[axis] < rect.position[axis] or start[axis] > rect.end[axis]: return false
+		else:
+			var a := (rect.position[axis]-start[axis])/delta[axis]
+			var b := (rect.end[axis]-start[axis])/delta[axis]
+			enter = maxf(enter,minf(a,b))
+			leave = minf(leave,maxf(a,b))
+			if enter > leave: return false
+	global_position = start.lerp(finish,enter)
+	return true
+
+
 func _hits_terrain() -> bool:
 	var space := get_world_2d().direct_space_state
-	var q := PhysicsRayQueryParameters2D.create(global_position, global_position + Vector2(_dir * _hit_size.x * 0.5, 0))
+	var q := PhysicsRayQueryParameters2D.create(global_position, global_position + _velocity_direction * _hit_size.x * 0.5)
 	q.collision_mask = 1
 	return not space.intersect_ray(q).is_empty()
 
@@ -267,11 +323,14 @@ static func _default_burst_frames() -> SpriteFrames:
 
 
 ## กระสุนตรงหายไปแบบแตกเป็นประกาย
-func _pop() -> void:
+func _pop(kind: StringName = &"expired") -> void:
 	if _done:
 		return
 	_done = true
+	impacted.emit(kind,global_position)
 	set_process(false)
+	if data != null and data.projectile_fire_effect:
+		FIRE_BURST.spawn(get_parent(),global_position,_dir,true)
 	if _sprite == null:
 		queue_free()
 		return

@@ -10,4 +10,4 @@ display_name = "หนังสัตว์"
 description = "หนังสัตว์ดิบ"
 icon = ExtResource("1_s5b43")
 buy_price = 90
-sell_price = 36
+sell_price = 32

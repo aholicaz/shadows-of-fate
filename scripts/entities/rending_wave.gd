@@ -138,8 +138,11 @@ func _physics_process(delta: float) -> void:
 			Vector2(near_x, previous.y), 1)
 		if not get_world_2d().direct_space_state.intersect_ray(sight).is_empty():
 			continue
-		enemy.take_damage_from_player(_skill.damage_mult(_level), false, _dir,
-			_skill.wound_bonus(_level), _skill.wound_duration)
+		if enemy.has_method("take_skill_damage"):
+			enemy.take_skill_damage(_skill.damage_mult(_level),false,_dir,&"magnum_break",_skill.wound_bonus(_level),_skill.wound_duration)
+		else:
+			enemy.take_damage_from_player(_skill.damage_mult(_level), false, _dir,
+				_skill.wound_bonus(_level), _skill.wound_duration)
 		_hits.append(enemy)
 		if _skill.max_targets_at(_level) > 0 and _hits.size() >= _skill.max_targets_at(_level):
 			queue_free()

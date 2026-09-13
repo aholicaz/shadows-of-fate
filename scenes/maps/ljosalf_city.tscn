@@ -1,0 +1,371 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/world/chapter5_parallax.gd" id="c5_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/ljosalf_city_depth.png" id="c5_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/ljosalf_city_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/ljosalf_city_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/ljosalf_city_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/ljosalf_city_3.png" id="organic_3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter5/organic/ljosalf_city_foundation.png" id="foundation"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="npc_idle"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="npc_shadow"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/sol.png" id="npc_0"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/sol_exile.png" id="npc_1"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/eir.png" id="npc_2"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/dagr.png" id="npc_3"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/lofn.png" id="npc_4"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/volundr.png" id="npc_5"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/nott.png" id="npc_6"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/light_well.png" id="npc_7"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/ylva.png" id="npc_8"]
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(4400, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"ljosalf_city"
+display_name = "ลโยซาลฟ์ นครแห่งแสง"
+chapter = 5
+region = "อัลฟ์เฮม"
+map_bounds = Rect2(-100, -200, 4200, 1200)
+player_scene = ExtResource("player")
+enter_flag = &"chapter5_visited"
+variant_flag = &"shade_view"
+variant_tint = Color(0.55, 0.55, 0.68, 1)
+variant_name_suffix = " (ร่างจาง)"
+
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+[node name="Background" type="Node2D" parent="."]
+
+script = ExtResource("c5_parallax")
+anchor_x = 2000.0
+atmosphere = Color(0.96,0.9,0.62,0.35)
+rising = false
+mote_amount = 55
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2000, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(300, 820)
+
+
+[node name="from_road" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_garden" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3800, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToRoad" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"shimmer_road"
+target_spawn_point = &"from_city"
+label_text = "← ทางประกายแสง"
+destination_name = "ทางประกายแสง"
+
+
+[node name="ToGarden" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(3940, 880)
+target_map = &"crystal_garden"
+target_spawn_point = &"from_city"
+label_text = "→ สวนผลึก"
+destination_name = "สวนผลึก"
+
+
+[node name="NPCs" type="Node2D" parent="."]
+
+
+[node name="Sol" parent="NPCs" instance=ExtResource("npc") groups=["light_only"]]
+position = Vector2(330, 820)
+npc_name = "ทหารยามโซล"
+type = 0
+dialog = "ข้าเฝ้าประตูมา... นานเท่าไหร่นะ ไม่สำคัญหรอก ทุกวันเหมือนกัน ☺\n\nกลางคืน? กลางคืนคืออะไร"
+greeting = "ยินดีต้อนรับสู่ลโยซาลฟ์ ☺ ที่นี่ไม่มีใครขาดอะไร"
+voice_id = "sol"
+quest_ids = Array[StringName]([&"c5_5_thing_in_the_water"])
+
+
+[node name="Sol_hollow" parent="NPCs" instance=ExtResource("npc") groups=["dim_only"]]
+position = Vector2(330, 820)
+npc_name = "เอลฟ์กลวง (โซล)"
+type = 0
+dialog = "ข้าเคยยืนตรงนี้... เฝ้าอะไรสักอย่าง\n\nแสงไปไหน ทำไมทุกคนยังยิ้ม"
+visible = false
+modulate = Color(1, 1, 1, 0.60)
+greeting = "...หนาว"
+
+
+[node name="Eir" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(700, 820)
+npc_name = "ผู้เห็นแสงเอย์ร"
+type = 0
+dialog = "ข้าตาบอดเพราะมองแสงตรง ๆ นานเกินไป — ตอนนั้นข้าเห็นว่าแสงไหลไปทางไหน\n\nขึ้น มนุษย์ แสงของเมืองนี้ไหลขึ้นราก ไม่ใช่ลงมาจากฟ้า"
+greeting = "เจ้าไม่ยิ้ม... ดี ที่นี่มีแค่ข้าคนเดียวที่ไม่ยิ้ม"
+voice_id = "eir"
+quest_ids = Array[StringName]([&"c5_1_city_without_night", &"c5_4_child_who_never_saw_stars", &"c5_6_those_who_are_missing", &"c5_10_the_conduit", &"rb10_borrowed_light", &"rb11_shadow_of_the_blade"])
+dialog_by_flag = {
+"has_shade_crystal": "เจ้าได้ผลึกเงาแล้ว... ไปที่ผลึกใหญ่กลางเมือง สลับร่างได้ตามใจ\n\nเห็นแล้วใช่ไหม ว่าใครหายไป",
+"chapter5_done": "เมืองมืด... หรือสว่าง เจ้าเลือกแล้ว ข้าไม่ตัดสิน\n\nทางลงนิฟล์เฮมอยู่ที่วิหารบ่อแสง ตรงท่อราก ที่นั่นไม่มีแสงเลย มนุษย์ — และคนตายพูดได้"
+}
+
+
+[node name="Dagr" parent="NPCs" instance=ExtResource("npc") groups=["light_only"]]
+position = Vector2(1200, 820)
+npc_name = "เจ้าเมืองดาเกอร์"
+type = 0
+dialog = "ลโยซาลฟ์สงบมาพันปี ไม่มีสงคราม ไม่มีความเศร้า ไม่มีใครแก่\n\nเจ้าอยากได้แบบนี้บ้างไหม ☺"
+greeting = "ยินดีต้อนรับ ☺ ไม่มีอะไรผิดปกติที่นี่ ไม่เคยมี"
+voice_id = "dagr"
+quest_ids = Array[StringName]([&"c5_2_gift_of_light", &"c5_8_forsaken"])
+hide_if_flag = &"dagr_left"
+dialog_by_flag = {
+"knows_exile": "เจ้าไปป่าจางมาแล้ว... ☺ ที่นั่นไม่มีอะไรหรอก ไม่มีใครอยู่ที่นั่น ☺ ☺"
+}
+
+
+[node name="Lofn" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1650, 820)
+npc_name = "แม่ค้าลอฟน์"
+type = 1
+dialog = "ข้าขายของมา... ตั้งแต่จำความได้ ทุกคนซื้อของเดิม ทุกวัน ☺\n\nกลางคืน? เจ้าเป็นคนที่สองที่ถามข้าวันนี้... ไม่สิ คนแรก ไม่มีใครถาม"
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"prism_blade", &"stag_horn_saber", &"light_crystal_sword", &"crystal_shield", &"ljosalf_circlet", &"crystal_cloak", &"moth_wing_cape", &"silent_step", &"frost_edge", &"troll_cleaver", &"wall_shield", &"jotun_helm", &"troll_boots"])
+greeting = "ราคาทุกอย่างลงท้ายด้วยศูนย์ ไม่มีการต่อรอง ☺ ที่นี่ไม่มีใครขาดอะไร"
+voice_id = "lofn"
+quest_ids = Array[StringName]([&"c5_3_garden_that_never_wilts"])
+dialog_by_flag = {
+"knows_exile": "โซล? โซลไหน ☺ ที่นี่ไม่มีใครชื่อโซล"
+}
+
+
+[node name="Volundr" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2050, 820)
+npc_name = "ช่างแสงโวลุนด์"
+type = 2
+dialog = "ของที่สมบูรณ์แบบไม่มีรอยตีค้อน\n\nราคาของความสมบูรณ์แบบคือ ถ้าไม่สมบูรณ์ ก็ไม่มีอยู่เลย ☺"
+has_socket = true
+has_refine = true
+greeting = "ข้าตีบวกด้วยแสง สำเร็จบ่อยกว่าค้อน ☺ แต่ถ้าพัง — หายไปทั้งชิ้น ไม่เหลือซาก"
+voice_id = "volundr"
+quest_ids = Array[StringName]([&"c5_7_light_that_breaks"])
+
+
+[node name="Nott" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2450, 820)
+npc_name = "หมอน็อตต์"
+type = 3
+dialog = "ที่นี่ไม่มีใครป่วย ข้าเลยรักษาแต่คนนอก\n\nเจ้าดูเหนื่อย... เหนื่อยคืออะไรนะ ☺"
+heal_price = 2500
+greeting = "ข้าชื่อน็อตต์ ☺ ไม่รู้แปลว่าอะไร ไม่มีใครรู้"
+voice_id = "nott"
+dialog_by_flag = {
+"knows_exile": "โซล... ☺ ข้าไม่รู้จัก ทำไมข้าถึงรู้สึกว่าควรรู้จัก",
+"s8_done": "น็อตต์... แปลว่ากลางคืน\n\nข้า... ข้าเคยมีมัน ข้าจำได้แล้ว ข้าเคยหลับ"
+}
+
+
+[node name="LightWell_small" parent="NPCs" instance=ExtResource("npc") groups=["light_only"]]
+position = Vector2(2850, 820)
+npc_name = "บ่อแสงเล็ก"
+type = 4
+dialog = "บ่อแสงเล็กกลางเมือง · เซฟด้วยแสง · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
+warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"eljudnir"])
+
+
+[node name="Ylva" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3350, 820)
+npc_name = "เด็กเอลฟ์อิลวา"
+type = 0
+dialog = "อิลวาไม่เคยออกจากเมือง ทุกคนบอกว่าข้างนอกไม่มีอะไร\n\nพี่รู้จัก «ดาว» ไหม ในหนังสือเก่ามีคำนี้ แต่ไม่มีใครรู้ว่าคืออะไร"
+greeting = "พี่มาจากข้างนอกเหรอ ☺ ข้างนอกมีอะไร"
+voice_id = "ylva"
+dialog_by_flag = {
+"has_frida_song": "พี่มีกระดาษเพลง... ร้องให้อิลวาฟังหน่อยได้ไหม\n\n(อิลวาฟังเพลงของฟรีดาจนจบ ท่อนสุดท้ายพูดถึงดาว... ตาเธอเปียก)\n\nนี่คืออะไร ทำไมน้ำไหลจากตา",
+"ylva_cried": "...น้ำที่ไหลจากตา นี่คืออะไร\n\nเพลงของฟรีดา... เด็กคนนั้นเห็นดาวจริง ๆ เหรอ อิลวาอยากเห็น",
+"let_dark": "พี่! อิลวาเห็นแล้ว! จุดสว่างเล็ก ๆ บนฟ้ามืด... นั่นคือดาวใช่ไหม\n\nอิลวาร้องไห้อีกแล้ว แต่ครั้งนี้ไม่เหมือนครั้งแรก",
+"restore_light": "แสงกลับมาแล้ว... ☺ อิลวาเกือบได้เห็นดาว\n\nไม่เป็นไร อิลวาจำได้ว่ามันมีอยู่ แค่นั้นก็พอ"
+}
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+position = Vector2(2100.0, 350)
+texture = ExtResource("c5_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200,170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800,170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800,170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800,170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="OrganicFoundation" type="Sprite2D" parent="Background"]
+z_index = -45
+position = Vector2(2100.0,1960)
+texture_repeat = 3
+texture = ExtResource("foundation")
+region_enabled = true
+region_rect = Rect2(0,0,16000,1600)
+
+[node name="Sprite2D" parent="NPCs/Sol" index="0"]
+centered = false
+position = Vector2(-61.90234375, -301.96875)
+scale = Vector2(0.4140625,0.4140625)
+texture = ExtResource("npc_0")
+script = ExtResource("npc_idle")
+phase = 0.0
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Sol"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Sol_hollow" index="0"]
+centered = false
+position = Vector2(-73.49609375, -301.96875)
+scale = Vector2(0.4140625,0.4140625)
+texture = ExtResource("npc_1")
+script = ExtResource("npc_idle")
+phase = 0.9
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Sol_hollow"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Eir" index="0"]
+centered = false
+position = Vector2(-59.765625, -291.78125)
+scale = Vector2(0.3984375,0.3984375)
+texture = ExtResource("npc_2")
+script = ExtResource("npc_idle")
+phase = 1.8
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Eir"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Dagr" index="0"]
+centered = false
+position = Vector2(-67.890625, -312.15625)
+scale = Vector2(0.4296875,0.4296875)
+texture = ExtResource("npc_3")
+script = ExtResource("npc_idle")
+phase = 2.7
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Dagr"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Lofn" index="0"]
+centered = false
+position = Vector2(-52.5390625, -286.6875)
+scale = Vector2(0.390625,0.390625)
+texture = ExtResource("npc_4")
+script = ExtResource("npc_idle")
+phase = 3.6
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Lofn"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Volundr" index="0"]
+centered = false
+position = Vector2(-49.9921875, -307.0625)
+scale = Vector2(0.421875,0.421875)
+texture = ExtResource("npc_5")
+script = ExtResource("npc_idle")
+phase = 4.5
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Volundr"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Nott" index="0"]
+centered = false
+position = Vector2(-58.3984375, -286.6875)
+scale = Vector2(0.390625,0.390625)
+texture = ExtResource("npc_6")
+script = ExtResource("npc_idle")
+phase = 5.4
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Nott"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/LightWell_small" index="0"]
+centered = false
+position = Vector2(-124.0625, -235.75)
+scale = Vector2(0.3125,0.3125)
+texture = ExtResource("npc_7")
+script = ExtResource("npc_idle")
+phase = 6.3
+breathe = false
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/LightWell_small"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true
+
+[node name="Sprite2D" parent="NPCs/Ylva" index="0"]
+centered = false
+position = Vector2(-39.65625, -215.375)
+scale = Vector2(0.28125,0.28125)
+texture = ExtResource("npc_8")
+script = ExtResource("npc_idle")
+phase = 7.2
+breathe = true
+
+[node name="FootShadow" type="Sprite2D" parent="NPCs/Ylva"]
+script = ExtResource("npc_shadow")
+fit_actor_size = true

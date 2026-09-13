@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"stone_hrungnir"
+count = 1
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"lightning_heart"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c4_10_heart_of_lightning"
+title = "C4-10 หัวใจที่ยังเต้น"
+description = "ล้มหรุงนีร์ศิลาที่หลุม แล้วดูสิ่งที่อยู่ในอกมัน"
+giver_name = "ผู้อาวุโสสกาดี"
+dialog_offer = "หรุงนีร์ จอมพลของเรา สู้กับธอร์แล้วตาย ตำนานของพวกเจ้าจบตรงนั้น\n\nแต่ศพเขาลุกขึ้นในคืนถัดมา แล้วทำลายเมืองของตัวเอง เมืองที่เขาปกป้อง\nไปที่หลุม ล้มเขา... แล้วดูว่าอะไรอยู่ในอกเขา"
+dialog_progress = "หรุงนีร์ศิลาอยู่ก้นหลุม ทางตะวันออกของกำแพง ช่วงท้ายมันจะเปิดอก — ตอนนั้นแหละ"
+dialog_complete = "หัวใจสายฟ้า มีตราค้อน... ธอร์ไม่ได้ฆ่าเมืองเรา เขาให้เมืองเราฆ่าตัวเอง\n\nเลฟยืนดูอยู่ไกล ๆ ตั้งแต่เจ้าเข้าหลุม เขาไม่กลัวเจ้าแล้ว\n\nไปเถอะ อัลฟ์เฮมอยู่ทางเหนือ ตรงที่รากโผล่จากหลุม ระวังแสง"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
+kill_monster_id = &""
+required_level = 71
+required_quests = Array[StringName]([&"c4_9_breach_on_the_south"])
+set_flag_on_complete = &"chapter4_done"
+choice_prompt = "หัวใจสายฟ้ายังเต้นอยู่ในมือเจ้า จะทำยังไง"
+choice_options = Array[String](["ทุบทิ้ง — ให้หรุงนีร์ได้พักเสียที (เสียหลักฐาน)", "เก็บไว้เป็นหลักฐาน (ได้ «หัวใจสายฟ้า»)"])
+choice_flags = Array[StringName]([&"smash_heart", &"keep_heart"])
+cutscene_pan_npc = "เด็กยักษ์เลฟ"
+cutscene_text = "เลฟยืนอยู่ที่ขอบหลุม ตัวเล็กกว่าที่เคย... เขาโบกมือให้เจ้า แล้ววิ่งกลับเมือง"
+reward_item_id = &"hrungnir_shard"
+reward_item_count = 1
+reward_zeny = 60000
+reward_exp = 180000

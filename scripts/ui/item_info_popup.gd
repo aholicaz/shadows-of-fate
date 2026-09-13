@@ -298,6 +298,9 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "")
 	if d.max_hp != 0: stats.append("MaxHP %+d" % bst.call(d.max_hp))
 	if d.max_sp != 0: stats.append("MaxSP %+d" % bst.call(d.max_sp))
 	if d.aspd_percent != 0.0: stats.append("ASPD %+.0f%%" % d.aspd_percent)
+	if d.drop_hint != "": stats.append("[color=#9aa7bd]พบจาก: %s[/color]" % d.drop_hint)
+	if d.attack_element == 1: stats.append("ไฟ: โจมตีติดเผาไหม้ 3 วินาที ไม่ซ้อนทับ")
+	if d.attack_element == 4: stats.append("สายฟ้า: โอกาส 25% ชิ่งใส่ศัตรูใกล้เคียง 2 ตัว (พัก 0.6 วิ)")
 	for pair in [["STR", d.bonus_str], ["AGI", d.bonus_agi], ["VIT", d.bonus_vit],
 			["INT", d.bonus_int], ["DEX", d.bonus_dex], ["LUK", d.bonus_luk]]:
 		if int(pair[1]) != 0:
@@ -320,7 +323,7 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "")
 	# ★ รอบ 45 — โบนัส % / บัฟไอเทม / ไอเทมพิเศษ ★
 	for pair in [["ดาเมจ", d.damage_percent], ["ป้องกัน", d.defense_percent], ["HP สูงสุด", d.hp_percent],
 			["SP สูงสุด", d.sp_percent], ["ดูดเลือด", d.hp_drain_percent], ["ดูดมานา", d.sp_drain_percent],
-			["ลดคูลดาวน์", d.cooldown_reduction_percent]]:
+			["ลดคูลดาวน์", d.cooldown_reduction_percent], ["ดาเมจสกิล", d.skill_damage_percent], ["ดาเมจคริ", d.crit_damage_percent]]:
 		if float(pair[1]) != 0.0:
 			stats.append("%s %+.1f%%" % [pair[0], float(pair[1])])
 	if d.buff_duration > 0.0 and not d.buff_values.is_empty():

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/book_seven_complete.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"book_seven_complete"
+display_name = "พงศาวดารเล่มที่ 7 (ครบเล่ม)"
+description = "เล่มที่ «ไม่เคยมี» ครบทุกหน้าแล้ว — หน้าสุดท้ายเขียนว่า: «บันทึกโดย [ชื่อถูกลบ] น้องของผู้ถือค้อน»"
+icon = ExtResource("2_icon")
+type = 4
+buy_price = 0
+sell_price = 0

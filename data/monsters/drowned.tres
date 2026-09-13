@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/drowned_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_drowned_0"]
+script = ExtResource("2_drop")
+item_id = &"drowned_helm"
+chance = 40.0
+
+[sub_resource type="Resource" id="Drop_drowned_1"]
+script = ExtResource("2_drop")
+item_id = &"frost_marrow"
+chance = 35.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_drowned_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 18.0
+
+[sub_resource type="Resource" id="Drop_drowned_3"]
+script = ExtResource("2_drop")
+item_id = &"drowned_crown"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_drowned_4"]
+script = ExtResource("2_drop")
+item_id = &"bone_armor"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_drowned_card"]
+script = ExtResource("2_drop")
+item_id = &"card_drowned"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"drowned"
+display_name = "ผีจมน้ำ"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(54, 70)
+hp_bar_offset_y = -229.0
+display_height = 240.0
+level = 87
+max_hp = 30000
+atk_min = 980
+atk_max = 1220
+def = 110
+mdef = 90
+hit = 198
+flee = 40
+crit = 6
+element = 2
+race = 1
+size = 1
+ai_type = 1
+move_speed = 80.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 124.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 260.0
+exp_reward = 939
+job_exp_reward = 657
+zeny_min = 251
+zeny_max = 465
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_drowned_0"), SubResource("Drop_drowned_1"), SubResource("Drop_drowned_2"), SubResource("Drop_drowned_3"), SubResource("Drop_drowned_4"), SubResource("Drop_drowned_card")])
+respawn_time = 18.0
+tint = Color(0.6, 0.75, 0.85, 0.7)
+spawn_lines = PackedStringArray("สายฟ้า... ไม่ใช่มอน... สายฟ้า...", "ผู้กอง... บึงมันดูด...", "อย่าเชื่อพงศาวดาร...")

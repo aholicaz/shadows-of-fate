@@ -20,8 +20,8 @@ weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
 card_slots = 1
 max_stack = 1
-buy_price = 400000
-sell_price = 160000
+buy_price = 44000
+sell_price = 2112
 atk = 185
 matk = 30
 bonus_int = 2
@@ -37,3 +37,17 @@ equip_hand_scale = 1.5
 equip_hand_rotation_degrees = 63.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
+
+skill_damage_percent = 18.0
+
+bonus_str = 8
+
+max_sp = 56
+
+cooldown_reduction_percent = 3.0
+
+damage_percent = 0.0
+
+attack_element = 1
+
+drop_hint = "เพลิงกุลล์ไวก์"

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="q"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+
+[sub_resource type="Resource" id="O0"]
+script = ExtResource("o")
+kind = 4
+target = &"rb_ceremony"
+count = 1
+text = "อ่านคำสัตย์ที่ลานพิธีกลางวานาเฮม"
+
+[resource]
+script = ExtResource("q")
+id = "rb6_runeblade"
+title = "R6 คำสัตย์แห่งดาบรูน"
+giver_name = "ผู้อาวุโสญอร์ดา"
+description = "บรอกก์ให้รูปแก่เหล็ก เจ้าให้ทิศทางแก่พลัง อ่านคำสัตย์ ณ ลานพิธี แล้วกลับมาหาข้า"
+dialog_offer = "บรอกก์ให้รูปแก่เหล็ก เจ้าให้ทิศทางแก่พลัง อ่านคำสัตย์ ณ ลานพิธี แล้วกลับมาหาข้า"
+dialog_progress = "ตรวจเป้าหมายในสมุดเควส แล้วกลับมาคุยเมื่อครบ"
+dialog_complete = "ตั้งแต่นี้ เจ้าคือ Runeblade — อัศวินดาบรูน เลือกวิถีคมต่อเนื่องหรือดาบทลายได้ในผังสกิล และขอคืนแต้มอาชีพได้ที่ศิลารูน"
+required_flag = ""
+set_flag_on_complete = "runeblade_awakened"
+required_level = 50
+required_job = &"swordsman"
+required_quests = Array[StringName]([&"rb5_oath_eater"])
+objectives = Array[ExtResource("o")]([SubResource("O0")])
+reward_job = &"runeblade"
+
+choice_prompt = "เจ้าจะจารึกคำสัตย์ใดลงในดาบ? เปลี่ยนสายภายหลังได้"
+choice_options = Array[String](["คมดาบจะไม่หยุดก่อนทุกคนปลอดภัย — แนะนำสายตีไวคริ", "ข้าจะฟาดสิ่งกีดขวางให้พัง — แนะนำสายดาบหนัก"])
+choice_flags = Array[StringName]([&"rb_prefers_edge", &"rb_prefers_sunder"])

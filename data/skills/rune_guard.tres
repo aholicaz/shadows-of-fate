@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/rune_guard.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"rune_guard"
+display_name = "เกราะอักขระ"
+description = "โล่รับดาเมจ 4–22% Max HP นาน 3 วินาที"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+type = 2
+sp_cost_base = 12
+sp_cost_per_level = 0.0
+cooldown = 12.0
+damage_mult_base = 0.0
+damage_mult_per_level = 0.0
+required_skills = {}
+
+duration_base = 3.0
+duration_per_level = 0.0

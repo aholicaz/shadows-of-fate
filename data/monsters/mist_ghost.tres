@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/mist_ghost_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_mist_ghost_0"]
+script = ExtResource("2_drop")
+item_id = &"mist_wisp"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_mist_ghost_1"]
+script = ExtResource("2_drop")
+item_id = &"ghost_thread"
+chance = 30.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_mist_ghost_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 18.0
+
+[sub_resource type="Resource" id="Drop_mist_ghost_3"]
+script = ExtResource("2_drop")
+item_id = &"mist_shroud"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_mist_ghost_card"]
+script = ExtResource("2_drop")
+item_id = &"card_mist_ghost"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"mist_ghost"
+display_name = "ผีหมอก"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(46, 62)
+hp_bar_offset_y = -213.0
+display_height = 220.0
+level = 84
+max_hp = 22000
+atk_min = 900
+atk_max = 1100
+def = 70
+mdef = 120
+hit = 190
+flee = 96
+crit = 10
+element = 8
+race = 1
+size = 1
+ai_type = 1
+move_speed = 150.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 116.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 170.0
+exp_reward = 901
+job_exp_reward = 631
+zeny_min = 242
+zeny_max = 450
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_mist_ghost_0"), SubResource("Drop_mist_ghost_1"), SubResource("Drop_mist_ghost_2"), SubResource("Drop_mist_ghost_3"), SubResource("Drop_mist_ghost_card")])
+respawn_time = 18.0
+tint = Color(0.85, 0.9, 1, 0.55)
+spawn_lines = PackedStringArray("...เย็น...", "ใครอยู่ตรงนั้น", "เจ้า... ยังอุ่นอยู่")

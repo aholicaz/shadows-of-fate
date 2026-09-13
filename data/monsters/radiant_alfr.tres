@@ -1,0 +1,108 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/radiant_alfr_frames.tres" id="3_frames"]
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_0"]
+script = ExtResource("2_drop")
+item_id = &"radiant_core"
+chance = 100.0
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_1"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 100.0
+max_count = 5
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_2"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 5.0
+max_count = 5
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_3"]
+script = ExtResource("2_drop")
+item_id = &"conduit_edge"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_4"]
+script = ExtResource("2_drop")
+item_id = &"radiant_ring"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_5"]
+script = ExtResource("2_drop")
+item_id = &"elven_plate"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_6"]
+script = ExtResource("2_drop")
+item_id = &"light_crystal_sword"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_radiant_alfr_card"]
+script = ExtResource("2_drop")
+item_id = &"card_radiant_alfr"
+chance = 2.0
+
+[resource]
+script = ExtResource("1_monster")
+id = &"radiant_alfr"
+display_name = "อัลฟ์เรืองรอง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(100, 130)
+hp_bar_offset_y = -159.6
+display_height = 420.0
+level = 84
+max_hp = 95000
+atk_min = 950
+atk_max = 1200
+def = 130
+mdef = 120
+hit = 190
+flee = 60
+crit = 8
+element = 6
+race = 8
+size = 2
+ai_type = 1
+move_speed = 115.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 170.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 400.0
+exp_reward = 12685
+job_exp_reward = 8880
+zeny_min = 1904
+zeny_max = 3536
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_radiant_alfr_0"), SubResource("Drop_radiant_alfr_1"), SubResource("Drop_radiant_alfr_2"), SubResource("Drop_radiant_alfr_3"), SubResource("Drop_radiant_alfr_4"), SubResource("Drop_radiant_alfr_5"), SubResource("Drop_radiant_alfr_6"), SubResource("Drop_radiant_alfr_card")])
+respawn_time = 600.0
+flying = true
+hover_height = 80.0
+flying_no_hop = true
+is_boss = true
+boss_title = "ผู้ที่ทำตัวเองเป็นท่อ"
+skill_name = "ลำแสงจากบน"
+skill_anim = &"Skill"
+skill_range = 520.0
+skill_damage_mult = 1.8
+skill_windup = 0.5
+skill_duration = 1.0
+skill_cooldown = 8.0
+skill_chance = 0.70
+skill_bolt_count = 3
+skill_bolt_start = 140.0
+skill_bolt_spacing = 150.0
+skill_bolt_delay = 0.35
+death_lines = PackedStringArray("ไม่มีอะไร... ผิดปกติ... ไม่เคย...", "อิลวา... ดูดาวสิ...")
+
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)

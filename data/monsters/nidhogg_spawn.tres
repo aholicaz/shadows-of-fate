@@ -1,0 +1,89 @@
+[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/nidhogg_spawn_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/fx_thorn_wave.tres" id="4_wave"]
+
+[sub_resource type="Resource" id="Drop_nidhogg_spawn_0"]
+script = ExtResource("2_drop")
+item_id = &"nidhogg_scale"
+chance = 45.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_nidhogg_spawn_1"]
+script = ExtResource("2_drop")
+item_id = &"root_venom"
+chance = 20.0
+
+[sub_resource type="Resource" id="Drop_nidhogg_spawn_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 20.0
+max_count = 2
+
+[sub_resource type="Resource" id="Drop_nidhogg_spawn_3"]
+script = ExtResource("2_drop")
+item_id = &"bone_armor"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_nidhogg_spawn_card"]
+script = ExtResource("2_drop")
+item_id = &"card_nidhogg_spawn"
+chance = 0.5
+
+[resource]
+script = ExtResource("1_monster")
+id = &"nidhogg_spawn"
+display_name = "งูนิดฮ็อกก์เล็ก"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(90, 80)
+hp_bar_offset_y = -284.0
+display_height = 300.0
+level = 93
+max_hp = 38000
+atk_min = 1150
+atk_max = 1450
+def = 120
+mdef = 100
+hit = 214
+flee = 56
+crit = 8
+element = 5
+race = 9
+size = 2
+ai_type = 1
+move_speed = 130.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 160.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 300.0
+exp_reward = 1015
+job_exp_reward = 710
+zeny_min = 267
+zeny_max = 497
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_nidhogg_spawn_0"), SubResource("Drop_nidhogg_spawn_1"), SubResource("Drop_nidhogg_spawn_2"), SubResource("Drop_nidhogg_spawn_3"), SubResource("Drop_nidhogg_spawn_card")])
+respawn_time = 18.0
+skill_name = "พิษราก"
+skill_anim = &"Skill"
+skill_range = 600.0
+skill_damage_mult = 1.8
+skill_windup = 0.5
+skill_duration = 1.3
+skill_cooldown = 8.0
+skill_chance = 0.60
+skill_knockback = 360.0
+skill_wave_count = 1
+skill_wave_both_sides = false
+skill_wave_speed = 520.0
+skill_wave_range = 800.0
+skill_wave_delay = 0.45
+skill_wave_height = 140.0
+skill_wave_frames = ExtResource("4_wave")

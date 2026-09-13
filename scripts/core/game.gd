@@ -5,6 +5,8 @@ extends Node
 ## ทะเบียนแมพทั้งหมด: id -> path ของไฟล์ .tscn
 ## เพิ่มแมพใหม่ = เพิ่ม 1 บรรทัดตรงนี้
 const MAPS := {
+	&"runeblade_training": "res://scenes/maps/runeblade_training.tscn",
+	&"blackhorn_rootcrypt": "res://scenes/maps/blackhorn_rootcrypt.tscn",
 	&"prontera_town": "res://scenes/maps/prontera_town.tscn",
 	# ★ แมพนี้คือฉากที่คุณทำเอง (พื้นหลัง + TileMap ของคุณ)
 	# รอบ 40: ย้ายจาก Sprites/world_node_2d.tscn มาไว้ให้ถูกที่ถูกชื่อ
@@ -29,12 +31,36 @@ const MAPS := {
 	&"withered_grove": "res://scenes/maps/withered_grove.tscn",
 	&"forgotten_battlefield": "res://scenes/maps/forgotten_battlefield.tscn",
 	&"spring_of_life": "res://scenes/maps/spring_of_life.tscn",
+	## ★ บทที่ 4 — โยตุนเฮม (รอบ 105) ★
+	&"frost_pass": "res://scenes/maps/frost_pass.tscn",
+	&"utgard_town": "res://scenes/maps/utgard_town.tscn",
+	&"giant_steppe": "res://scenes/maps/giant_steppe.tscn",
+	&"frozen_hall": "res://scenes/maps/frozen_hall.tscn",
+	&"broken_wall": "res://scenes/maps/broken_wall.tscn",
+	&"hrungnir_crater": "res://scenes/maps/hrungnir_crater.tscn",
+	## ★ บทที่ 5 — อัลฟ์เฮม (รอบ 105) ★
+	&"shimmer_road": "res://scenes/maps/shimmer_road.tscn",
+	&"ljosalf_city": "res://scenes/maps/ljosalf_city.tscn",
+	&"crystal_garden": "res://scenes/maps/crystal_garden.tscn",
+	&"mirror_lake": "res://scenes/maps/mirror_lake.tscn",
+	&"dimming_wood": "res://scenes/maps/dimming_wood.tscn",
+	&"lightwell_sanctum": "res://scenes/maps/lightwell_sanctum.tscn",
+	## ★ บทที่ 6 — นิฟล์เฮม + เฮลเฮม (รอบ 105) ★
+	&"mist_shore": "res://scenes/maps/mist_shore.tscn",
+	&"eljudnir": "res://scenes/maps/eljudnir.tscn",
+	&"gjoll_river": "res://scenes/maps/gjoll_river.tscn",
+	&"hall_of_names": "res://scenes/maps/hall_of_names.tscn",
+	&"nastrond": "res://scenes/maps/nastrond.tscn",
+	&"garm_gate": "res://scenes/maps/garm_gate.tscn",
+	&"odin_seat": "res://scenes/maps/odin_seat.tscn",
 	## ★ รอบ 80 — ห้องทดสอบ GM (ไม่เชื่อมกับแมพไหน เข้าได้จากหน้าต่าง F10 เท่านั้น) ★
 	&"gm_room": "res://scenes/maps/gm_room.tscn",
 }
 
 ## ★ รอบ 57 ★ ชื่อไทยของแมพ (ใช้ในเสาวาป/มินิแมพ) — ไม่มีในนี้จะใช้ id แทน
 const MAP_NAMES := {
+	&"runeblade_training": "ลานทดสอบดาบรูน",
+	&"blackhorn_rootcrypt": "วิหารเขาทมิฬใต้ราก",
 	&"prontera_town": "เมืองพรอนเทรา",
 	&"prontera_field": "ทุ่งวิหาร",
 	&"asgard_forest_2": "ป่าแอสการ์ด 2",
@@ -52,13 +78,32 @@ const MAP_NAMES := {
 	&"withered_grove": "ป่าเหี่ยว",
 	&"forgotten_battlefield": "สมรภูมิที่ถูกลืม",
 	&"spring_of_life": "บ่อน้ำแห่งชีวิต",
+	&"frost_pass": "ช่องเขาน้ำแข็ง",
+	&"utgard_town": "อุทการ์ด นครแห่งยักษ์",
+	&"giant_steppe": "ทุ่งหญ้ายักษ์",
+	&"frozen_hall": "โถงภาพวาดน้ำแข็ง",
+	&"broken_wall": "กำแพงที่แตก",
+	&"hrungnir_crater": "หลุมหัวใจสายฟ้า",
+	&"shimmer_road": "ทางประกายแสง",
+	&"ljosalf_city": "ลโยซาลฟ์ นครแห่งแสง",
+	&"crystal_garden": "สวนผลึก",
+	&"mirror_lake": "ทะเลสาบกระจก",
+	&"dimming_wood": "ป่าที่แสงจาง",
+	&"lightwell_sanctum": "วิหารบ่อแสง",
+	&"mist_shore": "ฝั่งหมอกน้ำแข็ง",
+	&"eljudnir": "เอลยุดเนียร์ เมืองของผู้ตาย",
+	&"gjoll_river": "แม่น้ำเกียลล์",
+	&"hall_of_names": "โถงแห่งนาม",
+	&"nastrond": "นาสตรอนด์ ฝั่งศพ",
+	&"garm_gate": "ประตูของการ์ม",
+	&"odin_seat": "บัลลังก์ว่างของโอดิน",
 	&"gm_room": "★ ห้อง GM (ทดสอบ)",
 }
 
 
 ## ★ รอบ 60 ★ แมพไหนนับเป็น "เมือง" (ใช้กับปีกแห่งวาลคีรี · จุดเกิดใหม่ตอนตาย)
 ## เพิ่มเมืองใหม่ = เพิ่ม id ตรงนี้บรรทัดเดียว
-const TOWNS := [&"prontera_town", &"nidavellir_town", &"vanir_town"]
+const TOWNS := [&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"ljosalf_city", &"eljudnir"]
 
 
 ## ชื่อแมพที่เอาไว้โชว์ให้ผู้เล่นอ่าน
@@ -285,4 +330,7 @@ func _fade_to(alpha: float, duration: float) -> void:
 ## เรียกตอนผู้เล่นตาย: กลับเมืองพร้อมฟื้นเลือดครึ่งหนึ่ง
 func respawn_in_town() -> void:
 	PlayerState.revive(0.5)
+	if PlayerState.current_map_id == &"blackhorn_rootcrypt" and PlayerState.has_flag(&"rb_checkpoint"):
+		await change_map(&"blackhorn_rootcrypt", &"checkpoint")
+		return
 	await change_map(&"prontera_town", &"default")

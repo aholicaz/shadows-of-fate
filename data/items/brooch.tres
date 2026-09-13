@@ -16,8 +16,16 @@ metadata/price_base_r47_buy = 9500
 slot = 7
 card_slots = 0
 max_stack = 1
-buy_price = 47500
-sell_price = 3800
+buy_price = 2528
+sell_price = 416
 metadata/sell_price_base_r44 = 3800
 flee = 3
-bonus_agi = 2
+bonus_agi = 3
+
+aspd_percent = 4.0
+
+crit = 2
+
+damage_percent = 0.0
+
+drop_hint = "ฮอร์เน็ต / หมาป่า"

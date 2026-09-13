@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"name_warden"
+count = 15
+
+[sub_resource type="Resource" id="Obj_1"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"erased_voice"
+count = 10
+
+[sub_resource type="Resource" id="Obj_2"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"odin_name"
+count = 1
+
+[sub_resource type="Resource" id="Obj_3"]
+script = ExtResource("2_obj")
+kind = 4
+target = &"ninth_wall"
+count = 1
+text = "สลักชื่อลงผนังที่เก้า (กด F ที่ผนังว่างท้ายโถง)"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"rb13_the_ninth_wall"
+title = "RB13 ผนังที่เก้า"
+description = "★ พิธี awakening ★ ในโถงแห่งนาม สลักชื่อของเจ้าเองลงบนผนังว่างด้วยค้อนสลักของเกอร์ด"
+giver_name = "เฮล ผู้ปกครองผู้ตาย"
+dialog_offer = "เจ้าไม่มีชื่อแล้ว... ดี อักขระที่เก้าไม่เคยมีใครสลัก เพราะมันคือชื่อของคนที่ถือดาบ\n\nในโถงที่ชื่อทุกชื่อถูกลบ ชื่อเดียวที่สลักใหม่ได้คือชื่อที่ยังไม่มีใครลบ — ชื่อที่เจ้ายังไม่ได้ให้ใคร\nไปล่าผู้เฝ้ากับเสียงที่ถูกลบให้โถงเงียบ อ่านชื่อโอดิน แล้วไปที่ผนังว่างท้ายโถง ใช้ค้อนของเกอร์ด"
+dialog_progress = "ผู้เฝ้านาม 15 · เสียงที่ถูกลบ 10 · อ่านชื่อโอดิน · ไปที่ผนังว่างท้ายโถงแห่งนาม (ต้องเลเวล 90 และมีค้อนสลักของเกอร์ด)"
+dialog_complete = "ชื่อของเจ้า... สลักใหม่ในโถงที่ชื่อทุกชื่อถูกลบ\n\nจากนี้เจ้าคือ Ninth Edge — คมอักขระที่เก้า ดาบที่ธอร์ยังลบไม่ได้"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2"), SubResource("Obj_3")])
+kill_monster_id = &""
+required_level = 90
+required_job = &"runeblade"
+reward_job = &"ninth_edge"
+reward_job_map = &"hall_of_names"
+required_quests = Array[StringName]([&"rb12_eighth_rune_ash", &"c6_3_leave_your_name", &"c6_5_wrong_side"])
+required_flag = &"rb_next_job_hint"
+set_flag_on_complete = &"ninth_edge_awakened_q"
+reward_item_id = &"name_pendant_eq"
+reward_item_count = 1
+reward_zeny = 50000
+reward_exp = 300000

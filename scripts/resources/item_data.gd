@@ -26,6 +26,8 @@ enum Slot {
 @export var id: StringName = &"item_id"
 @export var display_name: String = "ไอเทม"
 @export_multiline var description: String = ""
+## A discovery hint only; combat identity remains in the item's actual stats.
+@export var drop_hint: String = ""
 ## ★ ไอคอนไอเทม ★ ใช้ทั้งในกระเป๋า ช่องสวมใส่ ร้านค้า และตอนตกอยู่บนพื้น
 @export var icon: Texture2D
 ## ขนาดของภาพตอนตกอยู่บนพื้น (พิกเซล ด้านที่ยาวที่สุด) — 0 = ใช้ขนาดจริงของไฟล์
@@ -107,6 +109,11 @@ enum Slot {
 @export_group("Percent Bonus")
 ## ดาเมจสุดท้าย +% (ทั้งตีธรรมดาและสกิล)
 @export var damage_percent: float = 0.0
+## Bonuses distinguish sustained critical attacks from deliberate skill casts.
+@export var skill_damage_percent: float = 0.0
+@export var crit_damage_percent: float = 0.0
+## 0 neutral, 1 fire (burn), 4 wind/lightning (chain).
+@export_enum("Neutral:0", "Fire:1", "Lightning:4") var attack_element: int = 0
 ## DEF +%
 @export var defense_percent: float = 0.0
 ## HP สูงสุด +%
@@ -155,6 +162,15 @@ enum Slot {
 @export var buff_values: Dictionary = {}
 @export var buff_duration: float = 0.0
 
+
+## Every rank scales with base equipment power; old per-rank values remain a floor.
+func refine_atk_gain() -> int:
+	if type != Type.WEAPON or not refinable: return 0
+	return maxi(refine_atk_per_level, int(ceil(atk * 0.05)))
+
+func refine_def_gain() -> int:
+	if type != Type.ARMOR or not refinable: return 0
+	return maxi(refine_def_per_level, int(ceil(def * 0.06)))
 
 func is_equipment() -> bool:
 	return type == Type.WEAPON or type == Type.ARMOR

@@ -11,7 +11,7 @@ description = "น้ำศักดิ์สิทธิ์จากศิล�
 รีเซ็ตสเตตัสทุกอย่าง คืนแต้มสเตตัสให้ครบ"
 icon = ExtResource("2_icon")
 type = 0
-buy_price = 100000
+buy_price = 20000
 sell_price = 1000
 special_effect = &"reset_stats"
 max_stack = 10

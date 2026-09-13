@@ -12,12 +12,12 @@ chance = 100.0
 [sub_resource type="Resource" id="Drop_baphomet_1"]
 script = ExtResource("2_drop")
 item_id = &"flame_sword"
-chance = 1.0
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_baphomet_2"]
 script = ExtResource("2_drop")
 item_id = &"plate_armor"
-chance = 1.0
+chance = 15.0
 
 [sub_resource type="Resource" id="Drop_baphomet_3"]
 script = ExtResource("2_drop")
@@ -90,9 +90,9 @@ attack_cooldown = 1.4
 knockback_force = 320.0
 attack_hit_frames = null
 skill_hit_frames = null
-exp_reward = 9000
-zeny_min = 3000
-zeny_max = 6000
+exp_reward = 4734
+zeny_min = 1190
+zeny_max = 2210
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_baphomet_0"), SubResource("Drop_baphomet_1"), SubResource("Drop_baphomet_2"), SubResource("Drop_baphomet_3"), SubResource("Drop_baphomet_4"), SubResource("Drop_baphomet_card"), SubResource("Drop_baphomet_junk_giant_hoof"), SubResource("Drop_baphomet_junk_cursed_scythe_shard")])
 is_boss = true
 boss_title = "ราชาปีศาจบาฟโฟเมท"
@@ -112,3 +112,5 @@ skill_wave_interval = 0.38
 skill_wave_max_hits = 3
 skill_wave_height = 350.0
 respawn_time = 120.0
+spawn_lines = null
+death_lines = null

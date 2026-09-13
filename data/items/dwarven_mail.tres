@@ -16,11 +16,17 @@ metadata/price_base_r47_buy = 38000
 slot = 4
 card_slots = 1
 max_stack = 1
-buy_price = 190000
-sell_price = 15200
+buy_price = 14672
+sell_price = 1032
 metadata/sell_price_base_r44 = 15200
 def = 36
 max_hp = 200
-bonus_str = 1
+bonus_str = 3
 aspd_percent = -6.0
 refinable = true
+
+skill_damage_percent = 4.0
+
+max_sp = 25
+
+drop_hint = "ผู้พิทักษ์เตาหลอม"

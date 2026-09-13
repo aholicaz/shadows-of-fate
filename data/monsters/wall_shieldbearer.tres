@@ -1,0 +1,109 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://de1pw8tqkgek3"]
+
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/wall_shieldbearer_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bamcqoyj16m76" path="res://data/sprites/fx_thorn_wave.tres" id="4_wave"]
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_0"]
+script = ExtResource("2_drop")
+item_id = &"snow_lichen"
+chance = 100.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_1"]
+script = ExtResource("2_drop")
+item_id = &"ice_bloom"
+chance = 60.0
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_2"]
+script = ExtResource("2_drop")
+item_id = &"white_potion"
+chance = 100.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_3"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 5.0
+max_count = 3
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_4"]
+script = ExtResource("2_drop")
+item_id = &"wall_plate"
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_5"]
+script = ExtResource("2_drop")
+item_id = &"wall_shield"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_6"]
+script = ExtResource("2_drop")
+item_id = &"jotun_helm"
+chance = 15.0
+
+[sub_resource type="Resource" id="Drop_wall_shieldbearer_card"]
+script = ExtResource("2_drop")
+item_id = &"card_wall_shieldbearer"
+chance = 2.0
+
+[resource]
+script = ExtResource("1_monster")
+id = &"wall_shieldbearer"
+display_name = "ผู้ถือโล่แห่งกำแพง"
+sprite_frames = ExtResource("3_frames")
+hitbox_size = Vector2(100, 110)
+hp_bar_offset_y = -144.4
+display_height = 380.0
+fit_foot_animations = null
+level = 70
+max_hp = 42000
+atk_min = 640
+atk_max = 800
+def = 130
+mdef = 70
+hit = 142
+flee = 36
+crit = 4
+element = 3
+race = 6
+size = 2
+ai_type = 1
+move_speed = 95.0
+jump_force = -280.0
+jump_while_chasing = false
+detect_range = 460.0
+attack_range = 170.0
+leash_range = 800.0
+wander_range = 260.0
+hop_while_wandering = false
+attack_windup = 0.4
+attack_duration = 0.5
+attack_cooldown = 1.8
+knockback_force = 380.0
+attack_hit_frames = null
+skill_hit_frames = null
+exp_reward = 8971
+job_exp_reward = 6280
+zeny_min = 1610
+zeny_max = 2990
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_wall_shieldbearer_0"), SubResource("Drop_wall_shieldbearer_1"), SubResource("Drop_wall_shieldbearer_2"), SubResource("Drop_wall_shieldbearer_3"), SubResource("Drop_wall_shieldbearer_4"), SubResource("Drop_wall_shieldbearer_5"), SubResource("Drop_wall_shieldbearer_6"), SubResource("Drop_wall_shieldbearer_card")])
+is_boss = true
+boss_title = "ผู้ที่ยังยืนเฝ้า"
+skill_name = "กระแทกโล่"
+skill_anim = &"Skill"
+skill_range = 600.0
+skill_damage_mult = 1.9
+skill_windup = 0.5
+skill_duration = 1.3
+skill_chance = 0.65
+skill_knockback = 360.0
+skill_wave_count = 1
+skill_wave_both_sides = true
+skill_wave_speed = 500.0
+skill_wave_range = 850.0
+skill_wave_delay = 0.5
+skill_wave_frames = ExtResource("4_wave")
+respawn_time = 300.0
+spawn_lines = null
+death_lines = PackedStringArray("ข้ายืนผิดข้าง... มาตลอด", "รอยแตก... อยู่ฝั่งใต้... บอกพวกเขาด้วย")

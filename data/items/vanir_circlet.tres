@@ -14,9 +14,11 @@ type = 2
 slot = 3
 card_slots = 1
 max_stack = 1
-buy_price = 90000
-sell_price = 36000
+buy_price = 28448
+sell_price = 1424
 def = 16
 max_sp = 40
 bonus_int = 2
 refinable = true
+
+drop_hint = "ราชินีหนาม"

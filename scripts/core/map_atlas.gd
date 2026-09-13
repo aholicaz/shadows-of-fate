@@ -27,10 +27,15 @@ const CHAPTER_NAMES := {
 	1: "บทที่ 1 — มิดการ์ด",
 	2: "บทที่ 2 — สวาร์ทัลฟ์เฮม",
 	3: "บทที่ 3 — วานาเฮม",
+	4: "บทที่ 4 — โยตุนเฮม",
+	5: "บทที่ 5 — อัลฟ์เฮม",
+	6: "บทที่ 6 — นิฟล์เฮม",
 }
 
 ## ★ ตารางหลัก ★  chapter · kind · level (ช่วงเลเวลมอน) · monsters · links (แมพที่ติดกัน)
 const MAPS := {
+	&"runeblade_training": {"chapter":3,"kind":KIND_HIDDEN,"level":[48,50],"monsters":[],"links":[&"vanir_town"]},
+	&"blackhorn_rootcrypt": {"chapter":3, "kind":KIND_BOSS, "level":[50,54], "monsters":[&"baphomet_jr",&"baphomet"], "links":[&"silver_marsh"]},
 	# ---------- บทที่ 1 — มิดการ์ด ----------
 	&"prontera_town": {
 		"chapter": 1, "kind": KIND_TOWN, "level": [0, 0], "monsters": [],
@@ -58,7 +63,7 @@ const MAPS := {
 	},
 	&"dark_forest_2": {
 		"chapter": 1, "kind": KIND_FIELD, "level": [20, 28],
-		"monsters": [&"munak", &"orc_warrior", &"baphomet_jr", &"baphomet"],
+		"monsters": [&"munak", &"orc_warrior"],
 		"links": [&"dark_forest", &"iron_road"],
 	},
 
@@ -96,12 +101,12 @@ const MAPS := {
 	},
 	&"vanir_town": {
 		"chapter": 3, "kind": KIND_TOWN, "level": [0, 0], "monsters": [],
-		"links": [&"root_road", &"silver_marsh"],
+		"links": [&"root_road", &"silver_marsh", &"frost_pass"],
 	},
 	&"silver_marsh": {
 		"chapter": 3, "kind": KIND_FIELD, "level": [44, 48],
 		"monsters": [&"mist_sprite", &"bog_lurker"],
-		"links": [&"vanir_town", &"withered_grove"],
+		"links": [&"vanir_town", &"withered_grove", &"blackhorn_rootcrypt"],
 	},
 	&"withered_grove": {
 		"chapter": 3, "kind": KIND_FIELD, "level": [49, 54],
@@ -118,6 +123,31 @@ const MAPS := {
 		"monsters": [&"gullveig_ember"],
 		"links": [&"forgotten_battlefield"],
 	},
+
+	# ---------- บทที่ 4 — โยตุนเฮม (รอบ 105) ----------
+	&"frost_pass": {"chapter": 4, "kind": KIND_FIELD, "level": [60, 63], "monsters": [&"frost_wolf", &"snow_hawk"], "links": [&"vanir_town", &"utgard_town"]},
+	&"utgard_town": {"chapter": 4, "kind": KIND_TOWN, "level": [0, 0], "monsters": [], "links": [&"frost_pass", &"giant_steppe"]},
+	&"giant_steppe": {"chapter": 4, "kind": KIND_FIELD, "level": [63, 66], "monsters": [&"snow_mammoth", &"ice_troll", &"snow_hawk"], "links": [&"utgard_town", &"frozen_hall"]},
+	&"frozen_hall": {"chapter": 4, "kind": KIND_FIELD, "level": [66, 69], "monsters": [&"stone_soldier", &"echo_wraith"], "links": [&"giant_steppe", &"broken_wall"]},
+	&"broken_wall": {"chapter": 4, "kind": KIND_FIELD, "level": [69, 71], "monsters": [&"ice_troll", &"stone_soldier", &"wall_shieldbearer"], "links": [&"frozen_hall", &"hrungnir_crater"]},
+	&"hrungnir_crater": {"chapter": 4, "kind": KIND_BOSS, "level": [72, 72], "monsters": [&"stone_hrungnir"], "links": [&"broken_wall", &"shimmer_road"]},
+
+	# ---------- บทที่ 5 — อัลฟ์เฮม (รอบ 105) ----------
+	&"shimmer_road": {"chapter": 5, "kind": KIND_FIELD, "level": [72, 75], "monsters": [&"light_moth", &"crystal_stag"], "links": [&"hrungnir_crater", &"ljosalf_city"]},
+	&"ljosalf_city": {"chapter": 5, "kind": KIND_TOWN, "level": [0, 0], "monsters": [], "links": [&"shimmer_road", &"crystal_garden"]},
+	&"crystal_garden": {"chapter": 5, "kind": KIND_FIELD, "level": [75, 78], "monsters": [&"crystal_stag", &"light_eater_bloom", &"garden_keeper"], "links": [&"ljosalf_city", &"mirror_lake"]},
+	&"mirror_lake": {"chapter": 5, "kind": KIND_FIELD, "level": [78, 81], "monsters": [&"reflection", &"water_nymph"], "links": [&"crystal_garden", &"dimming_wood"]},
+	&"dimming_wood": {"chapter": 5, "kind": KIND_FIELD, "level": [81, 83], "monsters": [&"hollow_elf", &"hollow_moth", &"light_forsaken"], "links": [&"mirror_lake", &"lightwell_sanctum"]},
+	&"lightwell_sanctum": {"chapter": 5, "kind": KIND_BOSS, "level": [84, 84], "monsters": [&"radiant_alfr"], "links": [&"dimming_wood", &"mist_shore"]},
+
+	# ---------- บทที่ 6 — นิฟล์เฮม + เฮลเฮม (รอบ 105) ----------
+	&"mist_shore": {"chapter": 6, "kind": KIND_FIELD, "level": [84, 86], "monsters": [&"mist_ghost", &"hel_hound"], "links": [&"lightwell_sanctum", &"eljudnir"]},
+	&"eljudnir": {"chapter": 6, "kind": KIND_TOWN, "level": [0, 0], "monsters": [], "links": [&"mist_shore", &"gjoll_river"]},
+	&"gjoll_river": {"chapter": 6, "kind": KIND_FIELD, "level": [86, 89], "monsters": [&"drowned", &"ferryman", &"hel_hound"], "links": [&"eljudnir", &"hall_of_names"]},
+	&"hall_of_names": {"chapter": 6, "kind": KIND_FIELD, "level": [89, 91], "monsters": [&"name_warden", &"erased_voice"], "links": [&"gjoll_river", &"nastrond"]},
+	&"nastrond": {"chapter": 6, "kind": KIND_FIELD, "level": [91, 94], "monsters": [&"drowned", &"nidhogg_spawn", &"false_judge"], "links": [&"hall_of_names", &"garm_gate"]},
+	&"garm_gate": {"chapter": 6, "kind": KIND_BOSS, "level": [96, 96], "monsters": [&"chained_garm"], "links": [&"nastrond", &"odin_seat"]},
+	&"odin_seat": {"chapter": 6, "kind": KIND_HIDDEN, "level": [0, 0], "monsters": [], "links": [&"garm_gate"]},
 
 	# ---------- ไม่โชว์บนแผนที่โลก ----------
 	&"gm_room": {
@@ -188,6 +218,7 @@ static func maps_of_chapter(no: int) -> Array:
 	var out: Array = []
 	for mid in MAPS.keys():
 		if chapter_of(mid) == no and kind_of(mid) != KIND_HIDDEN:
+			if mid == &"blackhorn_rootcrypt" and not PlayerState.has_flag(&"rb_dungeon_open"): continue
 			out.append(mid)
 	return out
 

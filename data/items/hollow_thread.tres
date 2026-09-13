@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/hollow_thread.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"hollow_thread"
+display_name = "ด้ายกลวง"
+description = "ด้ายจากเสื้อเอลฟ์กลวง โปร่งแสง เย็บอะไรก็มองไม่เห็นรอย"
+icon = ExtResource("2_icon")
+type = 3
+buy_price = 5400
+sell_price = 312

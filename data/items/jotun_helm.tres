@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/jotun_helm.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_item")
+id = &"jotun_helm"
+display_name = "หมวกโยตุน"
+description = "หมวกเหล็กยักษ์ที่หมอเบสต์ลาตัดให้พอดีหัวมนุษย์"
+icon = ExtResource("2_icon")
+required_level = 62
+type = 2
+slot = 3
+card_slots = 1
+max_stack = 1
+buy_price = 46928
+sell_price = 1816
+def = 24
+max_hp = 120
+bonus_vit = 2
+refinable = true
+
+skill_damage_percent = 6.0
+
+bonus_str = 5
+
+max_sp = 45
+
+drop_hint = "ผู้ถือโล่แห่งกำแพง"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://bish7hxt6dcqj"]
+
+[ext_resource type="Script" uid="uid://bkm257qqtsu1d" path="res://scripts/resources/job_data.gd" id="1_job"]
+
+[resource]
+script = ExtResource("1_job")
+id = &"runeblade"
+display_name = "Runeblade — อัศวินดาบรูน"
+description = "อัศวินผู้จารึกรูนด้วยพลังของตน เลือกคมต่อเนื่องหรือดาบทลาย อักขระขั้นถัดไปรอเมื่อเลเวล 90"
+hp_base = 45
+hp_per_level = 16.0
+hp_vit_percent = 1.2
+sp_base = 12
+atk_mod = 1.25
+matk_mod = 0.5
+def_mod = 1.2
+skill_ids = Array[StringName]([&"sword_mastery", &"hp_recovery", &"bash", &"slash", &"magnum_break", &"endure", &"battle_cry", &"first_aid", &"runic_vessel", &"rune_guard", &"blade_rhythm", &"keen_inscription", &"rune_flurry", &"rune_lunge", &"unbroken_edge", &"tempered_might", &"anvil_cleave", &"faultline", &"worldcleaver"])
+max_job_level = 80
+job_change_level = 90
+next_job_ids = Array[StringName]([&"ninth_edge"])

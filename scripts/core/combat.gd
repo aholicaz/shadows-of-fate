@@ -54,7 +54,8 @@ static func element_modifier(attack_element: int, defense_element: int) -> float
 	var row: Array = ELEMENT_CHART[attack_element]
 	if defense_element < 0 or defense_element >= row.size():
 		return 1.0
-	return float(row[defense_element])
+	# Elements describe effects, never a hidden immunity or fourfold HP wall.
+	return 1.0
 
 
 ## โอกาสโจมตีเข้า (%) — ส่ง base มาเองได้ ถ้าไม่ส่งจะใช้ฐานของฝั่งผู้เล่น
@@ -96,7 +97,8 @@ static func player_hits_monster(
 		monster: MonsterData,
 		skill_mult: float = 1.0,
 		use_matk: bool = false,
-		attack_element: int = MonsterData.Element.NEUTRAL) -> Dictionary:
+		attack_element: int = MonsterData.Element.NEUTRAL,
+		can_crit: bool = true, ignore_def: float = 0.0) -> Dictionary:
 
 	var result := {"damage": 0, "crit": false, "miss": false, "element": 1.0}
 
@@ -106,7 +108,7 @@ static func player_hits_monster(
 		return result
 
 	# --- คริติคอล ---
-	var is_crit := randf() * 100.0 < stats.crit
+	var is_crit := randf() * 100.0 < stats.crit and can_crit
 	result.crit = is_crit
 
 	var power := float(stats.matk if use_matk else stats.atk)
@@ -119,7 +121,7 @@ static func player_hits_monster(
 
 	# --- ป้องกัน (คริติคอลทะลุ DEF) ---
 	if not is_crit:
-		damage *= def_reduction(monster.mdef if use_matk else monster.def)
+		damage *= def_reduction(int((monster.mdef if use_matk else monster.def) * (1.0-clampf(ignore_def,0,1))))
 	else:
 		damage *= stats.crit_damage
 

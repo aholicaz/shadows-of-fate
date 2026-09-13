@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="q"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+
+[sub_resource type="Resource" id="O0"]
+script = ExtResource("o")
+kind = 5
+target = &"rb_baphomet_defeated"
+count = 1
+text = "ปราบ Baphomet ในวิหารใต้ราก"
+
+[sub_resource type="Resource" id="O1"]
+script = ExtResource("o")
+kind = 5
+target = &"rb_core_freed"
+count = 1
+text = "ปลดวงจรรูนหลังบัลลังก์"
+
+[resource]
+script = ExtResource("q")
+id = "rb5_oath_eater"
+title = "R5 ผู้กินคำสัตย์"
+giver_name = "ผู้อาวุโสญอร์ดา"
+description = "เปิดซุ้มรากช่วงตะวันออกของบึงหมอกเงิน ทำลายเสาพันธนาการทั้งสาม แล้วปราบ Baphomet และปลดวงจรหลังบัลลังก์"
+dialog_offer = "เปิดซุ้มรากช่วงตะวันออกของบึงหมอกเงิน ทำลายเสาพันธนาการทั้งสาม แล้วปราบ Baphomet และปลดวงจรหลังบัลลังก์"
+dialog_progress = "ตรวจเป้าหมายในสมุดเควส แล้วกลับมาคุยเมื่อครบ"
+dialog_complete = "เจ้าคืนอิสระให้รูนแล้ว กลับมาที่ลานเมืองเพื่อจารึกคำสัตย์ของตนเอง"
+required_flag = ""
+set_flag_on_complete = "rb_core"
+required_level = 50
+required_job = &"swordsman"
+required_quests = Array[StringName]([&"rb4_edge_and_force"])
+objectives = Array[ExtResource("o")]([SubResource("O0"), SubResource("O1")])

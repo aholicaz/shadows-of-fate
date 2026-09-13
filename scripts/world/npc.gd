@@ -30,6 +30,10 @@ enum NPCType { DIALOG, SHOP, REFINER, HEALER, SAVE_POINT, QUEST }
 ##     "beat_stormscar": "เจ้าเห็นแสงมันไหลลงดินใช่ไหม..."
 ##   }
 @export var dialog_by_flag: Dictionary = {}
+## ★ รอบ 105 ★ NPC คนนี้มีอยู่เฉพาะเมื่อมีธงนี้ (ว่าง = มีเสมอ) เช่น ผีของผู้หลุดจากแสง มีเฉพาะถ้าฆ่าเขา
+@export var show_if_flag: StringName = &""
+## ★ รอบ 105 ★ NPC คนนี้หายไปเมื่อมีธงนี้ เช่น อาสมุนด์กลับวิหารหลังผู้เล่นสงสัยเขา
+@export var hide_if_flag: StringName = &""
 
 @export_group("รูปตัวละครในกล่องสนทนา")
 ## ★ รูปครึ่งตัว (หัวถึงเอว) พื้นหลังโปร่งใส สูงประมาณ 400-500 px ★
@@ -124,7 +128,12 @@ var _mark_base_y := 0.0
 
 
 func _ready() -> void:
+	# ★ รอบ 105 ★ NPC ที่มี/ไม่มีตามธงเนื้อเรื่อง
+	if (show_if_flag != &"" and not PlayerState.has_flag(show_if_flag)) or (hide_if_flag != &"" and PlayerState.has_flag(hide_if_flag)):
+		queue_free()
+		return
 	add_to_group("npc")
+	preload("res://scripts/entities/foot_shadow.gd").attach(self)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
@@ -345,6 +354,7 @@ func interact() -> void:
 	# ทำก่อนอย่างอื่น เผื่อการคุยครั้งนี้ทำให้เควสครบพอดี แล้วส่งเควสได้เลยในครั้งเดียว
 	if PlayerState.quests != null:
 		PlayerState.quests.on_talked_to(npc_name)
+	Events.npc_talked.emit(npc_name)   # ★ รอบ 105 ★
 
 	# ★ รอบ 57 — เสาวาป ★ (เดิมเป็นศิลาเซฟ กดแล้วเซฟทันที ตอนนี้มีเมนูให้เลือกปลายทาง)
 	if type == NPCType.SAVE_POINT:
@@ -353,6 +363,10 @@ func interact() -> void:
 
 	# ★★ รอบ 45 — เมนูก่อนคุย: พูดคุย / ซื้อขาย / ไม่คุย ★★
 	var options: Array = [MENU_TALK]
+	for qid in quest_ids:
+		if String(qid).begins_with("rb"):
+			options.append("เส้นทาง Runeblade")
+			break
 	var ritual := pending_ritual()               # ★ รอบ 76 ★ ปุ่มทำพิธีของเควส (ถ้ามี)
 	if not ritual.is_empty():
 		options.push_front(String(ritual["text"]))
@@ -367,6 +381,9 @@ func interact() -> void:
 	if not is_instance_valid(self) or pick < 0 or pick >= options.size():
 		return
 	var chosen: String = options[pick]
+	if chosen == "เส้นทาง Runeblade":
+		await _runeblade_menu()
+		return
 	if chosen == MENU_LEAVE:
 		return
 	if not ritual.is_empty() and chosen == String(ritual["text"]):
@@ -602,19 +619,20 @@ func current_dialog_key() -> String:
 ## จัดการเควสของ NPC คนนี้ — คืน true ถ้ามีเรื่องเควสให้คุย
 ## หมายเหตุ: คุยจบแล้วยังเปิดร้าน/ตีบวกต่อได้ตามปกติ (NPC ที่มีเควสจะไม่ถูกบล็อก)
 func _handle_quests() -> bool:
+	var story_quests := quest_ids.filter(func(id): return not String(id).begins_with("rb"))
 	if quest_ids.is_empty():
 		return false
 	var qlog := PlayerState.quests
 	var lv: int = PlayerState.stats.level
 
 	# 1) มีเควสที่ทำครบแล้ว -> ส่งเควส
-	for qid in quest_ids:
+	for qid in story_quests:
 		if qlog.is_ready(qid):
 			await _ask_turn_in(GameData.get_quest(qid))
 			return true
 
 	# 2) มีเควสที่รับไว้แล้วแต่ยังไม่ครบ -> บอกความคืบหน้า
-	for qid in quest_ids:
+	for qid in story_quests:
 		if qlog.is_active(qid):
 			var q := GameData.get_quest(qid)
 			if q == null:
@@ -624,7 +642,7 @@ func _handle_quests() -> bool:
 			return true
 
 	# 3) มีเควสใหม่ให้รับ -> ถามว่ารับไหม
-	for qid in quest_ids:
+	for qid in story_quests:
 		if qlog.can_accept(qid, lv):
 			await _ask_accept(GameData.get_quest(qid))
 			return true
@@ -633,6 +651,30 @@ func _handle_quests() -> bool:
 
 
 ## ★ ชวนรับเควส — คุยกันเป็นบทสนทนา ★
+func _runeblade_menu() -> void:
+	var ids: Array[StringName] = []
+	var choices: Array = []
+	for id in quest_ids:
+		if not String(id).begins_with("rb"): continue
+		if id == &"rb1_unsung_iron" and npc_name != "บรอกก์" and not PlayerState.quests.is_active(id): continue
+		var q := GameData.get_quest(id)
+		if q == null or PlayerState.quests.is_done(id): continue
+		if PlayerState.quests.is_active(id) or PlayerState.quests.can_accept(id,PlayerState.stats.level):
+			ids.append(id)
+			choices.append(q.title + (" — ส่งเควส" if PlayerState.quests.is_ready(id) else ""))
+	if ids.is_empty():
+		await UI.talk([line("เส้นทางเริ่มหลังจบบท 2 เปิดดันเมื่อเลเวล 50 และผ่านคมและแรง ตรวจเงื่อนไขเควสบท 3 ในสมุดเควส หากเปลี่ยนอาชีพแล้ว อ่านอักขระที่เก้า ณ ศิลาลานพิธี")])
+		return
+	choices.append("กลับ")
+	var pick: int = await UI.talk([line("เส้นทางดาบรูนของเจ้า", "", choices)])
+	if pick < 0 or pick >= ids.size(): return
+	var quest := GameData.get_quest(ids[pick])
+	if PlayerState.quests.is_ready(quest.id): await _ask_turn_in(quest)
+	elif PlayerState.quests.is_active(quest.id):
+		await UI.talk([line(quest.dialog_progress,"\n".join(PlayerState.quests.progress_lines(quest.id)))])
+	else: await _ask_accept(quest)
+
+
 func _ask_accept(q: QuestData) -> void:
 	if q == null:
 		return

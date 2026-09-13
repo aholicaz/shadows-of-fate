@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 0
+target = &"false_judge"
+count = 1
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_8_the_judge"
+title = "C6-8 ผู้พิพากษา"
+description = "ล้มผู้พิพากษาผู้ตายที่นาสตรอนด์"
+giver_name = "เฮล ผู้ปกครองผู้ตาย"
+dialog_offer = "ที่นาสตรอนด์มีนักบวชผีคนหนึ่ง ยังตัดสินคนตายตามพงศาวดาร — ใครพูดต่างจากหนังสือ เขาส่งลงไปใต้ราก\n\nข้าไม่ตัดสินใคร มนุษย์ แต่เขาตัดสินแทนข้า ไปหยุดเขา"
+dialog_progress = "ผู้พิพากษาผู้ตายอยู่ปลายนาสตรอนด์ ระวังคำพิพากษา — วงแสงตกจากบน 3 จุด"
+dialog_complete = "เขาพูดชื่อเจ้าตอนตาย... ชื่อที่เจ้าทิ้งไว้ที่สะพาน\n\nยังมีคนจำได้ มนุษย์ แม้เจ้าทิ้งมันแล้ว\nเอาโล่ของเขาไป — ด้านหลังมีตราที่ถูกขูด ตราเดียวกับที่ถูกขูดทุกที่"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0")])
+kill_monster_id = &""
+required_level = 93
+required_quests = Array[StringName]([&"c6_6_name_beside_odin"])
+set_flag_on_complete = &"c6_8_done"
+reward_item_id = &"judge_shield"
+reward_item_count = 1
+reward_zeny = 45000
+reward_exp = 300000

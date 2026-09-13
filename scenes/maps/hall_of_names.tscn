@@ -1,0 +1,156 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="map_base"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="monster_data"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Resource" path="res://data/monsters/name_warden.tres" id="md_name_warden"]
+[ext_resource type="Resource" path="res://data/monsters/erased_voice.tres" id="md_erased_voice"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="c6_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/hall_of_names_depth.png" id="c6_depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/hall_of_names_0.png" id="organic_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/hall_of_names_1.png" id="organic_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/hall_of_names_2.png" id="organic_2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter6/organic/hall_of_names_3.png" id="organic_3"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_story_art.gd" id="story_art"]
+
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(5400, 240)
+
+[node name="Map" type="Node2D"]
+script = ExtResource("map_base")
+map_id = &"hall_of_names"
+display_name = "โถงแห่งนาม"
+chapter = 6
+region = "นิฟล์เฮม"
+map_bounds = Rect2(-100, -200, 5200, 1400)
+player_scene = ExtResource("player")
+
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+
+[node name="Background" type="Node2D" parent="."]
+
+script = ExtResource("c6_parallax")
+anchor_x = 2500.0
+atmosphere = Color(0.5,0.67,0.76,0.25)
+rising = false
+mote_amount = 35
+
+[node name="Terrain" type="Node2D" parent="."]
+
+
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2500, 1000)
+collision_layer = 1
+collision_mask = 0
+
+
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("Rect_ground")
+
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_river" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 820)
+
+
+[node name="from_nastrond" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4800, 820)
+
+
+[node name="Spawners" type="Node2D" parent="."]
+
+
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("map_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_name_warden"), ExtResource("md_erased_voice")])
+count_per_type = 4
+monster_scene = ExtResource("monster_scene")
+max_spawn_distance = 1700.0
+
+
+[node name="Portals" type="Node2D" parent="."]
+
+
+[node name="ToRiver" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(60, 880)
+target_map = &"gjoll_river"
+target_spawn_point = &"from_hall"
+label_text = "← แม่น้ำเกียลล์"
+destination_name = "แม่น้ำเกียลล์"
+
+
+[node name="ToNastrond" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(4940, 880)
+target_map = &"nastrond"
+target_spawn_point = &"from_hall"
+label_text = "→ นาสตรอนด์"
+destination_name = "นาสตรอนด์ ฝั่งศพ"
+
+
+[node name="Lore" type="Node2D" parent="."]
+
+
+[node name="OdinName" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2450, 790)
+lore_id = &"odin_name"
+title = "ชื่อบนผนัง"
+text = "ผนังทั้งโถงมีชื่อไหลอยู่ — ชื่อทุกชื่อที่ถูกสกัดออกจากศิลา หลุมศพ พงศาวดาร ทั่วเก้าโลก\n\nซินดริ... หรุงนีร์... โซล... ชื่อที่ถูกลบจากข้างบน มาอยู่ที่นี่ทั้งหมด\n\nและตรงกลางผนัง ตัวอักษรใหญ่กว่าชื่ออื่น ยังอ่านออกชัด:\n\n« โ อ ดิ น »\n\nโอดินไม่ได้หายไป โอดินตาย — และชื่อของเขาถูกลบจากข้างบน เหมือนทุกคนที่นี่"
+label_text = "★ ชื่อที่ยังอ่านออก ★"
+set_flag = &"saw_odin_name"
+
+
+[node name="ErasedName" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2650, 790)
+lore_id = &"erased_name"
+title = "ชื่อข้างโอดิน"
+text = "ข้างชื่อโอดิน มีอีกชื่อหนึ่ง... ถูกลบจนอ่านไม่ออก แม้ในโถงที่เก็บชื่อที่ถูกลบ\n\nลบสองชั้น — ลบจากข้างบน แล้วลบจากที่นี่อีกครั้ง\nใครก็ตามที่ทำแบบนี้ ไม่อยากให้แม้แต่คนตายจำชื่อนี้ได้\n\nรอยเปื้อนมีรูปร่างเหมือนตัวอักษรสี่ตัว... ตัวแรกคล้ายรูน «ล»"
+label_text = "รอยเปื้อน"
+required_flag = &"saw_odin_name"
+locked_text = "ยังไม่ได้ดูชื่อที่ยังอ่านออกตรงกลางผนัง"
+set_flag = &"saw_erased_name"
+
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+position = Vector2(2600.0, 350)
+texture = ExtResource("c6_depth")
+region_enabled = true
+
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200,170)
+centered = false
+texture = ExtResource("organic_0")
+
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800,170)
+centered = false
+texture = ExtResource("organic_1")
+
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800,170)
+centered = false
+texture = ExtResource("organic_2")
+
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800,170)
+centered = false
+texture = ExtResource("organic_3")
+
+[node name="StoryArt" type="Node2D" parent="."]
+script = ExtResource("story_art")
