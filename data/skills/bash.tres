@@ -7,16 +7,17 @@
 [resource]
 script = ExtResource("1_skill")
 display_name = "Bash (ฟันแรง)"
-description = "ฟาดดาบ 2 จังหวะ กวาดศัตรูด้านหน้าสูงสุด 6 ตัว"
+description = "ฟาดดาบ 2 จังหวะ กวาดศัตรูด้านหน้าสูงสุด 3 ตัว"
 icon = ExtResource("1_e2b7y")
-sp_cost_base = 4
-cooldown = 1.5
+job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])
+cooldown = 2.5
 cast_windup = 0.45
 damage_mult_base = 1.4
 damage_mult_per_level = 0.25
 hit_count = 2
 range_x = 350.0
-max_targets = 6
+range_y = 320.0
+max_targets = 3
 effect_frames = ExtResource("2_fx")
 effect_anim = &"slash"
 effect_offset = Vector2(120, -5)
@@ -27,9 +28,4 @@ effect_damage = true
 effect_hit_size = Vector2(360, 320)
 effect_max_targets = 6
 effect_hit_count = 2
-
-job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])
-
-range_y = 320.0
-
 effect_stick_on_hit = false

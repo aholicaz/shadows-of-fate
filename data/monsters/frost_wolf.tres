@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/frost_wolf_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://d0tpusnu18a7e" path="res://data/sprites/monsters/frost_wolf_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_frost_wolf_0"]
 script = ExtResource("2_drop")
@@ -42,6 +42,17 @@ sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(50, 42)
 hp_bar_offset_y = -72.2
 display_height = 190.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.15348101,
+&"Die": 1.15348101,
+&"Hit": 1.15348101,
+&"Idle": 1.1480315,
+&"Run": 1.1480315,
+&"Skill": 1.15348101,
+&"Walk": 1.1480315
+})
 fit_foot_animations = null
 level = 60
 max_hp = 9200
@@ -76,7 +87,3 @@ drops = Array[ExtResource("2_drop")]([SubResource("Drop_frost_wolf_0"), SubResou
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null
-fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(800, 1100)
-fit_uniform_scale = true
-fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.14803150, &"Walk": 1.14803150, &"Attack": 1.15348101, &"Hit": 1.15348101, &"Die": 1.15348101, &"Run": 1.14803150, &"Skill": 1.15348101})

@@ -10,29 +10,24 @@ display_name = "Slash (พุ่งฟัน)"
 description = "พุ่งทะลุฝูงมอน 550–685 px ฟันแต่ละตัวที่ขวางทาง ไม่หยุดเมื่อโดนมอน"
 icon = ExtResource("1_q5137")
 type = 5
+job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])
 required_skills = {
 "bash": 5
 }
-required_level = 15
+required_level = 10
+sp_cost_base = 10
 sp_cost_per_level = 2.0
 cooldown = 4.0
 cast_windup = 0.18
 damage_mult_base = 1.6
 damage_mult_per_level = 0.3
+range_x = 240.0
 range_y = 90.0
 max_targets = 0
-max_targets_by_level = {}
 dash_distance = 550.0
 dash_speed = 1200.0
+dash_range_y = 300.0
 effect_offset = Vector2(110, -60)
 effect_height = 200.0
 effect_follow = true
 effect_life = 0.45
-
-job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])
-
-range_x = 240.0
-
-dash_range_y = 300.0
-
-dash_distance_per_level = 15.0

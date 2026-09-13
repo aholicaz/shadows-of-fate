@@ -1,286 +1,94 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bgar3ckpqpe0q"]
 
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_01.png" id="frame_001"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_02.png" id="frame_002"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_03.png" id="frame_003"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_04.png" id="frame_004"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_05.png" id="frame_005"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_06.png" id="frame_006"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_07.png" id="frame_007"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_08.png" id="frame_008"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_09.png" id="frame_009"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_10.png" id="frame_010"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_11.png" id="frame_011"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_12.png" id="frame_012"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_13.png" id="frame_013"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_14.png" id="frame_014"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_15.png" id="frame_015"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_16.png" id="frame_016"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_17.png" id="frame_017"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_18.png" id="frame_018"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_19.png" id="frame_019"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_20.png" id="frame_020"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_21.png" id="frame_021"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_22.png" id="frame_022"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_23.png" id="frame_023"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_24.png" id="frame_024"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_25.png" id="frame_025"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_26.png" id="frame_026"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_27.png" id="frame_027"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_28.png" id="frame_028"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_29.png" id="frame_029"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_30.png" id="frame_030"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_31.png" id="frame_031"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_32.png" id="frame_032"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_01.png" id="frame_033"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_02.png" id="frame_034"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_03.png" id="frame_035"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_04.png" id="frame_036"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_05.png" id="frame_037"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_06.png" id="frame_038"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_07.png" id="frame_039"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_08.png" id="frame_040"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_09.png" id="frame_041"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_10.png" id="frame_042"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_11.png" id="frame_043"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_12.png" id="frame_044"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_13.png" id="frame_045"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_14.png" id="frame_046"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_15.png" id="frame_047"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_16.png" id="frame_048"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_17.png" id="frame_049"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_18.png" id="frame_050"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_19.png" id="frame_051"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_20.png" id="frame_052"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_21.png" id="frame_053"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_22.png" id="frame_054"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_23.png" id="frame_055"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_24.png" id="frame_056"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_25.png" id="frame_057"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_26.png" id="frame_058"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_27.png" id="frame_059"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_28.png" id="frame_060"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_29.png" id="frame_061"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_30.png" id="frame_062"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_31.png" id="frame_063"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_32.png" id="frame_064"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_03.png" id="frame_065"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_04.png" id="frame_066"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_05.png" id="frame_067"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_06.png" id="frame_068"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_07.png" id="frame_069"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_08.png" id="frame_070"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_09.png" id="frame_071"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_10.png" id="frame_072"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_11.png" id="frame_073"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_12.png" id="frame_074"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_13.png" id="frame_075"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_14.png" id="frame_076"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_15.png" id="frame_077"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_16.png" id="frame_078"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_17.png" id="frame_079"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_18.png" id="frame_080"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_19.png" id="frame_081"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_20.png" id="frame_082"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_21.png" id="frame_083"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_22.png" id="frame_084"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_23.png" id="frame_085"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_24.png" id="frame_086"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_25.png" id="frame_087"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_26.png" id="frame_088"]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_27.png" id="frame_089"]
-
-[sub_resource type="AtlasTexture" id="atlas_frame_001"]
-atlas = ExtResource("frame_001")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_002"]
-atlas = ExtResource("frame_002")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_003"]
-atlas = ExtResource("frame_003")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_004"]
-atlas = ExtResource("frame_004")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_005"]
-atlas = ExtResource("frame_005")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_006"]
-atlas = ExtResource("frame_006")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_007"]
-atlas = ExtResource("frame_007")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_008"]
-atlas = ExtResource("frame_008")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_009"]
-atlas = ExtResource("frame_009")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_010"]
-atlas = ExtResource("frame_010")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_011"]
-atlas = ExtResource("frame_011")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_012"]
-atlas = ExtResource("frame_012")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_013"]
-atlas = ExtResource("frame_013")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_014"]
-atlas = ExtResource("frame_014")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_015"]
-atlas = ExtResource("frame_015")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_016"]
-atlas = ExtResource("frame_016")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_017"]
-atlas = ExtResource("frame_017")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_018"]
-atlas = ExtResource("frame_018")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_019"]
-atlas = ExtResource("frame_019")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_020"]
-atlas = ExtResource("frame_020")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_021"]
-atlas = ExtResource("frame_021")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_022"]
-atlas = ExtResource("frame_022")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_023"]
-atlas = ExtResource("frame_023")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_024"]
-atlas = ExtResource("frame_024")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_025"]
-atlas = ExtResource("frame_025")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_026"]
-atlas = ExtResource("frame_026")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_027"]
-atlas = ExtResource("frame_027")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_028"]
-atlas = ExtResource("frame_028")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_029"]
-atlas = ExtResource("frame_029")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_030"]
-atlas = ExtResource("frame_030")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_031"]
-atlas = ExtResource("frame_031")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_032"]
-atlas = ExtResource("frame_032")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(326, 371, 488, 566)
-filter_clip = true
+[ext_resource type="Texture2D" uid="uid://j8sxb8t7wr24" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_01.png" id="frame_001"]
+[ext_resource type="Texture2D" uid="uid://bbtsqr1vpw42p" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_02.png" id="frame_002"]
+[ext_resource type="Texture2D" uid="uid://x8ptswmqsgt" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_03.png" id="frame_003"]
+[ext_resource type="Texture2D" uid="uid://clt66ly50ieco" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_04.png" id="frame_004"]
+[ext_resource type="Texture2D" uid="uid://bpy6vci61de86" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_05.png" id="frame_005"]
+[ext_resource type="Texture2D" uid="uid://8al8753s842i" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_06.png" id="frame_006"]
+[ext_resource type="Texture2D" uid="uid://cqgc41nunfg8v" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_07.png" id="frame_007"]
+[ext_resource type="Texture2D" uid="uid://cpmm71jdwpc5q" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_08.png" id="frame_008"]
+[ext_resource type="Texture2D" uid="uid://chh84a4aek1rw" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_09.png" id="frame_009"]
+[ext_resource type="Texture2D" uid="uid://q7bu57agtq2a" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_10.png" id="frame_010"]
+[ext_resource type="Texture2D" uid="uid://ubislr08m5f" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_11.png" id="frame_011"]
+[ext_resource type="Texture2D" uid="uid://b31o1g56b3x76" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_12.png" id="frame_012"]
+[ext_resource type="Texture2D" uid="uid://06b34fh1p466" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_13.png" id="frame_013"]
+[ext_resource type="Texture2D" uid="uid://dh0kv3q2j52xu" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_14.png" id="frame_014"]
+[ext_resource type="Texture2D" uid="uid://hishyjrdx1p4" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_15.png" id="frame_015"]
+[ext_resource type="Texture2D" uid="uid://cwrg0wwne5cir" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_16.png" id="frame_016"]
+[ext_resource type="Texture2D" uid="uid://d3l5b5by7cldq" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_17.png" id="frame_017"]
+[ext_resource type="Texture2D" uid="uid://djit1cc6nchks" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_18.png" id="frame_018"]
+[ext_resource type="Texture2D" uid="uid://lkh5oyancwmo" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_19.png" id="frame_019"]
+[ext_resource type="Texture2D" uid="uid://djr0g1ftxuu5c" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_20.png" id="frame_020"]
+[ext_resource type="Texture2D" uid="uid://ch2vypnfctduv" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_21.png" id="frame_021"]
+[ext_resource type="Texture2D" uid="uid://yf57dr2jxf1h" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_22.png" id="frame_022"]
+[ext_resource type="Texture2D" uid="uid://dadtxdurn28n2" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_23.png" id="frame_023"]
+[ext_resource type="Texture2D" uid="uid://cb07styycnwiw" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_24.png" id="frame_024"]
+[ext_resource type="Texture2D" uid="uid://b8amoo11e3dt1" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_25.png" id="frame_025"]
+[ext_resource type="Texture2D" uid="uid://d3e2qgclvjroj" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_26.png" id="frame_026"]
+[ext_resource type="Texture2D" uid="uid://c4tl3uegyg8bc" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_27.png" id="frame_027"]
+[ext_resource type="Texture2D" uid="uid://by72pm12umacc" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_28.png" id="frame_028"]
+[ext_resource type="Texture2D" uid="uid://d3udkdnnivjt3" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_29.png" id="frame_029"]
+[ext_resource type="Texture2D" uid="uid://hk0nm2gam7n" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_30.png" id="frame_030"]
+[ext_resource type="Texture2D" uid="uid://c5y8hgemidwgv" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_31.png" id="frame_031"]
+[ext_resource type="Texture2D" uid="uid://crsixsagkli6i" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_idle_walk_1500/frame_32.png" id="frame_032"]
+[ext_resource type="Texture2D" uid="uid://dy5whg626n4t5" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_01.png" id="frame_033"]
+[ext_resource type="Texture2D" uid="uid://dgvhydj58l3cf" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_02.png" id="frame_034"]
+[ext_resource type="Texture2D" uid="uid://nytw27lmtdlb" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_03.png" id="frame_035"]
+[ext_resource type="Texture2D" uid="uid://bkvnklb6difmh" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_04.png" id="frame_036"]
+[ext_resource type="Texture2D" uid="uid://dc2g71tmul4dv" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_05.png" id="frame_037"]
+[ext_resource type="Texture2D" uid="uid://bo8o5rjq4h0xn" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_06.png" id="frame_038"]
+[ext_resource type="Texture2D" uid="uid://c8dysgnon6s6l" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_07.png" id="frame_039"]
+[ext_resource type="Texture2D" uid="uid://cwm14ijklsjj0" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_08.png" id="frame_040"]
+[ext_resource type="Texture2D" uid="uid://cwn2wtfrcpq6x" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_09.png" id="frame_041"]
+[ext_resource type="Texture2D" uid="uid://bjxb2xqe0xx15" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_10.png" id="frame_042"]
+[ext_resource type="Texture2D" uid="uid://dyfxc2fylh2gn" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_11.png" id="frame_043"]
+[ext_resource type="Texture2D" uid="uid://bvbgp164y13me" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_12.png" id="frame_044"]
+[ext_resource type="Texture2D" uid="uid://dlqhbkq6vvwtl" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_13.png" id="frame_045"]
+[ext_resource type="Texture2D" uid="uid://lmccu1dyehgf" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_14.png" id="frame_046"]
+[ext_resource type="Texture2D" uid="uid://cdgioifb7aim8" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_15.png" id="frame_047"]
+[ext_resource type="Texture2D" uid="uid://mmv6om07ircc" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_16.png" id="frame_048"]
+[ext_resource type="Texture2D" uid="uid://bcrbpreex5nnl" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_17.png" id="frame_049"]
+[ext_resource type="Texture2D" uid="uid://b2rhwduo7oftd" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_18.png" id="frame_050"]
+[ext_resource type="Texture2D" uid="uid://se1o4ike7tcq" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_19.png" id="frame_051"]
+[ext_resource type="Texture2D" uid="uid://bkxec6ohm3bw7" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_20.png" id="frame_052"]
+[ext_resource type="Texture2D" uid="uid://bnvl5r4pourxv" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_21.png" id="frame_053"]
+[ext_resource type="Texture2D" uid="uid://ll6bst7awfd2" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_22.png" id="frame_054"]
+[ext_resource type="Texture2D" uid="uid://wq7tg4od7atb" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_23.png" id="frame_055"]
+[ext_resource type="Texture2D" uid="uid://ddwo21opfnfoh" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_24.png" id="frame_056"]
+[ext_resource type="Texture2D" uid="uid://bg3xa5xkmhjwx" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_25.png" id="frame_057"]
+[ext_resource type="Texture2D" uid="uid://dngr8gmneqyeo" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_26.png" id="frame_058"]
+[ext_resource type="Texture2D" uid="uid://c8hxi3jnwuu84" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_27.png" id="frame_059"]
+[ext_resource type="Texture2D" uid="uid://r2noswlmiyui" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_28.png" id="frame_060"]
+[ext_resource type="Texture2D" uid="uid://ci76b6hprkj4h" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_29.png" id="frame_061"]
+[ext_resource type="Texture2D" uid="uid://dsj4rl6hatse2" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_30.png" id="frame_062"]
+[ext_resource type="Texture2D" uid="uid://wnyxb0f5ujv3" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_31.png" id="frame_063"]
+[ext_resource type="Texture2D" uid="uid://bqbc1dattby5w" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_1459/frame_32.png" id="frame_064"]
+[ext_resource type="Texture2D" uid="uid://d265vfy005xob" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_03.png" id="frame_065"]
+[ext_resource type="Texture2D" uid="uid://cjb8uelf7uk2p" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_04.png" id="frame_066"]
+[ext_resource type="Texture2D" uid="uid://cxbvtsid20to6" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_05.png" id="frame_067"]
+[ext_resource type="Texture2D" uid="uid://dyo4ph1e4ykkm" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_06.png" id="frame_068"]
+[ext_resource type="Texture2D" uid="uid://thw0l45iby" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_07.png" id="frame_069"]
+[ext_resource type="Texture2D" uid="uid://d012lxmwcd6ym" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_08.png" id="frame_070"]
+[ext_resource type="Texture2D" uid="uid://cs4odqsaspddv" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_09.png" id="frame_071"]
+[ext_resource type="Texture2D" uid="uid://dglrvx7tjsp8a" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_10.png" id="frame_072"]
+[ext_resource type="Texture2D" uid="uid://b1yrl1cfuk71o" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_11.png" id="frame_073"]
+[ext_resource type="Texture2D" uid="uid://f653bdx5hbky" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_12.png" id="frame_074"]
+[ext_resource type="Texture2D" uid="uid://fawq37wewr77" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_13.png" id="frame_075"]
+[ext_resource type="Texture2D" uid="uid://buv8y6mhj3r6s" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_14.png" id="frame_076"]
+[ext_resource type="Texture2D" uid="uid://cogxsa3kf21bu" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_15.png" id="frame_077"]
+[ext_resource type="Texture2D" uid="uid://c1benitnqm80y" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_16.png" id="frame_078"]
+[ext_resource type="Texture2D" uid="uid://by4ygyber7dy4" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_17.png" id="frame_079"]
+[ext_resource type="Texture2D" uid="uid://bnh5y30xfjkhx" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_18.png" id="frame_080"]
+[ext_resource type="Texture2D" uid="uid://f2bsjiujrhqy" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_19.png" id="frame_081"]
+[ext_resource type="Texture2D" uid="uid://bx2eqngv3lyk4" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_20.png" id="frame_082"]
+[ext_resource type="Texture2D" uid="uid://beyl7l4pfex7" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_21.png" id="frame_083"]
+[ext_resource type="Texture2D" uid="uid://je5vhi1nastd" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_22.png" id="frame_084"]
+[ext_resource type="Texture2D" uid="uid://501nfvm137nv" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_23.png" id="frame_085"]
+[ext_resource type="Texture2D" uid="uid://bw87tram27ydr" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_24.png" id="frame_086"]
+[ext_resource type="Texture2D" uid="uid://dgo0ranl6tx8l" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_25.png" id="frame_087"]
+[ext_resource type="Texture2D" uid="uid://j1hc4by1qbfq" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_26.png" id="frame_088"]
+[ext_resource type="Texture2D" uid="uid://b1ce884lelfjx" path="res://Sprites/monsters/spriteflow/stone_soldier/stone_soldier_attack_hit_die_1451/frame_27.png" id="frame_089"]
 
 [sub_resource type="AtlasTexture" id="atlas_frame_033"]
 atlas = ExtResource("frame_033")
@@ -474,54 +282,6 @@ region = Rect2(0, 0, 1112, 834)
 margin = Rect2(327, 371, 488, 566)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="atlas_frame_065"]
-atlas = ExtResource("frame_065")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_066"]
-atlas = ExtResource("frame_066")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_067"]
-atlas = ExtResource("frame_067")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_068"]
-atlas = ExtResource("frame_068")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_069"]
-atlas = ExtResource("frame_069")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_070"]
-atlas = ExtResource("frame_070")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_071"]
-atlas = ExtResource("frame_071")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="atlas_frame_072"]
-atlas = ExtResource("frame_072")
-region = Rect2(0, 0, 1112, 834)
-margin = Rect2(327, 372, 488, 566)
-filter_clip = true
-
 [sub_resource type="AtlasTexture" id="atlas_frame_073"]
 atlas = ExtResource("frame_073")
 region = Rect2(0, 0, 1112, 834)
@@ -624,179 +384,715 @@ region = Rect2(0, 0, 1112, 834)
 margin = Rect2(327, 372, 488, 566)
 filter_clip = true
 
+[sub_resource type="AtlasTexture" id="atlas_frame_065"]
+atlas = ExtResource("frame_065")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_066"]
+atlas = ExtResource("frame_066")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_067"]
+atlas = ExtResource("frame_067")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_068"]
+atlas = ExtResource("frame_068")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_069"]
+atlas = ExtResource("frame_069")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_070"]
+atlas = ExtResource("frame_070")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_071"]
+atlas = ExtResource("frame_071")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_072"]
+atlas = ExtResource("frame_072")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(327, 372, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_001"]
+atlas = ExtResource("frame_001")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_002"]
+atlas = ExtResource("frame_002")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_003"]
+atlas = ExtResource("frame_003")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_004"]
+atlas = ExtResource("frame_004")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_005"]
+atlas = ExtResource("frame_005")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_006"]
+atlas = ExtResource("frame_006")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_007"]
+atlas = ExtResource("frame_007")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_008"]
+atlas = ExtResource("frame_008")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_009"]
+atlas = ExtResource("frame_009")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_010"]
+atlas = ExtResource("frame_010")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_011"]
+atlas = ExtResource("frame_011")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_012"]
+atlas = ExtResource("frame_012")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_013"]
+atlas = ExtResource("frame_013")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_014"]
+atlas = ExtResource("frame_014")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_015"]
+atlas = ExtResource("frame_015")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_016"]
+atlas = ExtResource("frame_016")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_017"]
+atlas = ExtResource("frame_017")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_018"]
+atlas = ExtResource("frame_018")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_019"]
+atlas = ExtResource("frame_019")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_020"]
+atlas = ExtResource("frame_020")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_021"]
+atlas = ExtResource("frame_021")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_022"]
+atlas = ExtResource("frame_022")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_023"]
+atlas = ExtResource("frame_023")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_024"]
+atlas = ExtResource("frame_024")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_025"]
+atlas = ExtResource("frame_025")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_026"]
+atlas = ExtResource("frame_026")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_027"]
+atlas = ExtResource("frame_027")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_028"]
+atlas = ExtResource("frame_028")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_029"]
+atlas = ExtResource("frame_029")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_030"]
+atlas = ExtResource("frame_030")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_031"]
+atlas = ExtResource("frame_031")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="atlas_frame_032"]
+atlas = ExtResource("frame_032")
+region = Rect2(0, 0, 1112, 834)
+margin = Rect2(326, 371, 488, 566)
+filter_clip = true
+
 [resource]
-animations = [
-{
-"frames": [
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_001")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_002")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_003")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_004")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_005")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_006")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_007")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_008")},
-], "loop": true, "name": &"Idle", "speed": 8.0
-},
-{
-"frames": [
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_009")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_010")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_011")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_012")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_013")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_014")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_015")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_016")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_017")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_018")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_019")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_020")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_021")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_022")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_023")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_024")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_025")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_026")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_027")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_028")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_029")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_030")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_031")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_032")},
-], "loop": true, "name": &"Walk", "speed": 8.0
-},
-{
-"frames": [
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_033")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_034")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_035")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_036")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_037")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_038")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_039")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_040")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_041")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_042")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_043")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_044")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_045")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_046")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_047")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_048")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_049")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_050")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_051")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_052")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_053")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_054")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_055")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_056")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_057")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_058")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_059")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_060")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_061")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_062")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_063")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_064")},
-], "loop": false, "name": &"Attack", "speed": 8.0
-},
-{
-"frames": [
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_065")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_066")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_067")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_068")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_069")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_070")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_071")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_072")},
-], "loop": false, "name": &"Hit", "speed": 12.0
-},
-{
-"frames": [
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_073")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_074")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_075")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_076")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_077")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_078")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_079")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_080")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_081")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_082")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_083")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_084")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_085")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_086")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_087")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_088")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_089")},
-], "loop": false, "name": &"Die", "speed": 8.0
-},
-{
-"frames": [
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_009")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_010")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_011")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_012")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_013")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_014")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_015")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_016")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_017")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_018")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_019")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_020")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_021")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_022")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_023")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_024")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_025")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_026")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_027")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_028")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_029")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_030")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_031")},
-{"duration": 1.000000000, "texture": SubResource("atlas_frame_032")},
-], "loop": true, "name": &"Run", "speed": 8.0
-},
-{
-"frames": [
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_033")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_034")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_035")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_036")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_037")},
-{"duration": 0.533333333, "texture": SubResource("atlas_frame_038")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_039")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_040")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_041")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_042")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_043")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_044")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_045")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_046")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_047")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_048")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_049")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_050")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_051")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_052")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_053")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_054")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_055")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_056")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_057")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_058")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_059")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_060")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_061")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_062")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_063")},
-{"duration": 0.153846154, "texture": SubResource("atlas_frame_064")},
-], "loop": false, "name": &"Skill", "speed": 8.0
-},
-]
+animations = [{
+"frames": [{
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_033")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_034")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_035")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_036")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_037")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_038")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_039")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_040")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_041")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_042")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_043")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_044")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_045")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_046")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_047")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_048")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_049")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_050")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_051")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_052")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_053")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_054")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_055")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_056")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_057")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_058")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_059")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_060")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_061")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_062")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_063")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_064")
+}],
+"loop": 0,
+"name": &"Attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("atlas_frame_073")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_074")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_075")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_076")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_077")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_078")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_079")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_080")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_081")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_082")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_083")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_084")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_085")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_086")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_087")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_088")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_089")
+}],
+"loop": 0,
+"name": &"Die",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("atlas_frame_065")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_066")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_067")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_068")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_069")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_070")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_071")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_072")
+}],
+"loop": 0,
+"name": &"Hit",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("atlas_frame_001")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_002")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_003")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_004")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_005")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_006")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_007")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_008")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("atlas_frame_009")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_010")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_011")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_012")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_013")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_014")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_015")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_016")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_017")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_018")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_019")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_020")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_021")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_022")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_023")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_024")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_025")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_026")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_027")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_028")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_029")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_030")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_031")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_032")
+}],
+"loop": 1,
+"name": &"Run",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_033")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_034")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_035")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_036")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_037")
+}, {
+"duration": 0.53333336,
+"texture": SubResource("atlas_frame_038")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_039")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_040")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_041")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_042")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_043")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_044")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_045")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_046")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_047")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_048")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_049")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_050")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_051")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_052")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_053")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_054")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_055")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_056")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_057")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_058")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_059")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_060")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_061")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_062")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_063")
+}, {
+"duration": 0.15384616,
+"texture": SubResource("atlas_frame_064")
+}],
+"loop": 0,
+"name": &"Skill",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("atlas_frame_009")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_010")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_011")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_012")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_013")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_014")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_015")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_016")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_017")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_018")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_019")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_020")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_021")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_022")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_023")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_024")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_025")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_026")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_027")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_028")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_029")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_030")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_031")
+}, {
+"duration": 1.0,
+"texture": SubResource("atlas_frame_032")
+}],
+"loop": 1,
+"name": &"Walk",
+"speed": 8.0
+}]
