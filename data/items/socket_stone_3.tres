@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Sprites/items/socket/socket_stone_3.svg" id="2"]
+[resource]
+script = ExtResource("1")
+id = &"socket_stone_3"
+display_name = "หินเจาะนิรันดร์"
+description = "สำหรับเจาะรูที่ 3 ของอาวุธเลเวล 90 ขึ้นไป ใช้ 1 ก้อนต่อครั้ง พร้อมอาวุธชื่อเดียวกันอีก 2 เล่มและซีนี"
+icon = ExtResource("2")
+max_stack = 99
+buy_price = 0
+sell_price = 0
+sellable = false
+drop_hint = "บอส: ผู้พิพากษาผู้ตาย, การ์ม ผู้ถูกล่าม"

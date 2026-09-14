@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/slag_sickle.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"slag_sickle"
+display_name = "เคียวแก้วตะกรัน"
+description = "แขนเคียวแก้วดำซึ่งเย็นตัวจากตะกรัน ภายในยังมีตัวอักษรของเหล็กที่ถูกทิ้ง"
+icon = ExtResource("i")
+type = 3
+sell_price = 790
+buy_price = 0
+max_stack = 99

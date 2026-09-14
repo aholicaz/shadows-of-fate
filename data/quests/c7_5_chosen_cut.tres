@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="o0"]
+script = ExtResource("o")
+kind = 6
+target = &"ash_knight|ninth"
+count = 3
+text = "ใช้คมตัดพันธะหรือเงานามโจมตีอัศวิน 3 ครั้ง"
+[sub_resource type="Resource" id="o1"]
+script = ExtResource("o")
+kind = 0
+target = &"ash_knight"
+count = 5
+text = "หยุดขบวนอัศวิน 5 ตน"
+
+[resource]
+script = ExtResource("s")
+id = &"c7_5_chosen_cut"
+title = "C7-5 คมที่ไม่ลบคน"
+description = "เรียนคมตัดพันธะหรือเงานามก่อนออกไป เงาของเจ้าต้องตามการตัดสินใจ ไม่ใช่คำสั่งของดาบ ลองกับอัศวินที่ยังเดินตามคำสั่งสุดท้าย"
+giver_name = "บรินยา ช่างปลดพันธะ"
+dialog_offer = "เรียนคมตัดพันธะหรือเงานามก่อนออกไป เงาของเจ้าต้องตามการตัดสินใจ ไม่ใช่คำสั่งของดาบ ลองกับอัศวินที่ยังเดินตามคำสั่งสุดท้าย"
+dialog_progress = "ใช้คมตัดพันธะหรือเงานามโจมตีอัศวิน 3 ครั้ง · หยุดขบวนอัศวิน 5 ตน"
+dialog_complete = "คมของเจ้าตัดสิ่งที่บังคับพวกเขาได้ จำความรู้สึกนั้นไว้เมื่ออยู่ต่อหน้าผู้คุม"
+required_level = 96
+required_flag = &"chapter6_done"
+required_quests = Array[StringName]([&"c7_4_ninth_edge"])
+objectives = Array[ExtResource("o")]([SubResource("o0"), SubResource("o1")])
+set_flag_on_complete = &"c7_step_5"
+reward_exp = 950000
+reward_job_exp = 332500
+reward_zeny = 120000
+reward_item_id = &""
+required_job = &"ninth_edge"

@@ -46,11 +46,6 @@ script = ExtResource("2_drop")
 item_id = &"imp_tail"
 chance = 15.0
 
-[sub_resource type="Resource" id="Drop_baphomet_jr_eq_ember_cape"]
-script = ExtResource("2_drop")
-item_id = &"ember_cape"
-chance = 3.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_7e6wn"]
 atlas = ExtResource("4_trsba")
 region = Rect2(1024, 0, 512, 512)
@@ -534,7 +529,7 @@ skill_hit_frames = null
 exp_reward = 259
 zeny_min = 97
 zeny_max = 179
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_baphomet_jr_0"), SubResource("Drop_baphomet_jr_1"), SubResource("Drop_baphomet_jr_2"), SubResource("Drop_baphomet_jr_3"), SubResource("Drop_baphomet_jr_card"), SubResource("Drop_baphomet_jr_junk_small_horn"), SubResource("Drop_baphomet_jr_junk_imp_tail"), SubResource("Drop_baphomet_jr_eq_ember_cape")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_baphomet_jr_0"), SubResource("Drop_baphomet_jr_1"), SubResource("Drop_baphomet_jr_2"), SubResource("Drop_baphomet_jr_3"), SubResource("Drop_baphomet_jr_card"), SubResource("Drop_baphomet_jr_junk_small_horn"), SubResource("Drop_baphomet_jr_junk_imp_tail")])
 projectile_texture = ExtResource("2_qanpk")
 projectile_speed = 820.0
 projectile_height = 70.0

@@ -13,7 +13,7 @@ description = "ขนปีกของหญิงนักรบผู้พ�
 ใช้กลางแมพได้ทุกที่ · ใช้ในเมืองไม่ได้"
 icon = ExtResource("2_icon")
 type = 0
-buy_price = 500
+buy_price = 800
 sell_price = 50
 max_stack = 99
 special_effect = &"warp_town"

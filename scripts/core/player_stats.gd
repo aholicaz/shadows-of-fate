@@ -173,6 +173,8 @@ var sp_regen: float = 0.5
 ## ★ รอบ 45 ★ ดาเมจสุดท้าย +% (ของสวมใส่) · ดูดเลือด/มานา % ของดาเมจที่ทำได้
 var damage_percent: float = 0.0
 var hp_drain_percent: float = 0.0
+## Runtime-only fractional healing; a new/loaded PlayerStats starts empty.
+var hp_drain_remainder: float = 0.0
 var sp_drain_percent: float = 0.0
 ## ★ รอบ 50 ★ ช่องกระเป๋าที่ได้เพิ่มจาก STR · ลดคูลดาวน์สกิล (%) จาก DEX + ของสวมใส่
 var bag_bonus_slots: int = 0
@@ -293,23 +295,31 @@ func attack_interval() -> float:
 # =========================================================
 # ระบบเลเวล / ค่าประสบการณ์
 # =========================================================
+## Ninth Edge breaks the old progression ceiling. Integer bound is a storage guard,
+## not a reachable progression target; combat rate caps remain in recalculate().
+func max_base_level() -> int:
+	return 2147483647 if has_profession(&"ninth_edge") else MAX_LEVEL
+
+func max_base_stat() -> int:
+	return 2147483647 if has_profession(&"ninth_edge") else MAX_STAT
+
 func exp_to_next() -> int:
-	if level >= MAX_LEVEL:
+	if level >= max_base_level():
 		return 0
 	return int(round(35.0 * pow(level, 1.9) * (1.0 + maxf(0.0, level - 70.0) * 0.035)))
 
 
 func add_exp(amount: int) -> int:
-	if level >= MAX_LEVEL:
+	if level >= max_base_level():
 		return 0
 	var levels_gained := 0
 	exp_current += amount
-	while level < MAX_LEVEL and exp_current >= exp_to_next():
+	while level < max_base_level() and exp_current >= exp_to_next():
 		exp_current -= exp_to_next()
 		level += 1
 		levels_gained += 1
 		stat_points += 3 + floori(level / 5.0)
-	if level >= MAX_LEVEL:
+	if level >= max_base_level():
 		exp_current = 0
 	return levels_gained
 
@@ -321,6 +331,7 @@ func add_exp(amount: int) -> int:
 ## ★ รอบ 108 ★ เพดานเลเวลอาชีพขึ้นกับอาชีพ (JobData.max_job_level) — นักดาบ 50 · Runeblade 80 · Ninth Edge 100
 ## เปลี่ยนอาชีพแล้วเพดานขยาย เก็บจ๊อบต่อได้เลย แต้มสกิลที่ได้ใช้เรียนสกิลรูนด้วย (ไม่มีแต้มรูนแยกแล้ว)
 func max_job_level() -> int:
+	if has_profession(&"ninth_edge"): return 2147483647
 	var j := job()
 	if j != null and j.max_job_level > 0:
 		return j.max_job_level
@@ -387,8 +398,9 @@ func _set_base_stat(stat: StringName, value: int) -> void:
 
 ## ค่าใช้จ่ายในการอัพสเตตัสตัวถัดไป (สูตร RO)
 func stat_cost(stat: StringName) -> int:
+	if stat not in STAT_NAMES: return -1
 	var current := get_base_stat(stat)
-	if current >= MAX_STAT:
+	if current >= max_base_stat():
 		return -1
 	return floori((current - 1) / 10.0) + 2
 
@@ -444,6 +456,7 @@ func to_dict() -> Dictionary:
 
 
 func from_dict(d: Dictionary) -> void:
+	hp_drain_remainder = 0.0
 	job_id = StringName(d.get("job_id", "swordsman"))
 	progression_version = int(d.get("job_progress_version",0))
 	job_progress = d.get("job_progress",{}).duplicate(true)

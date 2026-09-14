@@ -1,0 +1,1506 @@
+{
+  "items": [
+    {
+      "id": "novice_sword",
+      "stats": {
+        "atk": 25
+      },
+      "level": 1,
+      "sell": 120,
+      "buy": 1100,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "wooden_sword",
+      "stats": {
+        "atk": 14
+      },
+      "level": 1,
+      "sell": 48,
+      "buy": 800,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "short_sword",
+      "stats": {
+        "atk": 29,
+        "hit": 2
+      },
+      "level": 4,
+      "sell": 120,
+      "buy": 1300,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "falchion",
+      "stats": {
+        "atk": 38,
+        "bonus_str": 1
+      },
+      "level": 12,
+      "sell": 150,
+      "buy": 3400,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "bastard_sword",
+      "stats": {
+        "atk": 48,
+        "bonus_str": 2,
+        "aspd_percent": -3.0
+      },
+      "level": 18,
+      "sell": 120,
+      "buy": 6300,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "iron_blade",
+      "stats": {
+        "atk": 54,
+        "bonus_str": 3,
+        "def": 3,
+        "skill_damage_percent": 4.0
+      },
+      "level": 22,
+      "sell": 120,
+      "buy": 8900,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "rapier",
+      "stats": {
+        "atk": 43,
+        "bonus_agi": 3,
+        "hit": 6,
+        "crit": 5,
+        "aspd_percent": 5.0,
+        "crit_damage_percent": 6.0
+      },
+      "level": 23,
+      "sell": 150,
+      "buy": 7148,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "katana",
+      "stats": {
+        "atk": 74,
+        "bonus_dex": 4,
+        "crit": 5,
+        "aspd_percent": 5.0,
+        "crit_damage_percent": 10.0
+      },
+      "level": 30,
+      "sell": 312,
+      "buy": 13868,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "storm_runeblade",
+      "stats": {
+        "atk": 76,
+        "bonus_agi": 5,
+        "crit": 4,
+        "aspd_percent": 8.0,
+        "crit_damage_percent": 8.0
+      },
+      "level": 30,
+      "sell": 312,
+      "buy": 11600,
+      "element": 4,
+      "slots": 2
+    },
+    {
+      "id": "claymore",
+      "stats": {
+        "atk": 100,
+        "bonus_str": 5,
+        "aspd_percent": -6.0,
+        "skill_damage_percent": 10.0
+      },
+      "level": 35,
+      "sell": 250,
+      "buy": 15500,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "forge_saber",
+      "stats": {
+        "atk": 78,
+        "bonus_str": 3,
+        "skill_damage_percent": 6.0
+      },
+      "level": 36,
+      "sell": 312,
+      "buy": 11600,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "runic_blade",
+      "stats": {
+        "atk": 104,
+        "bonus_str": 4,
+        "bonus_int": 3,
+        "max_sp": 30,
+        "skill_damage_percent": 10.0,
+        "cooldown_reduction_percent": 2.0
+      },
+      "level": 36,
+      "sell": 250,
+      "buy": 16352,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "root_sword",
+      "stats": {
+        "atk": 116,
+        "bonus_str": 4,
+        "bonus_vit": 2,
+        "skill_damage_percent": 9.0
+      },
+      "level": 40,
+      "sell": 400,
+      "buy": 40000,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "marsh_cutter",
+      "stats": {
+        "atk": 128,
+        "bonus_agi": 4,
+        "hit": 6,
+        "aspd_percent": 6.0
+      },
+      "level": 46,
+      "sell": 400,
+      "buy": 26192,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "flame_sword",
+      "stats": {
+        "atk": 156,
+        "bonus_str": 5,
+        "skill_damage_percent": 12.0,
+        "max_sp": 30
+      },
+      "level": 50,
+      "sell": 500,
+      "buy": 30800,
+      "element": 1,
+      "slots": 2
+    },
+    {
+      "id": "sentinel_blade",
+      "stats": {
+        "atk": 156,
+        "bonus_str": 5,
+        "def": 6,
+        "skill_damage_percent": 12.0
+      },
+      "level": 52,
+      "sell": 400,
+      "buy": 33248,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "aesir_warblade",
+      "stats": {
+        "atk": 172,
+        "bonus_str": 4,
+        "crit": 8,
+        "aspd_percent": 6.0,
+        "hp_drain_percent": 0.15
+      },
+      "level": 56,
+      "sell": 400,
+      "buy": 38432,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "ember_of_gullveig",
+      "stats": {
+        "atk": 205,
+        "bonus_str": 6,
+        "bonus_int": 4,
+        "max_sp": 40,
+        "skill_damage_percent": 16.0
+      },
+      "level": 60,
+      "sell": 812,
+      "buy": 44000,
+      "element": 1,
+      "slots": 2
+    },
+    {
+      "id": "frost_edge",
+      "stats": {
+        "atk": 210,
+        "bonus_agi": 7,
+        "flee": 5,
+        "crit": 10,
+        "aspd_percent": 10.0,
+        "crit_damage_percent": 10.0
+      },
+      "level": 60,
+      "sell": 650,
+      "buy": 44000,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "troll_cleaver",
+      "stats": {
+        "atk": 250,
+        "bonus_str": 8,
+        "aspd_percent": -4.0,
+        "skill_damage_percent": 16.0
+      },
+      "level": 64,
+      "sell": 650,
+      "buy": 49952,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "wall_greatsword",
+      "stats": {
+        "atk": 285,
+        "bonus_str": 7,
+        "def": 10,
+        "aspd_percent": -5.0,
+        "skill_damage_percent": 17.0
+      },
+      "level": 68,
+      "sell": 650,
+      "buy": 95000,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "prism_blade",
+      "stats": {
+        "atk": 310,
+        "bonus_agi": 6,
+        "crit": 11,
+        "aspd_percent": 9.0,
+        "crit_damage_percent": 14.0
+      },
+      "level": 72,
+      "sell": 850,
+      "buy": 180000,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "stone_hrungnir_blade",
+      "stats": {
+        "atk": 335,
+        "bonus_str": 8,
+        "skill_damage_percent": 18.0
+      },
+      "level": 72,
+      "sell": 1062,
+      "buy": 63008,
+      "element": 4,
+      "slots": 2
+    },
+    {
+      "id": "stag_horn_saber",
+      "stats": {
+        "atk": 340,
+        "bonus_agi": 8,
+        "flee": 8,
+        "aspd_percent": 12.0,
+        "crit": 7,
+        "crit_damage_percent": 8.0
+      },
+      "level": 76,
+      "sell": 850,
+      "buy": 70112,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "light_crystal_sword",
+      "stats": {
+        "atk": 410,
+        "bonus_str": 7,
+        "hit": 12,
+        "max_sp": 40,
+        "skill_damage_percent": 19.0
+      },
+      "level": 80,
+      "sell": 1062,
+      "buy": 77600,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "conduit_edge",
+      "stats": {
+        "atk": 405,
+        "bonus_agi": 7,
+        "bonus_int": 4,
+        "aspd_percent": 9.0,
+        "crit": 5,
+        "sp_drain_percent": 0.25
+      },
+      "level": 84,
+      "sell": 1062,
+      "buy": 85472,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "mist_saber",
+      "stats": {
+        "atk": 440,
+        "bonus_agi": 8,
+        "flee": 10,
+        "crit": 12,
+        "aspd_percent": 12.0,
+        "crit_damage_percent": 10.0
+      },
+      "level": 84,
+      "sell": 850,
+      "buy": 85472,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "ferryman_oar_blade",
+      "stats": {
+        "atk": 490,
+        "bonus_str": 8,
+        "hit": 14,
+        "max_sp": 45,
+        "skill_damage_percent": 20.0
+      },
+      "level": 88,
+      "sell": 1000,
+      "buy": 260000,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "bone_greatsword",
+      "stats": {
+        "atk": 560,
+        "bonus_str": 9,
+        "aspd_percent": -5.0,
+        "skill_damage_percent": 22.0
+      },
+      "level": 90,
+      "sell": 1000,
+      "buy": 98000,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "name_blade",
+      "stats": {
+        "atk": 550,
+        "bonus_str": 8,
+        "max_sp": 45,
+        "skill_damage_percent": 20.0,
+        "cooldown_reduction_percent": 3.0
+      },
+      "level": 92,
+      "sell": 1250,
+      "buy": 102368,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "garm_fang",
+      "stats": {
+        "atk": 560,
+        "bonus_str": 4,
+        "bonus_agi": 9,
+        "crit": 14,
+        "aspd_percent": 13.0,
+        "crit_damage_percent": 12.0,
+        "hp_drain_percent": 0.25
+      },
+      "level": 96,
+      "sell": 1250,
+      "buy": 111392,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "guard",
+      "stats": {
+        "def": 8
+      },
+      "level": 1,
+      "sell": 80,
+      "buy": 1100,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "wooden_shield",
+      "stats": {
+        "def": 4
+      },
+      "level": 1,
+      "sell": 60,
+      "buy": 1000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "buckler",
+      "stats": {
+        "def": 14,
+        "bonus_agi": 2,
+        "flee": 3
+      },
+      "level": 12,
+      "sell": 100,
+      "buy": 2528,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "iron_shield",
+      "stats": {
+        "def": 22,
+        "bonus_vit": 2,
+        "max_hp": 40
+      },
+      "level": 20,
+      "sell": 80,
+      "buy": 7600,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "mirror_shield",
+      "stats": {
+        "def": 25,
+        "mdef": 12,
+        "max_sp": 15
+      },
+      "level": 32,
+      "sell": 200,
+      "buy": 13088,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "thorn_shield",
+      "stats": {
+        "def": 34,
+        "bonus_str": 3,
+        "bonus_vit": 3,
+        "max_hp": 80
+      },
+      "level": 54,
+      "sell": 325,
+      "buy": 35792,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "wall_shield",
+      "stats": {
+        "def": 48,
+        "bonus_vit": 5,
+        "mdef": 6,
+        "max_hp": 140
+      },
+      "level": 66,
+      "sell": 400,
+      "buy": 80000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "crystal_shield",
+      "stats": {
+        "def": 54,
+        "mdef": 18,
+        "flee": 5
+      },
+      "level": 82,
+      "sell": 520,
+      "buy": 81488,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "judge_shield",
+      "stats": {
+        "def": 80,
+        "bonus_vit": 6,
+        "mdef": 18,
+        "max_hp": 180
+      },
+      "level": 94,
+      "sell": 650,
+      "buy": 106832,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "cap",
+      "stats": {
+        "def": 4
+      },
+      "level": 1,
+      "sell": 80,
+      "buy": 1100,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "ribbon",
+      "stats": {
+        "def": 1,
+        "bonus_int": 2,
+        "max_sp": 12
+      },
+      "level": 1,
+      "sell": 80,
+      "buy": 1100,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "leather_cap",
+      "stats": {
+        "def": 7,
+        "bonus_vit": 1
+      },
+      "level": 6,
+      "sell": 80,
+      "buy": 1700,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "iron_helm",
+      "stats": {
+        "def": 12,
+        "bonus_vit": 2,
+        "max_hp": 30
+      },
+      "level": 18,
+      "sell": 80,
+      "buy": 6300,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "miner_helmet",
+      "stats": {
+        "def": 13,
+        "bonus_vit": 2,
+        "hit": 3
+      },
+      "level": 24,
+      "sell": 80,
+      "buy": 10400,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "vanir_circlet",
+      "stats": {
+        "def": 15,
+        "bonus_int": 3,
+        "max_sp": 35,
+        "cooldown_reduction_percent": 2.0
+      },
+      "level": 48,
+      "sell": 325,
+      "buy": 38400,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "jotun_helm",
+      "stats": {
+        "def": 26,
+        "bonus_str": 4,
+        "bonus_vit": 4,
+        "max_hp": 90
+      },
+      "level": 62,
+      "sell": 500,
+      "buy": 46928,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "ljosalf_circlet",
+      "stats": {
+        "def": 27,
+        "mdef": 10,
+        "bonus_int": 4,
+        "max_sp": 65,
+        "cooldown_reduction_percent": 3.0
+      },
+      "level": 74,
+      "sell": 520,
+      "buy": 89800,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "drowned_crown",
+      "stats": {
+        "def": 36,
+        "mdef": 12,
+        "bonus_vit": 4,
+        "max_hp": 180
+      },
+      "level": 86,
+      "sell": 650,
+      "buy": 120900,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "cotton_shirt",
+      "stats": {
+        "def": 6
+      },
+      "level": 1,
+      "sell": 80,
+      "buy": 1100,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "leather_jacket",
+      "stats": {
+        "def": 10,
+        "bonus_agi": 1
+      },
+      "level": 8,
+      "sell": 100,
+      "buy": 2100,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "adventurer_suit",
+      "stats": {
+        "def": 14,
+        "bonus_str": 2,
+        "bonus_vit": 1,
+        "max_hp": 50
+      },
+      "level": 12,
+      "sell": 80,
+      "buy": 2528,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "chain_mail",
+      "stats": {
+        "def": 21,
+        "bonus_vit": 2,
+        "max_hp": 70
+      },
+      "level": 18,
+      "sell": 80,
+      "buy": 6300,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "scale_mail",
+      "stats": {
+        "def": 28,
+        "bonus_vit": 3,
+        "max_hp": 90,
+        "aspd_percent": -2.0
+      },
+      "level": 26,
+      "sell": 160,
+      "buy": 12000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "dwarven_mail",
+      "stats": {
+        "def": 36,
+        "bonus_str": 3,
+        "bonus_vit": 3,
+        "max_hp": 140,
+        "aspd_percent": -3.0,
+        "skill_damage_percent": 4.0
+      },
+      "level": 34,
+      "sell": 200,
+      "buy": 14672,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "bark_armor",
+      "stats": {
+        "def": 31,
+        "bonus_vit": 5,
+        "max_hp": 110
+      },
+      "level": 42,
+      "sell": 260,
+      "buy": 36000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "plate_armor",
+      "stats": {
+        "def": 40,
+        "bonus_vit": 4,
+        "max_hp": 180,
+        "aspd_percent": -4.0
+      },
+      "level": 48,
+      "sell": 325,
+      "buy": 11600,
+      "element": 0,
+      "slots": 2
+    },
+    {
+      "id": "sentinel_plate",
+      "stats": {
+        "def": 43,
+        "bonus_str": 4,
+        "bonus_vit": 4,
+        "max_hp": 180,
+        "aspd_percent": -3.0,
+        "skill_damage_percent": 4.0
+      },
+      "level": 52,
+      "sell": 260,
+      "buy": 33248,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "frost_wolf_coat",
+      "stats": {
+        "def": 39,
+        "bonus_agi": 4,
+        "flee": 7,
+        "max_hp": 180,
+        "aspd_percent": 5.0,
+        "crit": 3
+      },
+      "level": 60,
+      "sell": 400,
+      "buy": 44000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "wall_plate",
+      "stats": {
+        "def": 62,
+        "bonus_str": 4,
+        "bonus_vit": 6,
+        "max_hp": 260,
+        "aspd_percent": -4.0,
+        "skill_damage_percent": 5.0
+      },
+      "level": 68,
+      "sell": 500,
+      "buy": 56288,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "crystal_cloak",
+      "stats": {
+        "def": 48,
+        "mdef": 14,
+        "bonus_int": 4,
+        "max_sp": 55,
+        "max_hp": 160,
+        "cooldown_reduction_percent": 2.0
+      },
+      "level": 75,
+      "sell": 520,
+      "buy": 105000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "elven_plate",
+      "stats": {
+        "def": 66,
+        "mdef": 12,
+        "bonus_agi": 4,
+        "bonus_vit": 3,
+        "max_hp": 260
+      },
+      "level": 82,
+      "sell": 520,
+      "buy": 81488,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "bone_armor",
+      "stats": {
+        "def": 85,
+        "bonus_str": 5,
+        "bonus_vit": 6,
+        "max_hp": 300,
+        "skill_damage_percent": 5.0
+      },
+      "level": 88,
+      "sell": 650,
+      "buy": 150000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "hel_half_plate",
+      "stats": {
+        "def": 102,
+        "mdef": 20,
+        "bonus_vit": 8,
+        "max_hp": 400,
+        "skill_damage_percent": 6.0
+      },
+      "level": 94,
+      "sell": 812,
+      "buy": 106832,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "hood",
+      "stats": {
+        "def": 4,
+        "flee": 2
+      },
+      "level": 4,
+      "sell": 80,
+      "buy": 1300,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "muffler",
+      "stats": {
+        "def": 5,
+        "mdef": 2
+      },
+      "level": 10,
+      "sell": 80,
+      "buy": 2700,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "wolf_cloak",
+      "stats": {
+        "def": 6,
+        "bonus_agi": 3,
+        "flee": 7,
+        "aspd_percent": 3.0
+      },
+      "level": 15,
+      "sell": 80,
+      "buy": 3500,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "ember_cape",
+      "stats": {
+        "def": 8,
+        "mdef": 8,
+        "max_sp": 15
+      },
+      "level": 28,
+      "sell": 160,
+      "buy": 10208,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "mist_cloak",
+      "stats": {
+        "def": 10,
+        "bonus_agi": 3,
+        "flee": 10,
+        "move_speed_percent": 2.0
+      },
+      "level": 44,
+      "sell": 260,
+      "buy": 24032,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "mammoth_wool_cloak",
+      "stats": {
+        "def": 15,
+        "mdef": 8,
+        "bonus_vit": 5,
+        "max_hp": 140
+      },
+      "level": 64,
+      "sell": 400,
+      "buy": 67400,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "moth_wing_cape",
+      "stats": {
+        "def": 15,
+        "mdef": 12,
+        "bonus_int": 3,
+        "max_sp": 35,
+        "cooldown_reduction_percent": 2.0
+      },
+      "level": 73,
+      "sell": 520,
+      "buy": 64748,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "mist_shroud",
+      "stats": {
+        "def": 20,
+        "mdef": 12,
+        "bonus_agi": 5,
+        "flee": 14,
+        "move_speed_percent": 3.0
+      },
+      "level": 85,
+      "sell": 650,
+      "buy": 87500,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "sandals",
+      "stats": {
+        "def": 3,
+        "max_hp": 20
+      },
+      "level": 1,
+      "sell": 80,
+      "buy": 1100,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "leather_shoes",
+      "stats": {
+        "def": 5,
+        "max_hp": 30,
+        "move_speed_percent": 1.0
+      },
+      "level": 6,
+      "sell": 80,
+      "buy": 1700,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "boots",
+      "stats": {
+        "def": 9,
+        "bonus_agi": 2,
+        "max_hp": 50,
+        "aspd_percent": 3.0
+      },
+      "level": 15,
+      "sell": 100,
+      "buy": 3500,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "iron_greaves",
+      "stats": {
+        "def": 12,
+        "bonus_vit": 3,
+        "max_hp": 70
+      },
+      "level": 22,
+      "sell": 80,
+      "buy": 8900,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "miner_boots",
+      "stats": {
+        "def": 13,
+        "bonus_vit": 3,
+        "max_hp": 60
+      },
+      "level": 26,
+      "sell": 160,
+      "buy": 12000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "root_boots",
+      "stats": {
+        "def": 13,
+        "bonus_agi": 4,
+        "flee": 6,
+        "max_hp": 70,
+        "aspd_percent": 5.0,
+        "move_speed_percent": 1.0
+      },
+      "level": 46,
+      "sell": 260,
+      "buy": 26192,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "troll_boots",
+      "stats": {
+        "def": 21,
+        "bonus_vit": 6,
+        "max_hp": 140
+      },
+      "level": 63,
+      "sell": 400,
+      "buy": 48428,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "silent_step",
+      "stats": {
+        "def": 20,
+        "bonus_agi": 5,
+        "flee": 9,
+        "move_speed_percent": 3.0,
+        "aspd_percent": 4.0,
+        "crit": 3
+      },
+      "level": 78,
+      "sell": 520,
+      "buy": 73808,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "river_walker",
+      "stats": {
+        "def": 26,
+        "bonus_agi": 5,
+        "flee": 10,
+        "max_hp": 120,
+        "move_speed_percent": 4.0
+      },
+      "level": 87,
+      "sell": 650,
+      "buy": 91628,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "clip",
+      "stats": {
+        "max_sp": 25
+      },
+      "level": 1,
+      "sell": 100,
+      "buy": 812,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "glove",
+      "stats": {
+        "bonus_dex": 2,
+        "hit": 3
+      },
+      "level": 10,
+      "sell": 80,
+      "buy": 2000,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "brooch",
+      "stats": {
+        "bonus_agi": 2,
+        "flee": 3,
+        "aspd_percent": 3.0
+      },
+      "level": 12,
+      "sell": 80,
+      "buy": 2528,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "earring",
+      "stats": {
+        "bonus_int": 2,
+        "max_sp": 25
+      },
+      "level": 12,
+      "sell": 80,
+      "buy": 3400,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "necklace",
+      "stats": {
+        "bonus_vit": 2,
+        "max_hp": 40
+      },
+      "level": 12,
+      "sell": 80,
+      "buy": 3400,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "ring",
+      "stats": {
+        "bonus_str": 2,
+        "atk": 4
+      },
+      "level": 18,
+      "sell": 80,
+      "buy": 4688,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "rosary",
+      "stats": {
+        "mdef": 6,
+        "bonus_luk": 2,
+        "max_hp": 30
+      },
+      "level": 20,
+      "sell": 80,
+      "buy": 7600,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "belt",
+      "stats": {
+        "def": 3,
+        "bonus_vit": 3,
+        "max_hp": 40
+      },
+      "level": 24,
+      "sell": 80,
+      "buy": 10400,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "storm_pendant",
+      "stats": {
+        "bonus_agi": 3,
+        "aspd_percent": 4.0,
+        "crit": 5,
+        "crit_damage_percent": 6.0
+      },
+      "level": 30,
+      "sell": 200,
+      "buy": 11600,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "forge_core_pendant",
+      "stats": {
+        "bonus_str": 3,
+        "skill_damage_percent": 7.0,
+        "max_sp": 30,
+        "cooldown_reduction_percent": 2.0
+      },
+      "level": 38,
+      "sell": 200,
+      "buy": 18128,
+      "element": 0,
+      "slots": 1
+    },
+    {
+      "id": "spring_amulet",
+      "stats": {
+        "bonus_vit": 4,
+        "max_hp": 140,
+        "hp_percent": 3.0
+      },
+      "level": 50,
+      "sell": 325,
+      "buy": 30800,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "ash_ring",
+      "stats": {
+        "bonus_str": 3,
+        "skill_damage_percent": 7.0,
+        "max_sp": 25
+      },
+      "level": 58,
+      "sell": 325,
+      "buy": 41168,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "giant_child_scarf",
+      "stats": {
+        "bonus_vit": 3,
+        "max_hp": 100,
+        "mdef": 4
+      },
+      "level": 63,
+      "sell": 0,
+      "buy": 0,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "echo_ring",
+      "stats": {
+        "bonus_dex": 4,
+        "max_sp": 35,
+        "cooldown_reduction_percent": 5.0
+      },
+      "level": 67,
+      "sell": 400,
+      "buy": 54668,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "heart_pendant",
+      "stats": {
+        "bonus_str": 4,
+        "bonus_vit": 4,
+        "max_hp": 180
+      },
+      "level": 72,
+      "sell": 650,
+      "buy": 63008,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "light_crystal",
+      "stats": {
+        "bonus_int": 3,
+        "mdef": 10,
+        "max_sp": 55
+      },
+      "level": 72,
+      "sell": 0,
+      "buy": 0,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "shade_crystal",
+      "stats": {
+        "bonus_luk": 3,
+        "flee": 6,
+        "crit": 4
+      },
+      "level": 78,
+      "sell": 0,
+      "buy": 0,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "radiant_ring",
+      "stats": {
+        "bonus_int": 4,
+        "max_sp": 45,
+        "skill_damage_percent": 8.0,
+        "sp_drain_percent": 0.1
+      },
+      "level": 84,
+      "sell": 650,
+      "buy": 85472,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "name_pendant_eq",
+      "stats": {
+        "bonus_str": 3,
+        "bonus_agi": 3,
+        "crit": 5
+      },
+      "level": 90,
+      "sell": 0,
+      "buy": 0,
+      "element": 0,
+      "slots": 0
+    },
+    {
+      "id": "odin_ring",
+      "stats": {
+        "bonus_str": 4,
+        "bonus_agi": 4,
+        "bonus_vit": 4,
+        "bonus_int": 4,
+        "bonus_dex": 4,
+        "bonus_luk": 4,
+        "max_hp": 150,
+        "max_sp": 30
+      },
+      "level": 96,
+      "sell": 812,
+      "buy": 111392,
+      "element": 0,
+      "slots": 0
+    }
+  ],
+  "stat_keys": [
+    "aspd_percent",
+    "atk",
+    "bonus_agi",
+    "bonus_dex",
+    "bonus_int",
+    "bonus_luk",
+    "bonus_str",
+    "bonus_vit",
+    "cooldown_reduction_percent",
+    "crit",
+    "crit_damage_percent",
+    "def",
+    "flee",
+    "hit",
+    "hp_drain_percent",
+    "hp_percent",
+    "matk",
+    "max_hp",
+    "max_sp",
+    "mdef",
+    "move_speed_percent",
+    "skill_damage_percent",
+    "sp_drain_percent"
+  ],
+  "add_drops": {
+    "short_sword": [
+      "chonchon",
+      3
+    ],
+    "adventurer_suit": [
+      "lunatic",
+      3
+    ],
+    "glove": [
+      "hornet",
+      3
+    ],
+    "claymore": [
+      "forge_golem",
+      3
+    ],
+    "root_sword": [
+      "withered_treant",
+      3
+    ],
+    "mist_saber": [
+      "mist_ghost",
+      3
+    ],
+    "miner_helmet": [
+      "pitman",
+      3
+    ],
+    "miner_boots": [
+      "pitman",
+      3
+    ],
+    "iron_greaves": [
+      "steel_beetle",
+      3
+    ],
+    "leather_cap": [
+      "chonchon",
+      3
+    ],
+    "leather_shoes": [
+      "lunatic",
+      3
+    ],
+    "sandals": [
+      "fabre",
+      3
+    ],
+    "muffler": [
+      "munak",
+      3
+    ],
+    "earring": [
+      "rune_watcher",
+      3
+    ],
+    "necklace": [
+      "steel_beetle",
+      3
+    ],
+    "belt": [
+      "orc_warrior",
+      3
+    ],
+    "scale_mail": [
+      "forge_golem",
+      3
+    ],
+    "river_walker": [
+      "drowned",
+      3
+    ]
+  },
+  "remove_drops": {
+    "novice_sword": [
+      "orc_warrior"
+    ],
+    "river_walker": [
+      "hel_hound"
+    ],
+    "ember_cape": [
+      "baphomet_jr"
+    ]
+  }
+}

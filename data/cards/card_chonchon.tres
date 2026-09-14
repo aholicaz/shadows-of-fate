@@ -12,11 +12,14 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 500
-bonus_agi = 1
-def = 1
+sell_price = 80
 monster_id = &"chonchon"
 illustration = ExtResource("art_1")
 fits_slot = 2
 rarity = 2
 monster_level = 9
+bonus_agi = 1
+
+percent_effects = {
+"aspd_percent": 1.0
+}

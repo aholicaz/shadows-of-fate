@@ -17,8 +17,10 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 6580
-atk = 25
+sell_price = 360
+bonus_str = 5
+
 percent_effects = {
-"atk_percent": 5.0
+"atk_percent": 5.0,
+"hp_drain_percent": 0.4
 }

@@ -76,6 +76,11 @@ func rarity_name() -> String:
 	return "ระดับตำนาน"
 
 
+static func percent_text(value: float, signed_value: bool = false) -> String:
+	var text := ("%.2f" % value).trim_suffix("0").trim_suffix("0").trim_suffix(".")
+	return ("+" if signed_value and value > 0.0 else "") + text + "%"
+
+
 ## สร้างข้อความคุณสมบัติจากค่าโบนัสที่ตั้งไว้
 func describe() -> String:
 	if effect_text != "":
@@ -85,7 +90,7 @@ func describe() -> String:
 	var add := func(label: String, value) -> void:
 		if typeof(value) == TYPE_FLOAT:
 			if not is_zero_approx(value):
-				parts.append("%s %+.0f%%" % [label, value])
+				parts.append("%s %s" % [label, percent_text(value, true)])
 		elif int(value) != 0:
 			parts.append("%s %+d" % [label, int(value)])
 
@@ -113,7 +118,12 @@ func describe() -> String:
 	}
 	for key in percent_effects.keys():
 		var label: String = PERCENT_LABELS.get(String(key), String(key))
-		parts.append("%s %+.0f%%" % [label, float(percent_effects[key])])
+		parts.append("%s %s" % [label, percent_text(float(percent_effects[key]), true)])
+	# Inherited drain fields are used by older cards such as Lunatic.
+	if hp_drain_percent != 0.0:
+		parts.append("ดูดเลือด %s" % percent_text(hp_drain_percent, true))
+	if sp_drain_percent != 0.0:
+		parts.append("ดูดมานา %s" % percent_text(sp_drain_percent, true))
 
 	if parts.is_empty():
 		return "ยังไม่มีคุณสมบัติ"

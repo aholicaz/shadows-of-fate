@@ -4,20 +4,20 @@
 [resource]
 script = ExtResource("s")
 id = &"erasing_cut"
-display_name = "ฟันลบนาม"
-description = "ใช้ 3 ตรา ฟันลบนามระยะ 500 px สูงสุด 8 ตัว รวม 900–1500% ATK ไม่คริ ได้ผลจากพลังเหล็กกล้า"
+display_name = "คมตัดพันธะ"
+description = "ใช้ 3 รูน · เตรียมฟัน 0.3 วินาที ระยะ 560 สูงสุด 8 ตัว · 1000–1600% ATK ไม่คริ · เปิดแผลให้รับดาเมจกายภาพเพิ่ม 15% นาน 5 วินาที · หากเป้าหมายมีตรานามครบ 3 ชั้น จะใช้ตราทั้งหมดเพิ่มความแรงตามระดับคมยืนยันนาม"
 icon = ExtResource("i")
 max_level = 5
 job_ids = Array[StringName]([&"ninth_edge"])
-required_level = 90
+required_level = 96
 type = 0
-sp_cost_base = 40
+sp_cost_base = 48
 sp_cost_per_level = 0.0
-cooldown = 12.0
-damage_mult_base = 9.00
-damage_mult_per_level = 1.50
+cooldown = 14.0
+damage_mult_base = 10.0
+damage_mult_per_level = 1.5
 required_skills = {}
 max_targets = 8
-range_x = 500.0
+range_x = 560.0
 
 range_y = 350.0

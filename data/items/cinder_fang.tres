@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/cinder_fang.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"cinder_fang"
+display_name = "เขี้ยวเก็บความร้อน"
+description = "เขี้ยวโพรงของสุนัขเถ้าถ่าน เก็บไอร้อนไว้ให้นายของมันในคืนที่เถ้าบังดวงอาทิตย์"
+icon = ExtResource("i")
+type = 3
+sell_price = 700
+buy_price = 0
+max_stack = 99

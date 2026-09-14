@@ -8,13 +8,13 @@
 [sub_resource type="Resource" id="Drop_wall_shieldbearer_0"]
 script = ExtResource("2_drop")
 item_id = &"snow_lichen"
-chance = 100.0
+chance = 65.0
 max_count = 3
 
 [sub_resource type="Resource" id="Drop_wall_shieldbearer_1"]
 script = ExtResource("2_drop")
 item_id = &"ice_bloom"
-chance = 60.0
+chance = 35.0
 
 [sub_resource type="Resource" id="Drop_wall_shieldbearer_2"]
 script = ExtResource("2_drop")
@@ -47,17 +47,25 @@ script = ExtResource("2_drop")
 item_id = &"card_wall_shieldbearer"
 chance = 2.0
 
+[sub_resource type="Resource" id="Socket_shard"]
+script = ExtResource("2_drop")
+item_id = &"socket_shard_1"
+chance = 100.0
+
+[sub_resource type="Resource" id="Socket_stone"]
+script = ExtResource("2_drop")
+item_id = &"socket_stone_1"
+chance = 10.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"wall_shieldbearer"
 display_name = "ผู้ถือโล่แห่งกำแพง"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(100, 110)
-hp_bar_offset_y = -144.4
-display_height = 380.0
 fit_foot_animations = null
 level = 70
-max_hp = 42000
+max_hp = 60000
 atk_min = 640
 atk_max = 800
 def = 130
@@ -87,7 +95,7 @@ exp_reward = 8971
 job_exp_reward = 6280
 zeny_min = 1610
 zeny_max = 2990
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_wall_shieldbearer_0"), SubResource("Drop_wall_shieldbearer_1"), SubResource("Drop_wall_shieldbearer_2"), SubResource("Drop_wall_shieldbearer_3"), SubResource("Drop_wall_shieldbearer_4"), SubResource("Drop_wall_shieldbearer_5"), SubResource("Drop_wall_shieldbearer_6"), SubResource("Drop_wall_shieldbearer_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_wall_shieldbearer_0"), SubResource("Drop_wall_shieldbearer_1"), SubResource("Drop_wall_shieldbearer_2"), SubResource("Drop_wall_shieldbearer_3"), SubResource("Drop_wall_shieldbearer_4"), SubResource("Drop_wall_shieldbearer_5"), SubResource("Drop_wall_shieldbearer_6"), SubResource("Drop_wall_shieldbearer_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
 is_boss = true
 boss_title = "ผู้ที่ยังยืนเฝ้า"
 skill_name = "กระแทกโล่"
@@ -111,3 +119,5 @@ fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(800, 1100)
 fit_uniform_scale = true
 fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.16429700, &"Walk": 1.16429700, &"Attack": 1.16246057, &"Hit": 1.18679549, &"Die": 1.18679549, &"Run": 1.16429700, &"Skill": 1.16246057})
+display_height = 600.0
+hp_bar_offset_y = -573.0

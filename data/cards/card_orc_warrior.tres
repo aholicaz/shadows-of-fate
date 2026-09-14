@@ -12,13 +12,14 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 500
-crit = 5
+sell_price = 80
 monster_id = &"orc_warrior"
 illustration = ExtResource("art_1")
 fits_slot = 1
 rarity = 4
 monster_level = 24
+bonus_str = 2
+
 percent_effects = {
-"atk_percent": 5.0
+"atk_percent": 2.0
 }

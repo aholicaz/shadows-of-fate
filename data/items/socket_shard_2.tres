@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Sprites/items/socket/socket_shard_2.svg" id="2"]
+[resource]
+script = ExtResource("1")
+id = &"socket_shard_2"
+display_name = "เศษหินเจาะอัสนี"
+description = "สำหรับเจาะรูที่ 3 ของอาวุธเลเวล 70–89 รวมเศษชนิดนี้ 10 ชิ้นเป็นหิน 1 ก้อนที่ช่างเจาะรู"
+icon = ExtResource("2")
+max_stack = 99
+buy_price = 0
+sell_price = 0
+sellable = false
+drop_hint = "บอส: หรุงนีร์ศิลา, ผู้หลุดจากแสง, อัลฟ์เรืองรอง"

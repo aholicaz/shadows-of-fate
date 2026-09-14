@@ -278,13 +278,13 @@ func _build_player_tab(box: VBoxContainer) -> void:
 	r1.add_child(UITheme.make_label("เลเวล", 13))
 	_level_box = SpinBox.new()
 	_level_box.min_value = 1
-	_level_box.max_value = PlayerStats.MAX_LEVEL
+	_level_box.max_value = 1000 # Editor convenience, not the Ninth Edge gameplay ceiling
 	_level_box.value = 1
 	r1.add_child(_level_box)
 	r1.add_child(UITheme.make_label("อาชีพ", 13))
 	_job_box = SpinBox.new()
 	_job_box.min_value = 1
-	_job_box.max_value = 100   # ★ รอบ 108 ★ เพดานจ๊อบสูงสุดของทุกอาชีพ (clamp จริงตามอาชีพใน _set_level)
+	_job_box.max_value = 1000   # ★ รอบ 108 ★ เพดานจ๊อบสูงสุดของทุกอาชีพ (clamp จริงตามอาชีพใน _set_level)
 	_job_box.value = 1
 	r1.add_child(_job_box)
 	_button(r1, "ตั้งเลเวล", _apply_level, 110)
@@ -292,7 +292,7 @@ func _build_player_tab(box: VBoxContainer) -> void:
 	var r2 := _row(box)
 	_button(r2, "+10 เลเวล", func(): _bump_level(10))
 	_button(r2, "−10 เลเวล", func(): _bump_level(-10))
-	_button(r2, "เลเวลสูงสุด", func(): _set_level(PlayerStats.MAX_LEVEL, PlayerState.stats.max_job_level()))
+	_button(r2, "เลเวลทดสอบบท 7", func(): _set_level(110, mini(40, PlayerState.stats.max_job_level())))
 	_button(r2, "รีเซ็ตเป็น Lv1", func(): _set_level(1, 1))
 
 	# ★ รอบ 106 ★ เปลี่ยนอาชีพ
@@ -362,9 +362,9 @@ func _set_level(lv: int, job: int) -> void:
 	var st := PlayerState.stats
 	var old := st.level
 	var old_job := st.job_level
-	st.level = clampi(lv, 1, PlayerStats.MAX_LEVEL)
+	st.level = clampi(lv, 1, mini(1000, st.max_base_level()))
 	st.exp_current = 0
-	st.job_level = clampi(job, 1, st.max_job_level())   # ★ รอบ 108 ★
+	st.job_level = clampi(job, 1, mini(1000, st.max_job_level()))   # ★ รอบ 108 ★
 	st.job_exp_current = 0
 	# แจกแต้มย้อนหลังตอนเลเวลขึ้น (ลดเลเวลไม่ยึดคืน — ของทดสอบ)
 	if st.level > old:

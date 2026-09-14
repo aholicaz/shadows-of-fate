@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/oathstep_boots.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"oathstep_boots"
+display_name = "รองเท้าก้าวพ้นคำสั่ง"
+description = "ช่างตอกพื้นรองเท้าด้วยข้อโซ่ที่ปลดแล้ว เพื่อให้แต่ละก้าวเป็นการเลือกของผู้สวม"
+icon = ExtResource("i")
+type = 2
+sell_price = 780000
+buy_price = 3900000
+max_stack = 1
+slot = 6
+required_level = 102
+refinable = true
+card_slots = 1
+def = 42
+max_hp = 280
+bonus_agi = 6

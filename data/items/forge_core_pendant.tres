@@ -15,16 +15,17 @@ slot = 7
 card_slots = 1
 max_stack = 1
 buy_price = 18128
-sell_price = 1144
+sell_price = 200
 metadata/sell_price_base_r44 = 4800
-bonus_str = 5
 
-skill_damage_percent = 10.0
 
-cooldown_reduction_percent = 5.0
 
-max_sp = 50
 
 damage_percent = 0.0
 
 drop_hint = "ผู้พิทักษ์เตาหลอม"
+bonus_str = 3
+skill_damage_percent = 7.0
+max_sp = 30
+cooldown_reduction_percent = 2.0
+attack_element = 0

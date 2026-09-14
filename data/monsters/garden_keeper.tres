@@ -41,8 +41,6 @@ id = &"garden_keeper"
 display_name = "ผู้ดูแลสวน"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(50, 66)
-hp_bar_offset_y = -87.4
-display_height = 230.0
 level = 77
 max_hp = 18500
 atk_min = 720
@@ -78,3 +76,5 @@ spawn_lines = PackedStringArray("ยินดีต้อนรับสู่�
 
 fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(256, 480)
+display_height = 440.0
+hp_bar_offset_y = -435.0

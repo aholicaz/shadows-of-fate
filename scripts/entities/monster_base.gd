@@ -782,6 +782,9 @@ func _cast_skill() -> void:
 			data.skill_name, Color("#ff9a4a"), 22, 0)
 
 	# ★ เอฟเฟกต์สกิล ★ เกิดเป็นโหนดแยกในแมพ เลยใหญ่/ไกลเกินตัวมอนได้
+	if data.skill_hand_projectiles:
+		await _run_hand_projectiles(played, data.skill_damage_mult)
+		return
 	if data.skill_ground_slam:
 		await _run_ground_slam_animation(played, true)
 		return
@@ -977,21 +980,21 @@ func _ground_slam_hit(skill: bool, hit_index: int) -> void:
 
 ## ★ ดาเมจ 1 ที ของท่าโจมตีปกติ ★ (ท่าที่ตีหลายทีจะเรียกซ้ำตามจำนวนเฟรมที่ตั้งไว้)
 ## hits = ตีทั้งหมดกี่ทีในท่านี้ — ตี 1 ทีจะไม่โดนตัวคูณ "ต่อที" เลย (ของเดิมไม่เปลี่ยน)
-func _attack_hit(hits: int = 1, release_frame: int = -1) -> void:
+func _attack_hit(hits: int = 1, release_frame: int = -1, cast_mult: float = 1.0) -> void:
 	var mult: float = 1.0
 	if hits > 1 and data.attack_hit_damage_mult > 0.0:
 		mult = data.attack_hit_damage_mult
 
 	# ★ โจมตีระยะไกล (รอบ 36) ★ ใส่รูปกระสุนไว้ = ยิงบอลแทนตีติดตัว
 	if data.projectile_texture != null:
-		if _player != null and is_instance_valid(_player):
+		if data.projectile_aim_at_player and is_instance_valid(_player):
 			_face_to(_player.global_position.x - global_position.x)
 		var aim := Vector2.INF
 		if data.projectile_aim_at_player and is_instance_valid(_player):
 			aim = _player.body_rect().get_center() if _player.has_method("body_rect") else _player.global_position
 		var shot := MonsterProjectile.fire_straight(data, self, facing, projectile_origin(release_frame),aim)
 		if shot != null:
-			shot.damage_mult = mult
+			shot.damage_mult = mult * cast_mult
 			projectile_released.emit(shot,release_frame)
 		return
 
@@ -1022,7 +1025,7 @@ func projectile_origin(release_frame: int = -1) -> Vector2:
 	return foot_position()+Vector2(data.projectile_offset.x*facing,data.projectile_offset.y)
 
 
-func _run_hand_projectiles(played: String) -> void:
+func _run_hand_projectiles(played: String, cast_mult: float = 1.0) -> void:
 	var frames := data.attack_hit_frame_list()
 	frames.sort()
 	if played == "" or not sprite.sprite_frames.has_animation(played):
@@ -1033,9 +1036,9 @@ func _run_hand_projectiles(played: String) -> void:
 		while state == State.ATTACK and sprite.animation == StringName(played) and sprite.frame < frame:
 			await get_tree().process_frame
 		if state != State.ATTACK or sprite.animation != StringName(played): return
-		if is_instance_valid(_player): _face_to(_player.global_position.x-global_position.x)
+		if data.projectile_aim_at_player and is_instance_valid(_player): _face_to(_player.global_position.x-global_position.x)
 		_apply_fit()
-		_attack_hit(frames.size(),frame)
+		_attack_hit(frames.size(),frame,cast_mult)
 	while state == State.ATTACK and sprite.animation == StringName(played) and sprite.is_playing():
 		await get_tree().process_frame
 	if state == State.ATTACK:
@@ -1075,11 +1078,11 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 	var heavy := source in [&"anvil_cleave", &"faultline", &"worldcleaver", &"erasing_cut"]
 	var mastery := PlayerState.skills.level_of(&"tempered_might") if heavy else 0
 	# ★ รอบ 105 ★ Ninth Edge — คมที่มีชื่อ (มองข้าม DEF) · ท่ายืนทลายกำแพง (DEF ≥ 100) · อักขระที่เก้า (วงคริ 100%)
-	var ignore_def := mastery * 0.05 + PlayerState.skills.level_of(&"named_edge") * 0.06
-	var can_crit := not heavy and source != &"rune_echo" and source != &"twin_echo"
+	var ignore_def := mastery * 0.05 + PlayerState.skills.level_of(&"named_edge") * 0.04
+	var can_crit := not heavy and source not in [&"rune_echo", &"twin_echo", &"ninth_inscription"]
 	var wb := PlayerState.skills.level_of(&"wallbreaker_stance")
-	if wb > 0 and data.def >= 100:
-		physical_bonus *= 1.0 + 0.13 + 0.024 * wb
+	if wb > 0:
+		physical_bonus *= 1.0 + minf(0.04 * wb, maxf(0.0, data.def) * 0.0002 * wb)
 	# ★ รอบ 105 ★ ดาบนาม (บท 6): ดาเมจ +1% ต่อ «ชื่อที่ทิ้งไว้» ในกระเป๋า สูงสุด +20%
 	var wpn = PlayerState.equipment.weapon() if PlayerState.equipment != null else null
 	if GameData.get_skill(source) != null:
@@ -1088,9 +1091,11 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 		physical_bonus *= 1.0 + 0.01 * mini(20, PlayerState.inventory.count_of(&"left_name"))
 	var rb_node = get_tree().get_first_node_in_group("player")
 	rb_node = rb_node.get("runeblade") if rb_node != null else null
+	if rb_node != null and rb_node.has_method("named_multiplier"):
+		physical_bonus *= rb_node.named_multiplier(self, source)
 	if rb_node != null and rb_node.has_method("inscription_covers") and rb_node.inscription_covers(global_position):
-		ignore_def = 1.0
-		can_crit = true
+		ignore_def += 0.25
+		can_crit = not heavy and source not in [&"rune_echo", &"twin_echo", &"ninth_inscription"]
 	var element := 0
 	if wpn != null and wpn.data() != null: element = wpn.data().attack_element
 	var result := Combat.player_hits_monster(PlayerState.stats, data, skill_mult * physical_bonus * (1.0 + mastery*0.04), use_matk, element, can_crit, minf(1.0, ignore_def))
@@ -1211,9 +1216,7 @@ func _drain_to_player(damage: int) -> void:
 	var st := PlayerState.stats
 	if st == null:
 		return
-	if st.hp_drain_percent > 0.0:
-		var hp_gain := int(damage * st.hp_drain_percent / 100.0)
-		PlayerState.heal_hp(hp_gain, false)
+	PlayerState.apply_hp_drain(damage)
 	if st.sp_drain_percent > 0.0:
 		var sp_gain := int(damage * st.sp_drain_percent / 100.0)
 		PlayerState.restore_sp(sp_gain)

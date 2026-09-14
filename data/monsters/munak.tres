@@ -367,6 +367,11 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="Resource" id="Drop_equipment_muffler"]
+script = ExtResource("2_drop")
+item_id = &"muffler"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"munak"
@@ -410,7 +415,7 @@ skill_hit_frames = null
 exp_reward = 110
 zeny_min = 57
 zeny_max = 107
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_munak_0"), SubResource("Drop_munak_1"), SubResource("Drop_munak_2"), SubResource("Drop_munak_3"), SubResource("Drop_munak_card"), SubResource("Drop_munak_junk_old_hairpin"), SubResource("Drop_munak_junk_burial_cloth"), SubResource("Drop_munak_eq_rosary")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_munak_0"), SubResource("Drop_munak_1"), SubResource("Drop_munak_2"), SubResource("Drop_munak_3"), SubResource("Drop_munak_card"), SubResource("Drop_munak_junk_old_hairpin"), SubResource("Drop_munak_junk_burial_cloth"), SubResource("Drop_munak_eq_rosary"), SubResource("Drop_equipment_muffler")])
 respawn_time = 12.0
 spawn_lines = null
 death_lines = null

@@ -17,6 +17,10 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 4600
-flee = 8
+sell_price = 240
+flee = 4
 bonus_agi = 2
+
+percent_effects = {
+"aspd_percent": 3.0
+}

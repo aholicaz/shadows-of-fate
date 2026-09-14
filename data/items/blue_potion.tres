@@ -10,6 +10,6 @@ display_name = "ยาน้ำเงิน"
 description = "ฟื้นพลัง SP"
 icon = ExtResource("1_73kjn")
 type = 0
-buy_price = 300
+buy_price = 400
 sell_price = 120
 heal_sp = 40

@@ -15,16 +15,18 @@ slot = 6
 card_slots = 1
 max_stack = 1
 buy_price = 73808
-sell_price = 2264
-def = 22
-flee = 8
-bonus_agi = 5
+sell_price = 520
 refinable = true
 
-aspd_percent = 6.0
 
-crit = 4
 
 damage_percent = 0.0
 
 drop_hint = "กวางผลึก"
+def = 20
+bonus_agi = 5
+flee = 9
+move_speed_percent = 3.0
+aspd_percent = 4.0
+crit = 3
+attack_element = 0

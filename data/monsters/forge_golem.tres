@@ -35,6 +35,16 @@ script = ExtResource("2_drop")
 item_id = &"card_forge_golem"
 chance = 0.66
 
+[sub_resource type="Resource" id="Drop_equipment_claymore"]
+script = ExtResource("2_drop")
+item_id = &"claymore"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_equipment_scale_mail"]
+script = ExtResource("2_drop")
+item_id = &"scale_mail"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"forge_golem"
@@ -79,7 +89,7 @@ exp_reward = 236
 job_exp_reward = 165
 zeny_min = 91
 zeny_max = 169
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_golem_0"), SubResource("Drop_forge_golem_1"), SubResource("Drop_forge_golem_2"), SubResource("Drop_forge_golem_3"), SubResource("Drop_forge_golem_4"), SubResource("Drop_forge_golem_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_golem_0"), SubResource("Drop_forge_golem_1"), SubResource("Drop_forge_golem_2"), SubResource("Drop_forge_golem_3"), SubResource("Drop_forge_golem_4"), SubResource("Drop_forge_golem_card"), SubResource("Drop_equipment_claymore"), SubResource("Drop_equipment_scale_mail")])
 respawn_time = 15.0
 spawn_lines = null
 death_lines = null

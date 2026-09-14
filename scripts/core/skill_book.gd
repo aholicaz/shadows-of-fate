@@ -26,6 +26,19 @@ func rune_points() -> int:
 	if not PlayerState.is_rune_job(): return 0
 	return PlayerState.stats.skill_points
 
+## One free rebuild for the Chapter 7 overhaul, without touching prior professions.
+func reset_ninth() -> bool:
+	if not PlayerState.stats.has_profession(&"ninth_edge") or not Game.is_town(PlayerState.current_map_id):return false
+	if PlayerState.has_flag(&"ninth_respec_used") and not PlayerState.spend_zeny(10000):return false
+	for id in NINTH_SKILLS:
+		PlayerState.stats.add_skill_points(&"ninth_edge",level_of(id))
+		learned.erase(id)
+	for i in HOTKEY_COUNT:
+		if hotkeys[i] in NINTH_SKILLS:hotkeys[i]=&""
+	PlayerState.set_flag(&"ninth_respec_used")
+	PlayerState.refresh();Events.skills_changed.emit()
+	return true
+
 ## Rune reset: free once, then 10,000 z; refunds go to each skill's profession.
 func reset_runeblade() -> bool:
 	if not PlayerState.is_rune_job() or not Game.is_town(PlayerState.current_map_id): return false

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="o0"]
+script = ExtResource("o")
+kind = 0
+target = &"oath_warden"
+count = 1
+text = "ล้มผู้คุมเบ้าหลอมคำสาบาน"
+
+[resource]
+script = ExtResource("s")
+id = &"c7_7_warden"
+title = "C7-7 สิทธิ์ที่จะหยุด"
+description = "ผู้คุมจะสั่งให้เจ้าคุกเข่า ดูวงเตือนบนพื้นแล้วออกจากระยะ ก่อนใช้รูนที่สะสมไว้ตัดมัน เจ้าไม่จำเป็นต้องยืนรับทุกคำสั่ง"
+giver_name = "บรินยา ช่างปลดพันธะ"
+dialog_offer = "ผู้คุมจะสั่งให้เจ้าคุกเข่า ดูวงเตือนบนพื้นแล้วออกจากระยะ ก่อนใช้รูนที่สะสมไว้ตัดมัน เจ้าไม่จำเป็นต้องยืนรับทุกคำสั่ง"
+dialog_progress = "ล้มผู้คุมเบ้าหลอมคำสาบาน"
+dialog_complete = "เบ้าหลอมหยุดแล้ว ผู้คนในขบวนได้พักเป็นครั้งแรก จงกลับไปอ่านทะเบียนที่อยู่หลังผู้คุม"
+required_level = 96
+required_flag = &"chapter6_done"
+required_quests = Array[StringName]([&"c7_6_procession"])
+objectives = Array[ExtResource("o")]([SubResource("o0")])
+set_flag_on_complete = &"c7_step_7"
+reward_exp = 1250000
+reward_job_exp = 437500
+reward_zeny = 150000
+reward_item_id = &""
+required_job = &"ninth_edge"

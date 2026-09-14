@@ -9,12 +9,12 @@
 [sub_resource type="Resource" id="Drop_gullveig_ember_0"]
 script = ExtResource("2_drop")
 item_id = &"gullveig_ash"
-chance = 100.0
+chance = 65.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_1"]
 script = ExtResource("2_drop")
 item_id = &"ember_heart"
-chance = 60.0
+chance = 35.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_2"]
 script = ExtResource("2_drop")
@@ -53,6 +53,16 @@ script = ExtResource("2_drop")
 item_id = &"card_gullveig_ember"
 chance = 2.0
 
+[sub_resource type="Resource" id="Socket_shard"]
+script = ExtResource("2_drop")
+item_id = &"socket_shard_1"
+chance = 100.0
+
+[sub_resource type="Resource" id="Socket_stone"]
+script = ExtResource("2_drop")
+item_id = &"socket_stone_1"
+chance = 10.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"gullveig_ember"
@@ -76,7 +86,7 @@ fit_foot_animations = null
 flying = true
 hover_height = 60.0
 level = 60
-max_hp = 32000
+max_hp = 65000
 atk_min = 420
 atk_max = 560
 def = 70
@@ -107,7 +117,7 @@ exp_reward = 6693
 job_exp_reward = 4685
 zeny_min = 1400
 zeny_max = 2600
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_gullveig_ember_0"), SubResource("Drop_gullveig_ember_1"), SubResource("Drop_gullveig_ember_2"), SubResource("Drop_gullveig_ember_3"), SubResource("Drop_gullveig_ember_4"), SubResource("Drop_gullveig_ember_5"), SubResource("Drop_gullveig_ember_6"), SubResource("Drop_gullveig_ember_7"), SubResource("Drop_gullveig_ember_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_gullveig_ember_0"), SubResource("Drop_gullveig_ember_1"), SubResource("Drop_gullveig_ember_2"), SubResource("Drop_gullveig_ember_3"), SubResource("Drop_gullveig_ember_4"), SubResource("Drop_gullveig_ember_5"), SubResource("Drop_gullveig_ember_6"), SubResource("Drop_gullveig_ember_7"), SubResource("Drop_gullveig_ember_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
 is_boss = true
 boss_title = "ผู้ถูกเผาสามครั้ง"
 skill_name = "เพลิงสามครั้ง"
@@ -121,7 +131,6 @@ skill_chance = 0.75
 skill_knockback = 360.0
 projectile_texture = ExtResource("5_fireball")
 ranged_attack_range = 600.0
-projectile_speed = 580.0
 projectile_height = 100.0
 projectile_hit_size = Vector2(52, 52)
 projectile_range = 950.0
@@ -131,7 +140,6 @@ projectile_hand_positions = Dictionary[int, Vector2]({
 35: Vector2(580, 645)
 })
 projectile_fire_effect = true
-projectile_aim_at_player = true
 skill_wave_count = 3
 skill_wave_both_sides = true
 skill_wave_speed = 560.0
@@ -141,3 +149,6 @@ skill_wave_frames = ExtResource("4_wave")
 respawn_time = 600.0
 spawn_lines = null
 death_lines = null
+projectile_speed = 1000.0
+projectile_aim_at_player = false
+projectile_down_angle = 22.7

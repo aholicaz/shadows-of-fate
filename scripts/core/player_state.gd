@@ -167,7 +167,7 @@ func turn_in_quest(quest_id: StringName) -> bool:
 	if q == null or not quests.is_ready(quest_id):
 		return false
 	if q.reward_job != &"" and (stats.level < q.required_level or
-			(q.required_job != &"" and stats.job_id != q.required_job) or
+			(q.required_job != &"" and stats.job_id != q.required_job and not stats.has_profession(q.reward_job)) or
 			(q.reward_job_map != &"" and current_map_id != q.reward_job_map)):   # ★ รอบ 105 ★
 		return false
 
@@ -183,11 +183,11 @@ func turn_in_quest(quest_id: StringName) -> bool:
 
 	if q.reward_zeny > 0:
 		add_zeny(q.reward_zeny)
-	if q.reward_exp > 0:
+	if q.reward_exp > 0 and q.id != &"c7_4_ninth_edge":
 		var jx: int = q.reward_job_exp if q.reward_job_exp > 0 else int(round(q.reward_exp * 0.7))
 		gain_exp(q.reward_exp, jx)
 	# ★ รอบ 105 ★ เปลี่ยนอาชีพได้ทุกอาชีพที่มีไฟล์ data/jobs/<id>.tres (runeblade · ninth_edge ...)
-	if q.reward_job != &"" and GameData.get_job(q.reward_job) != null:
+	if q.reward_job != &"" and GameData.get_job(q.reward_job) != null and stats.job_id != q.reward_job:
 		var jid := String(q.reward_job)
 		stats.change_profession(q.reward_job)
 		set_flag(StringName(jid + "_awakened"))
@@ -196,6 +196,10 @@ func turn_in_quest(quest_id: StringName) -> bool:
 		set_flag(StringName("job_" + jid))
 		refresh()
 		Events.skills_changed.emit()
+	# Chapter 7 grants its first training points after awakening. Earlier ceremonies retain their reward order.
+	if q.reward_exp > 0 and q.id == &"c7_4_ninth_edge":
+		var jx: int = q.reward_job_exp if q.reward_job_exp > 0 else int(round(q.reward_exp * 0.7))
+		gain_exp(q.reward_exp, jx)
 	Events.say("[เควสสำเร็จ] %s — ได้รับ %s" % [q.title, q.reward_text()])
 	return true
 
@@ -204,6 +208,7 @@ func turn_in_quest(quest_id: StringName) -> bool:
 # เริ่มเกมใหม่
 # =========================================================
 func new_game() -> void:
+	if is_instance_valid(SaveManager): SaveManager.end_session()
 	stats = PlayerStats.new()
 	inventory = Inventory.new(INVENTORY_SIZE)
 	equipment = Equipment.new()
@@ -350,6 +355,8 @@ func heal_hp(amount: int, show_text: bool = true) -> void:
 		return
 	var before := stats.hp
 	stats.hp = clampi(stats.hp + amount, 0, stats.max_hp)
+	if stats.hp >= stats.max_hp:
+		stats.hp_drain_remainder = 0.0
 	if stats.hp != before:
 		Events.hp_changed.emit(stats.hp, stats.max_hp)
 		if show_text:
@@ -358,12 +365,27 @@ func heal_hp(amount: int, show_text: bool = true) -> void:
 				Events.floating_text(p.global_position, "+%d" % (stats.hp - before), Color("#5cff7a"), 24, 0)
 
 
+func apply_hp_drain(damage: int) -> void:
+	if stats == null:
+		return
+	if _is_dead or stats.hp <= 0 or stats.hp >= stats.max_hp or stats.hp_drain_percent <= 0.0:
+		stats.hp_drain_remainder = 0.0
+		return
+	if damage <= 0:
+		return
+	stats.hp_drain_remainder += float(damage) * stats.hp_drain_percent / 100.0
+	var gain := int(floor(stats.hp_drain_remainder + 0.0000001))
+	stats.hp_drain_remainder = maxf(0.0, stats.hp_drain_remainder - gain)
+	heal_hp(gain, false)
+
+
 func take_damage(amount: int) -> void:
 	if _is_dead:
 		return
 	stats.hp = clampi(stats.hp - amount, 0, stats.max_hp)
 	Events.hp_changed.emit(stats.hp, stats.max_hp)
 	if stats.hp <= 0:
+		stats.hp_drain_remainder = 0.0
 		_is_dead = true
 		Events.player_died.emit()
 
@@ -928,7 +950,7 @@ func sell_slot(inv_index: int, count: int = 1) -> bool:
 	if inst == null:
 		return false
 	var d := inst.data()
-	if d == null or d.type == ItemData.Type.QUEST:
+	if d == null or d.type == ItemData.Type.QUEST or not d.sellable:
 		Events.say("ไอเทมนี้ขายไม่ได้")
 		return false
 	var taken := inventory.take_from_slot(inv_index, count)

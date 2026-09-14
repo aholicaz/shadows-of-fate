@@ -11,4 +11,4 @@ description = "เศษไม้จากบัลลังก์ว่าง �
 icon = ExtResource("2_icon")
 type = 3
 buy_price = 60000
-sell_price = 1252
+sell_price = 500

@@ -49,7 +49,7 @@ metadata/_custom_type_script = "uid://lfvvfifv5f84"
 [sub_resource type="Resource" id="Drop_king_poring_junk_royal_jelly"]
 script = ExtResource("2_drop")
 item_id = &"royal_jelly"
-chance = 80.0
+chance = 65.0
 max_count = 2
 
 [sub_resource type="Resource" id="Drop_king_poring_junk_tiny_crown"]
@@ -324,7 +324,7 @@ hp_bar_offset_y = -250.0
 display_height = 350.0
 fit_foot_animations = null
 level = 15
-max_hp = 2200
+max_hp = 2800
 atk_min = 44
 atk_max = 66
 def = 12

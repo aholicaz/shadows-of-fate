@@ -10,6 +10,6 @@ display_name = "ยาส้ม"
 description = "ฟื้นเลือดปานกลาง"
 icon = ExtResource("1_cfrs4")
 type = 0
-buy_price = 200
+buy_price = 240
 sell_price = 80
 heal_hp = 105

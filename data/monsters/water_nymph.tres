@@ -5,6 +5,8 @@
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/water_nymph_frames.tres" id="3_frames"]
 [ext_resource type="SpriteFrames" uid="uid://dk6u4x66leahl" path="res://data/sprites/fx_fire_wave.tres" id="4_wave"]
 
+[ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="sep14_orb"]
+
 [sub_resource type="Resource" id="Drop_water_nymph_0"]
 script = ExtResource("2_drop")
 item_id = &"nymph_tear"
@@ -26,14 +28,13 @@ script = ExtResource("2_drop")
 item_id = &"card_water_nymph"
 chance = 0.5
 
+
 [resource]
 script = ExtResource("1_monster")
 id = &"water_nymph"
 display_name = "นางฟ้าน้ำ"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(46, 62)
-hp_bar_offset_y = -79.8
-display_height = 270.0
 fit_foot_animations = null
 level = 80
 max_hp = 15000
@@ -53,11 +54,8 @@ attack_range = 116.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
-attack_windup = 0.4
-attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
-attack_hit_frames = null
 skill_hit_frames = null
 exp_reward = 850
 job_exp_reward = 595
@@ -81,9 +79,30 @@ skill_wave_delay = 0.5
 skill_wave_height = 130.0
 skill_wave_frames = ExtResource("4_wave")
 respawn_time = 18.0
-tint = Color(0.8, 0.95, 1, 0.85)
 spawn_lines = null
 death_lines = null
 
 fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(256, 480)
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.28308824, &"Walk": 1.28308824, &"Attack": 1.27838828, &"Hit": 1.28073394, &"Die": 1.28073394, &"Run": 1.28308824, &"Skill": 1.27838828})
+display_height = 420.0
+tint = Color(1, 1, 1, 1)
+projectile_texture = ExtResource("sep14_orb")
+ranged_attack = true
+ranged_attack_range = 720.0
+projectile_speed = 1000.0
+projectile_range = 1250.0
+projectile_height = 90.0
+projectile_hit_size = Vector2(48, 48)
+projectile_fire_effect = true
+projectile_orb_style = true
+projectile_orb_color = Color(0.4, 0.83, 1.0, 1)
+projectile_aim_at_player = false
+projectile_hand_positions = Dictionary[int, Vector2]({12: Vector2(573, 681)})
+attack_hit_frames = PackedInt32Array(12)
+attack_windup = 1.0
+attack_duration = 1.6666666666666667
+skill_hand_projectiles = false
+projectile_down_angle = 14.85
+hp_bar_offset_y = -417.0

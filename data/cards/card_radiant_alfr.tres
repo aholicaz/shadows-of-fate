@@ -17,8 +17,10 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 6040
+sell_price = 650
 mdef = 15
+bonus_vit = 5
+
 percent_effects = {
-"max_sp_percent": 10.0
+"max_sp_percent": 8.0
 }

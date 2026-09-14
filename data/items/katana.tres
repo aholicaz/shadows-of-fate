@@ -13,7 +13,7 @@ id = &"katana"
 display_name = "ดาบซามู"
 description = "ดาบซามูไรญี่ปุ่นโบราณ"
 icon = ExtResource("1_555ec")
-required_level = 33
+required_level = 30
 type = 1
 slot = 1
 weapon_type = &"sword"
@@ -21,11 +21,7 @@ attack_animation = &"Attack_Katana"
 card_slots = 2
 max_stack = 1
 buy_price = 13868
-sell_price = 1205
-atk = 61
-crit = 4
-bonus_agi = 6
-bonus_luk = 2
+sell_price = 312
 refinable = true
 refine_atk_per_level = 4
 refine_def_per_level = 0
@@ -43,10 +39,14 @@ equip_hand_rotation_degrees = 62.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-aspd_percent = 7.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
 drop_hint = "อสูรสายฟ้า"
+atk = 74
+bonus_dex = 4
+crit = 5
+aspd_percent = 5.0
+crit_damage_percent = 10.0
+attack_element = 0

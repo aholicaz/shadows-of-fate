@@ -15,17 +15,17 @@ slot = 4
 card_slots = 1
 max_stack = 1
 buy_price = 33248
-sell_price = 1536
-def = 42
-max_hp = 260
-bonus_vit = 2
-aspd_percent = -6.0
+sell_price = 260
 refinable = true
 
-skill_damage_percent = 5.0
 
+
+
+drop_hint = "เพลิงกุลล์ไวก์, ผู้พิทักษ์วานีร์"
+def = 43
 bonus_str = 4
-
-max_sp = 35
-
-drop_hint = "เพลิงกุลล์ไวก์ / ผู้พิทักษ์วานีร์"
+bonus_vit = 4
+max_hp = 180
+aspd_percent = -3.0
+skill_damage_percent = 4.0
+attack_element = 0

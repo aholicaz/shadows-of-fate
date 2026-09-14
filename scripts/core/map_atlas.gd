@@ -24,6 +24,7 @@ const KIND_BOSS := "boss"       # ลานบอส
 const KIND_HIDDEN := "hidden"   # ห้องทดสอบ ไม่โชว์บนแผนที่โลก
 
 const CHAPTER_NAMES := {
+	7: "บทที่ 7 — มุสเปลเฮม",
 	1: "บทที่ 1 — มิดการ์ด",
 	2: "บทที่ 2 — สวาร์ทัลฟ์เฮม",
 	3: "บทที่ 3 — วานาเฮม",
@@ -147,7 +148,14 @@ const MAPS := {
 	&"hall_of_names": {"chapter": 6, "kind": KIND_FIELD, "level": [89, 91], "monsters": [&"name_warden", &"erased_voice"], "links": [&"gjoll_river", &"nastrond"]},
 	&"nastrond": {"chapter": 6, "kind": KIND_FIELD, "level": [91, 94], "monsters": [&"drowned", &"nidhogg_spawn", &"false_judge"], "links": [&"hall_of_names", &"garm_gate"]},
 	&"garm_gate": {"chapter": 6, "kind": KIND_BOSS, "level": [96, 96], "monsters": [&"chained_garm"], "links": [&"nastrond", &"odin_seat"]},
-	&"odin_seat": {"chapter": 6, "kind": KIND_HIDDEN, "level": [0, 0], "monsters": [], "links": [&"garm_gate"]},
+	&"odin_seat": {"chapter": 6, "kind": KIND_HIDDEN, "level": [0, 0], "monsters": [], "links": [&"garm_gate", &"cinder_crossing"]},
+
+	&"cinder_crossing": {"chapter": 7, "kind": KIND_FIELD, "level": [96, 98], "monsters": [&"cinder_hound", &"slag_mantis"], "links": [&"odin_seat", &"emberhaven"]},
+	&"emberhaven": {"chapter": 7, "kind": KIND_TOWN, "level": [96, 110], "monsters": [], "links": [&"cinder_crossing", &"chain_quarry"]},
+	&"chain_quarry": {"chapter": 7, "kind": KIND_FIELD, "level": [98, 100], "monsters": [&"chainbound_ogre", &"slag_mantis"], "links": [&"emberhaven", &"unwritten_forge"]},
+	&"unwritten_forge": {"chapter": 7, "kind": KIND_BOSS, "level": [99, 101], "monsters": [&"kiln_sentinel"], "links": [&"chain_quarry", &"ash_procession"]},
+	&"ash_procession": {"chapter": 7, "kind": KIND_FIELD, "level": [102, 106], "monsters": [&"ash_knight", &"ember_oracle"], "links": [&"unwritten_forge", &"oathbreak_crucible"]},
+	&"oathbreak_crucible": {"chapter": 7, "kind": KIND_BOSS, "level": [108, 110], "monsters": [&"oath_warden"], "links": [&"ash_procession"]},
 
 	# ---------- ไม่โชว์บนแผนที่โลก ----------
 	&"gm_room": {

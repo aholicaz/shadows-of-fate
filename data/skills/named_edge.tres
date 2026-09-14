@@ -4,12 +4,12 @@
 [resource]
 script = ExtResource("s")
 id = &"named_edge"
-display_name = "คมที่มีชื่อ"
-description = "คริ +3 จุดเปอร์เซ็นต์ และมองข้าม DEF 6% ต่อระดับ"
+display_name = "คมยืนยันนาม"
+description = "คริ +2 จุดและเจาะ DEF 4% ต่อระดับ · โจมตีธรรมดาครบ 3 จังหวะติดตรานาม 8 วินาที คมตัดพันธะใช้ตราเพิ่มดาเมจ 8–40% · เงาดาบไม่สร้างตรา"
 icon = ExtResource("i")
 max_level = 5
 job_ids = Array[StringName]([&"ninth_edge"])
-required_level = 90
+required_level = 96
 type = 4
 sp_cost_base = 0
 sp_cost_per_level = 0.0
@@ -17,4 +17,4 @@ cooldown = 0.0
 damage_mult_base = 0.00
 damage_mult_per_level = 0.00
 required_skills = {}
-passive_effects = {"crit": 3.0}
+passive_effects = {"crit": 2.0}

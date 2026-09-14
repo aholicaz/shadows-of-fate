@@ -34,6 +34,9 @@ func is_done(quest_id: StringName) -> bool:
 ## ความคืบหน้าของเงื่อนไขข้อที่ index (ข้อแรก = 0)
 func count_of(quest_id: StringName, index: int = 0) -> int:
 	var q := GameData.get_quest(quest_id)
+	if q!=null and String(quest_id).begins_with("c7_") and index>=0 and index<q.steps().size():
+		var step: ObjectiveData=q.steps()[index]
+		if step.kind==ObjectiveData.Kind.READ and PlayerState.has_flag(StringName("read_"+String(step.target))):return step.need()
 	if q != null:
 		var list := q.steps()
 		if index >= 0 and index < list.size() and list[index].is_live():
@@ -97,7 +100,7 @@ func can_accept(quest_id: StringName, level: int) -> bool:
 		return false
 	if level < q.required_level:
 		return false
-	if q.required_job != &"" and PlayerState.stats.job_id != q.required_job:
+	if q.required_job != &"" and PlayerState.stats.job_id != q.required_job and not (q.reward_job != &"" and PlayerState.stats.has_profession(q.reward_job)):
 		return false
 	# ★ ต้องทำเควสก่อนหน้าจบก่อน ★
 	for prev in q.required_quests:

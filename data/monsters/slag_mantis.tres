@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="d"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/slag_mantis_frames.tres" id="f"]
+[sub_resource type="Resource" id="material"]
+script = ExtResource("d")
+item_id = &"slag_sickle"
+chance = 70.0
+max_count = 1
+[sub_resource type="Resource" id="card"]
+script = ExtResource("d")
+item_id = &"card_slag_mantis"
+chance = 0.5
+[sub_resource type="Resource" id="potion"]
+script = ExtResource("d")
+item_id = &"white_potion"
+chance = 25.0
+[resource]
+script = ExtResource("s")
+id = &"slag_mantis"
+display_name = "ตั๊กแตนตะกรัน"
+sprite_frames = ExtResource("f")
+display_height = 255.0
+hitbox_size = Vector2(90, 100)
+align_feet = true
+level = 98
+max_hp = 46000
+atk_min = 1100
+atk_max = 1250
+def = 175
+mdef = 113
+hit = 223
+flee = 37
+element = 2
+race = 4
+size = 1
+ai_type = 1
+move_speed = 128.0
+detect_range = 500.0
+attack_range = 155.0
+leash_range = 1300.0
+jump_while_chasing = false
+hop_while_wandering = false
+attack_windup = 0.65
+attack_duration = 0.95
+attack_cooldown = 2.1
+exp_reward = 5000
+job_exp_reward = 3500
+zeny_min = 375
+zeny_max = 635
+drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion")])

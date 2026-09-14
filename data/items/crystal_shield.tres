@@ -15,10 +15,11 @@ slot = 2
 card_slots = 1
 max_stack = 1
 buy_price = 81488
-sell_price = 2376
-def = 62
-mdef = 12
-flee = 6
+sell_price = 520
 refinable = true
 
-drop_hint = "เอลฟ์กลวง / ผู้หลุดจากแสง"
+drop_hint = "เอลฟ์กลวง, ผู้หลุดจากแสง"
+def = 54
+mdef = 18
+flee = 5
+attack_element = 0

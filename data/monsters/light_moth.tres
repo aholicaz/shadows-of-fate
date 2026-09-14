@@ -31,8 +31,6 @@ id = &"light_moth"
 display_name = "ผีเสื้อแสง"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(40, 36)
-hp_bar_offset_y = -57.0
-display_height = 150.0
 level = 72
 max_hp = 12000
 atk_min = 620
@@ -70,3 +68,5 @@ flying_no_hop = true
 
 fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(256, 480)
+display_height = 310.0
+hp_bar_offset_y = -320.0

@@ -88,6 +88,7 @@ enum Slot {
 @export var max_stack: int = 99
 @export var buy_price: int = 100
 @export var sell_price: int = 40
+@export var sellable: bool = true
 @export var can_drop: bool = true
 
 # =========================================================
@@ -104,6 +105,8 @@ enum Slot {
 @export var max_hp: int = 0
 @export var max_sp: int = 0
 @export var aspd_percent: float = 0.0
+## Movement bonus from worn equipment; added to card movement bonuses.
+@export var move_speed_percent: float = 0.0
 
 # ★ รอบ 45 — โบนัสแบบ % ของของสวมใส่ (การ์ดก็ใส่ได้เพราะสืบทอดมา) ★
 @export_group("Percent Bonus")

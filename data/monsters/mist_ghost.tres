@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
@@ -30,6 +30,11 @@ chance = 3.0
 script = ExtResource("2_drop")
 item_id = &"card_mist_ghost"
 chance = 0.5
+
+[sub_resource type="Resource" id="Drop_shop_mist_saber"]
+script = ExtResource("2_drop")
+item_id = &"mist_saber"
+chance = 3.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -68,7 +73,7 @@ exp_reward = 901
 job_exp_reward = 631
 zeny_min = 242
 zeny_max = 450
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_mist_ghost_0"), SubResource("Drop_mist_ghost_1"), SubResource("Drop_mist_ghost_2"), SubResource("Drop_mist_ghost_3"), SubResource("Drop_mist_ghost_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_mist_ghost_0"), SubResource("Drop_mist_ghost_1"), SubResource("Drop_mist_ghost_2"), SubResource("Drop_mist_ghost_3"), SubResource("Drop_mist_ghost_card"), SubResource("Drop_shop_mist_saber")])
 respawn_time = 18.0
 tint = Color(0.85, 0.9, 1, 0.55)
 spawn_lines = PackedStringArray("...เย็น...", "ใครอยู่ตรงนั้น", "เจ้า... ยังอุ่นอยู่")

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_kiln_sentinel.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"card_kiln_sentinel"
+display_name = "การ์ดผู้เฝ้าทั่งว่าง"
+description = "ถ่านชิ้นแรกที่ไฟเผาคำสั่งออกหมดโดยไม่ทำลายเนื้อเหล็ก บรินยาใช้พิสูจน์ว่าการปลดพันธะเป็นไปได้"
+monster_id = &"kiln_sentinel"
+monster_level = 99
+fits_slot = 2
+rarity = 6
+icon = ExtResource("i")
+type = 5
+max_stack = 99
+sell_price = 400
+max_hp = 320
+def = 20

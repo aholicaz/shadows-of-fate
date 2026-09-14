@@ -5,6 +5,13 @@ extends Node
 ## ทะเบียนแมพทั้งหมด: id -> path ของไฟล์ .tscn
 ## เพิ่มแมพใหม่ = เพิ่ม 1 บรรทัดตรงนี้
 const MAPS := {
+	&"cinder_crossing": "res://scenes/maps/cinder_crossing.tscn",
+	&"emberhaven": "res://scenes/maps/emberhaven.tscn",
+	&"chain_quarry": "res://scenes/maps/chain_quarry.tscn",
+	&"unwritten_forge": "res://scenes/maps/unwritten_forge.tscn",
+	&"ash_procession": "res://scenes/maps/ash_procession.tscn",
+	&"oathbreak_crucible": "res://scenes/maps/oathbreak_crucible.tscn",
+
 	&"runeblade_training": "res://scenes/maps/runeblade_training.tscn",
 	&"blackhorn_rootcrypt": "res://scenes/maps/blackhorn_rootcrypt.tscn",
 	&"prontera_town": "res://scenes/maps/prontera_town.tscn",
@@ -59,6 +66,13 @@ const MAPS := {
 
 ## ★ รอบ 57 ★ ชื่อไทยของแมพ (ใช้ในเสาวาป/มินิแมพ) — ไม่มีในนี้จะใช้ id แทน
 const MAP_NAMES := {
+	&"cinder_crossing": "ทางข้ามเถ้า",
+	&"emberhaven": "อัมเบอร์เฮเวน นครใต้เถ้า",
+	&"chain_quarry": "เหมืองโซ่คำสั่ง",
+	&"unwritten_forge": "เตาหลอมไร้คำสั่ง",
+	&"ash_procession": "ทางขบวนเถ้า",
+	&"oathbreak_crucible": "เบ้าหลอมคำสาบาน",
+
 	&"runeblade_training": "ลานทดสอบดาบรูน",
 	&"blackhorn_rootcrypt": "วิหารเขาทมิฬใต้ราก",
 	&"prontera_town": "เมืองพรอนเทรา",
@@ -103,7 +117,7 @@ const MAP_NAMES := {
 
 ## ★ รอบ 60 ★ แมพไหนนับเป็น "เมือง" (ใช้กับปีกแห่งวาลคีรี · จุดเกิดใหม่ตอนตาย)
 ## เพิ่มเมืองใหม่ = เพิ่ม id ตรงนี้บรรทัดเดียว
-const TOWNS := [&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"ljosalf_city", &"eljudnir"]
+const TOWNS := [&"emberhaven", &"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"ljosalf_city", &"eljudnir"]
 
 
 ## ชื่อแมพที่เอาไว้โชว์ให้ผู้เล่นอ่าน
@@ -214,6 +228,7 @@ func change_map(map_id: StringName, spawn_point: StringName = &"default") -> voi
 
 	_is_changing = true
 	_spawn_point_name = spawn_point
+	SaveManager.end_session()
 	PlayerState.current_map_id = map_id
 
 	await _fade_to(1.0, 0.25)
@@ -238,6 +253,7 @@ func change_map(map_id: StringName, spawn_point: StringName = &"default") -> voi
 	Events.map_changed.emit(map_id)
 	await _fade_to(0.0, 0.3)
 	_is_changing = false
+	SaveManager.activate()
 
 
 ## ★ รอบ 90 ★ คืนหน่วยความจำชีทมอนที่แมพปัจจุบันไม่ได้ใช้
@@ -305,6 +321,8 @@ const TITLE_SCENE := "res://scenes/ui/title_screen.tscn"
 func go_title() -> void:
 	if _is_changing:
 		return
+	SaveManager.save_auto()
+	SaveManager.end_session()
 	_is_changing = true
 	get_tree().paused = false
 	if UI != null:

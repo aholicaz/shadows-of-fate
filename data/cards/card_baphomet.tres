@@ -7,10 +7,6 @@
 script = ExtResource("1_card")
 monster_id = &"baphomet"
 illustration = ExtResource("art_1")
-percent_effects = {
-"atk_percent": 10.0,
-"max_hp_percent": 5.0
-}
 rarity = 5
 monster_level = 50
 id = &"card_baphomet"
@@ -18,5 +14,10 @@ display_name = "การ์ดบาฟโฟเมท"
 description = "พลังของราชาปีศาจ ผู้ถือครองจะแข็งแกร่งเหนือมนุษย์"
 type = 5
 buy_price = 0
-sell_price = 1000
-bonus_str = 2
+sell_price = 400
+bonus_str = 4
+
+percent_effects = {
+"atk_percent": 6.0,
+"max_hp_percent": 3.0
+}

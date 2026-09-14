@@ -16,8 +16,9 @@ card_slots = 0
 max_stack = 1
 buy_price = 0
 sell_price = 0
-flee = 5
-crit = 5
-bonus_luk = 3
 
 drop_hint = "เงาสะท้อน"
+bonus_luk = 3
+flee = 6
+crit = 4
+attack_element = 0

@@ -24,6 +24,8 @@ var _art: TextureRect
 var _art_frame: PanelContainer
 var _detail: RichTextLabel
 var _scroll: ScrollContainer
+var _content: VBoxContainer
+var _cards_panel: VBoxContainer
 var _anchor: Control = null
 var _open := false
 ## ★ แถวปุ่มการกระทำด้านล่างกล่อง ★ (เช่น "อัพสกิล" / "ตั้งปุ่มลัด")
@@ -84,6 +86,12 @@ func _ready() -> void:
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	row.add_child(scroll)
 
+	_content = VBoxContainer.new()
+	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(_content)
+	_cards_panel = preload("res://scripts/ui/socket_cards_panel.gd").new()
+	_content.add_child(_cards_panel)
+	_cards_panel.hide()
 	_detail = RichTextLabel.new()
 	_detail.bbcode_enabled = true
 	_detail.fit_content = true
@@ -92,7 +100,7 @@ func _ready() -> void:
 	_detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_detail.add_theme_font_size_override("normal_font_size", 13)
 	_detail.add_theme_font_size_override("bold_font_size", 13)
-	scroll.add_child(_detail)
+	_content.add_child(_detail)
 
 	# ---------- แถวปุ่มการกระทำ (ว่างไว้ก่อน หน้าต่างไหนอยากใส่ค่อยส่งมา) ----------
 	_action_box = VBoxContainer.new()
@@ -171,8 +179,8 @@ func show_item(inst: ItemInstance, anchor: Control = null, extra: String = "") -
 	if d == null:
 		hide_popup()
 		return
-	_show(inst.display_name(), _texture_for(d), describe(d, inst, extra), anchor,
-		UITheme.ACCENT if inst.refine > 0 else UITheme.TEXT)
+	_show(inst.display_name(), _texture_for(d), describe(d, inst, extra, false), anchor,
+		UITheme.ACCENT if inst.refine > 0 else UITheme.TEXT, [], inst)
 
 
 ## โชว์รายละเอียดจากแม่แบบไอเทม (ใช้ในร้านค้า ตอนของยังไม่ได้เป็นของเรา)
@@ -190,8 +198,10 @@ func show_info(title: String, art: Texture2D, body: String, anchor: Control = nu
 
 
 func _show(title: String, art: Texture2D, body: String, anchor: Control, color: Color,
-		actions: Array = []) -> void:
+		actions: Array = [], inst: ItemInstance = null) -> void:
 	set_actions(actions)
+	_cards_panel.set_item(inst)
+	_scroll.scroll_vertical = 0
 	_title.text = title
 	_title.add_theme_color_override("font_color", color)
 	_art.texture = art
@@ -228,7 +238,7 @@ func _process(_delta: float) -> void:
 func _fit_size() -> void:
 	if _scroll == null or _detail == null:
 		return
-	var body_h := _detail.get_combined_minimum_size().y
+	var body_h := _content.get_combined_minimum_size().y
 	var want_h := clampf(body_h + 4.0, ART_SIZE.y, MAX_HEIGHT)
 	if absf(_scroll.custom_minimum_size.y - want_h) > 0.5:
 		_scroll.custom_minimum_size.y = want_h
@@ -259,7 +269,7 @@ func _reposition() -> void:
 # ข้อความรายละเอียด (ใช้ร่วมกันทุกหน้าต่าง)
 # =========================================================
 ## สร้างข้อความรายละเอียดไอเทม — ส่ง inst มาด้วยถ้าอยากได้ค่าตีบวก/การ์ดที่ใส่ไว้
-static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "") -> String:
+static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "", include_cards: bool = true) -> String:
 	if d == null:
 		return ""
 	var lines: Array[String] = []
@@ -323,9 +333,10 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "")
 	# ★ รอบ 45 — โบนัส % / บัฟไอเทม / ไอเทมพิเศษ ★
 	for pair in [["ดาเมจ", d.damage_percent], ["ป้องกัน", d.defense_percent], ["HP สูงสุด", d.hp_percent],
 			["SP สูงสุด", d.sp_percent], ["ดูดเลือด", d.hp_drain_percent], ["ดูดมานา", d.sp_drain_percent],
-			["ลดคูลดาวน์", d.cooldown_reduction_percent], ["ดาเมจสกิล", d.skill_damage_percent], ["ดาเมจคริ", d.crit_damage_percent]]:
+			["ลดคูลดาวน์", d.cooldown_reduction_percent], ["ดาเมจสกิล", d.skill_damage_percent], ["ดาเมจคริ", d.crit_damage_percent],
+			["ความเร็วเดิน", d.move_speed_percent]]:
 		if float(pair[1]) != 0.0:
-			stats.append("%s %+.1f%%" % [pair[0], float(pair[1])])
+			stats.append("%s %s" % [pair[0], CardData.percent_text(float(pair[1]), true)])
 	if d.buff_duration > 0.0 and not d.buff_values.is_empty():
 		var bparts: Array = []
 		for key in d.buff_values.keys():
@@ -349,7 +360,7 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "")
 	# ---------- ช่องการ์ด ----------
 	# ของที่ซื้อจากร้านไม่มีช่อง · ของที่ดรอปจากมอนถึงจะมี
 	var have_slots: int = inst.card_slots() if inst != null else 0
-	if have_slots > 0:
+	if have_slots > 0 and include_cards:
 		lines.append("[color=#9aa7bd]ช่องการ์ด :[/color] %d/%d" % [inst.cards.size(), have_slots])
 		if inst != null:
 			for card in inst.card_list():
@@ -377,7 +388,7 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "")
 
 	# ---------- ราคา ----------
 	lines.append("")
-	lines.append("[color=#9aa7bd]ราคาขาย :[/color] [color=#ffe9a0]%d z[/color]" % d.sell_price)
+	lines.append("[color=#9aa7bd]ราคาขาย :[/color] [color=#ffe9a0]%d z[/color]" % d.sell_price if d.sellable else "[color=#9aa7bd]ขายให้ร้านค้าไม่ได้[/color]")
 
 	return "\n".join(lines)
 

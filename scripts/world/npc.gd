@@ -34,6 +34,7 @@ enum NPCType { DIALOG, SHOP, REFINER, HEALER, SAVE_POINT, QUEST }
 @export var show_if_flag: StringName = &""
 ## ★ รอบ 105 ★ NPC คนนี้หายไปเมื่อมีธงนี้ เช่น อาสมุนด์กลับวิหารหลังผู้เล่นสงสัยเขา
 @export var hide_if_flag: StringName = &""
+@export var ninth_mentor: bool = false
 
 @export_group("รูปตัวละครในกล่องสนทนา")
 ## ★ รูปครึ่งตัว (หัวถึงเอว) พื้นหลังโปร่งใส สูงประมาณ 400-500 px ★
@@ -363,6 +364,9 @@ func interact() -> void:
 
 	# ★★ รอบ 45 — เมนูก่อนคุย: พูดคุย / ซื้อขาย / ไม่คุย ★★
 	var options: Array = [MENU_TALK]
+	if ninth_mentor and PlayerState.stats.has_profession(&"ninth_edge"):
+		options.append("ฝึกคมที่เก้า")
+		options.append("คืนแต้ม Ninth Edge")
 	for qid in quest_ids:
 		if String(qid).begins_with("rb"):
 			options.append("เส้นทาง Runeblade")
@@ -381,6 +385,15 @@ func interact() -> void:
 	if not is_instance_valid(self) or pick < 0 or pick >= options.size():
 		return
 	var chosen: String = options[pick]
+	if chosen == "ฝึกคมที่เก้า":
+		await UI.talk([line("โจมตีธรรมดา 3 จังหวะเพื่อติดตรานาม จากนั้นใช้คมตัดพันธะเพิ่มความแรง เงานามร่วมคมจะตามโจมตีหนึ่งครั้งต่อเป้าหมายต่อการร่าย\n\nเรียนกายาไร้พันธะเพื่อเก็บรูนได้ 4–5 ดวง ประกาศนามที่เก้าวางวงไว้กับพื้น: อยู่ในวงเพิ่มคริ เมื่อหมดเวลาจะระเบิด\n\nเลเวลและสเตตัสเติบโตพ้น 99 ได้แล้ว แต่แต้มที่ต้องใช้ยังเพิ่มตามระดับ")])
+		return
+	if chosen == "คืนแต้ม Ninth Edge":
+		var fee := 10000 if PlayerState.has_flag(&"ninth_respec_used") else 0
+		var confirm: int = await UI.talk([line("คืนแต้มสกิล Ninth Edge ทุกระดับให้จัดใหม่ ค่าใช้จ่าย %d z · สกิลนักดาบและ Runeblade คงเดิม" % fee,"",["ยืนยันคืนแต้ม","ไว้ก่อน"])])
+		if confirm==0:
+			Events.say("คืนแต้ม Ninth Edge แล้ว" if PlayerState.skills.reset_ninth() else "คืนแต้มไม่ได้ — ต้องอยู่ในเมืองและมีซีนีพอ")
+		return
 	if chosen == "เส้นทาง Runeblade":
 		await _runeblade_menu()
 		return

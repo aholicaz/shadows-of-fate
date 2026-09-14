@@ -15,17 +15,17 @@ slot = 6
 card_slots = 1
 max_stack = 1
 buy_price = 91628
-sell_price = 2516
-def = 26
-flee = 10
-max_hp = 200
-bonus_agi = 6
+sell_price = 650
 refinable = true
 
-aspd_percent = 7.0
 
-crit = 5
 
 damage_percent = 0.0
 
-drop_hint = "หมาป่าเฮล"
+drop_hint = "ผีจมน้ำ"
+def = 26
+bonus_agi = 5
+flee = 10
+max_hp = 120
+move_speed_percent = 4.0
+attack_element = 0

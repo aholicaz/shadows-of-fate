@@ -15,18 +15,18 @@ slot = 5
 card_slots = 1
 max_stack = 1
 buy_price = 87500
-sell_price = 2460
-def = 20
-mdef = 12
-flee = 16
+sell_price = 650
 refinable = true
 
-bonus_agi = 6
 
-aspd_percent = 7.0
 
-crit = 5
 
 damage_percent = 0.0
 
 drop_hint = "ผีหมอก"
+def = 20
+mdef = 12
+bonus_agi = 5
+flee = 14
+move_speed_percent = 3.0
+attack_element = 0

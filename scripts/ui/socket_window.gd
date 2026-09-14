@@ -5,6 +5,8 @@ extends GameWindow
 
 const ICON_SIZE := Vector2(30, 30)
 
+var _normal: VBoxContainer
+var _third: VBoxContainer
 var _list: VBoxContainer
 var _info: Label
 var _punch_button: Button
@@ -16,15 +18,31 @@ var _selected_source := ""   # "inv:<index>" หรือ "eq:<slot>"
 func _ready() -> void:
 	window_title = "เจาะรูการ์ด"
 	super._ready()
-	custom_minimum_size = Vector2(460, 0)
+	custom_minimum_size = Vector2(680, 0)
 	Events.inventory_changed.connect(refresh)
 	Events.equipment_changed.connect(refresh)
 	Events.zeny_changed.connect(func(_z): refresh())
 
 
 func _build_content() -> void:
+	var tabs := HBoxContainer.new()
+	content.add_child(tabs)
+	_normal = VBoxContainer.new()
+	content.add_child(_normal)
+	_third = preload("res://scripts/ui/third_socket_panel.gd").new()
+	content.add_child(_third)
+	_third.hide()
+	for special in [false, true]:
+		var tab := UITheme.make_button("รูที่ 3 • หลอมอาวุธ" if special else "เจาะรูพื้นฐาน")
+		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		tab.pressed.connect(func():
+			_normal.visible = not special
+			_third.visible = special
+			refresh()
+			fit_to_content())
+		tabs.add_child(tab)
 	var head := HBoxContainer.new()
-	content.add_child(head)
+	_normal.add_child(head)
 
 	var title := UITheme.make_label("เลือกของสวมใส่ที่ยังไม่มีรู", 13, UITheme.TEXT_DIM)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -33,33 +51,33 @@ func _build_content() -> void:
 	_zeny_label = UITheme.make_label("0 z", 15, Color("#ffe9a0"))
 	head.add_child(_zeny_label)
 
-	content.add_child(UITheme.separator())
+	_normal.add_child(UITheme.separator())
 
 	var scroll := ScrollContainer.new()
 	scroll.custom_minimum_size.y = 210
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	content.add_child(scroll)
+	_normal.add_child(scroll)
 
 	_list = VBoxContainer.new()
 	_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_list.add_theme_constant_override("separation", 4)
 	scroll.add_child(_list)
 
-	content.add_child(UITheme.separator())
+	_normal.add_child(UITheme.separator())
 
 	_info = UITheme.make_label("—", 13, UITheme.TEXT)
 	_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_info.custom_minimum_size.y = 108
-	content.add_child(_info)
+	_normal.add_child(_info)
 
 	_punch_button = UITheme.make_button("เจาะรู!", 130)
 	_punch_button.disabled = true
 	_punch_button.pressed.connect(_do_punch)
-	content.add_child(_punch_button)
+	_normal.add_child(_punch_button)
 
 	_result = UITheme.make_label("", 14, UITheme.ACCENT)
 	_result.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	content.add_child(_result)
+	_normal.add_child(_result)
 
 
 func _selected_instance() -> ItemInstance:
@@ -92,6 +110,9 @@ func _do_punch() -> void:
 
 
 func refresh() -> void:
+	if _third != null and _third.visible:
+		_third.refresh()
+		return
 	if _list == null or not visible:
 		return
 
@@ -112,7 +133,7 @@ func refresh() -> void:
 
 	if _list.get_child_count() == 0:
 		_list.add_child(UITheme.make_label(
-			"ไม่มีของที่เจาะรูได้\n(ต้องเป็นของสวมใส่ที่ยังไม่มีรู · เลเวล 1-30 หรือ 40-70)",
+			"ไม่มีของที่เจาะรูได้\n(ต้องเป็นของสวมใส่ที่ยังไม่มีรู · ทุกช่วงเลเวล)",
 			13, UITheme.TEXT_DIM))
 
 	_update_info()
@@ -186,7 +207,7 @@ func _add_row(inst: ItemInstance, source: String, tag: String) -> void:
 func _update_info() -> void:
 	var inst := _selected_instance()
 	if inst == null:
-		_info.text = "ยังไม่ได้เลือกไอเทม\n\nเจาะได้เฉพาะของสวมใส่ที่ยัง \"ไม่มีรู\"\nของเลเวล 1-30 ใช้ %s x10 + 15,000z (โอกาส 70%%)\nของเลเวล 40-70 ใช้ %s x10 + 50,000z (โอกาส 60%%)\nของที่เจาะได้ 2 รู ใช้ของและเงินเท่าตัว · เจาะไม่ติดของหาย" % [
+		_info.text = "ยังไม่ได้เลือกไอเทม\n\nเจาะได้เฉพาะของสวมใส่ที่ยัง \"ไม่มีรู\"\nของเลเวล 1-30 ใช้ %s x10 + 15,000z (โอกาส 70%%)\nของเลเวล 31 ขึ้นไป ใช้ %s x10 + 50,000z (โอกาส 60%%)\nของที่เจาะได้ 2 รู ใช้ของและเงินเท่าตัว · เจาะไม่ติดอุปกรณ์หลักยังอยู่" % [
 			GameData.item_name(&"phracon"), GameData.item_name(&"emveretarcon")]
 		_punch_button.disabled = true
 		return
@@ -206,6 +227,8 @@ func _update_info() -> void:
 		var ok_dup: bool = int(p.dup_index) >= 0
 		lines.append("ไอเทมชิ้นที่สอง: %s x1 (%s)" % [
 			GameData.item_name(inst.item_id), "มีแล้ว" if ok_dup else "ยังไม่มี"])
+	if not bool(p.destroy_on_fail):
+		lines.append("อุปกรณ์หลักไม่แตก • เสียเฉพาะเงินและวัตถุดิบเมื่อไม่สำเร็จ")
 	if bool(p.destroy_on_fail):
 		lines.append("⚠ เจาะไม่ติด = ของชิ้นนี้หายไปเลย (วัตถุดิบและเงินก็เสียด้วย)")
 
@@ -215,3 +238,10 @@ func _update_info() -> void:
 
 	_info.text = "\n".join(lines)
 	_punch_button.disabled = not bool(chk.ok)
+
+
+func show_window() -> void:
+	super.show_window()
+	await get_tree().process_frame
+	reset_size()
+	position = (get_viewport_rect().size - size) * 0.5

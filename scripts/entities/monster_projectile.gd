@@ -63,14 +63,16 @@ static func fire_straight(d: MonsterData, caster: Node2D, facing: int, origin: V
 	p.global_position = foot + Vector2(d.projectile_offset.x * p._dir, d.projectile_offset.y)
 	if origin != Vector2.INF:
 		p.global_position = origin
-	p._velocity_direction = Vector2(p._dir,0)
+	var launch_angle := deg_to_rad(d.projectile_down_angle)
+	p._velocity_direction = Vector2(p._dir*cos(launch_angle),sin(launch_angle))
+	p.rotation = p._velocity_direction.angle() - (PI if p._dir < 0 else 0.0)
 	if target != Vector2.INF and p.global_position.distance_to(target) > .01:
 		p._velocity_direction = (target-p.global_position).normalized()
 		p.rotation = p._velocity_direction.angle() - (PI if p._dir < 0 else 0.0)
 	p._build_sprite(d.projectile_texture, d.projectile_height, d.projectile_faces_left)
 	_add_to_map(caster, p)
 	if d.projectile_fire_effect:
-		FIRE_BURST.spawn(p.get_parent(),p.global_position,p._dir)
+		FIRE_BURST.spawn(p.get_parent(),p.global_position,p._dir,false,d.projectile_orb_color)
 	return p
 
 
@@ -113,6 +115,8 @@ func _build_sprite(tex: Texture2D, height: float, faces_left: bool) -> void:
 	if data != null and data.projectile_fire_effect and mode == Mode.STRAIGHT:
 		var material := ShaderMaterial.new()
 		material.shader = FIRE_SHADER
+		material.set_shader_parameter("orb_color",data.projectile_orb_color)
+		material.set_shader_parameter("orb_style",data.projectile_orb_style)
 		_sprite.material = material
 		# The glowing head, not the tail's canvas center, is the collision origin.
 		_sprite.position.x = -_dir * float(tex.get_width()) * .24 * k
@@ -330,7 +334,7 @@ func _pop(kind: StringName = &"expired") -> void:
 	impacted.emit(kind,global_position)
 	set_process(false)
 	if data != null and data.projectile_fire_effect:
-		FIRE_BURST.spawn(get_parent(),global_position,_dir,true)
+		FIRE_BURST.spawn(get_parent(),global_position,_dir,true,data.projectile_orb_color)
 	if _sprite == null:
 		queue_free()
 		return

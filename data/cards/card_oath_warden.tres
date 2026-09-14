@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_oath_warden.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"card_oath_warden"
+display_name = "การ์ดผู้คุมเบ้าหลอมคำสาบาน"
+description = "แกนเหล็กเก้าชั้นจากผู้คุมเบ้าหลอม ชั้นในสุดมีรายชื่อคนเป็นซึ่งถูกส่งขึ้นหอ ไม่ใช่รายชื่อผู้ตาย"
+monster_id = &"oath_warden"
+monster_level = 110
+fits_slot = 2
+rarity = 6
+icon = ExtResource("i")
+type = 5
+max_stack = 99
+sell_price = 400
+max_hp = 350
+bonus_str = 6

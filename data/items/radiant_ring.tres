@@ -15,18 +15,16 @@ slot = 7
 card_slots = 0
 max_stack = 1
 buy_price = 85472
-sell_price = 2432
-atk = 22
-matk = 22
-max_hp = 250
-bonus_int = 3
+sell_price = 650
 
-skill_damage_percent = 7.0
 
-cooldown_reduction_percent = 6.0
 
-max_sp = 55
 
 damage_percent = 0.0
 
 drop_hint = "อัลฟ์เรืองรอง"
+bonus_int = 4
+max_sp = 45
+skill_damage_percent = 8.0
+sp_drain_percent = 0.1
+attack_element = 0

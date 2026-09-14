@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/echo_wraith_frames.tres" id="3_frames"]
 
+[ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="sep14_orb"]
+
 [sub_resource type="Resource" id="Drop_echo_wraith_0"]
 script = ExtResource("2_drop")
 item_id = &"echo_shard"
@@ -30,14 +32,13 @@ script = ExtResource("2_drop")
 item_id = &"card_echo_wraith"
 chance = 0.5
 
+
 [resource]
 script = ExtResource("1_monster")
 id = &"echo_wraith"
 display_name = "เสียงสะท้อน"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(46, 60)
-hp_bar_offset_y = -83.6
-display_height = 220.0
 fit_foot_animations = null
 level = 68
 max_hp = 11000
@@ -59,11 +60,8 @@ attack_range = 116.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
-attack_windup = 0.4
-attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
-attack_hit_frames = null
 skill_hit_frames = null
 exp_reward = 698
 job_exp_reward = 489
@@ -71,6 +69,29 @@ zeny_min = 197
 zeny_max = 367
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_echo_wraith_0"), SubResource("Drop_echo_wraith_1"), SubResource("Drop_echo_wraith_2"), SubResource("Drop_echo_wraith_3"), SubResource("Drop_echo_wraith_card")])
 respawn_time = 18.0
-tint = Color(0.8, 0.9, 1, 0.6)
 spawn_lines = PackedStringArray("กำแพง...แตกจากข้างใน", "พวกเขามาจากทางใต้...", "อย่าเปิดประตู! อย่า—", "ท่านจอมพล... หัวใจของท่าน...", "ข้าเห็นค้อน... สีฟ้า...", "เด็ก ๆ อยู่ในโถง... อย่าให้พวกมันเข้ามา")
 death_lines = null
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.17565485, &"Walk": 1.17565485, &"Attack": 1.20347003, &"Hit": 1.20157480, &"Die": 1.20157480, &"Run": 1.17565485, &"Skill": 1.20347003})
+display_height = 430.0
+tint = Color(1, 1, 1, 1)
+projectile_texture = ExtResource("sep14_orb")
+ranged_attack = true
+ranged_attack_range = 720.0
+projectile_speed = 1000.0
+projectile_range = 1250.0
+projectile_height = 86.0
+projectile_hit_size = Vector2(48, 48)
+projectile_fire_effect = true
+projectile_orb_style = true
+projectile_orb_color = Color(0.24, 0.72, 1.0, 1)
+projectile_aim_at_player = false
+projectile_hand_positions = Dictionary[int, Vector2]({8: Vector2(619, 659), 17: Vector2(442, 598)})
+attack_hit_frames = PackedInt32Array(8, 17)
+attack_windup = 0.6666666666666666
+attack_duration = 2.0
+skill_hand_projectiles = false
+projectile_down_angle = 14.64
+hp_bar_offset_y = -428.0

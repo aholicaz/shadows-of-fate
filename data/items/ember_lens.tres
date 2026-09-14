@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/ember_lens.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"ember_lens"
+display_name = "เลนส์อ่านเถ้า"
+description = "กระจกสีชาที่รวมตัวจากเถ้าของทะเบียน มองผ่านมันแล้วเห็นคำสั่งที่ถูกเขียนทับ"
+icon = ExtResource("i")
+type = 3
+sell_price = 1150
+buy_price = 0
+max_stack = 99

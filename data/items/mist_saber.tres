@@ -14,21 +14,23 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 85472
-sell_price = 2918
-atk = 440
-flee = 8
+sell_price = 850
 refinable = true
 refine_atk_per_level = 8
 
-bonus_agi = 11
 
-crit = 9
 
-aspd_percent = 12.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
+atk = 440
+bonus_agi = 8
+flee = 10
+crit = 12
+aspd_percent = 12.0
+crit_damage_percent = 10.0
+attack_element = 0
+drop_hint = "ผีหมอก"

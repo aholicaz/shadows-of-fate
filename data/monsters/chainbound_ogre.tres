@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="d"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/chainbound_ogre_frames.tres" id="f"]
+[sub_resource type="Resource" id="material"]
+script = ExtResource("d")
+item_id = &"command_link"
+chance = 70.0
+max_count = 1
+[sub_resource type="Resource" id="card"]
+script = ExtResource("d")
+item_id = &"card_chainbound_ogre"
+chance = 0.5
+[sub_resource type="Resource" id="potion"]
+script = ExtResource("d")
+item_id = &"white_potion"
+chance = 25.0
+[resource]
+script = ExtResource("s")
+id = &"chainbound_ogre"
+display_name = "ยักษ์แบกโซ่"
+sprite_frames = ExtResource("f")
+display_height = 365.0
+hitbox_size = Vector2(90, 100)
+align_feet = true
+level = 100
+max_hp = 52000
+atk_min = 1240
+atk_max = 1410
+def = 160
+mdef = 120
+hit = 226
+flee = 39
+element = 3
+race = 7
+size = 2
+ai_type = 1
+move_speed = 131.0
+detect_range = 500.0
+attack_range = 155.0
+leash_range = 1300.0
+jump_while_chasing = false
+hop_while_wandering = false
+attack_windup = 0.65
+attack_duration = 0.95
+attack_cooldown = 2.1
+exp_reward = 5500
+job_exp_reward = 3850
+zeny_min = 400
+zeny_max = 670
+drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion")])

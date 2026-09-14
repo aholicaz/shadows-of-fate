@@ -15,16 +15,18 @@ slot = 6
 card_slots = 1
 max_stack = 1
 buy_price = 26192
-sell_price = 1368
-def = 13
-max_hp = 120
-bonus_agi = 4
+sell_price = 260
 refinable = true
 
-aspd_percent = 5.0
 
-crit = 3
 
 damage_percent = 0.0
 
 drop_hint = "หมาป่าหนาม"
+def = 13
+bonus_agi = 4
+flee = 6
+max_hp = 70
+aspd_percent = 5.0
+move_speed_percent = 1.0
+attack_element = 0

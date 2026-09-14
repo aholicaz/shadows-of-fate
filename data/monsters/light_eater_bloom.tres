@@ -32,8 +32,6 @@ id = &"light_eater_bloom"
 display_name = "ดอกไม้กลืนแสง"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(70, 70)
-hp_bar_offset_y = -83.6
-display_height = 220.0
 level = 76
 max_hp = 14000
 atk_min = 700
@@ -80,3 +78,5 @@ skill_bolt_delay = 0.30
 
 fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(256, 480)
+display_height = 400.0
+hp_bar_offset_y = -393.0

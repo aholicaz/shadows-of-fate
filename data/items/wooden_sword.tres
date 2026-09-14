@@ -22,10 +22,9 @@ weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
 card_slots = 1
 max_stack = 1
-buy_price = 600
+buy_price = 800
 sell_price = 48
 metadata/sell_price_base_r44 = 48
-atk = 14
 refinable = true
 refine_atk_per_level = 1
 
@@ -40,3 +39,6 @@ equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
 drop_hint = "poring"
+atk = 14
+required_level = 1
+attack_element = 0

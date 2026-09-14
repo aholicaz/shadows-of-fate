@@ -18,12 +18,10 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 38432
-sell_price = 1978
-atk = 160
-bonus_str = 2
+sell_price = 400
 refinable = true
 refine_atk_per_level = 6
 
@@ -37,14 +35,16 @@ equip_hand_rotation_degrees = 62.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-bonus_agi = 8
 
-crit = 6
 
-aspd_percent = 9.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
 drop_hint = "วิญญาณนักรบเอซีร์"
+atk = 172
+bonus_str = 4
+crit = 8
+aspd_percent = 6.0
+hp_drain_percent = 0.15
+attack_element = 0

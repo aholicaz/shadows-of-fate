@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
@@ -34,6 +34,11 @@ chance = 3.0
 script = ExtResource("2_drop")
 item_id = &"card_drowned"
 chance = 0.5
+
+[sub_resource type="Resource" id="Drop_equipment_river_walker"]
+script = ExtResource("2_drop")
+item_id = &"river_walker"
+chance = 3.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -72,7 +77,7 @@ exp_reward = 939
 job_exp_reward = 657
 zeny_min = 251
 zeny_max = 465
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_drowned_0"), SubResource("Drop_drowned_1"), SubResource("Drop_drowned_2"), SubResource("Drop_drowned_3"), SubResource("Drop_drowned_4"), SubResource("Drop_drowned_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_drowned_0"), SubResource("Drop_drowned_1"), SubResource("Drop_drowned_2"), SubResource("Drop_drowned_3"), SubResource("Drop_drowned_4"), SubResource("Drop_drowned_card"), SubResource("Drop_equipment_river_walker")])
 respawn_time = 18.0
 tint = Color(0.6, 0.75, 0.85, 0.7)
 spawn_lines = PackedStringArray("สายฟ้า... ไม่ใช่มอน... สายฟ้า...", "ผู้กอง... บึงมันดูด...", "อย่าเชื่อพงศาวดาร...")

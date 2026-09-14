@@ -155,7 +155,7 @@ func _ready() -> void:
 	if map_id in [&"nidavellir_town", &"vanir_town", &"silver_marsh", &"runeblade_training"]:
 		add_child(preload("res://scripts/world/runeblade_campaign.gd").new())
 	# ★ รอบ 105 ★ เหตุการณ์พิเศษของบท 4-6 (คนแปลกหน้า · พิธี Ninth Edge · โซ่การ์ม ฯลฯ)
-	if chapter >= 4:
+	if chapter >= 4 and chapter <= 6:
 		add_child(preload("res://scripts/world/ch456_campaign.gd").new())
 
 

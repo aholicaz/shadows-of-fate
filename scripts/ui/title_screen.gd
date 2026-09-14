@@ -129,15 +129,15 @@ func _build_menu() -> void:
 	add_child(_menu)
 
 	_add_button("เริ่มเกมใหม่", _on_new_game)
-	for slot in range(SaveManager.SLOT_COUNT):
-		var b := _add_button("โหลดช่อง %d" % (slot + 1), _on_load.bind(slot))
+	for slot in range(SaveManager.SLOT_COUNT + 1):
+		var b := _add_button("โหลดอัตโนมัติ" if slot == SaveManager.AUTO_SLOT else "โหลดช่อง %d" % (slot + 1), _on_load.bind(slot))
 		var info := UITheme.make_label("", 12, UITheme.TEXT_DIM)
 		info.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(info)
 		info.position = Vector2(170, 8)
 		_slot_labels.append(info)
 	if not OS.has_feature("web"):
-		_add_button("ออกจากเกม", func(): get_tree().quit())
+		_add_button("ออกจากเกม", func(): SaveManager.quit_game())
 
 	_hint = UITheme.make_label("↑↓ เลือก · Enter ยืนยัน · แตะได้", 11, UITheme.TEXT_DIM)
 	_hint.name = "Hint"
@@ -329,7 +329,7 @@ func _on_new_game() -> void:
 func _on_load(slot: int) -> void:
 	if _busy or not SaveManager.has_save(slot):
 		return
-	await _show_loading("กำลังโหลดช่อง %d..." % (slot + 1))
+	await _show_loading("กำลังโหลดเซฟอัตโนมัติ..." if slot == SaveManager.AUTO_SLOT else "กำลังโหลดช่อง %d..." % (slot + 1))
 	if not SaveManager.load_game(slot):
 		_busy = false
 		_loading.visible = false

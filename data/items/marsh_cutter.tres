@@ -18,12 +18,10 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 26192
-sell_price = 1642
-atk = 124
-hit = 6
+sell_price = 400
 refinable = true
 refine_atk_per_level = 5
 
@@ -37,14 +35,15 @@ equip_hand_rotation_degrees = 241.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-bonus_agi = 7
 
-crit = 5
 
-aspd_percent = 8.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
-drop_hint = "ผีบึง / ราชินีหนาม"
+drop_hint = "ผีบึง, ราชินีหนาม"
+atk = 128
+bonus_agi = 4
+hit = 6
+aspd_percent = 6.0
+attack_element = 0

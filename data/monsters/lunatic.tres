@@ -267,6 +267,16 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="Resource" id="Drop_equipment_adventurer_suit"]
+script = ExtResource("2_drop")
+item_id = &"adventurer_suit"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_equipment_leather_shoes"]
+script = ExtResource("2_drop")
+item_id = &"leather_shoes"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"lunatic"
@@ -311,7 +321,7 @@ exp_reward = 66
 job_exp_reward = 46
 zeny_min = 27
 zeny_max = 51
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_lunatic_2"), SubResource("Drop_lunatic_card"), SubResource("Drop_lunatic_junk_lunatic_tail"), SubResource("Drop_lunatic_junk_chewed_carrot"), SubResource("Drop_lunatic_eq_ribbon")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_lunatic_2"), SubResource("Drop_lunatic_card"), SubResource("Drop_lunatic_junk_lunatic_tail"), SubResource("Drop_lunatic_junk_chewed_carrot"), SubResource("Drop_lunatic_eq_ribbon"), SubResource("Drop_equipment_adventurer_suit"), SubResource("Drop_equipment_leather_shoes")])
 projectile_texture = ExtResource("fx_ball")
 projectile_speed = 540.0
 projectile_height = 130.0

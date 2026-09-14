@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
@@ -7,13 +7,13 @@
 [sub_resource type="Resource" id="Drop_chained_garm_0"]
 script = ExtResource("2_drop")
 item_id = &"garm_chain_link"
-chance = 100.0
+chance = 65.0
 max_count = 2
 
 [sub_resource type="Resource" id="Drop_chained_garm_1"]
 script = ExtResource("2_drop")
 item_id = &"throne_splinter"
-chance = 40.0
+chance = 30.0
 
 [sub_resource type="Resource" id="Drop_chained_garm_2"]
 script = ExtResource("2_drop")
@@ -52,6 +52,16 @@ script = ExtResource("2_drop")
 item_id = &"card_chained_garm"
 chance = 2.0
 
+[sub_resource type="Resource" id="Socket_shard"]
+script = ExtResource("2_drop")
+item_id = &"socket_shard_3"
+chance = 100.0
+
+[sub_resource type="Resource" id="Socket_stone"]
+script = ExtResource("2_drop")
+item_id = &"socket_stone_3"
+chance = 10.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"chained_garm"
@@ -61,7 +71,7 @@ hitbox_size = Vector2(130, 140)
 hp_bar_offset_y = -414.0
 display_height = 460.0
 level = 96
-max_hp = 140000
+max_hp = 180000
 atk_min = 1300
 atk_max = 1650
 def = 140
@@ -89,7 +99,7 @@ exp_reward = 16348
 job_exp_reward = 11444
 zeny_min = 2156
 zeny_max = 4004
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_chained_garm_0"), SubResource("Drop_chained_garm_1"), SubResource("Drop_chained_garm_2"), SubResource("Drop_chained_garm_3"), SubResource("Drop_chained_garm_4"), SubResource("Drop_chained_garm_5"), SubResource("Drop_chained_garm_6"), SubResource("Drop_chained_garm_7"), SubResource("Drop_chained_garm_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_chained_garm_0"), SubResource("Drop_chained_garm_1"), SubResource("Drop_chained_garm_2"), SubResource("Drop_chained_garm_3"), SubResource("Drop_chained_garm_4"), SubResource("Drop_chained_garm_5"), SubResource("Drop_chained_garm_6"), SubResource("Drop_chained_garm_7"), SubResource("Drop_chained_garm_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
 respawn_time = 600.0
 is_boss = true
 boss_title = "สิ่งที่เฝ้าความจริง"

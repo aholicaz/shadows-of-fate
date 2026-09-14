@@ -17,6 +17,10 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 5320
+sell_price = 520
 atk = 20
-crit = 6
+bonus_str = 6
+
+percent_effects = {
+"atk_percent": 4.0
+}

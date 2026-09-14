@@ -14,6 +14,10 @@ display_name = "การ์ดหมาป่า"
 description = "สัญชาตญาณนักล่า ทำให้โจมตีหนักและแม่นขึ้น"
 type = 5
 buy_price = 0
-sell_price = 500
-atk = 15
-hit = 5
+sell_price = 80
+atk = 8
+hit = 3
+
+percent_effects = {
+"aspd_percent": 2.0
+}

@@ -263,7 +263,7 @@ npc_name = "นายหน้าเฮลกา"
 dialog = "คนบนดินสินะ ของที่นี่แพงหน่อยนะ แต่ของดีทุกชิ้น
 
 อย่าถามว่าใครตี... ที่นี่ไม่ถามกัน"
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"iron_ore", &"phracon", &"emveretarcon", &"bastard_sword", &"iron_blade", &"forge_saber", &"iron_shield", &"iron_helm", &"miner_helmet", &"chain_mail", &"scale_mail", &"iron_greaves", &"miner_boots", &"rosary", &"belt"])
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"iron_ore", &"phracon", &"emveretarcon", &"bastard_sword", &"iron_blade", &"iron_shield", &"iron_helm", &"miner_helmet", &"chain_mail", &"scale_mail", &"iron_greaves", &"miner_boots", &"rosary", &"belt"])
 voice_id = "helga"
 quest_ids = Array[StringName]([&"c2_1_unwelcome_gate", &"c2_2_toll"])
 

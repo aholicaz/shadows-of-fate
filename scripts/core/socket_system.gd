@@ -23,14 +23,14 @@ const TIERS := [
 		"min_level": 1, "max_level": 30,
 		"ore": &"phracon", "ore_count": 10,
 		"zeny": 15000, "rate": 70.0,
-		"need_duplicate": true, "destroy_on_fail": true,
+		"need_duplicate": true, "destroy_on_fail": false,
 	},
 	{
-		"name": "ของเลเวล 40-70",
-		"min_level": 40, "max_level": 70,
+		"name": "ของเลเวล 31 ขึ้นไป",
+		"min_level": 31, "max_level": 999,
 		"ore": &"emveretarcon", "ore_count": 10,
 		"zeny": 50000, "rate": 60.0,
-		"need_duplicate": false, "destroy_on_fail": true,
+		"need_duplicate": false, "destroy_on_fail": false,
 	},
 ]
 
@@ -104,7 +104,7 @@ static func find_duplicate(inst: ItemInstance, inventory: Inventory) -> int:
 			continue
 		if other.item_id != inst.item_id:
 			continue
-		if other.slots > 0 or not other.cards.is_empty():
+		if other.slots > 0 or not other.cards.is_empty() or other.socket_locked or other.socket_failures > 0:
 			continue
 		if other.refine < best_refine:
 			best_refine = other.refine

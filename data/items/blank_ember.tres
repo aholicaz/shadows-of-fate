@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/blank_ember.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"blank_ember"
+display_name = "ถ่านไร้อักษร"
+description = "ถ่านชิ้นแรกที่ไฟเผาคำสั่งออกหมดโดยไม่ทำลายเนื้อเหล็ก บรินยาใช้พิสูจน์ว่าการปลดพันธะเป็นไปได้"
+icon = ExtResource("i")
+type = 3
+sell_price = 0
+buy_price = 0
+max_stack = 99

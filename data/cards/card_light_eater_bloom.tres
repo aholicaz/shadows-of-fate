@@ -17,8 +17,9 @@ type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
-sell_price = 5560
-max_sp = 100
+sell_price = 300
+max_sp = 80
+
 percent_effects = {
-"sp_drain_percent": 1.0
+"sp_drain_percent": 0.3
 }

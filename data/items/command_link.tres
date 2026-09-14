@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/command_link.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"command_link"
+display_name = "ข้อโซ่คำสั่ง"
+description = "ข้อโซ่ประทับตราค้อนซึ่งรัดแน่นทุกครั้งที่ผู้แบกพยายามหยุดพัก อักษรบนโซ่ไม่ใช่ชื่อของเขา"
+icon = ExtResource("i")
+type = 3
+sell_price = 880
+buy_price = 0
+max_stack = 99

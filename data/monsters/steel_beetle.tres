@@ -34,6 +34,16 @@ script = ExtResource("2_drop")
 item_id = &"iron_blade"
 chance = 4.0
 
+[sub_resource type="Resource" id="Drop_equipment_iron_greaves"]
+script = ExtResource("2_drop")
+item_id = &"iron_greaves"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_equipment_necklace"]
+script = ExtResource("2_drop")
+item_id = &"necklace"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"steel_beetle"
@@ -76,7 +86,7 @@ exp_reward = 192
 job_exp_reward = 134
 zeny_min = 80
 zeny_max = 148
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_steel_beetle_0"), SubResource("Drop_steel_beetle_1"), SubResource("Drop_steel_beetle_2"), SubResource("Drop_steel_beetle_3"), SubResource("Resource_4lp3a"), SubResource("Balance_iron_blade")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_steel_beetle_0"), SubResource("Drop_steel_beetle_1"), SubResource("Drop_steel_beetle_2"), SubResource("Drop_steel_beetle_3"), SubResource("Resource_4lp3a"), SubResource("Balance_iron_blade"), SubResource("Drop_equipment_iron_greaves"), SubResource("Drop_equipment_necklace")])
 respawn_time = 15.0
 spawn_lines = null
 death_lines = null

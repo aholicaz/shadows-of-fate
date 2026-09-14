@@ -16,11 +16,13 @@ metadata/price_base_r47_buy = 7500
 slot = 2
 card_slots = 1
 max_stack = 1
-buy_price = 5600
-sell_price = 640
+buy_price = 7600
+sell_price = 80
 metadata/sell_price_base_r44 = 3000
-def = 22
-max_hp = 60
 refinable = true
 
 drop_hint = "ด้วงเหล็ก"
+def = 22
+bonus_vit = 2
+max_hp = 40
+attack_element = 0

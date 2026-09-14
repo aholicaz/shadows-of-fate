@@ -18,12 +18,10 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
-buy_price = 20000
-sell_price = 1440
-atk = 108
-flee = 4
+buy_price = 40000
+sell_price = 400
 refinable = true
 refine_atk_per_level = 5
 
@@ -37,12 +35,14 @@ equip_hand_rotation_degrees = 243.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-skill_damage_percent = 12.0
 
-bonus_str = 7
 
-max_sp = 44
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
+atk = 116
+bonus_str = 4
+bonus_vit = 2
+skill_damage_percent = 9.0
+attack_element = 0
+drop_hint = "ต้นไม้เหี่ยว"

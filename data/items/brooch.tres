@@ -17,15 +17,15 @@ slot = 7
 card_slots = 0
 max_stack = 1
 buy_price = 2528
-sell_price = 416
+sell_price = 80
 metadata/sell_price_base_r44 = 3800
-flee = 3
-bonus_agi = 3
 
-aspd_percent = 4.0
 
-crit = 2
 
 damage_percent = 0.0
 
-drop_hint = "ฮอร์เน็ต / หมาป่า"
+drop_hint = "ฮอร์เน็ต, หมาป่า"
+bonus_agi = 2
+flee = 3
+aspd_percent = 3.0
+attack_element = 0

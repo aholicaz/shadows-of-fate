@@ -41,8 +41,6 @@ id = &"reflection"
 display_name = "เงาสะท้อน"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(44, 60)
-hp_bar_offset_y = -76.0
-display_height = 200.0
 level = 79
 max_hp = 20000
 atk_min = 760
@@ -79,3 +77,5 @@ spawn_lines = PackedStringArray("...", "เจ้าคือข้า", "มอ
 
 fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(256, 480)
+display_height = 390.0
+hp_bar_offset_y = -388.0

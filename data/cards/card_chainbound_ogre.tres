@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_chainbound_ogre.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"card_chainbound_ogre"
+display_name = "การ์ดยักษ์แบกโซ่"
+description = "ข้อโซ่ประทับตราค้อนซึ่งรัดแน่นทุกครั้งที่ผู้แบกพยายามหยุดพัก อักษรบนโซ่ไม่ใช่ชื่อของเขา"
+monster_id = &"chainbound_ogre"
+monster_level = 100
+fits_slot = 2
+rarity = 5
+icon = ExtResource("i")
+type = 5
+max_stack = 99
+sell_price = 400
+bonus_vit = 6
+def = 23

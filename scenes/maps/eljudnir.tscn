@@ -181,7 +181,7 @@ npc_name = "พ่อค้าไร้ชื่อ"
 type = 1
 dialog = "รับ «ชื่อที่ทิ้งไว้» เป็นเงินอีกสกุล — ผู้ข้ามฝั่งทิ้งไว้ที่สะพานเยอะ เอามาขายข้าได้\n\nข้าเคยมีชื่อ... ทิ้งไว้ที่สะพานเหมือนกัน แล้วไม่เคยกลับไปเอา"
 modulate = Color(1, 1, 1, 0.70)
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"mist_saber", &"ferryman_oar_blade", &"bone_greatsword", &"drowned_crown", &"bone_armor", &"mist_shroud", &"river_walker", &"prism_blade", &"stag_horn_saber", &"crystal_shield", &"ljosalf_circlet", &"crystal_cloak", &"silent_step"])
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"ferryman_oar_blade", &"drowned_crown", &"bone_armor", &"prism_blade", &"ljosalf_circlet", &"crystal_cloak"])
 greeting = "ข้าไม่มีชื่อ ร้านข้าไม่มีชื่อ แต่ของมีราคา"
 voice_id = "nameless"
 

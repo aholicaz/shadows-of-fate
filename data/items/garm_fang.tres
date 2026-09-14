@@ -14,22 +14,24 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 111392
-sell_price = 3322
-atk = 640
-crit = 10
-bonus_str = 4
+sell_price = 1250
 refinable = true
 refine_atk_per_level = 9
 
-bonus_agi = 12
 
-aspd_percent = 14.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
 drop_hint = "การ์ม ผู้ถูกล่าม"
+atk = 560
+bonus_str = 4
+bonus_agi = 9
+crit = 14
+aspd_percent = 13.0
+crit_damage_percent = 12.0
+hp_drain_percent = 0.25
+attack_element = 0

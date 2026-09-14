@@ -14,23 +14,24 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 44000
-sell_price = 2112
-atk = 205
-flee = 5
+sell_price = 650
 refinable = true
 refine_atk_per_level = 6
 
-bonus_agi = 9
 
-crit = 7
 
-aspd_percent = 10.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
 drop_hint = "หมาป่าน้ำแข็ง"
+atk = 210
+bonus_agi = 7
+flee = 5
+crit = 10
+aspd_percent = 10.0
+crit_damage_percent = 10.0
+attack_element = 0

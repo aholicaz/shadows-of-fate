@@ -15,10 +15,12 @@ slot = 2
 card_slots = 1
 max_stack = 1
 buy_price = 106832
-sell_price = 2712
-def = 80
-mdef = 16
-max_hp = 300
+sell_price = 650
 refinable = true
 
-drop_hint = "ผู้พิพากษาผู้ตาย / ผู้เฝ้านาม"
+drop_hint = "ผู้พิพากษาผู้ตาย, ผู้เฝ้านาม"
+def = 80
+bonus_vit = 6
+mdef = 18
+max_hp = 180
+attack_element = 0

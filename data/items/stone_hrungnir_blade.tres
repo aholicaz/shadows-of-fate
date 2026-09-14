@@ -14,22 +14,20 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 63008
-sell_price = 2515
-atk = 300
-crit = 5
-bonus_str = 9
+sell_price = 1062
 refinable = true
 refine_atk_per_level = 7
 
-skill_damage_percent = 20.0
 
-max_sp = 60
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
 
 drop_hint = "หรุงนีร์ศิลา"
+atk = 335
+bonus_str = 8
+skill_damage_percent = 18.0
+attack_element = 4

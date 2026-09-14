@@ -15,21 +15,21 @@ slot = 6
 card_slots = 1
 max_stack = 1
 buy_price = 3500
-sell_price = 500
+sell_price = 100
 metadata/sell_price_base_r44 = 2600
-def = 9
-max_hp = 90
 refinable = true
 max_refine = 10
 refine_atk_per_level = 3
 refine_def_per_level = 1
 
-bonus_agi = 3
 
-aspd_percent = 4.0
 
-crit = 2
 
 damage_percent = 0.0
 
 drop_hint = "อสูรสายฟ้า"
+def = 9
+bonus_agi = 2
+max_hp = 50
+aspd_percent = 3.0
+attack_element = 0

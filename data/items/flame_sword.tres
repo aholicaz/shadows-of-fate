@@ -18,13 +18,11 @@ metadata/price_base_r47_buy = 45000
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_FlameSword"
-card_slots = 3
+card_slots = 2
 max_stack = 1
 buy_price = 30800
-sell_price = 1776
+sell_price = 500
 metadata/sell_price_base_r44 = 18000
-atk = 105
-bonus_str = 8
 refinable = true
 refine_atk_per_level = 5
 
@@ -40,14 +38,15 @@ equip_hand_rotation_degrees = 62.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-skill_damage_percent = 16.0
 
-max_sp = 52
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
 
 attack_element = 1
 
 drop_hint = "บาฟโฟเมท"
+atk = 156
+bonus_str = 5
+skill_damage_percent = 12.0
+max_sp = 30

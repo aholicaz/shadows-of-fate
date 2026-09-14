@@ -16,10 +16,12 @@ metadata/price_base_r47_buy = 15000
 slot = 7
 card_slots = 0
 max_stack = 1
-buy_price = 5600
-sell_price = 640
+buy_price = 7600
+sell_price = 80
 metadata/sell_price_base_r44 = 6000
-mdef = 5
-bonus_luk = 2
 
 drop_hint = "มูนัค"
+mdef = 6
+bonus_luk = 2
+max_hp = 30
+attack_element = 0

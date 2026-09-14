@@ -18,12 +18,10 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 33248
-sell_price = 1843
-atk = 142
-def = 5
+sell_price = 400
 refinable = true
 refine_atk_per_level = 5
 
@@ -37,14 +35,15 @@ equip_hand_rotation_degrees = 64.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-skill_damage_percent = 14.0
 
-bonus_str = 7
 
-max_sp = 48
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
 
 drop_hint = "ผู้พิทักษ์วานีร์"
+atk = 156
+bonus_str = 5
+def = 6
+skill_damage_percent = 12.0
+attack_element = 0

@@ -17,17 +17,17 @@ slot = 7
 card_slots = 1
 max_stack = 1
 buy_price = 11600
-sell_price = 920
+sell_price = 200
 metadata/sell_price_base_r44 = 3800
-flee = 3
-bonus_agi = 4
 
-aspd_percent = 5.0
 
-crit = 4
 
 damage_percent = 0.0
 
-crit_damage_percent = 10.0
 
 drop_hint = "อสูรสายฟ้า"
+bonus_agi = 3
+aspd_percent = 4.0
+crit = 5
+crit_damage_percent = 6.0
+attack_element = 0

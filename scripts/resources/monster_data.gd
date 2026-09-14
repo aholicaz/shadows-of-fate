@@ -322,6 +322,12 @@ enum AIType {
 @export var projectile_hand_positions: Dictionary[int, Vector2] = {}
 ## Native animated flame, hand flash, and impact sparks; off for other monsters.
 @export var projectile_fire_effect: bool = false
+## Palette for the source monster's elemental orb.
+@export var projectile_orb_color: Color = Color(1.0, 0.37, 0.025)
+@export var projectile_orb_style: bool = false
+## Fixed downward launch angle, independent of player position (zero = horizontal).
+@export_range(0.0, 45.0) var projectile_down_angle: float = 0.0
+@export var skill_hand_projectiles: bool = false
 @export var projectile_aim_at_player: bool = false
 
 @export_group("สกิล — บอลโค้งตกพื้นระเบิด (รอบ 36)")
@@ -536,4 +542,19 @@ func roll_drops() -> Array[ItemInstance]:
 		var inst := entry.roll()
 		if inst != null:
 			result.append(inst)
+	# Keep the chapter-six quest deterministic without guaranteeing farm loot.
+	# Require an actual ash drop entry so reward-disabled summons stay rewardless.
+	if id == &"gullveig_ember" and PlayerState.quests != null and PlayerState.inventory != null \
+			and PlayerState.quests.is_active(&"c6_2_fourth_burning") \
+			and PlayerState.inventory.count_of(&"gullveig_ash") == 0:
+		var has_ash_entry := false
+		for entry in drops:
+			if entry != null and entry.item_id == &"gullveig_ash":
+				has_ash_entry = true
+		var rolled_ash := false
+		for inst in result:
+			if inst.item_id == &"gullveig_ash":
+				rolled_ash = true
+		if has_ash_entry and not rolled_ash:
+			result.append(ItemInstance.create_drop(&"gullveig_ash", 1))
 	return result

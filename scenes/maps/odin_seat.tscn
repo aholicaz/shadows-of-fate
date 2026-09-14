@@ -78,12 +78,15 @@ destination_name = "ประตูของการ์ม"
 
 [node name="ToChapter7" parent="Portals" instance=ExtResource("portal")]
 position = Vector2(2340, 880)
-target_map = &"eljudnir"
-target_spawn_point = &"from_seat"
-label_text = "→ มุสเปลเฮม (บท 7 — ยังไม่เปิด)"
-destination_name = "มุสเปลเฮม"
-required_flag = &"chapter7_open"
-locked_text = "ประตูไฟทางเหนือยังปิดอยู่ ร้อนจนแตะไม่ได้... บทที่ 7 ยังไม่เปิด (กลับเอลยุดเนียร์ทางซ้าย)"
+target_map = &"cinder_crossing"
+target_spawn_point = &"from_left"
+label_text = "→ มุสเปลเฮม — บท 7"
+destination_name = "ทางข้ามเถ้า"
+required_flag = &"chapter6_done"
+locked_text = "ฟังเรื่องราวที่บัลลังก์ว่างให้จบก่อนเดินทางสู่มุสเปลเฮม"
+
+[node name="from_chapter7" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(2150, 820)
 
 
 [node name="NPCs" type="Node2D" parent="."]

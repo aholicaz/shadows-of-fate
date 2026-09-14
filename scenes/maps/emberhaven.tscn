@@ -1,0 +1,186 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="base"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="parallax"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="md"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/chapter7_monster.tscn" id="monster"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="idle"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="shadow"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/emberhaven_depth.png" id="depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/emberhaven_0.png" id="road0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/emberhaven_1.png" id="road1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/emberhaven_2.png" id="road2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/emberhaven_3.png" id="road3"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/emberhaven_4.png" id="road4"]
+[ext_resource type="Script" path="res://scripts/world/chapter7_npc.gd" id="c7npc"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/brynja.png" id="npc_brynja"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/svala.png" id="npc_svala"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/orm.png" id="npc_orm"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/liv.png" id="npc_liv"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/waystone.png" id="waystone"]
+
+[sub_resource type="RectangleShape2D" id="floor"]
+size = Vector2(8600, 240)
+[node name="Map" type="Node2D"]
+script = ExtResource("base")
+map_id = &"emberhaven"
+display_name = "อัมเบอร์เฮเวน นครใต้เถ้า"
+chapter = 7
+region = "มุสเปลเฮม"
+map_bounds = Rect2(0, 0, 6200, 1200)
+player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+enter_flag = &"visited_map_emberhaven"
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("parallax")
+anchor_x = 3100.0
+depth_speed = 0.18
+atmosphere = Color(0.95, 0.63, 0.29, 0.32)
+rising = true
+mote_amount = 24
+mist_strength = 0.025
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+texture = ExtResource("depth")
+region_enabled = true
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200, -300)
+centered = false
+texture = ExtResource("road0")
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800, -300)
+centered = false
+texture = ExtResource("road1")
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800, -300)
+centered = false
+texture = ExtResource("road2")
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800, -300)
+centered = false
+texture = ExtResource("road3")
+[node name="OrganicRoad4" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(6800, -300)
+centered = false
+texture = ExtResource("road4")
+[node name="Terrain" type="Node2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(3100.0, 1000)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("floor")
+[node name="SpawnPoints" type="Node2D" parent="."]
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(280, 820)
+[node name="from_left" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(280, 820)
+[node name="from_right" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5920, 820)
+[node name="Portals" type="Node2D" parent="."]
+[node name="ToLeft" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(100, 880)
+target_map = &"cinder_crossing"
+target_spawn_point = &"from_right"
+label_text = "← ทางข้ามเถ้า"
+destination_name = "ทางข้ามเถ้า"
+[node name="ToRight" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(6100, 880)
+target_map = &"chain_quarry"
+target_spawn_point = &"from_left"
+label_text = "→ เหมืองโซ่คำสั่ง"
+destination_name = "เหมืองโซ่คำสั่ง"
+required_flag = &""
+[node name="NPCs" type="Node2D" parent="."]
+[node name="brynja" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(1000, 825)
+script = ExtResource("c7npc")
+npc_name = "บรินยา ช่างปลดพันธะ"
+type = 0
+dialog = "เราจะเก็บชื่อทุกชื่อไว้ และเผาเฉพาะคำสั่งที่ผูกมัน"
+quest_ids = Array[StringName]([&"c7_3_chains", &"c7_4_ninth_edge", &"c7_5_chosen_cut", &"c7_7_warden"])
+has_refine = true
+has_socket = true
+hide_if_flag = &"c7_step_3"
+[node name="Sprite2D" parent="NPCs/brynja" index="0"]
+script = ExtResource("idle")
+texture_filter = 2
+centered = false
+position = Vector2(-70.21875, -317.25)
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("npc_brynja")
+[node name="FootShadow" type="Sprite2D" parent="NPCs/brynja"]
+script = ExtResource("shadow")
+[node name="svala" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(2700, 825)
+script = ExtResource("c7npc")
+npc_name = "สวาลา ผู้เก็บชื่อ"
+type = 0
+dialog = "เราจะเก็บชื่อทุกชื่อไว้ และเผาเฉพาะคำสั่งที่ผูกมัน"
+quest_ids = Array[StringName]([&"c7_1_refuge", &"c7_6_procession", &"c7_8_hundred"])
+ninth_mentor = true
+[node name="Sprite2D" parent="NPCs/svala" index="0"]
+script = ExtResource("idle")
+texture_filter = 2
+centered = false
+position = Vector2(-73.7375, -309.09999999999997)
+scale = Vector2(0.425, 0.425)
+texture = ExtResource("npc_svala")
+[node name="FootShadow" type="Sprite2D" parent="NPCs/svala"]
+script = ExtResource("shadow")
+[node name="orm" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3830, 825)
+script = ExtResource("c7npc")
+npc_name = "ออร์ม พ่อค้าผู้ลี้ภัย"
+type = 1
+dialog = "พักให้พร้อมก่อนออกเดินทาง ในเมืองนี้ไม่มีใครถูกสั่งให้ลืมชื่อตัวเอง"
+quest_ids = Array[StringName]([])
+shop_items = Array[StringName]([&"white_potion", &"blue_potion", &"wing_of_valkyrie", &"cinderward_coat", &"oathstep_boots"])
+[node name="Sprite2D" parent="NPCs/orm" index="0"]
+script = ExtResource("idle")
+texture_filter = 2
+centered = false
+position = Vector2(-104.87109375, -322.34375)
+scale = Vector2(0.4453125, 0.4453125)
+texture = ExtResource("npc_orm")
+[node name="FootShadow" type="Sprite2D" parent="NPCs/orm"]
+script = ExtResource("shadow")
+[node name="liv" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(5110, 825)
+script = ExtResource("c7npc")
+npc_name = "ลีฟ ผู้รักษาแผลไฟ"
+type = 3
+dialog = "พักให้พร้อมก่อนออกเดินทาง ในเมืองนี้ไม่มีใครถูกสั่งให้ลืมชื่อตัวเอง"
+quest_ids = Array[StringName]([&"c7_2_warmth"])
+heal_price = 1500
+[node name="Sprite2D" parent="NPCs/liv" index="0"]
+script = ExtResource("idle")
+texture_filter = 2
+centered = false
+position = Vector2(-57.140625, -301.96875)
+scale = Vector2(0.4140625, 0.4140625)
+texture = ExtResource("npc_liv")
+[node name="FootShadow" type="Sprite2D" parent="NPCs/liv"]
+script = ExtResource("shadow")
+[node name="Waystone" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(3350, 825)
+npc_name = "ศิลาพักนาม"
+type = 4
+dialog = "พักชื่อไว้กับเมืองนี้ แล้วเลือกเส้นทางที่เจ้าอยากไป"
+warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"ljosalf_city", &"eljudnir"])
+[node name="Sprite2D" parent="NPCs/Waystone" index="0"]
+centered = false
+position = Vector2(-71.328125, -256.125)
+scale = Vector2(0.34375,0.34375)
+texture = ExtResource("waystone")

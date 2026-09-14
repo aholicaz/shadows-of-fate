@@ -11,7 +11,7 @@ description = "พรจากนักบวชสูงสุด สายฟ�
 ความเร็วโจมตี +10% นาน 3 นาที"
 icon = ExtResource("2_icon")
 type = 0
-buy_price = 1500
+buy_price = 3000
 sell_price = 300
 buff_values = {
 "aspd_percent": 10.0

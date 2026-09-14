@@ -97,12 +97,12 @@ def backup(path):
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copy2(path,target)
 
-def install(mid, anims):
+def install(mid, anims, replace_existing=False):
     framepath=ROOT/f'data/sprites/monsters/{mid}_frames.tres'
     datapath=ROOT/f'data/monsters/{mid}.tres'
     oldframes=framepath.read_text(encoding='utf-8')
     data=datapath.read_text(encoding='utf-8')
-    if mid!='war_wraith' and not (WORK/'before'/framepath.relative_to(ROOT)).exists():
+    if not replace_existing and mid!='war_wraith' and not (WORK/'before'/framepath.relative_to(ROOT)).exists():
         textures=re.findall(r'path="(res://[^\"]+\.png)"',oldframes)
         assert textures and all('/placeholder/' in t for t in textures), f'{mid} already has real sprites'
     sources={c['source'] for c in anims.values()}

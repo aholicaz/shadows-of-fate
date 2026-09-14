@@ -15,10 +15,12 @@ metadata/price_base_r47_buy = 400
 slot = 2
 card_slots = 1
 max_stack = 1
-buy_price = 812
-sell_price = 108
+buy_price = 1100
+sell_price = 80
 metadata/sell_price_base_r44 = 160
-def = 8
 refinable = true
 
 drop_hint = "หมาป่า"
+def = 8
+required_level = 1
+attack_element = 0

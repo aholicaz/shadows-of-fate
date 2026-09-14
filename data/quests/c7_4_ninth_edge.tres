@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="o0"]
+script = ExtResource("o")
+kind = 0
+target = &"kiln_sentinel"
+count = 1
+text = "ผ่านการทดสอบผู้เฝ้าทั่งว่าง"
+[sub_resource type="Resource" id="o1"]
+script = ExtResource("o")
+kind = 4
+target = &"c7_unwritten_anvil"
+count = 1
+text = "อ่านทั่งไร้คำสั่งหลังล้มผู้เฝ้า"
+
+[resource]
+script = ExtResource("s")
+id = &"c7_4_ninth_edge"
+title = "C7-4 คมที่เลือกเอง"
+description = "มาพบข้าที่เตาหลอมไร้คำสั่ง ผ่านผู้เฝ้าทั่งแล้ววางดาบลง ไฟจะเผาคำสั่ง แต่เจ้าต้องเป็นคนตัดพันธะด้วยตัวเอง ต้องเป็น Runeblade ก่อนทำพิธี"
+giver_name = "บรินยา ช่างปลดพันธะ"
+dialog_offer = "มาพบข้าที่เตาหลอมไร้คำสั่ง ผ่านผู้เฝ้าทั่งแล้ววางดาบลง ไฟจะเผาคำสั่ง แต่เจ้าต้องเป็นคนตัดพันธะด้วยตัวเอง ต้องเป็น Runeblade ก่อนทำพิธี"
+dialog_progress = "ผ่านการทดสอบผู้เฝ้าทั่งว่าง · อ่านทั่งไร้คำสั่งหลังล้มผู้เฝ้า"
+dialog_complete = "ชื่อของเจ้าไม่ใช่สิ่งที่ผู้ถือค้อนมอบให้ จงถือคมที่เก้าด้วยการเลือกของตน — Ninth Edge เพดานเก่าไม่ผูกการเติบโตของเจ้าอีกต่อไป"
+required_level = 96
+required_flag = &"chapter6_done"
+required_quests = Array[StringName]([&"c7_3_chains"])
+objectives = Array[ExtResource("o")]([SubResource("o0"), SubResource("o1")])
+set_flag_on_complete = &"chapter7_ninth_awakened"
+reward_exp = 800000
+reward_job_exp = 280000
+reward_zeny = 105000
+reward_item_id = &"unbound_blade"
+required_job = &"runeblade"
+reward_job = &"ninth_edge"
+reward_job_map = &"unwritten_forge"

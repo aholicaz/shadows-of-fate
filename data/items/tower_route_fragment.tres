@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/tower_route_fragment.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"tower_route_fragment"
+display_name = "ผังส่งนามขึ้นหอ"
+description = "บันทึกจากเบ้าหลอม ระบุเส้นทางส่งผู้คนไปยังหอ 100 ชั้น บท 8 จะเริ่มจากรอยเส้นนี้"
+icon = ExtResource("i")
+type = 4
+sell_price = 0
+buy_price = 0
+max_stack = 1

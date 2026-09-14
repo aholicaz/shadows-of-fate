@@ -89,7 +89,7 @@ var _capacity_label: Label
 var _zeny_label: Label
 ## ซ้าย: ตัวละคร
 var _hero_name: Label
-var _preview: TextureRect
+var _preview: Control
 var _equip_buttons: Dictionary = {}   # EquipSlot -> DragSlot
 var _equip_icons: Dictionary = {}     # EquipSlot -> TextureRect
 var _equip_glyphs: Dictionary = {}    # EquipSlot -> Control
@@ -199,9 +199,7 @@ func _build_left() -> Control:
 		return String(data.get("kind", "")) == "inventory"
 	mid.drop_func = func(data: Dictionary, _t: DragSlot) -> bool:
 		return _equip_from(int(data.get("slot", -1)), -1)
-	_preview = TextureRect.new()
-	_preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_preview = preload("res://scripts/ui/equipment_character_preview.gd").new()
 	_preview.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_preview.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -881,8 +879,7 @@ func _refresh_left() -> void:
 			if btn.has_meta("armed") and btn.get_meta("armed") != inst:
 				btn.remove_meta("armed")
 	if _preview != null:
-		var tex := _player_frame()
-		_preview.texture = tex
+		_preview.refresh()
 	_refresh_stats()
 
 
@@ -898,38 +895,6 @@ func _refresh_stats() -> void:
 	_stat_values["crit"].text = "%.1f%%" % st.crit
 
 
-## ภาพท่ายืนของตัวละครจากตัวจริงในฉาก (เหมือนหน้าสวมใส่)
-func _player_frame() -> Texture2D:
-	var p := get_tree().get_first_node_in_group("player")
-	if p == null:
-		return null
-	var spr = p.get("sprite")
-	if not (spr is AnimatedSprite2D):
-		return null
-	var frames: SpriteFrames = spr.sprite_frames
-	if frames == null:
-		return null
-	var faces_left = p.get("sprite_faces_left")
-	if faces_left != null:
-		_preview.flip_h = bool(faces_left)
-	var wanted: Array[String] = []
-	if p.has_method("weapon_suffix"):
-		var suffix: String = p.weapon_suffix()
-		if suffix != "":
-			wanted.append("Idle_" + suffix)
-	wanted.append("Idle")
-	for want in wanted:
-		var real := want
-		if p.has_method("_real_anim"):
-			real = p._real_anim(want)
-		elif not frames.has_animation(want):
-			real = ""
-		if real != "" and frames.get_frame_count(real) > 0:
-			return frames.get_frame_texture(real, 0)
-	return null
-
-
-# ---------------------------------------------------------
 func _refresh_detail() -> void:
 	var inv := PlayerState.inventory
 	var sel := inv.get_slot(_selected) if _selected >= 0 else null
@@ -981,11 +946,9 @@ func _refresh_detail() -> void:
 		note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		_detail_stats.add_child(note)
 	if sel.card_slots() > 0:
-		_detail_stats.add_child(_label("ช่องการ์ด %d/%d" % [sel.cards.size(), sel.card_slots()], 12, C_TEXT_DIM))
-		for card in sel.card_list():
-			var cl := _label("◆ %s — %s" % [card.display_name, card.describe().replace("\n", ", ")], 11, UITheme.RARITY_EPIC)
-			cl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-			_detail_stats.add_child(cl)
+		var cards_panel := preload("res://scripts/ui/socket_cards_panel.gd").new()
+		_detail_stats.add_child(cards_panel)
+		cards_panel.set_item(sel)
 	if d.sell_price > 0:
 		_detail_stats.add_child(PetrolWidgets.stat_row("coin", "ราคาขาย", HUD._comma(d.sell_price), C_ZENY_TEXT, 12))
 
@@ -1013,12 +976,12 @@ func _stat_lines(inst: ItemInstance, equipped: ItemInstance) -> Array:
 	var add := func(glyph: String, label: String, mine: float, theirs: float, fmt: String, is_pct: bool = false):
 		if mine == 0.0 and (equipped == null or theirs == 0.0):
 			return
-		var text: String = fmt % mine
+		var text: String = CardData.percent_text(mine, true) if is_pct else fmt % mine
 		var color: Color = C_TEXT
 		if equipped != null:
 			var diff := mine - theirs
 			if absf(diff) > 0.001:
-				text += "  (%s%s)" % ["+" if diff > 0 else "", (("%.1f%%" % diff) if is_pct else str(int(diff)))]
+				text += "  (%s)" % (CardData.percent_text(diff, true) if is_pct else ("+" if diff > 0 else "") + str(int(diff)))
 				color = UITheme.GOOD if diff > 0 else UITheme.BAD
 		out.append([glyph, label, text, color])
 	var eatk: float = float(equipped.total_atk()) if equipped != null else 0.0
@@ -1028,18 +991,22 @@ func _stat_lines(inst: ItemInstance, equipped: ItemInstance) -> Array:
 		add.call("attack", "โจมตี", float(inst.total_atk()), eatk, "%d")
 	if inst.total_def() != 0 or edef != 0.0:
 		add.call("defense", "ป้องกัน", float(inst.total_def()), edef, "%d")
-	add.call("attack", "MATK", float(d.matk), float(ed.matk) if ed else 0.0, "%d")
-	add.call("defense", "MDEF", float(d.mdef), float(ed.mdef) if ed else 0.0, "%d")
-	add.call("crit", "HIT", float(d.hit), float(ed.hit) if ed else 0.0, "%d")
-	add.call("speed", "FLEE", float(d.flee), float(ed.flee) if ed else 0.0, "%d")
-	add.call("crit", "อัตราคริ", float(d.crit), float(ed.crit) if ed else 0.0, "+%d")
-	add.call("hp", "MaxHP", float(d.max_hp), float(ed.max_hp) if ed else 0.0, "+%d")
-	add.call("sp", "MaxSP", float(d.max_sp), float(ed.max_sp) if ed else 0.0, "+%d")
+	for row in [["matk", "attack", "MATK"], ["mdef", "defense", "MDEF"], ["hit", "crit", "HIT"],
+			["flee", "speed", "FLEE"], ["crit", "crit", "อัตราคริ"], ["max_hp", "hp", "MaxHP"], ["max_sp", "sp", "MaxSP"]]:
+		add.call(String(row[1]), String(row[2]), float(inst.boosted(float(d.get(row[0])))),
+			float(equipped.boosted(float(ed.get(row[0])))) if ed else 0.0, "+%d")
 	add.call("speed", "ASPD", d.aspd_percent, ed.aspd_percent if ed else 0.0, "+%.0f%%", true)
 	add.call("speed", "ความเร็ว", d.move_speed_percent if "move_speed_percent" in d else 0.0,
 		(ed.move_speed_percent if ed != null and "move_speed_percent" in ed else 0.0), "+%.1f%%", true)
+	for pair in [["skill_damage_percent", "ดาเมจสกิล"], ["crit_damage_percent", "ดาเมจคริ"],
+			["cooldown_reduction_percent", "ลดคูลดาวน์"], ["hp_drain_percent", "ดูดเลือด"],
+			["sp_drain_percent", "ดูดมานา"], ["hp_percent", "MaxHP"],
+			["sp_percent", "MaxSP"], ["defense_percent", "ป้องกัน"], ["damage_percent", "ดาเมจ"]]:
+		add.call("crit", String(pair[1]), float(d.get(pair[0])),
+			float(ed.get(pair[0])) if ed else 0.0, "+%.2f%%", true)
 	for pair in [["bonus_str", "STR"], ["bonus_agi", "AGI"], ["bonus_vit", "VIT"], ["bonus_int", "INT"], ["bonus_dex", "DEX"], ["bonus_luk", "LUK"]]:
-		add.call("crit", String(pair[1]), float(d.get(pair[0])), float(ed.get(pair[0])) if ed else 0.0, "+%d")
+		add.call("crit", String(pair[1]), float(inst.boosted(float(d.get(pair[0])))),
+			float(equipped.boosted(float(ed.get(pair[0])))) if ed else 0.0, "+%d")
 	if d.heal_hp != 0 or d.heal_hp_percent != 0.0:
 		out.append(["hp", "ฟื้น HP", "%d (+%.0f%%)" % [d.heal_hp, d.heal_hp_percent], UITheme.GOOD])
 	if d.heal_sp != 0 or d.heal_sp_percent != 0.0:

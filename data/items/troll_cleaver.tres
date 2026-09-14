@@ -14,21 +14,21 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 49952
-sell_price = 2246
-atk = 230
-bonus_str = 8
+sell_price = 650
 refinable = true
 refine_atk_per_level = 6
 
-skill_damage_percent = 18.0
 
-max_sp = 56
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
 
 drop_hint = "โทรลล์น้ำแข็ง"
+atk = 250
+bonus_str = 8
+aspd_percent = -4.0
+skill_damage_percent = 16.0
+attack_element = 0

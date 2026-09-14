@@ -14,22 +14,21 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 98000
-sell_price = 3120
-atk = 520
-bonus_str = 10
-aspd_percent = -4.0
+sell_price = 1000
 refinable = true
 refine_atk_per_level = 8
 
-skill_damage_percent = 24.0
 
-max_sp = 68
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
 
 drop_hint = "ผู้เฝ้านาม"
+atk = 560
+bonus_str = 9
+aspd_percent = -5.0
+skill_damage_percent = 22.0
+attack_element = 0

@@ -4,12 +4,12 @@
 [resource]
 script = ExtResource("s")
 id = &"wallbreaker_stance"
-display_name = "ท่ายืนทลายกำแพง"
-description = "ดาเมจต่อมอนที่ DEF ≥ 100 เพิ่ม 15.4–25% ตามระดับสกิล"
+display_name = "อ่านรอยพันธะ"
+description = "ดาเมจกายภาพเพิ่มตามเกราะศัตรู: DEF ทุก 100 เพิ่ม 2% ต่อระดับ สูงสุด 4% ต่อระดับ · ไม่มีจุดตัดเกราะที่ทำให้ดาเมจกระโดด"
 icon = ExtResource("i")
 max_level = 5
-job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
-required_level = 70
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 96
 type = 4
 sp_cost_base = 0
 sp_cost_per_level = 0.0

@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Drop_forge_guardian_0"]
 script = ExtResource("2_drop")
 item_id = &"guardian_core"
-chance = 100.0
+chance = 65.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_1"]
 script = ExtResource("2_drop")
@@ -62,7 +62,7 @@ fit_animation_scales = Dictionary[StringName, float]({
 fit_foot_region = Rect2i(260, 390, 150, 80)
 fit_foot_animations = PackedStringArray("Idle", "Run", "Attack", "Skill", "Hit")
 level = 38
-max_hp = 26000
+max_hp = 30000
 atk_min = 350
 atk_max = 600
 def = 85

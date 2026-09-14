@@ -8,13 +8,13 @@
 [sub_resource type="Resource" id="Drop_thorn_matriarch_0"]
 script = ExtResource("2_drop")
 item_id = &"matriarch_thorn"
-chance = 100.0
+chance = 65.0
 max_count = 2
 
 [sub_resource type="Resource" id="Drop_thorn_matriarch_1"]
 script = ExtResource("2_drop")
 item_id = &"royal_bloom"
-chance = 40.0
+chance = 30.0
 
 [sub_resource type="Resource" id="Drop_thorn_matriarch_2"]
 script = ExtResource("2_drop")
@@ -48,6 +48,16 @@ script = ExtResource("2_drop")
 item_id = &"card_thorn_matriarch"
 chance = 2.0
 
+[sub_resource type="Resource" id="Socket_shard"]
+script = ExtResource("2_drop")
+item_id = &"socket_shard_1"
+chance = 100.0
+
+[sub_resource type="Resource" id="Socket_stone"]
+script = ExtResource("2_drop")
+item_id = &"socket_stone_1"
+chance = 10.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"thorn_matriarch"
@@ -69,7 +79,7 @@ fit_animation_scales = Dictionary[StringName, float]({
 })
 fit_foot_animations = null
 level = 57
-max_hp = 16000
+max_hp = 36000
 atk_min = 360
 atk_max = 470
 def = 62
@@ -99,7 +109,7 @@ exp_reward = 6072
 job_exp_reward = 4250
 zeny_min = 1337
 zeny_max = 2483
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_thorn_matriarch_0"), SubResource("Drop_thorn_matriarch_1"), SubResource("Drop_thorn_matriarch_2"), SubResource("Drop_thorn_matriarch_3"), SubResource("Drop_thorn_matriarch_4"), SubResource("Drop_thorn_matriarch_5"), SubResource("Drop_thorn_matriarch_6"), SubResource("Drop_thorn_matriarch_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_thorn_matriarch_0"), SubResource("Drop_thorn_matriarch_1"), SubResource("Drop_thorn_matriarch_2"), SubResource("Drop_thorn_matriarch_3"), SubResource("Drop_thorn_matriarch_4"), SubResource("Drop_thorn_matriarch_5"), SubResource("Drop_thorn_matriarch_6"), SubResource("Drop_thorn_matriarch_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
 is_boss = true
 boss_title = "ราชินีหนาม"
 skill_name = "หนามทะลวงพื้น"

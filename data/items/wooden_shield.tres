@@ -15,10 +15,12 @@ metadata/price_base_r47_buy = 150
 slot = 2
 card_slots = 1
 max_stack = 1
-buy_price = 750
+buy_price = 1000
 sell_price = 60
 metadata/sell_price_base_r44 = 60
-def = 4
 refinable = true
 
 drop_hint = "แฟเบร"
+def = 4
+required_level = 1
+attack_element = 0

@@ -24,6 +24,11 @@ script = ExtResource("2_drop")
 item_id = &"card_withered_treant"
 chance = 0.5
 
+[sub_resource type="Resource" id="Drop_equipment_root_sword"]
+script = ExtResource("2_drop")
+item_id = &"root_sword"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"withered_treant"
@@ -73,7 +78,7 @@ exp_reward = 461
 job_exp_reward = 323
 zeny_min = 144
 zeny_max = 268
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_withered_treant_0"), SubResource("Drop_withered_treant_1"), SubResource("Drop_withered_treant_2"), SubResource("Drop_withered_treant_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_withered_treant_0"), SubResource("Drop_withered_treant_1"), SubResource("Drop_withered_treant_2"), SubResource("Drop_withered_treant_card"), SubResource("Drop_equipment_root_sword")])
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null

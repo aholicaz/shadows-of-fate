@@ -34,6 +34,11 @@ script = ExtResource("2_drop")
 item_id = &"card_rune_watcher"
 chance = 0.62
 
+[sub_resource type="Resource" id="Drop_equipment_earring"]
+script = ExtResource("2_drop")
+item_id = &"earring"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"rune_watcher"
@@ -78,7 +83,7 @@ exp_reward = 293
 job_exp_reward = 205
 zeny_min = 105
 zeny_max = 195
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_rune_watcher_0"), SubResource("Drop_rune_watcher_1"), SubResource("Drop_rune_watcher_2"), SubResource("Drop_rune_watcher_3"), SubResource("Drop_rune_watcher_4"), SubResource("Drop_rune_watcher_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_rune_watcher_0"), SubResource("Drop_rune_watcher_1"), SubResource("Drop_rune_watcher_2"), SubResource("Drop_rune_watcher_3"), SubResource("Drop_rune_watcher_4"), SubResource("Drop_rune_watcher_card"), SubResource("Drop_equipment_earring")])
 skill_name = "รูนระเบิด"
 skill_anim = &"Attack"
 skill_range = 340.0

@@ -156,7 +156,7 @@ npc_name = "แม่ค้าซิฟา"
 dialog = "แม่ค้าประจำนคร ของทุกชิ้นปลูกเองเก็บเอง
 
 ปีนี้เก็บได้น้อยลงอีก... ต้นไม้ให้ผลน้อยลงทุกปีตั้งแต่บ่อน้ำเริ่มแห้ง"
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"root_sword", &"marsh_cutter", &"bark_armor", &"mist_cloak", &"root_boots", &"vanir_circlet", &"spring_amulet", &"scale_mail", &"iron_greaves", &"rosary", &"belt"])
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"root_sword", &"bark_armor", &"vanir_circlet", &"scale_mail", &"iron_greaves", &"rosary", &"belt"])
 greeting = "ของจากรากทั้งนั้น รับอะไรดี"
 voice_id = "sifa"
 quest_ids = Array[StringName]([&"c3_3_mist_that_lingers"])

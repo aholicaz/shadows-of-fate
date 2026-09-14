@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/last_order_plate.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"last_order_plate"
+display_name = "แผ่นคำสั่งสุดท้าย"
+description = "ป้ายเหล็กติดอกอัศวิน สั่งให้เดินขึ้นไปอีกหนึ่งชั้นจนกว่าใครสักคนจะลบคำสั่งนั้น"
+icon = ExtResource("i")
+type = 3
+sell_price = 1060
+buy_price = 0
+max_stack = 99

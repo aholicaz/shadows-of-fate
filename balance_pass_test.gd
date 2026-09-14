@@ -44,10 +44,10 @@ func _ready() -> void:
 	var sword := ItemInstance.create(&"bone_greatsword")
 	var base := sword.total_atk()
 	sword.refine = 1
-	check(sword.total_atk() - base == 26,"520 ATK sword gains 26 per rank")
-	check(RefineSystem.preview(sword).atk_gain == 26,"forge preview matches equipped gain")
+	check(sword.total_atk() - base == 28,"560 ATK sword gains 28 per rank")
+	check(RefineSystem.preview(sword).atk_gain == 28,"forge preview matches equipped gain")
 	check(RefineSystem.success_rate(sword)==100.0,"early refinement guaranteed")
-	check(GameData.get_item(&"phracon").buy_price == 1500,"ore price fits fee budget")
+	check(GameData.get_item(&"phracon").buy_price == 2000,"ore price matches approved shop economy")
 	for a in range(10):
 		for d in range(10):
 			if Combat.element_modifier(a,d) != 1.0: check(false,"no hidden element resistance")
@@ -71,7 +71,7 @@ func _ready() -> void:
 	check(saved.level_of(&"faultline")==5 and saved.hotkey_at(1)==&"worldcleaver" and saved.level_of(&"rune_lunge")==2,"old and new skill IDs survive serialization")
 	PlayerState.equipment.equip(Equipment.EquipSlot.ACCESSORY_1,ItemInstance.create(&"forge_core_pendant"))
 	PlayerState.refresh()
-	check(PlayerState.stats.skill_damage_percent==10.0,"equipment skill bonus reaches runtime stats")
+	check(PlayerState.stats.skill_damage_percent==7.0,"approved equipment skill bonus reaches runtime stats")
 	player = load("res://scenes/player/player.tscn").instantiate()
 	add_child(player)
 	player.position = Vector2(400,400)

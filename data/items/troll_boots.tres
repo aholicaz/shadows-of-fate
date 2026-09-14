@@ -15,16 +15,15 @@ slot = 6
 card_slots = 1
 max_stack = 1
 buy_price = 48428
-sell_price = 1844
-def = 18
-max_hp = 160
-bonus_agi = 5
+sell_price = 400
 refinable = true
 
-aspd_percent = 6.0
 
-crit = 4
 
 damage_percent = 0.0
 
 drop_hint = "โทรลล์น้ำแข็ง"
+def = 21
+bonus_vit = 6
+max_hp = 140
+attack_element = 0

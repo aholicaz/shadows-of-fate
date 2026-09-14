@@ -4,16 +4,16 @@
 [resource]
 script = ExtResource("s")
 id = &"twin_inscription"
-display_name = "อักขระคู่"
-description = "ใช้ 2 ตรา · 6 วินาที ทุกการโจมตีมีเงาดาบตาม 50–70% ATK ไม่คริ"
+display_name = "เงานามร่วมคม"
+description = "ใช้ 2 รูน · นาน 8 วินาที เงาดาบตาม 60–100% ATK ไม่คริ · สูงสุดหนึ่งครั้งต่อศัตรูต่อการร่าย/คอมโบหนึ่งจังหวะ ไม่ทวีตามจำนวนฮิตของท่ารัว"
 icon = ExtResource("i")
 max_level = 5
-job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
-required_level = 82
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 96
 type = 2
-sp_cost_base = 28
+sp_cost_base = 36
 sp_cost_per_level = 0.0
-cooldown = 14.0
+cooldown = 18.0
 damage_mult_base = 0.00
 damage_mult_per_level = 0.00
 required_skills = {}

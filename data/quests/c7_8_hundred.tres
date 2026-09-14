@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="o0"]
+script = ExtResource("o")
+kind = 4
+target = &"c7_tower_register"
+count = 1
+text = "อ่านทะเบียนหลังผู้คุมพ่ายแพ้"
+
+[resource]
+script = ExtResource("s")
+id = &"c7_8_hundred"
+title = "C7-8 หนึ่งร้อยชื่อที่ยังมีชีวิต"
+description = "ข้าไม่ต้องการให้เจ้าทำลายทะเบียน ข้าต้องการชื่อคนในนั้น ครอบครัวของพวกเขายังรออยู่"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "ข้าไม่ต้องการให้เจ้าทำลายทะเบียน ข้าต้องการชื่อคนในนั้น ครอบครัวของพวกเขายังรออยู่"
+dialog_progress = "อ่านทะเบียนหลังผู้คุมพ่ายแพ้"
+dialog_complete = "หนึ่งร้อยชั้น... และพวกเขายังมีชีวิต เราจะเตรียมทางขึ้นอย่างรอบคอบ บทต่อไปเริ่มจากผังนี้ ไม่ใช่จากคำสั่งของผู้ถือค้อน"
+required_level = 96
+required_flag = &"chapter6_done"
+required_quests = Array[StringName]([&"c7_7_warden"])
+objectives = Array[ExtResource("o")]([SubResource("o0")])
+set_flag_on_complete = &"chapter7_done"
+reward_exp = 1400000
+reward_job_exp = 490000
+reward_zeny = 165000
+reward_item_id = &"tower_route_fragment"
+required_job = &"ninth_edge"

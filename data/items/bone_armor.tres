@@ -14,16 +14,17 @@ type = 2
 slot = 4
 card_slots = 1
 max_stack = 1
-buy_price = 93728
-sell_price = 2544
-def = 82
-max_hp = 650
+buy_price = 150000
+sell_price = 650
 refinable = true
 
-skill_damage_percent = 7.0
 
-bonus_str = 6
 
-max_sp = 55
 
-drop_hint = "ผีจมน้ำ / งูนิดฮ็อกก์เล็ก"
+drop_hint = "ผีจมน้ำ, งูนิดฮ็อกก์เล็ก"
+def = 85
+bonus_str = 5
+bonus_vit = 6
+max_hp = 300
+skill_damage_percent = 5.0
+attack_element = 0

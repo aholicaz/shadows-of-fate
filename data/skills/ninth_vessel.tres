@@ -4,12 +4,12 @@
 [resource]
 script = ExtResource("s")
 id = &"ninth_vessel"
-display_name = "กายาอักขระที่เก้า"
-description = "Max HP +3% · Max SP +4% ต่อระดับ · ระดับ 5: ตรารูนสะสมได้ 4 ดวง"
+display_name = "กายาไร้พันธะ"
+description = "HP +4% และ SP +3% ต่อระดับ · ความจุรูนเป็น 4 เมื่อเรียน และ 5 ที่ระดับ 5 · เติบโตต่อหลังเพดานเดิมได้เมื่อเป็น Ninth Edge"
 icon = ExtResource("i")
 max_level = 5
 job_ids = Array[StringName]([&"ninth_edge"])
-required_level = 90
+required_level = 96
 type = 4
 sp_cost_base = 0
 sp_cost_per_level = 0.0
@@ -17,4 +17,4 @@ cooldown = 0.0
 damage_mult_base = 0.00
 damage_mult_per_level = 0.00
 required_skills = {}
-passive_effects = {"max_hp_percent": 3.0, "max_sp_percent": 4.0}
+passive_effects = {"max_hp_percent": 4.0, "max_sp_percent": 3.0}

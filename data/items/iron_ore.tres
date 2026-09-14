@@ -9,5 +9,5 @@ id = &"iron_ore"
 display_name = "แร่เหล็ก"
 description = "แร่ดิบสำหรับหลอม"
 icon = ExtResource("1_hpw1d")
-buy_price = 140
+buy_price = 200
 sell_price = 21

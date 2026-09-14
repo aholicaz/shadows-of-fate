@@ -7,35 +7,32 @@
 script = ExtResource("1_item")
 id = &"conduit_edge"
 display_name = "คมท่อแสง"
-description = "ดาบที่ตีจากแก่นท่อดูดแสง ทุกครั้งที่ฟันจะดูดพลังจากเป้าหมาย"
+description = "ดาบที่ตีจากแก่นท่อดูดแสง คืนมานา 0.25% ของดาเมจที่ทำได้ต่อฮิต ปัดเศษลง"
 icon = ExtResource("2_icon")
 required_level = 84
 type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 85472
-sell_price = 2918
-atk = 430
-bonus_int = 3
-percent_effects = {
-"sp_drain_percent": 2.0
-}
+sell_price = 1062
 refinable = true
 refine_atk_per_level = 8
 
-bonus_agi = 11
 
-crit = 9
 
-aspd_percent = 12.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
-attack_element = 4
+attack_element = 0
 
 drop_hint = "อัลฟ์เรืองรอง"
+atk = 405
+bonus_agi = 7
+bonus_int = 4
+aspd_percent = 9.0
+crit = 5
+sp_drain_percent = 0.25

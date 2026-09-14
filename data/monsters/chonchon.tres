@@ -218,6 +218,16 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="Resource" id="Drop_equipment_short_sword"]
+script = ExtResource("2_drop")
+item_id = &"short_sword"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_equipment_leather_cap"]
+script = ExtResource("2_drop")
+item_id = &"leather_cap"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"chonchon"
@@ -258,7 +268,7 @@ skill_hit_frames = null
 exp_reward = 36
 zeny_min = 14
 zeny_max = 35
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_chonchon_1"), SubResource("Drop_chonchon_2"), SubResource("Drop_chonchon_card"), SubResource("Drop_chonchon_junk_insect_wing"), SubResource("Drop_chonchon_junk_chonchon_eye"), SubResource("Resource_rsfcu")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_chonchon_1"), SubResource("Drop_chonchon_2"), SubResource("Drop_chonchon_card"), SubResource("Drop_chonchon_junk_insect_wing"), SubResource("Drop_chonchon_junk_chonchon_eye"), SubResource("Resource_rsfcu"), SubResource("Drop_equipment_short_sword"), SubResource("Drop_equipment_leather_cap")])
 projectile_height = 84.0
 spawn_lines = null
 death_lines = null

@@ -14,21 +14,22 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
-buy_price = 63008
-sell_price = 2515
-atk = 310
-crit = 8
+buy_price = 180000
+sell_price = 850
 refinable = true
 refine_atk_per_level = 7
 
-bonus_agi = 10
 
-aspd_percent = 11.0
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
 drop_hint = "เงาสะท้อน"
+atk = 310
+bonus_agi = 6
+crit = 11
+aspd_percent = 9.0
+crit_damage_percent = 14.0
+attack_element = 0

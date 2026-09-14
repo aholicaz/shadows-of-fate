@@ -19,6 +19,12 @@ const DIRS := ["res://Sprites/music/", "res://music/", "res://Sprites/Music/", "
 const EXTS := [".mp3", ".ogg", ".wav"]
 ## Chapter 4 shares three files; adjoining field maps keep the same playback.
 const MAP_TRACKS := {
+	"cinder_crossing": "iron_road",
+	"emberhaven": "nidavellir_town",
+	"chain_quarry": "ember_mine",
+	"unwritten_forge": "cold_forge",
+	"ash_procession": "forgotten_battlefield",
+	"oathbreak_crucible": "boss_forge_guardian",
 	"utgard_town": "chapter4_town",
 	"frost_pass": "chapter4_field",
 	"giant_steppe": "chapter4_field",

@@ -211,6 +211,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Drop_equipment_sandals"]
+script = ExtResource("2_drop")
+item_id = &"sandals"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"fabre"
@@ -243,7 +248,7 @@ skill_hit_frames = null
 exp_reward = 2
 zeny_min = 5
 zeny_max = 15
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_fabre_2"), SubResource("Drop_fabre_card"), SubResource("Drop_fabre_junk_fabre_silk"), SubResource("Drop_fabre_junk_feeler"), SubResource("Drop_fabre_eq_wooden_shield")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_fabre_2"), SubResource("Drop_fabre_card"), SubResource("Drop_fabre_junk_fabre_silk"), SubResource("Drop_fabre_junk_feeler"), SubResource("Drop_fabre_eq_wooden_shield"), SubResource("Drop_equipment_sandals")])
 respawn_time = 6.0
 spawn_lines = null
 death_lines = null

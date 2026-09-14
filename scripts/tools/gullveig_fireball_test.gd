@@ -84,7 +84,8 @@ func _released(shot: MonsterProjectile, frame: int) -> void:
 	check(shot.global_position.distance_to(expected)<.01,case_name+": muzzle anchored to hand")
 	check(frame in [9,22,35],case_name+": authored release frame")
 	check(actor.sprite.frame==frame,case_name+": release follows displayed frame")
-	check(shot._velocity_direction.dot((target.body_rect().get_center()-expected).normalized())>.999,case_name+": aims at target body")
+	var angle := deg_to_rad(actor.data.projectile_down_angle)
+	check(shot._velocity_direction.is_equal_approx(Vector2(actor.facing*cos(angle),sin(angle))),case_name+": fixed straight launch without target lock")
 	releases.append({"frame":frame,"time":(Time.get_ticks_msec()-started)/1000.0,"origin":str(expected),"direction":str(shot._velocity_direction)})
 	shot.impacted.connect(func(kind: StringName, at: Vector2):
 		impacts.append({"kind":kind,"at":str(at)})

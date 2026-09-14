@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/cinderward_coat.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"cinderward_coat"
+display_name = "เสื้อคลุมกันเถ้า"
+description = "เสื้อคลุมทอเส้นใยบะซอลต์ของผู้ลี้ภัย ปิดแผลได้โดยไม่ต้องปิดชื่อของผู้สวม"
+icon = ExtResource("i")
+type = 2
+sell_price = 840000
+buy_price = 4200000
+max_stack = 1
+slot = 5
+required_level = 100
+refinable = true
+card_slots = 1
+def = 45
+mdef = 18
+max_hp = 350
+bonus_vit = 5

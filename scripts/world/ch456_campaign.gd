@@ -325,10 +325,10 @@ func _ninth_wall() -> void:
 		_busy = false
 		return
 	if is_instance_valid(map.player):
-		Events.floating_text(map.player.global_position + Vector2(0, -120), "★ Ninth Edge — คมอักขระที่เก้า ★", Color("#ffd86b"), 30, 0)
+		Events.floating_text(map.player.global_position + Vector2(0, -120), "★ ชื่อที่ไฟยังลบไม่ได้ ★", Color("#ffd86b"), 30, 0)
 		if map.player.has_method("_play_level_up"):
 			map.player._play_level_up(LevelUpEffect.Kind.JOB, PlayerState.stats.job_level)
-	Events.say("[เปลี่ยนอาชีพ] Ninth Edge — คมอักขระที่เก้า · ชื่อของเจ้ากลับมาบน HUD เป็นสีทอง · แต้มรูนสูงสุด 45 · รูนสะสม 4 (กายาอักขระ ระดับ 5)")
+	Events.say("[เตรียมพิธี] เจ้าจำชื่อตัวเองได้แล้ว — ตามหาเตาหลอมไร้คำสั่งในบท 7 เพื่อเป็น Ninth Edge")
 	for npc in get_tree().get_nodes_in_group("story_point"):
 		if npc.has_method("set_title") and npc.title.begins_with("[F] ผนังว่าง"):
 			npc.set_title("[F] ผนังที่เก้า — ชื่อของเจ้า")

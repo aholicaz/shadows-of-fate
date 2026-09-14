@@ -15,17 +15,16 @@ slot = 4
 card_slots = 1
 max_stack = 1
 buy_price = 106832
-sell_price = 2712
-def = 100
-mdef = 18
-max_hp = 800
-bonus_vit = 4
+sell_price = 812
 refinable = true
 
-skill_damage_percent = 7.0
 
-bonus_str = 6
 
-max_sp = 55
 
-drop_hint = "การ์ม ผู้ถูกล่าม / ผู้พิพากษาผู้ตาย"
+drop_hint = "การ์ม ผู้ถูกล่าม, ผู้พิพากษาผู้ตาย"
+def = 102
+mdef = 20
+bonus_vit = 8
+max_hp = 400
+skill_damage_percent = 6.0
+attack_element = 0

@@ -10,6 +10,8 @@ extends Resource
 @export var cards: Array[StringName] = []
 ## ★ ช่องการ์ดของ "ชิ้นนี้" ★ ของร้านค้า = 0 เสมอ · ของที่ดรอปจากมอนถึงจะมีช่อง
 @export var slots: int = 0
+@export var socket_failures: int = 0
+@export var socket_locked: bool = false
 ## ★★ รอบ 57 — โบนัสของดรอป ★★
 ## ของที่ดรอปจากมอน/บอส "ค่าพลังดีกว่าของร้าน" กี่ % (สุ่มตอนดรอป · ของร้าน = 0)
 ## คูณกับ ATK/DEF/MATK/MDEF/HIT/FLEE/CRIT/MaxHP/MaxSP และค่าสเตตัสของชิ้นนั้น
@@ -152,13 +154,16 @@ func duplicate_instance() -> ItemInstance:
 	var inst := ItemInstance.create(item_id, count, refine, slots)
 	inst.cards = cards.duplicate()
 	inst.bonus_percent = bonus_percent
+	inst.socket_failures = socket_failures
+	inst.socket_locked = socket_locked
 	return inst
 
 
 func same_kind_as(other: ItemInstance) -> bool:
 	return other != null and other.item_id == item_id \
 		and other.refine == refine and other.cards == cards \
-		and is_equal_approx(other.bonus_percent, bonus_percent)
+		and is_equal_approx(other.bonus_percent, bonus_percent) \
+		and other.slots == slots and other.socket_failures == socket_failures and other.socket_locked == socket_locked
 
 
 func to_dict() -> Dictionary:
@@ -166,7 +171,8 @@ func to_dict() -> Dictionary:
 	for c in cards:
 		card_ids.append(String(c))
 	return {"item_id": String(item_id), "count": count, "refine": refine,
-		"cards": card_ids, "slots": slots, "bonus_percent": bonus_percent}
+		"cards": card_ids, "slots": slots, "bonus_percent": bonus_percent,
+		"socket_failures": socket_failures, "socket_locked": socket_locked, "socket_revision": 1}
 
 
 static func from_dict(d: Dictionary) -> ItemInstance:
@@ -181,4 +187,12 @@ static func from_dict(d: Dictionary) -> ItemInstance:
 		inst.cards.append(StringName(c))
 	# เซฟเก่าที่ยังไม่มีช่อง slots — เดาจากจำนวนการ์ดที่ใส่ไว้ จะได้ไม่หลุด
 	inst.slots = maxi(inst.slots, inst.cards.size())
+	inst.socket_failures = clampi(int(d.get("socket_failures", 0)), 0, 3)
+	inst.socket_locked = bool(d.get("socket_locked", false))
+	# Upgrade old dropped weapons once. Preserve existing extra sockets/cards;
+	# shop copies stay at zero and cannot obtain free punched sockets on load.
+	if int(d.get("socket_revision", 0)) < 1 and inst.slots > 0:
+		var item := inst.data()
+		if item != null and item.slot == ItemData.Slot.WEAPON:
+			inst.slots = maxi(inst.slots, item.card_slots)
 	return inst

@@ -19,13 +19,10 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_rapier"
-card_slots = 2
+card_slots = 1
 max_stack = 1
 buy_price = 7148
-sell_price = 720
-atk = 44
-aspd_percent = 6.0
-bonus_agi = 5
+sell_price = 150
 refinable = true
 refine_def_per_level = 0
 metadata/price_base_r47_sell = 1440
@@ -42,10 +39,15 @@ equip_hand_rotation_degrees = 240.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-crit = 4
 
-crit_damage_percent = 10.0
 
 damage_percent = 0.0
 
 drop_hint = "คิงโพริง"
+atk = 43
+bonus_agi = 3
+hit = 6
+crit = 5
+aspd_percent = 5.0
+crit_damage_percent = 6.0
+attack_element = 0

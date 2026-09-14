@@ -32,6 +32,16 @@ script = ExtResource("2_drop")
 item_id = &"card_pitman"
 chance = 0.75
 
+[sub_resource type="Resource" id="Drop_equipment_miner_helmet"]
+script = ExtResource("2_drop")
+item_id = &"miner_helmet"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_equipment_miner_boots"]
+script = ExtResource("2_drop")
+item_id = &"miner_boots"
+chance = 3.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"pitman"
@@ -75,7 +85,7 @@ exp_reward = 150
 job_exp_reward = 105
 zeny_min = 69
 zeny_max = 127
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_pitman_0"), SubResource("Drop_pitman_1"), SubResource("Drop_pitman_2"), SubResource("Drop_pitman_3"), SubResource("Drop_pitman_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_pitman_0"), SubResource("Drop_pitman_1"), SubResource("Drop_pitman_2"), SubResource("Drop_pitman_3"), SubResource("Drop_pitman_card"), SubResource("Drop_equipment_miner_helmet"), SubResource("Drop_equipment_miner_boots")])
 respawn_time = 15.0
 spawn_lines = null
 death_lines = null

@@ -1,0 +1,111 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/world/map_base.gd" id="base"]
+[ext_resource type="Script" path="res://scripts/world/chapter6_parallax.gd" id="parallax"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="npc"]
+[ext_resource type="PackedScene" path="res://scenes/world/portal.tscn" id="portal"]
+[ext_resource type="PackedScene" path="res://scenes/world/lore_object.tscn" id="lore"]
+[ext_resource type="Script" path="res://scripts/world/map_spawner.gd" id="spawner"]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="md"]
+[ext_resource type="PackedScene" path="res://scenes/monsters/chapter7_monster.tscn" id="monster"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="idle"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_shadow.gd" id="shadow"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/chain_quarry_depth.png" id="depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/chain_quarry_0.png" id="road0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/chain_quarry_1.png" id="road1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/chain_quarry_2.png" id="road2"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter7/organic/chain_quarry_3.png" id="road3"]
+[ext_resource type="Script" path="res://scripts/world/chapter7_npc.gd" id="c7npc"]
+[ext_resource type="Resource" path="res://data/monsters/chainbound_ogre.tres" id="chainbound_ogre"]
+[ext_resource type="Resource" path="res://data/monsters/slag_mantis.tres" id="slag_mantis"]
+
+[sub_resource type="RectangleShape2D" id="floor"]
+size = Vector2(6600, 240)
+[node name="Map" type="Node2D"]
+script = ExtResource("base")
+map_id = &"chain_quarry"
+display_name = "เหมืองโซ่คำสั่ง"
+chapter = 7
+region = "มุสเปลเฮม"
+map_bounds = Rect2(0, 0, 4200, 1200)
+player_scene = ExtResource("player")
+clamp_bounds_to_art = false
+bounds_follow_art_x = false
+enter_flag = &"visited_map_chain_quarry"
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("parallax")
+anchor_x = 2100.0
+depth_speed = 0.18
+atmosphere = Color(0.95, 0.63, 0.29, 0.32)
+rising = true
+mote_amount = 36
+mist_strength = 0.025
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture_repeat = 3
+texture = ExtResource("depth")
+region_enabled = true
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(-1200, -300)
+centered = false
+texture = ExtResource("road0")
+[node name="OrganicRoad1" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(800, -300)
+centered = false
+texture = ExtResource("road1")
+[node name="OrganicRoad2" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(2800, -300)
+centered = false
+texture = ExtResource("road2")
+[node name="OrganicRoad3" type="Sprite2D" parent="Background"]
+z_index = -40
+position = Vector2(4800, -300)
+centered = false
+texture = ExtResource("road3")
+[node name="Terrain" type="Node2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2100.0, 1000)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("floor")
+[node name="SpawnPoints" type="Node2D" parent="."]
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(280, 820)
+[node name="from_left" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(280, 820)
+[node name="from_right" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3920, 820)
+[node name="Portals" type="Node2D" parent="."]
+[node name="ToLeft" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(100, 880)
+target_map = &"emberhaven"
+target_spawn_point = &"from_right"
+label_text = "← อัมเบอร์เฮเวน นครใต้เถ้า"
+destination_name = "อัมเบอร์เฮเวน นครใต้เถ้า"
+[node name="ToRight" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(4100, 880)
+target_map = &"unwritten_forge"
+target_spawn_point = &"from_left"
+label_text = "→ เตาหลอมไร้คำสั่ง"
+destination_name = "เตาหลอมไร้คำสั่ง"
+required_flag = &""
+[node name="Spawners" type="Node2D" parent="."]
+[node name="MapSpawner" type="Node2D" parent="Spawners"]
+script = ExtResource("spawner")
+monster_types = Array[ExtResource("md")]([ExtResource("chainbound_ogre"), ExtResource("slag_mantis")])
+count_per_type = 4
+monster_scene = ExtResource("monster")
+max_spawn_distance = 1800.0
+edge_margin = 500.0
+[node name="Lore" type="Node2D" parent="."]
+[node name="StoryMarker" parent="Lore" instance=ExtResource("lore")]
+position = Vector2(2100, 790)
+lore_id = &"c7_chain_seal"
+title = "ตราคำสั่งบนโซ่"
+text = "ตัวอักษรไม่ใช่ชื่อของคนงาน แต่เป็นคำสั่งให้ทำงานต่อ แม้ผู้สั่งจะตายไปแล้ว ใต้ตราค้อนมีรายชื่อที่ถูกขูดทิ้ง"
+required_flag = &""
+locked_text = "ผู้เฝ้ายังขวางทางอยู่ — ผ่านการต่อสู้ก่อนอ่านหลักฐาน"

@@ -41,8 +41,6 @@ id = &"crystal_stag"
 display_name = "กวางผลึก"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(80, 90)
-hp_bar_offset_y = -106.4
-display_height = 280.0
 level = 74
 max_hp = 16000
 atk_min = 660
@@ -89,3 +87,5 @@ skill_bolt_delay = 0.25
 
 fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(256, 480)
+display_height = 470.0
+hp_bar_offset_y = -453.0

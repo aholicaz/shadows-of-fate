@@ -926,7 +926,7 @@ dialog = "มีของดีมาขายนะ
 ...ถึงจะไม่ค่อยมีของใหม่ก็เถอะ ของจากทางเหนือไม่ได้ส่งมาสามเดือนแล้ว
 ไม่มีใครบอกว่าทำไม"
 portrait = ExtResource("6_ia7j7")
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"blue_potion", &"meat", &"wooden_sword", &"novice_sword", &"short_sword", &"rapier", &"falchion", &"wooden_shield", &"guard", &"ribbon", &"cap", &"leather_cap", &"cotton_shirt", &"leather_jacket", &"hood", &"muffler", &"sandals", &"leather_shoes", &"necklace", &"earring", &"brooch", &"wing_of_valkyrie", &"phracon", &"emveretarcon"])
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"blue_potion", &"meat", &"wooden_sword", &"novice_sword", &"short_sword", &"falchion", &"wooden_shield", &"guard", &"ribbon", &"cap", &"leather_cap", &"cotton_shirt", &"leather_jacket", &"hood", &"muffler", &"sandals", &"leather_shoes", &"necklace", &"earring", &"wing_of_valkyrie", &"phracon", &"emveretarcon"])
 voice_id = "tony"
 quest_ids = Array[StringName]([&"tony_fabre"])
 

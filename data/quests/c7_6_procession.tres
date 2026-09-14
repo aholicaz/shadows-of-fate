@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="o0"]
+script = ExtResource("o")
+kind = 1
+target = &"ember_lens"
+count = 3
+text = "หาเลนส์อ่านเถ้า 3 ชิ้น"
+[sub_resource type="Resource" id="o1"]
+script = ExtResource("o")
+kind = 4
+target = &"c7_last_order"
+count = 1
+text = "อ่านคำสั่งสุดท้าย"
+
+[resource]
+script = ExtResource("s")
+id = &"c7_6_procession"
+title = "C7-6 อีกหนึ่งชั้น"
+description = "หมึกถูกเผาไปแล้ว แต่เถ้ายังเก็บรอย เลนส์ของผู้ทำนายจะช่วยให้ข้าอ่านปลายทางของขบวนได้"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "หมึกถูกเผาไปแล้ว แต่เถ้ายังเก็บรอย เลนส์ของผู้ทำนายจะช่วยให้ข้าอ่านปลายทางของขบวนได้"
+dialog_progress = "หาเลนส์อ่านเถ้า 3 ชิ้น · อ่านคำสั่งสุดท้าย"
+dialog_complete = "อีกหนึ่งชั้น... ซ้ำหนึ่งร้อยครั้ง มันไม่ใช่ทางขึ้นสวรรค์ มันคือระบบส่งชื่อ เราต้องเอาทะเบียนจากเบ้าหลอม"
+required_level = 96
+required_flag = &"chapter6_done"
+required_quests = Array[StringName]([&"c7_5_chosen_cut"])
+objectives = Array[ExtResource("o")]([SubResource("o0"), SubResource("o1")])
+set_flag_on_complete = &"c7_step_6"
+reward_exp = 1050000
+reward_job_exp = 367500
+reward_zeny = 135000
+reward_item_id = &""
+required_job = &"ninth_edge"

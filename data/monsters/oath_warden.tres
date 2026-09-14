@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="d"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/oath_warden_frames.tres" id="f"]
+[sub_resource type="Resource" id="material"]
+script = ExtResource("d")
+item_id = &"oath_core"
+chance = 100.0
+max_count = 1
+[sub_resource type="Resource" id="card"]
+script = ExtResource("d")
+item_id = &"card_oath_warden"
+chance = 0.5
+[sub_resource type="Resource" id="potion"]
+script = ExtResource("d")
+item_id = &"white_potion"
+chance = 25.0
+[resource]
+script = ExtResource("s")
+id = &"oath_warden"
+display_name = "ผู้คุมเบ้าหลอมคำสาบาน"
+sprite_frames = ExtResource("f")
+display_height = 450.0
+hitbox_size = Vector2(90, 100)
+align_feet = true
+level = 110
+max_hp = 320000
+atk_min = 1628
+atk_max = 1850
+def = 195
+mdef = 162
+hit = 238
+flee = 47
+element = 1
+race = 0
+size = 2
+ai_type = 1
+move_speed = 110.0
+detect_range = 500.0
+attack_range = 200.0
+leash_range = 1300.0
+jump_while_chasing = false
+hop_while_wandering = false
+attack_windup = 0.65
+attack_duration = 0.95
+attack_cooldown = 2.1
+exp_reward = 70000
+job_exp_reward = 49000
+zeny_min = 12000
+zeny_max = 18000
+drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion")])
+is_boss = true
+boss_title = "ผู้คุมคำสาบาน"
+respawn_time = 120.0
+respawn_persistent = true
+respawn_time_persistent = 120.0
+skill_name = "คำสั่ง: คุกเข่า"
+skill_anim = &"Skill"
+skill_ground_slam = true
+skill_range = 680.0
+skill_slam_radius = 450.0
+skill_radius_x = 450.0
+skill_radius_y = 190.0
+skill_damage_mult = 1.45
+skill_windup = 1.35
+skill_duration = 2.0
+skill_cooldown = 11.0
+skill_chance = 0.8

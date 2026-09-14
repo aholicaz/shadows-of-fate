@@ -1,5 +1,7 @@
 shader_type canvas_item;
 render_mode unshaded;
+uniform vec4 orb_color : source_color = vec4(1.0,0.37,0.025,1.0);
+uniform bool orb_style = false;
 
 float hash(vec2 p) { return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
 float noise(vec2 p) {
@@ -25,6 +27,11 @@ void fragment() {
 	vec3 color=mix(ember,orange,smoothstep(0.0,.35,heat));
 	color=mix(color,gold,smoothstep(.25,.75,heat));
 	color=mix(color,white,smoothstep(.65,.95,heat));
+	if (orb_style) {
+		float bands = sin(r*70.0-t*3.0+n*2.0)*0.5+0.5;
+		color = mix(orb_color.rgb*0.32,orb_color.rgb,clamp(heat+bands*.3,0.0,1.0));
+		color = mix(color,vec3(1.0),pow(heat,3.0)*.85);
+	}
 	float halo=exp(-r*r*13.0)*.28;
 	float alpha=clamp(flame+halo,0.0,1.0);
 	alpha*=smoothstep(0.0,.05,UV.x)*(1.0-smoothstep(.94,1.0,UV.x))*smoothstep(0.0,.08,UV.y)*(1.0-smoothstep(.92,1.0,UV.y));

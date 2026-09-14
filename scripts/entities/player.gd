@@ -11,7 +11,7 @@ extends CharacterBody2D
 @export var visual_job_override: StringName = &""
 
 func _uses_runeblade_visual() -> bool:
-	return visual_job_override == &"runeblade" or (visual_job_override == &"" and PlayerState.stats != null and PlayerState.stats.job_id == &"runeblade")
+	return visual_job_override in [&"runeblade", &"ninth_edge"] or (visual_job_override == &"" and PlayerState.stats != null and PlayerState.stats.job_id in [&"runeblade", &"ninth_edge"])
 
 const JUMP_VELOCITY := -420.0
 const KNOCKBACK_DECAY := 900.0

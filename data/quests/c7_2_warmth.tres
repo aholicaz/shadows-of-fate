@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="o0"]
+script = ExtResource("o")
+kind = 1
+target = &"cinder_fang"
+count = 3
+text = "หาเขี้ยวเก็บความร้อน 3 ชิ้น"
+
+[resource]
+script = ExtResource("s")
+id = &"c7_2_warmth"
+title = "C7-2 ความร้อนที่เก็บไว้"
+description = "ผู้ลี้ภัยที่มาจากฝั่งหมอกยังหยุดสั่นไม่ได้ เขี้ยวสุนัขเถ้าเก็บความร้อนได้ เราจะใช้ทำถุงประคบ ไม่ใช่อาวุธ"
+giver_name = "ลีฟ ผู้รักษาแผลไฟ"
+dialog_offer = "ผู้ลี้ภัยที่มาจากฝั่งหมอกยังหยุดสั่นไม่ได้ เขี้ยวสุนัขเถ้าเก็บความร้อนได้ เราจะใช้ทำถุงประคบ ไม่ใช่อาวุธ"
+dialog_progress = "หาเขี้ยวเก็บความร้อน 3 ชิ้น"
+dialog_complete = "พวกเขาหลับได้แล้ว คำสั่งที่บังคับให้คนทนทุกอย่างไม่ใช่ความเข้มแข็ง"
+required_level = 96
+required_flag = &"chapter6_done"
+required_quests = Array[StringName]([&"c7_1_refuge"])
+objectives = Array[ExtResource("o")]([SubResource("o0")])
+set_flag_on_complete = &"c7_step_2"
+reward_exp = 450000
+reward_job_exp = 157500
+reward_zeny = 75000
+reward_item_id = &""

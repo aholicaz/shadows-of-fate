@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/unbound_blade.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"unbound_blade"
+display_name = "ดาบไร้พันธะ"
+description = "บรินยาหล่อจากเหล็กที่ไฟเผาคำสั่งออกแล้ว ร่องที่เก้าบนคมเว้นไว้ให้ผู้ถือเขียนเอง"
+icon = ExtResource("i")
+type = 1
+sell_price = 0
+buy_price = 0
+max_stack = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+required_level = 99
+refinable = true
+refine_atk_per_level = 9
+card_slots = 2
+atk = 590
+bonus_str = 8
+max_sp = 50
+skill_damage_percent = 18.0

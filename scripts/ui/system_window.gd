@@ -68,11 +68,11 @@ func _build_content() -> void:
 	# ---------- ซ้าย: ช่องเซฟ ----------
 	var save_group := _group("เซฟเกม", left, true)
 	save_group.add_child(UITheme.make_label(
-		"เซฟเกมไว้กันหาย — เลือกช่องแล้วกดบันทึก", 13, UITheme.TEXT_DIM))
+		"เซฟมือ 3 ช่อง • อัตโนมัติทุก 3 นาทีและหลังเหตุการณ์สำคัญ", 13, UITheme.TEXT_DIM))
 	var content_backup := content
 	content = save_group
 
-	for slot in range(SaveManager.SLOT_COUNT):
+	for slot in range(SaveManager.SLOT_COUNT + 1):
 		var panel := PanelContainer.new()
 		panel.add_theme_stylebox_override("panel", UITheme.slot_style())
 		content.add_child(panel)
@@ -90,6 +90,7 @@ func _build_content() -> void:
 		var save_btn := UITheme.make_button("บันทึก", 74)
 		save_btn.pressed.connect(func(): _do_save(s))
 		row.add_child(save_btn)
+		save_btn.visible = slot != SaveManager.AUTO_SLOT
 
 		var load_btn := UITheme.make_button("โหลด", 66)
 		load_btn.pressed.connect(func(): _do_load(s))
@@ -206,7 +207,7 @@ func _build_content() -> void:
 	# ---------- ออกจากเกม ----------
 	# ★ รอบ 102 ★ เอาปุ่ม "เริ่มเกมใหม่" ออก (เริ่มใหม่ได้จากหน้าหลัก)
 	content = _group("ออกจากเกม", right)
-	var title_btn := UITheme.make_button("กลับหน้าหลัก (อย่าลืมบันทึกก่อน)", 380)
+	var title_btn := UITheme.make_button("กลับหน้าหลัก", 380)
 	title_btn.custom_minimum_size.y = 40
 	title_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.add_child(title_btn)
@@ -223,7 +224,7 @@ func _build_content() -> void:
 # ปุ่มต่าง ๆ
 # =========================================================
 func _do_go_title() -> void:
-	var ok: bool = await UI.ask("กลับหน้าหลัก", "ข้อมูลที่ยังไม่ได้บันทึกจะหายไป\nกลับหน้าหลักหรือไม่?", "กลับ", "ยังก่อน")
+	var ok: bool = await UI.ask("กลับหน้าหลัก", "กลับหน้าหลักหรือไม่?", "กลับ", "ยังก่อน")
 	if ok:
 		Game.go_title()
 
@@ -242,7 +243,7 @@ func _do_load(slot: int) -> void:
 		_say("ช่อง %d ยังไม่มีข้อมูลเซฟ" % (slot + 1))
 		return
 	var ok: bool = await UI.ask("โหลดเกม",
-		"โหลดข้อมูลจากช่อง %d?\nความคืบหน้าที่ยังไม่ได้เซฟจะหายไป" % (slot + 1),
+		"โหลดข้อมูลจาก%s?\nความคืบหน้าที่ยังไม่ได้เซฟจะหายไป" % ("เซฟอัตโนมัติ" if slot == SaveManager.AUTO_SLOT else "ช่อง %d" % (slot + 1)),
 		"โหลดเลย", "ยกเลิก")
 	if not ok:
 		return
@@ -301,6 +302,8 @@ func refresh() -> void:
 		else:
 			row["info"].text = "ช่อง %d — ว่าง" % (slot + 1)
 			row["info"].add_theme_color_override("font_color", UITheme.TEXT_DIM)
+		if slot == SaveManager.AUTO_SLOT:
+			row["info"].text = String(row["info"].text).replace("ช่อง 4", "อัตโนมัติ")
 		row["load"].disabled = not has
 		if row["del"] != null:
 			row["del"].disabled = not has

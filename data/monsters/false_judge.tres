@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Drop_false_judge_0"]
 script = ExtResource("2_drop")
 item_id = &"judge_seal"
-chance = 100.0
+chance = 65.0
 
 [sub_resource type="Resource" id="Drop_false_judge_1"]
 script = ExtResource("2_drop")
@@ -36,6 +36,16 @@ script = ExtResource("2_drop")
 item_id = &"card_false_judge"
 chance = 2.0
 
+[sub_resource type="Resource" id="Socket_shard"]
+script = ExtResource("2_drop")
+item_id = &"socket_shard_3"
+chance = 100.0
+
+[sub_resource type="Resource" id="Socket_stone"]
+script = ExtResource("2_drop")
+item_id = &"socket_stone_3"
+chance = 10.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"false_judge"
@@ -45,7 +55,7 @@ hitbox_size = Vector2(90, 120)
 hp_bar_offset_y = -344.0
 display_height = 380.0
 level = 94
-max_hp = 80000
+max_hp = 115000
 atk_min = 1200
 atk_max = 1500
 def = 150
@@ -73,7 +83,7 @@ exp_reward = 15707
 job_exp_reward = 10995
 zeny_min = 2114
 zeny_max = 3926
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_false_judge_0"), SubResource("Drop_false_judge_1"), SubResource("Drop_false_judge_2"), SubResource("Drop_false_judge_3"), SubResource("Drop_false_judge_4"), SubResource("Drop_false_judge_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_false_judge_0"), SubResource("Drop_false_judge_1"), SubResource("Drop_false_judge_2"), SubResource("Drop_false_judge_3"), SubResource("Drop_false_judge_4"), SubResource("Drop_false_judge_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
 respawn_time = 300.0
 is_boss = true
 boss_title = "ผู้ที่ยังตัดสินตามพงศาวดาร"

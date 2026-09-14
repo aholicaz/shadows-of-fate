@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/oath_core.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"oath_core"
+display_name = "แกนคำสาบานที่แตก"
+description = "แกนเหล็กเก้าชั้นจากผู้คุมเบ้าหลอม ชั้นในสุดมีรายชื่อคนเป็นซึ่งถูกส่งขึ้นหอ ไม่ใช่รายชื่อผู้ตาย"
+icon = ExtResource("i")
+type = 3
+sell_price = 0
+buy_price = 0
+max_stack = 99

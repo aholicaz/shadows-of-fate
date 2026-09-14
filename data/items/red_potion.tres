@@ -10,6 +10,6 @@ display_name = "ยาแดง"
 description = "ฟื้นเลือดเล็กน้อย ราคาถูก"
 icon = ExtResource("1_esrs8")
 type = 0
-buy_price = 50
+buy_price = 60
 sell_price = 20
 heal_hp = 45

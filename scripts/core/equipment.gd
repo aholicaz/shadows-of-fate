@@ -124,6 +124,7 @@ func collect_percent_bonus() -> Dictionary:
 
 ## ★ รอบ 45 — ช่อง % ของ ItemData → คีย์ที่ PlayerStats ใช้ ★
 static func _add_percent_bonus(b: Dictionary, d: ItemData) -> void:
+	_add(b, &"move_speed_percent", d.move_speed_percent)
 	_add(b, &"damage_percent", d.damage_percent)
 	_add(b, &"skill_damage_percent", d.skill_damage_percent)
 	_add(b, &"crit_damage_percent", d.crit_damage_percent)

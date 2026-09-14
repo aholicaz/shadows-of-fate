@@ -15,18 +15,19 @@ slot = 4
 card_slots = 1
 max_stack = 1
 buy_price = 44000
-sell_price = 1760
-def = 40
-flee = 6
-max_hp = 300
+sell_price = 400
 refinable = true
 
-bonus_agi = 5
 
-aspd_percent = 6.0
 
-crit = 4
 
 damage_percent = 0.0
 
 drop_hint = "หมาป่าน้ำแข็ง"
+def = 39
+bonus_agi = 4
+flee = 7
+max_hp = 180
+aspd_percent = 5.0
+crit = 3
+attack_element = 0

@@ -81,7 +81,6 @@ func _spawn(jr: bool, at: Vector2, summoned: bool = false) -> Node2D:
 		enemy.set_meta("rb_add",summoned)
 		enemy.set_meta("rb_caster",get_tree().get_nodes_in_group("rb_jr").size()%2 == 1)
 	else:
-		enemy.data.max_hp = 65000
 		enemy.data.display_name = "Baphomet — ผู้กินคำสัตย์"
 	add_child(enemy)
 	if not jr: enemy.position.y += 900.0-enemy.foot_position().y

@@ -14,24 +14,23 @@ type = 1
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 77600
-sell_price = 2784
-atk = 385
-hit = 10
-bonus_dex = 2
+sell_price = 1062
 refinable = true
 refine_atk_per_level = 8
 
-skill_damage_percent = 22.0
 
-bonus_str = 9
 
-max_sp = 64
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
 
 drop_hint = "อัลฟ์เรืองรอง"
+atk = 410
+bonus_str = 7
+hit = 12
+max_sp = 40
+skill_damage_percent = 19.0
+attack_element = 0

@@ -1,0 +1,604 @@
+{
+  "prices": [
+    {
+      "id": "bark_armor",
+      "old": 21968,
+      "new": 36000
+    },
+    {
+      "id": "bastard_sword",
+      "old": 4688,
+      "new": 6300
+    },
+    {
+      "id": "belt",
+      "old": 7712,
+      "new": 10400
+    },
+    {
+      "id": "blue_potion",
+      "old": 300,
+      "new": 400
+    },
+    {
+      "id": "bone_armor",
+      "old": 93728,
+      "new": 150000
+    },
+    {
+      "id": "cap",
+      "old": 812,
+      "new": 1100
+    },
+    {
+      "id": "chain_mail",
+      "old": 4688,
+      "new": 6300
+    },
+    {
+      "id": "cotton_shirt",
+      "old": 812,
+      "new": 1100
+    },
+    {
+      "id": "crystal_cloak",
+      "old": 68300,
+      "new": 105000
+    },
+    {
+      "id": "drowned_crown",
+      "old": 89552,
+      "new": 120900
+    },
+    {
+      "id": "earring",
+      "old": 2528,
+      "new": 3400
+    },
+    {
+      "id": "emveretarcon",
+      "old": 5000,
+      "new": 6500
+    },
+    {
+      "id": "falchion",
+      "old": 2528,
+      "new": 3400
+    },
+    {
+      "id": "ferryman_oar_blade",
+      "old": 93728,
+      "new": 260000
+    },
+    {
+      "id": "guard",
+      "old": 812,
+      "new": 1100
+    },
+    {
+      "id": "hood",
+      "old": 992,
+      "new": 1300
+    },
+    {
+      "id": "iron_blade",
+      "old": 6608,
+      "new": 8900
+    },
+    {
+      "id": "iron_greaves",
+      "old": 6608,
+      "new": 8900
+    },
+    {
+      "id": "iron_helm",
+      "old": 4688,
+      "new": 6300
+    },
+    {
+      "id": "iron_ore",
+      "old": 140,
+      "new": 200
+    },
+    {
+      "id": "iron_shield",
+      "old": 5600,
+      "new": 7600
+    },
+    {
+      "id": "leather_cap",
+      "old": 1232,
+      "new": 1700
+    },
+    {
+      "id": "leather_jacket",
+      "old": 1568,
+      "new": 2100
+    },
+    {
+      "id": "leather_shoes",
+      "old": 1232,
+      "new": 1700
+    },
+    {
+      "id": "ljosalf_circlet",
+      "old": 66512,
+      "new": 89800
+    },
+    {
+      "id": "mammoth_wool_cloak",
+      "old": 49952,
+      "new": 67400
+    },
+    {
+      "id": "meat",
+      "old": 90,
+      "new": 180
+    },
+    {
+      "id": "miner_boots",
+      "old": 8912,
+      "new": 12000
+    },
+    {
+      "id": "miner_helmet",
+      "old": 7712,
+      "new": 10400
+    },
+    {
+      "id": "muffler",
+      "old": 2000,
+      "new": 2700
+    },
+    {
+      "id": "necklace",
+      "old": 2528,
+      "new": 3400
+    },
+    {
+      "id": "novice_sword",
+      "old": 812,
+      "new": 1100
+    },
+    {
+      "id": "orange_potion",
+      "old": 200,
+      "new": 240
+    },
+    {
+      "id": "phracon",
+      "old": 1500,
+      "new": 2000
+    },
+    {
+      "id": "prism_blade",
+      "old": 63008,
+      "new": 180000
+    },
+    {
+      "id": "red_potion",
+      "old": 50,
+      "new": 60
+    },
+    {
+      "id": "reset_skill",
+      "old": 15000,
+      "new": 25000
+    },
+    {
+      "id": "reset_stat",
+      "old": 20000,
+      "new": 35000
+    },
+    {
+      "id": "ribbon",
+      "old": 812,
+      "new": 1100
+    },
+    {
+      "id": "root_sword",
+      "old": 20000,
+      "new": 40000
+    },
+    {
+      "id": "rosary",
+      "old": 5600,
+      "new": 7600
+    },
+    {
+      "id": "sandals",
+      "old": 812,
+      "new": 1100
+    },
+    {
+      "id": "scale_mail",
+      "old": 8912,
+      "new": 12000
+    },
+    {
+      "id": "short_sword",
+      "old": 992,
+      "new": 1300
+    },
+    {
+      "id": "thunder_blessing",
+      "old": 1500,
+      "new": 3000
+    },
+    {
+      "id": "vanir_circlet",
+      "old": 28448,
+      "new": 38400
+    },
+    {
+      "id": "wall_greatsword",
+      "old": 56288,
+      "new": 95000
+    },
+    {
+      "id": "wall_shield",
+      "old": 53072,
+      "new": 80000
+    },
+    {
+      "id": "white_potion",
+      "old": 1200,
+      "new": 1500
+    },
+    {
+      "id": "wing_of_valkyrie",
+      "old": 500,
+      "new": 800
+    },
+    {
+      "id": "wooden_shield",
+      "old": 750,
+      "new": 1000
+    },
+    {
+      "id": "wooden_sword",
+      "old": 600,
+      "new": 800
+    }
+  ],
+  "shops": [
+    {
+      "scene": "scenes\\maps\\eljudnir.tscn",
+      "old": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "mist_saber",
+        "ferryman_oar_blade",
+        "bone_greatsword",
+        "drowned_crown",
+        "bone_armor",
+        "mist_shroud",
+        "river_walker",
+        "prism_blade",
+        "stag_horn_saber",
+        "crystal_shield",
+        "ljosalf_circlet",
+        "crystal_cloak",
+        "silent_step"
+      ],
+      "new": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "ferryman_oar_blade",
+        "drowned_crown",
+        "bone_armor",
+        "prism_blade",
+        "ljosalf_circlet",
+        "crystal_cloak"
+      ],
+      "removed": [
+        "mist_saber",
+        "bone_greatsword",
+        "mist_shroud",
+        "river_walker",
+        "stag_horn_saber",
+        "crystal_shield",
+        "silent_step"
+      ]
+    },
+    {
+      "scene": "scenes\\maps\\ljosalf_city.tscn",
+      "old": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "prism_blade",
+        "stag_horn_saber",
+        "light_crystal_sword",
+        "crystal_shield",
+        "ljosalf_circlet",
+        "crystal_cloak",
+        "moth_wing_cape",
+        "silent_step",
+        "frost_edge",
+        "troll_cleaver",
+        "wall_shield",
+        "jotun_helm",
+        "troll_boots"
+      ],
+      "new": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "prism_blade",
+        "ljosalf_circlet",
+        "crystal_cloak",
+        "wall_shield"
+      ],
+      "removed": [
+        "stag_horn_saber",
+        "light_crystal_sword",
+        "crystal_shield",
+        "moth_wing_cape",
+        "silent_step",
+        "frost_edge",
+        "troll_cleaver",
+        "jotun_helm",
+        "troll_boots"
+      ]
+    },
+    {
+      "scene": "scenes\\maps\\nidavellir_town.tscn",
+      "old": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "iron_ore",
+        "phracon",
+        "emveretarcon",
+        "bastard_sword",
+        "iron_blade",
+        "forge_saber",
+        "iron_shield",
+        "iron_helm",
+        "miner_helmet",
+        "chain_mail",
+        "scale_mail",
+        "iron_greaves",
+        "miner_boots",
+        "rosary",
+        "belt"
+      ],
+      "new": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "iron_ore",
+        "phracon",
+        "emveretarcon",
+        "bastard_sword",
+        "iron_blade",
+        "iron_shield",
+        "iron_helm",
+        "miner_helmet",
+        "chain_mail",
+        "scale_mail",
+        "iron_greaves",
+        "miner_boots",
+        "rosary",
+        "belt"
+      ],
+      "removed": [
+        "forge_saber"
+      ]
+    },
+    {
+      "scene": "scenes\\maps\\prontera_town.tscn",
+      "old": [
+        "red_potion",
+        "orange_potion",
+        "blue_potion",
+        "meat",
+        "wooden_sword",
+        "novice_sword",
+        "short_sword",
+        "rapier",
+        "falchion",
+        "wooden_shield",
+        "guard",
+        "ribbon",
+        "cap",
+        "leather_cap",
+        "cotton_shirt",
+        "leather_jacket",
+        "hood",
+        "muffler",
+        "sandals",
+        "leather_shoes",
+        "necklace",
+        "earring",
+        "brooch",
+        "wing_of_valkyrie",
+        "phracon",
+        "emveretarcon"
+      ],
+      "new": [
+        "red_potion",
+        "orange_potion",
+        "blue_potion",
+        "meat",
+        "wooden_sword",
+        "novice_sword",
+        "short_sword",
+        "falchion",
+        "wooden_shield",
+        "guard",
+        "ribbon",
+        "cap",
+        "leather_cap",
+        "cotton_shirt",
+        "leather_jacket",
+        "hood",
+        "muffler",
+        "sandals",
+        "leather_shoes",
+        "necklace",
+        "earring",
+        "wing_of_valkyrie",
+        "phracon",
+        "emveretarcon"
+      ],
+      "removed": [
+        "rapier",
+        "brooch"
+      ]
+    },
+    {
+      "scene": "scenes\\maps\\prontera_town.tscn",
+      "old": [
+        "thunder_blessing",
+        "reset_skill",
+        "reset_stat"
+      ],
+      "new": [
+        "thunder_blessing",
+        "reset_skill",
+        "reset_stat"
+      ],
+      "removed": []
+    },
+    {
+      "scene": "scenes\\maps\\utgard_town.tscn",
+      "old": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "frost_edge",
+        "troll_cleaver",
+        "wall_greatsword",
+        "wall_shield",
+        "jotun_helm",
+        "frost_wolf_coat",
+        "mammoth_wool_cloak",
+        "troll_boots",
+        "echo_ring",
+        "root_sword",
+        "marsh_cutter",
+        "bark_armor",
+        "mist_cloak"
+      ],
+      "new": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "wall_greatsword",
+        "wall_shield",
+        "mammoth_wool_cloak",
+        "root_sword",
+        "bark_armor"
+      ],
+      "removed": [
+        "frost_edge",
+        "troll_cleaver",
+        "jotun_helm",
+        "frost_wolf_coat",
+        "troll_boots",
+        "echo_ring",
+        "marsh_cutter",
+        "mist_cloak"
+      ]
+    },
+    {
+      "scene": "scenes\\maps\\vanir_town.tscn",
+      "old": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "root_sword",
+        "marsh_cutter",
+        "bark_armor",
+        "mist_cloak",
+        "root_boots",
+        "vanir_circlet",
+        "spring_amulet",
+        "scale_mail",
+        "iron_greaves",
+        "rosary",
+        "belt"
+      ],
+      "new": [
+        "red_potion",
+        "orange_potion",
+        "white_potion",
+        "blue_potion",
+        "meat",
+        "phracon",
+        "emveretarcon",
+        "root_sword",
+        "bark_armor",
+        "vanir_circlet",
+        "scale_mail",
+        "iron_greaves",
+        "rosary",
+        "belt"
+      ],
+      "removed": [
+        "marsh_cutter",
+        "mist_cloak",
+        "root_boots",
+        "spring_amulet"
+      ]
+    }
+  ],
+  "removed": [
+    "bone_greatsword",
+    "brooch",
+    "crystal_shield",
+    "echo_ring",
+    "forge_saber",
+    "frost_edge",
+    "frost_wolf_coat",
+    "jotun_helm",
+    "light_crystal_sword",
+    "marsh_cutter",
+    "mist_cloak",
+    "mist_saber",
+    "mist_shroud",
+    "moth_wing_cape",
+    "rapier",
+    "river_walker",
+    "root_boots",
+    "silent_step",
+    "spring_amulet",
+    "stag_horn_saber",
+    "troll_boots",
+    "troll_cleaver"
+  ]
+}

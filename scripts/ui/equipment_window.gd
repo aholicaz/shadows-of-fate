@@ -630,7 +630,7 @@ func refresh() -> void:
 	for key in PCT_NAMES.keys():
 		var v := float(pct.get(StringName(key), 0.0))
 		if not is_zero_approx(v):
-			parts.append("%s %+.1f%%" % [PCT_NAMES[key], v])
+			parts.append("%s %s" % [PCT_NAMES[key], CardData.percent_text(v, true)])
 	_summary.text = "  ".join(parts) if not parts.is_empty() else "— ยังไม่มีโบนัส —"
 
 	# ---------- สเตตัส ----------
@@ -679,8 +679,8 @@ func refresh() -> void:
 	_set_derived(&"damage_percent", "%+.0f%%" % s.damage_percent, s.damage_percent != 0.0)
 	_set_derived(&"skill_damage", "+%.0f%%" % s.skill_damage_percent, s.skill_damage_percent > 0.0)
 	_set_derived(&"crit_damage", "%.0f%%" % (s.crit_damage * 100.0), s.crit_damage > 1.5)
-	_set_derived(&"hp_drain", "%.0f%%" % s.hp_drain_percent, s.hp_drain_percent != 0.0)
-	_set_derived(&"sp_drain", "%.0f%%" % s.sp_drain_percent, s.sp_drain_percent != 0.0)
+	_set_derived(&"hp_drain", CardData.percent_text(s.hp_drain_percent), s.hp_drain_percent != 0.0)
+	_set_derived(&"sp_drain", CardData.percent_text(s.sp_drain_percent), s.sp_drain_percent != 0.0)
 	_equip_bonus_label.text = "สีเขียว = มีผลจากของสวมใส่/การ์ด"
 
 

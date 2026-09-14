@@ -23,10 +23,9 @@ weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
 card_slots = 1
 max_stack = 1
-buy_price = 812
-sell_price = 130
+buy_price = 1100
+sell_price = 120
 metadata/sell_price_base_r44 = 200
-atk = 25
 refinable = true
 refine_atk_per_level = 2
 
@@ -40,4 +39,6 @@ equip_hand_rotation_degrees = 260.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-drop_hint = "ดรอปส์ / ออร์คนักรบ"
+drop_hint = "ดรอปส์"
+atk = 25
+attack_element = 0

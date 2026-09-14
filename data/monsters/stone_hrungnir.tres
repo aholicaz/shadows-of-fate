@@ -7,13 +7,13 @@
 [sub_resource type="Resource" id="Drop_stone_hrungnir_0"]
 script = ExtResource("2_drop")
 item_id = &"lightning_dust"
-chance = 100.0
+chance = 65.0
 max_count = 2
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_1"]
 script = ExtResource("2_drop")
 item_id = &"hrungnir_shard"
-chance = 60.0
+chance = 35.0
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_2"]
 script = ExtResource("2_drop")
@@ -52,17 +52,25 @@ script = ExtResource("2_drop")
 item_id = &"card_stone_hrungnir"
 chance = 2.0
 
+[sub_resource type="Resource" id="Socket_shard"]
+script = ExtResource("2_drop")
+item_id = &"socket_shard_2"
+chance = 100.0
+
+[sub_resource type="Resource" id="Socket_stone"]
+script = ExtResource("2_drop")
+item_id = &"socket_stone_2"
+chance = 10.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"stone_hrungnir"
 display_name = "หรุงนีร์ศิลา"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(110, 130)
-hp_bar_offset_y = -167.2
-display_height = 440.0
 fit_foot_animations = null
 level = 72
-max_hp = 60000
+max_hp = 90000
 atk_min = 700
 atk_max = 900
 def = 120
@@ -92,7 +100,7 @@ exp_reward = 9464
 job_exp_reward = 6625
 zeny_min = 1652
 zeny_max = 3068
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_stone_hrungnir_0"), SubResource("Drop_stone_hrungnir_1"), SubResource("Drop_stone_hrungnir_2"), SubResource("Drop_stone_hrungnir_3"), SubResource("Drop_stone_hrungnir_4"), SubResource("Drop_stone_hrungnir_5"), SubResource("Drop_stone_hrungnir_6"), SubResource("Drop_stone_hrungnir_7"), SubResource("Drop_stone_hrungnir_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_stone_hrungnir_0"), SubResource("Drop_stone_hrungnir_1"), SubResource("Drop_stone_hrungnir_2"), SubResource("Drop_stone_hrungnir_3"), SubResource("Drop_stone_hrungnir_4"), SubResource("Drop_stone_hrungnir_5"), SubResource("Drop_stone_hrungnir_6"), SubResource("Drop_stone_hrungnir_7"), SubResource("Drop_stone_hrungnir_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
 is_boss = true
 boss_title = "ยักษ์ที่ถูกทำให้เป็นอาวุธ"
 skill_name = "หัวใจสายฟ้า"
@@ -112,3 +120,5 @@ fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(800, 1100)
 fit_uniform_scale = true
 fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.15492958, &"Walk": 1.15492958, &"Attack": 1.15673981, &"Hit": 1.15673981, &"Die": 1.15673981, &"Run": 1.15492958, &"Skill": 1.15673981})
+display_height = 850.0
+hp_bar_offset_y = -813.0

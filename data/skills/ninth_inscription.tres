@@ -4,16 +4,16 @@
 [resource]
 script = ExtResource("s")
 id = &"ninth_inscription"
-display_name = "อักขระที่เก้า"
-description = "ใช้ 4 ตรา วงอักขระรัศมี 500 px นาน 3 วิ โจมตีในวงคริ 100% และมองข้าม DEF จบแล้วระเบิด 2000–2800% ATK ต้องมีกายาอักขระที่เก้า Lv.5"
+display_name = "ประกาศนามที่เก้า"
+description = "ใช้ 4 รูน · วงรัศมี 500 นาน 5 วินาที เพิ่มคริ 20–40 จุดและเจาะ DEF เพิ่ม 25% ในวง · จบแล้วระเบิด 1400–2200% ATK ไม่คริ · ต้องอยู่กับวงเพื่อรับผล ไม่ติดตามผู้ร่าย"
 icon = ExtResource("i")
 max_level = 5
 job_ids = Array[StringName]([&"ninth_edge"])
-required_level = 92
+required_level = 96
 type = 2
-sp_cost_base = 60
+sp_cost_base = 72
 sp_cost_per_level = 0.0
-cooldown = 60.0
+cooldown = 45.0
 damage_mult_base = 0.00
 damage_mult_per_level = 0.00
-required_skills = {"ninth_vessel": 5}
+required_skills = {"ninth_vessel": 1}

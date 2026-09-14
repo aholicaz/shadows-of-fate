@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_slag_mantis.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"card_slag_mantis"
+display_name = "การ์ดตั๊กแตนตะกรัน"
+description = "แขนเคียวแก้วดำซึ่งเย็นตัวจากตะกรัน ภายในยังมีตัวอักษรของเหล็กที่ถูกทิ้ง"
+monster_id = &"slag_mantis"
+monster_level = 98
+fits_slot = 1
+rarity = 5
+icon = ExtResource("i")
+type = 5
+max_stack = 99
+sell_price = 400
+bonus_dex = 5
+hit = 12

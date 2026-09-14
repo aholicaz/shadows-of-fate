@@ -16,11 +16,13 @@ metadata/price_base_r47_buy = 7800
 slot = 4
 card_slots = 1
 max_stack = 1
-buy_price = 4688
-sell_price = 584
+buy_price = 6300
+sell_price = 80
 metadata/sell_price_base_r44 = 3120
-def = 20
-max_hp = 80
 refinable = true
 
 drop_hint = "โกเลมเตาหลอม"
+def = 21
+bonus_vit = 2
+max_hp = 70
+attack_element = 0

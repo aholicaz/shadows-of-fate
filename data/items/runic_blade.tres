@@ -21,14 +21,11 @@ metadata/price_base_r47_buy = 60000
 slot = 1
 weapon_type = &"sword"
 attack_animation = &"Attack_Blade"
-card_slots = 1
+card_slots = 2
 max_stack = 1
 buy_price = 16352
-sell_price = 1306
+sell_price = 250
 metadata/sell_price_base_r44 = 24000
-atk = 94
-matk = 20
-bonus_int = 2
 refinable = true
 refine_atk_per_level = 4
 
@@ -42,14 +39,17 @@ equip_hand_rotation_degrees = 63.0
 equip_attack_body_frames = ExtResource("bare_combo")
 equip_z_index = -1
 
-skill_damage_percent = 12.0
 
-bonus_str = 7
 
-max_sp = 44
 
-cooldown_reduction_percent = 3.0
 
 damage_percent = 0.0
 
 drop_hint = "ผู้เฝ้ารูน"
+atk = 104
+bonus_str = 4
+bonus_int = 3
+max_sp = 30
+skill_damage_percent = 10.0
+cooldown_reduction_percent = 2.0
+attack_element = 0

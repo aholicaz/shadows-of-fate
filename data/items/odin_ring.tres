@@ -15,19 +15,20 @@ slot = 7
 card_slots = 0
 max_stack = 1
 buy_price = 111392
-sell_price = 2768
-atk = 30
-matk = 30
-max_hp = 400
-bonus_int = 4
-bonus_luk = 4
+sell_price = 812
 
-skill_damage_percent = 7.0
 
-cooldown_reduction_percent = 6.0
 
-max_sp = 55
 
 damage_percent = 0.0
 
 drop_hint = "การ์ม ผู้ถูกล่าม"
+bonus_str = 4
+bonus_agi = 4
+bonus_vit = 4
+bonus_int = 4
+bonus_dex = 4
+bonus_luk = 4
+max_hp = 150
+max_sp = 30
+attack_element = 0
