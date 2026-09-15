@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
 [ext_resource type="Resource" uid="uid://d18nbft3t6apl" path="res://data/monsters/chonchon.tres" id="md_chonchon"]
 [ext_resource type="Resource" uid="uid://gl0q4jqqgbe8" path="res://data/monsters/drops.tres" id="md_drops"]
-[ext_resource type="Resource" uid="uid://b0un72rhmdqdy" path="res://data/monsters/king_poring.tres" id="md_king_poring"]
 [ext_resource type="Resource" uid="uid://ddphalxkv2ksp" path="res://data/monsters/wolf.tres" id="md_wolf"]
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
 [ext_resource type="PackedScene" uid="uid://ce4i2xgacms7p" path="res://scenes/monsters/monster.tscn" id="monster_scene"]
@@ -60,18 +59,6 @@ script = ExtResource("map_spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_drops"), ExtResource("md_chonchon"), ExtResource("md_wolf")])
 monster_scene = ExtResource("monster_scene")
 max_spawn_distance = 1700.0
-
-[node name="KingPoringSpawner" type="Node2D" parent="Spawners" unique_id=1049929949]
-script = ExtResource("map_spawner")
-monster_types = Array[ExtResource("monster_data")]([ExtResource("md_king_poring")])
-count_per_type = 1
-monster_scene = ExtResource("monster_scene")
-edge_margin = 2600.0
-min_spacing = 400.0
-avoid_player_range = 700.0
-offscreen_margin = 260.0
-max_spawn_distance = 2400.0
-despawn_distance = 0.0
 
 [node name="Portals" type="Node2D" parent="." unique_id=1498973762]
 

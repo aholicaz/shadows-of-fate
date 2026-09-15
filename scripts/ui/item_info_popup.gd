@@ -315,6 +315,11 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "",
 			["INT", d.bonus_int], ["DEX", d.bonus_dex], ["LUK", d.bonus_luk]]:
 		if int(pair[1]) != 0:
 			stats.append("%s %+d" % [pair[0], bst.call(int(pair[1]))])
+	if inst != null:
+		var refined := d.refine_bonuses(inst.refine)
+		for key in refined:
+			if key in [&"atk", &"def"] or float(refined[key]) == 0: continue
+			stats.append("ตีบวก: %s %+.2f" % [String(key).to_upper(), float(refined[key])])
 	if bp > 0.0:
 		stats.append("[color=#ffd54a]★ ของดรอป : ค่าพลังดีกว่าของร้าน +%s%%[/color]"
 			% ItemInstance._pct_text(bp))

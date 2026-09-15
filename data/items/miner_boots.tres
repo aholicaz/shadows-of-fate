@@ -25,3 +25,5 @@ bonus_vit = 3
 max_hp = 60
 attack_element = 0
 drop_hint = "พิตแมน"
+
+move_speed_percent = 10.0

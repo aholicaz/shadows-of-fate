@@ -20,7 +20,7 @@ text = "ผ่านบททดสอบน้ำหนักของดาบ
 [resource]
 script = ExtResource("q")
 id = "rb4_edge_and_force"
-title = "R4 คมและแรง"
+title = "คมและแรง"
 giver_name = "ผู้อาวุโสญอร์ดา"
 description = "ไปยังศิลาทดสอบทางขวาของเมือง ใช้คอมโบปกติ และเปิดแผลด้วย Rending Wave ก่อนตามด้วย Bash ไม่จำเป็นต้องติดคริ"
 dialog_offer = "ไปยังศิลาทดสอบทางขวาของเมือง ใช้คอมโบปกติ และเปิดแผลด้วย Rending Wave ก่อนตามด้วย Bash ไม่จำเป็นต้องติดคริ"

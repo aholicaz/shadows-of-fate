@@ -89,6 +89,8 @@ enum Slot {
 @export var buy_price: int = 100
 @export var sell_price: int = 40
 @export var sellable: bool = true
+## Explicit opt-in for bulk junk sales; new materials stay protected by default.
+@export var bulk_sell_junk: bool = false
 @export var can_drop: bool = true
 
 # =========================================================
@@ -166,14 +168,49 @@ enum Slot {
 @export var buff_duration: float = 0.0
 
 
-## Every rank scales with base equipment power; old per-rank values remain a floor.
+## Cumulative rounding keeps small ranks useful without rounding every rank upward.
+func refine_progress(rank: int) -> Dictionary:
+	var result := {}
+	if not refinable or not is_equipment(): return result
+	var r := clampi(rank, 0, max_refine)
+	var level := clampi(required_level, 1, 99)
+	if type == Type.WEAPON:
+		result[&"atk"] = r * maxi(3, int(ceil(atk * 0.04)))
+	else:
+		var rate := 0.8 + level * 0.008 + def * 0.025
+		if slot == Slot.ACCESSORY: rate = 0.15 + def * 0.015
+		result[&"def"] = r * rate
+		if slot == Slot.HEAD: result[&"max_sp"] = r * (1 + int(level / 30.0))
+		if slot == Slot.GARMENT: result[&"mdef"] = r * (0.5 + level * 0.01)
+		if slot == Slot.SHOES: result[&"flee"] = r / 2.0
+		if slot == Slot.ACCESSORY:
+			# Grow one existing defining stat; do not turn every accessory into ATK.
+			var key := &""
+			var value := 0
+			for pair in [[&"str",bonus_str],[&"agi",bonus_agi],[&"vit",bonus_vit],[&"int",bonus_int],[&"dex",bonus_dex],[&"luk",bonus_luk]]:
+				if int(pair[1]) > value:
+					key = pair[0]
+					value = int(pair[1])
+			if key != &"": result[key] = r * clampf(value * 0.025, 0.2, 0.4)
+			elif atk > 0: result[&"atk"] = r * maxf(0.2, atk * 0.02)
+			elif matk > 0: result[&"matk"] = r * maxf(0.2, matk * 0.02)
+			else: result[&"max_sp"] = r
+	return result
+
+## Combat still uses the same cumulative integer rounding as before.
+func refine_bonuses(rank: int) -> Dictionary:
+	var result := refine_progress(rank)
+	for key in result:
+		var value := float(result[key])
+		if key == &"flee": continue
+		result[key] = int(floor(value)) if key in [&"str", &"agi", &"vit", &"int", &"dex", &"luk", &"flee"] else int(round(value))
+	return result
+
 func refine_atk_gain() -> int:
-	if type != Type.WEAPON or not refinable: return 0
-	return maxi(refine_atk_per_level, int(ceil(atk * 0.05)))
+	return int(refine_bonuses(1).get(&"atk", 0))
 
 func refine_def_gain() -> int:
-	if type != Type.ARMOR or not refinable: return 0
-	return maxi(refine_def_per_level, int(ceil(def * 0.06)))
+	return int(refine_bonuses(1).get(&"def", 0))
 
 func is_equipment() -> bool:
 	return type == Type.WEAPON or type == Type.ARMOR

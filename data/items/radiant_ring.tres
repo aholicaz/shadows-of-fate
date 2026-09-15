@@ -28,3 +28,5 @@ max_sp = 45
 skill_damage_percent = 8.0
 sp_drain_percent = 0.1
 attack_element = 0
+
+refinable = true

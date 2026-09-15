@@ -28,5 +28,5 @@ bonus_agi = 4
 flee = 6
 max_hp = 70
 aspd_percent = 5.0
-move_speed_percent = 1.0
+move_speed_percent = 15.0
 attack_element = 0

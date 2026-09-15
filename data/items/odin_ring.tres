@@ -32,3 +32,5 @@ bonus_luk = 4
 max_hp = 150
 max_sp = 30
 attack_element = 0
+
+refinable = true

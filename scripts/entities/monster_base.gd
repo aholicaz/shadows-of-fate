@@ -57,6 +57,7 @@ var _aggro_timer := 0.0
 var _aggro_locked := false
 var _jump_cd := 0.0
 var _skill_cd := 0.0
+var _special_cast_count := 0
 var _spawn_locked := false
 var _fit_cache: Dictionary = {}
 ## ★ รอบ 83 ★ ความสูงของท่าอ้างอิง (-1 = ยังไม่ได้วัด)
@@ -236,7 +237,8 @@ func _apply_fit() -> void:
 	sprite.scale = Vector2(k, k)
 	if data.fit_fixed_anchor_enabled:
 		var texture := sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
-		var anchor := data.fit_fixed_anchor - texture.get_size() * 0.5
+		var source_anchor: Vector2 = data.fit_animation_anchors.get(sprite.animation, data.fit_fixed_anchor)
+		var anchor := source_anchor - texture.get_size() * 0.5
 		var soles: PackedFloat32Array = info.get("soles", PackedFloat32Array())
 		if sprite.frame < soles.size() and soles[sprite.frame] > 0.0:
 			anchor.y = soles[sprite.frame] - texture.get_height() * 0.5
@@ -777,13 +779,25 @@ func _cast_skill() -> void:
 	if played == "":
 		played = _play("Attack", true)
 
+	if data.id == &"gullveig_ember" or (data.id == &"baphomet" and _special_cast_count % 2 == 0):
+		var kind := "meteor" if data.id == &"gullveig_ember" and _special_cast_count % 2 == 0 else "flame_jet"
+		if data.id == &"baphomet": kind = "scythe"
+		_special_cast_count += 1
+		var fx = preload("res://scripts/entities/boss_signature_skill.gd").cast(self, kind, facing)
+		await fx.finished
+		if state != State.DEAD:
+			state = State.IDLE
+			_attack_timer = maxf(_attack_timer, data.attack_cooldown * 0.5)
+		return
+	if data.id == &"baphomet": _special_cast_count += 1
+
 	if data.skill_name != "":
 		Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y - 26 - hover_lift()),
 			data.skill_name, Color("#ff9a4a"), 22, 0)
 
 	# ★ เอฟเฟกต์สกิล ★ เกิดเป็นโหนดแยกในแมพ เลยใหญ่/ไกลเกินตัวมอนได้
 	if data.skill_hand_projectiles:
-		await _run_hand_projectiles(played, data.skill_damage_mult)
+		await _run_hand_projectiles(played, data.skill_damage_mult, true)
 		return
 	if data.skill_ground_slam:
 		await _run_ground_slam_animation(played, true)
@@ -836,8 +850,9 @@ func _skill_hit() -> void:
 			Color("#cccccc"), 20, 3)
 		return
 
-	var result := Combat.monster_hits_player(data, PlayerState.stats)
-	var damage := maxi(1, int(round(result.damage * data.skill_damage_mult)))
+	var result := Combat.monster_skill_hits_player(data, PlayerState.stats, data.skill_damage_mult)
+	if result.miss: return
+	var damage: int = result.damage
 	if _player.has_method("take_damage"):
 		var dir := signi(int(pf.x - global_position.x))
 		_player.take_damage(damage, data.skill_knockback, dir)
@@ -968,11 +983,11 @@ func _ground_slam_hit(skill: bool, hit_index: int) -> void:
 	var pf: Vector2 = _player.foot_position() if _player.has_method("foot_position") else _player.global_position
 	if absf(pf.x - at.x) > radius or absf(pf.y - at.y) > data.slam_height:
 		return
-	var result := Combat.monster_hits_player(data, PlayerState.stats)
+	var result := Combat.monster_skill_hits_player(data, PlayerState.stats, data.skill_damage_mult) if skill else Combat.monster_hits_player(data, PlayerState.stats)
 	if result.miss:
 		Events.floating_text(_player.global_position + Vector2(0, -40), "MISS", Color("#cccccc"), 20, 3)
 		return
-	var mult := data.skill_damage_mult if skill else 1.0
+	var mult := 1.0
 	var force := data.skill_knockback if skill else data.knockback_force
 	if _player.has_method("take_damage"):
 		_player.take_damage(maxi(1, int(round(result.damage * mult))), force, signi(int(pf.x - at.x)))
@@ -980,7 +995,7 @@ func _ground_slam_hit(skill: bool, hit_index: int) -> void:
 
 ## ★ ดาเมจ 1 ที ของท่าโจมตีปกติ ★ (ท่าที่ตีหลายทีจะเรียกซ้ำตามจำนวนเฟรมที่ตั้งไว้)
 ## hits = ตีทั้งหมดกี่ทีในท่านี้ — ตี 1 ทีจะไม่โดนตัวคูณ "ต่อที" เลย (ของเดิมไม่เปลี่ยน)
-func _attack_hit(hits: int = 1, release_frame: int = -1, cast_mult: float = 1.0) -> void:
+func _attack_hit(hits: int = 1, release_frame: int = -1, cast_mult: float = 1.0, skill_cast: bool = false) -> void:
 	var mult: float = 1.0
 	if hits > 1 and data.attack_hit_damage_mult > 0.0:
 		mult = data.attack_hit_damage_mult
@@ -995,6 +1010,7 @@ func _attack_hit(hits: int = 1, release_frame: int = -1, cast_mult: float = 1.0)
 		var shot := MonsterProjectile.fire_straight(data, self, facing, projectile_origin(release_frame),aim)
 		if shot != null:
 			shot.damage_mult = mult * cast_mult
+			shot.is_skill = skill_cast
 			projectile_released.emit(shot,release_frame)
 		return
 
@@ -1025,7 +1041,24 @@ func projectile_origin(release_frame: int = -1) -> Vector2:
 	return foot_position()+Vector2(data.projectile_offset.x*facing,data.projectile_offset.y)
 
 
-func _run_hand_projectiles(played: String, cast_mult: float = 1.0) -> void:
+func _hand_cast_active(played: String) -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() and is_instance_valid(sprite) \
+		and state == State.ATTACK and sprite.animation == StringName(played)
+
+
+func _run_hand_projectiles(played: String, cast_mult: float = 1.0, skill_cast: bool = false) -> void:
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(sprite): return
+	var cast_tree := get_tree()
+	# SceneTree can outlive this monster during map replacement. Cancel the
+	# suspended cast even if the same node is later attached to another map.
+	var cancelled := [false]
+	var cancel_cast := func(): cancelled[0] = true
+	tree_exiting.connect(cancel_cast, CONNECT_ONE_SHOT)
+	await _continue_hand_projectiles(played,cast_mult,skill_cast,cast_tree,cancelled)
+	if tree_exiting.is_connected(cancel_cast): tree_exiting.disconnect(cancel_cast)
+
+
+func _continue_hand_projectiles(played: String, cast_mult: float, skill_cast: bool, cast_tree: SceneTree, cancelled: Array) -> void:
 	var frames := data.attack_hit_frame_list()
 	frames.sort()
 	if played == "" or not sprite.sprite_frames.has_animation(played):
@@ -1033,15 +1066,15 @@ func _run_hand_projectiles(played: String, cast_mult: float = 1.0) -> void:
 		return
 	for frame in frames:
 		if frame >= sprite.sprite_frames.get_frame_count(played): continue
-		while state == State.ATTACK and sprite.animation == StringName(played) and sprite.frame < frame:
-			await get_tree().process_frame
-		if state != State.ATTACK or sprite.animation != StringName(played): return
+		while not cancelled[0] and _hand_cast_active(played) and sprite.frame < frame:
+			await cast_tree.process_frame
+		if cancelled[0] or not _hand_cast_active(played): return
 		if data.projectile_aim_at_player and is_instance_valid(_player): _face_to(_player.global_position.x-global_position.x)
 		_apply_fit()
-		_attack_hit(frames.size(),frame,cast_mult)
-	while state == State.ATTACK and sprite.animation == StringName(played) and sprite.is_playing():
-		await get_tree().process_frame
-	if state == State.ATTACK:
+		_attack_hit(frames.size(),frame,cast_mult,skill_cast)
+	while not cancelled[0] and _hand_cast_active(played) and sprite.is_playing():
+		await cast_tree.process_frame
+	if not cancelled[0] and _hand_cast_active(played):
 		state = State.IDLE
 		_attack_timer = data.attack_cooldown
 

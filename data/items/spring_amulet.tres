@@ -22,3 +22,5 @@ bonus_vit = 4
 max_hp = 140
 hp_percent = 3.0
 attack_element = 0
+
+refinable = true

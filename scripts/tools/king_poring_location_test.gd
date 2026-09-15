@@ -1,0 +1,17 @@
+extends Node
+func _ready() -> void:
+	SaveManager.end_session()
+	var old = load("res://scenes/maps/asgard_forest_2.tscn").instantiate()
+	assert(old.get_node_or_null("Spawners/KingPoringSpawner") == null)
+	old.free()
+	var forest = load("res://scenes/maps/dark_forest.tscn").instantiate()
+	var boss = forest.get_node("Spawners/KingPoringSpawner")
+	assert(boss.monster_types[0].id == &"king_poring" and boss.max_alive == 1)
+	assert(boss.position.x - forest.get_node("SpawnPoints/default").position.x > 4000)
+	assert(boss.position.x > forest.get_node("Lore38/HunterCamp").position.x + 1000)
+	assert(boss.position.x + boss.spawn_width / 2 < forest.map_bounds.end.x - 800)
+	assert(not MapAtlas.MAPS[&"asgard_forest_2"].monsters.has(&"king_poring"))
+	assert(MapAtlas.MAPS[&"dark_forest"].monsters.has(&"king_poring"))
+	forest.free()
+	print("KING_PORING_LOCATION_PASS: scene resources, single boss, farming approach, camp/exit spacing, atlas")
+	get_tree().quit()

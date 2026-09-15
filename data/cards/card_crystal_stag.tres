@@ -22,5 +22,5 @@ flee = 5
 bonus_agi = 3
 
 percent_effects = {
-"move_speed_percent": 5.0
+"move_speed_percent": 9.0
 }

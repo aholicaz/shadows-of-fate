@@ -68,16 +68,17 @@ func _build_default_shape() -> void:
 
 func _build_labels() -> void:
 	if label_text != "":
-		_label = UITheme.make_label(label_text, 14, UITheme.ACCENT)
+		_label = UITheme.make_label(label_text, 26, Color("ece7d8"))
 		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_label.add_theme_color_override("font_outline_color", Color.BLACK)
 		_label.add_theme_constant_override("outline_size", 5)
-		_label.position = Vector2(-90, -170)
-		_label.custom_minimum_size.x = 180
+		_label.position = Vector2(-180, -200)
+		_label.custom_minimum_size.x = 360
 		_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_label)
+		preload("res://scripts/ui/quest_location_style.gd").apply(_label)
 
-	_prompt = UITheme.make_label(prompt_text, 13, Color("#9be7ff"))
+	_prompt = UITheme.make_label(prompt_text, 20, Color("#9be7ff"))
 	_prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_prompt.add_theme_color_override("font_outline_color", Color.BLACK)
 	_prompt.add_theme_constant_override("outline_size", 5)

@@ -27,3 +27,5 @@ bonus_str = 4
 bonus_vit = 4
 max_hp = 180
 attack_element = 0
+
+refinable = true

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"thorn_hound"
-fits_slot = 5
+fits_slot = 6
 rarity = 3
 monster_level = 41
 id = &"card_thorn_hound"
@@ -22,5 +22,5 @@ flee = 4
 bonus_agi = 2
 
 percent_effects = {
-"move_speed_percent": 3.0
+"move_speed_percent": 5.0
 }

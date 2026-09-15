@@ -239,6 +239,9 @@ func change_map(map_id: StringName, spawn_point: StringName = &"default") -> voi
 		get_tree().change_scene_to_packed(_loading_scene)
 		await get_tree().process_frame
 		await get_tree().process_frame
+		# Old scene is gone: release cached sheets before loading the next map.
+		GameData.release_monsters_except([])
+		await get_tree().process_frame
 	var scene: PackedScene = await _load_map_scene(path)
 	if scene == null:
 		push_error("[Game] โหลดแมพไม่สำเร็จ: " + path)
@@ -348,7 +351,4 @@ func _fade_to(alpha: float, duration: float) -> void:
 ## เรียกตอนผู้เล่นตาย: กลับเมืองพร้อมฟื้นเลือดครึ่งหนึ่ง
 func respawn_in_town() -> void:
 	PlayerState.revive(0.5)
-	if PlayerState.current_map_id == &"blackhorn_rootcrypt" and PlayerState.has_flag(&"rb_checkpoint"):
-		await change_map(&"blackhorn_rootcrypt", &"checkpoint")
-		return
-	await change_map(&"prontera_town", &"default")
+	await change_map(PlayerState.saved_respawn_town(), &"default")

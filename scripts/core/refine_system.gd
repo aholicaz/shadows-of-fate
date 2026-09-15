@@ -72,8 +72,8 @@ static func preview(inst: ItemInstance) -> Dictionary:
 		"zeny": zeny_cost(inst),
 		"ore_id": ore_needed(inst),
 		"ore_count": ore_count(inst),
-		"atk_gain": d.refine_atk_gain() if d != null else 0,
-		"def_gain": d.refine_def_gain() if d != null else 0,
+		"atk_gain": int(d.refine_bonuses(inst.refine + 1).get(&"atk", 0)) - int(d.refine_bonuses(inst.refine).get(&"atk", 0)),
+		"def_gain": int(d.refine_bonuses(inst.refine + 1).get(&"def", 0)) - int(d.refine_bonuses(inst.refine).get(&"def", 0)),
 		"can_downgrade": inst.refine >= DOWNGRADE_FROM,
 	}
 

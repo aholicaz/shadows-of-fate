@@ -27,3 +27,5 @@ bonus_dex = 4
 max_sp = 35
 cooldown_reduction_percent = 5.0
 attack_element = 0
+
+refinable = true

@@ -19,7 +19,7 @@ text = "ใช้สกิลสาย Sunder โดนผู้ถือโล�
 [resource]
 script = ExtResource("1_quest")
 id = &"rb9_wall_that_held_the_sky"
-title = "RB9 กำแพงที่ค้ำฟ้า"
+title = "กำแพงที่ค้ำฟ้า"
 description = "ล้มผู้ถือโล่แห่งกำแพงด้วยสกิลสาย Sunder อย่างน้อยหนึ่งครั้ง"
 giver_name = "ช่างสลักรูนเกอร์ด"
 dialog_offer = "ผู้ถือโล่ยืนเฝ้ากำแพง... เขาคือกำแพงเอง เกราะเขาหนากว่าอะไรที่ดาบเจ้าเคยเจอ\n\nสายหนัก — Tempered Might · Anvil Cleave · Faultline · Worldcleaver — ทลายมันให้ข้าดู ดวงที่ห้าคือ «กำแพง» ต้องทลายกำแพงถึงจะได้"

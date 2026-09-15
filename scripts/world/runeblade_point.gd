@@ -11,13 +11,15 @@ var hidden_title := "[F] ซุ้มรากเก่า"
 
 func _process(_delta: float) -> void:
 	if reveal_flag != &"": label.text = title if PlayerState.has_flag(reveal_flag) else hidden_title
+	label.visible = not label.text.is_empty()
 
 func _ready() -> void:
-	label = UITheme.make_label(title, 18, tint)
+	label = UITheme.make_label(title, 26, Color("ece7d8"))
 	label.position = Vector2(-180, -150)
 	label.custom_minimum_size.x = 360
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	add_child(label)
+	preload("res://scripts/ui/quest_location_style.gd").apply(label)
 	queue_redraw()
 
 func _draw() -> void:

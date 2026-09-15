@@ -11,7 +11,7 @@ var _point_label: Label
 var _grid: Control
 var _detail: VBoxContainer
 var _detail_actions: VBoxContainer
-var _hotbar: HBoxContainer
+var _hotbar: GridContainer
 var _scroll: ScrollContainer
 var _status: Label
 
@@ -77,7 +77,8 @@ func _build_content() -> void:
 	detail_layout.add_child(_detail_actions)
 	_status = UITheme.make_label("กด + บนผังเพื่ออัปเกรด • คลิกสกิลเพื่ออ่านและติดตั้ง",13,UITheme.TEXT_DIM)
 	content.add_child(_status)
-	_hotbar = HBoxContainer.new()
+	_hotbar = GridContainer.new()
+	_hotbar.columns = SkillBook.BANK_SIZE
 	_hotbar.add_theme_constant_override("separation",8)
 	content.add_child(_hotbar)
 
@@ -182,7 +183,7 @@ func _card(s: SkillData) -> void:
 		if _group(parent)==_category: continue
 		var jump := UITheme.make_button("← %s %d"%[GameData.get_skill(parent).display_name.split(" (")[0],int(s.required_skills[prerequisite])])
 		jump.position=button.position+Vector2(0,81)
-		jump.add_theme_font_size_override("font_size",10)
+		jump.add_theme_font_size_override("font_size",14)
 		jump.pressed.connect(func(): _category=_group(parent); _select(parent))
 		_grid.add_child(jump)
 
@@ -238,7 +239,7 @@ func _loadout() -> void:
 	_clear(_hotbar)
 	var selected_skill := GameData.get_skill(_selected)
 	var assignable := selected_skill!=null and selected_skill.type!=SkillData.SkillType.PASSIVE and PlayerState.skills.is_learned(_selected)
-	_status.text="ติดตั้ง %s → กดช่อง 1–4 ด้านล่าง"%selected_skill.display_name if assignable else "กด + บนผังเพื่ออัปเกรด • เส้นเชื่อมแสดงสกิลที่ต้องเรียนก่อน"
+	_status.text="ติดตั้ง %s → เลือกช่องด้านล่าง • T สลับชุด"%selected_skill.display_name if assignable else "กด + บนผังเพื่ออัปเกรด • เส้นเชื่อมแสดงสกิลที่ต้องเรียนก่อน"
 	for i in range(SkillBook.HOTKEY_COUNT):
 		var index := i
 		var id := PlayerState.skills.hotkey_at(i)
@@ -246,17 +247,17 @@ func _loadout() -> void:
 		var col := VBoxContainer.new()
 		col.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		_hotbar.add_child(col)
-		var button := UITheme.make_button("%d  %s"%[i+1,s.display_name if s!=null else "ช่องว่าง"])
+		var button := UITheme.make_button("%s · %d  %s"%["ชุด 1" if i < 4 else "ชุด 2", i % 4 + 1,s.display_name if s!=null else "ช่องว่าง"])
 		button.name="Hotkey%d"%(i+1)
 		button.custom_minimum_size=Vector2(100,42)
 		button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-		button.add_theme_font_size_override("font_size",12)
+		button.add_theme_font_size_override("font_size",16)
 		button.disabled=not assignable
 		button.tooltip_text="ใส่สกิลที่เลือกในช่อง %d%s"%[i+1," (แทน "+s.display_name+")" if s!=null else ""]
 		button.pressed.connect(func(): _assign_hotkey(index))
 		col.add_child(button)
 		var clear := UITheme.make_button("ถอดออก" if s!=null else "—")
-		clear.add_theme_font_size_override("font_size",10)
+		clear.add_theme_font_size_override("font_size",14)
 		clear.disabled=s==null
 		clear.pressed.connect(func(): PlayerState.skills.set_hotkey(index,&""); refresh())
 		col.add_child(clear)

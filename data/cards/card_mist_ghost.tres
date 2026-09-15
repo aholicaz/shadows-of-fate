@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"mist_ghost"
-fits_slot = 5
+fits_slot = 6
 rarity = 4
 monster_level = 84
 id = &"card_mist_ghost"
@@ -22,5 +22,5 @@ flee = 8
 mdef = 10
 
 percent_effects = {
-"move_speed_percent": 5.0
+"move_speed_percent": 10.0
 }

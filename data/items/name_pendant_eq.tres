@@ -20,3 +20,5 @@ bonus_str = 3
 bonus_agi = 3
 crit = 5
 attack_element = 0
+
+refinable = true

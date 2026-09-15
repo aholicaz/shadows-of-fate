@@ -25,6 +25,7 @@ extends Area2D
 @export var burst_up_max: float = 420.0
 
 var instance: ItemInstance
+var _is_card := false
 var _age := 0.0
 var _can_pickup := false
 var _collected := false
@@ -95,7 +96,7 @@ func _update_hint() -> void:
 	var offset: Vector2 = global_position - foot
 	_hint.visible = absf(offset.x) < auto_pickup_range_x and absf(offset.y) < auto_pickup_range_y
 	if _hint.visible:
-		_hint.position.y = -78 + sin(_age * 5.0) * 3.0
+		_hint.position.y = _base_sprite_y * 2.0 - 60.0 + sin(_age * 5.0) * 3.0
 
 
 ## ยิงเรย์จากจุดปัจจุบันไปยังจุดถัดไป ถ้าเจอพื้นก็หยุดตรงนั้น
@@ -124,15 +125,19 @@ func _refresh_visual() -> void:
 	if d == null:
 		return
 
+	_is_card = d is CardData
+	var art: Texture2D = d.icon
+	if d is CardData and d.illustration != null: art = d.illustration
+	if art == null: art = preload("res://Sprites/ui/petrol/icons/cards.svg") if _is_card else null
 	var spr := get_node_or_null("Sprite2D") as Sprite2D
-	if spr != null and d.icon != null:
-		spr.texture = d.icon
+	if spr != null and art != null:
+		spr.texture = art
 		spr.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		# ย่อให้ขนาดพอดีกับพื้น ไม่ว่าไฟล์ภาพจะใหญ่แค่ไหน
 		if d.drop_display_size > 0.0:
-			var tex_size := d.icon.get_size()
+			var tex_size := art.get_size()
 			var longest := maxf(1.0, maxf(tex_size.x, tex_size.y))
-			var k := d.drop_display_size / longest
+			var k := 2.0 * d.drop_display_size / longest
 			spr.scale = Vector2(k, k)
 			# ให้ "ก้นภาพ" อยู่ที่จุดกำเนิดของไอเทม (ซึ่งจะแตะพื้นพอดี)
 			spr.position.y = -tex_size.y * k * 0.5
@@ -146,10 +151,13 @@ func _refresh_visual() -> void:
 			label.text += " x%d" % instance.count
 		label.add_theme_color_override("font_outline_color", Color.BLACK)
 		label.add_theme_constant_override("outline_size", 4)
-		label.add_theme_font_size_override("font_size", 13)
+		label.add_theme_font_size_override("font_size", 16)
+		label.position.y = _base_sprite_y * 2.0 - 30.0
+		label.add_theme_color_override("font_color", Color("ffd46b") if _is_card else Color.WHITE)
 
 
 func _physics_process(delta: float) -> void:
+	if _is_card: queue_redraw()
 	# ★ รอบ 98 ★ โดนดูดแล้ว → ลอยเข้าหากลางตัวผู้เล่นแล้วเก็บ
 	if _magnet:
 		_age += delta
@@ -274,3 +282,18 @@ func _finish_collect() -> void:
 		return
 
 	queue_free()
+
+
+# Lightweight halo behind the card; no extra texture or particle emitter per drop.
+func _draw() -> void:
+	if not _is_card or _sprite == null: return
+	var center := _sprite.position
+	var radius := maxf(20.0, absf(_base_sprite_y) * 1.15)
+	var pulse := 0.8 + 0.2 * sin(_age * 3.0)
+	for i in range(5, 0, -1):
+		draw_circle(center, radius * (0.75 + i * 0.10), Color(1.0, 0.65, 0.08, 0.035 * pulse))
+	draw_arc(center, radius, 0.0, TAU, 40, Color(1.0, 0.78, 0.25, 0.65 * pulse), 2.0, true)
+	for i in range(3):
+		var p := center + Vector2.from_angle(_age * 0.7 + i * TAU / 3.0) * radius
+		draw_line(p - Vector2(4, 0), p + Vector2(4, 0), Color("ffe8a3"), 2.0, true)
+		draw_line(p - Vector2(0, 6), p + Vector2(0, 6), Color("ffe8a3"), 2.0, true)

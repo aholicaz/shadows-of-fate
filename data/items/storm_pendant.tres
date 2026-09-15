@@ -31,3 +31,5 @@ aspd_percent = 4.0
 crit = 5
 crit_damage_percent = 6.0
 attack_element = 0
+
+refinable = true

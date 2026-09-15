@@ -27,3 +27,5 @@ bonus_str = 3
 skill_damage_percent = 7.0
 max_sp = 25
 attack_element = 0
+
+refinable = true

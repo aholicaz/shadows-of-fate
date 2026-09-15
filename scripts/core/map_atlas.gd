@@ -49,12 +49,12 @@ const MAPS := {
 	},
 	&"asgard_forest_2": {
 		"chapter": 1, "kind": KIND_FIELD, "level": [6, 14],
-		"monsters": [&"chonchon", &"drops", &"king_poring", &"wolf"],
+		"monsters": [&"chonchon", &"drops", &"wolf"],
 		"links": [&"prontera_field", &"dark_forest"],
 	},
 	&"dark_forest": {
 		"chapter": 1, "kind": KIND_FIELD, "level": [12, 20],
-		"monsters": [&"lunatic", &"hornet", &"wolf"],
+		"monsters": [&"lunatic", &"hornet", &"wolf", &"king_poring"],
 		"links": [&"asgard_forest_2", &"dark_forest_2", &"thunder_scar"],
 	},
 	&"thunder_scar": {

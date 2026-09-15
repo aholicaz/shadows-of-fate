@@ -8,7 +8,6 @@ extends GameWindow
 var _big: Minimap
 var _name_label: Label
 var _region_label: Label
-var _mini_toggle: Button
 
 
 func _ready() -> void:
@@ -68,15 +67,7 @@ func _build_content() -> void:
 		item.add_child(dot)
 		item.add_child(UITheme.make_label(String(pair[0]), 11, UITheme.TEXT_DIM))
 		legend.add_child(item)
-	var sp := Control.new()
-	sp.custom_minimum_size.x = 30
-	legend.add_child(sp)
-	_mini_toggle = UITheme.make_button("มินิแมพมุมจอ: เปิด", 170)
-	_mini_toggle.pressed.connect(func():
-		if UI.minimap != null:
-			UI.minimap.toggle()
-		refresh())
-	legend.add_child(_mini_toggle)
+
 
 
 func refresh() -> void:
@@ -85,13 +76,10 @@ func refresh() -> void:
 	var id: StringName = PlayerState.current_map_id
 	_name_label.text = Game.map_display_name(id)
 	_region_label.text = String(HUD.REGION_NAMES.get(id, ""))
-	if _mini_toggle != null:
-		var on: bool = UI.minimap != null and UI.minimap.visible
-		_mini_toggle.text = "มินิแมพมุมจอ: %s" % ("เปิด" if on else "ปิด")
 	if _big != null:
 		_big.visible = true
 		_big.view.queue_redraw()
 
 
 func shell_hints() -> Array:
-	return [["M", "เปิด/ปิดมินิแมพมุมจอ"], ["Esc", "ปิด"]]
+	return [["M", "เปิด/ปิดหน้าแผนที่"], ["Esc", "ปิด"]]

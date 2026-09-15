@@ -34,6 +34,7 @@ var _sprite: Sprite2D
 var _done := false
 ## ★ รอบ 69 ★ ตัวคูณดาเมจของนัดนี้ (ใช้ตอนมอนยิงหลายนัดในท่าเดียว)
 var damage_mult := 1.0
+var is_skill := false
 
 # ---- แบบโค้ง ----
 var _start := Vector2.ZERO
@@ -242,12 +243,12 @@ func _hit_player_direct() -> void:
 	var p := get_tree().get_first_node_in_group("player")
 	if p == null or data == null:
 		return
-	var result := Combat.monster_hits_player(data, PlayerState.stats)
+	var result := Combat.monster_skill_hits_player(data, PlayerState.stats, damage_mult) if is_skill else Combat.monster_hits_player(data, PlayerState.stats)
 	if result.miss:
 		Events.floating_text(p.global_position + Vector2(0, -40), "MISS", Color("#cccccc"), 20, 3)
 		return
 	if p.has_method("take_damage"):
-		p.take_damage(maxi(1, int(round(result.damage * damage_mult))), data.knockback_force, _dir)
+		p.take_damage(maxi(1, int(round(result.damage * (1.0 if is_skill else damage_mult)))), data.knockback_force, _dir)
 
 
 ## ขว้างโค้ง: ระเบิดที่จุดตก ทำดาเมจถ้าผู้เล่นอยู่ในรัศมีสกิล
@@ -263,9 +264,9 @@ func _explode() -> void:
 		var pf: Vector2 = p.foot_position() if p.has_method("foot_position") else p.global_position
 		var diff: Vector2 = pf - _end
 		if absf(diff.x) <= data.skill_radius_x and absf(diff.y) <= data.skill_radius_y:
-			var result := Combat.monster_hits_player(data, PlayerState.stats)
-			var dmg := maxi(1, int(round(result.damage * data.skill_damage_mult)))
-			if p.has_method("take_damage"):
+			var result := Combat.monster_skill_hits_player(data, PlayerState.stats, data.skill_damage_mult)
+			var dmg: int = result.damage
+			if not result.miss and p.has_method("take_damage"):
 				p.take_damage(dmg, data.skill_knockback, signi(int(signf(diff.x))) if diff.x != 0.0 else _dir)
 		else:
 			Events.floating_text(p.global_position + Vector2(0, -40), "หลบได้!", Color("#cccccc"), 20, 3)

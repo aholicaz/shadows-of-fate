@@ -29,3 +29,5 @@ bonus_agi = 2
 flee = 3
 aspd_percent = 3.0
 attack_element = 0
+
+refinable = true

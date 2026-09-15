@@ -1,0 +1,18 @@
+extends Node
+func _ready() -> void:
+	SaveManager.end_session()
+	PlayerState.new_game()
+	assert(PlayerState.saved_respawn_town() == &"prontera_town")
+	assert(PlayerState.bind_respawn_town(&"vanir_town"))
+	PlayerState.set_last_town(&"prontera_town")
+	assert(PlayerState.saved_respawn_town() == &"vanir_town")
+	assert(not PlayerState.bind_respawn_town(&"dark_forest"))
+	var saved := PlayerState.to_dict()
+	PlayerState.new_game()
+	PlayerState.from_dict(saved)
+	assert(PlayerState.saved_respawn_town() == &"vanir_town")
+	saved.erase("respawn_town")
+	PlayerState.from_dict(saved)
+	assert(PlayerState.saved_respawn_town() == &"prontera_town")
+	print("RESPAWN_BINDING_PASS: bind, town visit independence, field rejection, save roundtrip, legacy fallback")
+	get_tree().quit()

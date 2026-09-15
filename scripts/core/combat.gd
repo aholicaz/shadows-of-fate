@@ -59,7 +59,7 @@ static func element_modifier(attack_element: int, defense_element: int) -> float
 
 
 ## โอกาสโจมตีเข้า (%) — ส่ง base มาเองได้ ถ้าไม่ส่งจะใช้ฐานของฝั่งผู้เล่น
-static func hit_rate(attacker_hit: int, target_flee: int, base: float = BASE_HIT_RATE) -> float:
+static func hit_rate(attacker_hit: int, target_flee: float, base: float = BASE_HIT_RATE) -> float:
 	return clampf(base + attacker_hit - target_flee, MIN_HIT_RATE, MAX_HIT_RATE)
 
 
@@ -138,6 +138,17 @@ static func player_hits_monster(
 # =========================================================
 # มอนสเตอร์ตีผู้เล่น
 # =========================================================
+static func monster_skill_hits_player(monster: MonsterData, stats: PlayerStats, multiplier: float) -> Dictionary:
+	# Boss telegraphs already test spatial avoidance. Do not turn a FLEE roll
+	# into 1 damage, or add an unpredictable DEF-bypassing critical to an AoE.
+	if monster.is_boss:
+		var damage := monster.roll_attack() * multiplier * def_reduction(stats.def)
+		damage *= randf_range(1.0 - DAMAGE_VARIANCE, 1.0 + DAMAGE_VARIANCE)
+		return {"damage": maxi(1, int(round(damage))), "miss": false, "crit": false}
+	var result := monster_hits_player(monster, stats)
+	if not result.miss: result.damage = maxi(1, int(round(result.damage * multiplier)))
+	return result
+
 static func monster_hits_player(monster: MonsterData, stats: PlayerStats) -> Dictionary:
 	var result := {"damage": 0, "crit": false, "miss": false}
 

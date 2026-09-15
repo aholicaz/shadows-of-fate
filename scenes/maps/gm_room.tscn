@@ -66,7 +66,7 @@ theme_override_colors/font_color = Color(1, 0.835, 0.29, 1)
 theme_override_font_sizes/font_size = 26
 text = "★ ห้อง GM — กด F10 เปิดเครื่องมือ ★"
 
-[node name="M1" type="Label" parent="Marks" unique_id=2045575765]
+[node name="ตราประจำตัวนักผจญภัย" type="Label" parent="Marks" unique_id=2045575765]
 offset_left = 120.0
 offset_top = 744.0
 offset_right = 720.0
@@ -75,7 +75,7 @@ theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
 theme_override_font_sizes/font_size = 18
 text = "แมพนี้ไม่เชื่อมกับแมพไหนเลย · ไม่มีมอนเกิดเอง"
 
-[node name="M2" type="Label" parent="Marks" unique_id=1375283314]
+[node name="คำสาบานใต้ค้อน" type="Label" parent="Marks" unique_id=1375283314]
 offset_left = 1080.0
 offset_top = 660.0
 offset_right = 1400.0
@@ -102,7 +102,7 @@ theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
 theme_override_font_sizes/font_size = 18
 text = "สูง 280 (กระโดดไม่ถึง)"
 
-[node name="M5" type="Label" parent="Marks" unique_id=1014781534]
+[node name="เหล็กจากเหมืองเก่า" type="Label" parent="Marks" unique_id=1014781534]
 offset_left = 2600.0
 offset_top = 340.0
 offset_right = 2960.0
@@ -111,7 +111,7 @@ theme_override_colors/font_color = Color(0.576, 0.631, 0.722, 1)
 theme_override_font_sizes/font_size = 18
 text = "กำแพงกันคลื่นสกิล"
 
-[node name="M6" type="Label" parent="Marks" unique_id=982828167]
+[node name="พิธีฉลองชัยชนะ" type="Label" parent="Marks" unique_id=982828167]
 offset_left = 3000.0
 offset_top = 600.0
 offset_right = 3500.0

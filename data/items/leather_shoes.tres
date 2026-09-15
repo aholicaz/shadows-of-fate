@@ -22,6 +22,6 @@ metadata/sell_price_base_r44 = 440
 refinable = true
 def = 5
 max_hp = 30
-move_speed_percent = 1.0
+move_speed_percent = 7.0
 attack_element = 0
 drop_hint = "ลูนาติก"

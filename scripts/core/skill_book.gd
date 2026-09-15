@@ -2,7 +2,17 @@
 class_name SkillBook
 extends RefCounted
 
-const HOTKEY_COUNT := 4
+const BANK_SIZE := 4
+const HOTKEY_COUNT := 8
+var active_bank := 0
+
+func active_hotkey_at(index: int) -> StringName:
+	if index < 0 or index >= BANK_SIZE: return &""
+	return hotkey_at(active_bank * BANK_SIZE + index)
+
+func switch_bank() -> void:
+	active_bank = 1 - active_bank
+	Events.skills_changed.emit()
 
 static func profession_of(id: StringName) -> StringName:
 	if id in NINTH_SKILLS: return &"ninth_edge"
@@ -57,7 +67,7 @@ func reset_runeblade() -> bool:
 	return true
 
 var learned: Dictionary = {}          # StringName -> int (เลเวลสกิล)
-var hotkeys: Array = [&"", &"", &"", &""]
+var hotkeys: Array = [&"", &"", &"", &"", &"", &"", &"", &""]
 
 
 func level_of(skill_id: StringName) -> int:
@@ -123,7 +133,8 @@ func reset(stats: PlayerStats) -> void:
 	for id in learned:
 		stats.add_skill_points(profession_of(id),int(learned[id]))
 	learned.clear()
-	hotkeys = [&"", &"", &"", &""]
+	hotkeys = [&"", &"", &"", &"", &"", &"", &"", &""]
+	active_bank = 0
 	Events.skills_changed.emit()
 
 
@@ -164,7 +175,7 @@ func to_dict() -> Dictionary:
 	var h: Array = []
 	for x in hotkeys:
 		h.append(String(x))
-	return {"learned": l, "hotkeys": h}
+	return {"learned": l, "hotkeys": h, "active_bank": active_bank}
 
 
 func from_dict(d: Dictionary) -> void:
@@ -172,7 +183,8 @@ func from_dict(d: Dictionary) -> void:
 	var l: Dictionary = d.get("learned", {})
 	for k in l.keys():
 		learned[StringName(k)] = int(l[k])
-	hotkeys = [&"", &"", &"", &""]
+	hotkeys = [&"", &"", &"", &"", &"", &"", &"", &""]
+	active_bank = clampi(int(d.get("active_bank", 0)), 0, 1)
 	var h: Array = d.get("hotkeys", [])
 	for i in range(mini(h.size(), HOTKEY_COUNT)):
 		hotkeys[i] = StringName(h[i])

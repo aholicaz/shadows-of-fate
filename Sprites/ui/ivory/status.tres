@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/ui/ivory/menu_atlas.png" id="1"]
+
+[resource]
+atlas = ExtResource("1")
+region = Rect2(75, 115, 338, 338)
+filter_clip = true

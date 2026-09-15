@@ -32,7 +32,7 @@ const RUNE_UNLOCK_FLAGS: Array[StringName] = [&"rb_rune_4", &"rb_rune_5", &"rb_r
 const STORY_FLAGS := [
 	["บท 2 เปิด", "chapter2_open"], ["บท 2 จบ", "chapter2_done"],
 	["บท 3 เคยไป", "chapter3_visited"], ["บท 3 จบ", "chapter3_done"],
-	["ดูพิธี M6", "saw_ceremony"], ["ล้มอสูรสายฟ้า", "killed_stormscar"],
+	["ดูพิธี พิธีฉลองชัยชนะ", "saw_ceremony"], ["ล้มอสูรสายฟ้า", "killed_stormscar"],
 	["ล้มผู้พิทักษ์", "killed_forge_guardian"], ["ล้มราชินีหนาม", "killed_thorn_matriarch"],
 	["ล้มกุลล์ไวก์", "killed_gullveig_ember"],
 	# ★ รอบ 106 ★ บท 4-6
@@ -306,7 +306,7 @@ func _build_player_tab(box: VBoxContainer) -> void:
 	_button(rj, "เปลี่ยน", _apply_job, 90)
 	var rj2 := _row(box)
 	_unlock_check = CheckBox.new()   # ★ รอบ 108 ★ ธงรูนเป็นธงเนื้อเรื่องอย่างเดียวแล้ว — ช่องนี้ตั้งธงเควส RB8-RB14 ให้ (ไม่มีผลกับสกิล)
-	_unlock_check.text = "ตั้งธงเควสรูน RB8-RB14 ให้ด้วย (เนื้อเรื่อง)"
+	_unlock_check.text = "ตั้งธงเควสรูน ตาของช่างสลัก-คมที่จำได้ ให้ด้วย (เนื้อเรื่อง)"
 	_unlock_check.button_pressed = true
 	rj2.add_child(_unlock_check)
 	_button(rj2, "ล้างสกิลทั้งหมด", func():

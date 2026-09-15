@@ -52,7 +52,7 @@ static func icon(id: String) -> Texture2D:
 	if _icon_cache.has(id):
 		return _icon_cache[id]
 	var tex: Texture2D = null
-	for path in [ICON_DIR + id + ".svg", ICON_DIR + id + ".png", LEGACY_ICON_DIR + id + ".png"]:
+	for path in ["res://Sprites/ui/ivory/" + id + ".tres", ICON_DIR + id + ".svg", ICON_DIR + id + ".png", LEGACY_ICON_DIR + id + ".png"]:
 		if ResourceLoader.exists(path):
 			tex = load(path) as Texture2D
 			if tex != null:
@@ -111,7 +111,7 @@ static func glyph_texture(id: String) -> Texture2D:
 	if _icon_cache.has(key):
 		return _icon_cache[key]
 	var tex: Texture2D = null
-	for path in [GLYPH_DIR + id + ".svg", GLYPH_DIR + id + ".png"]:
+	for path in ["res://Sprites/ui/ivory/" + id + ".tres", GLYPH_DIR + id + ".svg", GLYPH_DIR + id + ".png"]:
 		if ResourceLoader.exists(path):
 			tex = load(path) as Texture2D
 			if tex != null:

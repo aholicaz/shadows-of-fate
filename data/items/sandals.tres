@@ -24,3 +24,5 @@ max_hp = 20
 required_level = 1
 attack_element = 0
 drop_hint = "แฟเบร"
+
+move_speed_percent = 5.0

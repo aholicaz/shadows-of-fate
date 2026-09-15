@@ -23,3 +23,5 @@ bonus_int = 2
 max_sp = 25
 attack_element = 0
 drop_hint = "ผู้เฝ้ารูน"
+
+refinable = true

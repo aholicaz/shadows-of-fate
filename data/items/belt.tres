@@ -24,3 +24,5 @@ bonus_vit = 3
 max_hp = 40
 attack_element = 0
 drop_hint = "ออร์คนักรบ"
+
+refinable = true

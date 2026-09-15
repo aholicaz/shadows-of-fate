@@ -91,6 +91,7 @@ func place() -> void:
 	position = Vector2(screen.x - w - MARGIN, maxf(MARGIN, top_offset))
 
 
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
 		place()

@@ -27,3 +27,5 @@ def = 21
 bonus_vit = 6
 max_hp = 140
 attack_element = 0
+
+move_speed_percent = 16.0

@@ -55,6 +55,7 @@ func _ready() -> void:
 	check(releases.size()==1,"Interrupted cast stops after first projectile")
 	interrupted = false
 	await sweep_checks()
+	await scene_exit_checks()
 	var report := {"checks":checks,"failures":errors,"renderer":RenderingServer.get_current_rendering_method(),"engine":Engine.get_version_info().string}
 	var file := FileAccess.open(OUT+"audit.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(report,"\t"))
@@ -85,7 +86,8 @@ func _released(shot: MonsterProjectile, frame: int) -> void:
 	check(frame in [9,22,35],case_name+": authored release frame")
 	check(actor.sprite.frame==frame,case_name+": release follows displayed frame")
 	var angle := deg_to_rad(actor.data.projectile_down_angle)
-	check(shot._velocity_direction.is_equal_approx(Vector2(actor.facing*cos(angle),sin(angle))),case_name+": fixed straight launch without target lock")
+	var expected_direction: Vector2 = (target.body_rect().get_center()-expected).normalized() if actor.data.projectile_aim_at_player else Vector2(actor.facing*cos(angle),sin(angle))
+	check(shot._velocity_direction.is_equal_approx(expected_direction),case_name+": launch follows configured aim mode")
 	releases.append({"frame":frame,"time":(Time.get_ticks_msec()-started)/1000.0,"origin":str(expected),"direction":str(shot._velocity_direction)})
 	shot.impacted.connect(func(kind: StringName, at: Vector2):
 		impacts.append({"kind":kind,"at":str(at)})
@@ -133,3 +135,35 @@ func sweep_checks() -> void:
 	blocked._process(1.5)
 	check(blocked_results==[&"terrain"],"Wall stops projectile before target at low FPS")
 	wall.queue_free()
+
+
+func scene_exit_checks() -> void:
+	actor.projectile_released.disconnect(_released)
+	var emitted := [0]
+	actor.projectile_released.connect(func(_shot, _frame): emitted[0] += 1)
+	for tail in [false,true]:
+		actor.state = actor.State.ATTACK
+		var played: String = actor._play("Attack",true)
+		actor.sprite.pause()
+		if tail: actor.sprite.frame = actor.sprite.sprite_frames.get_frame_count(played)-1
+		var listeners: int = actor.tree_exiting.get_connections().size()
+		actor._run_hand_projectiles(played)
+		var before: int = emitted[0]
+		remove_child(actor)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		check(emitted[0]==before,"Detached monster emits no late projectile, tail="+str(tail))
+		check(actor.tree_exiting.get_connections().size()==listeners,"Cancellation listener cleaned up")
+		add_child(actor)
+		actor.set_physics_process(false)
+		actor.sprite.play(played)
+		await get_tree().process_frame
+		check(emitted[0]==before,"Reattaching monster does not resume obsolete cast")
+	actor.state = actor.State.ATTACK
+	var played: String = actor._play("Attack",true)
+	actor.sprite.pause()
+	actor._run_hand_projectiles(played)
+	actor.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(not is_instance_valid(actor),"Queued deletion while awaiting attack completes safely")

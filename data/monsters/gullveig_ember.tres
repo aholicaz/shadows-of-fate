@@ -61,7 +61,6 @@ chance = 100.0
 [sub_resource type="Resource" id="Socket_stone"]
 script = ExtResource("2_drop")
 item_id = &"socket_stone_1"
-chance = 10.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -70,13 +69,17 @@ display_name = "เพลิงกุลล์ไวก์"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(80, 110)
 hp_bar_offset_y = -520.0
-display_height = 550.0
+display_height = 450.0
 fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_anchors = Dictionary[StringName, Vector2]({
+&"Die": Vector2(260, 411),
+&"Hit": Vector2(260, 411)
+})
 fit_animation_scales = Dictionary[StringName, float]({
 &"Attack": 1.14956012,
-&"Die": 1.15805022,
-&"Hit": 1.15805022,
+&"Die": 2.57,
+&"Hit": 2.57,
 &"Idle": 1.15805022,
 &"Run": 1.15805022,
 &"Skill": 1.14956012,
@@ -123,15 +126,16 @@ boss_title = "ผู้ถูกเผาสามครั้ง"
 skill_name = "เพลิงสามครั้ง"
 skill_anim = &"Skill"
 skill_range = 600.0
-skill_damage_mult = 2.0
+skill_damage_mult = 2.5
 skill_windup = 0.5
 skill_duration = 1.3
-skill_cooldown = 8.0
+skill_cooldown = 5.0
 skill_chance = 0.75
 skill_knockback = 360.0
 projectile_texture = ExtResource("5_fireball")
 ranged_attack_range = 600.0
-projectile_height = 100.0
+projectile_speed = 1200.0
+projectile_height = 120.0
 projectile_hit_size = Vector2(52, 52)
 projectile_range = 950.0
 projectile_hand_positions = Dictionary[int, Vector2]({
@@ -140,6 +144,8 @@ projectile_hand_positions = Dictionary[int, Vector2]({
 35: Vector2(580, 645)
 })
 projectile_fire_effect = true
+projectile_down_angle = 22.7
+projectile_aim_at_player = true
 skill_wave_count = 3
 skill_wave_both_sides = true
 skill_wave_speed = 560.0
@@ -149,6 +155,3 @@ skill_wave_frames = ExtResource("4_wave")
 respawn_time = 600.0
 spawn_lines = null
 death_lines = null
-projectile_speed = 1000.0
-projectile_aim_at_player = false
-projectile_down_angle = 22.7

@@ -11,3 +11,5 @@ type = 3
 sell_price = 790
 buy_price = 0
 max_stack = 99
+
+bulk_sell_junk = true

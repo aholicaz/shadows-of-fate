@@ -8,9 +8,9 @@
 class_name IconMenuBar
 extends Control
 
-const BTN_W := 72.0
-const BTN_H := 62.0
-const ICON := 28.0
+const BTN_W := 84.0
+const BTN_H := 82.0
+const ICON := 42.0
 const MARGIN := 12.0
 
 ## รายการปุ่ม — เพิ่ม/ลด/สลับลำดับได้ตามใจ (tab = แท็บในหน้าต่างรวม)
@@ -24,7 +24,6 @@ const ITEMS := [
 ]
 
 ## (เก็บไว้ให้โค้ดเก่าที่อ้างถึง — แถบเมนูรอบ 98 ไม่ผูกกับมินิแมพแล้ว)
-var minimap: Minimap
 
 var _buttons: Dictionary = {}     # id -> Button
 var _badges: Dictionary = {}      # id -> Label
@@ -93,11 +92,11 @@ func _make_button(entry: Dictionary) -> Button:
 	btn.add_child(art)
 
 	# ---------- ชื่อใต้ไอคอน ----------
-	var cap := UITheme.make_label(String(entry.label), 11, UITheme.TEXT)
+	var cap := UITheme.make_label(String(entry.label), 18, UITheme.TEXT)
 	cap.name = "Caption"
 	cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cap.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	cap.offset_top = -20
+	cap.offset_top = -32
 	cap.offset_bottom = -4
 	cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	cap.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

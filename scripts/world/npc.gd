@@ -115,7 +115,7 @@ const MARK_BOB := 7.0          # ลอยขึ้น-ลงกี่พิก�
 const MARK_BOB_SPEED := 2.4
 
 ## ★★ รอบ 102 — ป้ายชื่อ NPC ★★
-const NAME_FONT := 21          # ขนาดตัวอักษรชื่อ (ค่าเริ่มต้นของ Label = 16 เล็กเกินไป)
+const NAME_FONT := 28          # ขนาดตัวอักษรชื่อ (ค่าเริ่มต้นของ Label = 16 เล็กเกินไป)
 const NAME_OUTLINE := 6        # ขอบดำ ให้อ่านออกบนฉากสว่าง
 const NAME_MIN_WIDTH := 220.0  # ความกว้างขั้นต่ำของป้าย (ชื่อยาวจะได้ไม่ถูกตัด)
 const NAME_CLEAR := 26.0       # ช่องไฟระหว่างหัวรูปกับป้ายชื่อ
@@ -451,7 +451,7 @@ const MENU_SHOP := "ซื้อขาย"
 const MENU_REFINE := "ตีบวก"
 const MENU_SOCKET := "เจาะรูการ์ด"
 const MENU_LEAVE := "ไม่คุย"
-const MENU_SAVE := "บันทึกเกม"
+const MENU_SAVE := "บันทึกจุดเกิด"
 
 
 ## มีเมนูซื้อขายไหม — ร้านค้า หรือ NPC ที่ติ๊ก Has Shop
@@ -507,50 +507,42 @@ static func warp_label(d: Dictionary) -> String:
 
 ## เปิดเมนูเสาวาป
 func open_warp_menu() -> void:
-	var targets := warp_options()
-	var options: Array = []
-	# ★ รอบ 76 ★ ปุ่มทำพิธีของเควสมาก่อนเสมอ (เช่น M2 «ทำพิธีที่ศิลาสลักแห่งธอร์»)
+	# Keep quest actions in a short conversation; destinations have their own page.
 	var ritual := pending_ritual()
-	if not ritual.is_empty():
-		options.append(String(ritual["text"]))
-	for t in targets:
-		options.append(warp_label(t))
-	if warp_saves_game:
-		options.append(MENU_SAVE)
+	var options: Array = [MENU_TALK, "เลือกปลายทางวาป"]
+	if not ritual.is_empty(): options.push_front(String(ritual["text"]))
+	if Game.is_town(PlayerState.current_map_id): options.append(MENU_SAVE)
 	options.append(MENU_LEAVE)
-
-	var head: String = current_dialog()
-	if targets.is_empty():
-		head = "%s
-(ยังไม่มีปลายทางให้ไป)" % head
-	var pick: int = await UI.talk([line(head, "", options)])
-	if not is_instance_valid(self) or pick < 0 or pick >= options.size():
-		return
+	var pick: int = await UI.talk([line(current_dialog(), "", options)])
+	if not is_instance_valid(self) or pick < 0 or pick >= options.size(): return
 	var chosen: String = options[pick]
-	if chosen == MENU_LEAVE:
+	if chosen == MENU_LEAVE: return
+	if not ritual.is_empty() and chosen == String(ritual["text"]):
+		do_ritual(ritual)
 		return
-	if not ritual.is_empty():
-		if chosen == String(ritual["text"]):
-			do_ritual(ritual)
-			return
-		pick -= 1                     # ตัดปุ่มพิธีออกจากลำดับ แล้วค่อยเทียบกับรายการปลายทาง
+	if chosen == MENU_TALK:
+		if not await _handle_quests():
+			await UI.talk([line(current_dialog())])
+		return
 	if chosen == MENU_SAVE:
-		SaveManager.save_game(0)
+		if PlayerState.bind_respawn_town(PlayerState.current_map_id):
+			Events.say("บันทึกจุดเกิดแล้ว: %s — เมื่อตายจะกลับมาที่เมืองนี้" % Game.map_display_name(PlayerState.saved_respawn_town()))
 		return
-	if pick >= 0 and pick < targets.size():
-		var t: Dictionary = targets[pick]
-		# ★ รอบ 102 ★ ปลายทางที่ยังไม่ผ่านเงื่อนไขก็ยังโชว์อยู่ (จะได้รู้ว่าต้องทำอะไรอีก)
-		# แต่กดแล้วไม่วาป — บอกเหตุผลแทน
+	var destination: StringName = await UI.choose_warp(warp_options())
+	if not is_instance_valid(self) or destination == &"": return
+	# Re-check unlocks and price at commit time, never trust an old UI snapshot.
+	for t: Dictionary in warp_options():
+		if StringName(t["id"]) != destination: continue
 		if not bool(t.get("ok", false)):
-			Events.say("%s: %s" % [String(t["name"]), String(t.get("why", "ยังไปไม่ได้"))])
+			Events.say(String(t.get("why", "ยังไปไม่ได้")))
 			return
 		var cost := int(t.get("cost", 0))
 		if not PlayerState.spend_zeny(cost):
 			Events.say("เงินไม่พอ — ต้องใช้ %s z" % HUD._comma(cost))
 			return
-		var dest: StringName = t["id"]
 		Events.say("กำลังวาปไป %s...  (−%s z)" % [String(t["name"]), HUD._comma(cost)])
-		await Game.change_map(dest, warp_spawn_point)
+		await Game.change_map(destination, warp_spawn_point)
+		return
 
 
 # =========================================================

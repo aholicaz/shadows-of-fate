@@ -461,22 +461,14 @@ func _update_card() -> void:
 	_item_sub.text = "  ·  ".join(sub)
 
 	# ---------- ตอนนี้ → หลังตีบวก ----------
-	_stat_rows.add_child(_stat_row("ค่าพลัง", "ตอนนี้", "หลังตีบวก", true))
-	var gained := false
-	if d != null and int(p.atk_gain) > 0 and d.type == ItemData.Type.WEAPON:
-		var atk_now := inst.total_atk()
-		_stat_rows.add_child(_stat_row("ATK", str(atk_now), str(atk_now + int(p.atk_gain))))
-		gained = true
-	elif d != null and int(p.atk_gain) > 0:
-		var atk_now2 := inst.total_atk()
-		_stat_rows.add_child(_stat_row("ATK", str(atk_now2), str(atk_now2 + int(p.atk_gain))))
-		gained = true
-	if d != null and int(p.def_gain) > 0 and d.type == ItemData.Type.ARMOR:
-		var def_now := inst.total_def()
-		_stat_rows.add_child(_stat_row("DEF", str(def_now), str(def_now + int(p.def_gain))))
-		gained = true
-	if not gained:
-		_stat_rows.add_child(_stat_row("—", "ชิ้นนี้ตีบวกแล้วไม่เพิ่มค่าพลังโดยตรง", "", false, true))
+	_stat_rows.add_child(_stat_row("ค่าพลัง", "", "เพิ่มสุทธิ", true))
+	var before := d.refine_bonuses(inst.refine)
+	var after := d.refine_bonuses(inst.refine + 1)
+	for key in after:
+		var delta := float(after[key]) - float(before.get(key, 0.0))
+		var amount := ("%.2f" % delta).trim_suffix("0").trim_suffix(".")
+		if amount.ends_with(".0"): amount = amount.trim_suffix(".0")
+		_stat_rows.add_child(_stat_row(String(key).to_upper(), "", "+" + amount))
 
 	# ---------- โอกาสสำเร็จ ----------
 	var rate := float(p.rate)

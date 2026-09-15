@@ -25,3 +25,5 @@ bonus_vit = 3
 max_hp = 70
 attack_element = 0
 drop_hint = "ด้วงเหล็ก"
+
+move_speed_percent = 8.0

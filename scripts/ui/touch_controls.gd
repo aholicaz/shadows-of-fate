@@ -27,10 +27,10 @@ const LAYOUT_PATH := "user://ui_layout.cfg"
 const D_ATTACK := 106.0       # วงโจมตีใหญ่ (J)
 const D_SKILL := 66.0         # วงสกิล 1-4
 const D_DASH := 66.0          # วงพุ่งหลบ
-const D_POTION := 48.0        # ช่องยา Q / R (สี่เหลี่ยม)
+const D_POTION := 56.0        # ช่องยา Q / R (สี่เหลี่ยม)
 const D_WALK := 118.0         # ปุ่มเดิน ◀ ▶ (จอสัมผัส)
 const D_DOWN := 84.0          # ปุ่มลง ▼ (จอสัมผัส)
-const D_INTERACT := 84.0      # คุย/เก็บของ (จอสัมผัส)
+const D_INTERACT := 56.0      # คุย/เก็บของ (จอสัมผัส)
 ## มุมขวาล่างของวงโจมตี ห่างขอบขวา / ขอบล่างเท่าไหร่
 const EDGE_RIGHT := 47.0
 const EDGE_BOTTOM := 69.0
@@ -88,15 +88,15 @@ func _define_zones() -> void:
 		# ---------- กลุ่มเดิน (จอสัมผัสเท่านั้น) ----------
 		{"id": "left",    "action": "move_left",  "group": "walk", "arrow": "left",  "size": D_WALK},
 		{"id": "right",   "action": "move_right", "group": "walk", "arrow": "right", "size": D_WALK},
-		{"id": "down",    "action": "move_down",  "group": "walk", "arrow": "down",  "size": D_DOWN},
-		{"id": "interact","action": "interact",   "group": "walk", "label": "คุย/เก็บ", "size": D_INTERACT},
+		{"id": "interact","action": "interact",   "group": "walk", "label": "คุย", "size": D_INTERACT},
 
 		# ---------- กลุ่มสู้ (ทุกเครื่อง) ----------
-		{"id": "attack",  "action": "attack", "group": "fight", "size": D_ATTACK, "glyph": "swords", "key": "J"},
+		{"id": "attack",  "action": "attack", "group": "fight", "size": D_ATTACK, "glyph": "attack", "key": "J"},
 		{"id": "skill_1", "action": "skill_1", "group": "fight", "size": D_SKILL, "skill": 0, "key": "1"},
 		{"id": "skill_2", "action": "skill_2", "group": "fight", "size": D_SKILL, "skill": 1, "key": "2"},
 		{"id": "skill_3", "action": "skill_3", "group": "fight", "size": D_SKILL, "skill": 2, "key": "3"},
 		{"id": "skill_4", "action": "skill_4", "group": "fight", "size": D_SKILL, "skill": 3, "key": "4"},
+		{"id": "bank", "group": "fight", "size": 40.0, "glyph": "skill_swap"},
 		{"id": "dash",    "action": "jump",    "group": "fight", "size": D_DASH, "glyph": "dash", "key": "DASH"},
 		{"id": "potion",  "action": "quick_potion",    "group": "fight", "size": D_POTION, "item": 0, "key": "Q", "square": true},
 		{"id": "sp",      "action": "quick_sp_potion", "group": "fight", "size": D_POTION, "item": 1, "key": "R", "square": true},
@@ -126,14 +126,18 @@ func _build() -> void:
 			arrow.dir = String(z.arrow)
 			panel.add_child(arrow)
 		elif z.has("glyph"):
-			var g := PetrolWidgets.glyph(String(z.glyph), float(z.size) * 0.5, UITheme.TEXT)
+			var g := PetrolWidgets.glyph(String(z.glyph), float(z.size) * 0.5, Color.WHITE)
 			g.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 			var half := float(z.size) * 0.25
 			g.offset_left = -half
 			g.offset_top = -half
 			g.offset_right = half
 			g.offset_bottom = half
-			panel.add_child(g)
+			# Container sizes the holder; the icon retains its own inner padding.
+			var holder := Control.new()
+			holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			panel.add_child(holder)
+			holder.add_child(g)
 			z["glyph_node"] = g
 		else:
 			# ★ ปุ่มสกิล/ยา มีไอคอนข้างใน ★
@@ -214,9 +218,13 @@ func refresh_skill_icons() -> void:
 	if PlayerState == null or PlayerState.skills == null:
 		return
 	for z in _zones:
+		if z.id == "bank":
+			z.glyph_node.modulate = Color.WHITE
+			z.glyph_node.flip_h = PlayerState.skills.active_bank == 1
+			z.node.tooltip_text = "ชุด %d • สลับชุดสกิล (T)" % (PlayerState.skills.active_bank + 1)
 		if not z.has("skill") or not z.has("icon"):
 			continue
-		var sid: StringName = PlayerState.skills.hotkey_at(int(z.skill))
+		var sid: StringName = PlayerState.skills.active_hotkey_at(int(z.skill))
 		var sk := GameData.get_skill(sid) if sid != &"" else null
 		var art: TextureRect = z.icon
 		art.texture = sk.icon if sk != null else null
@@ -269,7 +277,7 @@ func _tick_cooldowns() -> void:
 		if z.has("skill") and z.has("icon"):
 			var art: TextureRect = z.icon
 			var veil = z.get("veil", null)
-			var sid: StringName = PlayerState.skills.hotkey_at(int(z.skill))
+			var sid: StringName = PlayerState.skills.active_hotkey_at(int(z.skill))
 			var t := 1.0
 			if sid != &"":
 				var left: float = PlayerState.skill_cooldown_left(sid)
@@ -321,24 +329,23 @@ func _layout() -> void:
 	var n := ids.size()
 	var ring := RING_R * s
 	var skill_d := D_SKILL * s
+	# Explicit spacing includes the number labels, not just circular hit regions.
+	var offsets := [Vector2(0, -110), Vector2(-78, -118), Vector2(-118, -50), Vector2(-104, 34)]
 	for i in range(n):
-		var t: float = float(i) / float(maxi(1, n - 1))
-		var clock: float = SKILL_CLOCK_START + (SKILL_CLOCK_END - SKILL_CLOCK_START) * t
-		var ang: float = deg_to_rad(clock * 30.0)          # 12 นาฬิกา = 0° · ตามเข็ม
-		var dir := Vector2(sin(ang), -cos(ang))
-		_set_rect(ids[i], center + dir * ring - Vector2.ONE * skill_d * 0.5, skill_d)
+		_set_rect(ids[i], center + offsets[i] * s - Vector2.ONE * skill_d * 0.5, skill_d)
 
 	# ---------- DASH ซ้ายของวงสกิล ระดับเดียวกับวงโจมตี ----------
 	var dash_d := D_DASH * s
-	var dash_pos := Vector2(center.x - ring - skill_d * 0.5 - 22.0 * s - dash_d, center.y + 9.0 * s - dash_d * 0.5)
+	var dash_pos := center + Vector2(-190.0, 28.0) * s - Vector2.ONE * dash_d * 0.5
 	_set_rect("dash", dash_pos, dash_d)
 
 	# ---------- ยา Q / R กลางล่าง ----------
 	var pot_d := D_POTION * s
-	var gap := 22.0 * s
-	var py := vp.y - 76.0 * s - pot_d
-	_set_rect("potion", Vector2(vp.x * 0.5 - gap * 0.5 - pot_d, py), pot_d)
-	_set_rect("sp", Vector2(vp.x * 0.5 + gap * 0.5, py), pot_d)
+	var gap := 16.0 * s
+	var py := center.y - 110.0 * s - skill_d * 0.5 - 28.0 * s - pot_d
+	_set_rect("potion", Vector2(center.x - gap * 0.5 - pot_d, py), pot_d)
+	_set_rect("sp", Vector2(center.x + gap * 0.5, py), pot_d)
+	_set_rect("bank", center + Vector2(46.0, -90.0) * s, 40.0 * s)
 	if _ornaments.size() >= 2:
 		var ow := 70.0 * s
 		for i in range(2):
@@ -354,9 +361,8 @@ func _layout() -> void:
 	_set_rect("left", Vector2(EDGE_LEFT * s, bottom - walk_d), walk_d)
 	_set_rect("right", Vector2(EDGE_LEFT * s + walk_d + 12.0 * s, bottom - walk_d), walk_d)
 	var down_d := D_DOWN * s
-	_set_rect("down", Vector2(EDGE_LEFT * s + (walk_d * 2.0 + 12.0 * s - down_d) * 0.5, bottom - walk_d - 12.0 * s - down_d), down_d)
 	var it_d := D_INTERACT * s
-	_set_rect("interact", Vector2(dash_pos.x + dash_d * 0.5 - it_d * 0.5, dash_pos.y - 16.0 * s - it_d), it_d)
+	_set_rect("interact", center + Vector2(-188.0, -60.0) * s - Vector2.ONE * it_d * 0.5, it_d)
 
 	# ---------- ป้ายปุ่มใต้ปุ่ม ----------
 	for z in _zones:
@@ -373,6 +379,7 @@ func _layout() -> void:
 		pill.size = Vector2(pw, ph)
 
 
+
 func _set_rect(id: String, pos: Vector2, d: float) -> void:
 	for z in _zones:
 		if z.id != id:
@@ -381,6 +388,14 @@ func _set_rect(id: String, pos: Vector2, d: float) -> void:
 		var node: Control = z.node
 		node.position = pos
 		node.size = Vector2(d, d)
+		if z.has("glyph_node"):
+			var art: Control = z.glyph_node
+			var half := d * (0.29 if id == "bank" else 0.33)
+			art.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+			art.offset_left = -half
+			art.offset_top = -half
+			art.offset_right = half
+			art.offset_bottom = half
 		return
 
 
@@ -426,7 +441,7 @@ func _refresh_visible() -> void:
 		if z.has("pill"):
 			(z.pill as Control).visible = on
 	for o in _ornaments:
-		(o as Control).visible = want_all
+		(o as Control).visible = false
 
 	if want_all == visible:
 		return
@@ -445,6 +460,10 @@ func _process(_delta: float) -> void:
 # อ่านการแตะจอ (แยกตามนิ้ว = กดพร้อมกันหลายปุ่มได้) + เมาส์บนคอม
 # =========================================================
 func _input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed("skill_bank") and not event.is_echo():
+		_switch_bank()
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventScreenTouch:
 		var t := event as InputEventScreenTouch
 		# แตะจอครั้งแรก = เครื่องนี้มีจอสัมผัสจริง โผล่ปุ่มเดินให้เลย (โหมดอัตโนมัติ)
@@ -485,6 +504,11 @@ func _input(event: InputEvent) -> void:
 func _press_at(index: int, pos: Vector2) -> void:
 	var z := _zone_at(pos)
 	if z.is_empty():
+		return
+	if z.id == "bank":
+		_switch_bank()
+		_fingers[index] = z.id
+		_set_pressed(z, true)
 		return
 	_fingers[index] = z.id
 	_set_pressed(z, true)
@@ -537,7 +561,10 @@ func _zone_at(pos: Vector2) -> Dictionary:
 			continue
 		if not (z.node as Control).visible:
 			continue
-		if (z.rect as Rect2).grow(6.0).has_point(pos):
+		var rect: Rect2 = z.rect
+		if z.has("square"):
+			if rect.has_point(pos): return z
+		elif pos.distance_to(rect.get_center()) <= rect.size.x * 0.5:
 			return z
 	return {}
 
@@ -580,20 +607,15 @@ class _Arrow extends Control:
 
 	func _draw() -> void:
 		var c := size * 0.5
-		var r: float = minf(size.x, size.y) * 0.24
+		var r: float = minf(size.x, size.y) * 0.23
+		var sign_x := -1.0 if dir == "right" else 1.0
 		var pts := PackedVector2Array()
-		match dir:
-			"left":
-				pts = PackedVector2Array([c + Vector2(r, -r), c + Vector2(r, r), c + Vector2(-r, 0)])
-			"right":
-				pts = PackedVector2Array([c + Vector2(-r, -r), c + Vector2(-r, r), c + Vector2(r, 0)])
-			"down":
-				pts = PackedVector2Array([c + Vector2(-r, -r * 0.6), c + Vector2(r, -r * 0.6),
-					c + Vector2(0, r * 0.8)])
-			_:
-				pts = PackedVector2Array([c + Vector2(-r, r * 0.6), c + Vector2(r, r * 0.6),
-					c + Vector2(0, -r * 0.8)])
-		draw_colored_polygon(pts, Color(UITheme.TEXT, 0.92))
+		for p in [Vector2(-1,0),Vector2(0.10,-0.80),Vector2(0.10,-0.27),Vector2(0.95,-0.27),Vector2(0.95,0.27),Vector2(0.10,0.27),Vector2(0.10,0.80)]:
+			pts.append(c + Vector2(p.x * sign_x, p.y) * r)
+		draw_colored_polygon(pts, Color("ece7d8"))
+		pts.append(pts[0])
+		draw_polyline(pts, Color("4b473a"), 1.5, true)
+
 
 	func _notification(what: int) -> void:
 		if what == NOTIFICATION_RESIZED:
@@ -633,3 +655,8 @@ class _CooldownVeil extends Control:
 	func _notification(what: int) -> void:
 		if what == NOTIFICATION_RESIZED:
 			queue_redraw()
+
+
+func _switch_bank() -> void:
+	_release_all()
+	PlayerState.skills.switch_bank()

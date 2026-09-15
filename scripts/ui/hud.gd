@@ -259,9 +259,11 @@ func _build_quest_tracker() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 0)
 	head.add_child(col)
-	quest_title = UITheme.make_label("", 18, UITheme.TEXT)
+	quest_title = UITheme.make_label("", 24, UITheme.TEXT)
 	quest_title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 	quest_title.add_theme_constant_override("outline_size", 3)
+	quest_title.custom_minimum_size.x = 380
+	quest_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	col.add_child(quest_title)
 	var rule := PetrolWidgets.ornament(200.0, UITheme.ACCENT, 3.0)
 	(rule as PetrolWidgets._Ornament).diamond_at_start = true
@@ -292,15 +294,17 @@ func _refresh_quest() -> void:
 	var shown := 0
 	for line in lines:
 		# ★ รอบ 102 ★ เดิมใช้ TEXT_DIM (#81958a) ทับฉากสว่าง ๆ แล้วแทบมองไม่เห็น
-		var l := UITheme.make_label(String(line).replace("[x]", "✓").replace("[ ]", "").strip_edges(), 14, QUEST_LINE)
+		var l := UITheme.make_label(String(line).replace("[x]", "✓").replace("[ ]", "").strip_edges(), 20, QUEST_LINE)
 		l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
 		l.add_theme_constant_override("outline_size", 4)
+		l.custom_minimum_size.x = 380
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		quest_lines.add_child(l)
 		shown += 1
 		if shown >= 3:
 			break
 	if log.is_ready(qid):
-		var done := UITheme.make_label("ครบแล้ว — กลับไปส่งเควส", 14, UITheme.GOOD)
+		var done := UITheme.make_label("ครบแล้ว — กลับไปส่งเควส", 20, UITheme.GOOD)
 		done.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 		done.add_theme_constant_override("outline_size", 3)
 		quest_lines.add_child(done)
@@ -324,7 +328,7 @@ func _build_map_block() -> void:
 	left.custom_minimum_size = Vector2(44, 10)
 	left.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(left)
-	map_name_label = UITheme.make_label("", 17, UITheme.TEXT)
+	map_name_label = UITheme.make_label("", 24, UITheme.TEXT)
 	map_name_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 	map_name_label.add_theme_constant_override("outline_size", 3)
 	row.add_child(map_name_label)
@@ -333,7 +337,7 @@ func _build_map_block() -> void:
 	right.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(right)
 
-	region_label = UITheme.make_label("", 11, UITheme.TEXT_DIM)
+	region_label = UITheme.make_label("", 19, UITheme.TEXT)
 	region_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	region_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 	region_label.add_theme_constant_override("outline_size", 3)
@@ -422,7 +426,7 @@ func _layout() -> void:
 	if clock_row != null:
 		clock_row.reset_size()
 		var w: float = maxf(clock_row.size.x, clock_row.get_combined_minimum_size().x)
-		clock_row.position = Vector2(vp.x - MARGIN - w, vp.y - 80)
+		clock_row.position = Vector2((vp.x - w) * 0.5, vp.y - 90)
 	# ชื่อแมพ: ชิดขวา ใต้แถบเมนู (แถบเมนูสูง ~70)
 	if map_block != null:
 		map_block.reset_size()
@@ -432,9 +436,7 @@ func _layout() -> void:
 			top = UI.menu_bar.position.y + maxf(UI.menu_bar.size.y, IconMenuBar.BTN_H) + 6.0
 		map_block.position = Vector2(vp.x - 12.0 - mw, top)
 		# มินิแมพมุมจอขยับลงมาอยู่ใต้ชื่อแมพ
-		if UI.minimap != null and not UI.minimap.embedded:
-			UI.minimap.top_offset = top + maxf(map_block.size.y, map_block.get_combined_minimum_size().y) + 10.0
-			UI.minimap.place()
+
 
 
 # =========================================================

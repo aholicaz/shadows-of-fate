@@ -20,19 +20,21 @@ var reach := 150.0
 
 func _ready() -> void:
 	add_to_group("story_point")
-	label = UITheme.make_label(title, 18, tint)
+	label = UITheme.make_label(title, 26, Color("ece7d8"))
 	label.position = Vector2(-180, -170)
 	label.custom_minimum_size.x = 360
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.add_theme_color_override("font_outline_color", Color.BLACK)
 	label.add_theme_constant_override("outline_size", 4)
 	add_child(label)
+	preload("res://scripts/ui/quest_location_style.gd").apply(label)
 	queue_redraw()
 
 
 func _process(_delta: float) -> void:
 	if reveal_flag != &"":
 		label.text = title if PlayerState.has_flag(reveal_flag) else hidden_title
+	label.visible = not label.text.is_empty()
 
 
 func set_title(t: String) -> void:

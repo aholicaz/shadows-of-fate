@@ -9,6 +9,7 @@ const DEFAULT_KEYS := {
 	"skill_2": [KEY_2],
 	"skill_3": [KEY_3],
 	"skill_4": [KEY_4],
+	"skill_bank": [KEY_T],
 	"pickup": [KEY_Z],
 	"quick_potion": [KEY_Q],
 	"quick_sp_potion": [KEY_R],

@@ -115,7 +115,7 @@ func _start_boss() -> void:
 		Events.say("Baphomet ถูกปราบแล้ว ไปปลดวงจรหลังบัลลังก์")
 		return
 	if not PlayerState.quests.is_active(&"rb5_oath_eater"):
-		Events.say("รับเควส R5 ผู้กินคำสัตย์ จากญอร์ดาก่อนเข้าห้อง")
+		Events.say("รับเควส ผู้กินคำสัตย์ ผู้กินคำสัตย์ จากญอร์ดาก่อนเข้าห้อง")
 		return
 	await UI.talk([{"name":"Baphomet", "text":"เจ้ามนุษย์เปลี่ยนนายอีกแล้วหรือ?"},{"text":"ข้ามาเอาสิ่งที่ไม่ควรมีนายคืนไป"}])
 	fighting = true

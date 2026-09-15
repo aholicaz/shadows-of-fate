@@ -27,3 +27,5 @@ drop_hint = "บาฟโฟเมทจูเนียร์, อสูรส�
 bonus_str = 2
 atk = 4
 attack_element = 0
+
+refinable = true

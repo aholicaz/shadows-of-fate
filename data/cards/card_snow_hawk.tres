@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"snow_hawk"
-fits_slot = 5
+fits_slot = 6
 rarity = 3
 monster_level = 61
 id = &"card_snow_hawk"
@@ -21,5 +21,5 @@ sell_price = 240
 flee = 8
 
 percent_effects = {
-"move_speed_percent": 4.0
+"move_speed_percent": 7.0
 }

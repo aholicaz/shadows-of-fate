@@ -27,5 +27,5 @@ def = 26
 bonus_agi = 5
 flee = 10
 max_hp = 120
-move_speed_percent = 4.0
+move_speed_percent = 23.0
 attack_element = 0

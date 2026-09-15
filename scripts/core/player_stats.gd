@@ -162,7 +162,7 @@ var matk: int = 1
 var def: int = 0
 var mdef: int = 0
 var hit: int = 1
-var flee: int = 1
+var flee: float = 1.0
 var crit: float = 1.0
 var crit_damage: float = 1.5
 var skill_damage_percent: float = 0.0
@@ -234,7 +234,7 @@ func recalculate(keep_ratio: bool = false) -> void:
 	# ---------- HIT / FLEE / CRIT ----------
 	# ★ DEX 1 หน่วย = ความแม่น +1.5% ★ (เดิม +1%) อยากให้ DEX คุ้มกว่านี้อีก แก้ HIT_PER_DEX
 	hit = int((100 + level + total_dex * HIT_PER_DEX + _flat(&"hit")) * j.hit_mod)
-	flee = int((100 + level + total_agi * AGI_FLEE + _flat(&"flee")) * j.flee_mod)
+	flee = (100 + level + total_agi * AGI_FLEE + float(flat_bonus.get(&"flee", 0.0))) * j.flee_mod
 	crit = 1.0 + total_luk * LUK_CRIT + _flat(&"crit")
 	crit = clampf(crit, 0.0, 100.0)
 	crit_damage = 1.5 + clampf(_pct(&"crit_damage_percent"), 0.0, 100.0) / 100.0

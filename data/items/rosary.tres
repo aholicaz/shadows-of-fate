@@ -25,3 +25,5 @@ mdef = 6
 bonus_luk = 2
 max_hp = 30
 attack_element = 0
+
+refinable = true

@@ -29,3 +29,5 @@ skill_damage_percent = 7.0
 max_sp = 30
 cooldown_reduction_percent = 2.0
 attack_element = 0
+
+refinable = true

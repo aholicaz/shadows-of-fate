@@ -18,7 +18,9 @@ max_count = 2
 [sub_resource type="Resource" id="Drop_magma_slug_2"]
 script = ExtResource("2_drop")
 item_id = &"phracon"
-chance = 2.88
+chance = 1.4
+min_count = 1
+max_count = 1
 
 [sub_resource type="Resource" id="Drop_magma_slug_3"]
 script = ExtResource("2_drop")

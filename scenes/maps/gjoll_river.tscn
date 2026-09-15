@@ -103,7 +103,7 @@ target_spawn_point = &"from_river"
 label_text = "→ โถงแห่งนาม"
 destination_name = "โถงแห่งนาม"
 required_flag = &"name_left"
-locked_text = "โมดกุดยืนขวางสะพาน: «ผู้ข้ามต้องทิ้งชื่อ» — ส่งเควส C6-3 ก่อน"
+locked_text = "โมดกุดยืนขวางสะพาน: «ผู้ข้ามต้องทิ้งชื่อ» — ส่งเควส ทิ้งชื่อไว้ที่สะพาน ก่อน"
 
 
 [node name="NPCs" type="Node2D" parent="."]

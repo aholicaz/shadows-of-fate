@@ -49,20 +49,20 @@ func _ready() -> void:
 	_panel.name = "Panel"
 	_panel.add_theme_stylebox_override("panel",
 		UITheme.panel_style(Color("#141926f5"), UITheme.ACCENT, 8))
-	_panel.custom_minimum_size = Vector2(380, 0)
+	_panel.custom_minimum_size = Vector2(600, 0)
 	center.add_child(_panel)
 
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 10)
 	_panel.add_child(box)
 
-	_title = UITheme.make_label("", 18, UITheme.ACCENT)
+	_title = UITheme.make_label("", 24, UITheme.ACCENT)
 	_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(_title)
 
 	box.add_child(UITheme.separator())
 
-	_message = UITheme.make_label("", 15, UITheme.TEXT)
+	_message = UITheme.make_label("", 22, UITheme.TEXT)
 	_message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_message)
@@ -79,6 +79,9 @@ func _ready() -> void:
 	_no = UITheme.make_button("ยกเลิก", 130)
 	_no.pressed.connect(func(): _answer(false))
 	row.add_child(_no)
+	for button in [_yes, _no]:
+		button.custom_minimum_size = Vector2(180, 56)
+		button.add_theme_font_size_override("font_size", 22)
 
 	var hint := UITheme.make_label("Enter / F = ตกลง     Esc = ยกเลิก", 11, UITheme.TEXT_DIM)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

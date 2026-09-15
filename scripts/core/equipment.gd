@@ -91,11 +91,10 @@ func collect_bonus() -> Dictionary:
 		# อาวุธคิด ATK แยกผ่าน weapon_atk() ไม่นับซ้ำตรงนี้
 		# ★ รอบ 57 ★ ของดรอปได้โบนัส 5-30% — คูณเฉพาะค่าของ "ตัวไอเทม" ไม่รวมการ์ด/ตีบวก
 		_add_item_bonus(b, d, slot != EquipSlot.WEAPON, inst.bonus_multiplier())
-		# โบนัสจากตีบวก (อาวุธคิด ATK ผ่าน weapon_atk แล้ว / เกราะเท่านั้นที่ได้ DEF)
-		if slot != EquipSlot.WEAPON:
-			_add(b, &"atk", inst.refine * d.refine_atk_gain())
-		if d.type == ItemData.Type.ARMOR:
-			_add(b, &"def", inst.refine * d.refine_def_gain())
+		var refined := d.refine_bonuses(inst.refine)
+		for key in refined:
+			if key == &"atk" and slot == EquipSlot.WEAPON: continue
+			_add(b, key, refined[key])
 
 		# ★ การ์ดที่ใส่อยู่ในชิ้นนี้ ★
 		for card in inst.card_list():

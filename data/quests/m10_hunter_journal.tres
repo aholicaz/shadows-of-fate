@@ -19,7 +19,7 @@ consume = false
 [resource]
 script = ExtResource("1_quest")
 id = &"m10_hunter_journal"
-title = "M10 สมุดของนักล่า"
+title = "สมุดของนักล่า"
 description = "ตามหาแคมป์ของนักล่าในป่าเงาลึก แล้วนำสิ่งที่พบกลับมาให้อิงกริด"
 giver_name = "อิงกริด"
 dialog_offer = "พ่อชอบตั้งแคมป์ลึกเข้าไปทางตะวันออกของป่าเงาลึก... ลองไปดูตรงนั้นที ขอร้องล่ะ"

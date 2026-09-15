@@ -22,3 +22,5 @@ bonus_luk = 3
 flee = 6
 crit = 4
 attack_element = 0
+
+refinable = true

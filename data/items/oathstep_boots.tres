@@ -18,3 +18,5 @@ card_slots = 1
 def = 42
 max_hp = 280
 bonus_agi = 6
+
+move_speed_percent = 25.0

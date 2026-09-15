@@ -12,3 +12,5 @@ icon = ExtResource("2_icon")
 type = 3
 buy_price = 15000
 sell_price = 180
+
+bulk_sell_junk = true

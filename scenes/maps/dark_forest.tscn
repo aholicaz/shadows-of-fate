@@ -18,6 +18,9 @@
 [ext_resource type="Texture2D" path="res://Sprites/map/chapter1/organic/dark_forest_3.png" id="organic_3"]
 
 
+[ext_resource type="Resource" path="res://data/monsters/king_poring.tres" id="md_king_poring"]
+[ext_resource type="Script" path="res://scripts/world/monster_spawner.gd" id="boss_spawner"]
+
 [sub_resource type="RectangleShape2D" id="Rect_0"]
 size = Vector2(3992, 67.5)
 
@@ -73,6 +76,15 @@ script = ExtResource("map_spawner")
 monster_types = Array[ExtResource("monster_data")]([ExtResource("md_hornet"), ExtResource("md_wolf"), ExtResource("md_lunatic")])
 monster_scene = ExtResource("monster_scene")
 
+
+[node name="KingPoringSpawner" type="Node2D" parent="Spawners"]
+position = Vector2(4500, 510)
+script = ExtResource("boss_spawner")
+monster_types = Array[ExtResource("monster_data")]([ExtResource("md_king_poring")])
+monster_scene = ExtResource("monster_scene")
+max_alive = 1
+spawn_width = 160.0
+spawn_height = 0.0
 
 [node name="Portals" type="Node2D" parent="." unique_id=1378185495]
 

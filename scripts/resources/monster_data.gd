@@ -45,6 +45,8 @@ enum AIType {
 @export var fit_fixed_anchor_enabled: bool = false
 ## จุดยืนบนผ้าใบต้นฉบับ (ก่อน scale/flip) ใช้ร่วมกันทุกท่า
 @export var fit_fixed_anchor: Vector2 = Vector2.ZERO
+## Optional source-frame anchors for animations imported at a different resolution.
+@export var fit_animation_anchors: Dictionary[StringName, Vector2] = {}
 ## ชดเชยชีทที่วาดลำตัวต่างขนาดกัน: ชื่อท่าจริง -> ตัวคูณคงที่ตลอดท่า
 @export var fit_animation_scales: Dictionary[StringName, float] = {}
 ## บริเวณฝ่าเท้าบนชีท (ไม่รวมอาวุธ/แสง) ขนาด 0 = ไม่ชดเชยระดับเท้า
@@ -536,11 +538,16 @@ func roll_zeny() -> int:
 ## สุ่มไอเทมที่ดรอปทั้งหมด
 func roll_drops() -> Array[ItemInstance]:
 	var result: Array[ItemInstance] = []
+	var rolled_phracon := false
 	for entry in drops:
 		if entry == null:
 			continue
 		var inst := entry.roll()
 		if inst != null:
+			if inst.item_id == &"phracon":
+				if rolled_phracon: continue
+				inst.count = 1
+				rolled_phracon = true
 			result.append(inst)
 	# Keep the chapter-six quest deterministic without guaranteeing farm loot.
 	# Require an actual ash drop entry so reward-disabled summons stay rewardless.

@@ -208,6 +208,7 @@ func turn_in_quest(quest_id: StringName) -> bool:
 # เริ่มเกมใหม่
 # =========================================================
 func new_game() -> void:
+	respawn_town = &"prontera_town"
 	if is_instance_valid(SaveManager): SaveManager.end_session()
 	stats = PlayerStats.new()
 	inventory = Inventory.new(INVENTORY_SIZE)
@@ -977,6 +978,17 @@ var respawn_locks: Dictionary = {}     ## id มอน -> unix time ที่เ
 ## ★ รอบ 60 ★ เมืองล่าสุดที่ผู้เล่นเดินเข้าไป (ปีกแห่งวาลคีรีวาปกลับที่นี่)
 ## MapBase ตั้งให้เองตอนเข้าแมพที่อยู่ในลิสต์ Game.TOWNS
 var last_town: StringName = &"prontera_town"
+var respawn_town: StringName = &"prontera_town"
+
+func saved_respawn_town() -> StringName:
+	return respawn_town if Game.MAPS.has(respawn_town) and Game.is_town(respawn_town) else &"prontera_town"
+
+func bind_respawn_town(map_id: StringName) -> bool:
+	if not Game.is_town(map_id): return false
+	respawn_town = map_id
+	SaveManager.request_autosave()
+	return true
+
 
 
 ## เมืองที่จะวาปกลับ (กันค่าเพี้ยน/แมพถูกลบ = ถอยไปพรอนเทรา)
@@ -1026,6 +1038,7 @@ func to_dict() -> Dictionary:
 		"version": 1,
 		"respawn_locks": _respawn_locks_to_dict(),
 		"last_town": String(last_town),
+		"respawn_town": String(saved_respawn_town()),
 		"stats": stats.to_dict(),
 		"inventory": inventory.to_array(),
 		"equipment": equipment.to_dict(),
@@ -1082,6 +1095,8 @@ func from_dict(d: Dictionary) -> void:
 	current_map_id = StringName(d.get("map", "prontera_field"))
 
 	last_town = StringName(String(d.get("last_town", "prontera_town")))
+	respawn_town = StringName(String(d.get("respawn_town", "prontera_town")))
+	respawn_town = saved_respawn_town()
 	respawn_locks.clear()
 	var rl = d.get("respawn_locks", {})
 	if rl is Dictionary:

@@ -23,7 +23,7 @@ func _ready() -> void:
 			point(Vector2(3100,900),"[F] ลานฝึกดาบ · บททดสอบ Runeblade",func():
 				if PlayerState.quests.is_active(&"rb4_edge_and_force"):
 					await Game.change_map(&"runeblade_training",&"default")
-				else: Events.say("รับเควส R4 คมและแรงกับญอร์ดาก่อน"))
+				else: Events.say("รับเควส คมและแรง คมและแรงกับญอร์ดาก่อน"))
 		"runeblade_training":
 			point(Vector2(200,900),"[F] กลับวานาเฮม",func(): await Game.change_map(&"vanir_town",&"from_training"))
 			point(Vector2(700,900),"[F] เริ่มบททดสอบ",_training)
@@ -79,7 +79,7 @@ func _entrance() -> void:
 
 func _training() -> void:
 	if not PlayerState.quests.is_active(&"rb4_edge_and_force"):
-		await UI.talk([{"text":"รับเควส R4 คมและแรงกับญอร์ดาก่อน แล้วกลับมาทดสอบที่นี่"}])
+		await UI.talk([{"text":"รับเควส คมและแรง คมและแรงกับญอร์ดาก่อน แล้วกลับมาทดสอบที่นี่"}])
 		return
 	var pick: int = await UI.talk([{"text":"ทดสอบฟรี ฟื้น HP/SP เมื่อจบ หลีกแนวโจมตีสีแดงแล้วสวนในช่วงสีทอง", "choices":["จังหวะของคม: คอมโบครบ 3 ชุด", "น้ำหนักของดาบ: เปิดแผล แล้ว Bash ช่วงหุ่นเก็บท่า", "ออก"]}])
 	if pick < 0 or pick > 1: return

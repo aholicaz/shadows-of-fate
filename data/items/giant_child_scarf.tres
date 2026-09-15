@@ -20,3 +20,5 @@ bonus_vit = 3
 max_hp = 100
 mdef = 4
 attack_element = 0
+
+refinable = true

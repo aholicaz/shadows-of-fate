@@ -14,7 +14,6 @@ var dialogue: DialogueBox
 ## ★ ปุ่มจอสัมผัสสำหรับมือถือ ★
 var touch: TouchControls
 ## ★ แผนที่ย่อมุมขวาบน ★
-var minimap: Minimap
 ## ★ แถบปุ่มไอคอนใต้มินิแมพ ★
 var menu_bar: IconMenuBar
 ## ★ หน้าจอตอนตาย (คำอวยพรจากธอร์ + ปุ่มเกิดใหม่) ★
@@ -59,11 +58,8 @@ func _ready() -> void:
 
 	# ---------- ★ มินิแมพ + แถบปุ่มไอคอน (มุมขวาบน) ★ ----------
 	# ใส่ก่อนหน้าต่าง จะได้อยู่หลังหน้าต่างเวลาเปิดทับกัน
-	minimap = Minimap.new()
-	root.add_child(minimap)
 
 	menu_bar = IconMenuBar.new()
-	menu_bar.minimap = minimap
 	root.add_child(menu_bar)
 
 	# ---------- ★ หน้าต่างรวม (รอบ 98) ★ ใส่ก่อนหน้าต่างลอย (ร้านค้า/ตีบวก) จะได้อยู่ใต้พวกนั้น ----------
@@ -216,7 +212,7 @@ func is_point_over_ui(point: Vector2) -> bool:
 			and item_popup.get_global_rect().has_point(point):
 		return true
 	# ★ มินิแมพ + แถบปุ่มไอคอน ★ คลิกตรงนี้ไม่ใช่การสั่งตีมอน
-	for p in [minimap, menu_bar]:
+	for p in [menu_bar]:
 		if p != null and p.visible and p.get_global_rect().has_point(point):
 			return true
 	if hud != null:
@@ -232,6 +228,7 @@ func missing_ui_icons() -> Array[String]:
 
 
 func is_asking() -> bool:
+	if _warp_open: return true
 	if death_popup != null and death_popup.is_open():
 		return true
 	if card_popup != null and card_popup.is_open():
@@ -275,8 +272,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif InputMap.has_action("toggle_fullscreen") and event.is_action_pressed("toggle_fullscreen"):
 		toggle_fullscreen()
 	elif InputMap.has_action("toggle_minimap") and event.is_action_pressed("toggle_minimap"):
-		if minimap != null:
-			minimap.toggle()
+		toggle(&"map")
 	elif event.is_action_pressed("close_windows"):
 		close_all()
 	elif event.is_action_pressed("quick_save"):
@@ -350,8 +346,8 @@ func _on_shop_opened(item_ids: Array) -> void:
 	var shop := windows.get(&"shop") as ShopWindow
 	if shop == null:
 		return
+	close_all()
 	shop.open_shop(item_ids)
-	open(&"inventory")
 
 
 func _on_refine_opened() -> void:
@@ -432,3 +428,19 @@ func play_video(path: String) -> void:
 	vlayer.queue_free()
 	get_tree().paused = was_paused
 	video_playing = false
+
+
+var _warp_open := false
+func choose_warp(targets: Array) -> StringName:
+	if _warp_open: return &""
+	_warp_open = true
+	var page := preload("res://scripts/ui/warp_selector.gd").new()
+	page.targets = targets
+	layer.add_child(page)
+	var was_paused := get_tree().paused
+	get_tree().paused = true
+	var destination: StringName = await page.chosen
+	page.queue_free()
+	get_tree().paused = was_paused
+	_warp_open = false
+	return destination

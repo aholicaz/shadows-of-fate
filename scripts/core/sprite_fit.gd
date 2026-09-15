@@ -344,6 +344,9 @@ static func warm(frames: SpriteFrames, with_body: bool = false) -> int:
 		if not _cache.has(k) or (with_body and not bool((_cache[k] as Dictionary).get("body_measured", false))):
 			measure(frames, a, pool, with_body)
 			n += 1
+			# Bound CPU image copies to one animation on memory-constrained platforms.
+			if OS.has_feature("web") or OS.has_feature("mobile"):
+				pool.clear()
 	pool.clear()
 	return n
 

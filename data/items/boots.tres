@@ -33,3 +33,5 @@ bonus_agi = 2
 max_hp = 50
 aspd_percent = 3.0
 attack_element = 0
+
+move_speed_percent = 10.0

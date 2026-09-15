@@ -203,8 +203,9 @@ func _strike(x: float, y: float = 0.0) -> void:
 
 	_hits += 1
 	var mult: float = d.skill_bolt_damage_mult if d.skill_bolt_damage_mult > 0.0 else d.skill_damage_mult
-	var result := Combat.monster_hits_player(d, PlayerState.stats)
-	var damage: int = maxi(1, int(round(result.damage * mult)))
+	var result := Combat.monster_skill_hits_player(d, PlayerState.stats, mult)
+	if result.miss: return
+	var damage: int = result.damage
 	if player.has_method("take_damage"):
 		# กระเด็นออกจากจุดที่ฟ้าลง
 		var kb_dir: int = 1 if pf.x >= hit_center.x else -1

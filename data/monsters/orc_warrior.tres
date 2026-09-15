@@ -56,6 +56,11 @@ script = ExtResource("2_drop")
 item_id = &"iron_helm"
 chance = 3.0
 
+[sub_resource type="Resource" id="Drop_equipment_belt"]
+script = ExtResource("2_drop")
+item_id = &"belt"
+chance = 3.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2v5kt"]
 atlas = ExtResource("3_pc4ti")
 region = Rect2(0, 0, 512, 512)
@@ -579,11 +584,6 @@ animations = [{
 "name": &"Run",
 "speed": 9.0
 }]
-
-[sub_resource type="Resource" id="Drop_equipment_belt"]
-script = ExtResource("2_drop")
-item_id = &"belt"
-chance = 3.0
 
 [resource]
 script = ExtResource("1_monster")

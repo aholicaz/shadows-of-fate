@@ -840,16 +840,16 @@ func _handle_input() -> void:
 
 	# คลิกขวา = สกิลช่องลัดที่ตั้งไว้
 	if click_skill and mouse_skill_slot > 0:
-		var msid := PlayerState.skills.hotkey_at(mouse_skill_slot - 1)
+		var msid := PlayerState.skills.active_hotkey_at(mouse_skill_slot - 1)
 		if msid != &"":
 			_face_click()
 			use_skill(msid)
 		return
 
 	# สกิลปุ่มลัด 1-4
-	for i in range(SkillBook.HOTKEY_COUNT):
+	for i in range(SkillBook.BANK_SIZE):
 		if Input.is_action_just_pressed("skill_%d" % (i + 1)):
-			var sid := PlayerState.skills.hotkey_at(i)
+			var sid := PlayerState.skills.active_hotkey_at(i)
 			if sid != &"":
 				use_skill(sid)
 			return
@@ -1747,15 +1747,14 @@ func use_skill(skill_id: StringName) -> void:
 			_play_skill_sfx(skill_id)
 
 			await get_tree().create_timer(s.cast_windup).timeout
-			if not is_instance_valid(self) or _dead:
+			if not is_instance_valid(self) or not is_inside_tree() or _dead:
 				return
 			_start_dash(s, lv)
 
 			# รอจนพุ่งจบจริง ๆ (เผื่อชนกำแพงแล้วหยุดก่อนกำหนด)
-			while is_instance_valid(self) and _dash_time > 0.0:
-				await get_tree().physics_frame
+			if not await _wait_dash_completion(): return
 			await get_tree().create_timer(0.15).timeout
-			if is_instance_valid(self):
+			if is_instance_valid(self) and is_inside_tree() and not _dead:
 				is_attacking = false
 				if skill_id == &"slash":
 					sprite.speed_scale = 1.0
@@ -1777,7 +1776,7 @@ func use_skill(skill_id: StringName) -> void:
 			preload("res://scripts/entities/rending_wave.gd").spawn(s, self, wave_facing, lv, _book_fx(s.id))
 			_play_skill_sfx(skill_id)
 			await get_tree().create_timer(maxf(0.01, wave_timing.y - wave_timing.x)).timeout
-			if wave_seq == _attack_seq:
+			if is_inside_tree() and not _dead and wave_seq == _attack_seq:
 				is_attacking = false
 				sprite.speed_scale = 1.0
 
@@ -1796,7 +1795,7 @@ func use_skill(skill_id: StringName) -> void:
 			if not s.effect_damage:
 				for i in range(maxi(1, s.hit_count)):
 					await get_tree().create_timer(s.cast_windup if i == 0 else 0.12).timeout
-					if not is_instance_valid(self) or _dead:
+					if not is_instance_valid(self) or not is_inside_tree() or _dead:
 						return
 					var all_dir := s.type == SkillData.SkillType.ACTIVE_AOE
 					_deal_damage(s.range_x, s.range_y, s.damage_mult(lv), s.use_matk,
@@ -1805,9 +1804,19 @@ func use_skill(skill_id: StringName) -> void:
 				# รอให้ท่าร่ายเล่นจบพอ ๆ กับแบบเดิม (เอฟเฟกต์ทำดาเมจไปเองแล้ว)
 				await get_tree().create_timer(s.cast_windup).timeout
 
+			if not is_inside_tree() or _dead: return
 			await get_tree().create_timer(0.2).timeout
-			if is_instance_valid(self):
+			if is_instance_valid(self) and is_inside_tree() and not _dead:
 				is_attacking = false
+
+
+## Node validity alone is insufficient: a removed player has no SceneTree.
+func _wait_dash_completion() -> bool:
+	while is_inside_tree() and not _dead and _dash_time > 0.0:
+		var tree := get_tree()
+		if tree == null: return false
+		await tree.physics_frame
+	return is_inside_tree() and not _dead
 
 
 ## ★ รอยฟันตอนโจมตีปกติ (รอบ 44) ★
@@ -2186,6 +2195,8 @@ func _on_died() -> void:
 	if _dead:
 		return
 	_dead = true
+	_dash_time = 0.0
+	_attack_seq += 1
 	is_attacking = false
 	_hit_left = 0.0
 	_click_attack_held = false   # ★ รอบ 96 ★ ตายแล้วเลิกฟันรัว
@@ -2205,7 +2216,7 @@ func _on_died() -> void:
 		wait = clampf(_anim_length(played), 0.4, 2.0)
 
 	await get_tree().create_timer(wait).timeout
-	if not is_instance_valid(self):
+	if not is_instance_valid(self) or not is_inside_tree():
 		return
 
 	# ★ ค้างเฟรมสุดท้ายของท่าตายไว้ ★ ไม่ให้วนลูปลุกขึ้นมาตายซ้ำ ๆ

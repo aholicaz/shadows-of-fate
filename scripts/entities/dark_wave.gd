@@ -162,8 +162,9 @@ func _check_hit(w: Dictionary) -> void:
 	w.hit = true
 	_hits += 1
 	var mult: float = d.skill_wave_damage_mult if d.skill_wave_damage_mult > 0.0 else d.skill_damage_mult
-	var result := Combat.monster_hits_player(d, PlayerState.stats)
-	var damage: int = maxi(1, int(round(result.damage * mult)))
+	var result := Combat.monster_skill_hits_player(d, PlayerState.stats, mult)
+	if result.miss: return
+	var damage: int = result.damage
 	if player.has_method("take_damage"):
 		player.take_damage(damage, d.skill_knockback, int(w.dir))
 
