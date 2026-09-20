@@ -18,6 +18,15 @@ const AGGRO_MEMORY := 8.0
 ## ★ ขนาดตัวเลขดาเมจ ★ อยากให้ใหญ่ขึ้นอีก แก้สองเลขนี้
 const DAMAGE_FONT_SIZE := 32
 const DAMAGE_FONT_CRIT := 40
+## ★ รอบ 146 ★ เอฟเฟกต์คริ: แฉกทองเดิม (ปิด) · สโลว์เมื่อคริกิน ≥ x ของ MaxHP มอน · ช้าเหลือกี่เท่า · นานกี่วิ (เวลาจริง)
+const CRIT_GOLD_BURST := false
+## ★ รอบ 150 ★ เดิม 10% ของ MaxHP → มอนธรรมดาโดนคริแทบทุกทีก็เข้าเงื่อนไข สกิลหลายฮิตยิ่งต่อกันเป็นสโลว์ยาว (ผู้ใช้: "เหมือนโดนสโล")
+## ตอนนี้: ต้องกิน ≥25% MaxHP · มอนเลเวลไม่ต่ำกว่าผู้เล่นเกิน 8 · เว้นอย่างน้อย CRIT_SLOWMO_COOLDOWN วิ · ช้าแค่ 0.65 เท่า 0.12 วิ
+const CRIT_SLOWMO_HP_FRACTION := 0.25
+const CRIT_SLOWMO_SCALE := 0.65
+const CRIT_SLOWMO_TIME := 0.12
+const CRIT_SLOWMO_COOLDOWN := 6.0
+const CRIT_SLOWMO_LEVEL_GAP := 8
 
 signal died(monster: Node, data: MonsterData)
 signal ground_slam_impact(origin: Vector2, radius: float, skill: bool, hit_index: int)
@@ -931,15 +940,18 @@ func _run_ground_slam_animation(anim: String, skill: bool) -> void:
 			if frame >= count:
 				continue
 			while state == State.ATTACK and sprite.animation == StringName(anim) and sprite.frame < frame:
+				# ★ รอบ 109 ★ มอนถูกลบ/เปลี่ยนแมพระหว่างรอเฟรม → get_tree() เป็น null (error 'physics_frame' on null instance)
+				if not is_inside_tree(): return
 				await get_tree().physics_frame
-			if state != State.ATTACK or sprite.animation != StringName(anim):
+			if not is_inside_tree() or state != State.ATTACK or sprite.animation != StringName(anim):
 				return
 			_apply_fit()
 			_ground_slam_hit(skill, hit_index)
 			hit_index += 1
 		while state == State.ATTACK and sprite.animation == StringName(anim) and sprite.is_playing():
+			if not is_inside_tree(): return
 			await get_tree().physics_frame
-	if state != State.ATTACK:
+	if not is_inside_tree() or state != State.ATTACK:
 		return
 	state = State.IDLE
 	_attack_timer = data.attack_cooldown * (0.5 if skill else 1.0)
@@ -1252,7 +1264,7 @@ func _drain_to_player(damage: int) -> void:
 	PlayerState.apply_hp_drain(damage)
 	if st.sp_drain_percent > 0.0:
 		var sp_gain := int(damage * st.sp_drain_percent / 100.0)
-		PlayerState.restore_sp(sp_gain)
+		PlayerState.restore_sp(sp_gain, true)   # ★ รอบ 121 ★ โชว์ "+N SP" ที่ตัวละคร
 
 
 ## ทำดาเมจตรง ๆ (ใช้กับกับดัก/สกิลพิเศษ)
@@ -1263,7 +1275,14 @@ func take_damage(amount: int, is_crit: bool = false, from_dir: int = 0) -> void:
 	hp = maxi(0, hp - amount)
 	_set_aggro()
 	if is_crit and amount > 0:
-		preload("res://scripts/entities/critical_burst_fx.gd").spawn(self)
+		# ★ รอบ 146 ★ คริ = ลายร้าวขาวบนตัวมอน (แทนแฉกทองเดิม · เปิดคืนได้ที่ CRIT_GOLD_BURST)
+		if CRIT_GOLD_BURST:
+			preload("res://scripts/entities/critical_burst_fx.gd").spawn(self)
+		preload("res://scripts/entities/crack_overlay_fx.gd").spawn(self)
+		# คริที่กินเลือดมากพอ → ภาพช้าลงแป๊บนึง (ไม่ทำทุกคริ จะเวียนหัว)
+		if data != null and data.max_hp > 0 and float(amount) >= float(data.max_hp) * CRIT_SLOWMO_HP_FRACTION \
+				and data.level >= PlayerState.stats.level - CRIT_SLOWMO_LEVEL_GAP:
+			preload("res://scripts/entities/crack_overlay_fx.gd").slow_mo(CRIT_SLOWMO_SCALE, CRIT_SLOWMO_TIME, CRIT_SLOWMO_COOLDOWN)
 
 	# ★ ตัวเลขดาเมจ — ใหญ่และหนา ★ คริติคอลใหญ่กว่าอีก
 	var text := str(amount) + ("!" if is_crit else "")

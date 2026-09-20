@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"belt"
+result_item_id = &"belt"
+result_count = 1
+chapter = 2
+category = &"general"
+materials = {
+&"orc_bandana": 60,
+&"dirt_clump": 60,
+&"steel_shell": 30,
+&"phracon": 8
+}
+zeny = 5000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = "ชิ้นปิดเซ็ต «ชุดนักขุด»"

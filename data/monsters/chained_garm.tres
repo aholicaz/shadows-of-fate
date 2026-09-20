@@ -24,8 +24,7 @@ max_count = 5
 [sub_resource type="Resource" id="Drop_chained_garm_3"]
 script = ExtResource("2_drop")
 item_id = &"emveretarcon"
-chance = 5.0
-max_count = 5
+chance = 4.0
 
 [sub_resource type="Resource" id="Drop_chained_garm_4"]
 script = ExtResource("2_drop")

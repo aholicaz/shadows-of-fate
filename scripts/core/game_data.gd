@@ -10,6 +10,7 @@ const SKILL_DIR := "res://data/skills"
 const JOB_DIR := "res://data/jobs"
 const CARD_DIR := "res://data/cards"
 const QUEST_DIR := "res://data/quests"
+const RECIPE_DIR := "res://data/recipes"   # ★ รอบ 132 ★ สูตรคราฟต์
 
 var items: Dictionary = {}      # StringName -> ItemData
 var monsters: Dictionary = {}   # StringName -> MonsterData ★ รอบ 90: แคชเฉพาะตัวที่ถูกเรียกใช้แล้ว ★
@@ -17,6 +18,7 @@ var skills: Dictionary = {}     # StringName -> SkillData
 var jobs: Dictionary = {}       # StringName -> JobData
 var cards: Dictionary = {}      # StringName -> CardData (เป็นสับเซ็ตของ items)
 var quests: Dictionary = {}     # StringName -> QuestData
+var recipes: Dictionary = {}    # StringName -> RecipeData ★ รอบ 132 ★
 
 # =========================================================
 # ★★ รอบ 90 — มอนสเตอร์โหลดตอนใช้จริง ไม่ใช่ตอนเปิดเกม ★★
@@ -39,11 +41,15 @@ func _ready() -> void:
 	_load_dir(SKILL_DIR, skills)
 	_load_dir(JOB_DIR, jobs)
 	_load_dir(QUEST_DIR, quests)
+	_load_dir(RECIPE_DIR, recipes)   # ★ รอบ 132 ★
 	# การ์ดสืบทอดจาก ItemData จึงเก็บไว้ในคลังไอเทมด้วย
 	_load_dir(CARD_DIR, items)
 	for item in items.values():
 		if item is CardData:
 			cards[StringName(item.id)] = item
+			# ★ รอบ 117 ★ การ์ดที่ใส่แต่ภาพ Illustration ไม่ได้ใส่ Icon → ร้าน/กระเป๋าไม่มีรูป จึงใช้ภาพเดียวกันเป็นไอคอน
+			if item.icon == null and item.illustration != null:
+				item.icon = item.illustration
 	print("[GameData] items=%d (การ์ด %d) monsters=%d (รอเรียก) skills=%d jobs=%d เควส=%d"
 		% [items.size(), cards.size(), _monster_paths.size(), skills.size(), jobs.size(), quests.size()])
 
@@ -82,6 +88,27 @@ func get_item(id: StringName) -> ItemData:
 
 func get_quest(id: StringName) -> QuestData:
 	return quests.get(id, null)
+
+
+## ★ รอบ 132 ★ สูตรคราฟต์
+func get_recipe(id: StringName) -> RecipeData:
+	return recipes.get(id, null)
+
+
+## สูตรทั้งหมด เรียงตามบท แล้วตามเลเวลของของที่ได้
+func all_recipes() -> Array:
+	var out: Array = []
+	for r in recipes.values():
+		out.append(r)
+	out.sort_custom(func(a, b):
+		if a.chapter != b.chapter:
+			return a.chapter < b.chapter
+		if a.category_rank() != b.category_rank():   # ★ รอบ 134 ★ ทั่วไป → อาวุธบอส → เครื่องประดับ
+			return a.category_rank() < b.category_rank()
+		var la: int = a.result().required_level if a.result() != null else 0
+		var lb: int = b.result().required_level if b.result() != null else 0
+		return la < lb)
+	return out
 
 
 ## เควสทั้งหมด เรียงตามเลเวลที่ต้องใช้

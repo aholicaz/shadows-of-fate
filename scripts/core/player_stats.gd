@@ -20,14 +20,14 @@ const HIT_PER_DEX := 1.5
 # ★★ ตารางผลของสเตตัส (รอบ 45) — แก้ตัวเลขตรงนี้ที่เดียว ★★
 # ค่าที่ขึ้นกับ "อาชีพ" (hp_vit_percent / sp_int_percent / aspd_agi_percent) อยู่ในไฟล์ data/jobs/*.tres
 # =========================================================
-## STR 1 = ATK +1 · และทุก ๆ 10 STR ได้โบนัส (STR/10)² (10→+1 · 20→+4 · 30→+9)
-const STR_ATK := 1.0
-## AGI 1 = FLEE +1 · ASPD +aspd_agi_percent% (อาชีพ: นักดาบ 1.2%)
+## STR 1 = ATK +1.75 · และทุก ๆ 10 STR ได้โบนัส (STR/10)² (10→+1 · 20→+4 · 30→+9)
+const STR_ATK := 1.75
+## AGI 1 = FLEE +1 · ASPD +aspd_agi_percent% (อาชีพ: มือใหม่ 1.4% · นักดาบ/Runeblade 1.75% · Ninth Edge 1.85% — ★ รอบ 111 ★)
 const AGI_FLEE := 1.0
-## VIT 1 = DEF +0.5 (2 VIT = DEF 1) · HP +VIT_HP_FLAT · HP +hp_vit_percent% ของ HP พื้นฐาน (อาชีพ) · ฟื้น HP +0.05/วิ
-const VIT_DEF := 0.5
+## VIT 1 = DEF +1.5 (1 VIT = DEF 1) · HP +VIT_HP_FLAT · HP +hp_vit_percent% ของ HP พื้นฐาน (อาชีพ) · ฟื้น HP +0.1/วิ
+const VIT_DEF := 1.5
 const VIT_HP_FLAT := 6
-const VIT_HP_REGEN := 0.05
+const VIT_HP_REGEN := 0.1
 ## INT 1 = MATK +1 (+ (INT/7)²) · MDEF +0.5 · SP +INT_SP_FLAT · SP +sp_int_percent% ของ SP พื้นฐาน (อาชีพ) · ฟื้น SP +INT_SP_REGEN/วิ
 const INT_MDEF := 0.5
 const INT_SP_FLAT := 4
@@ -43,7 +43,7 @@ const MAX_COOLDOWN_REDUCTION := 50.0
 const LUK_CRIT := 0.3
 const LUK_ATK := 1.0 / 3.0
 ## ★ รอบ 50 ★ STR ทุก ๆ เท่านี้แต้ม = ช่องกระเป๋า +1 (0 = ปิดผล)
-const STR_PER_BAG_SLOT := 5
+const STR_PER_BAG_SLOT := 3
 
 # =========================================================
 # ค่าที่เซฟ
@@ -306,7 +306,12 @@ func max_base_stat() -> int:
 func exp_to_next() -> int:
 	if level >= max_base_level():
 		return 0
-	return int(round(35.0 * pow(level, 1.9) * (1.0 + maxf(0.0, level - 70.0) * 0.035)))
+	return exp_needed_at(level)
+
+
+## ★ รอบ 128 ★ EXP ที่ต้องใช้ขึ้นจากเลเวลนี้ (สูตรเดียวกับ exp_to_next — ใช้คิดรางวัลใบประกาศล่า)
+static func exp_needed_at(lv: int) -> int:
+	return int(round(35.0 * pow(lv, 1.9) * (1.0 + maxf(0.0, lv - 70.0) * 0.035)))
 
 
 func add_exp(amount: int) -> int:

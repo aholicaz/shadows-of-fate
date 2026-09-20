@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"brooch"
+result_item_id = &"brooch"
+result_count = 1
+chapter = 1
+category = &"accessory"
+materials = {
+&"stinger": 120,
+&"fabre_silk": 80,
+&"royal_jelly": 2,
+&"phracon": 10
+}
+zeny = 4500
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = ""

@@ -17,6 +17,10 @@ const MONSTER_BASE_HIT_RATE := 72.0
 const MIN_HIT_RATE := 5.0
 const MAX_HIT_RATE := 98.0
 
+## ★ รอบ 144 ★ คริของมอน: ทะลุ DEF ผู้เล่นกี่ส่วน (0.5 = ครึ่ง) และตัวคูณเพิ่ม
+const MONSTER_CRIT_DEF_PIERCE := 0.5
+const MONSTER_CRIT_MULT := 1.25
+
 # =========================================================
 # ★★ มอนเลเวลต่ำหลบเก่งเกินไป — ลดค่าหลบให้ (รอบ 29) ★★
 #
@@ -163,7 +167,9 @@ static func monster_hits_player(monster: MonsterData, stats: PlayerStats) -> Dic
 	if not is_crit:
 		damage *= def_reduction(stats.def)
 	else:
-		damage *= 1.4
+		# ★ รอบ 144 ★ เดิมคริ "ทะลุ DEF ทั้งหมด ×1.4" — ตอน DEF ผู้เล่น 300-500 (บท 4+) ตีปกติ 130 แต่คริโดด 1,000+ (6-7 เท่า)
+		# ตอนนี้คริทะลุ DEF แค่ครึ่งเดียว แล้วคูณ MONSTER_CRIT_MULT → หนักกว่าตีปกติราว 1.3 เท่า (บท 1) ถึง 2 เท่า (บท 4+) ทุกช่วงเกม
+		damage *= def_reduction(int(stats.def * (1.0 - MONSTER_CRIT_DEF_PIERCE))) * MONSTER_CRIT_MULT
 
 	damage *= randf_range(1.0 - DAMAGE_VARIANCE, 1.0 + DAMAGE_VARIANCE)
 	result.damage = maxi(1, int(round(damage)))

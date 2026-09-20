@@ -15,6 +15,7 @@ buy_price = 0
 sell_price = 80
 monster_id = &"chonchon"
 illustration = ExtResource("art_1")
+icon = ExtResource("art_1")
 fits_slot = 2
 rarity = 2
 monster_level = 9

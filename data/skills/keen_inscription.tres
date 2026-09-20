@@ -16,5 +16,5 @@ sp_cost_per_level = 0.0
 cooldown = 0.0
 damage_mult_base = 0.0
 damage_mult_per_level = 0.0
-required_skills = {"blade_rhythm": 5}
+required_skills = {"blade_rhythm": 3}
 passive_effects = {"crit": 2.0, "crit_damage_percent": 4.0}

@@ -17,6 +17,7 @@ bonus_str = 1
 atk = 3
 monster_id = &"hornet"
 illustration = ExtResource("art_1")
+icon = ExtResource("art_1")
 fits_slot = 1
 rarity = 2
 monster_level = 13

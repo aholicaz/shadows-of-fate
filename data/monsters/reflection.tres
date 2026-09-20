@@ -35,6 +35,11 @@ script = ExtResource("2_drop")
 item_id = &"card_reflection"
 chance = 0.5
 
+[sub_resource type="Resource" id="Drop_reflection_emveretarcon"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 0.5
+
 [resource]
 script = ExtResource("1_monster")
 id = &"reflection"
@@ -70,7 +75,7 @@ exp_reward = 837
 job_exp_reward = 586
 zeny_min = 228
 zeny_max = 424
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_reflection_0"), SubResource("Drop_reflection_1"), SubResource("Drop_reflection_2"), SubResource("Drop_reflection_3"), SubResource("Drop_reflection_4"), SubResource("Drop_reflection_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_reflection_0"), SubResource("Drop_reflection_1"), SubResource("Drop_reflection_2"), SubResource("Drop_reflection_3"), SubResource("Drop_reflection_4"), SubResource("Drop_reflection_card"), SubResource("Drop_reflection_emveretarcon")])
 respawn_time = 18.0
 tint = Color(0.8, 0.9, 1, 0.9)
 spawn_lines = PackedStringArray("...", "เจ้าคือข้า", "มองข้าสิ")

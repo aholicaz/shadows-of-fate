@@ -5,7 +5,7 @@
 script = ExtResource("s")
 id = &"tempered_might"
 display_name = "พลังเหล็กกล้า"
-description = "ดาบหนักแรงขึ้น 4% และมองข้าม DEF 5% ต่อระดับ ดาบหนักไม่คริ"
+description = "ท่าใหญ่สายหนัก (ดาบฟาดทั่ง · ดาบปักอักขระ · ฝนดาบผ่าโลก) แรงขึ้น 4% และคำนวณโดยมองข้าม DEF ของศัตรู 5% ต่อระดับ · ท่าใหญ่ไม่คริ"
 icon = ExtResource("i")
 max_level = 10
 job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
@@ -16,4 +16,4 @@ sp_cost_per_level = 0.0
 cooldown = 0.0
 damage_mult_base = 0.0
 damage_mult_per_level = 0.0
-required_skills = {}
+required_skills = {"anvil_cleave": 1}

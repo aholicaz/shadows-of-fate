@@ -35,6 +35,10 @@ extends Area2D
 
 ## ★ รอบ 105 ★ เดินถึงแล้วนับเลย ไม่ต้องกด F (ใช้ทำเงื่อนไข "ไปให้ถึงจุดนี้") — โชว์ Title สั้น ๆ บนจอแทนกล่องสนทนา
 @export var auto_read: bool = false
+## ★ รอบ 135 ★ เงื่อนไข "ห้ามฆ่า": ถ้าฆ่ามอนชนิดนี้ "หลังเข้าแมพนี้" จุดนี้จะไม่นับให้เควส (ต้องออกแมพแล้วเดินใหม่)
+## นับจากตอนเข้าแมพ ไม่ใช่ตั้งแต่ต้นเกม — ที่ฆ่าไปก่อนหน้าไม่ถือว่าผิด
+@export var no_kill_monster: StringName = &""
+@export var no_kill_text: String = "มีตัวที่ล้มตายระหว่างทาง... ออกจากที่นี่แล้วเดินผ่านใหม่โดยไม่ฆ่า"
 
 @export_group("ข้อความบนหัว")
 ## ป้ายที่ลอยอยู่เหนือของชิ้นนี้ (เว้นว่าง = ไม่โชว์)
@@ -42,6 +46,7 @@ extends Area2D
 @export var prompt_text: String = "กด F เพื่อดู"
 
 var _player_inside := false
+var _kills_at_entry := 0   # ★ รอบ 135 ★
 var _prompt: Label
 var _label: Label
 
@@ -55,6 +60,8 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_build_labels()
+	if no_kill_monster != &"":   # ★ รอบ 135 ★ จำยอดฆ่าตอนเข้าแมพ
+		_kills_at_entry = PlayerState.kill_count(no_kill_monster)
 
 
 func _build_default_shape() -> void:
@@ -103,7 +110,12 @@ func _on_body_entered(body: Node) -> void:
 func _auto_read() -> void:
 	if required_flag != &"" and not PlayerState.has_flag(required_flag):
 		return
+	if _no_kill_failed():   # ★ รอบ 135 ★
+		return
 	if PlayerState.has_flag(_read_flag()):
+		# ★ รอบ 135 ★ เคยผ่านจุดนี้มาก่อนรับเควส — ยังต้องเดินความคืบหน้าเควสให้ (เดิม return เฉย ๆ = เควส «เด็กที่ถาม» ค้าง)
+		if PlayerState.quests != null:
+			PlayerState.quests.on_read(lore_id)
 		return
 	PlayerState.set_flag(_read_flag())
 	if give_item != &"" and give_item_count > 0:
@@ -168,10 +180,30 @@ func read() -> void:
 		PlayerState.set_flag(set_flag)
 
 	# ★ เดินความคืบหน้าเควสชนิด READ ★
-	if PlayerState.quests != null:
+	if PlayerState.quests != null and not _no_kill_failed():   # ★ รอบ 135 ★
 		PlayerState.quests.on_read(lore_id)
 
 
 ## ธงที่ใช้จำว่าอ่านชิ้นนี้ไปแล้ว
 func _read_flag() -> StringName:
 	return StringName("read_%s" % String(lore_id))
+
+
+## ★ รอบ 135 ★ ฆ่ามอนต้องห้ามไปหลังเข้าแมพหรือเปล่า — ถ้าใช่ บอกผู้เล่นแล้วคืน true (จุดนี้ไม่นับ)
+func _no_kill_failed() -> bool:
+	if no_kill_monster == &"":
+		return false
+	if PlayerState.kill_count(no_kill_monster) <= _kills_at_entry:
+		return false
+	var relevant := false
+	if PlayerState.quests != null:
+		for qid in PlayerState.quests.active:
+			var q := GameData.get_quest(qid)
+			if q == null:
+				continue
+			for o in q.steps():
+				if o.kind == ObjectiveData.Kind.READ and o.target == lore_id:
+					relevant = true
+	if relevant:
+		Events.say(no_kill_text)
+	return relevant

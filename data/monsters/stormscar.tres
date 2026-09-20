@@ -53,6 +53,16 @@ script = ExtResource("2_drop")
 item_id = &"storm_pendant"
 chance = 22.0
 
+[sub_resource type="Resource" id="Drop_stormscar_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_stormscar_emveretarcon"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 2.0
+
 [resource]
 script = ExtResource("1_monster")
 id = &"stormscar"
@@ -95,7 +105,7 @@ exp_reward = 1793
 job_exp_reward = 1255
 zeny_min = 770
 zeny_max = 1430
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_stormscar_0"), SubResource("Drop_stormscar_1"), SubResource("Drop_stormscar_card"), SubResource("Resource_dwxqo"), SubResource("Resource_4lp3a"), SubResource("Resource_dwirs"), SubResource("Resource_fjn7p"), SubResource("Balance_storm_runeblade"), SubResource("Balance_storm_pendant")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_stormscar_0"), SubResource("Drop_stormscar_1"), SubResource("Drop_stormscar_card"), SubResource("Resource_dwxqo"), SubResource("Resource_4lp3a"), SubResource("Resource_dwirs"), SubResource("Resource_fjn7p"), SubResource("Balance_storm_runeblade"), SubResource("Balance_storm_pendant"), SubResource("Drop_stormscar_phracon"), SubResource("Drop_stormscar_emveretarcon")])
 is_boss = true
 boss_title = "อสูรสายฟ้า — สิ่งที่ซุ่มอยู่ในรอยสายฟ้า"
 intro_video = "res://Sprites/video/boss_intro_stormscar.ogv"

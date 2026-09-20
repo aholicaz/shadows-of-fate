@@ -8,6 +8,7 @@ script = ExtResource("1_card")
 monster_id = &"fabre"
 fits_slot = 4
 illustration = ExtResource("art_1")
+icon = ExtResource("art_1")
 monster_level = 2
 id = &"card_fabre"
 display_name = "การ์ดแฟเบร"

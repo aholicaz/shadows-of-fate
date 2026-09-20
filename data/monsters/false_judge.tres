@@ -18,8 +18,7 @@ max_count = 3
 [sub_resource type="Resource" id="Drop_false_judge_2"]
 script = ExtResource("2_drop")
 item_id = &"emveretarcon"
-chance = 5.0
-max_count = 3
+chance = 2.0
 
 [sub_resource type="Resource" id="Drop_false_judge_3"]
 script = ExtResource("2_drop")

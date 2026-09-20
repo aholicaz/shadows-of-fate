@@ -34,6 +34,16 @@ script = ExtResource("2_drop")
 item_id = &"ribbon"
 chance = 3.0
 
+[sub_resource type="Resource" id="Drop_equipment_adventurer_suit"]
+script = ExtResource("2_drop")
+item_id = &"adventurer_suit"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_equipment_leather_shoes"]
+script = ExtResource("2_drop")
+item_id = &"leather_shoes"
+chance = 3.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_cntxw"]
 atlas = ExtResource("3_dri1a")
 region = Rect2(0, 0, 512, 512)
@@ -266,16 +276,6 @@ animations = [{
 "name": &"Run",
 "speed": 9.0
 }]
-
-[sub_resource type="Resource" id="Drop_equipment_adventurer_suit"]
-script = ExtResource("2_drop")
-item_id = &"adventurer_suit"
-chance = 3.0
-
-[sub_resource type="Resource" id="Drop_equipment_leather_shoes"]
-script = ExtResource("2_drop")
-item_id = &"leather_shoes"
-chance = 3.0
 
 [resource]
 script = ExtResource("1_monster")

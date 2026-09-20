@@ -68,13 +68,18 @@ func refresh(query: String) -> void:
 	for target: Dictionary in targets:
 		var title := String(target["name"])
 		if not query.strip_edges().is_empty() and not title.to_lower().contains(query.strip_edges().to_lower()): continue
+		# ★ รอบ 119 ★ บอกบท + ชนิด (เมือง / หน้าลานบอส) บนปุ่ม
+		var ch := int(target.get("chapter", 0))
+		var tag := ""
+		if ch > 0:
+			tag = "บทที่ %d · %s" % [ch, "เมือง" if String(target.get("kind", "")) == MapAtlas.KIND_TOWN else "หน้าลานบอส"]
 		var cost := int(target.get("cost", 0))
 		var available := bool(target.get("ok", false)) and cost <= PlayerState.zeny
 		var reason := "%s z" % HUD._comma(cost)
 		if not bool(target.get("ok", false)): reason = String(target.get("why", "ยังไม่ปลดล็อก"))
 		elif cost > PlayerState.zeny: reason += " · เงินไม่พอ"
-		var button := UITheme.make_button(title + "\n" + reason)
-		button.custom_minimum_size.y = 70
+		var button := UITheme.make_button((tag + "\n" if tag != "" else "") + title + "\n" + reason)
+		button.custom_minimum_size.y = 84 if tag != "" else 70
 		button.add_theme_font_size_override("font_size", 20)
 		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		button.disabled = not available

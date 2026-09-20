@@ -53,15 +53,37 @@ const STAT_LABELS := {
 	&"dex": "DEX แม่น",
 	&"luk": "LUK โชค",
 }
-## คำอธิบายสั้น ๆ ว่าแต่ละสเตตัสให้อะไร (tooltip ที่ชื่อ/ปุ่ม +) — ตัวเลขจริงอยู่ที่ PlayerStats (ตารางผลของสเตตัส)
-const STAT_TIPS := {
-	&"str": "ATK +1 ต่อแต้ม (+โบนัสทุก 10 แต้ม) · ช่องกระเป๋า +1 ทุก 5 แต้ม",
-	&"agi": "FLEE +1 · ความเร็วโจมตี +1.2%",
-	&"vit": "DEF +0.5 · HP +6 และ +1.2% · ฟื้น HP",
-	&"int": "MATK +1 · MDEF +0.5 · SP +4 และ +1% · ฟื้น SP +0.12/วิ",
-	&"dex": "HIT +1.5 · ATK +0.2 · ความเร็วโจมตี +0.4% · ลดคูลดาวน์ 1% ทุก 5 แต้ม",
-	&"luk": "CRIT +0.3% · ATK +0.33",
-}
+## ★ รอบ 111 ★ คำอธิบายสเตตัส — สร้างจากค่าคงที่ใน PlayerStats + ไฟล์อาชีพ data/jobs/*.tres โดยตรง
+## (เดิมเป็นตารางตัวอักษรตายตัว พอผู้ใช้แก้ตัวเลขใน player_stats.gd แล้วข้อความไม่ตาม → ตอนนี้แก้ที่เดียวข้อความเปลี่ยนเอง)
+static func _fmt(v: float) -> String:
+	if is_equal_approx(v, roundf(v)): return str(int(roundf(v)))
+	return ("%.2f" % v).rstrip("0").rstrip(".")
+
+static func stat_tip(stat: StringName, s: PlayerStats) -> String:
+	var j: JobData = s.job() if s != null else null
+	match stat:
+		&"str":
+			var t := "ATK +%s ต่อแต้ม · ทุก ๆ 10 แต้มได้โบนัส (STR/10)² (10→+1 · 20→+4 · 30→+9)" % _fmt(PlayerStats.STR_ATK)
+			if PlayerStats.STR_PER_BAG_SLOT > 0:
+				t += " · ช่องกระเป๋า +1 ทุก %d แต้ม" % PlayerStats.STR_PER_BAG_SLOT
+			return t
+		&"agi":
+			var a := j.aspd_agi_percent if j != null else 1.2
+			return "FLEE +%s · ความเร็วโจมตี +%s%% ต่อแต้ม" % [_fmt(PlayerStats.AGI_FLEE), _fmt(a)]
+		&"vit":
+			var hv := j.hp_vit_percent if j != null else 1.0
+			return "DEF +%s · HP +%d และ +%s%% ของ HP พื้นฐาน · ฟื้น HP +%s/วิ" % [_fmt(PlayerStats.VIT_DEF), PlayerStats.VIT_HP_FLAT, _fmt(hv), _fmt(PlayerStats.VIT_HP_REGEN)]
+		&"int":
+			var si := j.sp_int_percent if j != null else 1.0
+			return "MATK +1 (+โบนัสทุก 7 แต้ม) · MDEF +%s · SP +%d และ +%s%% ของ SP พื้นฐาน · ฟื้น SP +%s/วิ" % [_fmt(PlayerStats.INT_MDEF), PlayerStats.INT_SP_FLAT, _fmt(si), _fmt(PlayerStats.INT_SP_REGEN)]
+		&"dex":
+			var t := "HIT +%s · ATK +%s · ความเร็วโจมตี +%s%%" % [_fmt(PlayerStats.HIT_PER_DEX), _fmt(PlayerStats.DEX_ATK), _fmt(PlayerStats.DEX_ASPD * 100.0)]
+			if PlayerStats.DEX_PER_COOLDOWN > 0:
+				t += " · ลดคูลดาวน์สกิล 1%% ทุก %d แต้ม (สูงสุด %d%%)" % [PlayerStats.DEX_PER_COOLDOWN, int(PlayerStats.MAX_COOLDOWN_REDUCTION)]
+			return t
+		&"luk":
+			return "CRIT +%s%% · ATK +%s" % [_fmt(PlayerStats.LUK_CRIT), _fmt(PlayerStats.LUK_ATK)]
+	return ""
 
 # ---- โทนสีครีม (ใช้ชุดเดียวกับกระเป๋า) ----
 ## ★ รอบ 48 — ใช้โทนเดียวกับกระเป๋า (= HUD) ทั้งชุด ★
@@ -272,7 +294,7 @@ func _build_content() -> void:
 		var name_label := _label(STAT_LABELS[stat], 12, C_TEXT)
 		name_label.custom_minimum_size.x = 120
 		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		name_label.tooltip_text = STAT_TIPS.get(stat, "")
+		name_label.tooltip_text = stat_tip(stat, PlayerState.stats)
 		name_label.mouse_filter = Control.MOUSE_FILTER_STOP
 		r.add_child(name_label)
 		var value_label := _label("1", 13, C_TEXT)
@@ -280,7 +302,7 @@ func _build_content() -> void:
 		value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		r.add_child(value_label)
 		var btn := _cream_button("+", 30)
-		btn.tooltip_text = STAT_TIPS.get(stat, "")
+		btn.tooltip_text = stat_tip(stat, PlayerState.stats)
 		var s: StringName = stat
 		btn.pressed.connect(func(): _raise(s))
 		r.add_child(btn)
@@ -591,6 +613,8 @@ const PCT_NAMES := {"damage_percent": "ดาเมจ", "def_percent": "DEF", "
 func refresh() -> void:
 	if _summary == null:
 		return
+	if not is_visible_in_tree():
+		return   # ★ รอบ 131 ★ ซ่อนอยู่ไม่ต้องสร้างใหม่ — show_window/open_tab จะ refresh ให้ตอนเปิด
 
 	# ---------- ช่องอุปกรณ์ ----------
 	for slot in _slot_buttons.keys():
@@ -656,6 +680,8 @@ func refresh() -> void:
 		var cost := s.stat_cost(stat)
 		(r.cost as Label).text = str(cost) if cost > 0 else "MAX"
 		(r.button as Button).disabled = not s.can_raise_stat(stat)
+		# ★ รอบ 111 ★ tooltip ตามอาชีพปัจจุบัน (เปลี่ยนอาชีพแล้ว % ASPD/HP เปลี่ยน)
+		(r.button as Button).tooltip_text = stat_tip(stat, s)
 
 	# ค่าที่คำนวณ — สีเขียวถ้าของสวมใส่/การ์ดมีส่วน
 	_set_derived(&"atk", str(s.atk), watk != 0 or flat.has(&"atk") or pct.has(&"atk_percent"))

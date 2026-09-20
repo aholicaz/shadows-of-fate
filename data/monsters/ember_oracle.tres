@@ -15,6 +15,11 @@ chance = 0.5
 script = ExtResource("d")
 item_id = &"white_potion"
 chance = 25.0
+[sub_resource type="Resource" id="Drop_ember_oracle_emveretarcon"]
+script = ExtResource("d")
+item_id = &"emveretarcon"
+chance = 0.8
+
 [resource]
 script = ExtResource("s")
 id = &"ember_oracle"
@@ -48,4 +53,4 @@ exp_reward = 7000
 job_exp_reward = 4900
 zeny_min = 475
 zeny_max = 775
-drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion")])
+drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion"), SubResource("Drop_ember_oracle_emveretarcon")])

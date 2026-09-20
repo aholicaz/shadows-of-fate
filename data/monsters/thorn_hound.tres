@@ -30,6 +30,12 @@ script = ExtResource("2_drop")
 item_id = &"card_thorn_hound"
 chance = 0.5
 
+[sub_resource type="Resource" id="Resource_m2xr1"]
+script = ExtResource("2_drop")
+item_id = &"glove"
+chance = 2.0
+metadata/_custom_type_script = "uid://lfvvfifv5f84"
+
 [resource]
 script = ExtResource("1_monster")
 id = &"thorn_hound"
@@ -80,7 +86,7 @@ exp_reward = 364
 job_exp_reward = 255
 zeny_min = 122
 zeny_max = 226
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_thorn_hound_0"), SubResource("Drop_thorn_hound_1"), SubResource("Drop_thorn_hound_2"), SubResource("Drop_thorn_hound_3"), SubResource("Drop_thorn_hound_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_thorn_hound_0"), SubResource("Drop_thorn_hound_1"), SubResource("Drop_thorn_hound_2"), SubResource("Drop_thorn_hound_3"), SubResource("Drop_thorn_hound_card"), SubResource("Resource_m2xr1")])
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null

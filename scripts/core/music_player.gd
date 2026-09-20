@@ -53,9 +53,11 @@ var _tween: Tween
 var _path_cache: Dictionary = {}
 var _map_key := ""
 var _combat_check_time := 0.0
+var _pending_music := ""                ## ★ รอบ 131 ★ เพลงที่กำลังโหลดเบื้องหลัง
 
 
 func _process(delta: float) -> void:
+	_poll_pending_music()   # ★ รอบ 131 ★
 	if _map_key == "" or get_tree().paused:
 		return
 	_combat_check_time += delta
@@ -152,7 +154,30 @@ func _play_track(key: String) -> void:
 
 
 func _crossfade_to(path: String) -> void:
-	var stream: AudioStream = load(path)
+	# ★ รอบ 131 ★ ไฟล์เพลง 2-3 MB — โหลดเบื้องหลังแล้วค่อยเริ่มเล่นใน _process ไม่ให้เฟรมค้างตอนเปลี่ยนแมพ
+	if ResourceLoader.has_cached(path):
+		_pending_music = ""
+		_start_crossfade(load(path) as AudioStream)
+		return
+	if ResourceLoader.load_threaded_request(path) == OK:
+		_pending_music = path
+		return
+	_start_crossfade(load(path) as AudioStream)
+
+
+func _poll_pending_music() -> void:
+	if _pending_music == "":
+		return
+	var status := ResourceLoader.load_threaded_get_status(_pending_music)
+	if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		return
+	var path := _pending_music
+	_pending_music = ""
+	if status == ResourceLoader.THREAD_LOAD_LOADED:
+		_start_crossfade(ResourceLoader.load_threaded_get(path) as AudioStream)
+
+
+func _start_crossfade(stream: AudioStream) -> void:
 	if stream == null:
 		return
 	_set_loop(stream)
@@ -186,6 +211,7 @@ func _set_loop(stream: AudioStream) -> void:
 
 
 func stop(fade: bool = true) -> void:
+	_pending_music = ""   # ★ รอบ 131 ★
 	var p: AudioStreamPlayer = _players[_active]
 	if not p.playing:
 		return

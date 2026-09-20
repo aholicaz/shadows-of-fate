@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://b6mnu3l4aa06t"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/light_moth_frames.tres" id="3_frames"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="SpriteFrames" uid="uid://djabbp8xkaiid" path="res://data/sprites/monsters/light_moth_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_light_moth_0"]
 script = ExtResource("2_drop")
@@ -31,6 +31,12 @@ id = &"light_moth"
 display_name = "ผีเสื้อแสง"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(40, 36)
+hp_bar_offset_y = -320.0
+display_height = 310.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)
+fit_foot_animations = null
+hover_height = 140.0
 level = 72
 max_hp = 12000
 atk_min = 620
@@ -43,7 +49,6 @@ crit = 8
 element = 6
 race = 4
 size = 0
-ai_type = 0
 move_speed = 150.0
 jump_force = -280.0
 jump_while_chasing = false
@@ -56,17 +61,13 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
+attack_hit_frames = null
+skill_hit_frames = null
 exp_reward = 749
 job_exp_reward = 524
 zeny_min = 209
 zeny_max = 387
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_light_moth_0"), SubResource("Drop_light_moth_1"), SubResource("Drop_light_moth_2"), SubResource("Drop_light_moth_card")])
 respawn_time = 18.0
-flying = true
-hover_height = 140.0
-flying_no_hop = true
-
-fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(256, 480)
-display_height = 310.0
-hp_bar_offset_y = -320.0
+spawn_lines = null
+death_lines = null

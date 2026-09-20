@@ -75,7 +75,9 @@ func _ready() -> void:
 	_add_window(&"skills", SkillWindow.new(), Vector2(60, 110))
 	_add_window(&"shop", ShopWindow.new(), Vector2(500, 70))
 	_add_window(&"refine", RefineWindow.new(), Vector2(500, 70))
+	_add_window(&"craft", CraftWindow.new(), Vector2(110, 16))   # ★ รอบ 132 ★ คราฟต์
 	_add_window(&"socket", SocketWindow.new(), Vector2(520, 90))
+	_add_window(&"storage", StorageWindow.new(), Vector2(500, 70))   # ★ รอบ 122 ★ คลัง
 	_add_window(&"cards", CardAlbumWindow.new(), Vector2(300, 60))
 	_add_window(&"system", SystemWindow.new(), Vector2(420, 140))
 	_add_window(&"quests", QuestWindow.new(), Vector2(340, 100))
@@ -127,7 +129,9 @@ func _ready() -> void:
 
 	Events.shop_opened.connect(_on_shop_opened)
 	Events.refine_npc_opened.connect(_on_refine_opened)
+	Events.craft_npc_opened.connect(_on_craft_opened)   # ★ รอบ 132 ★
 	Events.socket_npc_opened.connect(_on_socket_opened)
+	Events.storage_opened.connect(_on_storage_opened)   # ★ รอบ 122 ★
 	Events.toggle_window.connect(toggle)
 
 
@@ -354,8 +358,20 @@ func _on_refine_opened() -> void:
 	open(&"refine")
 
 
+## ★ รอบ 132 ★ คราฟต์ — หน้าต่างใหญ่ ปิดหน้าอื่นก่อนเหมือนคลัง
+func _on_craft_opened() -> void:
+	close_all()
+	open(&"craft")
+
+
 func _on_socket_opened() -> void:
 	open(&"socket")
+
+
+## ★ รอบ 122 ★ คลัง — ปิดหน้าต่างอื่นก่อนเหมือนร้านค้า
+func _on_storage_opened() -> void:
+	close_all()
+	open(&"storage")
 
 
 # =========================================================

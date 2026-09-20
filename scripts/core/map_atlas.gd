@@ -167,11 +167,11 @@ const MAPS := {
 # ★★ ค่าวาปของเสาวาป ★★
 # =========================================================
 ## ค่าวาปขั้นต้น (แมพที่ใกล้สุดเท่าที่วาปได้ = ห่าง 2 ทอด)
-const WARP_BASE_COST := 2000
+const WARP_BASE_COST := 300      # ★ รอบ 119 ★ 2000 → 300 (ผู้ใช้ลดราคาขายไอเทมแล้ว)
 ## ไกลขึ้นทุก 1 ทอด บวกเท่านี้
-const WARP_COST_PER_HOP := 1600
+const WARP_COST_PER_HOP := 200   # ★ รอบ 119 ★ 1600 → 200
 ## เพดานค่าวาป
-const WARP_MAX_COST := 25000
+const WARP_MAX_COST := 3000      # ★ รอบ 119 ★ 25000 → 3000
 ## ★ ต้องห่างอย่างน้อยกี่ทอดถึงจะวาปได้ ★ 2 = "เว้นแมพที่ติดกัน" (เดินเอาสิ อยู่ข้าง ๆ เอง)
 const WARP_MIN_HOPS := 2
 
@@ -323,6 +323,43 @@ static func warp_destinations(from_id: StringName) -> Array:
 		out.append({
 			"id": id, "name": Game.map_display_name(id),
 			"hops": h, "cost": cost, "ok": why == "", "why": why,
+			"chapter": chapter_of(id), "kind": kind_of(id),   # ★ รอบ 119 ★
 		})
-	out.sort_custom(func(a, b): return int(a["cost"]) < int(b["cost"]))
+	# ★ รอบ 119 ★ เรียงตามบท → เมืองก่อนแมพหน้าบอส → ระยะทาง (เดิมเรียงตามราคา)
+	out.sort_custom(func(a, b): return warp_sort_key(a) < warp_sort_key(b))
+	return out
+
+
+## ★ รอบ 119 ★ คีย์เรียงปลายทางวาป: [บท, เมือง=0/อื่น=1, ระยะทาง, ชื่อ]
+static func warp_sort_key(d: Dictionary) -> Array:
+	return [int(d.get("chapter", 0)), 0 if String(d.get("kind", "")) == KIND_TOWN else 1, int(d.get("hops", 0)), String(d.get("name", ""))]
+
+
+## ★ รอบ 119 ★ แมพหน้าลานบอส = แมพธรรมดาที่มีทางต่อไปลานบอส "ในบทเดียวกัน" (ฝั่งขาเข้า ไม่ใช่ทางออกหลังบอสของบทก่อน)
+static func boss_gate_maps() -> Array:
+	var out: Array = []
+	for mid in MAPS.keys():
+		var id := StringName(mid)
+		if kind_of(id) != KIND_FIELD:
+			continue
+		for l in links_of(id):
+			var lid := StringName(l)
+			if kind_of(lid) == KIND_BOSS and chapter_of(lid) == chapter_of(id):
+				out.append(id)
+				break
+	return out
+
+
+## ★ รอบ 119 ★ ปลายทางมาตรฐานของเสาวาปทุกเมือง = ทุกเมือง + แมพหน้าลานบอสทุกบท (เรียงตามบท)
+static func warp_hub_targets() -> Array:
+	var out: Array = []
+	for mid in MAPS.keys():
+		var id := StringName(mid)
+		if kind_of(id) == KIND_TOWN:
+			out.append(id)
+	out.append_array(boss_gate_maps())
+	out.sort_custom(func(a, b):
+		var ka := [chapter_of(a), 0 if kind_of(a) == KIND_TOWN else 1, String(a)]
+		var kb := [chapter_of(b), 0 if kind_of(b) == KIND_TOWN else 1, String(b)]
+		return ka < kb)
 	return out

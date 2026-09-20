@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"elven_plate"
+result_item_id = &"elven_plate"
+result_count = 1
+chapter = 5
+category = &"general"
+materials = {
+&"hollow_thread": 120,
+&"prism_shard": 60,
+&"light_scale": 60,
+&"emveretarcon": 15
+}
+zeny = 80000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = "ชิ้นปิดเซ็ต «ชุดผลึกอัลฟ์เฮม»"

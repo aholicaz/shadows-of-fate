@@ -15,6 +15,11 @@ chance = 0.5
 script = ExtResource("d")
 item_id = &"white_potion"
 chance = 25.0
+[sub_resource type="Resource" id="Drop_kiln_sentinel_emveretarcon"]
+script = ExtResource("d")
+item_id = &"emveretarcon"
+chance = 3.0
+
 [resource]
 script = ExtResource("s")
 id = &"kiln_sentinel"
@@ -48,7 +53,7 @@ exp_reward = 70000
 job_exp_reward = 49000
 zeny_min = 12000
 zeny_max = 18000
-drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion")])
+drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion"), SubResource("Drop_kiln_sentinel_emveretarcon")])
 is_boss = true
 boss_title = "ผู้ทดสอบ"
 respawn_time = 120.0

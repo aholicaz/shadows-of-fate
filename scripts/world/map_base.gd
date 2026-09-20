@@ -669,3 +669,4 @@ func _warm_sprite_fit() -> void:
 			n += SpriteFit.warm(node.data.sprite_frames)
 	if n > 0:
 		print("[Map] %s อุ่นเครื่อง auto-fit %d ท่า" % [map_id, n])
+	SpriteFit.save_disk()   # ★ รอบ 131 ★ จำผลวัดลงดิสก์ รอบหน้าไม่ต้องวัดซ้ำ

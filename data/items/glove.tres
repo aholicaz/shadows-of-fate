@@ -1,25 +1,23 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bwnv6cx4y6qow"]
 
 [ext_resource type="Script" uid="uid://dbdwo63bn67r7" path="res://scripts/resources/item_data.gd" id="1_item"]
+[ext_resource type="Texture2D" uid="uid://dp3stb178opls" path="res://Sprites/items/placeholder/glove.png" id="1_vlclw"]
 
 [resource]
 script = ExtResource("1_item")
 id = &"glove"
 display_name = "ถุงมือ"
 description = "เพิ่มความคล่องแคล่ว"
+icon = ExtResource("1_vlclw")
 required_level = 10
 type = 2
-metadata/price_base_r47_sell = 8800
-metadata/price_base_r47_buy = 11000
 slot = 7
 card_slots = 1
 max_stack = 1
 buy_price = 2000
 sell_price = 80
-metadata/sell_price_base_r44 = 4400
-bonus_dex = 2
-hit = 3
-attack_element = 0
-drop_hint = "ฮอร์เน็ต"
-
+bonus_agi = 2
 refinable = true
+metadata/price_base_r47_sell = 8800
+metadata/price_base_r47_buy = 11000
+metadata/sell_price_base_r44 = 4400

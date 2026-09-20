@@ -15,12 +15,6 @@ item_id = &"white_potion"
 chance = 100.0
 max_count = 2
 
-[sub_resource type="Resource" id="Drop_forge_guardian_2"]
-script = ExtResource("2_drop")
-item_id = &"emveretarcon"
-chance = 1.98
-max_count = 3
-
 [sub_resource type="Resource" id="Drop_forge_guardian_3"]
 script = ExtResource("2_drop")
 item_id = &"dwarven_mail"
@@ -41,10 +35,25 @@ script = ExtResource("2_drop")
 item_id = &"card_forge_guardian"
 chance = 2.12
 
+[sub_resource type="Resource" id="Drop_forge_guardian_ring"]
+script = ExtResource("2_drop")
+item_id = &"ring"
+chance = 5.0
+
 [sub_resource type="Resource" id="Balance_forge_core_pendant"]
 script = ExtResource("2_drop")
 item_id = &"forge_core_pendant"
 chance = 22.0
+
+[sub_resource type="Resource" id="Drop_forge_guardian_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_forge_guardian_emveretarcon"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 1.5
 
 [resource]
 script = ExtResource("1_monster")
@@ -100,7 +109,7 @@ exp_reward = 2810
 job_exp_reward = 1967
 zeny_min = 938
 zeny_max = 1742
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_guardian_0"), SubResource("Drop_forge_guardian_1"), SubResource("Drop_forge_guardian_2"), SubResource("Drop_forge_guardian_3"), SubResource("Drop_forge_guardian_4"), SubResource("Drop_forge_guardian_5"), SubResource("Drop_forge_guardian_card"), SubResource("Balance_forge_core_pendant")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_forge_guardian_0"), SubResource("Drop_forge_guardian_1"), SubResource("Drop_forge_guardian_3"), SubResource("Drop_forge_guardian_4"), SubResource("Drop_forge_guardian_5"), SubResource("Drop_forge_guardian_card"), SubResource("Balance_forge_core_pendant"), SubResource("Drop_forge_guardian_ring"), SubResource("Drop_forge_guardian_phracon"), SubResource("Drop_forge_guardian_emveretarcon")])
 is_boss = true
 boss_title = "ผู้พิทักษ์เตาหลอม"
 skill_name = "พิพากษาเตาหลอม · ห้าทุบลาวา"

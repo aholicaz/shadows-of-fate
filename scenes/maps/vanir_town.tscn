@@ -156,7 +156,7 @@ npc_name = "แม่ค้าซิฟา"
 dialog = "แม่ค้าประจำนคร ของทุกชิ้นปลูกเองเก็บเอง
 
 ปีนี้เก็บได้น้อยลงอีก... ต้นไม้ให้ผลน้อยลงทุกปีตั้งแต่บ่อน้ำเริ่มแห้ง"
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"root_sword", &"bark_armor", &"vanir_circlet", &"scale_mail", &"iron_greaves", &"rosary", &"belt"])
+shop_items = Array[StringName]([&"wing_of_valkyrie", &"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"blue_potion_2", &"meat", &"phracon", &"emveretarcon", &"root_sword", &"bark_armor", &"vanir_circlet", &"scale_mail", &"rosary"])
 greeting = "ของจากรากทั้งนั้น รับอะไรดี"
 voice_id = "sifa"
 quest_ids = Array[StringName]([&"c3_3_mist_that_lingers"])
@@ -208,6 +208,7 @@ autoplay = "Idle"
 position = Vector2(3800.0, 784.6800)
 npc_name = "หมอสมุนไพรลีฟ"
 type = 3
+blessing_price = 5000
 dialog = "สมุนไพรที่นี่ยังใช้ได้ แต่ต้องเดินไปเก็บไกลขึ้นทุกปี
 
 ของดี ๆ ตายจากด้านในก่อนเสมอ ลูกเอ๋ย"
@@ -226,6 +227,7 @@ autoplay = "Idle"
 [node name="Arvid" parent="NPCs" unique_id=642464448 instance=ExtResource("npc")]
 position = Vector2(4600.0, 795.4800)
 npc_name = "ทหารยามอาร์วิด"
+has_bounty_board = true
 type = 0
 dialog = "ข้ายามของนคร... ยามที่ไม่มีอะไรให้เฝ้า
 

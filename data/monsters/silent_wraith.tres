@@ -21,11 +21,6 @@ script = ExtResource("2_drop")
 item_id = &"blue_potion"
 chance = 8.0
 
-[sub_resource type="Resource" id="Drop_silent_wraith_3"]
-script = ExtResource("2_drop")
-item_id = &"emveretarcon"
-chance = 2.39
-
 [sub_resource type="Resource" id="Drop_silent_wraith_card"]
 script = ExtResource("2_drop")
 item_id = &"card_silent_wraith"
@@ -75,7 +70,7 @@ exp_reward = 270
 job_exp_reward = 189
 zeny_min = 99
 zeny_max = 185
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_silent_wraith_0"), SubResource("Drop_silent_wraith_1"), SubResource("Drop_silent_wraith_2"), SubResource("Drop_silent_wraith_3"), SubResource("Drop_silent_wraith_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_silent_wraith_0"), SubResource("Drop_silent_wraith_1"), SubResource("Drop_silent_wraith_2"), SubResource("Drop_silent_wraith_card")])
 projectile_texture = ExtResource("2_8i5xw")
 projectile_offset = Vector2(30, -220)
 respawn_time = 15.0

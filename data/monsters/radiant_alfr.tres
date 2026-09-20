@@ -20,8 +20,7 @@ max_count = 5
 [sub_resource type="Resource" id="Drop_radiant_alfr_2"]
 script = ExtResource("2_drop")
 item_id = &"emveretarcon"
-chance = 5.0
-max_count = 5
+chance = 3.5
 
 [sub_resource type="Resource" id="Drop_radiant_alfr_3"]
 script = ExtResource("2_drop")

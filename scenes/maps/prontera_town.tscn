@@ -926,7 +926,8 @@ dialog = "มีของดีมาขายนะ
 ...ถึงจะไม่ค่อยมีของใหม่ก็เถอะ ของจากทางเหนือไม่ได้ส่งมาสามเดือนแล้ว
 ไม่มีใครบอกว่าทำไม"
 portrait = ExtResource("6_ia7j7")
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"blue_potion", &"meat", &"wooden_sword", &"novice_sword", &"short_sword", &"falchion", &"wooden_shield", &"guard", &"ribbon", &"cap", &"leather_cap", &"cotton_shirt", &"leather_jacket", &"hood", &"muffler", &"sandals", &"leather_shoes", &"necklace", &"earring", &"wing_of_valkyrie", &"phracon", &"emveretarcon"])
+shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"blue_potion", &"meat", &"wooden_sword", &"novice_sword", &"short_sword", &"falchion", &"wooden_shield", &"guard", &"ribbon", &"cap", &"leather_cap", &"cotton_shirt", &"leather_jacket", &"hood", &"sandals", &"leather_shoes", &"necklace", &"earring", &"wing_of_valkyrie", &"phracon", &"emveretarcon"])
+greeting = "โอ๊ะ ลูกค้า! เข้ามาดูก่อน ๆ ไม่ซื้อไม่ว่า ของดีวันนี้มีเพียบ"
 voice_id = "tony"
 quest_ids = Array[StringName]([&"tony_fabre"])
 
@@ -951,6 +952,7 @@ dialog = "อยากให้อาวุธแกร่งขึ้นไห�
 ตีเหล็กแบบนี้ข้าเรียนมาจากใต้ภูเขา ที่นั่นเขาตีกันมาเป็นพันปีแล้ว
 ...แต่ข้าถูกไล่ออกมา เพราะข้าถามคำถามที่ไม่ควรถาม"
 portrait_file = "res://Sprites/portraits/hans.png"
+greeting = "อืม... ว่ามา ข้ามือไม่ว่าง แต่หูยังว่าง"
 voice_id = "hans"
 quest_ids = Array[StringName]([&"hans_poring", &"m5_old_mine_iron"])
 
@@ -972,8 +974,10 @@ fit_actor_size = true
 position = Vector2(2980, 660)
 npc_name = "นักบวชหญิงมาเรีย"
 type = 3
+blessing_price = 1000
 dialog = "บาดแผลของเจ้าจะหายดี จงขอบคุณธอร์เถิด"
 portrait = ExtResource("9_put8n")
+greeting = "ขอแสงแห่งสายฟ้าคุ้มครองเจ้า... ดูเหนื่อยมานะ นั่งพักก่อนเถิด"
 voice_id = "maria"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Healer" unique_id=1369066492]
@@ -1027,6 +1031,7 @@ J หรือคลิกซ้าย = ฟันดาบ · W หรือ Sp
 ...แล้วก็อย่าเข้าป่าลึกตอนค่ำนะ ผู้กองสั่งห้ามไว้
 ไม่ได้บอกเหตุผลด้วย"
 portrait = ExtResource("12_uap02")
+greeting = "โย่ เด็กใหม่! ยังครบสามสิบสองอยู่นะ มีอะไรให้ยามคนนี้ช่วยไหม"
 voice_id = "erik"
 quest_ids = Array[StringName]([&"m1_adventurer_badge", &"m7_silent_forest", &"m13_thunder_scar"])
 
@@ -1106,6 +1111,7 @@ dialog_by_flag = {
 ป่าจึงเงียบลง เหมือนมีบางสิ่งตายไป"
 }
 portrait = ExtResource("16_y0k02")
+greeting = "...เด็กใหม่สินะ มาคุยกับตาแก่ทำไม คนอื่นเขาไม่คุยกับข้ากันหรอก"
 voice_id = "gunnar"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/OldMan" unique_id=2045269019]
@@ -1130,6 +1136,7 @@ dialog = "พ่อของข้าเข้าป่าไปเมื่อ�
 แกเป็นนักล่า แกไม่เคยหลงทาง
 แต่คราวนี้แกยังไม่กลับมา"
 portrait = ExtResource("18_6ce6c")
+greeting = "ท่านนักผจญภัย...! เพิ่งกลับจากป่าใช่ไหม ได้เห็นพ่อข้าบ้างหรือเปล่า"
 voice_id = "ingrid"
 quest_ids = Array[StringName]([&"m9_missing_hunter", &"m10_hunter_journal"])
 
@@ -1148,6 +1155,7 @@ fit_actor_size = true
 [node name="GuildMaster" parent="NPCs" unique_id=907818509 instance=ExtResource("npc")]
 position = Vector2(-1470, 660)
 npc_name = "หัวหน้ากิลด์บียอร์น"
+has_bounty_board = true
 type = 0
 dialog = "กิลด์นักผจญภัยพรอนเทรา ยินดีต้อนรับ
 
@@ -1156,6 +1164,7 @@ dialog = "กิลด์นักผจญภัยพรอนเทรา ย
 ช่วงนี้มอนสเตอร์แถวทุ่งเยอะผิดปกติ
 แปลกนะ พวกมันไม่ได้วิ่งมาทางเมือง พวกมันวิ่งผ่านไป"
 portrait = ExtResource("22_lpoml")
+greeting = "ฮ่าฮ่า! หน้าใหม่นี่ ตัวยังไม่มีแผลสักรอย มานี่ งานมีเพียบ"
 voice_id = "bjorn"
 quest_ids = Array[StringName]([&"m11_king_poring"])
 

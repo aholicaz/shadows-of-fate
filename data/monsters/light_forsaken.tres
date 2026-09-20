@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/light_forsaken_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bg7cv6lunoosd" path="res://data/sprites/monsters/light_forsaken_frames.tres" id="3_frames"]
 [ext_resource type="SpriteFrames" uid="uid://bamcqoyj16m76" path="res://data/sprites/fx_thorn_wave.tres" id="4_wave"]
-
-[ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="sep14_orb"]
+[ext_resource type="Texture2D" uid="uid://dspxwubn52dkw" path="res://data/sprites/gullveig_fireball_texture.tres" id="sep14_orb"]
 
 [sub_resource type="Resource" id="Drop_light_forsaken_0"]
 script = ExtResource("2_drop")
@@ -22,8 +21,7 @@ max_count = 3
 [sub_resource type="Resource" id="Drop_light_forsaken_2"]
 script = ExtResource("2_drop")
 item_id = &"emveretarcon"
-chance = 5.0
-max_count = 3
+chance = 1.5
 
 [sub_resource type="Resource" id="Drop_light_forsaken_3"]
 script = ExtResource("2_drop")
@@ -48,8 +46,11 @@ chance = 100.0
 [sub_resource type="Resource" id="Socket_stone"]
 script = ExtResource("2_drop")
 item_id = &"socket_stone_2"
-chance = 10.0
 
+[sub_resource type="Resource" id="Drop_light_forsaken_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 4.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -57,6 +58,19 @@ id = &"light_forsaken"
 display_name = "ผู้หลุดจากแสง"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(80, 100)
+hp_bar_offset_y = -628.0
+display_height = 650.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.25311943,
+&"Die": 1.25088968,
+&"Hit": 1.25088968,
+&"Idle": 1.25760286,
+&"Run": 1.25760286,
+&"Skill": 1.25311943,
+&"Walk": 1.25760286
+})
 fit_foot_animations = null
 level = 83
 max_hp = 80000
@@ -79,23 +93,40 @@ attack_range = 150.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
+attack_windup = 0.75
+attack_duration = 1.9166666666666667
 attack_cooldown = 1.8
 knockback_force = 340.0
+attack_hit_frames = PackedInt32Array(9, 18)
 skill_hit_frames = null
 exp_reward = 12400
 job_exp_reward = 8680
 zeny_min = 1883
 zeny_max = 3497
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_light_forsaken_0"), SubResource("Drop_light_forsaken_1"), SubResource("Drop_light_forsaken_2"), SubResource("Drop_light_forsaken_3"), SubResource("Drop_light_forsaken_4"), SubResource("Drop_light_forsaken_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_light_forsaken_0"), SubResource("Drop_light_forsaken_1"), SubResource("Drop_light_forsaken_2"), SubResource("Drop_light_forsaken_3"), SubResource("Drop_light_forsaken_4"), SubResource("Drop_light_forsaken_card"), SubResource("Socket_shard"), SubResource("Socket_stone"), SubResource("Drop_light_forsaken_phracon")])
 is_boss = true
 boss_title = "เอลฟ์ที่ยังจำได้"
 skill_name = "เงาที่จำได้"
 skill_anim = &"Skill"
 skill_range = 600.0
-skill_damage_mult = 2.2
 skill_windup = 0.5
 skill_duration = 1.3
 skill_knockback = 360.0
+projectile_texture = ExtResource("sep14_orb")
+ranged_attack_range = 720.0
+projectile_speed = 1000.0
+projectile_height = 100.0
+projectile_hit_size = Vector2(48, 48)
+projectile_range = 1250.0
+projectile_hand_positions = Dictionary[int, Vector2]({
+9: Vector2(561, 678),
+18: Vector2(551, 678)
+})
+projectile_fire_effect = true
+projectile_orb_color = Color(0.65, 0.08, 1, 1)
+projectile_orb_style = true
+projectile_down_angle = 27.54
+skill_hand_projectiles = true
 skill_wave_count = 2
 skill_wave_both_sides = true
 skill_wave_speed = 520.0
@@ -104,27 +135,3 @@ skill_wave_frames = ExtResource("4_wave")
 respawn_time = 300.0
 spawn_lines = null
 death_lines = PackedStringArray("...มีดาว... ข้าเคยเห็นดาว...", "อย่าให้พวกเขาลืม... ว่าเคยมีกลางคืน")
-fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(800, 1100)
-fit_uniform_scale = true
-fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.25760286, &"Walk": 1.25760286, &"Attack": 1.25311943, &"Hit": 1.25088968, &"Die": 1.25088968, &"Run": 1.25760286, &"Skill": 1.25311943})
-display_height = 650.0
-tint = Color(1, 1, 1, 1)
-projectile_texture = ExtResource("sep14_orb")
-ranged_attack = true
-ranged_attack_range = 720.0
-projectile_speed = 1000.0
-projectile_range = 1250.0
-projectile_height = 100.0
-projectile_hit_size = Vector2(48, 48)
-projectile_fire_effect = true
-projectile_orb_style = true
-projectile_orb_color = Color(0.65, 0.08, 1.0, 1)
-projectile_aim_at_player = false
-projectile_hand_positions = Dictionary[int, Vector2]({9: Vector2(561, 678), 18: Vector2(551, 678)})
-attack_hit_frames = PackedInt32Array(9, 18)
-attack_windup = 0.75
-attack_duration = 1.9166666666666667
-skill_hand_projectiles = true
-projectile_down_angle = 27.54
-hp_bar_offset_y = -628.0

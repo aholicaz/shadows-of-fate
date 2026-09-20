@@ -13,12 +13,6 @@ chance = 40.0
 script = ExtResource("2_drop")
 item_id = &"watcher_lens"
 
-[sub_resource type="Resource" id="Drop_rune_watcher_2"]
-script = ExtResource("2_drop")
-item_id = &"emveretarcon"
-chance = 2.22
-max_count = 2
-
 [sub_resource type="Resource" id="Drop_rune_watcher_3"]
 script = ExtResource("2_drop")
 item_id = &"white_potion"
@@ -38,6 +32,11 @@ chance = 0.62
 script = ExtResource("2_drop")
 item_id = &"earring"
 chance = 3.0
+
+[sub_resource type="Resource" id="Drop_rune_watcher_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 0.9
 
 [resource]
 script = ExtResource("1_monster")
@@ -83,7 +82,7 @@ exp_reward = 293
 job_exp_reward = 205
 zeny_min = 105
 zeny_max = 195
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_rune_watcher_0"), SubResource("Drop_rune_watcher_1"), SubResource("Drop_rune_watcher_2"), SubResource("Drop_rune_watcher_3"), SubResource("Drop_rune_watcher_4"), SubResource("Drop_rune_watcher_card"), SubResource("Drop_equipment_earring")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_rune_watcher_0"), SubResource("Drop_rune_watcher_1"), SubResource("Drop_rune_watcher_3"), SubResource("Drop_rune_watcher_4"), SubResource("Drop_rune_watcher_card"), SubResource("Drop_equipment_earring"), SubResource("Drop_rune_watcher_phracon")])
 skill_name = "รูนระเบิด"
 skill_anim = &"Attack"
 skill_range = 340.0

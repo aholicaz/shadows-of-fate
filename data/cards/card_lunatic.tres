@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://duk1o7tu5052d"]
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://duk1o7tu5052d"]
 
 [ext_resource type="Script" uid="uid://b3076eptxjrrr" path="res://scripts/resources/card_data.gd" id="1_card"]
 [ext_resource type="Texture2D" uid="uid://bj3o3gl74abk7" path="res://Sprites/card/card_lunatic.webp" id="art_1"]
@@ -6,16 +6,17 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"lunatic"
-monster_level = 13
-illustration = ExtResource("art_1")
 fits_slot = 7
+illustration = ExtResource("art_1")
+monster_level = 13
 id = &"card_lunatic"
 display_name = "การ์ดลูนาติก"
 description = "กระต่ายน้อยผู้โชคร้าย"
+icon = ExtResource("art_1")
 type = 5
 slot = 7
 buy_price = 0
 sell_price = 80
-sp_drain_percent = 0.3
-cooldown_reduction_percent = 3.0
+sp_drain_percent = 0.05
+cooldown_reduction_percent = 1.0
 bonus_dex = 3

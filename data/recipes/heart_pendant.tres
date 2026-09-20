@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"heart_pendant"
+result_item_id = &"heart_pendant"
+result_count = 1
+chapter = 4
+category = &"accessory"
+materials = {
+&"hrungnir_shard": 4,
+&"lightning_dust": 10,
+&"stone_core": 120,
+&"troll_tooth": 50,
+&"emveretarcon": 20
+}
+zeny = 135000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = ""

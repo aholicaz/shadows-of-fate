@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"katana"
+result_item_id = &"katana"
+result_count = 1
+chapter = 1
+category = &"boss_weapon"
+materials = {
+&"storm_scale": 8,
+&"broken_axe_blade": 120,
+&"undead_bone": 120,
+&"phracon": 24
+}
+zeny = 30000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = ""

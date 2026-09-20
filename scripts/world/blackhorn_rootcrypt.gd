@@ -1,6 +1,17 @@
 extends "res://scripts/world/map_base.gd"
 
 const Point = preload("res://scripts/world/runeblade_point.gd")
+# ★ รอบ 126 ★ ยามเสาพันธนาการ 7-10 ตัวต่อเสา กระจายกว้าง ±SEAL_SPREAD (เดิม 2 ตัวยืนติดกัน)
+const SEAL_GUARDS_MIN := 7
+const SEAL_GUARDS_MAX := 10
+const SEAL_SPREAD := 420.0
+# ★ รอบ 126 ★ หลังปราบ Baphomet แล้ว ห้องบอสกลายเป็นที่ฟาร์ม: Baphomet เกิดใหม่ตลอด (คูลดาวน์บอสตามไฟล์มอน) + ลูกอสูร 5 ตัว
+const FARM_ROOM := Rect2(4300, 300, 1900, 700)
+const FARM_JR_COUNT := 5
+## ★ รอบ 127 ★ ค่าพลังลูกอสูรในแมพนี้ (ทั้งยามเสาและห้องฟาร์ม) — เดิม ATK 130–175 เบาเกินสำหรับ Lv49
+const JR_ATK_MIN := 300
+const JR_ATK_MAX := 420
+const JR_HIT := 75
 var boss: Node2D
 var fighting := false
 var hazards: Array[Dictionary] = []
@@ -31,6 +42,8 @@ func _ready() -> void:
 		boss = _spawn(false,Vector2(5450,760))
 		boss.set_physics_process(false)
 		boss.died.connect(_boss_died)
+	else:
+		_setup_farm_room()   # ★ รอบ 126 ★
 	queue_redraw()
 
 func _build_world() -> void:
@@ -68,8 +81,9 @@ func _spawn(jr: bool, at: Vector2, summoned: bool = false) -> Node2D:
 	if jr:
 		enemy.data.level = 49
 		enemy.data.max_hp = 1800
-		enemy.data.atk_min = 130
-		enemy.data.atk_max = 175
+		enemy.data.atk_min = JR_ATK_MIN
+		enemy.data.atk_max = JR_ATK_MAX
+		enemy.data.hit = JR_HIT
 		enemy.data.knockback_force = 0
 		enemy.data.exp_reward = 400 if not summoned else 0
 		if summoned:
@@ -87,13 +101,52 @@ func _spawn(jr: bool, at: Vector2, summoned: bool = false) -> Node2D:
 	if jr: enemy.add_to_group("rb_jr")
 	return enemy
 
+## ★ รอบ 126 ★ ยามเสา 7-10 ตัว เรียงห่างกันเท่า ๆ กันทั่วช่วง ±SEAL_SPREAD รอบเสา (+เขย่าเล็กน้อย) — ไม่กองรวมให้สกิลหมู่กวาดทีเดียว
+func _spawn_seal_guards(index: int) -> Array:
+	var center := 1100.0 + index * 950.0
+	var n := randi_range(SEAL_GUARDS_MIN, SEAL_GUARDS_MAX)
+	var step := SEAL_SPREAD * 2.0 / float(n - 1)
+	var out: Array = []
+	for k in range(n):
+		var x := center - SEAL_SPREAD + step * k + randf_range(-18.0, 18.0)
+		out.append(_spawn(true, Vector2(x, 790)))
+	return out
+
+
+## ★ รอบ 126 ★ ห้องบอสหลังจบเควส: ใช้ MapSpawner มาตรฐาน 2 ตัว (บอส 1 · ลูกอสูร 5) จำกัดพื้นที่ในห้องบอส
+## บอสตายแล้วเกิดใหม่ตามคูลดาวน์ในไฟล์มอน (is_boss → ล็อกข้ามแมพ ระหว่างรอเป็นศพ) · ลูกอสูรเกิดใหม่ตาม respawn_time
+func _setup_farm_room() -> void:
+	var boss_data: MonsterData = load("res://data/monsters/baphomet.tres").duplicate()
+	boss_data.display_name = "Baphomet — ผู้กินคำสัตย์"
+	var jr_data: MonsterData = load("res://data/monsters/baphomet_jr.tres").duplicate()
+	jr_data.level = 49
+	jr_data.max_hp = 1800
+	jr_data.atk_min = JR_ATK_MIN
+	jr_data.atk_max = JR_ATK_MAX
+	jr_data.hit = JR_HIT
+	jr_data.knockback_force = 0
+	jr_data.exp_reward = 400
+	for cfg in [[boss_data, 1, 420.0], [jr_data, FARM_JR_COUNT, 170.0]]:
+		var sp := MapSpawner.new()
+		sp.name = "FarmSpawner_" + String(cfg[0].id)
+		sp.monster_types.append(cfg[0])
+		sp.count_per_type = int(cfg[1])
+		sp.min_spacing = float(cfg[2])
+		sp.spawn_offscreen = false
+		sp.max_spawn_distance = 2200.0
+		sp.despawn_distance = 99999.0
+		sp.edge_margin = 60.0
+		add_child(sp)
+		sp._bounds = FARM_ROOM   # จำกัดให้เกิดเฉพาะในห้องบอส (หลัง _ready คำนวณจากทั้งแมพ)
+
+
 func _seal(index: int) -> void:
 	var flag := StringName("rb_seal_%d" % index)
 	if PlayerState.has_flag(flag):
 		Events.say("เสานี้ถูกปลดแล้ว")
 		return
 	if not guards.has(index):
-		guards[index] = [_spawn(true,Vector2(1020+index*950,790)),_spawn(true,Vector2(1230+index*950,790))]
+		guards[index] = _spawn_seal_guards(index)
 	for guard in guards[index]:
 		if is_instance_valid(guard) and not guard.is_dead():
 			Events.say("กำจัดลูกอสูรที่ผูกกับเสาก่อน แล้วกด F เพื่อทำลายพันธนาการ")
@@ -160,7 +213,7 @@ func _physics_process(delta: float) -> void:
 		# Seal guards appear as the player approaches, not only on interaction.
 		for i in range(3):
 			if absf(player.position.x-(1100+i*950)) < 440 and not guards.has(i) and not PlayerState.has_flag(StringName("rb_seal_%d"%i)):
-				guards[i] = [_spawn(true,Vector2(1020+i*950,790)),_spawn(true,Vector2(1230+i*950,790))]
+				guards[i] = _spawn_seal_guards(i)
 			if guards.has(i) and not PlayerState.has_flag(StringName("rb_seal_%d"%i)):
 				var alive := false
 				for guard in guards[i]:
@@ -168,7 +221,7 @@ func _physics_process(delta: float) -> void:
 				if not alive:
 					seal_wait[i] = float(seal_wait.get(i,18.0))-delta
 					if seal_wait[i] <= 0:
-						guards[i] = [_spawn(true,Vector2(1020+i*950,790)),_spawn(true,Vector2(1230+i*950,790))]
+						guards[i] = _spawn_seal_guards(i)
 						seal_wait.erase(i)
 		return
 	if PlayerState.is_dead():

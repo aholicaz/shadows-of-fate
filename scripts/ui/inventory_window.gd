@@ -112,6 +112,13 @@ var _set_r_button: Button
 var _detail_empty: Label
 
 var _selected := -1          # ช่องจริงในกระเป๋า
+## ★ รอบ 140 ★ ช่องสวมใส่ที่เลือกดูอยู่ (-1 = ไม่ได้เลือก) — คลิกซ้ายช่องสวมใส่ = ดูรายละเอียด ไม่ถอดแล้ว
+var _selected_equip := -1
+## ★ รอบ 140 ★ โหมดใส่การ์ด (แบบ B): เลือกการ์ดแล้วคลิกอุปกรณ์ที่เรืองแสง
+var _card_mode := false
+var _card_pick: StringName = &""
+var _equip_menu: PopupMenu
+var _menu_slot := -1
 ## โหมดขาย: กดของแล้วขายทันที (ร้านค้าเป็นคนเปิด)
 var sell_mode := false
 ## ★ เทียบกับของที่สวมอยู่ (กด "เปรียบเทียบ") ★
@@ -248,6 +255,7 @@ func _make_equip_slot(slot: int) -> DragSlot:
 	btn.add_theme_stylebox_override("hover", _slot_box(true))
 	btn.add_theme_stylebox_override("pressed", _slot_box(true))
 	btn.pressed.connect(func(): _on_equip_pressed(slot))
+	btn.gui_input.connect(func(ev: InputEvent): _on_equip_gui_input(ev, slot))   # ★ รอบ 140 ★ คลิกขวา = เมนู ดู/ถอด
 	btn.drag_icon_func = func() -> Texture2D:
 		var inst := PlayerState.equipment.get_item(slot)
 		if inst == null or inst.data() == null:
@@ -256,6 +264,10 @@ func _make_equip_slot(slot: int) -> DragSlot:
 	btn.can_drop_func = func(data: Dictionary, _t: DragSlot) -> bool:
 		return String(data.get("kind", "")) == "inventory"
 	btn.drop_func = func(data: Dictionary, _t: DragSlot) -> bool:
+		# ★ รอบ 140 ★ ลากการ์ดมาวางบนของที่สวมอยู่ = ใส่การ์ด
+		var src := PlayerState.inventory.get_slot(int(data.get("slot", -1)))
+		if src != null and src.data() != null and src.data().is_card():
+			return _socket_into(PlayerState.equipment.get_item(slot), src.item_id)
 		return _equip_from(int(data.get("slot", -1)), slot)
 	var g := PetrolWidgets.glyph(String(SLOT_GLYPH.get(slot, "slot_weapon")), 26.0, C_TEXT_DIM)
 	g.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
@@ -567,7 +579,7 @@ func _build_right() -> Control:
 
 
 func shell_hints() -> Array:
-	return [["E", "ใช้ / สวมใส่"], ["C", "เปรียบเทียบ"], ["X", "ทิ้ง"], ["Esc", "ปิด"]]
+	return [["E", "ใช้ / สวมใส่"], ["C", "เปรียบเทียบ"], ["X", "ทิ้ง"], ["คลิกขวา", "ถอดของที่สวม"], ["Esc", "ปิด"]]
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -576,6 +588,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if _search_edit != null and _search_edit.has_focus():
 		return
 	var k := event as InputEventKey
+	if _card_mode and k.keycode == KEY_ESCAPE:   # ★ รอบ 140 ★
+		_exit_card_mode()
+		get_viewport().set_input_as_handled()
+		return
 	match k.keycode:
 		KEY_E:
 			_use_selected()
@@ -602,6 +618,13 @@ static func _category_of(d: ItemData) -> String:
 
 func _on_slot_pressed(display_index: int) -> void:
 	var slot: int = _display_to_slot[display_index]
+	if _card_mode:   # ★ รอบ 140 ★ โหมดใส่การ์ด: คลิกอุปกรณ์ในกระเป๋า = เป้า
+		if slot >= 0:
+			_card_mode_target(PlayerState.inventory.get_slot(slot))
+		else:
+			_exit_card_mode()
+		return
+	_selected_equip = -1
 	if slot < 0:
 		_selected = -1
 		UI.hide_item_popup()
@@ -617,19 +640,55 @@ func _on_slot_pressed(display_index: int) -> void:
 	refresh()
 
 
+## ★ รอบ 140 ★ คลิกซ้ายช่องสวมใส่ = โชว์รายละเอียดที่แผงขวา (ไม่ถอด) · ถอด = ปุ่ม «ถอดออก» / คลิกขวา / ลากออก
 func _on_equip_pressed(slot: int) -> void:
 	var inst := PlayerState.equipment.get_item(slot)
+	if _card_mode:
+		if inst != null:
+			_card_mode_target(inst)
+		return
 	if inst == null:
 		Events.say("ช่องนี้ว่างอยู่ — ลากของจากกระเป๋ามาวางได้เลย")
 		return
-	UI.show_item(inst, _equip_buttons[slot], "กดช่องนี้อีกครั้งเพื่อถอด · หรือลากไปวางในกระเป๋า")
-	if _equip_buttons[slot].has_meta("armed") and _equip_buttons[slot].get_meta("armed") == inst:
-		_equip_buttons[slot].remove_meta("armed")
-		UI.hide_item_popup()
-		PlayerState.unequip(slot)
-		refresh()
+	UI.hide_item_popup()
+	_selected = -1
+	_selected_equip = slot
+	_comparing = false
+	refresh()
+
+
+func _on_equip_gui_input(ev: InputEvent, slot: int) -> void:
+	if not (ev is InputEventMouseButton) or not ev.pressed or ev.button_index != MOUSE_BUTTON_RIGHT:
 		return
-	_equip_buttons[slot].set_meta("armed", inst)
+	if PlayerState.equipment.get_item(slot) == null or _card_mode:
+		return
+	if _equip_menu == null:
+		_equip_menu = PopupMenu.new()
+		_equip_menu.add_item("ดูรายละเอียด", 0)
+		_equip_menu.add_item("ถอดออก", 1)
+		_equip_menu.id_pressed.connect(_on_equip_menu)
+		add_child(_equip_menu)
+	_menu_slot = slot
+	_equip_menu.position = Vector2i(get_viewport().get_mouse_position())
+	_equip_menu.popup()
+	get_viewport().set_input_as_handled()
+
+
+func _on_equip_menu(id: int) -> void:
+	if _menu_slot < 0:
+		return
+	if id == 0:
+		_on_equip_pressed(_menu_slot)
+	elif id == 1:
+		_unequip_selected(_menu_slot)
+
+
+func _unequip_selected(slot: int) -> void:
+	if PlayerState.unequip(slot):
+		if _selected_equip == slot:
+			_selected_equip = -1
+		UI.hide_item_popup()
+		refresh()
 
 
 ## ★ ลาก-วาง ★
@@ -673,6 +732,12 @@ func _on_drop(data: Dictionary, display_index: int) -> bool:
 		var from_slot := int(data.get("slot", -1))
 		if from_slot < 0 or from_slot == target_slot:
 			return false
+		# ★ รอบ 140 ★ ลากการ์ดไปวางบนอุปกรณ์ในกระเป๋าที่ใส่ได้ = ใส่การ์ด (ไม่สลับที่)
+		var src := PlayerState.inventory.get_slot(from_slot)
+		var dst := PlayerState.inventory.get_slot(target_slot) if target_slot >= 0 else null
+		if src != null and dst != null and src.data() != null and src.data().is_card() \
+				and dst.can_socket(GameData.get_card(src.item_id)):
+			return _socket_into(dst, src.item_id)
 		if target_slot < 0:
 			target_slot = PlayerState.inventory.first_empty()
 			if target_slot < 0:
@@ -733,17 +798,30 @@ func _assign_potion(slot: int) -> void:
 
 
 func _use_selected() -> void:
+	if _card_mode:   # ★ รอบ 140 ★ ปุ่มเดียวกันกลายเป็น «ยกเลิก»
+		_exit_card_mode()
+		return
+	if _selected_equip >= 0:   # ★ รอบ 140 ★ ของที่สวมอยู่ → ปุ่ม «ถอดออก»
+		_unequip_selected(_selected_equip)
+		return
 	if _selected < 0:
 		return
 	var inst := PlayerState.inventory.get_slot(_selected)
 	if inst != null and inst.data() != null and inst.data().is_card():
-		UI.open(&"cards")
+		_enter_card_mode(inst.item_id)   # ★ รอบ 140 ★ แบบ B — เดิมเปิดอัลบั้ม
 		return
 	PlayerState.use_item(_selected)
 	refresh()
 
 
 func _toggle_compare() -> void:
+	if _selected_equip >= 0 or _card_mode:
+		return
+	if _selected >= 0:   # ★ รอบ 140 ★ การ์ด: ปุ่มนี้ = เปิดอัลบั้ม
+		var ci := PlayerState.inventory.get_slot(_selected)
+		if ci != null and ci.data() != null and ci.data().is_card():
+			UI.open(&"cards")
+			return
 	if _selected < 0:
 		return
 	_comparing = not _comparing
@@ -751,7 +829,7 @@ func _toggle_compare() -> void:
 
 
 func _drop_selected() -> void:
-	if _selected < 0:
+	if _selected < 0 or _selected_equip >= 0 or _card_mode:
 		return
 	var inst := PlayerState.inventory.get_slot(_selected)
 	if inst == null:
@@ -773,6 +851,8 @@ func _drop_selected() -> void:
 func refresh() -> void:
 	if _grid == null:
 		return
+	if not is_visible_in_tree():
+		return   # ★ รอบ 131 ★ ซ่อนอยู่ไม่ต้องสร้างใหม่ — show_window/open_tab จะ refresh ให้ตอนเปิด
 
 	var inv := PlayerState.inventory
 	_capacity_label.text = "%d / %d" % [inv.used_slots(), inv.size]
@@ -833,6 +913,7 @@ func refresh() -> void:
 		btn.add_theme_stylebox_override("normal", _slot_box(slot == _selected and not sell_mode))
 
 	_refresh_left()
+	_apply_card_mode_visuals()   # ★ รอบ 140 ★
 	_refresh_detail()
 
 
@@ -875,9 +956,8 @@ func _refresh_left() -> void:
 		else:
 			art.texture = inst.data().icon
 			g.visible = art.texture == null
-			btn.tooltip_text = "%s\n%s" % [String(Equipment.SLOT_NAMES.get(slot, "")), inst.display_name()]
-			if btn.has_meta("armed") and btn.get_meta("armed") != inst:
-				btn.remove_meta("armed")
+			btn.tooltip_text = "%s\n%s\nคลิกซ้าย = ดู · คลิกขวา/ลากออก = ถอด" % [String(Equipment.SLOT_NAMES.get(slot, "")), inst.display_name()]
+		btn.add_theme_stylebox_override("normal", _slot_box(slot == _selected_equip))   # ★ รอบ 140 ★
 	if _preview != null:
 		_preview.refresh()
 	_refresh_stats()
@@ -897,7 +977,8 @@ func _refresh_stats() -> void:
 
 func _refresh_detail() -> void:
 	var inv := PlayerState.inventory
-	var sel := inv.get_slot(_selected) if _selected >= 0 else null
+	var sel := _detail_target()   # ★ รอบ 140 ★ ของในกระเป๋า หรือของที่สวมอยู่
+	var on_body := _selected_equip >= 0 and sel != null
 	var has := sel != null and sel.data() != null
 	_detail_empty.visible = not has
 	_detail_art.visible = has
@@ -906,8 +987,9 @@ func _refresh_detail() -> void:
 	_detail_stats.visible = has
 	_detail_desc.visible = has
 	_use_button.disabled = not has or sell_mode
-	_compare_button.disabled = not has
-	_drop_button.disabled = not has
+	_use_button.tooltip_text = ""
+	_compare_button.disabled = not has or on_body
+	_drop_button.disabled = not has or on_body
 	_potion_row.visible = false
 	if not has:
 		_use_button.text = "สวมใส่"
@@ -936,8 +1018,13 @@ func _refresh_detail() -> void:
 
 	GameWindow.clear_container(_detail_stats)
 	var equipped: ItemInstance = null
-	if _comparing and d.is_equipment():
+	if _comparing and d.is_equipment() and not on_body:
 		equipped = PlayerState.equipment.get_item(Equipment.slot_for(d))
+	if on_body:
+		var where := _label("สวมอยู่ที่: %s" % String(Equipment.SLOT_NAMES.get(_selected_equip, "")), 11, C_TEXT_DIM)
+		_detail_stats.add_child(where)
+	if sel.card_slots() > 0:   # ★ รอบ 140 ★ ช่องการ์ด (ลาก/กดได้) — วางไว้บนค่าพลังให้เห็นทันทีไม่ต้องเลื่อน
+		_detail_stats.add_child(_card_slots_panel(sel))
 	for row in _stat_lines(sel, equipped):
 		var r := PetrolWidgets.stat_row(String(row[0]), String(row[1]), String(row[2]), row[3], 13)
 		_detail_stats.add_child(r)
@@ -945,21 +1032,31 @@ func _refresh_detail() -> void:
 		var note := _label("เทียบกับที่สวมอยู่: %s" % (equipped.display_name() if equipped != null else "(ว่าง)"), 11, C_TEXT_DIM)
 		note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		_detail_stats.add_child(note)
-	if sel.card_slots() > 0:
-		var cards_panel := preload("res://scripts/ui/socket_cards_panel.gd").new()
-		_detail_stats.add_child(cards_panel)
-		cards_panel.set_item(sel)
 	if d.sell_price > 0:
 		_detail_stats.add_child(PetrolWidgets.stat_row("coin", "ราคาขาย", HUD._comma(d.sell_price), C_ZENY_TEXT, 12))
 
-	if d.is_card():
-		_use_button.text = "เปิดอัลบั้มการ์ด"
+	if _card_mode:
+		_use_button.text = "ยกเลิกการใส่การ์ด (Esc)"
+		var hint := _label("คลิกอุปกรณ์ที่เรืองแสง (ในกระเป๋าหรือที่สวมอยู่) เพื่อใส่การ์ดใบนี้", 12, UITheme.GOLD_BRIGHT)
+		hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_detail_stats.add_child(hint)
+	elif on_body:
+		_use_button.text = "ถอดออก"
+	elif d.is_card():
+		_use_button.text = "ใส่การ์ดลงอุปกรณ์…"
+		_use_button.disabled = PlayerState.sockets_for_card(sel.item_id).is_empty()
+		if _use_button.disabled:
+			_use_button.tooltip_text = "ยังไม่มี%sที่มีช่องว่าง" % (d as CardData).slot_name()
 	elif d.is_equipment():
 		_use_button.text = "สวมใส่"
 	else:
 		_use_button.text = "ใช้"
-	_compare_button.text = "เลิกเปรียบเทียบ" if _comparing else "เปรียบเทียบ"
-	_compare_button.disabled = not d.is_equipment()
+	if d.is_card():
+		_compare_button.text = "เปิดอัลบั้มการ์ด"
+		_compare_button.disabled = _card_mode
+	else:
+		_compare_button.text = "เลิกเปรียบเทียบ" if _comparing else "เปรียบเทียบ"
+		_compare_button.disabled = not d.is_equipment() or on_body
 
 	if d.type == ItemData.Type.CONSUMABLE:
 		_potion_row.visible = true
@@ -1040,3 +1137,189 @@ func _tooltip(inst: ItemInstance) -> String:
 	if d.type == ItemData.Type.QUEST:
 		lines.append("ของสำคัญ — ขาย/ทิ้งไม่ได้")
 	return "\n".join(lines)
+
+
+# =========================================================
+# ★★ รอบ 140 ★★ การ์ดในหน้ากระเป๋า (แบบ A ลาก/กดช่อง + แบบ B เลือกการ์ดแล้วชี้เป้า) และช่องสวมใส่คลิกซ้าย = ดู
+# =========================================================
+## ของที่แผงขวากำลังโชว์: ของในกระเป๋า (_selected) หรือของที่สวมอยู่ (_selected_equip)
+func _detail_target() -> ItemInstance:
+	if _selected_equip >= 0:
+		return PlayerState.equipment.get_item(_selected_equip)
+	return PlayerState.inventory.get_slot(_selected) if _selected >= 0 else null
+
+
+## แถวช่องการ์ดของอุปกรณ์ชิ้นนี้ — ช่องละปุ่ม: ว่าง = «+» กดเลือกการ์ด/ลากการ์ดมาวาง · มีการ์ด = กดดู/ถอด
+func _card_slots_panel(inst: ItemInstance) -> Control:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 4)
+	var head := _label("ช่องการ์ด  %d / %d" % [inst.cards.size(), inst.card_slots()], 12, C_GOLD)
+	box.add_child(head)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	box.add_child(row)
+	for i in range(inst.card_slots()):
+		var card: CardData = GameData.get_card(inst.cards[i]) if i < inst.cards.size() else null
+		var btn := DragSlot.new()
+		btn.kind = "cardslot"
+		btn.slot_index = i
+		btn.custom_minimum_size = Vector2(56, 70)
+		btn.clip_contents = true
+		btn.add_theme_stylebox_override("normal", _slot_box(card != null))
+		btn.add_theme_stylebox_override("hover", _slot_box(true))
+		btn.add_theme_stylebox_override("pressed", _slot_box(true))
+		var target := inst
+		var index := i
+		btn.can_drop_func = func(data: Dictionary, _t: DragSlot) -> bool:
+			if String(data.get("kind", "")) != "inventory" or card != null:
+				return false
+			var src := PlayerState.inventory.get_slot(int(data.get("slot", -1)))
+			return src != null and src.data() != null and src.data().is_card() and target.can_socket(GameData.get_card(src.item_id))
+		btn.drop_func = func(data: Dictionary, _t: DragSlot) -> bool:
+			var src := PlayerState.inventory.get_slot(int(data.get("slot", -1)))
+			return src != null and _socket_into(target, src.item_id)
+		if card != null:
+			var art := UITheme.make_slot_icon(btn, 4.0)[0] as TextureRect
+			art.texture = CardView.card_texture(card)
+			art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+			btn.tooltip_text = "%s\n%s\nคลิก = ดู / ถอด" % [card.display_name, card.describe().replace("\n", " · ")]
+			btn.pressed.connect(func(): _show_socketed_card(target, index, btn))
+		else:
+			btn.text = "+"
+			btn.add_theme_font_size_override("font_size", 24)
+			btn.add_theme_color_override("font_color", C_TEXT_DIM)
+			btn.tooltip_text = "ช่องว่าง — ลากการ์ดมาวาง หรือกดเลือกจากการ์ดที่มี"
+			btn.pressed.connect(func(): _open_card_picker(target, btn))
+		row.add_child(btn)
+	return box
+
+
+## กดการ์ดที่ใส่อยู่ → กล่องรายละเอียด + ปุ่มถอด
+func _show_socketed_card(inst: ItemInstance, index: int, anchor: Control) -> void:
+	var card := GameData.get_card(inst.cards[index]) if index < inst.cards.size() else null
+	if card == null:
+		return
+	UI.show_info(card.display_name, CardView.card_texture(card), card.describe(), anchor, card.rarity_color(),
+		[{"text": "ถอดการ์ดออก", "on": _unsocket_from.bind(inst, index)}])
+
+
+func _unsocket_from(inst: ItemInstance, index: int) -> void:
+	UI.hide_item_popup()
+	if PlayerState.inventory.is_full():
+		Events.say("กระเป๋าเต็ม — เก็บของให้ว่างก่อนถอดการ์ด")
+		return
+	PlayerState.unsocket_card(inst, index)
+	refresh()
+
+
+## กด «+» ที่ช่องว่าง → เมนูการ์ดในกระเป๋าที่ใส่ชิ้นนี้ได้
+func _open_card_picker(inst: ItemInstance, anchor: Control) -> void:
+	var menu := PopupMenu.new()
+	var ids: Array = []
+	for i in range(PlayerState.inventory.size):
+		var s := PlayerState.inventory.get_slot(i)
+		if s == null or s.data() == null or not s.data().is_card() or ids.has(s.item_id):
+			continue
+		var card := GameData.get_card(s.item_id)
+		if card == null or not inst.can_socket(card):
+			continue
+		ids.append(s.item_id)
+		menu.add_item("%s ×%d — %s" % [card.display_name, PlayerState.inventory.count_of(s.item_id), card.describe().replace("\n", " · ")], ids.size() - 1)
+	if ids.is_empty():
+		Events.say("ยังไม่มีการ์ดที่ใส่ %s ได้ในกระเป๋า" % inst.display_name())
+		menu.queue_free()
+		return
+	add_child(menu)
+	menu.id_pressed.connect(func(id: int): _socket_into(inst, ids[id]))
+	menu.popup_hide.connect(func(): menu.call_deferred("queue_free"))
+	menu.position = Vector2i(anchor.global_position + Vector2(0, anchor.size.y))
+	menu.popup()
+
+
+## ใส่การ์ดลงของชิ้นนี้ (ทางเดียวที่ทุกวิธีเรียก) — คืน true ถ้าใส่ได้
+func _socket_into(inst: ItemInstance, card_id: StringName) -> bool:
+	if inst == null:
+		return false
+	var ok := PlayerState.socket_card(card_id, inst)
+	if ok:
+		UI.hide_item_popup()
+		if _card_mode:   # ใส่เสร็จ 1 ใบ = จบโหมด (กดปุ่มใหม่ถ้าจะใส่อีก)
+			_exit_card_mode()
+		refresh()
+	return ok
+
+
+## ---------- แบบ B: โหมดใส่การ์ด ----------
+func _enter_card_mode(card_id: StringName) -> void:
+	if PlayerState.sockets_for_card(card_id).is_empty():
+		var c := GameData.get_card(card_id)
+		Events.say("ยังไม่มี%sที่มีช่องว่างให้ใส่การ์ดใบนี้" % (c.slot_name() if c != null else "อุปกรณ์"))
+		return
+	_card_mode = true
+	_card_pick = card_id
+	UI.hide_item_popup()
+	Events.say("เลือกอุปกรณ์ที่เรืองแสงเพื่อใส่ %s (Esc ยกเลิก)" % GameData.item_name(card_id))
+	refresh()
+
+
+func _exit_card_mode() -> void:
+	_card_mode = false
+	_card_pick = &""
+	refresh()
+
+
+## คลิกเป้าในโหมดการ์ด → ถามยืนยัน → ใส่
+func _card_mode_target(inst: ItemInstance) -> void:
+	if inst == null or not _card_mode:
+		return
+	var card := GameData.get_card(_card_pick)
+	if card == null:
+		_exit_card_mode()
+		return
+	if not inst.can_socket(card):
+		Events.say("%s ใส่การ์ดใบนี้ไม่ได้ — ต้องเป็น%sที่มีช่องว่าง" % [inst.display_name(), card.slot_name()])
+		return
+	_confirm_socket(inst, _card_pick)
+
+
+func _confirm_socket(inst: ItemInstance, card_id: StringName) -> void:
+	var card := GameData.get_card(card_id)
+	var ok: bool = await UI.ask("ใส่การ์ด", "ใส่ %s ลงใน %s ?\n(ช่องว่าง %d/%d · ถอดออกทีหลังได้ที่แผงขวา)" % [card.display_name, inst.display_name(), inst.free_card_slots(), inst.card_slots()], "ใส่เลย", "ยกเลิก")
+	if ok and is_instance_valid(self):
+		_socket_into(inst, card_id)
+
+
+## เรืองแสงของที่ใส่ได้ · หรี่ของที่ใส่ไม่ได้ (ทั้งกริดกระเป๋าและช่องสวมใส่)
+func _apply_card_mode_visuals() -> void:
+	var card: CardData = GameData.get_card(_card_pick) if _card_mode else null
+	for i in range(_slot_buttons.size()):
+		var btn := _slot_buttons[i]
+		var slot: int = _display_to_slot[i] if i < _display_to_slot.size() else -1
+		var inst := PlayerState.inventory.get_slot(slot) if slot >= 0 else null
+		if card == null:
+			btn.modulate = Color.WHITE
+			continue
+		var can: bool = inst != null and inst.can_socket(card)
+		btn.modulate = Color.WHITE if can else Color(1, 1, 1, 0.35)
+		if can:
+			btn.add_theme_stylebox_override("normal", _hot_box())
+	for slot in _equip_buttons.keys():
+		var b: Button = _equip_buttons[slot]
+		var e := PlayerState.equipment.get_item(slot)
+		if card == null:
+			b.modulate = Color.WHITE
+			continue
+		var can2: bool = e != null and e.can_socket(card)
+		b.modulate = Color.WHITE if can2 else Color(1, 1, 1, 0.35)
+		if can2:
+			b.add_theme_stylebox_override("normal", _hot_box())
+
+
+## กรอบทองเรืองสำหรับเป้าที่ใส่การ์ดได้
+static func _hot_box() -> StyleBoxFlat:
+	var s := UITheme.slot_style(true)
+	s.border_color = UITheme.GOLD_BRIGHT
+	s.set_border_width_all(2)
+	s.shadow_color = Color(UITheme.GOLD_BRIGHT, 0.45)
+	s.shadow_size = 6
+	return s

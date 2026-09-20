@@ -108,6 +108,7 @@ destination_name = "แม่น้ำเกียลล์"
 [node name="Hunter_ghost" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(350, 820)
 npc_name = "นักล่าที่หายไป (ผี)"
+has_bounty_board = true
 type = 0
 dialog = "ข้าคือนักล่าที่หายไปในป่าเงาลึก เจ้าอาจเคยเจอเป้ของข้า\n\nผู้กองสั่งห้ามเข้าป่า... ไม่ใช่เพราะมอน เพราะป่ากำลังโดนดูด ข้าเห็นแสงไหลลงดิน แล้วสายฟ้าก็ลงมาที่ข้า\n\nพงศาวดารเขียนว่าข้าตายเพราะหมาป่า"
 modulate = Color(1, 1, 1, 0.70)
@@ -181,7 +182,7 @@ npc_name = "พ่อค้าไร้ชื่อ"
 type = 1
 dialog = "รับ «ชื่อที่ทิ้งไว้» เป็นเงินอีกสกุล — ผู้ข้ามฝั่งทิ้งไว้ที่สะพานเยอะ เอามาขายข้าได้\n\nข้าเคยมีชื่อ... ทิ้งไว้ที่สะพานเหมือนกัน แล้วไม่เคยกลับไปเอา"
 modulate = Color(1, 1, 1, 0.70)
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"meat", &"phracon", &"emveretarcon", &"ferryman_oar_blade", &"drowned_crown", &"bone_armor", &"prism_blade", &"ljosalf_circlet", &"crystal_cloak"])
+shop_items = Array[StringName]([&"wing_of_valkyrie", &"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"blue_potion_2", &"meat", &"phracon", &"emveretarcon", &"drowned_crown", &"bone_armor", &"prism_blade", &"ljosalf_circlet", &"crystal_cloak"])
 greeting = "ข้าไม่มีชื่อ ร้านข้าไม่มีชื่อ แต่ของมีราคา"
 voice_id = "nameless"
 

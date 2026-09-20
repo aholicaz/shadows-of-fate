@@ -129,13 +129,13 @@ func is_town(map_id: StringName) -> bool:
 	return TOWNS.has(map_id)
 
 
-## ★ วาปกลับเมือง ★ กลับ "เมืองล่าสุดที่เคยเข้า" (ไม่เคยเข้าเมืองไหนเลย = พรอนเทรา)
-## ใช้โดยปีกแห่งวาลคีรี — คืน false ถ้าวาปไม่ได้ (อยู่ในเมืองอยู่แล้ว / กำลังเปลี่ยนแมพ)
+## ★ วาปกลับเมือง ★ ★ รอบ 120 ★ กลับ "เมืองที่บันทึกจุดเกิดไว้" (เสาวาป → บันทึกจุดเกิด · ไม่เคยบันทึก = พรอนเทรา) — เดิมเป็นเมืองล่าสุดที่แวะ
+## ใช้โดยปีกแห่งวาลคีรี — คืน false ถ้าวาปไม่ได้ (อยู่ในเมืองนั้นอยู่แล้ว / กำลังเปลี่ยนแมพ)
 func warp_to_town(spawn_point: StringName = &"default") -> bool:
 	if _is_changing:
 		return false
-	var town := PlayerState.home_town()
-	if is_town(PlayerState.current_map_id):
+	var town := PlayerState.saved_respawn_town()
+	if PlayerState.current_map_id == town:
 		return false
 	change_map(town, spawn_point)
 	return true
@@ -219,6 +219,7 @@ func requested_spawn_point() -> StringName:
 
 
 func change_map(map_id: StringName, spawn_point: StringName = &"default") -> void:
+	Engine.time_scale = 1.0   # ★ รอบ 150 ★ กันสโลว์โมชั่นคริค้างข้ามแมพ
 	if _is_changing:
 		return
 	var path: String = MAPS.get(map_id, "")

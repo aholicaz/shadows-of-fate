@@ -18,8 +18,7 @@ max_count = 2
 [sub_resource type="Resource" id="Drop_stone_soldier_2"]
 script = ExtResource("2_drop")
 item_id = &"emveretarcon"
-chance = 6.0
-max_count = 2
+chance = 0.5
 
 [sub_resource type="Resource" id="Drop_stone_soldier_3"]
 script = ExtResource("2_drop")
@@ -35,6 +34,11 @@ chance = 3.0
 script = ExtResource("2_drop")
 item_id = &"card_stone_soldier"
 chance = 0.5
+
+[sub_resource type="Resource" id="Drop_stone_soldier_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 0.7
 
 [resource]
 script = ExtResource("1_monster")
@@ -55,13 +59,13 @@ fit_animation_scales = Dictionary[StringName, float]({
 })
 fit_foot_animations = null
 level = 67
-max_hp = 15000
-atk_min = 560
-atk_max = 700
-def = 110
-mdef = 60
-hit = 130
-flee = 30
+max_hp = 18800
+atk_min = 730
+atk_max = 910
+def = 132
+mdef = 72
+hit = 150
+flee = 33
 crit = 3
 element = 3
 size = 2
@@ -84,7 +88,7 @@ exp_reward = 686
 job_exp_reward = 480
 zeny_min = 195
 zeny_max = 361
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_stone_soldier_0"), SubResource("Drop_stone_soldier_1"), SubResource("Drop_stone_soldier_2"), SubResource("Drop_stone_soldier_3"), SubResource("Drop_stone_soldier_4"), SubResource("Drop_stone_soldier_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_stone_soldier_0"), SubResource("Drop_stone_soldier_1"), SubResource("Drop_stone_soldier_2"), SubResource("Drop_stone_soldier_3"), SubResource("Drop_stone_soldier_4"), SubResource("Drop_stone_soldier_card"), SubResource("Drop_stone_soldier_phracon")])
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null

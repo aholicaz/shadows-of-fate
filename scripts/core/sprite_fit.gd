@@ -39,6 +39,14 @@ static var _cache: Dictionary = {}
 static var measured_count: int = 0   # ไว้ดูสถิติ/เทสต์
 static var decompressed_count: int = 0   # ★ รอบ 92 ★ นับชีทที่ต้องคลายบีบอัดก่อนวัด (ไว้ดูสถิติ/เทสต์)
 
+## ★★ รอบ 131 ★★ แคชผลวัดลงดิสก์ — เปิดเกมรอบถัดไปไม่ต้องดึงชีท 4096 px จากการ์ดจอมาวัดใหม่ (ต้นเหตุหน่วงตอนเปลี่ยนแมพ)
+## เก็บที่ user://sprite_fit_cache.json พร้อมเวลาแก้ไขของไฟล์ภาพ/ไฟล์ .tres — ภาพถูกแก้เมื่อไหร่ ค่าเก่าจะถูกทิ้งแล้ววัดใหม่เอง
+const DISK_CACHE_PATH := "user://sprite_fit_cache.json"
+const DISK_CACHE_VERSION := 1
+static var _disk_loaded := false
+static var _disk_dirty := false
+static var disk_loaded_count: int = 0   # ไว้ดูสถิติ/เทสต์
+
 
 ## ★★ รอบ 92 ★★ ดึงภาพของเฟรมมาแบบที่ "อ่านพิกเซลได้แน่นอน"
 ##
@@ -242,6 +250,7 @@ static func measure(frames: SpriteFrames, anim: StringName, shared_pool: Diction
 	# ของที่วัดลำตัวมาแล้วมีข้อมูลครบกว่า → ผู้ที่ไม่ต้องการลำตัว (มอน) ใช้ซ้ำได้เลย
 	# ส่วนคนที่ต้องการลำตัวแต่ในแคชยังไม่มี ต้องวัดใหม่ทับของเดิม
 	var key := _key(frames, anim)
+	_load_disk()   # ★ รอบ 131 ★
 	if _cache.has(key):
 		var hit: Dictionary = _cache[key]
 		if not with_body or bool(hit.get("body_measured", false)):
@@ -326,9 +335,11 @@ static func measure(frames: SpriteFrames, anim: StringName, shared_pool: Diction
 		body_med = bs[bs.size() >> 1] if not bs.is_empty() else 0.0
 
 	var info := {"frames": list, "tallest": tallest, "widest": widest,
-		"body_med": body_med, "reach_max": reach_max, "body_measured": with_body}
+		"body_med": body_med, "reach_max": reach_max, "body_measured": with_body,
+		"stamps": _stamps_of(frames, anim)}   # ★ รอบ 131 ★
 	_cache[key] = info
 	measured_count += 1
+	_disk_dirty = true
 	return info
 
 
@@ -336,6 +347,7 @@ static func measure(frames: SpriteFrames, anim: StringName, shared_pool: Diction
 static func warm(frames: SpriteFrames, with_body: bool = false) -> int:
 	if frames == null:
 		return 0
+	_load_disk()   # ★ รอบ 131 ★
 	var n := 0
 	# ★ รอบ 92 ★ pool เดียวทุกท่า — ชีทที่หลายท่าใช้ร่วมกัน (เช่น Hit+Die บนผืนเดียว) คลายบีบอัดครั้งเดียว
 	var pool: Dictionary = {}
@@ -348,10 +360,12 @@ static func warm(frames: SpriteFrames, with_body: bool = false) -> int:
 			if OS.has_feature("web") or OS.has_feature("mobile"):
 				pool.clear()
 	pool.clear()
+	save_disk()   # ★ รอบ 131 ★
 	return n
 
 
 static func is_cached(frames: SpriteFrames, anim: StringName) -> bool:
+	_load_disk()   # ★ รอบ 131 ★
 	return frames != null and _cache.has(_key(frames, anim))
 
 
@@ -378,3 +392,81 @@ static func measure_soles(frames: SpriteFrames, anim: StringName, region: Rect2i
 
 static func clear() -> void:
 	_cache.clear()
+
+
+# =========================================================
+# ★★ รอบ 131 ★★ แคชลงดิสก์
+# =========================================================
+## ไฟล์ต้นทางของท่านี้ (ภาพ/ผืน atlas ทุกเฟรม + ไฟล์ SpriteFrames) → เวลาแก้ไขล่าสุด
+static func _stamps_of(frames: SpriteFrames, anim: StringName) -> Dictionary:
+	var out: Dictionary = {}
+	var paths: Array[String] = []
+	if frames.resource_path != "":
+		paths.append(frames.resource_path.get_slice("::", 0))
+	for i in range(frames.get_frame_count(anim)):
+		var tex := frames.get_frame_texture(anim, i)
+		if tex == null:
+			continue
+		var src: Texture2D = (tex as AtlasTexture).atlas if tex is AtlasTexture and (tex as AtlasTexture).atlas != null else tex
+		var p := src.resource_path.get_slice("::", 0)
+		if p == "" or not p.begins_with("res://"):
+			return {}   # ภาพสร้างในหน่วยความจำ — จำได้แค่รันนี้
+		if not paths.has(p):
+			paths.append(p)
+	for p in paths:
+		out[p] = int(FileAccess.get_modified_time(p))
+	return out
+
+
+static func _stamps_valid(stamps: Dictionary) -> bool:
+	if stamps.is_empty():
+		return false
+	for p in stamps.keys():
+		if not ResourceLoader.exists(String(p)) or int(FileAccess.get_modified_time(String(p))) != int(stamps[p]):
+			return false
+	return true
+
+
+static func _load_disk() -> void:
+	if _disk_loaded:
+		return
+	_disk_loaded = true
+	if not FileAccess.file_exists(DISK_CACHE_PATH):
+		return
+	var f := FileAccess.open(DISK_CACHE_PATH, FileAccess.READ)
+	if f == null:
+		return
+	var data = JSON.parse_string(f.get_as_text())
+	f.close()
+	if not (data is Dictionary) or int(data.get("version", 0)) != DISK_CACHE_VERSION:
+		return
+	var entries = data.get("entries", {})
+	if not (entries is Dictionary):
+		return
+	for key in entries.keys():
+		var info = entries[key]
+		if not (info is Dictionary) or not info.has("frames") or not _stamps_valid(info.get("stamps", {})):
+			continue
+		if _cache.has(key):
+			continue
+		info["body_measured"] = bool(info.get("body_measured", false))
+		_cache[String(key)] = info
+		disk_loaded_count += 1
+
+
+## เขียนแคชลงดิสก์ (เฉพาะรายการที่มีไฟล์ต้นทาง) — เรียกท้าย warm() และตอนโหลดแมพเสร็จ
+static func save_disk() -> void:
+	if not _disk_dirty:
+		return
+	_disk_dirty = false
+	var entries: Dictionary = {}
+	for key in _cache.keys():
+		var info: Dictionary = _cache[key]
+		if (info.get("stamps", {}) as Dictionary).is_empty():
+			continue
+		entries[String(key)] = info
+	var f := FileAccess.open(DISK_CACHE_PATH, FileAccess.WRITE)
+	if f == null:
+		return
+	f.store_string(JSON.stringify({"version": DISK_CACHE_VERSION, "entries": entries}))
+	f.close()

@@ -43,6 +43,14 @@ static func create_drop(p_item_id: StringName, p_count: int = 1, p_refine: int =
 	return inst
 
 
+## ★ รอบ 132 ★ ของคราฟต์ — เหมือนของดรอป (มีช่องการ์ด) แต่โบนัส % ตามที่สูตรสุ่มให้ (5-40%)
+static func create_crafted(p_item_id: StringName, p_count: int = 1, p_bonus: float = 0.0) -> ItemInstance:
+	var inst := create_drop(p_item_id, p_count)
+	var d := GameData.get_item(p_item_id)
+	inst.bonus_percent = roundf(p_bonus * 10.0) / 10.0 if d != null and d.is_equipment() else 0.0
+	return inst
+
+
 func data() -> ItemData:
 	return GameData.get_item(item_id)
 

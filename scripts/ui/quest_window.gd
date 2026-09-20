@@ -64,6 +64,8 @@ func _build_content() -> void:
 func refresh() -> void:
 	if _list == null:
 		return
+	if not is_visible_in_tree():
+		return   # ★ รอบ 131 ★ ซ่อนอยู่ไม่ต้องสร้างใหม่ — show_window/open_tab จะ refresh ให้ตอนเปิด
 	GameWindow.clear_container(_list)
 
 	var log := PlayerState.quests

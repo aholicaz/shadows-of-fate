@@ -16,6 +16,13 @@
 class_name WorldMapPage
 extends GameWindow
 
+## ★ รอบ 117 ★ ต้องล้มมอนชนิดนั้นกี่ตัว ถึงจะเห็นรายการของดรอปในหน้าแผนที่
+const DROP_REVEAL_KILLS := 20
+## บอส: ล้มกี่ครั้งถึงจะเห็นของดรอป (บอสเกิดช้า จึงใช้น้อยกว่ามอนธรรมดา)
+const DROP_REVEAL_KILLS_BOSS := 3
+## ขนาดไอคอนไอเทมในรายการดรอป (พิกเซล)
+const DROP_ICON_SIZE := 22.0
+
 ## ขนาดขั้นต่ำของการ์ดแมพ — ขนาดจริงคำนวณจากพื้นที่ที่มีใน _fit_grid()
 const CARD_SIZE := Vector2(190, 88)
 const CARD_MAX := Vector2(420, 290)
@@ -149,6 +156,8 @@ func on_shell_shown(_tab_id: String) -> void:
 func refresh() -> void:
 	if _grid == null:
 		return
+	if not is_visible_in_tree():
+		return   # ★ รอบ 131 ★ ซ่อนอยู่ไม่ต้องสร้างใหม่ — show_window/open_tab จะ refresh ให้ตอนเปิด
 	var chaps: Array = MapAtlas.chapters()
 	if not chaps.has(_chapter) and not chaps.is_empty():
 		_chapter = int(chaps[0])
@@ -361,20 +370,50 @@ func _monster_block(mid: StringName) -> Control:
 	box.add_child(UITheme.make_label("ล้มไปแล้ว %d ตัว" % killed, 11, UITheme.GOOD))
 	if d == null or d.drops.is_empty():
 		return panel
-	var names: Array = []
+	# ★ รอบ 117 ★ ต้องล้มครบ DROP_REVEAL_KILLS ตัวก่อนถึงจะเห็นของดรอป · ไม่โชว์ % (ผู้เล่นไม่ควรเห็น) · โชว์ไอคอน + คลิกดูรายละเอียดเหมือน wiki
+	var need: int = DROP_REVEAL_KILLS_BOSS if d.is_boss else DROP_REVEAL_KILLS
+	if killed < need:
+		box.add_child(UITheme.make_label("ล้มครบ %d %sจะเห็นของดรอป (%d/%d)" % [need, "ครั้ง" if d.is_boss else "ตัว", killed, need], 11, UITheme.TEXT_DIM))
+		return panel
+	var flow := HFlowContainer.new()
+	flow.add_theme_constant_override("h_separation", 6)
+	flow.add_theme_constant_override("v_separation", 3)
+	var shown := 0
 	for e in d.drops:
 		var entry: DropEntry = e
 		if entry == null or entry.item_id == &"":
 			continue
 		var it: ItemData = GameData.get_item(entry.item_id)
-		var label: String = it.display_name if it != null else String(entry.item_id)
-		names.append("%s %.1f%%" % [label, entry.chance])
-	if names.is_empty():
+		if it == null:
+			continue
+		flow.add_child(_drop_chip(it))
+		shown += 1
+	if shown == 0:
 		return panel
-	var drop_l := UITheme.make_label("ของดรอป: " + " · ".join(names), 11, Color("#ffe9a0"))
-	drop_l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	box.add_child(drop_l)
+	box.add_child(UITheme.make_label("ของดรอป (คลิกดูรายละเอียด):", 11, Color("#ffe9a0")))
+	box.add_child(flow)
 	return panel
+
+
+## ★ รอบ 117 ★ ป้ายไอเทมดรอป 1 ชิ้น: ไอคอนเล็ก + ชื่อ · คลิก = เปิดหน้ารายละเอียดไอเทม (ค่าพลัง/ผลการ์ด/เลเวลที่ต้องใช้)
+func _drop_chip(it: ItemData) -> Control:
+	var b := Button.new()
+	b.focus_mode = Control.FOCUS_NONE
+	b.text = it.display_name
+	b.icon = it.icon if it.icon != null else (CardView.card_texture(it as CardData) if it is CardData else null)
+	b.expand_icon = true
+	b.add_theme_constant_override("icon_max_width", int(DROP_ICON_SIZE))
+	b.add_theme_constant_override("h_separation", 4)
+	b.add_theme_font_size_override("font_size", 11)
+	b.add_theme_color_override("font_color", UITheme.TEXT)
+	b.add_theme_color_override("font_hover_color", UITheme.GOLD_BRIGHT)
+	b.add_theme_color_override("font_pressed_color", UITheme.GOLD_BRIGHT)
+	b.add_theme_stylebox_override("normal", UITheme.slot_style(false))
+	b.add_theme_stylebox_override("hover", UITheme.slot_style(true))
+	b.add_theme_stylebox_override("pressed", UITheme.slot_style(true))
+	b.custom_minimum_size.y = DROP_ICON_SIZE + 6
+	b.pressed.connect(func(): UI.show_item_data(it, b))
+	return b
 
 
 func shell_hints() -> Array:

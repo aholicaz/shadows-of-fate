@@ -7,6 +7,7 @@
 script = ExtResource("1_card")
 monster_id = &"forge_guardian"
 illustration = ExtResource("art_1")
+icon = ExtResource("art_1")
 fits_slot = 4
 rarity = 5
 monster_level = 38

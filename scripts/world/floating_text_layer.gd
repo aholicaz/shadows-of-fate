@@ -136,7 +136,8 @@ func _spawn_damage_number(world_position: Vector2, text: String, size: int, kind
 	var num := DamageNumber.new()
 	num.z_index = 500
 	add_child(num)
-	var box: Vector2 = num.setup(int(raw), style, k)
+	var is_crit := style == DamageNumber.Style.CRIT
+	var box: Vector2 = num.setup(int(raw), style, k, is_crit)
 
 	# กล่องอ้างอิงมุมซ้ายบน (เหมือน Label) เพื่อใช้ระบบกันทับเดิม
 	var start: Vector2 = world_position + START_OFFSET.get(kind, Vector2(0, -6)) \
@@ -146,7 +147,11 @@ func _spawn_damage_number(world_position: Vector2, text: String, size: int, kind
 
 	var entry := {"rect": Rect2(start - PAD, box + PAD * 2.0), "node": num}
 	_live.append(entry)
-	num.play(DIGIT_RISE + Vector2(randf_range(-5, 5), 0), DIGIT_LIFE, func(): _live.erase(entry))
+	if is_crit:
+		# ★ รอบ 146 ★ คริ = ผลึกแตก (ค้างให้อ่าน → ร้าว → แตกกระจาย) ไม่ลอยขึ้น
+		num.play_shatter(func(): _live.erase(entry))
+	else:
+		num.play(DIGIT_RISE + Vector2(randf_range(-5, 5), 0), DIGIT_LIFE, func(): _live.erase(entry))
 	return true
 
 

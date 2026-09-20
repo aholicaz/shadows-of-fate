@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/hollow_moth_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://cnuiiwwd51g4f" path="res://data/sprites/monsters/hollow_moth_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_hollow_moth_0"]
 script = ExtResource("2_drop")
@@ -31,6 +31,8 @@ id = &"hollow_moth"
 display_name = "มอดกลวง"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(40, 36)
+hp_bar_offset_y = -340.0
+display_height = 330.0
 fit_fixed_anchor_enabled = true
 fit_fixed_anchor = Vector2(256, 480)
 fit_foot_animations = null
@@ -72,5 +74,3 @@ respawn_time = 18.0
 tint = Color(0.6, 0.6, 0.7, 0.8)
 spawn_lines = null
 death_lines = null
-display_height = 330.0
-hp_bar_offset_y = -340.0

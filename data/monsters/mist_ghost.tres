@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://m5br4fio7kw3"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/mist_ghost_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_mist_ghost_0"]
@@ -44,6 +44,7 @@ sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(46, 62)
 hp_bar_offset_y = -213.0
 display_height = 220.0
+fit_foot_animations = null
 level = 84
 max_hp = 22000
 atk_min = 900
@@ -55,7 +56,6 @@ flee = 96
 crit = 10
 element = 8
 race = 1
-size = 1
 ai_type = 1
 move_speed = 150.0
 jump_force = -280.0
@@ -69,6 +69,8 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
+attack_hit_frames = null
+skill_hit_frames = null
 exp_reward = 901
 job_exp_reward = 631
 zeny_min = 242
@@ -77,3 +79,4 @@ drops = Array[ExtResource("2_drop")]([SubResource("Drop_mist_ghost_0"), SubResou
 respawn_time = 18.0
 tint = Color(0.85, 0.9, 1, 0.55)
 spawn_lines = PackedStringArray("...เย็น...", "ใครอยู่ตรงนั้น", "เจ้า... ยังอุ่นอยู่")
+death_lines = null

@@ -53,6 +53,14 @@ const POTION_HEAL_HIGH := 400.0
 
 ## สายคูลดาวน์ยา: &"hp" / &"sp" -> วินาทีที่เหลือ
 var potion_cooldowns: Dictionary = {}
+## ★ รอบ 112 ★ คูลดาวน์ "ขอพร" ของหมอ (วินาทีที่เหลือ · ร่วมกันทุกเมือง · เซฟลงไฟล์เซฟ)
+var blessing_cd_left: float = 0.0
+## ★ รอบ 122 ★ คลัง — ใช้ร่วมกันทุกเมือง (เปิดที่เสาวาปในเมือง) · เซฟลงไฟล์เซฟ
+const STORAGE_SIZE := 100
+var storage: Inventory = Inventory.new(STORAGE_SIZE)
+var storage_zeny: int = 0
+## ★ รอบ 128 ★ ใบประกาศล่าของกิลด์ (บอร์ดต่อเมือง · แต้ม · ขั้น)
+var bounties: BountyBoard = BountyBoard.new()
 
 var _regen_timer := 0.0
 var _is_dead := false
@@ -194,12 +202,15 @@ func turn_in_quest(quest_id: StringName) -> bool:
 		set_flag(StringName(jid + "_start_job_level"), stats.job_level)
 		set_flag(StringName(jid + "_start_level"), stats.level)
 		set_flag(StringName("job_" + jid))
+		_grant_job_starter_skill(q.reward_job)   # ★ รอบ 125 ★
 		refresh()
 		Events.skills_changed.emit()
 	# Chapter 7 grants its first training points after awakening. Earlier ceremonies retain their reward order.
 	if q.reward_exp > 0 and q.id == &"c7_4_ninth_edge":
 		var jx: int = q.reward_job_exp if q.reward_job_exp > 0 else int(round(q.reward_exp * 0.7))
 		gain_exp(q.reward_exp, jx)
+	if BountyBoard.is_bounty(q.id):   # ★ รอบ 128 ★ ใบประกาศ: ของแถม + แต้มกิลด์ + ออกใบใหม่
+		bounties.on_turned_in(q.id)
 	Events.say("[เควสสำเร็จ] %s — ได้รับ %s" % [q.title, q.reward_text()])
 	return true
 
@@ -221,6 +232,10 @@ func new_game() -> void:
 	active_buffs.clear()
 	cooldowns.clear()
 	potion_cooldowns.clear()
+	blessing_cd_left = 0.0
+	storage = Inventory.new(STORAGE_SIZE)   # ★ รอบ 122 ★
+	storage_zeny = 0
+	bounties = BountyBoard.new()   # ★ รอบ 128 ★
 	item_hotkeys = [&"red_potion", &"blue_potion"]
 	_is_dead = false
 	current_map_id = &"prontera_field"
@@ -314,6 +329,10 @@ func _process(delta: float) -> void:
 	for sid in finished_cd:
 		cooldowns.erase(sid)
 
+	# ★ รอบ 112 ★ คูลดาวน์ขอพร
+	if blessing_cd_left > 0.0:
+		blessing_cd_left = maxf(0.0, blessing_cd_left - delta)
+
 	# ★ คูลดาวน์ยา (รอบ 65) ★
 	var finished_pot: Array = []
 	for kind in potion_cooldowns.keys():
@@ -351,7 +370,8 @@ func _process(delta: float) -> void:
 # =========================================================
 # HP / SP
 # =========================================================
-func heal_hp(amount: int, show_text: bool = true) -> void:
+## ★ รอบ 121 ★ text_size = ขนาดตัวเลขที่ลอย (ดูดเลือดใช้เล็กกว่ายา) · text_suffix = ต่อท้าย เช่น " ดูด"
+func heal_hp(amount: int, show_text: bool = true, text_size: int = 24, text_suffix: String = "") -> void:
 	if amount <= 0:
 		return
 	var before := stats.hp
@@ -363,7 +383,7 @@ func heal_hp(amount: int, show_text: bool = true) -> void:
 		if show_text:
 			var p := get_tree().get_first_node_in_group("player")
 			if p != null:
-				Events.floating_text(p.global_position, "+%d" % (stats.hp - before), Color("#5cff7a"), 24, 0)
+				Events.floating_text(p.global_position, "+%d%s" % [stats.hp - before, text_suffix], Color("#5cff7a"), text_size, 0)
 
 
 func apply_hp_drain(damage: int) -> void:
@@ -377,7 +397,7 @@ func apply_hp_drain(damage: int) -> void:
 	stats.hp_drain_remainder += float(damage) * stats.hp_drain_percent / 100.0
 	var gain := int(floor(stats.hp_drain_remainder + 0.0000001))
 	stats.hp_drain_remainder = maxf(0.0, stats.hp_drain_remainder - gain)
-	heal_hp(gain, false)
+	heal_hp(gain, true, 18)   # ★ รอบ 121 ★ ผู้ใช้ขอให้เห็นตัวเลขดูดเลือดทุกครั้งที่ตี (เดิมซ่อน)
 
 
 func take_damage(amount: int) -> void:
@@ -391,11 +411,16 @@ func take_damage(amount: int) -> void:
 		Events.player_died.emit()
 
 
-func restore_sp(amount: int) -> void:
+## ★ รอบ 121 ★ show_text = ลอยตัวเลข "+N SP" สีฟ้าที่ตัวละคร (ดูดมานาจากการ์ด/ไอเทม)
+func restore_sp(amount: int, show_text: bool = false, text_size: int = 18) -> void:
 	var before := stats.sp
 	stats.sp = clampi(stats.sp + amount, 0, stats.max_sp)
 	if stats.sp != before:
 		Events.sp_changed.emit(stats.sp, stats.max_sp)
+		if show_text:
+			var p := get_tree().get_first_node_in_group("player")
+			if p != null:
+				Events.floating_text(p.global_position + Vector2(0, -22), "+%d SP" % (stats.sp - before), Color("#6fc3ff"), text_size, 0)
 
 
 func spend_sp(amount: int) -> bool:
@@ -456,6 +481,28 @@ func gain_exp(base_exp: int, job_exp: int) -> void:
 func add_zeny(amount: int) -> void:
 	zeny = maxi(0, zeny + amount)
 	Events.zeny_changed.emit(zeny)
+
+
+## ★ รอบ 132 ★ คราฟต์ตามสูตร (data/recipes) — คืน {"ok": bool, "reason": String, "inst": ItemInstance}
+## เผาวัตถุดิบ + ค่าแรง แล้วได้ของแบบ "ของดรอป" ที่โบนัส % สุ่มตามสูตร
+func craft(recipe: RecipeData) -> Dictionary:
+	if recipe == null or recipe.result() == null:
+		return {"ok": false, "reason": "ไม่มีสูตรนี้"}
+	if stats.level < recipe.result().required_level:   # ★ รอบ 137 ★ ต้องเลเวลถึงของชิ้นนั้นก่อน
+		return {"ok": false, "reason": "ต้องเลเวล %d ก่อนถึงจะคราฟต์%sได้" % [recipe.result().required_level, recipe.result().display_name]}
+	if not recipe.has_materials(inventory):
+		var m := recipe.first_missing(inventory)
+		return {"ok": false, "reason": "วัตถุดิบไม่ครบ — ขาด%s อีก %d" % [GameData.item_name(m[0]), int(m[1])]}
+	if zeny < recipe.zeny:
+		return {"ok": false, "reason": "ค่าแรงช่างไม่พอ (ต้องใช้ %d z)" % recipe.zeny}
+	var inst := ItemInstance.create_crafted(recipe.result_item_id, recipe.result_count, recipe.roll_bonus())
+	if not inventory.can_add(inst):
+		return {"ok": false, "reason": "กระเป๋าเต็ม — เก็บของให้ว่างก่อนแล้วค่อยคราฟต์"}
+	for pair in recipe.material_list():
+		inventory.remove_id(pair[0], pair[1])
+	spend_zeny(recipe.zeny)
+	inventory.add(inst)
+	return {"ok": true, "reason": "", "inst": inst}
 
 
 ## ★ รอบ 102 ★ จ่ายเงิน — เงินไม่พอคืน false และไม่หักอะไรเลย (ใช้กับค่าวาปของเสาวาป)
@@ -683,6 +730,8 @@ func potion_heal_amounts(data: ItemData) -> Dictionary:
 
 ## คูลดาวน์ที่ยาชิ้นนี้จะติดถ้ากินตอนนี้ (0 = ไม่ใช่ยาฟื้นพลัง)
 func potion_cooldown_of(data: ItemData) -> float:
+	if data != null and data.potion_cooldown > 0.0:   # ★ รอบ 115 ★ ยาที่กำหนดคูลดาวน์เองในไฟล์ไอเทม
+		return data.potion_cooldown
 	var h := potion_heal_amounts(data)
 	return maxf(potion_cooldown_for(int(h.hp)), potion_cooldown_for(int(h.sp)))
 
@@ -711,11 +760,12 @@ func potion_cooldown_left_of_id(item_id: StringName) -> float:
 
 
 ## เริ่มนับคูลดาวน์หลังกินยา (สายไหนก็ต่อสายนั้น เอาค่าที่นานกว่า)
-func start_potion_cooldown(hp_amount: int, sp_amount: int) -> void:
+func start_potion_cooldown(hp_amount: int, sp_amount: int, fixed_cd: float = 0.0) -> void:
+	# ★ รอบ 115 ★ fixed_cd > 0 = ไอเทมกำหนดคูลดาวน์เอง (ไม่ใช้สูตรตามปริมาณ)
 	if hp_amount > 0:
-		potion_cooldowns[&"hp"] = maxf(potion_cooldown_left(&"hp"), potion_cooldown_for(hp_amount))
+		potion_cooldowns[&"hp"] = maxf(potion_cooldown_left(&"hp"), fixed_cd if fixed_cd > 0.0 else potion_cooldown_for(hp_amount))
 	if sp_amount > 0:
-		potion_cooldowns[&"sp"] = maxf(potion_cooldown_left(&"sp"), potion_cooldown_for(sp_amount))
+		potion_cooldowns[&"sp"] = maxf(potion_cooldown_left(&"sp"), fixed_cd if fixed_cd > 0.0 else potion_cooldown_for(sp_amount))
 
 
 # =========================================================
@@ -744,14 +794,15 @@ func use_item(inv_index: int) -> bool:
 	if data.special_effect != &"":
 		match data.special_effect:
 			&"warp_town":
-				if Game.is_town(current_map_id):
-					Events.say("อยู่ในเมืองอยู่แล้ว")
+				# ★ รอบ 120 ★ ปลายทาง = เมืองที่บันทึกจุดเกิดไว้ (ใช้จากเมืองอื่นได้ · ใช้ในเมืองนั้นเองไม่ได้)
+				if current_map_id == saved_respawn_town():
+					Events.say("อยู่ที่%sอยู่แล้ว" % Game.map_display_name(saved_respawn_town()))
 					return false
 				if Game._is_changing:
 					return false
 				inventory.take_from_slot(inv_index, 1)
 				refresh()
-				Events.say("%s — กลับสู่%s" % [data.display_name, Game.map_display_name(home_town())])
+				Events.say("%s — กลับสู่%s" % [data.display_name, Game.map_display_name(saved_respawn_town())])
 				Events.item_used.emit(data.id)
 				Game.warp_to_town()
 				return true
@@ -788,11 +839,11 @@ func use_item(inv_index: int) -> bool:
 		return false
 
 	inventory.take_from_slot(inv_index, 1)
-	start_potion_cooldown(heal, sp_heal)
+	start_potion_cooldown(heal, sp_heal, data.potion_cooldown)   # ★ รอบ 115 ★
 	if heal > 0:
 		heal_hp(heal)
 	if sp_heal > 0:
-		restore_sp(sp_heal)
+		restore_sp(sp_heal, true, 24)   # ★ รอบ 121 ★ ยา SP ก็ลอยตัวเลข
 	if has_buff:
 		apply_item_buff(data)
 	Events.item_used.emit(data.id)
@@ -898,6 +949,96 @@ func commit_skill_use(skill_id: StringName) -> bool:
 	cooldowns[skill_id] = s.cooldown * (1.0 - stats.cooldown_reduction / 100.0)
 	Events.skill_used.emit(skill_id, lv)
 	return true
+
+
+## ★ รอบ 125 ★ เปลี่ยนอาชีพแล้วได้ "ท่าเริ่มต้น" Lv 1 ฟรี — ผู้เล่นมีท่าใหม่ใช้ทันที ไม่ต้องรอแต้ม
+const JOB_STARTER_SKILL := {&"runeblade": &"rune_lunge"}
+
+func _grant_job_starter_skill(job_id: StringName) -> void:
+	var sid: StringName = JOB_STARTER_SKILL.get(job_id, &"")
+	if sid == &"" or skills == null or skills.level_of(sid) > 0 or GameData.get_skill(sid) == null:
+		return
+	skills.learned[sid] = 1
+	Events.say("ได้รับท่าใหม่: %s" % GameData.get_skill(sid).display_name)
+
+
+# =========================================================
+# ★ รอบ 122 ★ คลัง (ฝาก-ถอน ของ/ซีนี)
+# =========================================================
+## ย้ายของจากกระเป๋า → คลัง (count = จำนวน · ของสวมใส่ย้ายทั้งชิ้นพร้อมตีบวก/การ์ด) คืน true ถ้าย้ายได้อย่างน้อย 1
+func storage_deposit(inv_index: int, count: int = 1) -> bool:
+	return _storage_move(inventory, storage, inv_index, count, "ฝาก")
+
+
+## ย้ายของจากคลัง → กระเป๋า
+func storage_withdraw(storage_index: int, count: int = 1) -> bool:
+	return _storage_move(storage, inventory, storage_index, count, "ถอน")
+
+
+func _storage_move(from: Inventory, to: Inventory, index: int, count: int, verb: String) -> bool:
+	var inst := from.get_slot(index)
+	if inst == null:
+		return false
+	var d := inst.data()
+	if d == null or d.type == ItemData.Type.QUEST:
+		Events.say("ของเควส%sไม่ได้" % verb)
+		return false
+	var moving: ItemInstance
+	if d.is_stackable():
+		count = clampi(count, 1, inst.count)
+		# ★ ของกอง: สร้างชิ้นใหม่ตามจำนวน (take_from_slot ทำให้อยู่แล้ว)
+		moving = from.take_from_slot(index, count)
+	else:
+		# ★ ของสวมใส่: ย้าย "ชิ้นเดิม" ทั้งชิ้น ไม่ให้การ์ด/ตีบวก/โบนัสหาย
+		from.set_slot(index, null)
+		moving = inst
+	var wanted: int = moving.count
+	var leftover := to.add(moving)
+	if leftover > 0:
+		moving.count = leftover
+		from.add(moving)   # คืนส่วนที่ใส่ไม่ลง
+	if leftover >= wanted:
+		Events.say("%sไม่ได้ — %sเต็ม" % [verb, "คลัง" if to == storage else "กระเป๋า"])
+		return false
+	return true
+
+
+func storage_deposit_zeny(amount: int) -> bool:
+	amount = mini(amount, zeny)
+	if amount <= 0:
+		return false
+	add_zeny(-amount)
+	storage_zeny += amount
+	Events.zeny_changed.emit(zeny)
+	return true
+
+
+func storage_withdraw_zeny(amount: int) -> bool:
+	amount = mini(amount, storage_zeny)
+	if amount <= 0:
+		return false
+	storage_zeny -= amount
+	add_zeny(amount)
+	Events.zeny_changed.emit(zeny)
+	return true
+
+
+## ★ รอบ 112 ★ พรจากหมอ (ขอพร) — เก็บใน active_buffs ท่อเดียวกับบัฟไอเทม → HUD/สเตตัสรับไปเอง
+func blessing_cooldown_left() -> float:
+	return maxf(0.0, blessing_cd_left)
+
+
+func apply_blessing(key: StringName, buff_name: String, duration: float, values: Dictionary, cooldown: float, icon: Texture2D = null) -> void:
+	active_buffs[key] = {
+		"time_left": duration,
+		"values": values.duplicate(),
+		"level": 1,
+		"name": buff_name,
+		"icon": icon,
+	}
+	blessing_cd_left = cooldown
+	refresh()
+	Events.buff_changed.emit()
 
 
 func apply_buff(skill_id: StringName) -> void:
@@ -1049,6 +1190,10 @@ func to_dict() -> Dictionary:
 		"map": String(current_map_id),
 		"flags": _flags_to_dict(),
 		"kills": _kills_to_dict(),
+		"blessing_cd": blessing_cd_left,   # ★ รอบ 112 ★
+		"storage": storage.to_array(),     # ★ รอบ 122 ★
+		"storage_zeny": storage_zeny,
+		"bounties": bounties.to_dict(),   # ★ รอบ 128 ★
 	}
 
 
@@ -1080,13 +1225,26 @@ func from_dict(d: Dictionary) -> void:
 	active_buffs.clear()
 	cooldowns.clear()
 	potion_cooldowns.clear()
+	blessing_cd_left = float(d.get("blessing_cd", 0.0))   # ★ รอบ 112 ★ ออก-เข้าเกมไม่ล้างคูลดาวน์ขอพร
+	storage = Inventory.new(STORAGE_SIZE)   # ★ รอบ 122 ★ คลัง (เซฟเก่าไม่มี = ว่าง)
+	storage.from_array(d.get("storage", []))
+	storage_zeny = int(d.get("storage_zeny", 0))
+	bounties = BountyBoard.new()   # ★ รอบ 128 ★ ต้องลงทะเบียนใบก่อนโหลดสมุดเควส
+	bounties.from_dict(d.get("bounties", {}))
 	_is_dead = false
 
 	stats.from_dict(d.get("stats", {}))
 	inventory.from_array(d.get("inventory", []))
 	equipment.from_dict(d.get("equipment", {}))
 	skills.from_dict(d.get("skills", {}))
+	for jid in JOB_STARTER_SKILL.keys():   # ★ รอบ 125 ★ เซฟเก่าที่เป็นอาชีพนี้แล้วก็ได้ท่าเริ่มต้น
+		if stats.has_profession(jid):
+			_grant_job_starter_skill(jid)
 	quests.from_dict(d.get("quests", {}))
+	for qid in quests.active.duplicate():   # ★ รอบ 128 ★ ใบประกาศที่ไม่มีบอร์ดแล้ว (เซฟเพี้ยน) ตัดทิ้ง
+		if BountyBoard.is_bounty(qid) and GameData.get_quest(qid) == null:
+			quests.active.erase(qid)
+			quests.progress.erase(qid)
 	zeny = int(d.get("zeny", 0))
 	var ih: Array = d.get("item_hotkeys", [])
 	item_hotkeys = [&"red_potion", &"blue_potion"]

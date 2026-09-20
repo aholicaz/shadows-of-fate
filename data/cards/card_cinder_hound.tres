@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="CardData" format=3]
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
 [ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_cinder_hound.png" id="i"]
+[ext_resource type="Texture2D" path="res://Sprites/card/chapter7/card_cinder_hound.png" id="art_1"]
 [resource]
 script = ExtResource("s")
 id = &"card_cinder_hound"
 display_name = "การ์ดสุนัขเถ้าถ่าน"
 description = "เขี้ยวโพรงของสุนัขเถ้าถ่าน เก็บไอร้อนไว้ให้นายของมันในคืนที่เถ้าบังดวงอาทิตย์"
 monster_id = &"cinder_hound"
+illustration = ExtResource("art_1")
 monster_level = 97
 fits_slot = 1
 rarity = 5

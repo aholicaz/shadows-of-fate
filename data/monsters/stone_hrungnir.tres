@@ -24,8 +24,7 @@ max_count = 5
 [sub_resource type="Resource" id="Drop_stone_hrungnir_3"]
 script = ExtResource("2_drop")
 item_id = &"emveretarcon"
-chance = 5.0
-max_count = 5
+chance = 3.0
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_4"]
 script = ExtResource("2_drop")
@@ -70,14 +69,14 @@ sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(110, 130)
 fit_foot_animations = null
 level = 72
-max_hp = 90000
-atk_min = 700
-atk_max = 900
-def = 120
-mdef = 80
-hit = 150
-flee = 44
-crit = 6
+max_hp = 126000
+atk_min = 1050
+atk_max = 1350
+def = 150
+mdef = 100
+hit = 172
+flee = 48
+crit = 8
 element = 4
 race = 6
 size = 2

@@ -28,6 +28,9 @@ const MARGIN := 18.0
 const QUEST_TRACKER_Y := 168.0
 ## สีบรรทัดเป้าหมายของเควส — เทาเดิมจมฉาก จึงใช้เทาอมเขียวสว่างขึ้น
 const QUEST_LINE := Color("#cfe0d4")
+## ★ รอบ 116 ★ สีป้าย «ภารกิจถัดไป» (ตอนไม่มีเควสค้าง) — อ่อนกว่าเควสจริงให้รู้ว่าเป็นคำใบ้ ไม่ใช่เควสที่รับแล้ว
+const NEXT_TITLE := Color("#b9cfc1")
+const NEXT_LINE := Color("#cfe0d4", 0.82)
 
 var hp_bar: ProgressBar
 var sp_bar: ProgressBar
@@ -76,6 +79,7 @@ func _ready() -> void:
 	Events.job_exp_changed.connect(func(_c, _n): _refresh_level())
 	Events.job_level_up.connect(func(_lv): _refresh_all())
 	Events.level_up.connect(func(_lv): _refresh_all())
+	Events.level_up.connect(func(_lv): _refresh_quest())   # ★ รอบ 116 ★ ป้ายภารกิจถัดไปขึ้นกับเลเวล
 	Events.stats_changed.connect(_refresh_all)
 	Events.zeny_changed.connect(_on_zeny_changed)
 	Events.buff_changed.connect(_refresh_buffs)
@@ -279,8 +283,9 @@ func _refresh_quest() -> void:
 		return
 	var log: QuestLog = PlayerState.quests if "quests" in PlayerState else null
 	if log == null or log.active.is_empty():
-		quest_block.visible = false
+		_show_next_quest_hint(log)   # ★ รอบ 116 ★ ไม่มีเควสค้าง → บอกว่าต้องไปหาใคร/เลเวลเท่าไหร่
 		return
+	quest_title.add_theme_color_override("font_color", UITheme.TEXT)
 	# ติดตามเควสที่รับล่าสุด (ใช้ตัวท้ายสุดของรายการ)
 	var qid: StringName = log.active[log.active.size() - 1]
 	var q := GameData.get_quest(qid)
@@ -308,6 +313,75 @@ func _refresh_quest() -> void:
 		done.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 		done.add_theme_constant_override("outline_size", 3)
 		quest_lines.add_child(done)
+
+
+## ★ รอบ 116 ★ ป้าย «ภารกิจถัดไป» — ผู้เล่นส่งเควสครบ/ยังไม่ถึงเลเวล จะได้รู้ว่าต้องทำอะไรต่อ
+func _show_next_quest_hint(log: QuestLog) -> void:
+	var q := _next_quest(log)
+	if q == null:
+		quest_block.visible = false
+		return
+	quest_block.visible = true
+	quest_title.text = "ภารกิจถัดไป"
+	quest_title.add_theme_color_override("font_color", NEXT_TITLE)
+	GameWindow.clear_container(quest_lines)
+	var where := NpcDirectory.map_name_of(q.giver_name, _quest_chapter(q.id))
+	var who: String = q.giver_name if where == "" else "%s (%s)" % [q.giver_name, where]
+	var lv: int = PlayerState.stats.level
+	var text: String
+	if lv < q.required_level:
+		text = "บรรลุ Lv %d แล้วไปคุยกับ %s เพื่อรับภารกิจ" % [q.required_level, who]
+	else:
+		text = "ไปคุยกับ %s เพื่อรับภารกิจ «%s»" % [who, q.title]
+	var l := UITheme.make_label(text, 20, NEXT_LINE)
+	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	l.add_theme_constant_override("outline_size", 4)
+	l.custom_minimum_size.x = 380
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	quest_lines.add_child(l)
+
+
+## เควสถัดไปที่ "เปิดให้รับได้แล้วหรือรอแค่เลเวล" — เนื้อเรื่องหลัก (m*/c*) มาก่อน · เลเวลต่ำสุดก่อน · ไม่นับสาย Runeblade (rb*)
+func _next_quest(log: QuestLog) -> QuestData:
+	var best: QuestData = null
+	var best_key: Array = []
+	var lv: int = PlayerState.stats.level
+	for q in GameData.all_quests():
+		if q == null or q.repeatable:
+			continue
+		var sid := String(q.id)
+		if sid.begins_with("rb"):
+			continue
+		if log.is_active(q.id) or log.is_done(q.id):
+			continue
+		var ok := true
+		for prev in q.required_quests:
+			if not log.is_done(prev):
+				ok = false
+				break
+		if not ok:
+			continue
+		if q.required_flag != &"" and not PlayerState.has_flag(q.required_flag):
+			continue
+		if q.required_job != &"" and PlayerState.stats.job_id != q.required_job \
+				and not (q.reward_job != &"" and PlayerState.stats.has_profession(q.reward_job)):
+			continue
+		var main := sid.begins_with("m") or sid.begins_with("c")
+		var key: Array = [0 if lv >= q.required_level else 1, 0 if main else 1, q.required_level, sid]
+		if best == null or key < best_key:
+			best = q
+			best_key = key
+	return best
+
+
+## บทของเควสจาก id (c3_… = 3 · m*/hans*/tony* = 1 · อื่น ๆ 0)
+static func _quest_chapter(qid: StringName) -> int:
+	var sid := String(qid)
+	if sid.begins_with("c") and sid.length() > 2 and sid[1].is_valid_int():
+		return int(sid[1])
+	if sid.begins_with("m") or sid.begins_with("hans") or sid.begins_with("tony"):
+		return 1
+	return 0
 
 
 # =========================================================
@@ -466,6 +540,7 @@ func show_notice(message: String) -> void:
 
 
 func _process(delta: float) -> void:
+	preload("res://scripts/entities/crack_overlay_fx.gd").watchdog()   # ★ รอบ 151 ★ กันสโลว์โมชั่นค้าง
 	# ★ เปิดหน้าต่างรวมอยู่ = ซ่อนแถบ EXP/นาฬิกาล่างจอ (ภาพตัวอย่างหน้ากระเป๋าไม่มี และคำใบ้ปุ่มใช้ที่ตรงนั้น) ★
 	var shell_open: bool = UI.shell != null and UI.shell.visible
 	for n in ["ExpRow", "ExpBar", "ExpDiamond", "ClockRow"]:
@@ -555,7 +630,9 @@ func _refresh_buffs() -> void:
 		if info.has("time_left") and child is Label:
 			var s := GameData.get_skill(StringName(child.name))
 			var n: String = s.display_name if s != null else String(info.get("name", child.name))
-			(child as Label).text = "%s %ds" % [n, int(info.time_left)]
+			var t := "%s %ds" % [n, int(info.time_left)]
+			if (child as Label).text != t:   # ★ รอบ 131 ★ ตั้งข้อความเฉพาะตอนวินาทีเปลี่ยน (เดิมตั้งทุกเฟรม = จัดวางใหม่ทุกเฟรม)
+				(child as Label).text = t
 
 
 static func _comma(value: int) -> String:

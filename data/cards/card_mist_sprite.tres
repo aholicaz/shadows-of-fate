@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://lyfskp7p1w6h"]
 
-[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_mist_sprite.png" id="2_icon"]
+[ext_resource type="Script" uid="uid://b3076eptxjrrr" path="res://scripts/resources/card_data.gd" id="1_card"]
+[ext_resource type="Texture2D" uid="uid://biub74sneq2y2" path="res://Sprites/items/placeholder/card_mist_sprite.png" id="2_icon"]
 
 [resource]
 script = ExtResource("1_card")
@@ -14,9 +14,7 @@ display_name = "การ์ดภูตหมอก"
 description = "จับต้องไม่ได้ดั่งหมอก"
 icon = ExtResource("2_icon")
 type = 5
-slot = 0
-max_stack = 99
 buy_price = 0
 sell_price = 180
-flee = 10
 mdef = 5
+flee = 10

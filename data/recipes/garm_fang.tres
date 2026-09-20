@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"garm_fang"
+result_item_id = &"garm_fang"
+result_count = 1
+chapter = 6
+category = &"boss_weapon"
+materials = {
+&"garm_chain_link": 10,
+&"throne_splinter": 6,
+&"hel_fang": 160,
+&"nidhogg_scale": 80,
+&"emveretarcon": 40
+}
+zeny = 600000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = ""

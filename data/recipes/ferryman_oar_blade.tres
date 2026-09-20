@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"ferryman_oar_blade"
+result_item_id = &"ferryman_oar_blade"
+result_count = 1
+chapter = 6
+category = &"general"
+materials = {
+&"oar_splinter": 120,
+&"drowned_helm": 40,
+&"frost_marrow": 40,
+&"emveretarcon": 18
+}
+zeny = 160000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = "ชิ้นปิดเซ็ต «ชุดผีจมกยอลล์»"

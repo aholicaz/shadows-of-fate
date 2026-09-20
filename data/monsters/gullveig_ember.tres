@@ -22,12 +22,6 @@ item_id = &"white_potion"
 chance = 100.0
 max_count = 5
 
-[sub_resource type="Resource" id="Drop_gullveig_ember_3"]
-script = ExtResource("2_drop")
-item_id = &"emveretarcon"
-chance = 5.0
-max_count = 5
-
 [sub_resource type="Resource" id="Drop_gullveig_ember_4"]
 script = ExtResource("2_drop")
 item_id = &"ember_of_gullveig"
@@ -61,6 +55,16 @@ chance = 100.0
 [sub_resource type="Resource" id="Socket_stone"]
 script = ExtResource("2_drop")
 item_id = &"socket_stone_1"
+
+[sub_resource type="Resource" id="Drop_gullveig_ember_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_gullveig_ember_emveretarcon"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 3.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -120,7 +124,7 @@ exp_reward = 6693
 job_exp_reward = 4685
 zeny_min = 1400
 zeny_max = 2600
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_gullveig_ember_0"), SubResource("Drop_gullveig_ember_1"), SubResource("Drop_gullveig_ember_2"), SubResource("Drop_gullveig_ember_3"), SubResource("Drop_gullveig_ember_4"), SubResource("Drop_gullveig_ember_5"), SubResource("Drop_gullveig_ember_6"), SubResource("Drop_gullveig_ember_7"), SubResource("Drop_gullveig_ember_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_gullveig_ember_0"), SubResource("Drop_gullveig_ember_1"), SubResource("Drop_gullveig_ember_2"), SubResource("Drop_gullveig_ember_4"), SubResource("Drop_gullveig_ember_5"), SubResource("Drop_gullveig_ember_6"), SubResource("Drop_gullveig_ember_7"), SubResource("Drop_gullveig_ember_card"), SubResource("Socket_shard"), SubResource("Socket_stone"), SubResource("Drop_gullveig_ember_phracon"), SubResource("Drop_gullveig_ember_emveretarcon")])
 is_boss = true
 boss_title = "ผู้ถูกเผาสามครั้ง"
 skill_name = "เพลิงสามครั้ง"

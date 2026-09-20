@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="CardData" format=3]
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
 [ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_ash_knight.png" id="i"]
+[ext_resource type="Texture2D" path="res://Sprites/card/chapter7/card_ash_knight.png" id="art_1"]
 [resource]
 script = ExtResource("s")
 id = &"card_ash_knight"
 display_name = "การ์ดอัศวินคำสั่งสุดท้าย"
 description = "ป้ายเหล็กติดอกอัศวิน สั่งให้เดินขึ้นไปอีกหนึ่งชั้นจนกว่าใครสักคนจะลบคำสั่งนั้น"
 monster_id = &"ash_knight"
+illustration = ExtResource("art_1")
 monster_level = 104
 fits_slot = 2
 rarity = 5

@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=10 format=3]
+[gd_resource type="Resource" script_class="MonsterData" format=3 uid="uid://dxhh1sjkiuyy1"]
 
-[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="1_monster"]
-[ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
+[ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
+[ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/crystal_stag_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_crystal_stag_0"]
@@ -41,6 +41,11 @@ id = &"crystal_stag"
 display_name = "กวางผลึก"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(80, 90)
+hp_bar_offset_y = -453.0
+display_height = 470.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(256, 480)
+fit_foot_animations = null
 level = 74
 max_hp = 16000
 atk_min = 660
@@ -53,7 +58,6 @@ crit = 6
 element = 6
 race = 2
 size = 2
-ai_type = 0
 move_speed = 130.0
 jump_force = -280.0
 jump_while_chasing = false
@@ -66,12 +70,13 @@ attack_windup = 0.4
 attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 300.0
+attack_hit_frames = null
+skill_hit_frames = null
 exp_reward = 774
 job_exp_reward = 542
 zeny_min = 214
 zeny_max = 398
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_crystal_stag_0"), SubResource("Drop_crystal_stag_1"), SubResource("Drop_crystal_stag_2"), SubResource("Drop_crystal_stag_3"), SubResource("Drop_crystal_stag_4"), SubResource("Drop_crystal_stag_card")])
-respawn_time = 18.0
 skill_name = "ชาร์จพุ่ง"
 skill_anim = &"Skill"
 skill_range = 520.0
@@ -79,13 +84,11 @@ skill_damage_mult = 1.6
 skill_windup = 0.5
 skill_duration = 1.0
 skill_cooldown = 8.0
-skill_chance = 0.50
+skill_chance = 0.5
 skill_bolt_count = 1
 skill_bolt_start = 160.0
 skill_bolt_spacing = 100.0
 skill_bolt_delay = 0.25
-
-fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(256, 480)
-display_height = 470.0
-hp_bar_offset_y = -453.0
+respawn_time = 18.0
+spawn_lines = null
+death_lines = null

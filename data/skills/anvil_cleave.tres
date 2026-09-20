@@ -16,7 +16,7 @@ sp_cost_per_level = 0.0
 cooldown = 5.0
 damage_mult_base = 5.0
 damage_mult_per_level = 0.6
-required_skills = {"tempered_might": 5}
+required_skills = {}
 
 max_targets = 8
 range_x = 440.0

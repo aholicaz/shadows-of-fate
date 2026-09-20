@@ -73,6 +73,8 @@ func _build_content() -> void:
 func refresh() -> void:
 	if _name_label == null:
 		return
+	if not is_visible_in_tree():
+		return   # ★ รอบ 131 ★ ซ่อนอยู่ไม่ต้องสร้างใหม่ — show_window/open_tab จะ refresh ให้ตอนเปิด
 	var id: StringName = PlayerState.current_map_id
 	_name_label.text = Game.map_display_name(id)
 	_region_label.text = String(HUD.REGION_NAMES.get(id, ""))

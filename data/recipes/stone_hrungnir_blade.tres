@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"stone_hrungnir_blade"
+result_item_id = &"stone_hrungnir_blade"
+result_count = 1
+chapter = 4
+category = &"boss_weapon"
+materials = {
+&"hrungnir_shard": 6,
+&"lightning_dust": 10,
+&"wall_fragment": 220,
+&"troll_tooth": 130,
+&"emveretarcon": 30
+}
+zeny = 165000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = ""

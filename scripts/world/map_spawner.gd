@@ -71,7 +71,11 @@ func _ready() -> void:
 
 	_bounds = _find_map_bounds()
 	await get_tree().physics_frame
+	# ★ ถูกถอดออกจากทรีระหว่างรอเฟรม (เช่น _apply_variant ของ MapBase ลบกลุ่ม dim_only/light_only ทิ้ง)
+	#   → get_tree() เป็น null ต่อ = "Cannot call method 'create_timer' on a null value"
+	if not is_inside_tree(): return
 	await get_tree().create_timer(initial_delay).timeout
+	if not is_inside_tree(): return
 	_ready_done = true
 	_fill()
 
@@ -384,7 +388,12 @@ func _on_monster_died(_monster: Node, data: MonsterData) -> void:
 	if data.uses_persistent_respawn():
 		return                      # ★ รอบ 56 — คูลดาวน์อยู่ในเซฟแล้ว (monster_base ล็อกไว้) ★
 	_pending += 1
+	# ★ กันเคสสปอว์นเนอร์ถูกถอดออกจากทรี (เปลี่ยนแมพ / _apply_variant) ระหว่างนับเวลาเกิดใหม่
+	if not is_inside_tree():
+		_pending -= 1
+		return
 	await get_tree().create_timer(data.respawn_time).timeout
+	if not is_inside_tree(): return
 	_pending -= 1
 	# ถ้าปิด respawn_at_random_spot ไว้ ก็ยังใช้ระบบเดิมคือหาที่ใหม่อยู่ดี
 	# (จุดเกิดเดิมเก็บไว้ในตัวมอนที่ตายไปแล้ว)

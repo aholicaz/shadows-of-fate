@@ -94,6 +94,8 @@ func _group(id: StringName) -> int:
 
 func refresh() -> void:
 	if _grid == null or PlayerState.skills == null: return
+	if not is_visible_in_tree():
+		return   # ★ รอบ 131 ★ ซ่อนอยู่ไม่ต้องสร้างใหม่ — show_window/open_tab จะ refresh ให้ตอนเปิด
 	var st := PlayerState.stats
 	if _category<0: _category=2 if st.job_id==&"ninth_edge" else (1 if st.job_id==&"runeblade" else 0)
 	var owner: StringName=[&"swordsman",&"runeblade",&"ninth_edge"][_category]
@@ -344,7 +346,7 @@ static func describe(s: SkillData, learned_level: int) -> String:
 			&"blade_rhythm": stats_lines.append("ASPD +%.1f%% ต่อชั้น · สูงสุด 5 ชั้น"%(lv*0.6))
 			&"keen_inscription": stats_lines.append("โอกาสคริ +%d จุดเปอร์เซ็นต์ · ตัวคูณคริ +%.2f"%[lv*2,lv*0.04])
 			&"unbroken_edge": stats_lines.append("ใช้ 3 ตรา · ASPD +%d%% · 8 วินาที"%(lv*5))
-			&"tempered_might": stats_lines.append("ดาบหนัก +%d%% · มองข้าม DEF %d%%"%[lv*4,lv*5])
+			&"tempered_might": stats_lines.append("ท่าใหญ่สายหนัก +%d%% · มองข้าม DEF %d%%"%[lv*4,lv*5])
 			&"ninth_vessel": stats_lines.append("Max HP +%d%% / Max SP +%d%%\nLv.5: เก็บตรารูนได้ 4 ดวง"%[lv*3,lv*4])
 			&"named_edge": stats_lines.append("โอกาสคริ +%d จุดเปอร์เซ็นต์ · มองข้าม DEF %d%%"%[lv*3,lv*6])
 			&"twin_inscription": stats_lines.append("ใช้ 2 ตรา · เงาดาบ %.0f%% ATK · 6 วินาที"%((0.45+0.05*lv)*100))

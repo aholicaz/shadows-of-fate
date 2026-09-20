@@ -16,4 +16,4 @@ sp_cost_per_level = 0.0
 cooldown = 0.0
 damage_mult_base = 0.0
 damage_mult_per_level = 0.0
-required_skills = {}
+required_skills = {"rune_flurry": 1}

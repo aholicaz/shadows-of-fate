@@ -32,6 +32,11 @@ script = ExtResource("2_drop")
 item_id = &"card_nidhogg_spawn"
 chance = 0.5
 
+[sub_resource type="Resource" id="Drop_nidhogg_spawn_emveretarcon"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 0.6
+
 [resource]
 script = ExtResource("1_monster")
 id = &"nidhogg_spawn"
@@ -69,7 +74,7 @@ exp_reward = 1015
 job_exp_reward = 710
 zeny_min = 267
 zeny_max = 497
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_nidhogg_spawn_0"), SubResource("Drop_nidhogg_spawn_1"), SubResource("Drop_nidhogg_spawn_2"), SubResource("Drop_nidhogg_spawn_3"), SubResource("Drop_nidhogg_spawn_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_nidhogg_spawn_0"), SubResource("Drop_nidhogg_spawn_1"), SubResource("Drop_nidhogg_spawn_2"), SubResource("Drop_nidhogg_spawn_3"), SubResource("Drop_nidhogg_spawn_card"), SubResource("Drop_nidhogg_spawn_emveretarcon")])
 respawn_time = 18.0
 skill_name = "พิษราก"
 skill_anim = &"Skill"

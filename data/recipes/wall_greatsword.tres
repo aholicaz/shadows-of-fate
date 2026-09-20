@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="RecipeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="1_recipe"]
+
+[resource]
+script = ExtResource("1_recipe")
+id = &"wall_greatsword"
+result_item_id = &"wall_greatsword"
+result_count = 1
+chapter = 4
+category = &"general"
+materials = {
+&"wall_fragment": 120,
+&"stone_core": 50,
+&"ice_bloom": 10,
+&"emveretarcon": 12
+}
+zeny = 55000
+bonus_min = 25.0
+bonus_max = 45.0
+required_flag = &""
+note = "ชิ้นปิดเซ็ต «ชุดกำแพงโยตุน»"

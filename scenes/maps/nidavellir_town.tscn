@@ -260,10 +260,11 @@ position = Vector2(0, -62)
 [node name="Helga" parent="NPCs" unique_id=1753019939 instance=ExtResource("npc")]
 position = Vector2(550, 883)
 npc_name = "นายหน้าเฮลกา"
+has_bounty_board = true
 dialog = "คนบนดินสินะ ของที่นี่แพงหน่อยนะ แต่ของดีทุกชิ้น
 
 อย่าถามว่าใครตี... ที่นี่ไม่ถามกัน"
-shop_items = Array[StringName]([&"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"iron_ore", &"phracon", &"emveretarcon", &"bastard_sword", &"iron_blade", &"iron_shield", &"iron_helm", &"miner_helmet", &"chain_mail", &"scale_mail", &"iron_greaves", &"miner_boots", &"rosary", &"belt"])
+shop_items = Array[StringName]([&"wing_of_valkyrie", &"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"iron_ore", &"phracon", &"emveretarcon", &"bastard_sword", &"iron_blade", &"iron_shield", &"iron_helm", &"miner_helmet", &"chain_mail", &"scale_mail", &"miner_boots", &"rosary"])
 voice_id = "helga"
 quest_ids = Array[StringName]([&"c2_1_unwelcome_gate", &"c2_2_toll"])
 
@@ -339,6 +340,7 @@ autoplay = "Idle"
 position = Vector2(3850, 883)
 npc_name = "หมอคนแคระเฮดิน"
 type = 3
+blessing_price = 2500
 dialog = "เจ็บตรงไหน ให้ข้าดู
 
 ที่นี่ไม่มีใครขอบคุณธอร์หรอกนะ อย่าแปลกใจ"

@@ -54,6 +54,10 @@ enum NPCType { DIALOG, SHOP, REFINER, HEALER, SAVE_POINT, QUEST }
 
 ## ค่าบริการรักษา (สำหรับ HEALER)
 @export var heal_price: int = 100
+## ★ รอบ 112 ★ ค่าบูชา "ขอพร" (สำหรับ HEALER · 0 = หมอคนนี้ไม่มีปุ่มขอพร) — แพงขึ้นตามเมือง ตั้งในฉากแต่ละเมือง
+@export var blessing_price: int = 1000
+## ★ รอบ 112 ★ ไอคอนบัฟพรแห่งธอร์ (ว่างได้ — HUD โชว์เป็นชื่อ)
+@export var blessing_icon: Texture2D
 ## ★ รอบ 45 — NPC ประเภทอื่น (เช่นนักบวช) ก็มีร้านได้ ★ ติ๊กแล้วเมนู "ซื้อขาย" จะโผล่ (ใช้ Shop Items ข้างบน)
 @export var has_shop: bool = false
 ## ★ รอบ 56 ★ มีเมนู "เจาะรูการ์ด" ไหม (ช่างตีเหล็ก REFINER มีให้อัตโนมัติอยู่แล้ว)
@@ -71,6 +75,12 @@ enum NPCType { DIALOG, SHOP, REFINER, HEALER, SAVE_POINT, QUEST }
 ## ★ รอบ 102 ★ ปล่อยว่าง = วาปได้ทุกแมพตามกติกาใน MapAtlas (แนะนำ)
 ## กรอกไว้ = จำกัดให้เหลือเฉพาะรายชื่อนี้ (ยังต้องผ่านเงื่อนไขระยะ/เคยไป/ล่าครบ/มีเงินอยู่ดี)
 @export var warp_targets: Array[StringName] = []
+## ★ รอบ 119 ★ เพิ่มปลายทางมาตรฐานให้อัตโนมัติ (ทุกเมือง + แมพหน้าลานบอสทุกบท) นอกเหนือจาก Warp Targets ที่ตั้งไว้
+@export var warp_include_hubs: bool = true
+## ★ รอบ 122 ★ มีเมนู "คลัง" ไหม — เสาวาปที่อยู่ในเมืองมีให้อัตโนมัติ · NPC อื่นติ๊กเองได้
+@export var has_storage: bool = false
+## ★ รอบ 128 ★ มีเมนู «ใบประกาศล่า» (บอร์ดกิลด์) ไหม — ใบผูกกับเมืองที่ NPC ยืนอยู่
+@export var has_bounty_board: bool = false
 ## ปลายทางไหนต้องปลดล็อกก่อน — { map_id: ธงเนื้อเรื่อง } (ไม่ใส่ = ไปได้เลย)
 @export var warp_flags: Dictionary = {}
 ## จุดเกิดที่จะไปโผล่ในแมพปลายทาง (ไม่มีชื่อนี้ในแมพ ระบบใช้ default ให้เอง)
@@ -364,6 +374,16 @@ func interact() -> void:
 
 	# ★★ รอบ 45 — เมนูก่อนคุย: พูดคุย / ซื้อขาย / ไม่คุย ★★
 	var options: Array = [MENU_TALK]
+	# ★ รอบ 112 ★ หมอ: «พูดคุย» = คุยอย่างเดียว · «รักษา» และ «ขอพร» แยกปุ่ม (เดิมคุยแล้วรักษาทันที)
+	var heal_label := ""
+	var bless_label := ""
+	if type == NPCType.HEALER:
+		heal_label = "รักษา (%s z)" % _comma(heal_price)
+		options.append(heal_label)
+		if blessing_price > 0:
+			var cd: float = PlayerState.blessing_cooldown_left()
+			bless_label = ("ขอพร (อีก %s)" % _mmss(cd)) if cd > 0.0 else ("ขอพร (%s z)" % _comma(blessing_price))
+			options.append(bless_label)
 	if ninth_mentor and PlayerState.stats.has_profession(&"ninth_edge"):
 		options.append("ฝึกคมที่เก้า")
 		options.append("คืนแต้ม Ninth Edge")
@@ -378,8 +398,13 @@ func interact() -> void:
 		options.append(MENU_SHOP)
 	if has_refine_menu():
 		options.append(MENU_REFINE)
+		options.append(MENU_CRAFT)   # ★ รอบ 132 ★
 	if has_socket_menu():
 		options.append(MENU_SOCKET)
+	if has_storage_menu():
+		options.append(MENU_STORAGE)   # ★ รอบ 122 ★
+	if has_bounty_board:
+		options.append(MENU_BOUNTY)   # ★ รอบ 128 ★
 	options.append(MENU_LEAVE)
 	var pick: int = await UI.talk([line(greeting, "", options, "greeting")])
 	if not is_instance_valid(self) or pick < 0 or pick >= options.size():
@@ -399,6 +424,12 @@ func interact() -> void:
 		return
 	if chosen == MENU_LEAVE:
 		return
+	if heal_label != "" and chosen == heal_label:      # ★ รอบ 112 ★
+		_do_heal()
+		return
+	if bless_label != "" and chosen == bless_label:    # ★ รอบ 112 ★
+		await _do_bless()
+		return
 	if not ritual.is_empty() and chosen == String(ritual["text"]):
 		do_ritual(ritual)
 		return
@@ -408,8 +439,17 @@ func interact() -> void:
 	if chosen == MENU_REFINE:
 		Events.refine_npc_opened.emit()
 		return
+	if chosen == MENU_CRAFT:   # ★ รอบ 132 ★
+		Events.craft_npc_opened.emit()
+		return
 	if chosen == MENU_SOCKET:
 		Events.socket_npc_opened.emit()
+		return
+	if chosen == MENU_STORAGE:   # ★ รอบ 122 ★
+		Events.storage_opened.emit()
+		return
+	if chosen == MENU_BOUNTY:   # ★ รอบ 128 ★
+		await _bounty_menu()
 		return
 
 	# ---- พูดคุย: เรื่องเควสมาก่อน แล้วค่อยบริการ/บทพูด ----
@@ -417,22 +457,8 @@ func interact() -> void:
 	if quest_handled or not is_instance_valid(self):
 		return
 
+	# ★ รอบ 112 ★ หมอไม่รักษาตอน «พูดคุย» แล้ว (ย้ายไปปุ่ม «รักษา» → _do_heal) — ทุกประเภทแสดงบทพูดเหมือนกัน
 	match type:
-		NPCType.HEALER:
-			if PlayerState.stats.hp >= PlayerState.stats.max_hp \
-					and PlayerState.stats.sp >= PlayerState.stats.max_sp:
-				Events.say("%s: เลือดกับพลังเต็มอยู่แล้วนะ" % npc_name)
-				say_voice("heal_full")
-			elif PlayerState.zeny < heal_price:
-				Events.say("%s: ค่ารักษา %d ซีนี ซีนีไม่พอนะ" % [npc_name, heal_price])
-				say_voice("heal_poor")
-			else:
-				PlayerState.add_zeny(-heal_price)
-				PlayerState.heal_hp(PlayerState.stats.max_hp)
-				PlayerState.restore_sp(PlayerState.stats.max_sp)
-				Events.say("%s: หายดีแล้ว!" % npc_name)
-				say_voice("heal_done")
-
 		_:
 			# ★ คุยผ่านกล่องสนทนา ★ เว้นบรรทัดว่าง = ขึ้นหน้าใหม่
 			var pages: Array = []
@@ -446,12 +472,79 @@ func interact() -> void:
 			await UI.talk(pages)
 
 
+## ★ รอบ 112 ★ ปุ่ม «รักษา» — โค้ดรักษาเดิม (ข้อความ/เสียง heal_full · heal_poor · heal_done เหมือนเดิม)
+func _do_heal() -> void:
+	if PlayerState.stats.hp >= PlayerState.stats.max_hp \
+			and PlayerState.stats.sp >= PlayerState.stats.max_sp:
+		Events.say("%s: เลือดกับพลังเต็มอยู่แล้วนะ" % npc_name)
+		say_voice("heal_full")
+	elif PlayerState.zeny < heal_price:
+		Events.say("%s: ค่ารักษา %d ซีนี ซีนีไม่พอนะ" % [npc_name, heal_price])
+		say_voice("heal_poor")
+	else:
+		PlayerState.add_zeny(-heal_price)
+		PlayerState.heal_hp(PlayerState.stats.max_hp)
+		PlayerState.restore_sp(PlayerState.stats.max_sp)
+		Events.say("%s: หายดีแล้ว!" % npc_name)
+		say_voice("heal_done")
+
+
+## ★ รอบ 112 ★ ปุ่ม «ขอพร» — ยืนยัน → หักเงิน → บัฟ ATK/ASPD/เดิน +5% 60 วิ · คูลดาวน์ 5 นาที
+## เสียงพากย์: bless_cooldown · bless_poor · bless_offer · bless_done
+func _do_bless() -> void:
+	var cd: float = PlayerState.blessing_cooldown_left()
+	if cd > 0.0:
+		await UI.talk([line("ธอร์เพิ่งประทานพรให้เจ้าไป... รออีกสักครู่เถิด สายฟ้าไม่ได้ฟาดซ้ำที่เดิมบ่อยนัก (อีก %s)" % _mmss(cd), "", [], "bless_cooldown")])
+		return
+	if PlayerState.zeny < blessing_price:
+		await UI.talk([line("ค่าบูชา %s ซีนี... ซีนีของเจ้ายังไม่พอ ธอร์ไม่เร่งรีบหรอก กลับมาใหม่เมื่อพร้อมเถิด" % _comma(blessing_price), "", [], "bless_poor")])
+		return
+	var desc := "%s — ATK +%d%% · ความเร็วโจมตี +%d%% · ความเร็วเดิน +%d%% เป็นเวลา %d วินาที\nค่าบูชา %s ซีนี · ขอได้อีกครั้งในอีก %d นาที" % [
+		BLESS_NAME, int(BLESS_VALUES[&"atk_percent"]), int(BLESS_VALUES[&"aspd_percent"]), int(BLESS_VALUES[&"move_speed_percent"]),
+		int(BLESS_DURATION), _comma(blessing_price), int(BLESS_COOLDOWN / 60.0)]
+	var pick: int = await UI.talk([line(desc, "", ["รับพร (%s z)" % _comma(blessing_price), "ไว้ก่อน"], "bless_offer")])
+	if not is_instance_valid(self) or pick != 0:
+		return
+	if not PlayerState.spend_zeny(blessing_price):
+		Events.say("ซีนีไม่พอ")
+		return
+	PlayerState.apply_blessing(BLESS_KEY, BLESS_NAME, BLESS_DURATION, BLESS_VALUES, BLESS_COOLDOWN, blessing_icon)
+	Events.say("ได้รับ%s (%d วินาที)" % [BLESS_NAME, int(BLESS_DURATION)])
+	await UI.talk([line("ขอสายฟ้าของธอร์นำทางดาบของเจ้า... ไปเถิด จงขอบคุณธอร์", "", [], "bless_done")])
+
+
+static func _mmss(seconds: float) -> String:
+	var t := int(ceilf(seconds))
+	return "%d:%02d" % [int(t / 60.0), t % 60]
+
+
+static func _comma(value: int) -> String:
+	var text := str(absi(value))
+	var out := ""
+	var count := 0
+	for i in range(text.length() - 1, -1, -1):
+		out = text[i] + out
+		count += 1
+		if count % 3 == 0 and i > 0:
+			out = "," + out
+	return ("-" if value < 0 else "") + out
+
+
 const MENU_TALK := "พูดคุย"
+## ★ รอบ 112 ★ ขอพร — ตัวเลขทั้งหมดอยู่ตรงนี้ที่เดียว
+const BLESS_KEY := &"thor_blessing"
+const BLESS_NAME := "พรแห่งธอร์"
+const BLESS_DURATION := 60.0      ## วินาที
+const BLESS_COOLDOWN := 300.0     ## วินาที (5 นาที · ร่วมกันทุกเมือง)
+const BLESS_VALUES := {&"atk_percent": 5.0, &"aspd_percent": 5.0, &"move_speed_percent": 5.0}
 const MENU_SHOP := "ซื้อขาย"
 const MENU_REFINE := "ตีบวก"
 const MENU_SOCKET := "เจาะรูการ์ด"
 const MENU_LEAVE := "ไม่คุย"
 const MENU_SAVE := "บันทึกจุดเกิด"
+const MENU_STORAGE := "คลัง"   # ★ รอบ 122 ★
+const MENU_BOUNTY := "ใบประกาศล่า"   # ★ รอบ 128 ★
+const MENU_CRAFT := "คราฟต์"   # ★ รอบ 132 ★ ช่างเหล็กทุกคน (มีเมนูตีบวก)
 
 
 ## มีเมนูซื้อขายไหม — ร้านค้า หรือ NPC ที่ติ๊ก Has Shop
@@ -462,6 +555,11 @@ func has_shop_menu() -> bool:
 ## มีเมนูเจาะรูการ์ดไหม — ช่างตีเหล็ก (REFINER) มีให้เลย หรือ NPC ที่ติ๊ก Has Socket
 func has_socket_menu() -> bool:
 	return type == NPCType.REFINER or has_socket
+
+
+## ★ รอบ 122 ★ มีเมนูคลังไหม — เสาวาปในเมืองมีให้เลย หรือ NPC ที่ติ๊ก Has Storage
+func has_storage_menu() -> bool:
+	return has_storage or (type == NPCType.SAVE_POINT and Game.is_town(PlayerState.current_map_id))
 
 
 ## มีเมนูตีบวกไหม — ช่างตีเหล็ก (REFINER) มีให้เลย หรือ NPC ที่ติ๊ก Has Refine
@@ -487,10 +585,11 @@ func warp_options() -> Array:
 	var here := PlayerState.current_map_id
 	var all: Array = MapAtlas.warp_destinations(here)
 	var limited := not warp_targets.is_empty()
+	var hubs: Array = MapAtlas.warp_hub_targets() if warp_include_hubs else []   # ★ รอบ 119 ★
 	var out: Array = []
 	for d in all:
 		var id: StringName = d["id"]
-		if limited and not warp_targets.has(id):
+		if limited and not warp_targets.has(id) and not hubs.has(id):
 			continue
 		if warp_flags.has(id) and not PlayerState.has_flag(StringName(warp_flags[id])):
 			continue                      # ยังไม่ปลดล็อกด้วยธงเนื้อเรื่อง
@@ -512,6 +611,7 @@ func open_warp_menu() -> void:
 	var options: Array = [MENU_TALK, "เลือกปลายทางวาป"]
 	if not ritual.is_empty(): options.push_front(String(ritual["text"]))
 	if Game.is_town(PlayerState.current_map_id): options.append(MENU_SAVE)
+	if has_storage_menu(): options.append(MENU_STORAGE)   # ★ รอบ 122 ★
 	options.append(MENU_LEAVE)
 	var pick: int = await UI.talk([line(current_dialog(), "", options)])
 	if not is_instance_valid(self) or pick < 0 or pick >= options.size(): return
@@ -523,6 +623,9 @@ func open_warp_menu() -> void:
 	if chosen == MENU_TALK:
 		if not await _handle_quests():
 			await UI.talk([line(current_dialog())])
+		return
+	if chosen == MENU_STORAGE:   # ★ รอบ 122 ★
+		Events.storage_opened.emit()
 		return
 	if chosen == MENU_SAVE:
 		if PlayerState.bind_respawn_town(PlayerState.current_map_id):
@@ -776,6 +879,106 @@ func _after_turn_in(q: QuestData) -> void:
 	var back := create_tween()
 	back.tween_property(cam, "offset", Vector2.ZERO, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await back.finished
+
+
+# =========================================================
+# ★ รอบ 128 ★ ใบประกาศล่า — บอร์ดกิลด์ (NPC ที่ติ๊ก has_bounty_board · ใบผูกกับเมืองที่ NPC อยู่)
+# =========================================================
+func _bounty_menu() -> void:
+	var board: BountyBoard = PlayerState.bounties
+	var town: StringName = PlayerState.current_map_id
+	var qlog := PlayerState.quests
+	while is_instance_valid(self):
+		board.ensure_board(town)
+		var specs: Array = board.specs_of(town)
+		var options: Array = []
+		for i in range(specs.size()):
+			var spec: Dictionary = specs[i]
+			var label := "%d. " % (i + 1)
+			if spec.is_empty():
+				var wait := board.cooldown_left(town, i)   # ★ รอบ 142 ★
+				if wait > 0.0:
+					label += "(พักบอร์ด — ออกใบใหม่อีก %s นาที)" % BountyBoard.cooldown_text(wait)
+				else:
+					label += "ใบล่าบอส — ส่งใบธรรมดาอีก %d ใบ" % board.boss_turnins_left(town)
+			else:
+				label += BountyBoard.short_label(spec)
+				var qid := StringName(spec["id"])
+				if qlog.is_ready(qid):
+					label += " ✓ ส่งได้"
+				elif qlog.is_active(qid):
+					var q := GameData.get_quest(qid)
+					label += " (%s)" % (q.objective_text(qlog.count_of(qid)).get_slice("  ", 1) if q != null else "กำลังทำ")
+			options.append(label)
+		options.append("สถานะกิลด์")
+		options.append(MENU_LEAVE)
+		var next_pts := board.next_rank_points()
+		var head := "แต้มกิลด์ %d · ขั้น %s «%s»" % [board.points, board.rank_letter(), board.rank_title()]
+		if next_pts > 0:
+			head += " · อีก %d แต้มเลื่อนขั้น" % (next_pts - board.points)
+		var pick: int = await UI.talk([line("ใบประกาศล่าของกิลด์ — รับได้ทุกใบ ส่งแล้วช่องนั้นจะพักสักครู่ก่อนออกใบใหม่", head, options, "")])
+		if not is_instance_valid(self) or pick < 0 or pick >= options.size():
+			return
+		var chosen: String = options[pick]
+		if chosen == MENU_LEAVE:
+			return
+		if chosen == "สถานะกิลด์":
+			var info := "ส่งใบประกาศแล้ว %d ใบ · ขั้นถัดไปต้องมี %s แต้ม\nขั้น: F 0 · E 20 · D 50 · C 100 · B 200 · A 400 · S 800" % [board.total_turned_in, (str(next_pts) if next_pts > 0 else "—")]
+			await UI.talk([line("ฉายาของเจ้าตอนนี้คือ «%s»" % board.rank_title(), head + "\n" + info, [], "")])
+			continue
+		if pick >= specs.size():
+			continue
+		var spec2: Dictionary = specs[pick]
+		if spec2.is_empty():
+			var wait2 := board.cooldown_left(town, pick)   # ★ รอบ 142 ★
+			if wait2 > 0.0:
+				await UI.talk([line("ช่องนี้เพิ่งส่งใบไป กิลด์กำลังหางานใหม่ — กลับมาอีก %s นาที" % BountyBoard.cooldown_text(wait2), "", [], "")])
+				continue
+			await UI.talk([line("ใบล่าบอสจะออกให้เฉพาะคนที่กิลด์ไว้ใจ — ส่งใบธรรมดาของเมืองนี้อีก %d ใบก่อน" % board.boss_turnins_left(town), "", [], "")])
+			continue
+		await _bounty_detail(board, town, pick, spec2)
+
+
+func _bounty_detail(board: BountyBoard, town: StringName, slot: int, spec: Dictionary) -> void:
+	var qlog := PlayerState.quests
+	var qid := StringName(spec["id"])
+	var q := GameData.get_quest(qid)
+	if q == null:
+		return
+	var info := "[ %s ]  เงื่อนไข: %s\nรางวัล: %s" % [q.title, q.objective_text(qlog.count_of(qid)), q.reward_text()]
+	var choices: Array = []
+	var cost := board.reroll_cost(town)
+	if qlog.is_ready(qid):
+		choices = ["ส่งงาน", "กลับ"]
+	elif qlog.is_active(qid):
+		choices = ["ยกเลิกใบนี้", "กลับ"]
+	else:
+		choices = ["รับใบนี้", "เปลี่ยนใบ (%s z)" % _comma(cost), "กลับ"]
+	var pick: int = await UI.talk([line(q.description, info, choices, "")])
+	if not is_instance_valid(self) or pick < 0:
+		return
+	var c: String = choices[pick]
+	if c == "ส่งงาน":
+		if not board.can_receive_extra(qid):
+			Events.say("กระเป๋าเต็ม — เก็บของให้ว่างก่อนแล้วค่อยมาส่งใบประกาศ")
+			return
+		if PlayerState.turn_in_quest(qid):
+			Events.say("[กิลด์] แต้มกิลด์ %d · ขั้น %s" % [board.points, board.rank_letter()])
+	elif c == "รับใบนี้":
+		if qlog.accept(qid):
+			Events.say("[รับใบประกาศ] %s" % q.title)
+	elif c == "ยกเลิกใบนี้":
+		var confirm: int = await UI.talk([line("ยกเลิกใบนี้แล้วความคืบหน้าจะหาย และบอร์ดจะออกใบใหม่แทน", "", ["ยืนยันยกเลิก", "ไว้ก่อน"], "")])
+		if confirm == 0:
+			board.abandon(qid)
+			Events.say("ยกเลิกใบประกาศแล้ว")
+	elif c.begins_with("เปลี่ยนใบ"):
+		if PlayerState.zeny < cost:
+			Events.say("เงินไม่พอ — เปลี่ยนใบต้องใช้ %s z" % _comma(cost))
+			return
+		PlayerState.spend_zeny(cost)
+		board.reroll(town, slot)
+		Events.say("บอร์ดออกใบใหม่แล้ว")
 
 
 # =========================================================

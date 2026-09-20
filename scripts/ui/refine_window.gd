@@ -17,7 +17,7 @@ const MAT_ICON := Vector2(26, 26)           ## ไอคอนวัตถุด
 const LIST_WIDTH := 224.0
 
 ## ★ ปรับความตื่นเต้นตรงนี้ ★
-const ROLL_TIME := 1.6            ## หลอดวิ่งกี่วินาทีก่อนรู้ผล
+const ROLL_TIME := 1.3            ## หลอดวิ่งกี่วินาทีก่อนรู้ผล
 const RESULT_SHOW := 1.3          ## คำ SUCCESS/FAIL ค้างกี่วินาที
 const RESULT_FONT := 52           ## ขนาดตัวอักษรคำผล
 const SFX_ROLL := "refine_roll"

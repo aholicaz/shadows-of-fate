@@ -187,7 +187,7 @@ position = Vector2(200, 820)
 position = Vector2(200, 820)
 
 [node name="from_town" type="Marker2D" parent="SpawnPoints" unique_id=1311969211]
-position = Vector2(4600, 820)
+position = Vector2(4472, 968)
 
 [node name="Spawners" type="Node2D" parent="." unique_id=385833565]
 
@@ -201,14 +201,14 @@ max_spawn_distance = 1700.0
 [node name="Portals" type="Node2D" parent="." unique_id=507955938]
 
 [node name="ToForest" parent="Portals" unique_id=2014942267 instance=ExtResource("portal")]
-position = Vector2(56, 969)
+position = Vector2(232, 961)
 target_map = &"dark_forest_2"
 target_spawn_point = &"from_iron_road"
 label_text = "← ป่าเงาลึกชั้นใน"
 destination_name = "ป่าเงาลึกชั้นใน"
 
 [node name="ToTown" parent="Portals" unique_id=834281780 instance=ExtResource("portal")]
-position = Vector2(4736, 974)
+position = Vector2(4470, 979)
 target_map = &"nidavellir_town"
 target_spawn_point = &"from_road"
 label_text = "→ นิดาเวลลิร์"

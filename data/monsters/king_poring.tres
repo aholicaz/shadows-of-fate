@@ -11,9 +11,7 @@
 [sub_resource type="Resource" id="Drop_kp_2"]
 script = ExtResource("2_drop")
 item_id = &"phracon"
-chance = 2.0
-min_count = 1
-max_count = 1
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_kp_3"]
 script = ExtResource("2_drop")
@@ -67,6 +65,11 @@ chance = 15.0
 script = ExtResource("2_drop")
 item_id = &"glow_shard"
 chance = 100.0
+
+[sub_resource type="Resource" id="Drop_king_poring_emveretarcon"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqqct"]
 atlas = ExtResource("3_aqqct")
@@ -357,7 +360,7 @@ exp_reward = 481
 job_exp_reward = 337
 zeny_min = 400
 zeny_max = 845
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_kp_2"), SubResource("Drop_kp_3"), SubResource("Drop_kp_card"), SubResource("Resource_fem3u"), SubResource("Resource_g4v7s"), SubResource("Resource_fyhd2"), SubResource("Drop_king_poring_junk_royal_jelly"), SubResource("Drop_king_poring_junk_tiny_crown"), SubResource("Drop_king_poring_eq_leather_jacket"), SubResource("Drop_kp_glow")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_kp_2"), SubResource("Drop_kp_3"), SubResource("Drop_kp_card"), SubResource("Resource_fem3u"), SubResource("Resource_g4v7s"), SubResource("Resource_fyhd2"), SubResource("Drop_king_poring_junk_royal_jelly"), SubResource("Drop_king_poring_junk_tiny_crown"), SubResource("Drop_king_poring_eq_leather_jacket"), SubResource("Drop_kp_glow"), SubResource("Drop_king_poring_emveretarcon")])
 is_boss = true
 intro_video = "res://Sprites/video/boss_intro_king_poring.ogv"
 death_video = "res://Sprites/video/boss_death_king_poring.ogv"

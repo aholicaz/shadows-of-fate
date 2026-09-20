@@ -110,13 +110,40 @@ func show_card(card: CardData, owned: bool = true) -> void:
 
 
 ## รูปที่จะโชว์บนการ์ด — ใช้ภาพการ์ดก่อน ถ้าไม่มีก็ดึงรูปมอนสเตอร์มาใช้
+static var _icon_crop_cache: Dictionary = {}
+
+
+static func _cropped_icon(card: CardData) -> Texture2D:
+	var key := String(card.id)
+	if _icon_crop_cache.has(key):
+		return _icon_crop_cache[key]
+	var tex: Texture2D = card.icon
+	var img: Image = tex.get_image()
+	if img == null:
+		return tex
+	if img.is_compressed():
+		img.decompress()
+	var used: Rect2i = img.get_used_rect()
+	# ตัดเฉพาะเมื่อมีขอบใสจริง (ภาพที่วาดเต็มช่องปล่อยไว้)
+	if used.size.x <= 0 or used.size.y <= 0 or (used.size.x >= img.get_width() - 4 and used.size.y >= img.get_height() - 4):
+		_icon_crop_cache[key] = tex
+		return tex
+	var atlas := AtlasTexture.new()
+	atlas.atlas = tex
+	atlas.region = Rect2(used)
+	_icon_crop_cache[key] = atlas
+	return atlas
+
+
 static func card_texture(card: CardData) -> Texture2D:
 	if card == null:
 		return null
 	if card.illustration != null:
 		return card.illustration
 	if card.icon != null:
-		return card.icon
+		# ★ รอบ 147 ★ การ์ดที่ยังไม่มีภาพ illustration (ใช้ไอคอน 256x256 ที่มีขอบใส) → ตัดเฉพาะส่วนที่วาด
+		# ไม่งั้นหน้า OBTAIN CARD / อัลบั้ม จะเห็นการ์ดเล็กเพราะ keep-aspect ของสี่เหลี่ยมจัตุรัส
+		return _cropped_icon(card)
 
 	var m := card.monster()
 	if m != null and m.sprite_frames != null:

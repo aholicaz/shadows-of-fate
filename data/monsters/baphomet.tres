@@ -19,18 +19,10 @@ script = ExtResource("2_drop")
 item_id = &"plate_armor"
 chance = 15.0
 
-[sub_resource type="Resource" id="Drop_baphomet_3"]
-script = ExtResource("2_drop")
-item_id = &"emveretarcon"
-chance = 1.0
-min_count = 3
-max_count = 6
-
 [sub_resource type="Resource" id="Drop_baphomet_4"]
 script = ExtResource("2_drop")
 item_id = &"white_potion"
 chance = 70.0
-min_count = 1
 max_count = 3
 
 [sub_resource type="Resource" id="Drop_baphomet_card"]
@@ -56,7 +48,16 @@ chance = 100.0
 [sub_resource type="Resource" id="Socket_stone"]
 script = ExtResource("2_drop")
 item_id = &"socket_stone_1"
-chance = 10.0
+
+[sub_resource type="Resource" id="Drop_baphomet_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 3.0
+
+[sub_resource type="Resource" id="Drop_baphomet_emveretarcon"]
+script = ExtResource("2_drop")
+item_id = &"emveretarcon"
+chance = 2.5
 
 [resource]
 script = ExtResource("1_monster")
@@ -70,9 +71,9 @@ display_height = 440.0
 fit_foot_animations = null
 level = 50
 max_hp = 65000
-atk_min = 320
-atk_max = 430
-def = 55
+atk_min = 350
+atk_max = 550
+def = 65
 mdef = 45
 hit = 80
 flee = 60
@@ -98,12 +99,12 @@ attack_windup = 0.45
 attack_duration = 0.6
 attack_cooldown = 1.4
 knockback_force = 320.0
-attack_hit_frames = null
+attack_hit_frames = PackedInt32Array(6, 14)
 skill_hit_frames = null
 exp_reward = 4734
 zeny_min = 1190
 zeny_max = 2210
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_baphomet_0"), SubResource("Drop_baphomet_1"), SubResource("Drop_baphomet_2"), SubResource("Drop_baphomet_3"), SubResource("Drop_baphomet_4"), SubResource("Drop_baphomet_card"), SubResource("Drop_baphomet_junk_giant_hoof"), SubResource("Drop_baphomet_junk_cursed_scythe_shard"), SubResource("Socket_shard"), SubResource("Socket_stone")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_baphomet_0"), SubResource("Drop_baphomet_1"), SubResource("Drop_baphomet_2"), SubResource("Drop_baphomet_4"), SubResource("Drop_baphomet_card"), SubResource("Drop_baphomet_junk_giant_hoof"), SubResource("Drop_baphomet_junk_cursed_scythe_shard"), SubResource("Socket_shard"), SubResource("Socket_stone"), SubResource("Drop_baphomet_phracon"), SubResource("Drop_baphomet_emveretarcon")])
 is_boss = true
 boss_title = "ราชาปีศาจบาฟโฟเมท"
 intro_video = "res://Sprites/video/boss_intro_baphomet.ogv"

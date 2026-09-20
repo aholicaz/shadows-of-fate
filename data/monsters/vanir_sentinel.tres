@@ -15,12 +15,6 @@ item_id = &"carved_stone"
 chance = 30.0
 max_count = 2
 
-[sub_resource type="Resource" id="Drop_vanir_sentinel_2"]
-script = ExtResource("2_drop")
-item_id = &"emveretarcon"
-chance = 5.0
-max_count = 2
-
 [sub_resource type="Resource" id="Drop_vanir_sentinel_3"]
 script = ExtResource("2_drop")
 item_id = &"sentinel_blade"
@@ -35,6 +29,11 @@ chance = 3.0
 script = ExtResource("2_drop")
 item_id = &"card_vanir_sentinel"
 chance = 0.5
+
+[sub_resource type="Resource" id="Drop_vanir_sentinel_phracon"]
+script = ExtResource("2_drop")
+item_id = &"phracon"
+chance = 0.9
 
 [resource]
 script = ExtResource("1_monster")
@@ -85,7 +84,7 @@ exp_reward = 498
 job_exp_reward = 349
 zeny_min = 153
 zeny_max = 283
-drops = Array[ExtResource("2_drop")]([SubResource("Drop_vanir_sentinel_0"), SubResource("Drop_vanir_sentinel_1"), SubResource("Drop_vanir_sentinel_2"), SubResource("Drop_vanir_sentinel_3"), SubResource("Drop_vanir_sentinel_4"), SubResource("Drop_vanir_sentinel_card")])
+drops = Array[ExtResource("2_drop")]([SubResource("Drop_vanir_sentinel_0"), SubResource("Drop_vanir_sentinel_1"), SubResource("Drop_vanir_sentinel_3"), SubResource("Drop_vanir_sentinel_4"), SubResource("Drop_vanir_sentinel_card"), SubResource("Drop_vanir_sentinel_phracon")])
 respawn_time = 18.0
 spawn_lines = null
 death_lines = null

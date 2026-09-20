@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<title>Mockup — ปุ่ม «ขอพร» ของหมอ (รอบ 111)</title>
+<style>
+  :root{
+    --ink:#102725; --bg:#0b1c1b; --panel:#0f2422; --panel-l:#173430; --hover:#243c34;
+    --border:#3f5a52; --sage:#81958a; --accent:#b5a16c; --gold:#e0cc93; --text:#ece7d8;
+    --hp:#c9463c; --sp:#3f8fc4; --good:#7fe39a; --bad:#ff7b6b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#06100f;color:var(--text);font-family:"Loma","Noto Sans Thai","Sarabun",sans-serif;font-size:15px}
+  h1{font-size:22px;color:var(--gold);margin:0 0 4px}
+  .sub{color:var(--sage);font-size:13px;margin-bottom:18px}
+  .wrap{padding:24px 28px;width:1500px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .shot{background:#0a1514;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+  .shot .cap{background:var(--panel);color:var(--gold);font-size:13px;padding:6px 10px;border-bottom:1px solid var(--border)}
+  .shot .cap b{color:var(--text)}
+  .screen{position:relative;height:460px;background:
+     radial-gradient(ellipse at 60% 30%,#1e3b33 0%,#0d1f1c 55%,#071110 100%);overflow:hidden}
+  .ground{position:absolute;left:0;right:0;bottom:238px;height:2px;background:#2b4a3f}
+  .npc,.pc{position:absolute;bottom:240px;width:46px;height:78px;border-radius:8px 8px 4px 4px}
+  .npc{left:330px;background:linear-gradient(#e0cc93,#b5a16c);}
+  .pc{left:240px;background:linear-gradient(#81958a,#3f5a52);}
+  .npc:after{content:"F";position:absolute;top:-26px;left:14px;color:var(--gold);font-size:12px;border:1px solid var(--accent);padding:0 5px;border-radius:3px;background:#0b1c1bcc}
+  .hud{position:absolute;top:8px;left:8px;width:250px;background:#0b1c1bf2;border:1px solid var(--accent);border-radius:4px;padding:6px 8px;font-size:11px}
+  .bar{height:7px;border-radius:3px;background:#0a1817;margin:3px 0;overflow:hidden}
+  .bar i{display:block;height:100%}
+  .zeny{position:absolute;top:8px;right:8px;background:var(--panel);border:1px solid var(--accent);border-radius:4px;padding:4px 10px;color:var(--gold);font-size:12px}
+  .buffs{position:absolute;top:64px;left:8px;display:flex;gap:6px}
+  .chip{display:flex;align-items:center;gap:5px;background:#0b1c1bf2;border:1px solid var(--accent);border-radius:4px;padding:3px 7px;font-size:11px;color:var(--gold)}
+  .ico{width:18px;height:18px;border-radius:50%;border:1px dashed var(--sage);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--sage)}
+  .chip .t{color:var(--text)}
+  .dlg{position:absolute;left:10px;right:10px;bottom:10px;background:#0b1c1bf2;border:1px solid var(--accent);border-radius:5px;padding:10px 12px 10px 92px;min-height:104px}
+  .dlg .por{position:absolute;left:10px;top:10px;width:70px;height:84px;border:1px solid var(--border);border-radius:4px;background:linear-gradient(#2a4a40,#122622);display:flex;align-items:flex-end;justify-content:center;font-size:10px;color:var(--sage)}
+  .dlg .who{color:var(--gold);font-size:13px;margin-bottom:3px}
+  .dlg .say{font-size:14px;line-height:1.35;min-height:38px}
+  .opts{display:flex;flex-direction:column;gap:4px;margin-top:6px;width:250px}
+  .opt{background:var(--panel-l);border:1px solid var(--border);border-radius:3px;padding:3px 10px;font-size:13px;display:flex;justify-content:space-between}
+  .opt.sel{background:var(--hover);border-color:var(--accent);color:var(--gold)}
+  .opt.dis{opacity:.45}
+  .opt .price{color:var(--gold);font-size:12px}
+  .opt.dis .price{color:var(--sage)}
+  .toast{position:absolute;right:12px;top:64px;background:#0b1c1bcc;border:1px solid var(--accent);color:var(--gold);padding:4px 14px;border-radius:4px;font-size:13px;white-space:nowrap}
+  .float{position:absolute;left:200px;bottom:345px;color:var(--good);font-size:13px;text-shadow:0 0 4px #000}
+  .card{background:var(--panel);border:1px solid var(--accent);border-radius:5px;padding:14px 16px}
+  .card h3{margin:0 0 8px;color:var(--gold);font-size:16px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th,td{border:1px solid var(--border);padding:5px 8px;text-align:left}
+  th{background:var(--panel-l);color:var(--gold);font-weight:normal}
+  td.n{text-align:right;color:var(--gold)}
+  .dim{color:var(--sage);font-size:12px}
+  code{background:#0a1817;border:1px solid var(--border);border-radius:3px;padding:0 4px;color:var(--good);font-size:12px}
+  .glow{box-shadow:0 0 18px 4px #e0cc9355 inset}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Mockup — ปุ่ม «ขอพร» ของหมอ (นักบวชหญิงมาเรีย · พรอนเทรา) · รอบ 111</h1>
+  <div class="sub">ยังไม่ได้เขียนโค้ด — ภาพจำลอง 6 สถานะ + ตารางราคาต่อเมือง + สเปกสำหรับลงมือทำรอบถัดไป · ไอคอนบัฟใช้วงกลมประจุดชั่วคราว (ผู้ใช้จะเพิ่มไอคอนเอง)</div>
+
+  <div class="grid">
+
+    <!-- 1 เมนู -->
+    <div class="shot">
+      <div class="cap"><b>① กด F ใส่มาเรีย</b> — เมนูใหม่ 4 ปุ่ม: «พูดคุย» ไม่รักษาอัตโนมัติอีกต่อไป · «รักษา» แยกปุ่ม · «ขอพร» ปุ่มใหม่</div>
+      <div class="screen">
+        <div class="hud">นักดาบ Lv 18 · Job 12<div class="bar"><i style="width:62%;background:var(--hp)"></i></div><div class="bar"><i style="width:80%;background:var(--sp)"></i></div></div>
+        <div class="zeny">4,350 z</div>
+        <div class="ground"></div><div class="pc"></div><div class="npc"></div>
+        <div class="dlg"><div class="por">มาเรีย</div>
+          <div class="who">นักบวชหญิงมาเรีย</div>
+          <div class="say">ขอแสงแห่งสายฟ้าคุ้มครองเจ้า... ดูเหนื่อยมานะ นั่งพักก่อนเถิด</div>
+          <div class="opts">
+            <div class="opt sel">พูดคุย</div>
+            <div class="opt">รักษา <span class="price">100 z</span></div>
+            <div class="opt">ขอพร <span class="price">1,000 z</span></div>
+            <div class="opt">ไม่คุย</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 ยืนยัน -->
+    <div class="shot">
+      <div class="cap"><b>② เลือก «ขอพร»</b> — หน้ายืนยัน บอกผลบัฟ · เวลา · ค่าบูชา ก่อนหักเงิน</div>
+      <div class="screen">
+        <div class="hud">นักดาบ Lv 18 · Job 12<div class="bar"><i style="width:62%;background:var(--hp)"></i></div><div class="bar"><i style="width:80%;background:var(--sp)"></i></div></div>
+        <div class="zeny">4,350 z</div>
+        <div class="ground"></div><div class="pc"></div><div class="npc"></div>
+        <div class="dlg"><div class="por">มาเรีย</div>
+          <div class="who">นักบวชหญิงมาเรีย</div>
+          <div class="say">พรแห่งธอร์ — ATK +5% · ความเร็วโจมตี +5% · ความเร็วเดิน +5% เป็นเวลา 60 วินาที<br><span class="dim">ค่าบูชา 1,000 ซีนี · ขอได้อีกครั้งในอีก 5 นาที · เหลือ 3,350 z หลังบูชา</span></div>
+          <div class="opts">
+            <div class="opt sel">รับพร <span class="price">1,000 z</span></div>
+            <div class="opt">ไว้ก่อน</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 ได้รับพร -->
+    <div class="shot">
+      <div class="cap"><b>③ รับพรแล้ว</b> — ตัวละครเรืองแสงสั้น ๆ · HUD ขึ้นแถบบัฟ 3 ไอคอน + เวลานับถอยหลัง · ข้อความลอย</div>
+      <div class="screen">
+        <div class="hud">นักดาบ Lv 18 · Job 12<div class="bar"><i style="width:62%;background:var(--hp)"></i></div><div class="bar"><i style="width:80%;background:var(--sp)"></i></div></div>
+        <div class="zeny">3,350 z</div>
+        <div class="buffs">
+          <div class="chip"><span class="ico">ATK</span><span class="ico">ASPD</span><span class="ico">SPD</span><span class="t">พรแห่งธอร์</span> 60s</div>
+        </div>
+        <div class="toast">ได้รับพรแห่งธอร์ (60 วินาที)</div>
+        <div class="float">ATK +5% · ASPD +5% · SPD +5%</div>
+        <div class="ground"></div><div class="pc glow" style="background:linear-gradient(#e0cc93,#81958a)"></div><div class="npc"></div>
+        <div class="dlg"><div class="por">มาเรีย</div>
+          <div class="who">นักบวชหญิงมาเรีย</div>
+          <div class="say">ขอสายฟ้าของธอร์นำทางดาบของเจ้า... ไปเถิด จงขอบคุณธอร์</div>
+          <div class="opts"><div class="opt sel">ปิด</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 คูลดาวน์ -->
+    <div class="shot">
+      <div class="cap"><b>④ ขอซ้ำระหว่างคูลดาวน์</b> — ปุ่มจาง แสดงเวลาที่เหลือในปุ่ม · กดแล้วมาเรียตอบ ไม่หักเงิน</div>
+      <div class="screen">
+        <div class="hud">นักดาบ Lv 18 · Job 12<div class="bar"><i style="width:62%;background:var(--hp)"></i></div><div class="bar"><i style="width:80%;background:var(--sp)"></i></div></div>
+        <div class="zeny">3,350 z</div>
+        <div class="ground"></div><div class="pc"></div><div class="npc"></div>
+        <div class="dlg"><div class="por">มาเรีย</div>
+          <div class="who">นักบวชหญิงมาเรีย</div>
+          <div class="say">ธอร์เพิ่งประทานพรให้เจ้าไป... รออีกสักครู่เถิด สายฟ้าไม่ได้ฟาดซ้ำที่เดิมบ่อยนัก</div>
+          <div class="opts">
+            <div class="opt">พูดคุย</div>
+            <div class="opt">รักษา <span class="price">100 z</span></div>
+            <div class="opt dis sel">ขอพร <span class="price">อีก 4:32</span></div>
+            <div class="opt">ไม่คุย</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 เงินไม่พอ -->
+    <div class="shot">
+      <div class="cap"><b>⑤ ซีนีไม่พอ</b> — ปุ่มยังกดได้ (ให้ผู้เล่นรู้ราคา) แต่มาเรียปฏิเสธ · ราคาในปุ่มเป็นสีแดง</div>
+      <div class="screen">
+        <div class="hud">นักดาบ Lv 18 · Job 12<div class="bar"><i style="width:62%;background:var(--hp)"></i></div><div class="bar"><i style="width:80%;background:var(--sp)"></i></div></div>
+        <div class="zeny">620 z</div>
+        <div class="ground"></div><div class="pc"></div><div class="npc"></div>
+        <div class="dlg"><div class="por">มาเรีย</div>
+          <div class="who">นักบวชหญิงมาเรีย</div>
+          <div class="say">ค่าบูชา 1,000 ซีนี... ซีนีของเจ้ายังไม่พอ ธอร์ไม่เร่งรีบหรอก กลับมาใหม่เมื่อพร้อม</div>
+          <div class="opts">
+            <div class="opt">พูดคุย</div>
+            <div class="opt">รักษา <span class="price">100 z</span></div>
+            <div class="opt sel">ขอพร <span class="price" style="color:var(--bad)">1,000 z</span></div>
+            <div class="opt">ไม่คุย</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 ตารางราคา -->
+    <div class="card">
+      <h3>ค่าบูชาต่อเมือง (เสนอ) — แพงขึ้นตามบท · เทียบกับค่ารักษาเดิม</h3>
+      <table>
+        <tr><th>บท</th><th>เมือง · หมอ</th><th>ค่ารักษาเดิม</th><th>ค่าขอพร (เสนอ)</th><th>หมายเหตุ</th></tr>
+        <tr><td>1</td><td>พรอนเทรา · นักบวชหญิงมาเรีย</td><td class="n">100</td><td class="n">1,000</td><td class="dim">ตามที่สั่ง</td></tr>
+        <tr><td>2</td><td>นิดาเวลลิร์ · หมอคนแคระเฮดิน</td><td class="n">100</td><td class="n">2,500</td><td class="dim">Lv ~18-30</td></tr>
+        <tr><td>3</td><td>วานาเฮม · หมอสมุนไพรลีฟ</td><td class="n">800</td><td class="n">5,000</td><td class="dim">Lv ~30-55</td></tr>
+        <tr><td>4</td><td>อุทการ์ด · หมอเบสต์ลา</td><td class="n">1,500</td><td class="n">10,000</td><td class="dim">Lv ~55-70</td></tr>
+        <tr><td>5</td><td>ยอซัลฟ์ · หมอน็อตต์</td><td class="n">2,500</td><td class="n">20,000</td><td class="dim">Lv ~70-85</td></tr>
+        <tr><td>6</td><td>เอลยุดเนียร์ · <span class="dim">(ยังไม่มี NPC หมอ type 3)</span></td><td class="n">—</td><td class="n">35,000</td><td class="dim">ต้องเพิ่มหมอก่อน</td></tr>
+        <tr><td>7</td><td>เอมเบอร์เฮเวน · ลีฟ ผู้รักษาแผลไฟ</td><td class="n">1,500</td><td class="n">50,000</td><td class="dim">ของ GPT บท 7</td></tr>
+      </table>
+      <div class="dim" style="margin-top:8px">ทางเลือก B: สูตรเดียว <code>1000 × 2^(บท−1)</code> = 1k · 2k · 4k · 8k · 16k · 32k · 64k — ตั้งอัตโนมัติจาก <code>chapter</code> ของแมพ ไม่ต้องกรอกทีละ NPC · ผู้ใช้เลือกแบบไหนก็ได้ (ตารางบนตั้งค่าเองต่อ NPC ผ่านช่อง Blessing Price ใน Inspector)</div>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:22px">
+    <div class="card">
+      <h3>สเปกโค้ด (สำหรับรอบที่ลงมือทำ)</h3>
+      <table>
+        <tr><th style="width:30%">จุด</th><th>รายละเอียด</th></tr>
+        <tr><td><code>npc.gd</code> ช่องใหม่</td><td><code>@export var blessing_price: int = 1000</code> (กลุ่มเดียวกับ <code>heal_price</code>) · <code>0</code> = หมอคนนี้ไม่มีปุ่มขอพร</td></tr>
+        <tr><td>เมนูหมอ</td><td>HEALER → <code>[พูดคุย, รักษา (N z), ขอพร (N z), ไม่คุย]</code> · «พูดคุย» = แสดง <code>dialog</code> อย่างเดียว ไม่รักษา (แก้จุดที่ผู้ใช้ว่าแปลก) · «รักษา» = โค้ดรักษาเดิมย้ายมาไว้ปุ่มนี้ (ข้อความ/เสียง heal_full · heal_poor · heal_done เหมือนเดิม)</td></tr>
+        <tr><td>บัฟ</td><td>ใช้ท่อบัฟไอเทมที่มีอยู่ (<code>PlayerState.active_buffs</code>): คีย์ <code>&amp;"thor_blessing"</code> · <code>{time_left: 60.0, values: {atk_percent: 5, aspd_percent: 5, move_speed_percent: 5}, level: 1, name: "พรแห่งธอร์", icon: null}</code> → HUD แถบบัฟขึ้นให้เอง (<code>hud.gd _refresh_buffs</code>) · ตายแล้วบัฟหาย (ของเดิม) · ขอซ้ำระหว่างบัฟยังอยู่ = ต่ออายุเป็น 60 ใหม่ (แต่ติดคูลดาวน์อยู่แล้วจึงไม่เกิด)</td></tr>
+        <tr><td>คูลดาวน์ 5 นาที</td><td><code>PlayerState.blessing_cd_left: float</code> นับลงใน <code>_process</code> ตัวเดียวกับ <code>active_buffs</code> · <b>เซฟลงไฟล์เซฟ</b> (กันออก-เข้าเกมล้างคูลดาวน์) · คูลดาวน์ร่วมกันทุกเมือง (ขอที่พรอนเทราแล้ววาปไปวานาเฮมก็ยังต้องรอ)</td></tr>
+        <tr><td>ปุ่มตอนคูลดาวน์</td><td>ข้อความปุ่ม <code>"ขอพร (อีก m:ss)"</code> · กดได้แต่มาเรียตอบปฏิเสธ ไม่หักเงิน (เมนูของ <code>UI.talk</code> ยังไม่มี disabled จริง — ใช้สีจางแทน)</td></tr>
+        <tr><td>ค่าคงที่</td><td><code>const BLESS_DURATION := 60.0</code> · <code>const BLESS_COOLDOWN := 300.0</code> · <code>const BLESS_VALUES := {atk_percent:5, aspd_percent:5, move_speed_percent:5}</code> ไว้ใน <code>npc.gd</code> ที่เดียว (แก้ตัวเลขทีหลังง่าย)</td></tr>
+        <tr><td>เสียงพากย์ (คีย์ใหม่)</td><td><code>bless_offer</code> (หน้ายืนยัน) · <code>bless_done</code> · <code>bless_cooldown</code> · <code>bless_poor</code> — วางไฟล์ที่ <code>Sprites/voice/maria/</code> ตามระบบเดิม</td></tr>
+        <tr><td>ไอคอน</td><td>ช่อง <code>icon</code> ในบัฟรองรับ <code>Texture2D</code> อยู่แล้ว — พอผู้ใช้ทำไอคอนมา ใส่ <code>@export var blessing_icon: Texture2D</code> ที่ NPC หรือไฟล์กลาง <code>Sprites/ui/petrol/icons/blessing_*.svg</code> แล้วชี้เข้า</td></tr>
+        <tr><td>เทสต์</td><td><code>r112_test</code>: กดขอพร → เงินลด 1,000 · aspd/atk/move_speed ×1.05 · 60 วิแล้วกลับค่าเดิม · ขอซ้ำใน 300 วิถูกปฏิเสธ · เซฟ/โหลดแล้วคูลดาวน์ยังอยู่ · เงินไม่พอไม่หัก</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>บาลานซ์ — ทำไม +5% ×3 / 60 วิ / 5 นาที ถือว่าโอเค</h3>
+      <table>
+        <tr><th>เรื่อง</th><th>ผล</th></tr>
+        <tr><td>DPS เพิ่มจริง</td><td>ATK +5% × ASPD +5% ≈ <b>+10.25% DPS</b> นาน 60 วิ — เท่ากับ "โพชั่นบัฟ" ระดับกลาง ไม่ทำให้บอสง่ายผิดปกติ (บอสบท 1 สู้กัน 2-4 นาที ครอบได้แค่ 1/3 ของไฟต์)</td></tr>
+        <tr><td>อัตราใช้งาน</td><td>60/300 = ใช้ได้ 20% ของเวลา → ผู้เล่นต้อง "เลือกจังหวะ" (เดินจากเมืองไปถึงบอสใช้เวลา ~40-90 วิ → พรเหลือน้อย) แนะนำให้ผู้เล่นใช้กับ<b>ทุ่งใกล้เมือง</b>หรือเก็บไว้ก่อนวาป — เป็นข้อคิดออกแบบ ไม่ใช่บั๊ก</td></tr>
+        <tr><td>ค่าใช้จ่าย 1,000 z บท 1</td><td>Lv 10-18 ฟาร์มได้ ~2-4k z/10 นาที · ค่ารักษา 100 · โพชั่นแดง ~50 → 1,000 z = ตัดสินใจจริง ไม่ใช่กดทุกครั้ง ✔ (ถ้าอยากให้ใช้บ่อยกว่านี้ลดเป็น 500)</td></tr>
+        <tr><td>ซ้อนกับบัฟอื่น</td><td>บวกรวมแบบ % กับ thunder_blessing / สกิลบัฟ (ท่อเดียวกัน) → สูงสุดยังต่ำกว่าเพดาน ASPD 5.0 มาก</td></tr>
+        <tr><td>ข้อควรระวัง</td><td>ความเร็วเดิน +5% เห็นผลน้อยมาก (ผู้เล่นแทบไม่รู้สึก) — ถ้าอยากให้ "รู้สึกได้" ใช้ +10% เดิน แต่คง ATK/ASPD 5% ไว้ก็ยังบาลานซ์</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -161,6 +161,8 @@ title = "ทางผ่านของฝูงแมมมอธ"
 text = "ผ่านฝูงแมมมอธมาโดยไม่มีใครต้องตาย"
 label_text = ""
 auto_read = true
+no_kill_monster = &"snow_mammoth"
+no_kill_text = "แมมมอธล้มตายระหว่างทาง... ออกจากทุ่งหญ้าแล้วเดินผ่านใหม่โดยไม่ชักดาบใส่พวกมัน"
 
 [node name="OrganicRoad0" type="Sprite2D" parent="Background"]
 z_index = -40

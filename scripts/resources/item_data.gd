@@ -161,6 +161,8 @@ enum Slot {
 ## % ของ MaxHP ที่ฟื้นเพิ่ม
 @export var heal_hp_percent: float = 0.0
 @export var heal_sp_percent: float = 0.0
+## ★ รอบ 115 ★ คูลดาวน์ยาแบบกำหนดเอง (วินาที) — 0 = ใช้สูตรตามปริมาณที่ฟื้น (PlayerState.potion_cooldown_for)
+@export var potion_cooldown: float = 0.0
 ## ★ รอบ 45 — ไอเทมพิเศษ ★ reset_skills = รีสกิล · reset_stats = รีสเตตัส (ว่าง = ไม่มี)
 @export var special_effect: StringName = &""
 ## ★ รอบ 45 — บัฟชั่วคราวจากไอเทม ★ ใส่ค่าเหมือนบัฟสกิล เช่น {"aspd_percent": 10.0} · buff_duration = วินาที

@@ -47,7 +47,7 @@ func _ready() -> void:
 	PlayerState.stats.skill_points = 5
 	check(PlayerState.skills.rune_points()==5,"rune points are the ordinary skill points (round 108)")
 	var ordinary := PlayerState.stats.skill_points
-	check(PlayerState.skills.learn(&"blade_rhythm",PlayerState.stats),"can learn rune branch")
+	check(PlayerState.skills.learn(&"rune_flurry",PlayerState.stats),"can learn rune branch (round 125: attack skill is the branch root)")
 	check(PlayerState.stats.skill_points==ordinary-1 and PlayerState.skills.rune_points()==4,"rune skill spends the ordinary point budget (round 108)")
 	PlayerState.stats.level = 75
 	check(PlayerState.stats.max_job_level()==80 and PlayerState.stats.job_exp_to_next()>0,"job cap extends to 80 for Runeblade (round 108)")
