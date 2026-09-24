@@ -71,7 +71,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_hall" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(5200, 820)
+position = Vector2(4710, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -89,7 +89,7 @@ max_spawn_distance = 1700.0
 
 
 [node name="ToTown" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"eljudnir"
 target_spawn_point = &"from_river"
 label_text = "← เอลยุดเนียร์"
@@ -97,7 +97,7 @@ destination_name = "เอลยุดเนียร์ เมืองขอ�
 
 
 [node name="ToHall" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(5340, 880)
+position = Vector2(4850, 825)
 target_map = &"hall_of_names"
 target_spawn_point = &"from_river"
 label_text = "→ โถงแห่งนาม"
@@ -112,10 +112,11 @@ locked_text = "โมดกุดยืนขวางสะพาน: «ผู�
 [node name="Modgud" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2700, 820)
 npc_name = "ผู้เฝ้าสะพานโมดกุด"
+portrait_file = "res://Sprites/portraits/npcs/1401fc607244.tres"
 type = 0
-dialog = "ข้าเฝ้าสะพานมาตั้งแต่โลกมีคนตาย ทุกคนที่ข้ามไปทิ้งชื่อไว้กับข้า\n\nเจ้าเป็นคนเป็น... แต่กฎเหมือนกัน อยากไปโถงแห่งนาม ต้องไม่มีชื่อ"
+dialog = "ข้าเฝ้าสะพานมาตั้งแต่โลกมีคนตาย ทุกคนที่ข้ามไปทิ้งชื่อไว้กับข้า\n\nเจ้ายังมีชีวิต... แต่กฎก็คือกฎ ใครอยากเข้าโถงแห่งนาม ต้องไม่มีชื่อ"
 modulate = Color(1, 1, 1, 0.70)
-greeting = "สะพานทองคำ... ผู้ข้ามต้องจ่าย และค่าข้ามคือชื่อ"
+greeting = "สะพานทองคำ... ใครจะข้ามต้องจ่ายค่าผ่านทาง และค่าผ่านทางคือชื่อ"
 voice_id = "modgud"
 quest_ids = Array[StringName]([&"c6_3_leave_your_name"])
 quest_talk_names = Array[StringName]([&"ผู้เฝ้าสะพานโมดกุด"])

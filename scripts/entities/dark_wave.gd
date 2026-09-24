@@ -98,7 +98,7 @@ func _launch(dir: int) -> void:
 			sp.scale = Vector2(k, k)
 			# ★ ขอบล่างของภาพ = พื้น ★ ภาพวาดให้ "หน้าคลื่น" หันไปทางขวา → ไปซ้ายก็กลับด้าน
 			sp.offset = Vector2(0, -tex.get_size().y * 0.5) if tex != null else Vector2.ZERO
-			sp.flip_h = dir < 0
+			sp.flip_h = (dir < 0) != bool(frames.get_meta("reverse_facing", false))
 			sp.animation = anim
 			sp.play(anim)
 	sp.position = Vector2(0, 0)

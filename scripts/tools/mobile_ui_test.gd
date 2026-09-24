@@ -106,6 +106,9 @@ func _ready() -> void:
 	UI.toggle(&"skills")
 	await get_tree().process_frame
 	await get_tree().process_frame
+	for tile in UI.windows[&"skills"]._tiles.values():
+		var label := tile.get_node("SkillName") as Label
+		check(label.clip_text and label.size.x <= 138.1, "Skill title fits card width")
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
 		get_viewport().get_texture().get_image().save_png("res://output/mobile_ui/skill_window.png")

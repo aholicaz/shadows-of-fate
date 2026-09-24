@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_rot_gnawer.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_rot_gnawer.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_rot_gnawer"
+display_name = "การ์ดเนียด ผู้แทะรากบัลลังก์"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 90"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_rot_gnawer"
+monster_level = 200
+rarity = 5
+fits_slot = 4
+unique_equipped = true
+sell_price = 50000
+max_hp = 900
+bonus_vit = 8

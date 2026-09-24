@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/brynja.png" id="1_fsxhv"]
+
+[resource]
+atlas = ExtResource("1_fsxhv")
+region = Rect2(12, 12, 297, 397)
+filter_clip = true

@@ -1,0 +1,52 @@
+{
+  "characterId": "c1_thor_warp",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": null,
+  "cell": {
+    "shape": "rect",
+    "width": 512,
+    "height": 768,
+    "size": 512,
+    "safe_margin": 0
+  },
+  "chroma_key": null,
+  "animation": {
+    "cellWidth": 512,
+    "cellHeight": 768,
+    "columns": 1,
+    "rows": {
+      "Idle": {
+        "row": 0,
+        "frames": 1,
+        "fps": 8,
+        "durations_ms": [
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 512,
+    "sheetHeight": 768,
+    "cellWidth": 512,
+    "cellHeight": 768,
+    "rows": {
+      "Idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 512,
+          "h": 768
+        }
+      ]
+    }
+  }
+}

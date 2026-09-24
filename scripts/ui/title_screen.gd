@@ -19,6 +19,13 @@ var _video: VideoStreamPlayer
 var _menu: VBoxContainer
 var _buttons: Array[Button] = []
 var _slot_labels: Array[Label] = []
+## ★ รอบ 164 ★ การ์ดรายละเอียดเซฟข้างเมนู (โชว์เฉพาะช่องที่เลือกอยู่ · ข้อความยาวตัดบรรทัดในการ์ด ไม่ล้นปุ่ม)
+const SLOT_CARD_W := 380.0
+var _slot_card: PanelContainer
+var _slot_card_title: Label
+var _slot_card_job: Label
+var _slot_card_map: Label
+var _slot_card_time: Label
 var _hint: Label
 var _loading: Control
 var _loading_label: Label
@@ -131,14 +138,21 @@ func _build_menu() -> void:
 	_add_button("เริ่มเกมใหม่", _on_new_game)
 	for slot in range(SaveManager.SLOT_COUNT + 1):
 		var b := _add_button("โหลดอัตโนมัติ" if slot == SaveManager.AUTO_SLOT else "โหลดช่อง %d" % (slot + 1), _on_load.bind(slot))
-		var info := UITheme.make_label("", 12, UITheme.TEXT_DIM)
+		# ★ รอบ 164 ★ ปุ่มสูงเท่าเดิม · มุมขวาของปุ่มโชว์แค่ "Lv.N" (สั้น ไม่มีวันล้นกรอบ)
+		# รายละเอียดเต็ม (อาชีพ · แมพ · เวลาเซฟ) อยู่ในการ์ดข้างเมนู เฉพาะช่องที่เลือกอยู่
+		var info := UITheme.make_label("", 14, UITheme.GOLD_BRIGHT)
 		info.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		info.clip_text = true
+		info.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		info.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		b.add_child(info)
-		info.position = Vector2(170, 8)
+		info.position = Vector2(180, 9)
+		info.size = Vector2(142, 20)
 		_slot_labels.append(info)
 	if not OS.has_feature("web"):
 		_add_button("ออกจากเกม", func(): SaveManager.quit_game())
 
+	_build_slot_card()   # ★ รอบ 164 ★
 	_hint = UITheme.make_label("↑↓ เลือก · Enter ยืนยัน · แตะได้", 11, UITheme.TEXT_DIM)
 	_hint.name = "Hint"
 	_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -163,6 +177,7 @@ func _layout() -> void:
 	var ver := get_node_or_null("Version") as Label
 	if ver != null:
 		ver.position = Vector2(size.x - ver.size.x - 16.0, size.y - ver.size.y - 12.0)
+	_update_slot_card()   # ★ รอบ 164 ★ ตามตำแหน่งเมนูใหม่
 
 
 func _add_button(text: String, cb: Callable) -> Button:
@@ -213,6 +228,7 @@ func _select(i: int) -> void:
 		sb.bg_color = Color(0.03, 0.04, 0.09, 0.8 if on else 0.55)
 		b.add_theme_stylebox_override("normal", sb)
 		b.text = ("▸ " if on else "   ") + b.text.trim_prefix("▸ ").trim_prefix("   ")
+	_update_slot_card()   # ★ รอบ 164 ★
 
 
 func _refresh_slots() -> void:
@@ -220,14 +236,87 @@ func _refresh_slots() -> void:
 		var b := _buttons[1 + slot]
 		if SaveManager.has_save(slot):
 			var info := SaveManager.slot_info(slot)
-			var map_name := String(info.get("map_name", ""))
-			if map_name == "":
-				map_name = String(info.get("map", ""))
-			_slot_labels[slot].text = "Lv.%d  %s  ·  %s" % [int(info.get("level", 1)), _job_name(String(info.get("job", ""))), map_name]
+			_slot_labels[slot].text = "Lv.%d" % int(info.get("level", 1))
+			b.tooltip_text = _slot_summary(info)
 			b.disabled = false
 		else:
 			_slot_labels[slot].text = "— ว่าง —"
+			b.tooltip_text = ""
 			b.disabled = true
+	_update_slot_card()
+
+
+## ★ รอบ 164 ★ ข้อความเต็มของเซฟ 1 ช่อง
+func _slot_summary(info: Dictionary) -> String:
+	var map_name := String(info.get("map_name", ""))
+	if map_name == "":
+		map_name = String(info.get("map", ""))
+	return "Lv.%d  %s  ·  %s" % [int(info.get("level", 1)), _job_name(String(info.get("job", ""))), map_name]
+
+
+## "2026-09-24T02:54:29" → "24 ก.ย. 2569 · 02:54"
+static func _thai_time(stamp: String) -> String:
+	const MONTHS := ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+	var parts := stamp.split("T")
+	var d := parts[0].split("-")
+	if d.size() < 3:
+		return stamp
+	var hm := parts[1].substr(0, 5) if parts.size() > 1 else ""
+	return "%d %s %d · %s" % [int(d[2]), MONTHS[clampi(int(d[1]) - 1, 0, 11)], int(d[0]) + 543, hm]
+
+
+func _build_slot_card() -> void:
+	_slot_card = PanelContainer.new()
+	_slot_card.name = "SlotCard"
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.03, 0.05, 0.08, 0.86)
+	sb.border_color = UITheme.ACCENT
+	sb.set_border_width_all(1)
+	sb.border_width_left = 4
+	sb.set_corner_radius_all(6)
+	sb.set_content_margin_all(12.0)
+	sb.content_margin_left = 16.0
+	_slot_card.add_theme_stylebox_override("panel", sb)
+	_slot_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_slot_card.custom_minimum_size.x = SLOT_CARD_W
+	add_child(_slot_card)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 2)
+	_slot_card.add_child(box)
+	_slot_card_title = UITheme.make_label("", 14, UITheme.ACCENT)
+	box.add_child(_slot_card_title)
+	for pair in [["_slot_card_job", 18, UITheme.TEXT], ["_slot_card_map", 15, UITheme.TEXT], ["_slot_card_time", 13, UITheme.TEXT_DIM]]:
+		var l := UITheme.make_label("", int(pair[1]), pair[2])
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size.x = SLOT_CARD_W - 32.0   # autowrap ต้องมีความกว้างตั้งต้น (กับดัก 185)
+		l.add_theme_color_override("font_outline_color", Color.BLACK)
+		l.add_theme_constant_override("outline_size", 3)
+		box.add_child(l)
+		set(String(pair[0]), l)
+	_slot_card.hide()
+
+
+func _update_slot_card() -> void:
+	if _slot_card == null:
+		return
+	var slot := _selected - 1
+	if slot < 0 or slot >= _slot_labels.size() or not SaveManager.has_save(slot):
+		_slot_card.hide()
+		return
+	var info := SaveManager.slot_info(slot)
+	var map_name := String(info.get("map_name", ""))
+	if map_name == "":
+		map_name = String(info.get("map", ""))
+	_slot_card_title.text = "เซฟอัตโนมัติ" if slot == SaveManager.AUTO_SLOT else "ช่อง %d" % (slot + 1)
+	_slot_card_job.text = "Lv.%d  ·  %s" % [int(info.get("level", 1)), _job_name(String(info.get("job", "")))]
+	_slot_card_map.text = "⌖ " + map_name
+	var stamp := String(info.get("saved_at", ""))
+	_slot_card_time.text = ("บันทึกเมื่อ " + _thai_time(stamp)) if stamp != "" else ""
+	_slot_card.show()
+	_slot_card.reset_size()
+	var b := _buttons[_selected]
+	_slot_card.position = Vector2(_menu.position.x + _menu.size.x + 14.0,
+		clampf(_menu.position.y + b.position.y + b.size.y * 0.5 - _slot_card.size.y * 0.5, 12.0, size.y - _slot_card.size.y - 12.0))
 
 
 func _job_name(job_id: String) -> String:

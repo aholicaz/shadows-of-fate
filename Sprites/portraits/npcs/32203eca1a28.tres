@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/forsaken_ghost.png" id="1_k6hdx"]
+
+[resource]
+atlas = ExtResource("1_k6hdx")
+region = Rect2(88, 12, 489, 397)
+filter_clip = true

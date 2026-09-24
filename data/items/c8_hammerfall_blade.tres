@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_hammerfall_blade.png" id="i"]
+[ext_resource type="Texture2D" path="res://Sprites/equip/c8_hammerfall_blade_hand.png" id="hand"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/attack_blade_bare_hands.tres" id="combo"]
+[resource]
+script = ExtResource("s")
+id = &"c8_hammerfall_blade"
+display_name = "ดาบเงาค้อนล่ม"
+description = "คมดาบที่หลอมจากเงาของค้อนสายฟ้า ATK 820 ดาเมจสกิล +22% ลดคูลดาวน์ 7%"
+drop_hint = "เงาแห่งค้อน ชั้น 100 · โอกาสดรอป 8% · กลับล่าได้"
+icon = ExtResource("i")
+type = 1
+slot = 1
+weapon_type = &"sword"
+attack_animation = &"Attack_Blade"
+required_level = 150
+max_stack = 1
+buy_price = 0
+sell_price = 34000
+card_slots = 2
+refinable = true
+refine_atk_per_level = 10
+atk = 820
+bonus_str = 12
+max_sp = 100
+skill_damage_percent = 22.0
+cooldown_reduction_percent = 7.0
+equip_texture = ExtResource("hand")
+equip_follow_idle_hand = true
+equip_grip = Vector2(1010, 253)
+equip_hand_scale = 0.28
+equip_hand_rotation_degrees = 62.0
+equip_attack_body_frames = ExtResource("combo")
+equip_z_index = -1

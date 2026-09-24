@@ -1,0 +1,239 @@
+{
+  "characterId": "c1_erik",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": null,
+  "cell": {
+    "shape": "rect",
+    "width": 513,
+    "height": 770,
+    "size": 513,
+    "safe_margin": 0
+  },
+  "chroma_key": null,
+  "animation": {
+    "cellWidth": 513,
+    "cellHeight": 770,
+    "columns": 24,
+    "rows": {
+      "Idle": {
+        "row": 0,
+        "frames": 24,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel",
+        "breathe": {
+          "anatomy": {
+            "width": 442,
+            "height": 698,
+            "axis_x": 225,
+            "neck_row": 403,
+            "neck_source": "bottleneck",
+            "rigid_row": 241,
+            "rigid_source": "manual",
+            "basis_row": 403,
+            "torso_half": 160,
+            "max_half": 225,
+            "torso_source": "auto",
+            "face": null,
+            "warnings": [
+              "rigid-row-override: auto 403 -> manual 241",
+              "face-absent: 대칭 눈쌍을 못 찾아 목만으로 경계를 정했다"
+            ]
+          },
+          "matches_sidecar": true,
+          "sidecar_drift": null,
+          "warnings": [
+            "face-absent: 대칭 눈쌍을 못 찾아 목만으로 경계를 정했다",
+            "rigid-row-override: auto 403 -> manual 241"
+          ]
+        }
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 12312,
+    "sheetHeight": 770,
+    "cellWidth": 513,
+    "cellHeight": 770,
+    "rows": {
+      "Idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 513,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 1026,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 1539,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 2052,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 2565,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 3078,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 3591,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 4104,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 4617,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 5130,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 5643,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 6156,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 6669,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 7182,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 7695,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 8208,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 8721,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 9234,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 9747,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 10260,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 10773,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 11286,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        },
+        {
+          "x": 11799,
+          "y": 0,
+          "w": 513,
+          "h": 770
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://r163_runner.gd" id="1"]
+
+[node name="R163" type="Node"]
+script = ExtResource("1")

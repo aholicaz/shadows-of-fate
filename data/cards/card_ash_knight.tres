@@ -6,15 +6,17 @@
 script = ExtResource("s")
 id = &"card_ash_knight"
 display_name = "การ์ดอัศวินคำสั่งสุดท้าย"
-description = "ป้ายเหล็กติดอกอัศวิน สั่งให้เดินขึ้นไปอีกหนึ่งชั้นจนกว่าใครสักคนจะลบคำสั่งนั้น"
+description = "STR +5, DEF +15, HP +4%"
 monster_id = &"ash_knight"
 illustration = ExtResource("art_1")
 monster_level = 104
-fits_slot = 2
 rarity = 5
 icon = ExtResource("i")
 type = 5
 max_stack = 99
 sell_price = 400
-bonus_agi = 5
-flee = 12
+
+fits_slot = 5
+bonus_str = 5
+def = 15
+percent_effects = {"max_hp_percent": 4.0}

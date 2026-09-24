@@ -9,11 +9,12 @@ const SEAL_SPREAD := 420.0
 const FARM_ROOM := Rect2(4300, 300, 1900, 700)
 const FARM_JR_COUNT := 5
 ## ★ รอบ 127 ★ ค่าพลังลูกอสูรในแมพนี้ (ทั้งยามเสาและห้องฟาร์ม) — เดิม ATK 130–175 เบาเกินสำหรับ Lv49
-const JR_ATK_MIN := 300
-const JR_ATK_MAX := 420
-const JR_HIT := 75
+const JR_ATK_MIN := 380
+const JR_ATK_MAX := 500
+const JR_HIT := 95
 var boss: Node2D
 var fighting := false
+var gate_notice_time := 0.0
 var hazards: Array[Dictionary] = []
 var guards: Dictionary = {}
 var next_attack := 2.0
@@ -35,12 +36,12 @@ func _ready() -> void:
 	for i in range(3):
 		var index := i
 		point(Vector2(1100+i*950,900),"[F] เสาพันธนาการ %d" % (i+1),func(): await _seal(index))
-	point(Vector2(4050,900),"[F] จุดพัก / เข้าห้องบอส",_start_boss)
 	point(Vector2(6070,900),"[F] วงจรหลังบัลลังก์",_core)
 	Events.damage_dealt.connect(_interrupt_jr)
 	if not PlayerState.has_flag(&"rb_baphomet_defeated"):
 		boss = _spawn(false,Vector2(5450,760))
 		boss.set_physics_process(false)
+		boss.set_meta("encounter_locked", true)
 		boss.died.connect(_boss_died)
 	else:
 		_setup_farm_room()   # ★ รอบ 126 ★
@@ -74,16 +75,28 @@ func point(at: Vector2, title: String, action: Callable) -> void:
 	p.action = action
 	add_child(p)
 
+func _configure_boss(data: MonsterData) -> void:
+	data.display_name = "บาฟโฟเมท ผู้กินคำสัตย์"
+	data.set_meta("hide_skill_notice", true)
+	data.atk_min = 520
+	data.atk_max = 680
+	data.hit = 95
+	data.attack_cooldown = 1.15
+	data.skill_chance = 1.0
+	data.skill_cooldown = 6.0
+	data.skill_damage_mult = 2.0
+
 func _spawn(jr: bool, at: Vector2, summoned: bool = false) -> Node2D:
 	var enemy = load("res://scenes/monsters/monster.tscn").instantiate()
 	enemy.data = load("res://data/monsters/%s.tres" % ("baphomet_jr" if jr else "baphomet")).duplicate()
 	enemy.position = at
 	if jr:
 		enemy.data.level = 49
-		enemy.data.max_hp = 1800
+		enemy.data.max_hp = 2600
 		enemy.data.atk_min = JR_ATK_MIN
 		enemy.data.atk_max = JR_ATK_MAX
 		enemy.data.hit = JR_HIT
+		enemy.data.attack_cooldown = 0.85
 		enemy.data.knockback_force = 0
 		enemy.data.exp_reward = 400 if not summoned else 0
 		if summoned:
@@ -95,7 +108,8 @@ func _spawn(jr: bool, at: Vector2, summoned: bool = false) -> Node2D:
 		enemy.set_meta("rb_add",summoned)
 		enemy.set_meta("rb_caster",get_tree().get_nodes_in_group("rb_jr").size()%2 == 1)
 	else:
-		enemy.data.display_name = "Baphomet — ผู้กินคำสัตย์"
+		_configure_boss(enemy.data)
+		enemy.set_meta("hide_skill_notice", true)
 	add_child(enemy)
 	if not jr: enemy.position.y += 900.0-enemy.foot_position().y
 	if jr: enemy.add_to_group("rb_jr")
@@ -117,13 +131,14 @@ func _spawn_seal_guards(index: int) -> Array:
 ## บอสตายแล้วเกิดใหม่ตามคูลดาวน์ในไฟล์มอน (is_boss → ล็อกข้ามแมพ ระหว่างรอเป็นศพ) · ลูกอสูรเกิดใหม่ตาม respawn_time
 func _setup_farm_room() -> void:
 	var boss_data: MonsterData = load("res://data/monsters/baphomet.tres").duplicate()
-	boss_data.display_name = "Baphomet — ผู้กินคำสัตย์"
+	_configure_boss(boss_data)
 	var jr_data: MonsterData = load("res://data/monsters/baphomet_jr.tres").duplicate()
 	jr_data.level = 49
-	jr_data.max_hp = 1800
+	jr_data.max_hp = 2600
 	jr_data.atk_min = JR_ATK_MIN
 	jr_data.atk_max = JR_ATK_MAX
 	jr_data.hit = JR_HIT
+	jr_data.attack_cooldown = 0.85
 	jr_data.knockback_force = 0
 	jr_data.exp_reward = 400
 	for cfg in [[boss_data, 1, 420.0], [jr_data, FARM_JR_COUNT, 170.0]]:
@@ -156,30 +171,32 @@ func _seal(index: int) -> void:
 	queue_redraw()
 
 func _start_boss() -> void:
-	if fighting: return
+	if fighting or PlayerState.is_dead() or PlayerState.has_flag(&"rb_baphomet_defeated"): return
+	if not is_instance_valid(boss) or boss.is_dead(): return
+	var reason := ""
 	for i in range(3):
 		if not PlayerState.has_flag(StringName("rb_seal_%d" % i)):
-			Events.say("ต้องปลดเสาพันธนาการทั้งสามก่อน")
-			return
-	PlayerState.set_flag(&"rb_checkpoint")
-	PlayerState.heal_hp(PlayerState.stats.max_hp)
-	PlayerState.restore_sp(PlayerState.stats.max_sp)
-	if PlayerState.has_flag(&"rb_baphomet_defeated"):
-		Events.say("Baphomet ถูกปราบแล้ว ไปปลดวงจรหลังบัลลังก์")
+			reason = "ต้องปลดเสาพันธนาการทั้งสามก่อน"
+	if reason == "" and not PlayerState.quests.is_active(&"rb5_oath_eater"):
+		reason = "รับเควส «ผู้กินคำสัตย์» จากญอร์ดาก่อนเข้าห้อง"
+	if reason != "":
+		player.position.x = 4200
+		if gate_notice_time <= 0:
+			Events.say(reason)
+			gate_notice_time = 3.0
 		return
-	if not PlayerState.quests.is_active(&"rb5_oath_eater"):
-		Events.say("รับเควส ผู้กินคำสัตย์ ผู้กินคำสัตย์ จากญอร์ดาก่อนเข้าห้อง")
-		return
-	await UI.talk([{"name":"Baphomet", "text":"เจ้ามนุษย์เปลี่ยนนายอีกแล้วหรือ?"},{"text":"ข้ามาเอาสิ่งที่ไม่ควรมีนายคืนไป"}])
 	fighting = true
-	player.position.x = 4400
+	boss.set_meta("encounter_locked", false)
+	boss.set_physics_process(true)
+	boss.set_home(Vector2(5350, boss.position.y))
+	boss._set_aggro()
 	queue_redraw()
 
 func _core() -> void:
 	if not PlayerState.has_flag(&"rb_baphomet_defeated"):
-		Events.say("วงจรยังถูก Baphomet ยึดครอง")
+		Events.say("วงจรยังถูกบาฟโฟเมทยึดไว้")
 		return
-	await UI.talk([{"text":"เจ้ากลับทิศทางของวงจร พลังไหลคืนสู่ราก... แก่นรูนที่คืนอิสระสว่างขึ้น\n\nใต้บัลลังก์มีอักขระเก้าดวง สามดวงตอบรับ อีกหกดวงชี้ไปทางเหนือ — เมื่อเจ้าเติบโตถึงเลเวล 90 จงฟังเสียงเรียกอีกครั้ง"}])
+	await UI.talk([{"text":"เจ้าหมุนวงจรกลับทิศ... พลังที่เคยถูกดูดขึ้นไปตามราก ไหลคืนลงสู่แผ่นดิน รูนของอัศวินที่ถูกล่ามไว้สว่างขึ้นทีละดวง แล้วดับลงอย่างสงบ\n\nใต้บัลลังก์มีวงรูนเก้าดวง สามดวงสว่างตอบรับดาบของเจ้า อีกหกดวงยังมืด — ชี้ไปทางเหนือ"}])
 	PlayerState.set_flag(&"rb_core_freed")
 	PlayerState.set_flag(&"rb_next_job_hint")
 	await Game.change_map(&"vanir_town",&"default")
@@ -194,7 +211,7 @@ func _boss_died(_enemy: Node, _data: MonsterData) -> void:
 	PlayerState.refresh()
 	for jr in get_tree().get_nodes_in_group("rb_jr"):
 		if jr.get_meta("rb_add",false): jr.queue_free()
-	Events.say("Baphomet พ่ายแพ้! กด F ที่วงจรหลังบัลลังก์เพื่อคืนอิสระให้รูน")
+	Events.say("บาฟโฟเมทพ่ายแพ้! กด F ที่วงจรหลังบัลลังก์ เพื่อคืนพลังให้รูน")
 	queue_redraw()
 
 func _interrupt_jr(target: Node, _amount: int, _crit: bool) -> void:
@@ -209,6 +226,9 @@ func _hazard(rect: Rect2, delay: float, damage: float = 1.0, caster: Node = null
 
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player): return
+	gate_notice_time = maxf(0.0, gate_notice_time - delta)
+	if not fighting and player.position.x >= 4250:
+		_start_boss()
 	if not fighting:
 		# Seal guards appear as the player approaches, not only on interaction.
 		for i in range(3):
@@ -242,26 +262,12 @@ func _physics_process(delta: float) -> void:
 		PlayerState.refresh()
 	player.position.x = clampf(player.position.x,4250,6250)
 	if not is_instance_valid(boss) or boss.is_dead(): return
-	boss._tick_wound(delta)
 	var phase := 1 if boss.hp > boss.data.max_hp*0.7 else (2 if boss.hp > boss.data.max_hp*0.35 else 3)
-	next_attack -= delta
+	boss.data.attack_cooldown = 1.15 if phase == 1 else (1.0 if phase == 2 else 0.9)
+	boss.data.skill_cooldown = 6.0 if phase == 1 else (5.2 if phase == 2 else 4.5)
+	boss.position.x = clampf(boss.position.x, 4350, 6100)
 	next_adds -= delta
 	clear_grace = maxf(0,clear_grace-delta)
-	if next_attack <= 0:
-		attack_number += 1
-		var dir := 1 if player.position.x > boss.position.x else -1
-		boss._face_to(dir)
-		boss._play("Attack",true)
-		if attack_number%3 == 0 and phase >= 2:
-			_hazard(Rect2(player.foot_position()-Vector2(110,115),Vector2(220,120)),1.0,1.15)
-		else:
-			var x: float = boss.position.x if dir>0 else boss.position.x-460
-			var rect := Rect2(Vector2(x,620),Vector2(460,285))
-			_hazard(rect,0.7)
-			if phase == 3: _hazard(rect,1.35,0.85)
-		next_attack = 3.8 if phase < 3 else 4.4
-	if next_attack > 1.5 and next_attack < 2.6:
-		boss.position.x = move_toward(boss.position.x,player.position.x,90*delta)
 	for h in hazards.duplicate():
 		h.time -= delta
 		if h.time > 0: continue
@@ -275,6 +281,9 @@ func _physics_process(delta: float) -> void:
 			if not is_instance_valid(caster) or caster.is_dead(): continue
 			caster.set_meta("rb_channel",false)
 			caster.set_physics_process(true)
+			if h.rect.has_point(player.foot_position()):
+				var strike := Combat.monster_skill_hits_player(caster.data, PlayerState.stats, 1.25)
+				if not strike.miss: player.take_damage(int(strike.damage))
 			slow_zones.append({"rect":h.rect,"time":3.0})
 			continue
 		if h.rect.has_point(player.foot_position()):
@@ -291,8 +300,8 @@ func _physics_process(delta: float) -> void:
 			var at := Vector2(4330 if i%2==0 else 6170,790)
 			hazards.append({"rect":Rect2(at-Vector2(45,0),Vector2(90,115)),"time":1.0,"spawn":at})
 		next_adds = 18
-		Events.say("กระดิ่งดัง... ลูกอสูรออกจากประตูด้านข้าง!")
-	if hazards.is_empty() and next_attack > 2.0:
+
+	if hazards.is_empty():
 		for jr in adds:
 			var cd: float = jr.get_meta("rb_cast_cd",0.0)-delta
 			jr.set_meta("rb_cast_cd",cd)

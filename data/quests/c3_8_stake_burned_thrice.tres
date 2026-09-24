@@ -14,14 +14,14 @@ script = ExtResource("2_obj")
 kind = 4
 target = &"burnt_stake"
 count = 1
-text = "ดูเสาที่ถูกเผาสามครั้ง"
+text = "ตรวจดูเสาไหม้"
 
 [sub_resource type="Resource" id="Obj_2"]
 script = ExtResource("2_obj")
 kind = 4
 target = &"buried_banner"
 count = 1
-text = "ดูธงที่ถูกฝัง"
+text = "ตรวจดูธงเก่า"
 
 [resource]
 script = ExtResource("1_quest")

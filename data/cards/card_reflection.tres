@@ -6,20 +6,19 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"reflection"
-fits_slot = 1
 rarity = 5
 monster_level = 79
 id = &"card_reflection"
 display_name = "การ์ดเงาสะท้อน"
-description = "สิ่งที่อยู่ในน้ำ คือเจ้าที่มองอีกด้าน"
+description = "CRIT +4, ดาเมจคริ +6%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 300
-crit = 6
 
-percent_effects = {
-"atk_percent": 4.0
-}
+
+fits_slot = 7
+crit = 4
+percent_effects = {"crit_damage_percent": 6.0}

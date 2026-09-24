@@ -31,3 +31,5 @@ effect_offset = Vector2(110, -60)
 effect_height = 200.0
 effect_follow = true
 effect_life = 0.45
+
+sound = "skill_slash_eleven"

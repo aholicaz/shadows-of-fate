@@ -9,6 +9,12 @@ const DEFAULT_KEYS := {
 	"skill_2": [KEY_2],
 	"skill_3": [KEY_3],
 	"skill_4": [KEY_4],
+	## ★ รอบ 168 ★ แถบลัด 8 ช่อง (คอม) + Shift สลับหน้า
+	"skill_5": [KEY_5],
+	"skill_6": [KEY_6],
+	"skill_7": [KEY_7],
+	"skill_8": [KEY_8],
+	"hotbar_page": [KEY_SHIFT],
 	"skill_bank": [KEY_T],
 	"pickup": [KEY_Z],
 	"quick_potion": [KEY_Q],
@@ -37,7 +43,10 @@ const DEFAULT_KEYS := {
 
 
 static func ensure() -> void:
+	if not OS.is_debug_build() and InputMap.has_action("toggle_gm"):
+		InputMap.erase_action("toggle_gm")
 	for action in DEFAULT_KEYS.keys():
+		if action == "toggle_gm" and not OS.is_debug_build(): continue
 		if not InputMap.has_action(action):
 			InputMap.add_action(action)
 		# ถ้ามีปุ่มผูกไว้แล้ว (ผู้ใช้ตั้งเอง) ไม่ต้องยุ่ง

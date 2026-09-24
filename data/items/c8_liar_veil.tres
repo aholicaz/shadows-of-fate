@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_liar_veil.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_liar_veil"
+display_name = "ผ้าคลุมใยคำโกหก"
+description = "ใยที่ลุกเนอร์ถักจากคำโกหกของสวรรค์ FLEE +20, AGI +10, ความเร็วเดิน +14%, ดาเมจ +5%"
+drop_hint = "ผู้คุมอิกดราซิลชั้น 95 · โอกาสดรอป 8% · กลับล่าได้"
+icon = ExtResource("i")
+type = 2
+slot = 5
+required_level = 148
+max_stack = 1
+card_slots = 2
+refinable = true
+sell_price = 48000
+buy_price = 0
+def = 66
+flee = 20
+bonus_agi = 10
+move_speed_percent = 14.0
+damage_percent = 5.0

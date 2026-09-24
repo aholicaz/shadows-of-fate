@@ -12,6 +12,12 @@ const BTN_W := 84.0
 const BTN_H := 82.0
 const ICON := 42.0
 const MARGIN := 12.0
+## ★ รอบ 170 ★ บนคอม (ไม่ใช้ปุ่มจอสัมผัส) ย่อปุ่มเมนู + ชิดกัน → เหลือที่ให้แถบลัดด้านบน · มือถือใช้ขนาดเดิม
+const COMPACT_W := 60.0
+const COMPACT_H := 58.0
+const COMPACT_ICON := 30.0
+const COMPACT_FONT := 13
+var compact := false
 
 ## รายการปุ่ม — เพิ่ม/ลด/สลับลำดับได้ตามใจ (tab = แท็บในหน้าต่างรวม)
 const ITEMS := [
@@ -133,14 +139,45 @@ func _make_button(entry: Dictionary) -> Button:
 	return btn
 
 
+## ★ รอบ 170 ★ สลับขนาดปุ่ม (คอม = เล็ก · มือถือ = ใหญ่ตามเดิม)
+func set_compact(on: bool) -> void:
+	if on == compact and not _buttons.is_empty():
+		return
+	compact = on
+	var w := COMPACT_W if on else BTN_W
+	var h := COMPACT_H if on else BTN_H
+	var ic := COMPACT_ICON if on else ICON
+	for btn: Button in _buttons.values():
+		btn.custom_minimum_size = Vector2(w, h)
+		btn.size = Vector2(w, h)
+		var art := btn.get_node_or_null("Art") as Control
+		if art != null:
+			art.offset_left = -ic * 0.5
+			art.offset_right = ic * 0.5
+			art.offset_top = 5 if on else 8
+			art.offset_bottom = (5 if on else 8) + ic
+		var cap := btn.get_node_or_null("Caption") as Label
+		if cap != null:
+			cap.add_theme_font_size_override("font_size", COMPACT_FONT if on else 18)
+			cap.offset_top = -22 if on else -32
+			cap.offset_bottom = -2 if on else -4
+		var badge := btn.get_node_or_null("Badge") as Control
+		if badge != null:
+			badge.offset_left = ic * 0.5 - 6
+			badge.offset_right = ic * 0.5 + 10
+			badge.offset_top = 0 if on else 2
+			badge.offset_bottom = 16 if on else 18
+	place()
+
+
 # =========================================================
 # ตำแหน่ง — มุมขวาบนเสมอ
 # =========================================================
 func place() -> void:
 	var screen := get_viewport_rect().size
 	var row := get_node_or_null("Row") as Control
-	var w: float = BTN_W * ITEMS.size()
-	var h: float = BTN_H
+	var w: float = (COMPACT_W if compact else BTN_W) * ITEMS.size()
+	var h: float = COMPACT_H if compact else BTN_H
 	if row != null:
 		row.reset_size()
 		w = maxf(row.size.x, row.get_combined_minimum_size().x)
@@ -162,6 +199,7 @@ func _process(delta: float) -> void:
 	if _timer > 0.0:
 		return
 	_timer = 0.2
+	set_compact(UI.touch == null or not UI.touch.walk_visible)   # ★ รอบ 170 ★
 	var current: String = ""
 	if UI.shell != null and UI.shell.visible:
 		current = UI.shell.current_tab

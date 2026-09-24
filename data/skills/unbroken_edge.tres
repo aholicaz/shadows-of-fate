@@ -5,7 +5,7 @@
 script = ExtResource("s")
 id = &"unbroken_edge"
 display_name = "คมดาบไม่สิ้นสุด"
-description = "ใช้ 3 ตรา เพิ่ม ASPD 5–50% นาน 8 วิ ตีปกติครบ 3 ครั้งมีเงาดาบ 80% ATK ไม่สร้างตรา"
+description = "เพิ่ม ASPD 5–50% นาน 8 วิ ตีปกติครบ 3 ครั้งมีเงาดาบ 80% ATK · กดได้ทันทีไม่ต้องใช้รูน"
 icon = ExtResource("i")
 max_level = 10
 job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/c7_oracle_circlet.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c7_oracle_circlet"
+display_name = "มงกุฎเลนส์เถ้า"
+description = "เลนส์อำพันในวงโลหะบางช่วยตั้งสมาธิท่ามกลางเถ้าที่บดบังสายตา"
+drop_hint = "ผู้ทำนายจากเถ้า 3% · ร้านออร์ม อัมเบอร์เฮเวน"
+icon = ExtResource("i")
+type = 2
+slot = 3
+required_level = 104
+max_stack = 1
+buy_price = 220000
+sell_price = 1200
+card_slots = 1
+refinable = true
+def = 32
+mdef = 25
+max_sp = 60
+bonus_int = 6

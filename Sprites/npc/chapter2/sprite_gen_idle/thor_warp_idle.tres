@@ -1,0 +1,10 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter2/sprite_gen_idle/thor_warp_idle.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="F0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 512, 512)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("F0")}], "loop": true, "name": &"Idle", "speed": 8.0}]

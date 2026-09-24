@@ -17,6 +17,26 @@ static func install(body: AnimatedSprite2D) -> void:
 		for i in range(source.get_frame_count(anim)):
 			merged.add_frame(anim,source.get_frame_texture(anim,i),source.get_frame_duration(anim,i))
 	for key in source.get_meta_list(): merged.set_meta(key,source.get_meta(key))
+	var jump := load("res://data/sprites/jump_slash_frames.tres") as SpriteFrames
+	merged.add_animation(&"JumpSlash_Runeblade")
+	merged.set_animation_loop(&"JumpSlash_Runeblade", false)
+	merged.set_animation_speed(&"JumpSlash_Runeblade", 40.0)
+	for i in jump.get_frame_count(&"JumpSlash_Runeblade"):
+		merged.add_frame(&"JumpSlash_Runeblade", jump.get_frame_texture(&"JumpSlash_Runeblade", i))
+	var regs: Dictionary = merged.get_meta("rb_registration", {}).duplicate(true)
+	regs["JumpSlash_Runeblade"] = {"anchor": Vector2(556, 718), "height": 573.0}
+	merged.set_meta("rb_registration", regs)
+	var pose_regs: Dictionary = merged.get_meta("rb_frame_registration", {}).duplicate(true)
+	var jump_regs: Array = []
+	for i in 32:
+		# Preserve the authored jump arc; register only the landing/recovery to the floor.
+		var ground := 762.0 if i >= 17 and i <= 21 else (741.0 if i == 22 else (738.0 if i == 23 else (729.0 if i == 24 else 718.0)))
+		jump_regs.append({"anchor": [556.0, ground], "height": 573.0})
+	pose_regs["JumpSlash_Runeblade"] = jump_regs
+	merged.set_meta("rb_frame_registration", pose_regs)
+	var baked: Array = merged.get_meta("rb_baked_weapon", []).duplicate()
+	baked.append("JumpSlash_Runeblade")
+	merged.set_meta("rb_baked_weapon", baked)
 	body.sprite_frames = merged
 static func route(body: AnimatedSprite2D, request: String) -> String:
 	install(body)

@@ -36,6 +36,9 @@ var _monsters_all_loaded := false
 
 
 func _ready() -> void:
+	if FileAccess.file_exists("res://data/monster_quest_export.json"):
+		var exported = JSON.parse_string(FileAccess.get_file_as_string("res://data/monster_quest_export.json"))
+		if exported is Dictionary: _export_metadata = exported
 	_load_dir(ITEM_DIR, items)
 	_index_monsters()
 	_load_dir(SKILL_DIR, skills)
@@ -139,6 +142,61 @@ func _index_monsters() -> void:
 				_monster_paths[StringName(clean.get_basename())] = MONSTER_DIR.path_join(clean)
 		f = dir.get_next()
 	dir.list_dir_end()
+
+
+# Quest/UI metadata deliberately never touches the combat/texture cache.
+var _monster_info: Dictionary = {}
+var _export_metadata: Dictionary = {}
+const QUEST_CATALOG = preload("res://scripts/core/monster_quest_catalog.gd")
+
+func get_monster_info(id: StringName) -> MonsterData:
+	if _monster_info.has(id): return _monster_info[id]
+	if not _monster_paths.has(id): return null
+	var path: String = _monster_paths[id]
+	# Source checkout: read current balance values. Export: use the small bundled catalog.
+	var raw: String = FileAccess.get_file_as_string(path) if FileAccess.file_exists(path) else _export_metadata.get(String(id), QUEST_CATALOG.SOURCE.get(String(id), ""))
+	if not raw.contains("[resource]"):
+		raw = _export_metadata.get(String(id), QUEST_CATALOG.SOURCE.get(String(id), ""))
+	if raw.is_empty(): return null
+	var result := parse_monster_info(raw)
+	_monster_info[id] = result
+	return result
+
+static func parse_monster_info(raw: String) -> MonsterData:
+	var result := MonsterData.new()
+	var section := ""
+	var entries := {}
+	var drop_refs := ""
+	var quoted := RegEx.new()
+	quoted.compile('"([^" ]+)"')
+	for line in raw.split("\n"):
+		line = line.strip_edges()
+		if line.begins_with("["):
+			section = ""
+			if line == "[resource]": section = "main"
+			elif line.begins_with('[sub_resource type="Resource"'):
+				var parts := quoted.search_all(line)
+				if parts.size() >= 2:
+					section = parts[-1].get_string(1)
+					entries[section] = DropEntry.new()
+			continue
+		var pair := line.split(" = ", true, 1)
+		if pair.size() != 2: continue
+		var key: String = pair[0]
+		if section == "main":
+			if key == "drops": drop_refs = pair[1]
+			elif key in ["id", "display_name", "level", "is_boss", "zeny_min", "zeny_max"]:
+				result.set(key, str_to_var(pair[1]))
+		elif entries.has(section) and key in ["item_id", "chance", "min_count", "max_count"]:
+			entries[section].set(key, str_to_var(pair[1]))
+	for match_ in quoted.search_all(drop_refs):
+		var ref_id: String = match_.get_string(1)
+		if entries.has(ref_id): result.drops.append(entries[ref_id])
+	return result
+
+func monster_name(id: StringName) -> String:
+	var info := get_monster_info(id)
+	return info.display_name if info != null else String(id)
 
 
 func get_monster(id: StringName) -> MonsterData:

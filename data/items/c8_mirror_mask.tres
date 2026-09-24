@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_mirror_mask.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_mirror_mask"
+display_name = "หน้ากากเงาสะท้อน"
+description = "กระจกของอีราจดจำผู้ที่ผ่านการทดสอบ ใช้ประกอบจี้ผูกราก"
+icon = ExtResource("i")
+type = 3
+sellable = false
+can_drop = false
+buy_price = 0
+sell_price = 0

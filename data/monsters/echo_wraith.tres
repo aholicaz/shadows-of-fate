@@ -5,6 +5,7 @@
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/echo_wraith_frames.tres" id="3_frames"]
 
 [ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="sep14_orb"]
+[ext_resource type="SpriteFrames" uid="uid://bamcqoyj16m76" path="res://data/sprites/fx_dark_wave.tres" id="r158_wave"]
 
 [sub_resource type="Resource" id="Drop_echo_wraith_0"]
 script = ExtResource("2_drop")
@@ -100,3 +101,21 @@ attack_duration = 2.0
 skill_hand_projectiles = false
 projectile_down_angle = 14.64
 hp_bar_offset_y = -428.0
+skill_name = "เสียงสะท้อนหลอน"
+skill_anim = &"Skill"
+skill_range = 560.0
+skill_damage_mult = 1.5
+skill_windup = 0.5
+skill_duration = 1.3
+skill_cooldown = 8.0
+skill_chance = 0.5
+skill_knockback = 320.0
+skill_wave_count = 2
+skill_wave_both_sides = true
+skill_wave_speed = 440.0
+skill_wave_range = 640.0
+skill_wave_delay = 0.5
+skill_wave_height = 240.0
+skill_wave_frames = ExtResource("r158_wave")
+skill_wave_hit_width = 75.0
+skill_wave_hit_height = 133.0

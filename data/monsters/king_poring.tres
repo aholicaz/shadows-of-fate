@@ -23,26 +23,26 @@ max_count = 4
 [sub_resource type="Resource" id="Drop_kp_card"]
 script = ExtResource("2_drop")
 item_id = &"card_king_poring"
-chance = 2.36
+chance = 5.0
 
 [sub_resource type="Resource" id="Resource_fem3u"]
 resource_local_to_scene = true
 script = ExtResource("2_drop")
 item_id = &"clip"
-chance = 15.0
+chance = 5.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_g4v7s"]
 resource_local_to_scene = true
 script = ExtResource("2_drop")
 item_id = &"falchion"
-chance = 15.0
+chance = 6.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_fyhd2"]
 script = ExtResource("2_drop")
 item_id = &"rapier"
-chance = 15.0
+chance = 5.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Drop_king_poring_junk_royal_jelly"]
@@ -59,7 +59,7 @@ chance = 25.0
 [sub_resource type="Resource" id="Drop_king_poring_eq_leather_jacket"]
 script = ExtResource("2_drop")
 item_id = &"leather_jacket"
-chance = 15.0
+chance = 6.0
 
 [sub_resource type="Resource" id="Drop_kp_glow"]
 script = ExtResource("2_drop")
@@ -369,19 +369,19 @@ skill_anim = &"Skill_SlimeBomb"
 skill_range = 520.0
 skill_radius_x = 210.0
 skill_radius_y = 160.0
-skill_damage_mult = 2.4
+skill_damage_mult = 3.0
 skill_windup = 0.55
 skill_duration = 1.0
 skill_cooldown = 5.0
 skill_chance = 0.65
 skill_knockback = 360.0
 skill_projectile_texture = ExtResource("fx_slime")
-skill_projectile_height = 110.0
+skill_projectile_height = 125.0
 skill_projectile_offset = Vector2(90, -230)
 skill_projectile_arc = 260.0
 skill_projectile_time = 0.95
-skill_explosion_height = 225.0
-respawn_time = 180.0
+skill_explosion_height = 300.0
+respawn_time = 120.0
 respawn_persistent = true
 spawn_lines = null
 death_lines = null

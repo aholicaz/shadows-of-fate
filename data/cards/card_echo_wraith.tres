@@ -6,17 +6,19 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"echo_wraith"
-fits_slot = 7
 rarity = 4
 monster_level = 68
 id = &"card_echo_wraith"
 display_name = "การ์ดเสียงสะท้อน"
-description = "เสียงของทั้งสองฝ่ายในโถงเดียวกัน"
+description = "INT +3, MDEF +10, ดาเมจสกิล +3%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 240
-mdef = 10
+
+fits_slot = 3
 bonus_int = 3
+mdef = 10
+percent_effects = {"skill_damage_percent": 3.0}

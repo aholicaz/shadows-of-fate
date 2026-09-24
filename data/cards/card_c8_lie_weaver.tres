@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_lie_weaver.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_lie_weaver.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_lie_weaver"
+display_name = "การ์ดลุกเนอร์ ผู้ถักคำโกหก"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 95"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_lie_weaver"
+monster_level = 205
+rarity = 5
+fits_slot = 5
+unique_equipped = true
+sell_price = 50000
+flee = 18
+move_speed_percent = 10.0

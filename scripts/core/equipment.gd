@@ -79,6 +79,7 @@ func weapon_atk() -> int:
 ## -> Dictionary สำหรับ PlayerStats.flat_bonus
 func collect_bonus() -> Dictionary:
 	var b := {}
+	var seen := {}
 
 	for slot in slots.keys():
 		var inst: ItemInstance = slots[slot]
@@ -98,26 +99,37 @@ func collect_bonus() -> Dictionary:
 
 		# ★ การ์ดที่ใส่อยู่ในชิ้นนี้ ★
 		for card in inst.card_list():
+			if not _card_active(card, d, seen): continue
 			_add_item_bonus(b, card, true)
 
 	return b
 
 
 ## รวมโบนัสแบบเปอร์เซ็นต์จากการ์ด -> PlayerStats.percent_bonus
+static func _card_active(card: CardData, item: ItemData, seen: Dictionary) -> bool:
+	if item == null or card.fits_slot != item.slot: return false
+	if card.unique_equipped:
+		if seen.has(card.id): return false
+		seen[card.id] = true
+	return true
+
 func collect_percent_bonus() -> Dictionary:
 	var b := {}
+	var cards := {}
+	var seen := {}
 	for slot in slots.keys():
 		var inst: ItemInstance = slots[slot]
-		if inst == null:
-			continue
+		if inst == null: continue
 		var d := inst.data()
-		if d != null:
-			_add_percent_bonus(b, d)
+		if d != null: _add_percent_bonus(b, d)
 		for card in inst.card_list():
-			for key in card.percent_effects.keys():
-				var k := StringName(key)
-				b[k] = float(b.get(k, 0.0)) + float(card.percent_effects[key])
-			_add_percent_bonus(b, card)
+			if not _card_active(card, d, seen): continue
+			for key in card.percent_effects:
+				_add(cards, StringName(key), float(card.percent_effects[key]))
+			_add_percent_bonus(cards, card)
+	cards[&"hp_drain_percent"] = minf(0.3, float(cards.get(&"hp_drain_percent", 0.0)))
+	cards[&"sp_drain_percent"] = minf(0.15, float(cards.get(&"sp_drain_percent", 0.0)))
+	for key in cards: _add(b, key, cards[key])
 	return b
 
 

@@ -37,6 +37,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Refresh lightweight quest metadata
+        run: |
+          python3 _tools/build_monster_quest_catalog.py
+          python3 _tools/check_export_boundaries.py
+
       - name: ติดตั้งเครื่องมือ Python ที่สคริปต์ปรับภาพต้องใช้
         run: pip install --quiet pillow numpy
 

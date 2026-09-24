@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_mirror_mantle.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_mirror_mantle"
+display_name = "ผ้าคลุมผู้ล่าภาพสะท้อน"
+description = "เศษกระจกบนผ้าคลุมอีราบิดภาพตำแหน่งผู้สวม หลบหลีก +12 และดาเมจคริติคอล +10% สำหรับนักล่าที่ชิงจังหวะ"
+drop_hint = "ผู้คุมอิกดราซิลชั้น 15 · โอกาสดรอป 8% · กลับล่าได้"
+icon = ExtResource("i")
+type = 2
+slot = 5
+required_level = 114
+max_stack = 1
+card_slots = 2
+refinable = true
+sell_price = 16000
+buy_price = 0
+def = 48
+flee = 12
+crit_damage_percent = 10.0
+bonus_luk = 6

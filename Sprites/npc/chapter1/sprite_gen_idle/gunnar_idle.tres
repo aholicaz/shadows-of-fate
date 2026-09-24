@@ -1,0 +1,179 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://6qd83c3daslk"]
+
+[ext_resource type="Texture2D" uid="uid://cxuybtkpphv1l" path="res://Sprites/npc/chapter1/sprite_gen_idle/gunnar_idle.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="F0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F1"]
+atlas = ExtResource("1")
+region = Rect2(513, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F2"]
+atlas = ExtResource("1")
+region = Rect2(1026, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F3"]
+atlas = ExtResource("1")
+region = Rect2(1539, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F4"]
+atlas = ExtResource("1")
+region = Rect2(2052, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F5"]
+atlas = ExtResource("1")
+region = Rect2(2565, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F6"]
+atlas = ExtResource("1")
+region = Rect2(3078, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F7"]
+atlas = ExtResource("1")
+region = Rect2(3591, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F8"]
+atlas = ExtResource("1")
+region = Rect2(4104, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F9"]
+atlas = ExtResource("1")
+region = Rect2(4617, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F10"]
+atlas = ExtResource("1")
+region = Rect2(5130, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F11"]
+atlas = ExtResource("1")
+region = Rect2(5643, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F12"]
+atlas = ExtResource("1")
+region = Rect2(6156, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F13"]
+atlas = ExtResource("1")
+region = Rect2(6669, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F14"]
+atlas = ExtResource("1")
+region = Rect2(7182, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F15"]
+atlas = ExtResource("1")
+region = Rect2(7695, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F16"]
+atlas = ExtResource("1")
+region = Rect2(8208, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F17"]
+atlas = ExtResource("1")
+region = Rect2(8721, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F18"]
+atlas = ExtResource("1")
+region = Rect2(9234, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F19"]
+atlas = ExtResource("1")
+region = Rect2(9747, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F20"]
+atlas = ExtResource("1")
+region = Rect2(10260, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F21"]
+atlas = ExtResource("1")
+region = Rect2(10773, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F22"]
+atlas = ExtResource("1")
+region = Rect2(11286, 0, 513, 770)
+
+[sub_resource type="AtlasTexture" id="F23"]
+atlas = ExtResource("1")
+region = Rect2(11799, 0, 513, 770)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("F0")
+}, {
+"duration": 1.0,
+"texture": SubResource("F1")
+}, {
+"duration": 1.0,
+"texture": SubResource("F2")
+}, {
+"duration": 1.0,
+"texture": SubResource("F3")
+}, {
+"duration": 1.0,
+"texture": SubResource("F4")
+}, {
+"duration": 1.0,
+"texture": SubResource("F5")
+}, {
+"duration": 1.0,
+"texture": SubResource("F6")
+}, {
+"duration": 1.0,
+"texture": SubResource("F7")
+}, {
+"duration": 1.0,
+"texture": SubResource("F8")
+}, {
+"duration": 1.0,
+"texture": SubResource("F9")
+}, {
+"duration": 1.0,
+"texture": SubResource("F10")
+}, {
+"duration": 1.0,
+"texture": SubResource("F11")
+}, {
+"duration": 1.0,
+"texture": SubResource("F12")
+}, {
+"duration": 1.0,
+"texture": SubResource("F13")
+}, {
+"duration": 1.0,
+"texture": SubResource("F14")
+}, {
+"duration": 1.0,
+"texture": SubResource("F15")
+}, {
+"duration": 1.0,
+"texture": SubResource("F16")
+}, {
+"duration": 1.0,
+"texture": SubResource("F17")
+}, {
+"duration": 1.0,
+"texture": SubResource("F18")
+}, {
+"duration": 1.0,
+"texture": SubResource("F19")
+}, {
+"duration": 1.0,
+"texture": SubResource("F20")
+}, {
+"duration": 1.0,
+"texture": SubResource("F21")
+}, {
+"duration": 1.0,
+"texture": SubResource("F22")
+}, {
+"duration": 1.0,
+"texture": SubResource("F23")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 8.0
+}]

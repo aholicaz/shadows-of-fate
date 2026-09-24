@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_100_clear"
+count = 1
+text = "ผ่านชั้น 100 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_20_gate"
+title = "ประตูเหนือยอดไม้"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 100 (ผู้คุม: เงาแห่งค้อน ผู้เฝ้าประตูทอง) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "ชั้น 100 คือประตูแอสการ์ด ผู้เฝ้าประตูไม่มีชื่อ ไม่มีหน้า เป็นแค่เงาของค้อน — เงาที่ธอร์ทิ้งไว้ให้ตัดสินแทนเขาตอนเขาไม่อยู่\n\nเจ้าเดินมาไกลกว่าที่ผู้ถือคมที่เก้าคนไหนเคยเดิน ขึ้นไปให้ถึงชั้น 100 แล้วกลับมาบอกข้าว่าหลังประตูนั่นมีอะไรรออยู่"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 100 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "คนแปลกหน้าคนนั้น... ที่เคยบอกเจ้าว่ามีพี่ชายถือค้อน เขารออยู่หน้าประตูอย่างนั้นหรือ\n\nถ้าเขาเปิดประตูให้ แปลว่าเขาก็รอให้ใครสักคนเดินมาถึงตรงนั้นมานานแล้วเหมือนกัน... ไปเถอะ แอสการ์ดรออยู่ ข้าจะจดชื่อเจ้าไว้เป็นชื่อแรกในทะเบียนเล่มใหม่"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_19_lies"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 600000
+reward_job_exp = 50000
+reward_zeny = 150000
+set_flag_on_complete = &"chapter8_done"

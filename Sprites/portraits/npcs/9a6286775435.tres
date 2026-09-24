@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter3/idle/njorda_idle.png" id="1_si307"]
+
+[resource]
+atlas = ExtResource("1_si307")
+region = Rect2(150, 41, 210, 269)
+filter_clip = true

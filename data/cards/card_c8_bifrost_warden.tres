@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_bifrost_warden.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_bifrost_warden.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_bifrost_warden"
+display_name = "การ์ดไอริส ผู้เฝ้าสะพานรุ้งร้าว"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 65"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_bifrost_warden"
+monster_level = 175
+rarity = 5
+fits_slot = 7
+unique_equipped = true
+sell_price = 50000
+bonus_luk = 8
+crit = 6
+crit_damage_percent = 10.0

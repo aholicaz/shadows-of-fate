@@ -70,7 +70,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_lake" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(4800, 820)
+position = Vector2(4310, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -88,7 +88,7 @@ max_spawn_distance = 1700.0
 
 
 [node name="ToCity" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"ljosalf_city"
 target_spawn_point = &"from_garden"
 label_text = "← ลโยซาลฟ์"
@@ -96,7 +96,7 @@ destination_name = "ลโยซาลฟ์ นครแห่งแสง"
 
 
 [node name="ToLake" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(4940, 880)
+position = Vector2(4450, 825)
 target_map = &"mirror_lake"
 target_spawn_point = &"from_garden"
 label_text = "→ ทะเลสาบกระจก"

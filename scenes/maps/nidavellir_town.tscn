@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://uslrlnj2em2v"]
 
-[ext_resource type="SpriteFrames" uid="uid://cm4i3caprat4b" path="res://Sprites/npc/chapter2/idle/brokk_idle.tres" id="c2_brokk"]
-[ext_resource type="SpriteFrames" uid="uid://bbhwuwor1o1x0" path="res://Sprites/npc/chapter2/idle/dvalin_idle.tres" id="c2_dvalin"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_idle/hedin_idle.tres" id="sg_hedin"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_idle/thor_warp_idle.tres" id="sg_thor_warp"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/hans_idle.tres" id="sg_hans"]
+[ext_resource type="Shader" path="res://Sprites/shaders/thor_shrine_idle.gdshader" id="sg_shrine_shader"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_trial/brokk_idle.tres" id="c2_brokk"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_trial/dvalin_idle.tres" id="c2_dvalin"]
 [ext_resource type="Texture2D" uid="uid://caprptiypttl3" path="res://Sprites/map/chapter2/dwarf_lantern.png" id="c2_dwarf_lantern"]
 [ext_resource type="Texture2D" uid="uid://bep3jwh4tlx7u" path="res://Sprites/map/chapter2/forge_ground.png" id="c2_forge_ground"]
 [ext_resource type="Script" uid="uid://wbqtj6nl5yim" path="res://scripts/world/map_ambient_fx.gd" id="c2_fx"]
 [ext_resource type="SpriteFrames" uid="uid://33yn1gfcfsv3" path="res://Sprites/npc/chapter2/idle/hans_idle.tres" id="c2_hans"]
 [ext_resource type="SpriteFrames" uid="uid://5lsao8f7s1uc" path="res://Sprites/npc/chapter2/idle/hedin_idle.tres" id="c2_hedin"]
-[ext_resource type="SpriteFrames" uid="uid://k1yn8h65rujb" path="res://Sprites/npc/chapter2/idle/helga_idle.tres" id="c2_helga"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_trial/helga_idle.tres" id="c2_helga"]
 [ext_resource type="Texture2D" uid="uid://hafyq2uucfbe" path="res://Sprites/map/chapter2/sindri_memorial.png" id="c2_memorial"]
 [ext_resource type="Texture2D" uid="uid://bphy4b7lxxgwf" path="res://Sprites/map/chapter2/nidavellir_town_depth.png" id="c2_nidavellir_town_depth"]
 [ext_resource type="Script" uid="uid://cm32004roptyp" path="res://scripts/world/chapter2_parallax.gd" id="c2_parallax"]
@@ -24,6 +28,11 @@
 [ext_resource type="PackedScene" uid="uid://bdgqbnav4qg14" path="res://scenes/npc/npc.tscn" id="npc"]
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
+
+[sub_resource type="ShaderMaterial" id="SGShrineMaterial"]
+resource_local_to_scene = true
+shader = ExtResource("sg_shrine_shader")
+shader_parameter/warm_light = true
 
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(5800, 177)
@@ -259,7 +268,9 @@ position = Vector2(0, -62)
 
 [node name="Helga" parent="NPCs" unique_id=1753019939 instance=ExtResource("npc")]
 position = Vector2(550, 883)
-npc_name = "นายหน้าเฮลกา"
+npc_name = "นายหน้าเฮลกา"
+greeting = "คนบนดินหลงลงมาถึงนี่ได้ยังไง... ว่ามา จะซื้อหรือจะขาย"
+portrait_file = "res://Sprites/portraits/npcs/379d136686bf.tres"
 has_bounty_board = true
 dialog = "คนบนดินสินะ ของที่นี่แพงหน่อยนะ แต่ของดีทุกชิ้น
 
@@ -278,7 +289,9 @@ autoplay = "Idle"
 
 [node name="Dvalin" parent="NPCs" unique_id=943662091 instance=ExtResource("npc")]
 position = Vector2(1350, 883)
-npc_name = "ช่างเอกดวาลิน"
+npc_name = "ช่างเอกดวาลิน"
+greeting = "วางของไว้บนทั่ง ข้าฟังอยู่ แต่มือข้าไม่หยุดตีหรอกนะ"
+portrait_file = "res://Sprites/portraits/npcs/130cc21a5d5e.tres"
 type = 2
 dialog = "เอาของมาตีบวกก็วางตรงนี้
 
@@ -296,16 +309,16 @@ autoplay = "Idle"
 
 [node name="Brokk" parent="NPCs" unique_id=976899576 instance=ExtResource("npc")]
 position = Vector2(2200, 883)
-npc_name = "บรอกก์"
+npc_name = "บรอกก์"
+greeting = "...คนบนดิน ข้าไม่มีอะไรจะพูดกับเจ้าหรอก"
+portrait_file = "res://Sprites/portraits/npcs/ad9885eadbf3.tres"
 type = 0
 dialog = "ข้าไม่พูดเรื่องเก่าแล้ว ไปเถอะ
 
 ...ค้อนน่ะ? ค้อนอะไร"
 dialog_by_flag = {
-"read_sindri_grave": "เจ้าไปดูหลุมนั้นมาแล้วสินะ
-
-ใช่ ข้ากับซินดริตีค้อนเล่มนั้น
-แต่เราไม่เคยตีมันเพื่อปกป้องใครทั้งนั้น"
+"read_sindri_grave": "เจ้าไปดูหลุมนั้นมาแล้วสินะ\n\nใช่ ข้ากับซินดริตีค้อนเล่มนั้น\nแต่เราไม่เคยตีมันเพื่อปกป้องใครทั้งนั้น",
+"rb_told_brokk": "ข้าเริ่มตีเหล็กอีกครั้งแล้ว... คราวนี้ข้าสลักเส้นคืนพลังไว้ในทุกชิ้น\n\nถ้าซินดริเห็น เขาคงด่าว่าข้าช้าไปหลายร้อยปี"
 }
 voice_id = "brokk"
 quest_ids = Array[StringName]([&"c2_8_hammer_truth"])
@@ -321,6 +334,7 @@ autoplay = "Idle"
 [node name="SavePoint" parent="NPCs" unique_id=1789249336 instance=ExtResource("npc")]
 position = Vector2(3050, 883)
 npc_name = "เสาวาปแห่งธอร์"
+portrait_file = "res://Sprites/portraits/npcs/b76a0782f84b.tres"
 type = 4
 dialog = "ศิลาเก่าแก่ ตราค้อนที่สลักไว้ดูใหม่กว่าตัวหินมาก"
 warp_targets = Array[StringName]([&"asgard_forest_2", &"vanir_town", &"utgard_town", &"ljosalf_city", &"eljudnir"])
@@ -332,13 +346,17 @@ warp_flags = {
 texture_filter = 2
 position = Vector2(-4, -108.00001)
 scale = Vector2(0.78, 0.78)
-sprite_frames = ExtResource("c2_thor_warp")
+sprite_frames = ExtResource("sg_thor_warp")
+
 animation = &"Idle"
 autoplay = "Idle"
+material = SubResource("SGShrineMaterial")
 
 [node name="Healer" parent="NPCs" unique_id=1168898817 instance=ExtResource("npc")]
 position = Vector2(3850, 883)
-npc_name = "หมอคนแคระเฮดิน"
+npc_name = "หมอคนแคระเฮดิน"
+greeting = "บาดเจ็บมาจากทางเหล็กอีกคนสินะ นั่งลง ข้าดูให้"
+portrait_file = "res://Sprites/portraits/npcs/02ddc62c976d.tres"
 type = 3
 blessing_price = 2500
 dialog = "เจ็บตรงไหน ให้ข้าดู
@@ -350,13 +368,16 @@ voice_id = "hedin"
 texture_filter = 2
 position = Vector2(0, -39.36)
 scale = Vector2(0.5, 0.5)
-sprite_frames = ExtResource("c2_hedin")
+sprite_frames = ExtResource("sg_hedin")
+
 animation = &"Idle"
 autoplay = "Idle"
 
 [node name="Hans" parent="NPCs" unique_id=781576204 instance=ExtResource("npc")]
 position = Vector2(4550, 883)
-npc_name = "ช่างตีเหล็กฮันส์"
+npc_name = "ช่างตีเหล็กฮันส์"
+greeting = "เจ้าก็ลงมาถึงนี่จนได้... บ้านเก่าข้าเอง ถึงจะไม่มีใครอยากเห็นหน้าข้าก็เถอะ"
+portrait_file = "res://Sprites/portraits/hans.png"
 type = 0
 dialog = "ข้าตามเจ้ามาถึงนี่แล้ว...
 
@@ -368,7 +389,8 @@ quest_ids = Array[StringName]([&"c2_3_forbidden_name", &"c2_4_nameless_grave"])
 texture_filter = 2
 position = Vector2(-12, -71.000015)
 scale = Vector2(0.395, 0.395)
-sprite_frames = ExtResource("c2_hans")
+sprite_frames = ExtResource("sg_hans")
+
 animation = &"Idle"
 autoplay = "Idle"
 

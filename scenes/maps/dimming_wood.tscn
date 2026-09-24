@@ -21,8 +21,11 @@
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 [ext_resource type="Script" uid="uid://c2no85difcfo6" path="res://scripts/world/monster_spawner.gd" id="spawner"]
 
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/sol_exile.png" id="sol_story_art"]
+
 [sub_resource type="RectangleShape2D" id="Rect_ground"]
 size = Vector2(5600, 240)
+
 
 [node name="Map" type="Node2D" unique_id=728921485]
 script = ExtResource("map_base")
@@ -100,7 +103,7 @@ position = Vector2(200, 820)
 position = Vector2(200, 820)
 
 [node name="from_sanctum" type="Marker2D" parent="SpawnPoints" unique_id=1862251366]
-position = Vector2(5000, 820)
+position = Vector2(4510, 820)
 
 [node name="Spawners" type="Node2D" parent="." unique_id=974345386]
 
@@ -122,14 +125,14 @@ spawn_width = 160
 [node name="Portals" type="Node2D" parent="." unique_id=1214853234]
 
 [node name="ToLake" parent="Portals" unique_id=1191828775 instance=ExtResource("portal")]
-position = Vector2(89, 803)
+position = Vector2(89, 825)
 target_map = &"mirror_lake"
 target_spawn_point = &"from_wood"
 label_text = "← ทะเลสาบกระจก"
 destination_name = "ทะเลสาบกระจก"
 
 [node name="ToSanctum" parent="Portals" unique_id=1662485932 instance=ExtResource("portal")]
-position = Vector2(5142, 816)
+position = Vector2(4650, 825)
 target_map = &"lightwell_sanctum"
 target_spawn_point = &"from_wood"
 label_text = "→ วิหารบ่อแสง"
@@ -143,10 +146,9 @@ locked_text = "ผู้หลุดจากแสงยืนขวางท�
 modulate = Color(1, 1, 1, 0.7)
 position = Vector2(1400, 820)
 npc_name = "โซล (ผู้ถูกทิ้ง)"
+portrait_file = "res://Sprites/portraits/npcs/76312a6e907c.tres"
 type = 0
-dialog = "ข้าเริ่ม «รู้สึก» วันหนึ่ง แค่นั้น เศร้านิดเดียว... แล้วพวกเขาก็พาข้ามาที่นี่
-
-ที่นี่คือที่ที่เอลฟ์ «เสีย» ถูกทิ้ง เมืองจำเราไม่ได้ เพราะแสงกรองเราออกไปแล้ว"
+dialog = "วันหนึ่งข้าเริ่ม «รู้สึก» ขึ้นมา แค่เศร้านิดเดียวเท่านั้น... แล้วพวกเขาก็พาข้ามาทิ้งไว้ที่นี่\n\nที่นี่คือที่ทิ้งเอลฟ์ที่ «เสีย» เมืองจำเราไม่ได้แล้ว เพราะแสงกรองเราออกไปหมด"
 show_if_flag = &"knows_exile"
 greeting = "...เจ้า เจ้าคือคนที่ถามข้าเรื่องกลางคืน"
 quest_ids = Array[StringName]([&"c5_9_where_the_light_goes"])
@@ -170,3 +172,9 @@ text = "ศิลาเก่ามีชื่อสลักเป็นร้
 และใต้นั้น มีชื่อหนึ่งถูกลบ — ชื่อของคนที่คัดค้านสัญญา"
 set_flag = &"saw_exile_stone"
 label_text = "ศิลา"
+
+[node name="Sprite2D" parent="NPCs/Sol_exile" index="0"]
+texture = ExtResource("sol_story_art")
+centered = false
+position = Vector2(-76.26953125, -280.15625)
+scale = Vector2(0.4296875, 0.4296875)

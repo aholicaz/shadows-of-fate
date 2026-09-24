@@ -6,15 +6,17 @@
 script = ExtResource("s")
 id = &"card_ember_oracle"
 display_name = "การ์ดผู้ทำนายจากเถ้า"
-description = "กระจกสีชาที่รวมตัวจากเถ้าของทะเบียน มองผ่านมันแล้วเห็นคำสั่งที่ถูกเขียนทับ"
+description = "INT +6, SP +80, ดาเมจสกิล +6%"
 monster_id = &"ember_oracle"
 illustration = ExtResource("art_1")
 monster_level = 106
-fits_slot = 2
 rarity = 5
 icon = ExtResource("i")
 type = 5
 max_stack = 99
 sell_price = 400
+
+fits_slot = 3
 bonus_int = 6
-max_sp = 65
+max_sp = 80
+percent_effects = {"skill_damage_percent": 6.0}

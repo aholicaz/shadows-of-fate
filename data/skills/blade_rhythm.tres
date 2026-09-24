@@ -5,7 +5,7 @@
 script = ExtResource("s")
 id = &"blade_rhythm"
 display_name = "จังหวะคมดาบ"
-description = "ตีปกติโดนสะสม 5 ชั้น เพิ่ม ASPD ชั้นละ 0.6–6% จังหวะลดหลังหยุดตี 3 วิ"
+description = "พาสซีฟ · ASPD +2.5% ต่อระดับ ติดตัวตลอด (ไม่ต้องสะสมชั้นแล้ว)"
 icon = ExtResource("i")
 max_level = 10
 job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
@@ -17,3 +17,4 @@ cooldown = 0.0
 damage_mult_base = 0.0
 damage_mult_per_level = 0.0
 required_skills = {"rune_flurry": 1}
+passive_effects = {"aspd_percent": 2.5}

@@ -8,7 +8,7 @@ script = ExtResource("2_obj")
 kind = 4
 target = &"hammer_blueprint"
 count = 1
-text = "ดูแบบร่างบนกำแพงเตาหลอมร้าง"
+text = "ตรวจดูแบบร่างโบราณ"
 
 [resource]
 script = ExtResource("1_quest")

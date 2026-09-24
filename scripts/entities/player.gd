@@ -365,6 +365,7 @@ var _collision_synced := false
 var facing: int = 1              # 1 = ขวา, -1 = ซ้าย
 var is_attacking := false
 var _rb_attack_tag: StringName = &"basic"
+var jump_slash_motion: Node
 var runeblade: Node2D
 var attack_cooldown := 0.0
 var knockback := Vector2.ZERO
@@ -452,6 +453,11 @@ func _physics_process(delta: float) -> void:
 	if _iframe > 0.0:
 		_iframe -= delta
 
+	if is_instance_valid(jump_slash_motion):
+		jump_slash_motion.step(delta)
+		return
+
+
 	# ★ กำลังพุ่งหลบอยู่ ★ ทำแค่พุ่งอย่างเดียว ไม่รับคำสั่งอื่น
 	if _dodge_time > 0.0:
 		_dodge_step(delta)
@@ -484,6 +490,9 @@ func _physics_process(delta: float) -> void:
 	if is_attacking:
 		if runeblade != null and runeblade.approach_left > 0.0:
 			runeblade.approach_step(delta)
+			return
+		# ★ รอบ 181 ★ กงจักรนามเก้า — เดินได้ระหว่างหมุน / กดหลบยกเลิก
+		if runeblade != null and is_instance_valid(runeblade.ninth) and runeblade.ninth.drive(delta):
 			return
 		velocity.x = knockback.x
 		move_and_slide()
@@ -588,6 +597,46 @@ func is_invincible() -> bool:
 	return _iframe > 0.0
 
 
+# ★ รอบ 182 ★ หลบพอดี (ระบบ C บท 9) — โดนโจมตีภายใน 0.2 วิแรกของการพุ่งหลบ
+# = ภาพช้าลง 0.4 วิ + Runeblade/Ninth Edge ได้รูน +1 · อาชีพอื่นได้ SP 5% · ได้ครั้งเดียวต่อการพุ่ง 1 ครั้ง
+signal perfect_dodged
+const PERFECT_DODGE_WINDOW := 0.2
+const PERFECT_DODGE_SLOWMO := 0.35
+const PERFECT_DODGE_SLOWMO_TIME := 0.4
+const PERFECT_DODGE_SP := 0.05
+var _dodge_serial := 0
+var _perfect_serial := -1
+var perfect_dodge_count := 0   ## (ไว้ให้เทสต์/สถิติ)
+
+
+## ระบบโจมตีที่เช็กอมตะเองแล้วไม่เรียก take_damage (สกิลบอสบางท่า) ให้เรียกตัวนี้ตอนผู้เล่นหลบได้
+func dodge_contact() -> void:
+	_try_perfect_dodge()
+
+
+func _try_perfect_dodge() -> bool:
+	if _iframe <= 0.0 or _perfect_serial == _dodge_serial:
+		return false
+	if dodge_invincible - _iframe > PERFECT_DODGE_WINDOW:
+		return false
+	_perfect_serial = _dodge_serial
+	perfect_dodge_count += 1
+	var reward := ""
+	if PlayerState.stats.job_id in [&"runeblade", &"ninth_edge"] and runeblade != null:
+		runeblade.charges = mini(runeblade.max_charges(), runeblade.charges + 1)
+		reward = "รูน +1"
+	else:
+		var sp := maxi(1, int(PlayerState.stats.max_sp * PERFECT_DODGE_SP))
+		PlayerState.restore_sp(sp)
+		reward = "SP +%d" % sp
+	Events.floating_text(global_position + Vector2(0, -70), "หลบพอดี!", Color("#ffe27a"), 30, 0)
+	Events.floating_text(global_position + Vector2(0, -28), reward, Color("#9fd4ff"), 18, 0)
+	add_child(preload("res://scripts/entities/perfect_dodge_fx.gd").new())
+	preload("res://scripts/entities/crack_overlay_fx.gd").slow_mo(PERFECT_DODGE_SLOWMO, PERFECT_DODGE_SLOWMO_TIME, 0.6)
+	perfect_dodged.emit()
+	return true
+
+
 func is_dodging() -> bool:
 	return _dodge_time > 0.0
 
@@ -615,6 +664,7 @@ func _start_dodge() -> void:
 	_dodge_wall_stopped = false
 	_dodge_cd = _dodge_time + dodge_cooldown
 	_iframe = dodge_invincible
+	_dodge_serial += 1   # ★ รอบ 182 ★ หลบพอดีได้ครั้งเดียวต่อการพุ่ง
 	_jump_buffer = 0.0
 	_hit_left = 0.0
 	_land_left = 0.0
@@ -846,12 +896,12 @@ func _handle_input() -> void:
 			use_skill(msid)
 		return
 
-	# สกิลปุ่มลัด 1-4
-	for i in range(SkillBook.BANK_SIZE):
-		if Input.is_action_just_pressed("skill_%d" % (i + 1)):
-			var sid := PlayerState.skills.active_hotkey_at(i)
-			if sid != &"":
-				use_skill(sid)
+	# ★ รอบ 168 ★ แถบลัด ปุ่ม 1-8 (สกิลหรือไอเทม) ของหน้าปัจจุบัน — มือถือ 4 วงสกิลส่ง skill_1-4 มาทางเดียวกัน
+	var menu_open: bool = UI.shell != null and UI.shell.visible   # ★ รอบ 177 ★ เปิดหน้าต่างรวม = กดเลขไว้ตั้งแถบลัด ไม่ใช่ใช้สกิล
+	for i in range(PlayerState.HOTBAR_PAGE):
+		var act := "skill_%d" % (i + 1)
+		if not menu_open and InputMap.has_action(act) and Input.is_action_just_pressed(act):
+			use_hotbar_index(PlayerState.hotbar_page() * PlayerState.HOTBAR_PAGE + i)
 			return
 
 	# เก็บไอเทม — กด F (หรือ Z)
@@ -1062,6 +1112,11 @@ func _apply_auto_fit() -> void:
 	# ทำให้ทั้งตัวถูกดันขึ้น-ลงตามจังหวะเฟรม = "ยืน idle แล้วตัวเด้ง" ที่ผู้ใช้เห็น
 	if auto_fit_align_feet:
 		sprite.offset.y = (_feet_y() - sprite.position.y) / k - fd.bottom_use
+		if sprite.animation == &"JumpSlash_Runeblade":
+			# Additional visual arc: feet clear standing head height, then strike the floor.
+			var phase := clampf((float(sprite.frame) + sprite.frame_progress - 6.0) / 11.0, 0.0, 1.0)
+			var lift := sin(phase * PI) * auto_fit_height * 1.2
+			sprite.offset.y -= lift / k
 
 
 ## ปรับกล่องชนให้พอดีกับขนาดตัวละคร
@@ -1703,6 +1758,22 @@ func _attack_anim_speed(played_anim: String) -> float:
 # =========================================================
 # ใช้สกิล
 # =========================================================
+## ★ รอบ 168 ★ ใช้ช่องแถบลัด (กดปุ่มเลข / คลิกช่องบนแถบ)
+func use_hotbar_index(i: int) -> void:
+	var e := PlayerState.hotbar_slot(i)
+	if e.is_empty():
+		return
+	if String(e.kind) == "skill":
+		if PlayerState.skills.is_learned(StringName(e.id)):
+			use_skill(StringName(e.id))
+		return
+	var iid := StringName(e.id)
+	if PlayerState.inventory.count_of(iid) <= 0:
+		Events.say("ไม่มี%sในกระเป๋า" % GameData.item_name(iid))
+		return
+	PlayerState.use_item_by_id(iid)
+
+
 func use_skill(skill_id: StringName) -> void:
 	if is_attacking or _dead or _dodge_time > 0.0:
 		return
@@ -1711,7 +1782,7 @@ func use_skill(skill_id: StringName) -> void:
 		return
 	_rb_attack_tag = skill_id
 	var s := GameData.get_skill(skill_id)
-	if s == null:
+	if s == null or s.type == SkillData.SkillType.PASSIVE:   # ★ รอบ 164 ★ พาสซีฟกดไม่ได้
 		return
 	if not PlayerState.commit_skill_use(skill_id):
 		return
@@ -1725,11 +1796,17 @@ func use_skill(skill_id: StringName) -> void:
 			PlayerState.heal_hp(amount)
 			Events.floating_text(global_position, s.display_name, Color("#7ef0ff"), 20, 0)
 			_play_support_sfx(skill_id, "heal")
+			if preload("res://scripts/entities/runeblade_echo_art.gd").active(self):
+				preload("res://scripts/entities/runeblade_echo_art.gd").seal(self,
+					to_local(foot_position()-Vector2(0,100)),Vector2(80,100),0.35)
 
 		SkillData.SkillType.BUFF:
 			PlayerState.apply_buff(skill_id)
 			Events.floating_text(global_position, s.display_name, Color("#ffd54a"), 20, 0)
 			_play_support_sfx(skill_id, "buff")
+			if preload("res://scripts/entities/runeblade_echo_art.gd").active(self):
+				preload("res://scripts/entities/runeblade_echo_art.gd").seal(self,
+					to_local(foot_position()-Vector2(0,6)),Vector2(140,50),0.32)
 
 		SkillData.SkillType.ACTIVE_DASH:
 			# ★ สกิลพุ่ง ★ ออกตัวไปข้างหน้าแล้วฟันทุกตัวที่ขวางทาง
@@ -1823,6 +1900,11 @@ func _wait_dash_completion() -> bool:
 func _spawn_attack_effect(anim_speed: float = 1.0, fx_scale: float = 1.0,
 		step: int = 0, windup: float = 0.12) -> void:
 	if not attack_effect_enabled:
+		return
+	if preload("res://scripts/entities/runeblade_echo_art.gd").active(self):
+		preload("res://scripts/entities/runeblade_echo_art.gd").cut(self,
+			foot_position()+Vector2(facing*110,-135), facing,
+			205.0*minf(fx_scale,1.25), step, maxf(0.0,windup-0.07), true)
 		return
 
 	# ★★ รอบ 100/101 ★★ รอยฟันพิเศษ — จังหวะสว่างสุดตรงเฟรมที่ดาเมจออก
@@ -2141,14 +2223,18 @@ func _deal_damage(range_x: float, range_y: float, mult: float, use_matk: bool,
 func take_damage(amount: int, knockback_force: float = 0.0, from_direction: int = 0) -> void:
 	if _dead:
 		return
+	if PlayerState.has_method("talk_truce") and PlayerState.call("talk_truce"):   # ★ รอบ 155 ★ กำลังคุย/อ่านป้ายในแมพทุ่ง — ไม่โดนตี ไม่กระเด็น
+		return
 
 	# ★ โหมด GM อมตะ (รอบ 80) ★ เปิดจากหน้าต่าง GM — ทดสอบสกิลบอสได้โดยไม่ตาย
-	if PlayerState.gm_god_mode:
+	if OS.is_debug_build() and PlayerState.gm_god_mode:
 		Events.floating_text(global_position + Vector2(0, -40), "GM", Color("#ffd54a"), 24, 0)
 		return
 
 	# ★★ ช่วงอมตะตอนพุ่งหลบ ★★ โดนตีไม่เข้า ขึ้นคำว่า "หลบ!" แทนเลขดาเมจ
 	if is_invincible():
+		if _try_perfect_dodge():   # ★ รอบ 182 ★
+			return
 		Events.floating_text(global_position + Vector2(0, -40), "หลบ!",
 			Color("#9be7ff"), 26, 0)
 		return
@@ -2195,6 +2281,7 @@ func _on_died() -> void:
 	if _dead:
 		return
 	_dead = true
+	if is_instance_valid(jump_slash_motion): jump_slash_motion.cancel()
 	_dash_time = 0.0
 	_attack_seq += 1
 	is_attacking = false

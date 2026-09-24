@@ -91,8 +91,12 @@ func _ready() -> void:
 	check(player.runeblade.absorb(shield+10)==10 and player.runeblade.shield==0,"guard absorbs only its remaining amount")
 	PlayerState.skills.learned[&"worldcleaver"] = 1
 	var sp: int = PlayerState.stats.sp
+	# ★ รอบ 181 ★ ไม่ต้องมีรูนแล้ว — ท่าใหญ่กดได้ทันที (รูน = โบนัส)
 	player.runeblade.cast(&"worldcleaver")
-	check(PlayerState.stats.sp==sp and PlayerState.skill_cooldown_left(&"worldcleaver")==0,"ultimate with no runes spends nothing")
+	await get_tree().create_timer(0.5).timeout
+	check(PlayerState.stats.sp<sp and PlayerState.skill_cooldown_left(&"worldcleaver")>0,"ultimate casts without runes (round 181)")
+	while player.runeblade.casting: await get_tree().physics_frame
+	await get_tree().create_timer(2.4).timeout   # ให้ฝนดาบ 5 ระลอกตกจบก่อนเทสต์ท่าถัดไป
 	PlayerState.gm_god_mode = true
 	var victim = map._spawn(true,player.position+Vector2(100,0),true)
 	player.facing = 1

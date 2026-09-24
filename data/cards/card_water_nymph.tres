@@ -6,18 +6,20 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"water_nymph"
-fits_slot = 7
 rarity = 4
 monster_level = 80
 id = &"card_water_nymph"
 display_name = "การ์ดนางฟ้าน้ำ"
-description = "เพลงที่ทำให้เท้าช้าลง"
+description = "INT +3, MDEF +8, SP +120, ลดคูลดาวน์ +2%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 300
-max_sp = 120
-mdef = 8
+
+fits_slot = 7
 bonus_int = 3
+mdef = 8
+max_sp = 120
+percent_effects = {"cooldown_reduction_percent": 2.0}

@@ -9,6 +9,7 @@ var _name_label: Label
 var _art: TextureRect
 var _art_frame: PanelContainer
 var _slot_label: Label
+var _slot_icon: TextureRect
 var _effect_label: Label
 var _rarity_label: Label
 
@@ -51,9 +52,20 @@ func _build() -> void:
 	_art_frame.add_child(_art)
 
 	# ---------- ป้ายบอกช่องที่ใส่ได้ ----------
+	var slot_row := HBoxContainer.new()
+	slot_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	slot_row.add_theme_constant_override("separation", 4)
+	box.add_child(slot_row)
+	_slot_icon = TextureRect.new()
+	_slot_icon.custom_minimum_size = Vector2(16, 16)
+	_slot_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_slot_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_slot_icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	_slot_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot_row.add_child(_slot_icon)
 	_slot_label = UITheme.make_label("", 11, UITheme.TEXT_DIM)
 	_slot_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	box.add_child(_slot_label)
+	slot_row.add_child(_slot_label)
 
 	box.add_child(UITheme.separator())
 
@@ -99,11 +111,14 @@ func show_card(card: CardData, owned: bool = true) -> void:
 		var lvn: int = card.monster_level
 		var lv: String = "Lv.%d" % lvn if lvn > 0 else ""
 		_slot_label.text = "ใส่ใน%s   •   %s" % [card.slot_name(), lv]
+		_slot_icon.texture = _slot_texture(card.fits_slot)
+		_slot_icon.show()
 		_effect_label.text = card.describe()
 		_effect_label.add_theme_color_override("font_color", UITheme.GOOD)
 		_rarity_label.text = card.rarity_name()
 	else:
 		_slot_label.text = "ยังไม่เก็บได้"
+		_slot_icon.hide()
 		_effect_label.text = "ล่ามอนสเตอร์ตัวนี้เพื่อลุ้นการ์ด"
 		_effect_label.add_theme_color_override("font_color", UITheme.TEXT_DIM)
 		_rarity_label.text = ""
@@ -111,6 +126,17 @@ func show_card(card: CardData, owned: bool = true) -> void:
 
 ## รูปที่จะโชว์บนการ์ด — ใช้ภาพการ์ดก่อน ถ้าไม่มีก็ดึงรูปมอนสเตอร์มาใช้
 static var _icon_crop_cache: Dictionary = {}
+
+static func _slot_texture(slot: int) -> Texture2D:
+	var id := "slot_weapon"
+	match slot:
+		ItemData.Slot.OFFHAND: id = "slot_offhand"
+		ItemData.Slot.HEAD: id = "slot_head"
+		ItemData.Slot.ARMOR: id = "slot_armor"
+		ItemData.Slot.GARMENT: id = "slot_garment"
+		ItemData.Slot.SHOES: id = "slot_shoes"
+		ItemData.Slot.ACCESSORY: id = "slot_accessory"
+	return UITheme.glyph_texture(id)
 
 
 static func _cropped_icon(card: CardData) -> Texture2D:

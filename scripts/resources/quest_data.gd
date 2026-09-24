@@ -12,6 +12,8 @@ extends Resource
 @export_group("คนให้เควส")
 ## ชื่อ NPC ที่ให้เควสนี้ (ใช้โชว์ในสมุดเควสเฉย ๆ)
 @export var giver_name: String = ""
+## ★ รอบ 161 ★ ส่งเควสกับ NPC คนอื่น (เว้นว่าง = ส่งกับคนให้เควส) — เช่น ผีนักล่าฝากข่าวถึงอิงกริด
+@export var turn_in_name: String = ""
 ## บทพูดตอนรับเควส
 @export_multiline var dialog_offer: String = "ช่วยงานหน่อยได้ไหม"
 ## บทพูดตอนยังทำไม่เสร็จ
@@ -113,7 +115,7 @@ func step_count() -> int:
 func target_name() -> String:
 	if kill_monster_id == &"":
 		return ""
-	var m := GameData.get_monster(kill_monster_id)
+	var m := GameData.get_monster_info(kill_monster_id)
 	return m.display_name if m != null else String(kill_monster_id)
 
 
@@ -135,3 +137,8 @@ func reward_text() -> String:
 		var jx: int = reward_job_exp if reward_job_exp > 0 else int(round(reward_exp * 0.7))
 		parts.append("EXP %d / Job %d" % [reward_exp, jx])
 	return "  ·  ".join(parts) if not parts.is_empty() else "-"
+
+
+## ★ รอบ 161 ★ ชื่อ NPC ที่ต้องกลับไปส่งเควสนี้
+func turn_in_npc() -> String:
+	return turn_in_name if turn_in_name != "" else giver_name

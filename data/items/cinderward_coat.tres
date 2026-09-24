@@ -8,8 +8,8 @@ display_name = "เสื้อคลุมกันเถ้า"
 description = "เสื้อคลุมทอเส้นใยบะซอลต์ของผู้ลี้ภัย ปิดแผลได้โดยไม่ต้องปิดชื่อของผู้สวม"
 icon = ExtResource("i")
 type = 2
-sell_price = 840000
-buy_price = 4200000
+sell_price = 1500
+buy_price = 250000
 max_stack = 1
 slot = 5
 required_level = 100
@@ -19,3 +19,5 @@ def = 45
 mdef = 18
 max_hp = 350
 bonus_vit = 5
+
+drop_hint = "สุนัขเถ้าถ่าน 3% · ร้านออร์ม อัมเบอร์เฮเวน"

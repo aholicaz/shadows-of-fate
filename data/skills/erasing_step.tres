@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/rune_lunge.png" id="i"]
+
+[resource]
+script = ExtResource("s")
+id = &"erasing_step"
+display_name = "ก้าวลบเงา"
+description = "วาร์ปทะลุไปข้างหน้า 450 · อมตะ 0.25 วินาที · ฟันผ่าน 100–180% ATK แล้วรอยแผลบนทางวาร์ประเบิดตามหลัง 0.5 วินาที 380–700% ATK · กดซ้ำได้ฟรีภายใน 1.2 วินาที (แรง 60%) · สร้างรูน 1 ดวง"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 96
+type = 5
+sp_cost_base = 14
+sp_cost_per_level = 0.0
+cooldown = 6.0
+cast_windup = 0.03
+damage_mult_base = 1.0
+damage_mult_per_level = 0.2
+required_skills = {}
+max_targets = 0
+range_x = 120.0
+range_y = 300.0
+dash_distance = 450.0
+dash_distance_per_level = 0.0
+dash_range_y = 300.0
+dash_speed = 4200.0
+sound = "skill_slash_eleven"

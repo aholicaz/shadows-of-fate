@@ -69,7 +69,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_gate" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(5400, 820)
+position = Vector2(4910, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -96,7 +96,7 @@ spawn_width = 160
 
 
 [node name="ToHall" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"hall_of_names"
 target_spawn_point = &"from_nastrond"
 label_text = "← โถงแห่งนาม"
@@ -104,7 +104,7 @@ destination_name = "โถงแห่งนาม"
 
 
 [node name="ToGate" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(5540, 880)
+position = Vector2(5050, 825)
 target_map = &"garm_gate"
 target_spawn_point = &"from_nastrond"
 label_text = "→ ประตูของการ์ม"

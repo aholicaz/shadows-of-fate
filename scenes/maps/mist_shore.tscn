@@ -66,7 +66,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_town" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(5000, 820)
+position = Vector2(4510, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -84,7 +84,7 @@ max_spawn_distance = 1700.0
 
 
 [node name="ToSanctum" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"lightwell_sanctum"
 target_spawn_point = &"from_shore"
 label_text = "↑ วิหารบ่อแสง"
@@ -92,7 +92,7 @@ destination_name = "วิหารบ่อแสง"
 
 
 [node name="ToTown" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(5140, 880)
+position = Vector2(4650, 825)
 target_map = &"eljudnir"
 target_spawn_point = &"from_shore"
 label_text = "→ เอลยุดเนียร์"

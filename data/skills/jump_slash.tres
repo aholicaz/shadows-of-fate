@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SkillData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/rune_lunge.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"jump_slash"
+display_name = "กระโดดผ่ารูน"
+description = "กระโดดสูงเหนือศีรษะแล้วพุ่งตามทิศที่หัน 600 px แล้วฟันปล่อยคลื่นแนวยาว 1260 px สร้าง 408–1272% ATK ต่อเป้าหมายหนึ่งครั้ง หยุดเมื่อชนกำแพง ใช้ได้เมื่ออยู่บนพื้น และยังรับความเสียหายระหว่างท่า"
+icon = ExtResource("i")
+max_level = 10
+job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
+required_level = 50
+required_skills = {"rune_lunge": 3}
+type = 5
+sp_cost_base = 20
+sp_cost_per_level = 1.0
+cooldown = 7.0
+damage_mult_base = 4.08
+damage_mult_per_level = 0.96
+range_x = 1260.0
+range_y = 450.0
+max_targets = 8
+dash_distance = 600.0
+dash_distance_per_level = 0.0
+animation = &"JumpSlash_Runeblade"

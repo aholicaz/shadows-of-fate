@@ -148,6 +148,10 @@ func _card(s: SkillData) -> void:
 	button.add_theme_stylebox_override("hover",UITheme.panel_style(Color("#304759"),UITheme.ACCENT,8,2,6))
 	button.pressed.connect(func(): _select(s.id))
 	button.tooltip_text=s.display_name+"\n"+s.requirement_text()
+	# ★ รอบ 177 ★ ลากไอคอนสกิลลงแถบลัด · ชี้แล้วกด 1-8
+	button.set_drag_forwarding(_tile_drag.bind(s.id, button), Callable(), Callable())
+	button.mouse_entered.connect(func(): _hover_skill = s.id)
+	button.mouse_exited.connect(func(): if _hover_skill == s.id: _hover_skill = &"")
 	_grid.add_child(button)
 	_tiles[s.id]=button
 	var icon := TextureRect.new()
@@ -177,7 +181,12 @@ func _card(s: SkillData) -> void:
 	var label := UITheme.make_label(s.display_name,12,UITheme.TEXT)
 	label.position=Vector2(7,46)
 	label.size=Vector2(138,26)
-	label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	label.autowrap_mode=TextServer.AUTOWRAP_OFF
+	label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+	label.clip_text=true
+	label.tooltip_text=s.display_name
+	label.name="SkillName"
+	label.set_deferred("size", Vector2(138,26))
 	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	button.add_child(label)
 	for prerequisite in s.required_skills:
@@ -220,7 +229,9 @@ func _show_popup() -> void:
 	_detail.add_child(body)
 	if lv<skill.max_level:
 		var next := "เลเวล %d → %d"%[lv,lv+1]
-		if skill.damage_mult(maxi(1,lv))>0 and skill.type not in [SkillData.SkillType.PASSIVE,SkillData.SkillType.BUFF]:
+		if skill.passive_effects.has("potion_heal_percent"):   # ★ รอบ 164 ★
+			next += "  •  ยาแรงขึ้น +%.0f%% → +%.0f%%"%[float(skill.passive_values(lv).get("potion_heal_percent",0.0)),float(skill.passive_values(lv+1).get("potion_heal_percent",0.0))]
+		elif skill.damage_mult(maxi(1,lv))>0 and skill.type not in [SkillData.SkillType.PASSIVE,SkillData.SkillType.BUFF,SkillData.SkillType.HEAL]:
 			next += "  •  ดาเมจ %.0f%% → %.0f%%"%[skill.damage_mult(maxi(1,lv))*100,skill.damage_mult(lv+1)*100]
 		var preview := UITheme.make_label(next,13,UITheme.GOOD)
 		preview.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -236,42 +247,306 @@ func _show_popup() -> void:
 		var reason := UITheme.make_label(book.learn_blocker(_selected,PlayerState.stats),13,UITheme.BAD)
 		reason.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 		_detail_actions.add_child(reason)
+	# ★ รอบ 177 ★ ปุ่มเลขใส่แถบลัด (หน้าปัจจุบัน) — กดเลขที่มีสกิลนี้อยู่ = ถอด
+	if _assignable(skill.id):
+		var page := PlayerState.hotbar_page()
+		var at := _slot_of_skill(skill.id)
+		var where := ("อยู่ช่อง %d หน้า %d" % [at % PlayerState.HOTBAR_PAGE + 1, int(at / PlayerState.HOTBAR_PAGE) + 1]) if at >= 0 else "ยังไม่อยู่ในแถบลัด"
+		var kl := UITheme.make_label("ใส่แถบลัดหน้า %d · %s" % [page + 1, where], 13, UITheme.GOLD_BRIGHT)
+		kl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_detail_actions.add_child(kl)
+		var kg := GridContainer.new()
+		kg.columns = 8
+		kg.add_theme_constant_override("h_separation", 4)
+		_detail_actions.add_child(kg)
+		for k in range(PlayerState.HOTBAR_PAGE):
+			var idx := page * PlayerState.HOTBAR_PAGE + k
+			var kb := UITheme.make_button(str(k + 1))
+			kb.name = "KeyCap%d" % (k + 1)
+			kb.custom_minimum_size = Vector2(30, 32)
+			kb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			kb.add_theme_font_size_override("font_size", 14)
+			if idx == at:
+				kb.add_theme_color_override("font_color", Color("#1a1405"))
+				var gs := StyleBoxFlat.new()
+				gs.bg_color = Color("#ffd86a")
+				gs.set_corner_radius_all(4)
+				kb.add_theme_stylebox_override("normal", gs)
+				kb.tooltip_text = "อยู่ช่องนี้ — กดอีกครั้ง = ถอด"
+			else:
+				kb.tooltip_text = "ใส่ช่อง %d" % (k + 1) + (" (แทน %s)" % PlayerState.hotbar_tooltip(idx).get_slice("  ", 0) if not PlayerState.hotbar_slot(idx).is_empty() else "")
+			kb.pressed.connect(_assign_hotkey.bind(idx, skill.id))
+			kg.add_child(kb)
 
 func _loadout() -> void:
+	# ★ รอบ 177 ★ แถบลัดแบบลากวาง (ผู้ใช้เลือก A + ปุ่มเลขแบบ C จาก `_docs/mockup_รอบ175_ใส่สกิล_*.png`)
+	#   [แถบลัด · หน้า 1 | หน้า 2] [ช่อง 1-8 ขอบขาว] [ถังขยะ]
+	#   ลากไอคอนสกิลบนผัง → วางลงช่อง · ลากช่อง → ช่องอื่น = สลับ · ลากช่อง → ถังขยะ / คลิกขวา = ถอด
+	#   คลิกช่อง = ใส่สกิลที่เลือกอยู่ · ชี้สกิลบนผังแล้วกด 1-8 (Shift+เลข = อีกหน้า) = ใส่ช่องนั้น
 	_clear(_hotbar)
 	var selected_skill := GameData.get_skill(_selected)
-	var assignable := selected_skill!=null and selected_skill.type!=SkillData.SkillType.PASSIVE and PlayerState.skills.is_learned(_selected)
-	_status.text="ติดตั้ง %s → เลือกช่องด้านล่าง • T สลับชุด"%selected_skill.display_name if assignable else "กด + บนผังเพื่ออัปเกรด • เส้นเชื่อมแสดงสกิลที่ต้องเรียนก่อน"
-	for i in range(SkillBook.HOTKEY_COUNT):
-		var index := i
-		var id := PlayerState.skills.hotkey_at(i)
-		var s := GameData.get_skill(id)
-		var col := VBoxContainer.new()
-		col.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-		_hotbar.add_child(col)
-		var button := UITheme.make_button("%s · %d  %s"%["ชุด 1" if i < 4 else "ชุด 2", i % 4 + 1,s.display_name if s!=null else "ช่องว่าง"])
-		button.name="Hotkey%d"%(i+1)
-		button.custom_minimum_size=Vector2(100,42)
-		button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-		button.add_theme_font_size_override("font_size",16)
-		button.disabled=not assignable
-		button.tooltip_text="ใส่สกิลที่เลือกในช่อง %d%s"%[i+1," (แทน "+s.display_name+")" if s!=null else ""]
-		button.pressed.connect(func(): _assign_hotkey(index))
-		col.add_child(button)
-		var clear := UITheme.make_button("ถอดออก" if s!=null else "—")
-		clear.add_theme_font_size_override("font_size",14)
-		clear.disabled=s==null
-		clear.pressed.connect(func(): PlayerState.skills.set_hotkey(index,&""); refresh())
-		col.add_child(clear)
+	var assignable := _assignable(_selected)
+	var page := PlayerState.hotbar_page()
+	_status.text = ("ลาก %s ลงช่องด้านล่าง • หรือชี้สกิลแล้วกดเลข 1–8 • คลิกขวาที่ช่อง = ถอด" % selected_skill.display_name) if assignable \
+		else "ลากไอคอนสกิลที่เรียนแล้วลงแถบลัด • กด + บนผังเพื่ออัปเกรด"
+	_hotbar.columns = 11
+	var head := VBoxContainer.new()
+	head.add_theme_constant_override("separation", 4)
+	head.custom_minimum_size.x = 132
+	_hotbar.add_child(head)
+	head.add_child(UITheme.make_label("แถบลัด", 15, UITheme.GOLD_BRIGHT))
+	var pills := HBoxContainer.new()
+	pills.add_theme_constant_override("separation", 4)
+	head.add_child(pills)
+	for p in range(2):
+		var pb := UITheme.make_button("หน้า %d" % (p + 1), 60)
+		pb.toggle_mode = true
+		pb.set_pressed_no_signal(p == page)
+		pb.add_theme_font_size_override("font_size", 13)
+		pb.tooltip_text = "แถบลัดหน้า %d (ในเกม: Shift / T สลับหน้า)" % (p + 1)
+		var target := p
+		pb.pressed.connect(func():
+			if PlayerState.hotbar_page() != target:
+				PlayerState.skills.switch_bank()
+			refresh())
+		pills.add_child(pb)
+	for k in range(PlayerState.HOTBAR_PAGE):
+		var s := _LoadSlot.new()
+		s.win = self
+		s.key_index = k
+		s.slot = page * PlayerState.HOTBAR_PAGE + k
+		s.name = "Hotkey%d" % (k + 1)
+		_hotbar.add_child(s)
+	var gap := Control.new()
+	gap.custom_minimum_size.x = 8
+	_hotbar.add_child(gap)
+	_hotbar.add_child(_TrashZone.new())
 
-func _assign_hotkey(index: int) -> void:
-	var skill := GameData.get_skill(_selected)
-	if skill==null or skill.type==SkillData.SkillType.PASSIVE or not PlayerState.skills.is_learned(_selected): return
-	PlayerState.skills.set_hotkey(index,_selected)
+
+func _assignable(id: StringName) -> bool:
+	var s := GameData.get_skill(id)
+	return s != null and s.type != SkillData.SkillType.PASSIVE and PlayerState.skills.is_learned(id)
+
+
+## ช่องแถบลัด (0-15) ที่มีสกิลนี้อยู่ (-1 = ไม่มี)
+func _slot_of_skill(id: StringName) -> int:
+	for i in range(PlayerState.HOTBAR_SIZE):
+		var e := PlayerState.hotbar_slot(i)
+		if String(e.get("kind", "")) == "skill" and StringName(e.get("id", &"")) == id:
+			return i
+	return -1
+
+
+## ★ รอบ 168/177 ★ index = ช่องแถบลัด 0-15 · ใส่สกิลที่เลือกอยู่ (กดช่องเดิมที่มีสกิลนี้ซ้ำ = ถอด)
+func _assign_hotkey(index: int, id: StringName = &"") -> void:
+	if id == &"":
+		id = _selected
+	if not _assignable(id):
+		return
+	var e := PlayerState.hotbar_slot(index)
+	if String(e.get("kind", "")) == "skill" and StringName(e.get("id", &"")) == id:
+		PlayerState.set_hotbar_slot(index, "", &"")
+	else:
+		PlayerState.set_hotbar_slot(index, "skill", id)
 	refresh()
 
+
+## ลากไอคอนสกิลจากผัง (set_drag_forwarding ของปุ่มบนผัง)
+func _tile_drag(_at: Vector2, id: StringName, tile: Control) -> Variant:
+	if not _assignable(id):
+		return null
+	var s := GameData.get_skill(id)
+	var pv := TextureRect.new()
+	pv.texture = s.icon
+	pv.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	pv.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	pv.size = Vector2(52, 52)
+	pv.position = Vector2(-26, -26)
+	pv.modulate.a = 0.9
+	var holder := Control.new()
+	holder.add_child(pv)
+	tile.set_drag_preview(holder)
+	return {"kind": "skill_id", "id": id}
+
+
+## ชี้สกิลบนผังแล้วกด 1-8 (Shift = อีกหน้า) → ใส่ช่องนั้น · กดซ้ำ = ถอด
+var _hover_skill: StringName = &""
+
+func _input(event: InputEvent) -> void:
+	if not is_visible_in_tree() or _hover_skill == &"":
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		var kc: int = (event as InputEventKey).keycode
+		if kc >= KEY_1 and kc <= KEY_8:
+			if not _assignable(_hover_skill):
+				Events.say("ใส่แถบลัดได้เฉพาะสกิลที่เรียนแล้ว (ไม่ใช่สกิลติดตัว)")
+				get_viewport().set_input_as_handled()
+				return
+			var page := PlayerState.hotbar_page()
+			if (event as InputEventKey).shift_pressed:
+				page = 1 - page
+			_assign_hotkey(page * PlayerState.HOTBAR_PAGE + (kc - KEY_1), _hover_skill)
+			get_viewport().set_input_as_handled()
+
+
+# =========================================================
+# ช่องแถบลัด 1 ช่องในหน้าสกิล (วางได้ · ลากออกได้)
+# =========================================================
+class _LoadSlot extends Control:
+	var win
+	var key_index := 0
+	var slot := 0
+	var _hover := false
+	var _dragging := false
+
+	func _init() -> void:
+		custom_minimum_size = Vector2(54, 54)
+		mouse_filter = Control.MOUSE_FILTER_STOP
+		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		mouse_exited.connect(func(): _hover = false; queue_redraw())
+
+	func _get_tooltip(_at: Vector2) -> String:
+		return PlayerState.hotbar_tooltip(slot) + "\n(ลากไปช่องอื่น = สลับ · คลิกขวา = ถอด)"
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_DRAG_BEGIN:
+			_dragging = true
+			queue_redraw()
+		elif what == NOTIFICATION_DRAG_END:
+			_dragging = false
+			_hover = false
+			queue_redraw()
+
+	func _icon() -> Texture2D:
+		var e := PlayerState.hotbar_slot(slot)
+		if e.is_empty():
+			return null
+		if String(e.kind) == "skill":
+			var sk := GameData.get_skill(StringName(e.id))
+			return sk.icon if sk != null else null
+		var d := GameData.get_item(StringName(e.id))
+		return d.icon if d != null else null
+
+	func _gui_input(ev: InputEvent) -> void:
+		if ev is InputEventMouseButton and ev.pressed:
+			# accept_event ก่อน — การใส่/ถอดทำให้หน้าสร้างช่องใหม่ (ช่องนี้ถูกลบ)
+			if ev.button_index == MOUSE_BUTTON_RIGHT:
+				accept_event()
+				PlayerState.set_hotbar_slot(slot, "", &"")
+			elif ev.button_index == MOUSE_BUTTON_LEFT and win._assignable(win._selected):
+				accept_event()
+				win._assign_hotkey(slot)
+
+	func _get_drag_data(_at: Vector2) -> Variant:
+		var tex := _icon()
+		if tex == null:
+			return null
+		var pv := TextureRect.new()
+		pv.texture = tex
+		pv.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		pv.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		pv.size = Vector2(48, 48)
+		pv.position = Vector2(-24, -24)
+		var holder := Control.new()
+		holder.add_child(pv)
+		set_drag_preview(holder)
+		return {"kind": "hotbar", "slot": slot}
+
+	func _can_drop_data(_at: Vector2, data: Variant) -> bool:
+		var ok: bool = data is Dictionary and String(data.get("kind", "")) in ["skill_id", "hotbar"]
+		if ok != _hover:
+			_hover = ok
+			queue_redraw()
+		return ok
+
+	func _drop_data(_at: Vector2, data: Variant) -> void:
+		_hover = false
+		if String(data.kind) == "skill_id":
+			win._selected = StringName(data.id)
+			PlayerState.set_hotbar_slot(slot, "skill", StringName(data.id))
+		else:
+			PlayerState.swap_hotbar(int(data.slot), slot)
+
+	func _draw() -> void:
+		var r := Rect2(Vector2.ZERO, size)
+		var e := PlayerState.hotbar_slot(slot)
+		var mine: bool = String(e.get("kind", "")) == "skill" and StringName(e.get("id", &"")) == win._selected
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color(0.04, 0.08, 0.08, 0.35) if not e.is_empty() else Color(1, 1, 1, 0.08)
+		sb.set_corner_radius_all(6)
+		sb.set_border_width_all(2)
+		sb.border_color = Color(1, 1, 1, 0.9)
+		if _hover or mine:
+			sb.border_color = Color("#ffd86a")
+			sb.shadow_color = Color(1.0, 0.85, 0.42, 0.55 if _hover else 0.3)
+			sb.shadow_size = 8 if _hover else 4
+		elif _dragging:
+			sb.border_color = Color(1.0, 0.85, 0.42, 0.7)
+		draw_style_box(sb, r)
+		var font := get_theme_default_font()
+		var tex := _icon()
+		if tex != null:
+			draw_texture_rect(tex, r.grow(-4), false)
+		else:
+			draw_string(font, Vector2(0, size.y * 0.5 + 8), "+", HORIZONTAL_ALIGNMENT_CENTER, size.x, 22, Color(1, 1, 1, 0.8))
+		if String(e.get("kind", "")) == "item" and PlayerState.inventory != null:
+			var ct := str(PlayerState.inventory.count_of(StringName(e.id)))
+			draw_string_outline(font, Vector2(0, size.y - 3), ct, HORIZONTAL_ALIGNMENT_RIGHT, size.x - 3, 12, 3, Color.BLACK)
+			draw_string(font, Vector2(0, size.y - 3), ct, HORIZONTAL_ALIGNMENT_RIGHT, size.x - 3, 12, Color.WHITE)
+		var kt := str(key_index + 1)
+		draw_string_outline(font, Vector2(4, 14), kt, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, 3, Color.BLACK)
+		draw_string(font, Vector2(4, 14), kt, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color.WHITE)
+
+
+## ถังขยะ — วางช่องที่ลากมา = ถอดออกจากแถบลัด
+class _TrashZone extends Control:
+	var _hover := false
+	var _dragging := false
+
+	func _init() -> void:
+		custom_minimum_size = Vector2(120, 54)
+		mouse_filter = Control.MOUSE_FILTER_STOP
+		tooltip_text = "ลากช่องแถบลัดมาวางที่นี่ = ถอดออก"
+		mouse_exited.connect(func(): _hover = false; queue_redraw())
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_DRAG_BEGIN or what == NOTIFICATION_DRAG_END:
+			_dragging = what == NOTIFICATION_DRAG_BEGIN
+			_hover = false
+			queue_redraw()
+
+	func _can_drop_data(_at: Vector2, data: Variant) -> bool:
+		var ok: bool = data is Dictionary and String(data.get("kind", "")) == "hotbar"
+		if ok != _hover:
+			_hover = ok
+			queue_redraw()
+		return ok
+
+	func _drop_data(_at: Vector2, data: Variant) -> void:
+		_hover = false
+		PlayerState.set_hotbar_slot(int(data.slot), "", &"")
+
+	func _draw() -> void:
+		var r := Rect2(Vector2.ZERO, size)
+		var col := Color("#ff7b6b") if _hover else Color(1.0, 0.48, 0.42, 0.75 if _dragging else 0.45)
+		if _hover:
+			draw_rect(r, Color(1.0, 0.3, 0.25, 0.18))
+		# ขอบประ
+		var pts := [r.position, Vector2(r.end.x, r.position.y), r.end, Vector2(r.position.x, r.end.y), r.position]
+		for i in range(4):
+			var a: Vector2 = pts[i]
+			var b: Vector2 = pts[i + 1]
+			var n := int(a.distance_to(b) / 10.0)
+			for j in range(n):
+				if j % 2 == 0:
+					draw_line(a.lerp(b, float(j) / n), a.lerp(b, float(j + 1) / n), col, 2.0)
+		var font := get_theme_default_font()
+		draw_string(font, Vector2(0, 23), "✕ ลากมาวาง", HORIZONTAL_ALIGNMENT_CENTER, size.x, 13, col)
+		draw_string(font, Vector2(0, 42), "= ถอดออก", HORIZONTAL_ALIGNMENT_CENTER, size.x, 13, col)
+
+
 func shell_hints() -> Array:
-	return [["K","ปิดสกิล"],["คลิก","เลือกสกิล / ติดตั้งช่องลัด"]]
+	return [["K","ปิดสกิล"],["ลาก","สกิล → แถบลัด"],["1-8","ชี้สกิลแล้วกด = ใส่ช่อง"],["คลิกขวา","ถอดช่อง"]]
 
 ## ★ รอบ 56 ★ บรรทัด "โดนกี่ตัว" + บอกว่าเลเวลไหนจะเพิ่มอีก
 static func _targets_line(s: SkillData, lv: int, unlimited_text: String) -> String:
@@ -323,7 +598,10 @@ static func describe(s: SkillData, learned_level: int) -> String:
 		SkillData.SkillType.PASSIVE:
 			var pv := s.passive_values(lv)
 			for k in pv.keys():
-				stats_lines.append("%s %+.0f (ติดตัวตลอด)" % [k, pv[k]])
+				if String(k) == "potion_heal_percent":   # ★ รอบ 164 ★ First Aid
+					stats_lines.append("ยาฟื้นฟู HP/SP แรงขึ้น +%.0f%% (ติดตัวตลอด)" % pv[k])
+				else:
+					stats_lines.append("%s %+.0f (ติดตัวตลอด)" % [k, pv[k]])
 		SkillData.SkillType.ACTIVE_DASH:
 			stats_lines.append("ดาเมจ %.0f%% ต่อตัว" % (s.damage_mult(lv) * 100.0))
 			stats_lines.append("พุ่งไกล %.0f px" % s.dash_range(lv))
@@ -340,18 +618,24 @@ static func describe(s: SkillData, learned_level: int) -> String:
 				stats_lines.append(_targets_line(s, lv, ""))
 	if s.id in SkillBook.RUNE_SKILLS:
 		stats_lines.clear()
+		if s.id in [&"worldcleaver", &"erasing_cut", &"ninefold_cyclone", &"ninth_inscription"]:
+			lines.append("[color=#9fd4ff]ใช้รูนที่สะสมไว้เป็นโบนัส +10%/ดวง (ไม่มีรูนก็ใช้ได้)[/color]")
 		match s.id:
 			&"runic_vessel": stats_lines.append("Max HP +%d%% / Max SP +%d%%"%[lv*2,lv*3])
 			&"rune_guard": stats_lines.append("โล่ %.0f%% Max HP · 3 วินาที"%((0.02+lv*0.02)*100))
-			&"blade_rhythm": stats_lines.append("ASPD +%.1f%% ต่อชั้น · สูงสุด 5 ชั้น"%(lv*0.6))
+			&"blade_rhythm": stats_lines.append("ASPD +%.1f%% ติดตัวตลอด"%(lv*2.5))   # ★ รอบ 181 ★
 			&"keen_inscription": stats_lines.append("โอกาสคริ +%d จุดเปอร์เซ็นต์ · ตัวคูณคริ +%.2f"%[lv*2,lv*0.04])
-			&"unbroken_edge": stats_lines.append("ใช้ 3 ตรา · ASPD +%d%% · 8 วินาที"%(lv*5))
+			&"unbroken_edge": stats_lines.append("ASPD +%d%% · 8 วินาที"%(lv*5))
 			&"tempered_might": stats_lines.append("ท่าใหญ่สายหนัก +%d%% · มองข้าม DEF %d%%"%[lv*4,lv*5])
 			&"ninth_vessel": stats_lines.append("Max HP +%d%% / Max SP +%d%%\nLv.5: เก็บตรารูนได้ 4 ดวง"%[lv*3,lv*4])
-			&"named_edge": stats_lines.append("โอกาสคริ +%d จุดเปอร์เซ็นต์ · มองข้าม DEF %d%%"%[lv*3,lv*6])
-			&"twin_inscription": stats_lines.append("ใช้ 2 ตรา · เงาดาบ %.0f%% ATK · 6 วินาที"%((0.45+0.05*lv)*100))
+			&"named_edge": stats_lines.append("โอกาสคริ +%d จุด · มองข้าม DEF %d%%\nดาเมจเพิ่มตาม DEF ศัตรู สูงสุด +%d%% · ตรานามครบ 3 ชั้น +%d%%"%[lv*2,lv*4,lv*4,lv*8])
+			&"erasing_step": stats_lines.append("ฟันผ่าน %.0f%% + รอยแผลระเบิด %.0f%% ATK\nกดซ้ำได้ใน 1.2 วิ (แรง 60%%) · อมตะ 0.25 วิ"%[s.damage_mult(lv)*100,(3.8+0.8*(lv-1))*100])
+			&"oathchain": stats_lines.append("ดึง + ฟัน %.0f%% ATK · สตัน 0.8 วิ\nระยะโซ่ 800 · ดึงรอบเป้า 320"%(s.damage_mult(lv)*100))
+			&"ninefold_cyclone": stats_lines.append("9 ครั้ง × %.0f%% + ปิดท้าย %.0f%% ATK\nเดินได้ 80%% ระหว่างหมุน · กดหลบยกเลิกได้"%[(1.1+0.2*(lv-1))*100,(4.0+1.0*(lv-1))*100])
+			&"erasing_cut": stats_lines.append("พุ่ง 260 แล้วฟัน %.0f%% ATK ระยะ 560\nฆ่าได้คืนรูน 1 ดวง"%(s.damage_mult(lv)*100))
+			&"twin_inscription": stats_lines.append("ร่างเงา 10 วินาที · ทำท่าตาม %.0f%%"%((0.35+0.05*lv)*100))
 			&"wallbreaker_stance": stats_lines.append("ดาเมจ +%.1f%% เมื่อเป้าหมายมี DEF ≥ 100"%(13.0+2.4*lv))
-			&"ninth_inscription": stats_lines.append("ใช้ 4 ตรา · วงสลัก 3 วินาที\nระเบิด %.0f%% ATK"%((20.0+2.0*(lv-1))*100))
+			&"ninth_inscription": stats_lines.append("วาร์ปฟัน 9 × %.0f%% + ระเบิด %.0f%% ATK\nอมตะตลอดท่า"%[(2.6+0.3*(lv-1))*100,(18.0+2.5*(lv-1))*100])
 			_: stats_lines.append("ดาเมจรวมทั้งท่า %.0f%% ATK"%(s.damage_mult(lv)*100))
 	if not stats_lines.is_empty():
 		var head: String = "ค่าตอนนี้" if learned_level > 0 else "ค่าที่เลเวล 1"

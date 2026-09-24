@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/mist_ghost_frames.tres" id="3_frames"]
 
+[ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="chapter6_orb"]
+[ext_resource type="SpriteFrames" uid="uid://bamcqoyj16m76" path="res://data/sprites/fx_dark_wave.tres" id="r158_wave"]
+
 [sub_resource type="Resource" id="Drop_mist_ghost_0"]
 script = ExtResource("2_drop")
 item_id = &"mist_wisp"
@@ -46,9 +49,9 @@ hp_bar_offset_y = -213.0
 display_height = 220.0
 fit_foot_animations = null
 level = 84
-max_hp = 22000
-atk_min = 900
-atk_max = 1100
+max_hp = 30800
+atk_min = 1125
+atk_max = 1375
 def = 70
 mdef = 120
 hit = 190
@@ -65,11 +68,8 @@ attack_range = 116.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
-attack_windup = 0.4
-attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
-attack_hit_frames = null
 skill_hit_frames = null
 exp_reward = 901
 job_exp_reward = 631
@@ -80,3 +80,44 @@ respawn_time = 18.0
 tint = Color(0.85, 0.9, 1, 0.55)
 spawn_lines = PackedStringArray("...เย็น...", "ใครอยู่ตรงนั้น", "เจ้า... ยังอุ่นอยู่")
 death_lines = null
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_anchors = Dictionary[StringName, Vector2]({})
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.24547804, &"Walk": 1.24547804, &"Attack": 1.23907455, &"Hit": 1.23695466, &"Die": 1.23695466, &"Run": 1.24547804, &"Skill": 1.23907455})
+attack_hit_frames = PackedInt32Array(15)
+attack_follow_anim = true
+attack_windup = 1.25
+attack_duration = 0.9166666666666666
+ranged_attack = true
+ranged_attack_range = 650.0
+projectile_texture = ExtResource("chapter6_orb")
+projectile_speed = 1000.0
+projectile_range = 1200.0
+projectile_height = 100.0
+projectile_hit_size = Vector2(42, 42)
+projectile_fire_effect = true
+projectile_orb_style = true
+projectile_orb_color = Color(0.43, 0.61, 0.65, 1)
+projectile_aim_at_player = false
+projectile_down_angle = 0.0
+projectile_hand_positions = Dictionary[int, Vector2]({15: Vector2(492.25, 736.0)})
+skill_hand_projectiles = false
+skill_name = "หมอกกลืนวิญญาณ"
+skill_anim = &"Skill"
+skill_range = 560.0
+skill_damage_mult = 1.6
+skill_windup = 0.5
+skill_duration = 1.3
+skill_cooldown = 8.0
+skill_chance = 0.5
+skill_knockback = 320.0
+skill_wave_count = 2
+skill_wave_both_sides = true
+skill_wave_speed = 420.0
+skill_wave_range = 640.0
+skill_wave_delay = 0.5
+skill_wave_height = 140.0
+skill_wave_frames = ExtResource("r158_wave")
+skill_wave_hit_width = 44.0
+skill_wave_hit_height = 78.0

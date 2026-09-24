@@ -257,7 +257,7 @@ func _announce_if_ready(quest_id: StringName, q: QuestData) -> void:
 	if quest_id in _announced:
 		return
 	_announced.append(quest_id)
-	Events.say("[เควส] %s — ครบแล้ว! กลับไปหา %s" % [q.title, q.giver_name])
+	Events.say("[เควส] %s — ครบแล้ว! กลับไปหา %s" % [q.title, q.turn_in_npc()])   # ★ รอบ 161 ★
 
 
 # =========================================================
@@ -305,3 +305,23 @@ func from_dict(d: Dictionary) -> void:
 			else:
 				progress[StringName(k)] = [int(v)]
 	Events.quest_changed.emit()
+
+
+## ★ รอบ 156 ★ มีเควสที่ "ขั้นถัดไป" คือ kind/target นี้ไหม (ขั้นก่อนหน้าครบแล้ว · ขั้นนี้ยังไม่ครบ)
+## ใช้ขึ้นเครื่องหมายเหนือหัว NPC ที่ต้องไปคุยต่อ (TALK) และป้าย/เสาที่ต้องไปอ่าน (READ)
+func step_waiting(kind: int, target: StringName) -> bool:
+	for qid in active:
+		var q := GameData.get_quest(qid)
+		if q == null:
+			continue
+		var list := q.steps()
+		for i in range(list.size()):
+			var o := list[i]
+			var done := count_of(qid, i) >= o.need()
+			if o.kind == kind and o.target == target and not o.is_live():
+				if not done:
+					return true
+				continue
+			if not done:
+				break   # ขั้นก่อนหน้ายังไม่ครบ — ขั้นหลังจากนี้ยังไม่ใช่ "ขั้นถัดไป"
+	return false

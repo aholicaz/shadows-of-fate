@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_tide_pendant.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_tide_pendant"
+display_name = "จี้กระแสจันทร์"
+description = "ไข่มุกจันทร์ของเซเลนเก็บเสียงเรียกกลับบ้าน HP +450, SP +100 และดูด HP 0.08% ช่วยยืนระยะในการปีนหอ"
+drop_hint = "ผู้คุมอิกดราซิลชั้น 30 · โอกาสดรอป 8% · กลับล่าได้"
+icon = ExtResource("i")
+type = 2
+slot = 7
+required_level = 120
+max_stack = 1
+card_slots = 2
+refinable = true
+sell_price = 22000
+buy_price = 0
+max_hp = 450
+max_sp = 100
+bonus_vit = 6
+hp_drain_percent = 0.08

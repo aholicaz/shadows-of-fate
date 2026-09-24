@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/false_judge_frames.tres" id="3_frames"]
 
+[ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="chapter6_orb"]
+
 [sub_resource type="Resource" id="Drop_false_judge_0"]
 script = ExtResource("2_drop")
 item_id = &"judge_seal"
@@ -23,17 +25,17 @@ chance = 2.0
 [sub_resource type="Resource" id="Drop_false_judge_3"]
 script = ExtResource("2_drop")
 item_id = &"judge_shield"
-chance = 15.0
+chance = 8.0
 
 [sub_resource type="Resource" id="Drop_false_judge_4"]
 script = ExtResource("2_drop")
 item_id = &"hel_half_plate"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_false_judge_card"]
 script = ExtResource("2_drop")
 item_id = &"card_false_judge"
-chance = 2.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Socket_shard"]
 script = ExtResource("2_drop")
@@ -54,9 +56,9 @@ hitbox_size = Vector2(90, 120)
 hp_bar_offset_y = -344.0
 display_height = 380.0
 level = 94
-max_hp = 115000
-atk_min = 1200
-atk_max = 1500
+max_hp = 161000
+atk_min = 1500
+atk_max = 1875
 def = 150
 mdef = 140
 hit = 220
@@ -74,8 +76,6 @@ attack_range = 160.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
-attack_windup = 0.4
-attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 360.0
 exp_reward = 15707
@@ -83,20 +83,43 @@ job_exp_reward = 10995
 zeny_min = 2114
 zeny_max = 3926
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_false_judge_0"), SubResource("Drop_false_judge_1"), SubResource("Drop_false_judge_2"), SubResource("Drop_false_judge_3"), SubResource("Drop_false_judge_4"), SubResource("Drop_false_judge_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
-respawn_time = 300.0
+respawn_time = 270.0
 is_boss = true
 boss_title = "ผู้ที่ยังตัดสินตามพงศาวดาร"
 skill_name = "คำพิพากษา"
 skill_anim = &"Skill"
 skill_range = 520.0
-skill_damage_mult = 2.2
+skill_damage_mult = 5.5
 skill_windup = 0.5
 skill_duration = 1.0
-skill_cooldown = 8.0
-skill_chance = 0.70
+skill_cooldown = 7.0
+skill_chance = 0.8
 skill_bolt_count = 3
 skill_bolt_start = 140.0
 skill_bolt_spacing = 160.0
 skill_bolt_delay = 0.35
 tint = Color(1, 0.95, 0.85, 0.85)
 death_lines = PackedStringArray("พงศาวดาร... ไม่ผิด... ข้าเขียนเอง...", "ชื่อเจ้า... ข้ายังจำได้... [ชื่อที่ทิ้งไว้]")
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_anchors = Dictionary[StringName, Vector2]({})
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.24729242, &"Walk": 1.24729242, &"Attack": 1.24280576, &"Hit": 1.24841915, &"Die": 1.24841915, &"Run": 1.24729242, &"Skill": 1.24280576})
+attack_hit_frames = PackedInt32Array(10)
+attack_follow_anim = true
+attack_windup = 0.8333333333333334
+attack_duration = 1.25
+ranged_attack = true
+ranged_attack_range = 650.0
+projectile_texture = ExtResource("chapter6_orb")
+projectile_speed = 1000.0
+projectile_range = 1200.0
+projectile_height = 80.0
+projectile_hit_size = Vector2(42, 42)
+projectile_fire_effect = true
+projectile_orb_style = true
+projectile_orb_color = Color(0.73, 0.84, 0.57, 1)
+projectile_aim_at_player = false
+projectile_down_angle = 0.0
+projectile_hand_positions = Dictionary[int, Vector2]({10: Vector2(448.0, 1034.0)})
+skill_hand_projectiles = false

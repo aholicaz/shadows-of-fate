@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/nott.png" id="1_82lmc"]
+
+[resource]
+atlas = ExtResource("1_82lmc")
+region = Rect2(25, 12, 261, 397)
+filter_clip = true

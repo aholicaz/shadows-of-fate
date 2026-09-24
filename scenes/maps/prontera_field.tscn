@@ -2,27 +2,30 @@
 
 [ext_resource type="Resource" uid="uid://5fqcedkqf7wo" path="res://data/monsters/fabre.tres" id="7_1fvrm"]
 [ext_resource type="Resource" uid="uid://gl0q4jqqgbe8" path="res://data/monsters/drops.tres" id="8_1fvrm"]
-[ext_resource type="Texture2D" uid="uid://buus15o5mgl80" path="res://Sprites/map/chapter1/organic/prontera_field_depth.png" id="c1_depth"]
-[ext_resource type="Script" uid="uid://b0ar5a6luocix" path="res://scripts/world/chapter6_parallax.gd" id="c1_parallax"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/prontera_rebuilt/distance.png" id="c1_depth"]
+[ext_resource type="Script" path="res://scripts/world/prontera_field_parallax.gd" id="c1_parallax"]
 [ext_resource type="Script" uid="uid://cj52mis2ydm4e" path="res://scripts/world/map_base.gd" id="map_base"]
 [ext_resource type="Script" uid="uid://cwutmh7bygsgm" path="res://scripts/world/map_spawner.gd" id="map_spawner"]
 [ext_resource type="Resource" uid="uid://dctfetjjy4cox" path="res://data/monsters/poring.tres" id="md_poring"]
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="monster_data"]
-[ext_resource type="Texture2D" uid="uid://bnf7j827lyj2b" path="res://Sprites/map/chapter1/organic/prontera_field_0.png" id="organic_0"]
-[ext_resource type="Texture2D" uid="uid://c7bru5shmgy7q" path="res://Sprites/map/chapter1/organic/prontera_field_1.png" id="organic_1"]
-[ext_resource type="Texture2D" uid="uid://n4s4atrwfu8j" path="res://Sprites/map/chapter1/organic/prontera_field_2.png" id="organic_2"]
-[ext_resource type="Texture2D" uid="uid://1yqnmojsvdov" path="res://Sprites/map/chapter1/organic/prontera_field_3.png" id="organic_3"]
-[ext_resource type="Texture2D" uid="uid://b38s7q3yidtp5" path="res://Sprites/map/chapter1/organic/prontera_field_4.png" id="organic_4"]
+[ext_resource type="Shader" path="res://Sprites/shaders/prontera_distance_dof.gdshader" id="c1_dof"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/prontera_rebuilt/terrain_0.png" id="terrain_0"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/prontera_rebuilt/terrain_1.png" id="terrain_1"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter1/prontera_rebuilt/terrain_2.png" id="terrain_2"]
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player_scene"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
 
 [sub_resource type="RectangleShape2D" id="C1Floor"]
 size = Vector2(6150, 60)
 
+[sub_resource type="ShaderMaterial" id="DepthOfField"]
+shader = ExtResource("c1_dof")
+shader_parameter/blur_pixels = 1.2
+
 [node name="PronteraField" type="Node2D" unique_id=698217290]
 script = ExtResource("map_base")
 display_name = "ทุ่งวิหาร"
-map_bounds = Rect2(120, -376, 5750, 1200)
+map_bounds = Rect2(120, -376, 5750, 1160)
 clamp_bounds_to_art = false
 bounds_follow_art_x = false
 player_scene = ExtResource("player_scene")
@@ -41,8 +44,6 @@ shape = SubResource("C1Floor")
 
 [node name="default" type="Marker2D" parent="SpawnPoints" unique_id=1600402047]
 position = Vector2(440, 364)
-scale = Vector2(0.6, 0.6)
-skew = -0.50265485
 gizmo_extents = 0.0
 
 [node name="from_town" type="Marker2D" parent="SpawnPoints" unique_id=1484188381]
@@ -76,42 +77,36 @@ label_text = "→ พรอนเทรา"
 [node name="Background" type="Node2D" parent="." unique_id=1452493537]
 script = ExtResource("c1_parallax")
 anchor_x = 2995.0
-atmosphere = Color(0.9, 0.84, 0.54, 0.24)
+depth_speed = 0.12
+atmosphere = Color(0.70, 0.82, 0.94, 0.12)
 mote_amount = 32
-mist_strength = 0.018
+mist_strength = 0.015
 
 [node name="Depth" type="Sprite2D" parent="Background" unique_id=1716598263]
 z_index = -100
-texture_repeat = 3
 texture = ExtResource("c1_depth")
-region_enabled = true
+material = SubResource("DepthOfField")
 
-[node name="OrganicRoad0" type="Sprite2D" parent="Background" unique_id=148335610]
+[node name="TerrainArt0" type="Sprite2D" parent="Background"]
 z_index = -40
-position = Vector2(-1080, -506)
-texture = ExtResource("organic_0")
+texture_filter = 2
+position = Vector2(-250.0, -376)
+scale = Vector2(1.142857143, 1.142857143)
+texture = ExtResource("terrain_0")
 centered = false
 
-[node name="OrganicRoad1" type="Sprite2D" parent="Background" unique_id=1107909977]
+[node name="TerrainArt1" type="Sprite2D" parent="Background"]
 z_index = -40
-position = Vector2(920, -506)
-texture = ExtResource("organic_1")
+texture_filter = 2
+position = Vector2(1944.2857142857142, -376)
+scale = Vector2(1.142857143, 1.142857143)
+texture = ExtResource("terrain_1")
 centered = false
 
-[node name="OrganicRoad2" type="Sprite2D" parent="Background" unique_id=1874551895]
+[node name="TerrainArt2" type="Sprite2D" parent="Background"]
 z_index = -40
-position = Vector2(2920, -506)
-texture = ExtResource("organic_2")
-centered = false
-
-[node name="OrganicRoad3" type="Sprite2D" parent="Background" unique_id=2082253655]
-z_index = -40
-position = Vector2(4920, -506)
-texture = ExtResource("organic_3")
-centered = false
-
-[node name="OrganicRoad4" type="Sprite2D" parent="Background" unique_id=1063491837]
-z_index = -40
-position = Vector2(6920, -506)
-texture = ExtResource("organic_4")
+texture_filter = 2
+position = Vector2(4138.571428571428, -376)
+scale = Vector2(1.142857143, 1.142857143)
+texture = ExtResource("terrain_2")
 centered = false

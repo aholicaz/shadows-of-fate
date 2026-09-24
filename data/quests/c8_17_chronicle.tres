@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_85_clear"
+count = 1
+text = "ผ่านชั้น 85 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_17_chronicle"
+title = "พงศาวดารที่ถูกเผา"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 85 (ผู้คุม: สคริฟ ผู้เผาพงศาวดาร) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "เหนือหอนาฬิกาคือหอจดหมายเหตุที่ไม่มีใครได้รับอนุญาตให้อ่าน สคริฟทำหน้าที่เดียวมาหลายพันปี — เผาพงศาวดารฉบับเดิมทิ้งทุกครั้งที่ฉบับใหม่เขียนเสร็จ\n\nขึ้นไปถึงชั้น 85 เก็บหน้าที่ยังไม่ไหม้กลับมาให้ข้า ข้าอยากรู้ว่าฉบับแรกเขียนไว้ว่าอะไร"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 85 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "หน้าแรกของพงศาวดารฉบับแรก...\n\n\"ในปีที่ต้นไม้ยังให้ผล เทพสายฟ้ามาถึงพร้อมค้อนและคำสัญญาว่าจะปกป้อง เขาตั้งชื่อให้ทุกสิ่ง และสิ่งใดไม่ยอมรับชื่อจากเขา ก็ถูกเรียกว่าปีศาจ\"\n\nธอร์ไม่ได้ปกป้องโลกจากปีศาจ... เขาเป็นคนตัดสินว่าใครคือปีศาจ"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_16_hour"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 420000
+reward_job_exp = 42000
+reward_zeny = 115000

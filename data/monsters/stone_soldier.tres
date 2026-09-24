@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" uid="uid://bgar3ckpqpe0q" path="res://data/sprites/monsters/stone_soldier_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bm47h60m2ci86" path="res://data/sprites/fx_rending_wave.tres" id="r158_wave"]
 
 [sub_resource type="Resource" id="Drop_stone_soldier_0"]
 script = ExtResource("2_drop")
@@ -94,3 +95,21 @@ spawn_lines = null
 death_lines = null
 display_height = 460.0
 hp_bar_offset_y = -445.0
+skill_name = "หอกศิลาพุ่ง"
+skill_anim = &"Skill"
+skill_range = 600.0
+skill_damage_mult = 1.6
+skill_windup = 0.5
+skill_duration = 1.2
+skill_cooldown = 9.0
+skill_chance = 0.5
+skill_knockback = 340.0
+skill_wave_count = 1
+skill_wave_both_sides = false
+skill_wave_speed = 560.0
+skill_wave_range = 760.0
+skill_wave_delay = 0.45
+skill_wave_height = 340.0
+skill_wave_frames = ExtResource("r158_wave")
+skill_wave_hit_width = 110.0
+skill_wave_hit_height = 188.0

@@ -1,0 +1,9 @@
+[gd_resource type="SpriteFrames" format=3]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter8/runtime/c8_rot_gnawer.png" id="t"]
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": true, "name": &"Idle", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": true, "name": &"Run", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Attack", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Hit", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Death", "speed": 1.0},
+{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Skill", "speed": 1.0}]

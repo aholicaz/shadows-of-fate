@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/stone_hrungnir_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bxj5sv60y5cdd" path="res://data/sprites/monsters/stone_hrungnir_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://dfox6ifdukgcx" path="res://Sprites/effects/hrungnir/runepillar_impact_frames.tres" id="4_pillars"]
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_0"]
 script = ExtResource("2_drop")
@@ -29,27 +30,27 @@ chance = 3.0
 [sub_resource type="Resource" id="Drop_stone_hrungnir_4"]
 script = ExtResource("2_drop")
 item_id = &"stone_hrungnir_blade"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_5"]
 script = ExtResource("2_drop")
 item_id = &"heart_pendant"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_6"]
 script = ExtResource("2_drop")
 item_id = &"wall_plate"
-chance = 15.0
+chance = 8.0
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_7"]
 script = ExtResource("2_drop")
 item_id = &"echo_ring"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_stone_hrungnir_card"]
 script = ExtResource("2_drop")
 item_id = &"card_stone_hrungnir"
-chance = 2.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Socket_shard"]
 script = ExtResource("2_drop")
@@ -59,7 +60,6 @@ chance = 100.0
 [sub_resource type="Resource" id="Socket_stone"]
 script = ExtResource("2_drop")
 item_id = &"socket_stone_2"
-chance = 10.0
 
 [resource]
 script = ExtResource("1_monster")
@@ -67,6 +67,19 @@ id = &"stone_hrungnir"
 display_name = "หรุงนีร์ศิลา"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(110, 130)
+hp_bar_offset_y = -813.0
+display_height = 750.0
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.15673981,
+&"Die": 1.15673981,
+&"Hit": 1.15673981,
+&"Idle": 1.15492958,
+&"Run": 1.15492958,
+&"Skill": 1.15673981,
+&"Walk": 1.15492958
+})
 fit_foot_animations = null
 level = 72
 max_hp = 126000
@@ -102,22 +115,22 @@ zeny_max = 3068
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_stone_hrungnir_0"), SubResource("Drop_stone_hrungnir_1"), SubResource("Drop_stone_hrungnir_2"), SubResource("Drop_stone_hrungnir_3"), SubResource("Drop_stone_hrungnir_4"), SubResource("Drop_stone_hrungnir_5"), SubResource("Drop_stone_hrungnir_6"), SubResource("Drop_stone_hrungnir_7"), SubResource("Drop_stone_hrungnir_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
 is_boss = true
 boss_title = "ยักษ์ที่ถูกทำให้เป็นอาวุธ"
-skill_name = "หัวใจสายฟ้า"
+skill_name = "เสาศิลารูน"
 skill_anim = &"Skill"
 skill_range = 520.0
-skill_damage_mult = 2.2
+skill_damage_mult = 4.5
 skill_windup = 0.5
 skill_duration = 1.0
-skill_cooldown = 8.0
+skill_cooldown = 5.0
 skill_chance = 0.7
-skill_bolt_count = 3
+skill_bolt_count = 7
+skill_bolt_interval = 0.1
 skill_bolt_delay = 0.35
+skill_bolt_hit_width = 122.0
+skill_bolt_max_hits = 5
+skill_bolt_damage_mult = 4.5
+skill_bolt_height = 720.0
+skill_bolt_frames = ExtResource("4_pillars")
 respawn_time = 600.0
 spawn_lines = null
 death_lines = PackedStringArray("...ตุบ... ตุบ... หัวใจ... ยังเต้น...")
-fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(800, 1100)
-fit_uniform_scale = true
-fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.15492958, &"Walk": 1.15492958, &"Attack": 1.15673981, &"Hit": 1.15673981, &"Die": 1.15673981, &"Run": 1.15492958, &"Skill": 1.15673981})
-display_height = 850.0
-hp_bar_offset_y = -813.0

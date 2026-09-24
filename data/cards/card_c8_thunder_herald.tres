@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_thunder_herald.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_thunder_herald.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_thunder_herald"
+display_name = "การ์ดบรอนน์ ผู้ป่าวประกาศอสุนี"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 55"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_thunder_herald"
+monster_level = 165
+rarity = 5
+fits_slot = 6
+unique_equipped = true
+sell_price = 50000
+bonus_agi = 9
+aspd_percent = 6.0

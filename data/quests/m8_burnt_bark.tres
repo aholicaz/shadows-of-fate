@@ -7,7 +7,7 @@
 script = ExtResource("2_obj")
 kind = 4
 target = &"burnt_bark"
-text = "ตรวจต้นไม้ที่มีรอยไหม้"
+text = "ตรวจดูต้นไม้ไหม้"
 
 [sub_resource type="Resource" id="Obj_1"]
 script = ExtResource("2_obj")

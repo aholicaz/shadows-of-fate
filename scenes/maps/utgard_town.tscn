@@ -116,7 +116,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_steppe" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(4000, 820)
+position = Vector2(3240, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -126,7 +126,7 @@ position = Vector2(4000, 820)
 
 
 [node name="ToPass" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"frost_pass"
 target_spawn_point = &"from_town"
 label_text = "← ช่องเขาน้ำแข็ง"
@@ -134,7 +134,7 @@ destination_name = "ช่องเขาน้ำแข็ง"
 
 
 [node name="ToSteppe" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(4140, 880)
+position = Vector2(3380, 825)
 target_map = &"giant_steppe"
 target_spawn_point = &"from_town"
 label_text = "→ ทุ่งหญ้ายักษ์"
@@ -147,10 +147,11 @@ destination_name = "ทุ่งหญ้ายักษ์"
 [node name="Thjazi" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(330, 820)
 npc_name = "ทหารยามธยาซี"
+portrait_file = "res://Sprites/portraits/npcs/9f776c26cbbb.tres"
 has_bounty_board = true
 type = 0
-dialog = "ไป ไปคุยกับผู้อาวุโสสกาดี ท่านบอกให้ปล่อยเจ้าเข้ามา ข้าไม่เห็นด้วย\n\nมนุษย์คนสุดท้ายที่เดินเข้าประตูนี้ เดินออกไปพร้อมกองทัพ"
-greeting = "มนุษย์... ข้าได้กลิ่นค้อนตั้งแต่เจ้าอยู่ที่ช่องเขา"
+dialog = "ไปหาผู้อาวุโสสกาดีซะ ท่านสั่งให้ปล่อยเจ้าเข้าเมือง... ข้าไม่เห็นด้วย แต่ข้าทำตามคำสั่ง\n\nมนุษย์คนสุดท้ายที่ข้าปล่อยผ่านประตูนี้... กลับมาอีกครั้งพร้อมกองทัพ"
+greeting = "มนุษย์... ตัวเจ้ามีกลิ่นค้อน — กลิ่นของคนที่กราบไหว้ธอร์ ข้าได้กลิ่นตั้งแต่เจ้ายังอยู่ที่ช่องเขา"
 voice_id = "thjazi"
 quest_ids = Array[StringName]([&"c4_5_wall_they_call_ours", &"c4_8_shieldbearer"])
 dialog_by_flag = {
@@ -164,24 +165,26 @@ dialog_by_flag = {
 [node name="Skadi" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(650, 820)
 npc_name = "ผู้อาวุโสสกาดี"
+portrait_file = "res://Sprites/portraits/npcs/d9223b6ecc67.tres"
 type = 0
 dialog = "ที่นี่คืออุทการ์ด นครแห่งยักษ์ — ที่ที่มนุษย์เรียกว่า «รังของสัตว์ประหลาด»\n\nมองไปรอบ ๆ สิ มีตลาด มีเด็ก มีคนแก่ มีหลุมศพ\nสัตว์ประหลาดไม่ฝังศพกัน มนุษย์"
-greeting = "ข้าไม่ต้องเห็นเจ้า ข้าได้กลิ่นค้อน... และกลิ่นของคนที่เริ่มสงสัยมัน"
+greeting = "ตาข้าบอด มองไม่เห็นเจ้าหรอก... แต่ข้าได้กลิ่นค้อนของธอร์ติดตัวเจ้ามา — ปนกับกลิ่นของคนที่เริ่มไม่แน่ใจในค้อนนั้นแล้ว"
 voice_id = "skadi"
 quest_ids = Array[StringName]([&"c4_1_gate_of_giants", &"c4_4_child_who_asks", &"c4_9_breach_on_the_south", &"c4_10_heart_of_lightning"])
 dialog_by_flag = {
-"saw_invasion_mural": "เจ้าเห็นภาพวาดแล้ว... ข้าตาบอดมาตั้งแต่เด็ก แต่ข้าจำภาพนั้นได้ทุกเส้น\n\nนักบวชของเจ้าว่ายังไง ยักษ์วาดโกหกหรือ",
-"chapter4_done": "เจ้าเอาหัวใจไปแล้ว หรือทุบมันทิ้ง ข้าไม่ถาม\n\nไปทางเหนือ อัลฟ์เฮมอยู่ตรงที่รากอิกดราซิลโผล่จากหลุม... ที่นั่นสว่างมาก ระวังตา — และระวังสิ่งที่แสงไม่ยอมให้เห็น"
+"saw_invasion_mural": "เจ้าเห็นภาพวาดแล้ว... ข้าไม่เคยเห็นภาพนั้นด้วยตา แต่ข้าเคยเอามือลูบมันจนจำได้ทุกเส้น\n\nแล้วนักบวชที่ตามเจ้ามาล่ะ เขาว่ายังไง — ยักษ์วาดโกหกงั้นรึ",
+"chapter4_done": "หัวใจสายฟ้านั่น... เจ้าจะเก็บไว้หรือทุบทิ้งไปแล้ว ข้าไม่ถามหรอก เป็นเรื่องของเจ้า\n\nทางต่อไปคืออัลฟ์เฮม ดินแดนของเอลฟ์ ทางเข้าอยู่ตรงที่รากอิกดราซิลโผล่ขึ้นจากหลุมหัวใจ... ที่นั่นสว่างจ้า ระวังตาให้ดี — และระวังสิ่งที่แสงซ่อนไว้ไม่ให้เห็น"
 }
 
 
 [node name="Hymir" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(1150, 820)
 npc_name = "พ่อค้าฮือเมียร์"
+portrait_file = "res://Sprites/portraits/npcs/0423332151aa.tres"
 type = 1
 dialog = "ข้าขายของขนาดยักษ์ ตัดให้พอดีตัวเจ้าได้ ค่าแรงไม่คิด\n\nแค่อย่าบอกวิหารว่าซื้อมาจากยักษ์ พวกนั้นเผาร้านข้ามาแล้วสองรอบ"
 shop_items = Array[StringName]([&"wing_of_valkyrie", &"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"blue_potion_2", &"meat", &"phracon", &"emveretarcon", &"wall_shield", &"root_sword", &"bark_armor"])
-greeting = "ของพวกเจ้าเล็กจนข้าคิดราคาไม่ถูก เอาเถอะ ถูก ๆ ไปเลย"
+greeting = "ของขนาดมนุษย์เล็กจนข้าไม่รู้จะตั้งราคาเท่าไหร่... เอาเถอะ คิดถูก ๆ ไปเลย"
 voice_id = "hymir"
 quest_ids = Array[StringName]([&"c4_2_wolves_at_the_pass"])
 
@@ -189,6 +192,7 @@ quest_ids = Array[StringName]([&"c4_2_wolves_at_the_pass"])
 [node name="Bestla" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(1820, 820)
 npc_name = "หมอเบสต์ลา"
+portrait_file = "res://Sprites/portraits/npcs/49a6c0765751.tres"
 type = 3
 blessing_price = 10000
 dialog = "เด็กยักษ์ตัวเท่าเจ้าคือเด็กอายุสองขวบ ข้ารักษามาเยอะ\n\nพวกเขาป่วยเพราะความหนาว ไม่ใช่เพราะสายฟ้า... ยังไม่ใช่"
@@ -200,21 +204,23 @@ voice_id = "bestla"
 [node name="Gerd" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2450, 820)
 npc_name = "ช่างสลักรูนเกอร์ด"
+portrait_file = "res://Sprites/portraits/npcs/47423de0dbc4.tres"
 type = 2
-dialog = "รูนเป็นของยักษ์มาก่อน มนุษย์ ธอร์เอามันไปทำอาวุธ\n\nวงจรเก้าดวง — พวกเจ้าอ่านออกสามดวง ข้าสลักได้เจ็ด\nดวงที่แปดกับเก้า... ไม่มีใครในโลกที่ยังมีชีวิตอ่านออก"
+dialog = "รูนเป็นของยักษ์มาก่อน มนุษย์ ธอร์เอามันไปทำอาวุธ\n\nวงรูนมีทั้งหมดเก้าดวง มนุษย์อ่านออกแค่สาม ข้ารู้จักถึงดวงที่ห้า\n\nส่วนดวงที่แปดกับเก้า... ไม่มีใครที่ยังมีชีวิตอยู่อ่านออก"
 has_socket = true
 has_refine = true
-greeting = "รูนที่เจ้าถือ... ตาของข้าสลักดวงที่สี่"
+greeting = "เจ้ามาจากแดนของธอร์... รู้ไหม รูนที่วิหารของพวกเจ้าใช้กันน่ะ ปู่ของข้าเป็นคนสลักดวงที่สี่"
 voice_id = "gerd"
 quest_ids = Array[StringName]([&"c4_6_fourth_rune", &"rb8_carvers_eye", &"rb9_wall_that_held_the_sky"])
 dialog_by_flag = {
-"rb_rune_5": "ห้าดวงแล้ว «กำเนิด» กับ «กำแพง» — ดวงต่อไปอยู่ในแสง ข้าสลักไม่ได้ ตาข้าไม่เห็นแสง\n\nไปหาคนที่ตาบอดเพราะแสง"
+"rb_rune_5": "ดาบเจ้ามีห้าดวงแล้ว — ดวงที่สี่ «กำเนิด» กับดวงที่ห้า «กำแพง»\n\nดวงที่หกเป็นรูนแห่งแสง ข้าสลักให้ไม่ได้ ตาข้าไม่เคยเห็นแสงเลย... ไปหาคนที่ตาบอดเพราะมองแสงนานเกินไป เขาอยู่ที่อัลฟ์เฮม"
 }
 
 
 [node name="Asmund" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(3200, 820)
 npc_name = "นักบวชอาสมุนด์"
+portrait_file = "res://Sprites/portraits/npcs/dc0a9f4286fc.tres"
 type = 0
 dialog = "วิหารส่งข้ามาดูว่าเจ้าจะพูดกับยักษ์ยังไง ข้าไม่ปิดบัง\n\nพวกเขาเขียนประวัติศาสตร์ฝั่งตัวเองเหมือนกัน ทุกคนทำ\nเจ้าเชื่อภาพวาดของศัตรูง่ายกว่าคำสอนที่เลี้ยงเจ้ามาหรือ"
 greeting = "ข้าตามเจ้ามาจากวิหาร... ที่นี่หนาวกว่าที่คิด และเงียบกว่าที่กลัว"
@@ -231,6 +237,7 @@ dialog_by_flag = {
 [node name="SavePoint" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2850, 820)
 npc_name = "ศิลาแห่งโยตุน"
+portrait_file = "res://Sprites/portraits/npcs/42f0223f4dd0.tres"
 type = 4
 dialog = "ศิลารูนของยักษ์ · ★ ไม่มีตราค้อนสลักทับ ★ รูนบนศิลาเหมือนรูนที่อยู่ใต้ตราค้อนในมิดการ์ด · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
 warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"ljosalf_city", &"eljudnir"])
@@ -239,6 +246,7 @@ warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_
 [node name="Leif_kid" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(3550, 820)
 npc_name = "เด็กยักษ์เลฟ"
+portrait_file = "res://Sprites/portraits/npcs/b4bcaaf27633.tres"
 type = 0
 dialog = "พี่ตัวเล็กจัง เล็กกว่าเลฟอีก\n\nที่วิหารของพี่เขาสอนว่ายักษ์กินเด็กใช่ไหม แม่ก็สอนเลฟว่ามนุษย์กินเด็ก\nแล้วใครกินจริง"
 greeting = "แม่บอกว่ามนุษย์กินเด็ก... พี่กินเด็กจริงเหรอ"

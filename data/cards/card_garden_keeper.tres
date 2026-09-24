@@ -6,17 +6,19 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"garden_keeper"
-fits_slot = 3
 rarity = 4
 monster_level = 77
 id = &"card_garden_keeper"
 display_name = "การ์ดผู้ดูแลสวน"
-description = "ยิ้มตลอด แม้ตอนโดนตี"
+description = "VIT +3, MDEF +10, HP +3%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 300
-mdef = 8
-bonus_int = 2
+
+fits_slot = 3
+bonus_vit = 3
+mdef = 10
+percent_effects = {"max_hp_percent": 3.0}

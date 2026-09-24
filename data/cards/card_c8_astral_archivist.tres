@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_astral_archivist.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_astral_archivist.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_astral_archivist"
+display_name = "การ์ดอัสตรา ผู้รักษาดารา"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 40"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_astral_archivist"
+monster_level = 150
+rarity = 5
+fits_slot = 3
+unique_equipped = true
+sell_price = 50000
+bonus_int = 8
+skill_damage_percent = 7.0

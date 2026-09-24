@@ -7,10 +7,10 @@
 script = ExtResource("1_skill")
 id = &"first_aid"
 display_name = "First Aid (ปฐมพยาบาล)"
-description = "ฟื้นเลือดตัวเองเล็กน้อย"
+description = "ยาฟื้นฟู (ยาแดง ยาส้ม ยาน้ำเงิน ฯลฯ) ฟื้น HP/SP แรงขึ้น 5% ต่อเลเวล — เลเวล 10 = +50% · ติดตัวตลอด ไม่ต้องกด"
 icon = ExtResource("1_5hbia")
-type = 3
-max_level = 5
+type = 4
+max_level = 10
 job_ids = Array[StringName]([])
 sp_cost_base = 6
 sp_cost_per_level = 2.0
@@ -18,3 +18,6 @@ cooldown = 8.0
 heal_base = 40.0
 heal_per_level = 35.0
 heal_int_scale = 2.5
+passive_effects = {
+"potion_heal_percent": 5.0
+}

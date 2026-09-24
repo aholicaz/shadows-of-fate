@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_tide_oracle.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_tide_oracle.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_tide_oracle"
+display_name = "การ์ดเซเลน ผู้พยากรณ์กระแสจันทร์"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 30"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_tide_oracle"
+monster_level = 140
+rarity = 5
+fits_slot = 7
+unique_equipped = true
+sell_price = 50000
+max_sp = 100
+bonus_vit = 7

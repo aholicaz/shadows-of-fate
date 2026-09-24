@@ -6,15 +6,18 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"mist_sprite"
-fits_slot = 7
 rarity = 4
 monster_level = 44
 id = &"card_mist_sprite"
 display_name = "การ์ดภูตหมอก"
-description = "จับต้องไม่ได้ดั่งหมอก"
+description = "AGI +2, FLEE +10, MDEF +5"
 icon = ExtResource("2_icon")
 type = 5
 buy_price = 0
 sell_price = 180
-mdef = 5
+
+fits_slot = 5
+bonus_agi = 2
 flee = 10
+mdef = 5
+percent_effects = {}

@@ -1,26 +1,29 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="CardData" format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_radiant_alfr.png" id="2_icon"]
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_radiant_alfr.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_radiant_alfr.png" id="gold_icon"]
 
 [resource]
 script = ExtResource("1_card")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
 monster_id = &"radiant_alfr"
-fits_slot = 4
 rarity = 5
 monster_level = 84
 id = &"card_radiant_alfr"
 display_name = "การ์ดอัลฟ์เรืองรอง"
-description = "แสงที่สว่างเพราะกินแสงคนอื่น"
-icon = ExtResource("2_icon")
+description = "INT +5, ดาเมจสกิล +7%, ลดคูลดาวน์ +3%"
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 650
-mdef = 15
-bonus_vit = 5
 
-percent_effects = {
-"max_sp_percent": 8.0
-}
+
+fits_slot = 3
+bonus_int = 5
+percent_effects = {"skill_damage_percent": 7.0, "cooldown_reduction_percent": 3.0}
+
+unique_equipped = true

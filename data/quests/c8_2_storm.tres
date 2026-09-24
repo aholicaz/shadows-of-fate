@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_10_clear"
+count = 1
+text = "ผ่านชั้น 10 และกลับหาสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_2_storm"
+title = "เสียงใต้พายุ"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 10 (ผู้คุม: สกาลด์ ผู้ขับลำนำพายุ) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "ตอนเจ้าเปิดชั้น 5 มีเสียงบางอย่างลอยลงมาจากข้างบน — เสียงคน ไม่ใช่เสียงลม\n\nชั้น 6 ถึง 10 เป็นกิ่งที่พายุน้ำแข็งพัดไม่หยุด สกาลด์ ผู้ขับลำนำพายุ ร้องเพลงกลบทุกเสียงไว้ ฝ่าขึ้นไปให้ถึงชั้น 10 แล้วฟังให้ดีว่าใครส่งเสียงมา"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 10 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "เสียงที่เจ้าได้ยินไม่ใช่เสียงสะท้อน... มีคนรอเราอยู่ข้างบนจริง ๆ"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_1_roots"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 39026
+reward_job_exp = 1338
+reward_zeny = 4460
+set_flag_on_complete = &"c8_2_storm_done"

@@ -34,14 +34,23 @@ hitbox_size = Vector2(40, 36)
 hp_bar_offset_y = -340.0
 display_height = 330.0
 fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(256, 480)
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.33530572,
+&"Die": 1.33267717,
+&"Hit": 1.33267717,
+&"Idle": 1.32226562,
+&"Run": 1.32226562,
+&"Skill": 1.33530572,
+&"Walk": 1.32226562
+})
 fit_foot_animations = null
 flying = true
 hover_height = 140.0
 level = 72
-max_hp = 12000
-atk_min = 640
-atk_max = 780
+max_hp = 17400
+atk_min = 865
+atk_max = 1055
 def = 60
 mdef = 80
 hit = 150

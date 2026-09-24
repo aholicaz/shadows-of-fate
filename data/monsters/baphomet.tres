@@ -12,12 +12,12 @@ chance = 65.0
 [sub_resource type="Resource" id="Drop_baphomet_1"]
 script = ExtResource("2_drop")
 item_id = &"flame_sword"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_baphomet_2"]
 script = ExtResource("2_drop")
 item_id = &"plate_armor"
-chance = 15.0
+chance = 8.0
 
 [sub_resource type="Resource" id="Drop_baphomet_4"]
 script = ExtResource("2_drop")
@@ -28,7 +28,7 @@ max_count = 3
 [sub_resource type="Resource" id="Drop_baphomet_card"]
 script = ExtResource("2_drop")
 item_id = &"card_baphomet"
-chance = 2.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_baphomet_junk_giant_hoof"]
 script = ExtResource("2_drop")
@@ -111,7 +111,7 @@ intro_video = "res://Sprites/video/boss_intro_baphomet.ogv"
 skill_name = "เคียวเงามรณะ"
 skill_anim = &"Skill"
 skill_range = 560.0
-skill_damage_mult = 2.0
+skill_damage_mult = 4.0
 skill_windup = 0.5
 skill_duration = 1.2
 skill_cooldown = 8.0
@@ -122,6 +122,6 @@ skill_wave_both_sides = true
 skill_wave_interval = 0.38
 skill_wave_max_hits = 3
 skill_wave_height = 350.0
-respawn_time = 120.0
+respawn_time = 180.0
 spawn_lines = null
 death_lines = null

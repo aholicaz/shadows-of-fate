@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_45_clear"
+count = 1
+text = "ผ่านชั้น 45 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_9_void"
+title = "ตัดใยไม่ตัดชีวิต"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 45 (ผู้คุม: เนธรา ผู้ทอสุญญะ) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "เนธรา ผู้ทอสุญญะ ทอใยปิดรอยแยกบนหอไว้ แต่ใยนั้นก็รัดคนที่ติดอยู่ไว้ด้วย\n\nขึ้นไปถึงชั้น 45 ตัดใยให้ขาด — ตัดแค่ใย อย่าให้คมโดนคนที่อยู่ข้างใน"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 45 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "ทางกลับเปิดแล้ว... เหลือแค่คำยินยอมจากผู้พิทักษ์มงกุฎบนยอดหอ"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_8_stars"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 180000
+reward_job_exp = 26000
+reward_zeny = 75000
+set_flag_on_complete = &"c8_9_void_done"

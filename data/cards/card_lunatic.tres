@@ -6,17 +6,18 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"lunatic"
-fits_slot = 7
 illustration = ExtResource("art_1")
 monster_level = 13
 id = &"card_lunatic"
 display_name = "การ์ดลูนาติก"
-description = "กระต่ายน้อยผู้โชคร้าย"
+description = "DEX +3, SP +15"
 icon = ExtResource("art_1")
 type = 5
 slot = 7
 buy_price = 0
 sell_price = 80
-sp_drain_percent = 0.05
-cooldown_reduction_percent = 1.0
+
+fits_slot = 7
 bonus_dex = 3
+max_sp = 15
+percent_effects = {}

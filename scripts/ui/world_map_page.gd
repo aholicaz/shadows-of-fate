@@ -58,7 +58,12 @@ func _build_content() -> void:
 	content.add_child(head)
 	_chapter_row = HBoxContainer.new()
 	_chapter_row.add_theme_constant_override("separation", 8)
-	head.add_child(_chapter_row)
+	var chapter_scroll := ScrollContainer.new()
+	chapter_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	chapter_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	chapter_scroll.custom_minimum_size.y = 46
+	head.add_child(chapter_scroll)
+	chapter_scroll.add_child(_chapter_row)
 	var fill := Control.new()
 	fill.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(fill)
@@ -246,6 +251,30 @@ func _make_card(mid: StringName) -> Control:
 		_selected = mid
 		_refresh_detail())
 
+	# Tiny derived thumbnails only; never load a map scene or full background here.
+	btn.clip_contents = true
+	if seen:
+		var thumb_path: String = preload("res://scripts/ui/map_thumbnail_index.gd").PATHS.get(String(mid), "")
+		if not thumb_path.is_empty():
+			var art := TextureRect.new()
+			art.name = "MapThumbnail"
+			art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+			art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+			art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			art.self_modulate.a = 0.30
+			if ResourceLoader.exists(thumb_path):
+				art.texture = load(thumb_path)
+			elif FileAccess.file_exists(thumb_path):
+				# Fresh source checkout before editor import; exported builds use the importer.
+				art.texture = ImageTexture.create_from_image(Image.load_from_file(thumb_path))
+			btn.add_child(art)
+			art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+			art.offset_left = 4
+			art.offset_top = 4
+			art.offset_right = -4
+			art.offset_bottom = -4
+
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 3)
 	# ★ การ์ดสูงขึ้นแล้ว ★ จัดข้อความกึ่งกลางแนวตั้ง ไม่งั้นกองอยู่ขอบบนแล้วดูโล่ง
@@ -349,7 +378,7 @@ func _monster_block(mid: StringName) -> Control:
 	box.add_theme_constant_override("separation", 2)
 	panel.add_child(box)
 
-	var d: MonsterData = GameData.get_monster(mid)
+	var d: MonsterData = GameData.get_monster_info(mid)
 	var killed: int = PlayerState.kill_count(mid)
 	var head := HBoxContainer.new()
 	head.add_theme_constant_override("separation", 6)

@@ -127,7 +127,7 @@ position = Vector2(200, 820)
 position = Vector2(200, 820)
 
 [node name="from_wall" type="Marker2D" parent="SpawnPoints" unique_id=791302238]
-position = Vector2(4800, 820)
+position = Vector2(4310, 820)
 
 [node name="Spawners" type="Node2D" parent="." unique_id=1205976789]
 
@@ -141,14 +141,14 @@ max_spawn_distance = 1700.0
 [node name="Portals" type="Node2D" parent="." unique_id=1388533504]
 
 [node name="ToSteppe" parent="Portals" unique_id=893914569 instance=ExtResource("portal")]
-position = Vector2(72, 807)
+position = Vector2(72, 825)
 target_map = &"giant_steppe"
 target_spawn_point = &"from_hall"
 label_text = "← ทุ่งหญ้ายักษ์"
 destination_name = "ทุ่งหญ้ายักษ์"
 
 [node name="ToWall" parent="Portals" unique_id=637137609 instance=ExtResource("portal")]
-position = Vector2(4940, 808)
+position = Vector2(4450, 825)
 target_map = &"broken_wall"
 target_spawn_point = &"from_hall"
 label_text = "→ กำแพงที่แตก"

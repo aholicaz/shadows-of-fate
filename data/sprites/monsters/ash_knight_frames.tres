@@ -1,9 +1,694 @@
 [gd_resource type="SpriteFrames" format=3]
-[ext_resource type="Texture2D" path="res://Sprites/monsters/chapter7/runtime/ash_knight.png" id="t"]
+
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_04.png" id="s22_1"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_05.png" id="s22_2"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_06.png" id="s22_3"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_07.png" id="s22_4"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_08.png" id="s22_5"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_09.png" id="s22_6"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_10.png" id="s22_7"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_11.png" id="s22_8"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_12.png" id="s22_9"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_13.png" id="s22_10"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_14.png" id="s22_11"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_15.png" id="s22_12"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_16.png" id="s22_13"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_17.png" id="s22_14"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_18.png" id="s22_15"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_19.png" id="s22_16"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_20.png" id="s22_17"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_21.png" id="s22_18"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_22.png" id="s22_19"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_23.png" id="s22_20"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_24.png" id="s22_21"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_25.png" id="s22_22"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_26.png" id="s22_23"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_27.png" id="s22_24"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_28.png" id="s22_25"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/attack-slash-three-1619/frame_29.png" id="s22_26"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_03.png" id="s22_27"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_04.png" id="s22_28"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_05.png" id="s22_29"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_06.png" id="s22_30"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_07.png" id="s22_31"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_08.png" id="s22_32"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_09.png" id="s22_33"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_10.png" id="s22_34"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_11.png" id="s22_35"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_12.png" id="s22_36"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_13.png" id="s22_37"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_14.png" id="s22_38"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_15.png" id="s22_39"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_16.png" id="s22_40"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_17.png" id="s22_41"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_18.png" id="s22_42"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_19.png" id="s22_43"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_20.png" id="s22_44"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_21.png" id="s22_45"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_22.png" id="s22_46"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_23.png" id="s22_47"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_24.png" id="s22_48"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_25.png" id="s22_49"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_26.png" id="s22_50"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_27.png" id="s22_51"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_28.png" id="s22_52"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_29.png" id="s22_53"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_30.png" id="s22_54"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_31.png" id="s22_55"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/hit-and-die-1612/frame_32.png" id="s22_56"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_01.png" id="s22_57"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_02.png" id="s22_58"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_03.png" id="s22_59"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_04.png" id="s22_60"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_05.png" id="s22_61"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_06.png" id="s22_62"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_09.png" id="s22_63"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_10.png" id="s22_64"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_11.png" id="s22_65"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_12.png" id="s22_66"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_13.png" id="s22_67"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_14.png" id="s22_68"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_15.png" id="s22_69"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_16.png" id="s22_70"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_17.png" id="s22_71"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_18.png" id="s22_72"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_19.png" id="s22_73"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_20.png" id="s22_74"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_21.png" id="s22_75"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_22.png" id="s22_76"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_23.png" id="s22_77"]
+[ext_resource type="Texture2D" path="res://Sprites/monsters/spriteflow/ash_knight/idle-walk-loop-1624/frame_24.png" id="s22_78"]
+
+[sub_resource type="AtlasTexture" id="as22_1"]
+atlas = ExtResource("s22_1")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_2"]
+atlas = ExtResource("s22_2")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_3"]
+atlas = ExtResource("s22_3")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_4"]
+atlas = ExtResource("s22_4")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_5"]
+atlas = ExtResource("s22_5")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_6"]
+atlas = ExtResource("s22_6")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_7"]
+atlas = ExtResource("s22_7")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_8"]
+atlas = ExtResource("s22_8")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_9"]
+atlas = ExtResource("s22_9")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_10"]
+atlas = ExtResource("s22_10")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_11"]
+atlas = ExtResource("s22_11")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_12"]
+atlas = ExtResource("s22_12")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_13"]
+atlas = ExtResource("s22_13")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_14"]
+atlas = ExtResource("s22_14")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_15"]
+atlas = ExtResource("s22_15")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_16"]
+atlas = ExtResource("s22_16")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_17"]
+atlas = ExtResource("s22_17")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_18"]
+atlas = ExtResource("s22_18")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_19"]
+atlas = ExtResource("s22_19")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_20"]
+atlas = ExtResource("s22_20")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_21"]
+atlas = ExtResource("s22_21")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_22"]
+atlas = ExtResource("s22_22")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_23"]
+atlas = ExtResource("s22_23")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_24"]
+atlas = ExtResource("s22_24")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_25"]
+atlas = ExtResource("s22_25")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_26"]
+atlas = ExtResource("s22_26")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_27"]
+atlas = ExtResource("s22_27")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_28"]
+atlas = ExtResource("s22_28")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_29"]
+atlas = ExtResource("s22_29")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_30"]
+atlas = ExtResource("s22_30")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_31"]
+atlas = ExtResource("s22_31")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_32"]
+atlas = ExtResource("s22_32")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_33"]
+atlas = ExtResource("s22_33")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_34"]
+atlas = ExtResource("s22_34")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_35"]
+atlas = ExtResource("s22_35")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_36"]
+atlas = ExtResource("s22_36")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_37"]
+atlas = ExtResource("s22_37")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_38"]
+atlas = ExtResource("s22_38")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_39"]
+atlas = ExtResource("s22_39")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_40"]
+atlas = ExtResource("s22_40")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_41"]
+atlas = ExtResource("s22_41")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_42"]
+atlas = ExtResource("s22_42")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_43"]
+atlas = ExtResource("s22_43")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_44"]
+atlas = ExtResource("s22_44")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_45"]
+atlas = ExtResource("s22_45")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_46"]
+atlas = ExtResource("s22_46")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_47"]
+atlas = ExtResource("s22_47")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_48"]
+atlas = ExtResource("s22_48")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_49"]
+atlas = ExtResource("s22_49")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_50"]
+atlas = ExtResource("s22_50")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_51"]
+atlas = ExtResource("s22_51")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_52"]
+atlas = ExtResource("s22_52")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_53"]
+atlas = ExtResource("s22_53")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_54"]
+atlas = ExtResource("s22_54")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_55"]
+atlas = ExtResource("s22_55")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_56"]
+atlas = ExtResource("s22_56")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.5, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_57"]
+atlas = ExtResource("s22_57")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_58"]
+atlas = ExtResource("s22_58")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_59"]
+atlas = ExtResource("s22_59")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_60"]
+atlas = ExtResource("s22_60")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_61"]
+atlas = ExtResource("s22_61")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_62"]
+atlas = ExtResource("s22_62")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_63"]
+atlas = ExtResource("s22_63")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_64"]
+atlas = ExtResource("s22_64")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_65"]
+atlas = ExtResource("s22_65")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_66"]
+atlas = ExtResource("s22_66")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_67"]
+atlas = ExtResource("s22_67")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_68"]
+atlas = ExtResource("s22_68")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_69"]
+atlas = ExtResource("s22_69")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_70"]
+atlas = ExtResource("s22_70")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_71"]
+atlas = ExtResource("s22_71")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_72"]
+atlas = ExtResource("s22_72")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_73"]
+atlas = ExtResource("s22_73")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_74"]
+atlas = ExtResource("s22_74")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_75"]
+atlas = ExtResource("s22_75")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_76"]
+atlas = ExtResource("s22_76")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_77"]
+atlas = ExtResource("s22_77")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="as22_78"]
+atlas = ExtResource("s22_78")
+region = Rect2(0, 0, 1024, 1024)
+margin = Rect2(288.0, 320.0, 576, 376)
+filter_clip = true
+
 [resource]
-animations = [{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": true, "name": &"Idle", "speed": 1.0},
-{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": true, "name": &"Run", "speed": 1.0},
-{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Attack", "speed": 1.0},
-{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Hit", "speed": 1.0},
-{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Death", "speed": 1.0},
-{"frames": [{"duration": 1.0, "texture": ExtResource("t")}], "loop": false, "name": &"Skill", "speed": 1.0},]
+animations = [{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_1")},
+{"duration": 1.000000000, "texture": SubResource("as22_2")},
+{"duration": 1.000000000, "texture": SubResource("as22_3")},
+{"duration": 1.000000000, "texture": SubResource("as22_4")},
+{"duration": 1.000000000, "texture": SubResource("as22_5")},
+{"duration": 1.000000000, "texture": SubResource("as22_6")},
+{"duration": 1.000000000, "texture": SubResource("as22_7")},
+{"duration": 1.000000000, "texture": SubResource("as22_8")},
+{"duration": 1.000000000, "texture": SubResource("as22_9")},
+{"duration": 1.000000000, "texture": SubResource("as22_10")},
+{"duration": 1.000000000, "texture": SubResource("as22_11")},
+{"duration": 1.000000000, "texture": SubResource("as22_12")},
+{"duration": 1.000000000, "texture": SubResource("as22_13")},
+{"duration": 1.000000000, "texture": SubResource("as22_14")},
+{"duration": 1.000000000, "texture": SubResource("as22_15")},
+{"duration": 1.000000000, "texture": SubResource("as22_16")},
+{"duration": 1.000000000, "texture": SubResource("as22_17")},
+{"duration": 1.000000000, "texture": SubResource("as22_18")},
+{"duration": 1.000000000, "texture": SubResource("as22_19")},
+{"duration": 1.000000000, "texture": SubResource("as22_20")},
+{"duration": 1.000000000, "texture": SubResource("as22_21")},
+{"duration": 1.000000000, "texture": SubResource("as22_22")},
+{"duration": 1.000000000, "texture": SubResource("as22_23")},
+{"duration": 1.000000000, "texture": SubResource("as22_24")},
+{"duration": 1.000000000, "texture": SubResource("as22_25")},
+{"duration": 1.000000000, "texture": SubResource("as22_26")}], "loop": false, "name": &"Attack", "speed": 12.0},
+{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_27")},
+{"duration": 1.000000000, "texture": SubResource("as22_28")},
+{"duration": 1.000000000, "texture": SubResource("as22_29")},
+{"duration": 1.000000000, "texture": SubResource("as22_30")},
+{"duration": 1.000000000, "texture": SubResource("as22_31")},
+{"duration": 1.000000000, "texture": SubResource("as22_32")}], "loop": false, "name": &"Hit", "speed": 12.0},
+{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_33")},
+{"duration": 1.000000000, "texture": SubResource("as22_34")},
+{"duration": 1.000000000, "texture": SubResource("as22_35")},
+{"duration": 1.000000000, "texture": SubResource("as22_36")},
+{"duration": 1.000000000, "texture": SubResource("as22_37")},
+{"duration": 1.000000000, "texture": SubResource("as22_38")},
+{"duration": 1.000000000, "texture": SubResource("as22_39")},
+{"duration": 1.000000000, "texture": SubResource("as22_40")},
+{"duration": 1.000000000, "texture": SubResource("as22_41")},
+{"duration": 1.000000000, "texture": SubResource("as22_42")},
+{"duration": 1.000000000, "texture": SubResource("as22_43")},
+{"duration": 1.000000000, "texture": SubResource("as22_44")},
+{"duration": 1.000000000, "texture": SubResource("as22_45")},
+{"duration": 1.000000000, "texture": SubResource("as22_46")},
+{"duration": 1.000000000, "texture": SubResource("as22_47")},
+{"duration": 1.000000000, "texture": SubResource("as22_48")},
+{"duration": 1.000000000, "texture": SubResource("as22_49")},
+{"duration": 1.000000000, "texture": SubResource("as22_50")},
+{"duration": 1.000000000, "texture": SubResource("as22_51")},
+{"duration": 1.000000000, "texture": SubResource("as22_52")},
+{"duration": 1.000000000, "texture": SubResource("as22_53")},
+{"duration": 1.000000000, "texture": SubResource("as22_54")},
+{"duration": 1.000000000, "texture": SubResource("as22_55")},
+{"duration": 1.000000000, "texture": SubResource("as22_56")}], "loop": false, "name": &"Die", "speed": 8.0},
+{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_57")},
+{"duration": 1.000000000, "texture": SubResource("as22_58")},
+{"duration": 1.000000000, "texture": SubResource("as22_59")},
+{"duration": 1.000000000, "texture": SubResource("as22_60")},
+{"duration": 1.000000000, "texture": SubResource("as22_61")},
+{"duration": 1.000000000, "texture": SubResource("as22_62")}], "loop": true, "name": &"Idle", "speed": 8.0},
+{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_63")},
+{"duration": 1.000000000, "texture": SubResource("as22_64")},
+{"duration": 1.000000000, "texture": SubResource("as22_65")},
+{"duration": 1.000000000, "texture": SubResource("as22_66")},
+{"duration": 1.000000000, "texture": SubResource("as22_67")},
+{"duration": 1.000000000, "texture": SubResource("as22_68")},
+{"duration": 1.000000000, "texture": SubResource("as22_69")},
+{"duration": 1.000000000, "texture": SubResource("as22_70")},
+{"duration": 1.000000000, "texture": SubResource("as22_71")},
+{"duration": 1.000000000, "texture": SubResource("as22_72")},
+{"duration": 1.000000000, "texture": SubResource("as22_73")},
+{"duration": 1.000000000, "texture": SubResource("as22_74")},
+{"duration": 1.000000000, "texture": SubResource("as22_75")},
+{"duration": 1.000000000, "texture": SubResource("as22_76")},
+{"duration": 1.000000000, "texture": SubResource("as22_77")},
+{"duration": 1.000000000, "texture": SubResource("as22_78")}], "loop": true, "name": &"Walk", "speed": 8.0},
+{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_63")},
+{"duration": 1.000000000, "texture": SubResource("as22_64")},
+{"duration": 1.000000000, "texture": SubResource("as22_65")},
+{"duration": 1.000000000, "texture": SubResource("as22_66")},
+{"duration": 1.000000000, "texture": SubResource("as22_67")},
+{"duration": 1.000000000, "texture": SubResource("as22_68")},
+{"duration": 1.000000000, "texture": SubResource("as22_69")},
+{"duration": 1.000000000, "texture": SubResource("as22_70")},
+{"duration": 1.000000000, "texture": SubResource("as22_71")},
+{"duration": 1.000000000, "texture": SubResource("as22_72")},
+{"duration": 1.000000000, "texture": SubResource("as22_73")},
+{"duration": 1.000000000, "texture": SubResource("as22_74")},
+{"duration": 1.000000000, "texture": SubResource("as22_75")},
+{"duration": 1.000000000, "texture": SubResource("as22_76")},
+{"duration": 1.000000000, "texture": SubResource("as22_77")},
+{"duration": 1.000000000, "texture": SubResource("as22_78")}], "loop": true, "name": &"Run", "speed": 8.0},
+{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_1")},
+{"duration": 1.000000000, "texture": SubResource("as22_2")},
+{"duration": 1.000000000, "texture": SubResource("as22_3")},
+{"duration": 1.000000000, "texture": SubResource("as22_4")},
+{"duration": 1.000000000, "texture": SubResource("as22_5")},
+{"duration": 1.000000000, "texture": SubResource("as22_6")},
+{"duration": 1.000000000, "texture": SubResource("as22_7")},
+{"duration": 1.000000000, "texture": SubResource("as22_8")},
+{"duration": 1.000000000, "texture": SubResource("as22_9")},
+{"duration": 1.000000000, "texture": SubResource("as22_10")},
+{"duration": 1.000000000, "texture": SubResource("as22_11")},
+{"duration": 1.000000000, "texture": SubResource("as22_12")},
+{"duration": 1.000000000, "texture": SubResource("as22_13")},
+{"duration": 1.000000000, "texture": SubResource("as22_14")},
+{"duration": 1.000000000, "texture": SubResource("as22_15")},
+{"duration": 1.000000000, "texture": SubResource("as22_16")},
+{"duration": 1.000000000, "texture": SubResource("as22_17")},
+{"duration": 1.000000000, "texture": SubResource("as22_18")},
+{"duration": 1.000000000, "texture": SubResource("as22_19")},
+{"duration": 1.000000000, "texture": SubResource("as22_20")},
+{"duration": 1.000000000, "texture": SubResource("as22_21")},
+{"duration": 1.000000000, "texture": SubResource("as22_22")},
+{"duration": 1.000000000, "texture": SubResource("as22_23")},
+{"duration": 1.000000000, "texture": SubResource("as22_24")},
+{"duration": 1.000000000, "texture": SubResource("as22_25")},
+{"duration": 1.000000000, "texture": SubResource("as22_26")}], "loop": false, "name": &"Skill", "speed": 12.0},
+{"frames": [{"duration": 1.000000000, "texture": SubResource("as22_33")},
+{"duration": 1.000000000, "texture": SubResource("as22_34")},
+{"duration": 1.000000000, "texture": SubResource("as22_35")},
+{"duration": 1.000000000, "texture": SubResource("as22_36")},
+{"duration": 1.000000000, "texture": SubResource("as22_37")},
+{"duration": 1.000000000, "texture": SubResource("as22_38")},
+{"duration": 1.000000000, "texture": SubResource("as22_39")},
+{"duration": 1.000000000, "texture": SubResource("as22_40")},
+{"duration": 1.000000000, "texture": SubResource("as22_41")},
+{"duration": 1.000000000, "texture": SubResource("as22_42")},
+{"duration": 1.000000000, "texture": SubResource("as22_43")},
+{"duration": 1.000000000, "texture": SubResource("as22_44")},
+{"duration": 1.000000000, "texture": SubResource("as22_45")},
+{"duration": 1.000000000, "texture": SubResource("as22_46")},
+{"duration": 1.000000000, "texture": SubResource("as22_47")},
+{"duration": 1.000000000, "texture": SubResource("as22_48")},
+{"duration": 1.000000000, "texture": SubResource("as22_49")},
+{"duration": 1.000000000, "texture": SubResource("as22_50")},
+{"duration": 1.000000000, "texture": SubResource("as22_51")},
+{"duration": 1.000000000, "texture": SubResource("as22_52")},
+{"duration": 1.000000000, "texture": SubResource("as22_53")},
+{"duration": 1.000000000, "texture": SubResource("as22_54")},
+{"duration": 1.000000000, "texture": SubResource("as22_55")},
+{"duration": 1.000000000, "texture": SubResource("as22_56")}], "loop": false, "name": &"Death", "speed": 8.0}]

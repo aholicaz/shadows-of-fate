@@ -1,5 +1,15 @@
 [gd_scene format=3 uid="uid://bc43e2nsdkicd"]
 
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/tony_idle.tres" id="sg_tony"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/hans_idle.tres" id="sg_hans"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/maria_idle.tres" id="sg_maria"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/thor_warp_idle.tres" id="sg_thor_warp"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/erik_idle.tres" id="sg_erik"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/valder_idle.tres" id="sg_valder"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/gunnar_idle.tres" id="sg_gunnar"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/ingrid_idle.tres" id="sg_ingrid"]
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter1/sprite_gen_idle/bjorn_idle.tres" id="sg_bjorn"]
+[ext_resource type="Shader" path="res://Sprites/shaders/thor_shrine_idle.gdshader" id="sg_shrine_shader"]
 [ext_resource type="Texture2D" uid="uid://cp6v2emvvoo3i" path="res://Sprites/npc/traveler-idle-6frames.png" id="6_46nb1"]
 [ext_resource type="Texture2D" uid="uid://j3lbwr6w6pig" path="res://Sprites/portraits/Merchant.png" id="6_ia7j7"]
 [ext_resource type="Texture2D" uid="uid://c2e01jusy62ah" path="res://Sprites/npc/blacksmith-idle-6frames.png" id="7_h73fi"]
@@ -29,6 +39,11 @@
 [ext_resource type="Texture2D" uid="uid://b2she5f122g87" path="res://Sprites/map/chapter1/organic/prontera_town_4.png" id="organic_4"]
 [ext_resource type="PackedScene" uid="uid://bhp7c8ti14pnn" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="PackedScene" uid="uid://d3v8kjt45bnvr" path="res://scenes/world/portal.tscn" id="portal"]
+
+[sub_resource type="ShaderMaterial" id="SGShrineMaterial"]
+resource_local_to_scene = true
+shader = ExtResource("sg_shrine_shader")
+shader_parameter/warm_light = false
 
 [sub_resource type="RectangleShape2D" id="C1Floor"]
 size = Vector2(7700, 60)
@@ -934,10 +949,12 @@ quest_ids = Array[StringName]([&"tony_fabre"])
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Merchant" unique_id=36482936]
 position = Vector2(-3, -13.999981)
 scale = Vector2(0.34356725, 0.34356725)
-sprite_frames = SubResource("SpriteFrames_3gngh")
-autoplay = "default"
+sprite_frames = ExtResource("sg_tony")
 script = ExtResource("c1_npc_fit")
 actor_height = 275.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/Merchant" unique_id=1710279295]
 script = ExtResource("c1_shadow")
@@ -959,12 +976,12 @@ quest_ids = Array[StringName]([&"hans_poring", &"m5_old_mine_iron"])
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="NPCs/Blacksmith" unique_id=1862143772]
 position = Vector2(-7, 1.9999924)
 scale = Vector2(0.35302803, 0.35302806)
-sprite_frames = SubResource("SpriteFrames_yf5fn")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.46044508
+sprite_frames = ExtResource("sg_hans")
 script = ExtResource("c1_npc_fit")
 actor_height = 280.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/Blacksmith" unique_id=1718256273]
 script = ExtResource("c1_shadow")
@@ -983,12 +1000,12 @@ voice_id = "maria"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Healer" unique_id=1369066492]
 position = Vector2(2.0000546, -14.000019)
 scale = Vector2(0.32105938, 0.32105938)
-sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.21823835
+sprite_frames = ExtResource("sg_maria")
 script = ExtResource("c1_npc_fit")
 actor_height = 265.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/Healer" unique_id=2046773899]
 script = ExtResource("c1_shadow")
@@ -997,6 +1014,7 @@ fit_actor_size = true
 [node name="SavePoint" parent="NPCs" unique_id=1149238899 instance=ExtResource("npc")]
 position = Vector2(3590, 660)
 npc_name = "เสาวาปแห่งธอร์"
+portrait_file = "res://Sprites/portraits/npcs/cc237514382e.tres"
 type = 4
 dialog = "เสาวาปโบราณ · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
 warp_targets = Array[StringName]([&"asgard_forest_2", &"vanir_town", &"utgard_town", &"ljosalf_city", &"eljudnir"])
@@ -1008,12 +1026,13 @@ quest_talk_names = Array[StringName]([&"ศิลาสลักแห่งธ�
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/SavePoint" unique_id=1114171629]
 position = Vector2(2, -25)
 scale = Vector2(0.5643275, 0.5643275)
-sprite_frames = SubResource("SpriteFrames_d0u6y")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.12460094
+sprite_frames = ExtResource("sg_thor_warp")
 script = ExtResource("c1_npc_fit")
 actor_height = 270.0
+
+animation = &"Idle"
+autoplay = "Idle"
+material = SubResource("SGShrineMaterial")
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/SavePoint" unique_id=2133200160]
 script = ExtResource("c1_shadow")
@@ -1038,12 +1057,12 @@ quest_ids = Array[StringName]([&"m1_adventurer_badge", &"m7_silent_forest", &"m1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Guide" unique_id=458557870]
 position = Vector2(-2, -16.000013)
 scale = Vector2(0.3825536, 0.3825536)
-sprite_frames = SubResource("SpriteFrames_7numd")
-autoplay = "default"
-frame = 4
-frame_progress = 0.0011229648
+sprite_frames = ExtResource("sg_erik")
 script = ExtResource("c1_npc_fit")
 actor_height = 280.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/Guide" unique_id=104354605]
 script = ExtResource("c1_shadow")
@@ -1072,12 +1091,12 @@ quest_ids = Array[StringName]([&"m2_oath", &"m6_ceremony", &"m8_burnt_bark", &"m
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/HighPriest" unique_id=1929005518]
 position = Vector2(12.999996, -29.000025)
 scale = Vector2(0.37016425, 0.37016425)
-sprite_frames = SubResource("SpriteFrames_57qmd")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.6362185
+sprite_frames = ExtResource("sg_valder")
 script = ExtResource("c1_npc_fit")
 actor_height = 280.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/HighPriest" unique_id=1306722877]
 script = ExtResource("c1_shadow")
@@ -1091,24 +1110,10 @@ dialog = "เด็กใหม่สินะ...
 
 ระวังตัวด้วยแล้วกัน"
 dialog_by_flag = {
-"chapter2_done": "กลับมาจากใต้ภูเขาแล้วสินะ
-
-ตอนนี้เจ้าก็รู้แล้วว่าค้อนเล่มนั้นตีขึ้นมาเพื่ออะไร
-
-...ระวังตัวให้มาก อย่าให้ใครรู้ว่าเจ้ารู้",
-"killed_stormscar": "เจ้าเห็นกับตาแล้วใช่ไหม... แสงที่ไหลลงดินน่ะ
-
-สายฟ้าไม่เคยให้อะไรใครฟรี ๆ หรอกหนุ่มน้อย
-
-มันมาเก็บของมันต่างหาก",
-"read_hunter_journal": "«พวกมันไม่ได้ล่า พวกมันหนี» งั้นรึ...
-
-สัตว์น่ะ มันรู้ก่อนคนเสมอแหละ ว่าอะไรกำลังมา",
-"saw_ceremony": "เมื่อคืนเจ้าก็อยู่ในพิธีสินะ...
-
-ถ้าธอร์ปกป้องพวกเราจริง แล้วเหตุใดทุกครั้งที่สายฟ้าฟาด
-
-ป่าจึงเงียบลง เหมือนมีบางสิ่งตายไป"
+"chapter2_done": "กลับมาจากใต้ภูเขาแล้วสินะ\n\nตอนนี้เจ้าก็รู้แล้วว่าค้อนเล่มนั้นตีขึ้นมาเพื่ออะไร\n\n...ระวังตัวให้มาก อย่าให้ใครรู้ว่าเจ้ารู้",
+"killed_stormscar": "เจ้าเห็นกับตาแล้วใช่ไหม... แสงที่ไหลลงดินน่ะ\n\nสายฟ้าไม่เคยให้อะไรใครฟรี ๆ หรอกหนุ่มน้อย\n\nมันไม่ได้ลงมาประทานพร... มันลงมาเก็บเกี่ยวต่างหาก",
+"read_hunter_journal": "«พวกมันไม่ได้ล่า พวกมันหนี» งั้นรึ...\n\nสัตว์น่ะ มันรู้ก่อนคนเสมอแหละ ว่าอะไรกำลังมา",
+"saw_ceremony": "เมื่อคืนเจ้าก็อยู่ในพิธีสินะ...\n\nถ้าธอร์ปกป้องพวกเราจริง แล้วเหตุใดทุกครั้งที่สายฟ้าฟาด\n\nป่าจึงเงียบลง เหมือนมีบางสิ่งตายไป"
 }
 portrait = ExtResource("16_y0k02")
 greeting = "...เด็กใหม่สินะ มาคุยกับตาแก่ทำไม คนอื่นเขาไม่คุยกับข้ากันหรอก"
@@ -1117,11 +1122,12 @@ voice_id = "gunnar"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/OldMan" unique_id=2045269019]
 position = Vector2(0, -20.999977)
 scale = Vector2(0.34941518, 0.34941515)
-sprite_frames = SubResource("SpriteFrames_fcnqv")
-animation = &"Idle"
-autoplay = "Idle"
+sprite_frames = ExtResource("sg_gunnar")
 script = ExtResource("c1_npc_fit")
 actor_height = 265.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/OldMan" unique_id=1962784899]
 script = ExtResource("c1_shadow")
@@ -1138,15 +1144,20 @@ dialog = "พ่อของข้าเข้าป่าไปเมื่อ�
 portrait = ExtResource("18_6ce6c")
 greeting = "ท่านนักผจญภัย...! เพิ่งกลับจากป่าใช่ไหม ได้เห็นพ่อข้าบ้างหรือเปล่า"
 voice_id = "ingrid"
-quest_ids = Array[StringName]([&"m9_missing_hunter", &"m10_hunter_journal"])
+quest_ids = Array[StringName]([&"m9_missing_hunter", &"m10_hunter_journal", &"c6_11_letter_home"])
+dialog_by_flag = {
+"ingrid_knows_truth": "ข้าจะเข้าป่าไปวางดอกไม้ตรงที่พ่อล้ม... ไม่ต้องห่วง ข้าไม่ไปตอนค่ำหรอก\n\nถ้าเจอพ่ออีก ช่วยบอกพ่อด้วยนะว่าข้าไม่เป็นไรแล้ว"
+}
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Ingrid" unique_id=1192510778]
 position = Vector2(2.9999542, -13.999986)
 scale = Vector2(0.58015305, 0.58015305)
-sprite_frames = SubResource("SpriteFrames_5s0fj")
-autoplay = "default"
+sprite_frames = ExtResource("sg_ingrid")
 script = ExtResource("c1_npc_fit")
 actor_height = 270.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/Ingrid" unique_id=357781370]
 script = ExtResource("c1_shadow")
@@ -1166,16 +1177,17 @@ dialog = "กิลด์นักผจญภัยพรอนเทรา ย
 portrait = ExtResource("22_lpoml")
 greeting = "ฮ่าฮ่า! หน้าใหม่นี่ ตัวยังไม่มีแผลสักรอย มานี่ งานมีเพียบ"
 voice_id = "bjorn"
-quest_ids = Array[StringName]([&"m11_king_poring"])
+quest_ids = Array[StringName]([&"m11_king_poring", &"m3_guild_bounty"])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/GuildMaster" unique_id=1565329367]
 position = Vector2(-1.9999876, -46.000008)
 scale = Vector2(0.46077, 0.46077)
-sprite_frames = SubResource("SpriteFrames_p1u0y")
-autoplay = "default"
-frame_progress = 0.029318195
+sprite_frames = ExtResource("sg_bjorn")
 script = ExtResource("c1_npc_fit")
 actor_height = 285.0
+
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="FootShadow" type="Sprite2D" parent="NPCs/GuildMaster" unique_id=1940206701]
 script = ExtResource("c1_shadow")

@@ -1,0 +1,30 @@
+[gd_scene format=3]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter8/root_memory_depth.png" id="depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter8/root_memory_panorama.png" id="road"]
+[ext_resource type="Script" path="res://scripts/world/chapter8_parallax.gd" id="parallax"]
+[ext_resource type="Shader" path="res://Sprites/shaders/prontera_distance_dof.gdshader" id="dof"]
+[sub_resource type="ShaderMaterial" id="distance_material"]
+shader = ExtResource("dof")
+shader_parameter/blur_pixels = 0.65
+[node name="Background" type="Node2D"]
+script = ExtResource("parallax")
+anchor_x = 2100.0
+depth_speed = 0.132
+tower_theme = 0
+floor_variant = 0
+atmosphere = Color(0.55,0.95,0.65,0.22)
+mote_amount = 27
+mist_strength = 0.015
+rising = false
+[node name="Depth" type="Sprite2D" parent="."]
+z_index = -100
+texture = ExtResource("depth")
+material = SubResource("distance_material")
+[node name="OrganicRoad0" type="Sprite2D" parent="."]
+z_index = -40
+texture_filter = 2
+position = Vector2(0.00000,-52.04420)
+scale = Vector2(1.93370166,1.93370166)
+centered = false
+flip_h = false
+texture = ExtResource("road")

@@ -7,7 +7,7 @@
 script = ExtResource("1_card")
 id = &"card_munak"
 display_name = "การ์ดมูนัค"
-description = "วิญญาณสาวน้อย ปกป้องผู้สวมใส่จากเวทมนตร์"
+description = "MDEF +3, HP +80, ดูดเลือด +0.01%"
 type = 5
 slot = 0
 max_stack = 99
@@ -16,12 +16,11 @@ sell_price = 80
 monster_id = &"munak"
 illustration = ExtResource("art_1")
 icon = ExtResource("art_1")
-fits_slot = 5
 rarity = 3
 monster_level = 18
+
+
+fits_slot = 5
 mdef = 3
 max_hp = 80
-
-percent_effects = {
-"hp_drain_percent": 0.05
-}
+percent_effects = {"hp_drain_percent": 0.01}

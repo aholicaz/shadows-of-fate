@@ -1,20 +1,25 @@
 [gd_resource type="Resource" script_class="CardData" format=3]
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
-[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_oath_warden.png" id="i"]
-[ext_resource type="Texture2D" path="res://Sprites/card/chapter7/card_oath_warden.png" id="art_1"]
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_oath_warden.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_oath_warden.png" id="gold_icon"]
+
 [resource]
 script = ExtResource("s")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
 id = &"card_oath_warden"
 display_name = "การ์ดผู้คุมเบ้าหลอมคำสาบาน"
-description = "แกนเหล็กเก้าชั้นจากผู้คุมเบ้าหลอม ชั้นในสุดมีรายชื่อคนเป็นซึ่งถูกส่งขึ้นหอ ไม่ใช่รายชื่อผู้ตาย"
+description = "STR +6, ดาเมจสกิล +6%, ดูดเลือด +0.20%"
 monster_id = &"oath_warden"
-illustration = ExtResource("art_1")
 monster_level = 110
-fits_slot = 2
 rarity = 6
-icon = ExtResource("i")
 type = 5
 max_stack = 99
 sell_price = 400
-max_hp = 350
+
+fits_slot = 7
 bonus_str = 6
+percent_effects = {"skill_damage_percent": 6.0, "hp_drain_percent": 0.2}
+
+unique_equipped = true

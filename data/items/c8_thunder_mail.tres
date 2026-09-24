@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_thunder_mail.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_thunder_mail"
+display_name = "เกราะกลองอสุนี"
+description = "เกราะหุ้มหนังกลองของบรอนน์ ดูดแรงสั่นของฟ้าร้อง DEF +78, HP +900, VIT +10 และลดดาเมจ 6%"
+drop_hint = "ผู้คุมอิกดราซิลชั้น 55 · โอกาสดรอป 8% · กลับล่าได้"
+icon = ExtResource("i")
+type = 2
+slot = 4
+required_level = 132
+max_stack = 1
+card_slots = 2
+refinable = true
+sell_price = 32000
+buy_price = 0
+def = 78
+max_hp = 900
+bonus_vit = 10
+defense_percent = 6.0

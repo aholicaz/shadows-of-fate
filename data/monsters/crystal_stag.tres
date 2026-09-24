@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
-[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/crystal_stag_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bmgdn5tcee0vu" path="res://data/sprites/monsters/crystal_stag_frames.tres" id="3_frames"]
 
 [sub_resource type="Resource" id="Drop_crystal_stag_0"]
 script = ExtResource("2_drop")
@@ -44,12 +44,21 @@ hitbox_size = Vector2(80, 90)
 hp_bar_offset_y = -453.0
 display_height = 470.0
 fit_fixed_anchor_enabled = true
-fit_fixed_anchor = Vector2(256, 480)
+fit_fixed_anchor = Vector2(800, 1100)
+fit_animation_scales = Dictionary[StringName, float]({
+&"Attack": 1.23642732,
+&"Die": 1.25177305,
+&"Hit": 1.25177305,
+&"Idle": 1.25622776,
+&"Run": 1.25622776,
+&"Skill": 1.23642732,
+&"Walk": 1.25622776
+})
 fit_foot_animations = null
 level = 74
-max_hp = 16000
-atk_min = 660
-atk_max = 820
+max_hp = 23200
+atk_min = 890
+atk_max = 1105
 def = 90
 mdef = 70
 hit = 156

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_60_clear"
+count = 1
+text = "ผ่านชั้น 60 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_12_clouds"
+title = "ฝูงเมฆที่ไม่มีเจ้าของ"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 60 (ผู้คุม: เมฆา ผู้ต้อนฝูงเมฆ) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "เมฆเหนือชั้น 55 ไม่ได้ลอยไปตามลม มันถูกต้อน\n\nเมฆาเก็บชื่อที่วิหารลบทิ้งแล้วปั้นเป็นเมฆ เลี้ยงไว้เป็นฝูงบนยอดไม้ ชื่อพวกนั้นเคยเป็นคน... ขึ้นไปถึงชั้น 60 แล้วปล่อยฝูงนั้นให้ตกลงมาเป็นฝนที่บ้านของพวกเขา"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 60 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "ฝนตกลงมาที่อัมเบอร์เฮเวนทั้งคืน ผู้เฒ่าคนหนึ่งยืนร้องไห้กลางฝน บอกว่าได้ยินเสียงลูกสาวเรียก\n\nข้าจดชื่อที่ได้ยินในฝนไว้ได้สิบเจ็ดชื่อ... มากกว่าที่ข้าหาได้ทั้งปี"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_11_thunder"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 260000
+reward_job_exp = 32000
+reward_zeny = 90000

@@ -1,26 +1,29 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="CardData" format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" uid="uid://beuhtp6rhj41e" path="res://Sprites/card/card_stormscar.webp" id="art_1"]
+
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_stormscar.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_stormscar.png" id="gold_icon"]
 
 [resource]
 script = ExtResource("1_card")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
 monster_id = &"stormscar"
-illustration = ExtResource("art_1")
-icon = ExtResource("art_1")
-fits_slot = 3
 rarity = 4
 monster_level = 30
 id = &"card_stormscar"
 display_name = "การ์ดอสูรสายฟ้า"
-description = "ซากของมันสลายเป็นแสงทอง... แล้วไหลลงดินไปทางเหนือ"
+description = "AGI +3, ASPD +5%, ดาเมจคริ +4%"
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 180
-atk = 5
-bonus_agi = 2
-percent_effects = {
-"aspd_percent": 5.0
-}
+
+fits_slot = 3
+bonus_agi = 3
+percent_effects = {"aspd_percent": 5.0, "crit_damage_percent": 4.0}
+
+unique_equipped = true

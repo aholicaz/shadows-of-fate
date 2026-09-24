@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/c7_ash_plate.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c7_ash_plate"
+display_name = "เกราะปลดคำสั่ง"
+description = "ช่างลบรอยคำสั่งจากเกราะอัศวิน เหลือแผ่นเหล็กที่ปกป้องชีวิตแทนการบังคับ"
+drop_hint = "อัศวินคำสั่งสุดท้าย 3% · ผู้คุมเบ้าหลอมคำสาบาน 6% · ร้านออร์ม อัมเบอร์เฮเวน"
+icon = ExtResource("i")
+type = 2
+slot = 4
+required_level = 102
+max_stack = 1
+buy_price = 260000
+sell_price = 1500
+card_slots = 1
+refinable = true
+def = 72
+mdef = 24
+max_hp = 400
+bonus_vit = 6

@@ -1,0 +1,10 @@
+{
+"ยาฟื้นฟู (ยาแดง ยาส้ม ยาน้ำเงิน ฯลฯ) ฟื้น HP/SP แรงขึ้น 5% ต่อเลเวล — เลเวล 10 = +50% · ติดตัวตลอด ไม่ต้องกด": "Recovery potions (Red, Orange, Blue, etc.) restore 5% more HP/SP per level — Level 10 = +50% · always active, no need to press",
+"ขั้นกิลด์ %s «%s» — คลิกดูสิทธิ์พิเศษ": "Guild Rank %s «%s» — click to see perks",
+"[color=#7dffa8]ปฐมพยาบาล +%.0f%% → ฟื้นจริง HP %d · SP %d[/color]": "[color=#7dffa8]First Aid +%.0f%% → actual heal HP %d · SP %d[/color]",
+"  •  ยาแรงขึ้น +%.0f%% → +%.0f%%": "  •  Potion boost +%.0f%% → +%.0f%%",
+"ยาฟื้นฟู HP/SP แรงขึ้น +%.0f%% (ติดตัวตลอด)": "HP/SP potions restore +%.0f%% more (always active)",
+"ม.ค.": "Jan", "ก.พ.": "Feb", "มี.ค.": "Mar", "เม.ย.": "Apr", "พ.ค.": "May", "มิ.ย.": "Jun",
+"ก.ค.": "Jul", "ส.ค.": "Aug", "ก.ย.": "Sep", "ต.ค.": "Oct", "พ.ย.": "Nov", "ธ.ค.": "Dec",
+"บันทึกเมื่อ ": "Saved "
+}

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/c7_oathbreak_signet.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c7_oathbreak_signet"
+display_name = "แหวนคำสาบานอิสระ"
+description = "แก่นคำสาบานของผู้คุมถูกปลดจากตรวน เก็บจังหวะการร่ายไว้ให้ผู้ถือเลือกเอง"
+drop_hint = "ผู้คุมเบ้าหลอมคำสาบาน 8%"
+icon = ExtResource("i")
+type = 2
+slot = 7
+required_level = 108
+max_stack = 1
+buy_price = 0
+sell_price = 2400
+card_slots = 2
+refinable = true
+max_sp = 60
+bonus_dex = 6
+skill_damage_percent = 6.0
+cooldown_reduction_percent = 4.0

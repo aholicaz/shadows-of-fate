@@ -7,6 +7,7 @@
 script = ExtResource("2_obj")
 kind = 4
 target = &"bridge_toll"
+text = "ตรวจดูแผ่นทอง"
 count = 1
 
 [sub_resource type="Resource" id="Obj_1"]
@@ -20,15 +21,16 @@ text = "ถามเฮลเรื่องคำสั่งผู้กอง
 script = ExtResource("1_quest")
 id = &"c6_4_captains_order"
 title = "คำสั่งของผู้กอง"
-description = "อ่านแผ่นทองที่หัวสะพาน แล้วถามเฮลว่าทำไมผู้กองถึงห้ามเข้าป่า"
+description = "อ่านแผ่นทองที่หัวสะพานเกียลล์ แล้วถามเฮลว่าทำไมผู้กองถึงสั่งห้ามเข้าป่า"
 giver_name = "นักล่าที่หายไป (ผี)"
-dialog_offer = "ที่หัวสะพานมีแผ่นทอง... ข้าเขียนอะไรไว้ข้างล่างตอนข้ามมา ไปอ่านที ข้าจำไม่ได้แล้วว่าเขียนอะไร\n\nแล้วถามเฮลให้ที ว่าผู้กองรู้ไหมว่าป่ากำลังโดนดูด"
+dialog_offer = "ที่หัวสะพานทองมีแผ่นทองอยู่แผ่นหนึ่ง... ตอนข้ามมา ข้าเขียนอะไรบางอย่างไว้ใต้แผ่นนั้น แต่ตอนนี้จำไม่ได้แล้ว ไปอ่านให้ข้าที\n\nแล้วช่วยถามเฮลให้ด้วยว่า ผู้กองรู้หรือเปล่าว่าป่ากำลังถูกดูด"
 dialog_progress = "อ่านแผ่นทองที่หัวสะพานเกียลล์ แล้วคุยกับเฮล"
-dialog_complete = "เฮลว่าไง... ผู้กองรู้ ผู้กองรู้มาตลอด สั่งห้ามเข้าป่าเพราะไม่อยากให้ใครเห็นแสงไหลลงดิน\n\nข้าไม่ได้บ้า ข้าแค่เห็นก่อน"
+dialog_complete = "เฮลว่ายังไง... ผู้กองรู้ รู้มาตลอด เขาสั่งห้ามเข้าป่าเพราะไม่อยากให้ใครเห็นแสงไหลลงดิน\n\nข้าไม่ได้บ้าหรอก ข้าแค่เห็นก่อนคนอื่น"
 objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
 kill_monster_id = &""
 required_level = 87
 required_quests = Array[StringName]([&"c6_1_those_who_remember"])
 set_flag_on_complete = &"knows_captain_reason"
-reward_zeny = 20000
-reward_exp = 130000
+reward_zeny = 2079
+reward_exp = 13517
+reward_job_exp = 9461

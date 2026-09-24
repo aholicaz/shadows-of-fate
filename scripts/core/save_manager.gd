@@ -142,6 +142,14 @@ func slot_info(slot: int) -> Dictionary:
 	var parsed := _read_slot(slot)
 	if parsed.is_empty(): return {}
 	var s: Dictionary = parsed.get("stats", {})
+	# ★ รอบ 166 ★ เพิ่มเวลาเล่น + ขั้นกิลด์ (หน้าระบบ/หน้าโหลดโชว์ตราขั้น)
+	var b = parsed.get("bounties", {})
+	var pts: int = int(b.get("points", 0)) if b is Dictionary else 0
+	var rank := "F"
+	for r in BountyBoard.RANKS:
+		if pts >= int(r[1]):
+			rank = String(r[0])
 	return {"level": s.get("level", 1), "job": s.get("job_id", ""),
 		"zeny": parsed.get("zeny", 0), "map": parsed.get("map", ""),
-		"map_name": parsed.get("map_name", ""), "saved_at": parsed.get("saved_at", "")}
+		"map_name": parsed.get("map_name", ""), "saved_at": parsed.get("saved_at", ""),
+		"play_time": float(parsed.get("play_time", 0)), "rank": rank}

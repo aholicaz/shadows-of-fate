@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/stranger.png" id="1_rr5vb"]
+
+[resource]
+atlas = ExtResource("1_rr5vb")
+region = Rect2(215, 12, 234, 397)
+filter_clip = true

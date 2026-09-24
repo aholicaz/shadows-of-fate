@@ -15,6 +15,9 @@ var next_cut := 0
 var emitted := 0
 
 static func spawn(player: Node2D, sprite: AnimatedSprite2D, facing: int) -> Node:
+	# Runeblade's six-hit skill emits at actual strike events, not guessed frames.
+	if preload("res://scripts/entities/runeblade_echo_art.gd").active(player) and player._rb_attack_tag == &"rune_flurry":
+		return null
 	var fx = load("res://scripts/entities/slash_flurry_fx.gd").new()
 	fx.caster = player
 	fx.body = sprite
@@ -41,6 +44,10 @@ func _process(_delta: float) -> void:
 		queue_free()
 
 func burst(index: int) -> void:
+	if preload("res://scripts/entities/runeblade_echo_art.gd").active(caster):
+		preload("res://scripts/entities/runeblade_echo_art.gd").cut(caster,
+			caster.foot_position()+Vector2(direction*105,-130),direction,225.0,index)
+		return
 	var root := Node2D.new()
 	root.name = "SlashGoldCut"
 	root.z_index = 61

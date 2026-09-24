@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="CardData" format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_forge_guardian.png" id="art_1"]
+
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_forge_guardian.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_forge_guardian.png" id="gold_icon"]
 
 [resource]
 script = ExtResource("1_card")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
 monster_id = &"forge_guardian"
-illustration = ExtResource("art_1")
-icon = ExtResource("art_1")
 fits_slot = 4
 rarity = 5
 monster_level = 38
@@ -25,3 +28,5 @@ def = 8
 percent_effects = {
 "max_hp_percent": 5.0
 }
+
+unique_equipped = true

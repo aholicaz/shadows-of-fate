@@ -142,9 +142,12 @@ func _fill_monsters() -> void:
 	var key := _mon_search.text.strip_edges().to_lower()
 	_mon_list.clear()
 	_mon_ids.clear()
-	# ★ รอบ 90 ★ ห้อง GM ต้องเห็นครบทุกตัว จึงบังคับโหลดที่นี่
-	# (ตอนเปิดเกมปกติมอนจะโหลดเฉพาะตัวที่แมพใช้ — ดู GameData.get_monster)
-	var all: Dictionary = GameData.load_all_monsters()
+	# List metadata only; sprites are loaded when spawning the selected monster.
+	# Keep browsing independent of combat texture memory.
+	var all: Dictionary = {}
+	for id in GameData.monster_ids():
+		var info := GameData.get_monster_info(id)
+		if info != null: all[id] = info
 	var ids: Array = all.keys()
 	ids.sort_custom(func(a, b):
 		var da: MonsterData = all[a]
@@ -467,6 +470,8 @@ func _build_system_tab(box: VBoxContainer) -> void:
 
 	var r2 := _row(box)
 	_button(r2, "★ เข้าห้อง GM ★", func(): _warp_to(&"gm_room"), 140)
+	_button(r2, "ทดสอบหอคอย 100 ชั้น", func(): _warp_to(&"yggdrasil_01"), 190)
+	_button(r2, "หอชั้น 51", func(): _warp_to(&"yggdrasil_51"), 110)   # ★ รอบ 179 ★
 	_button(r2, "กลับพรอนเทรา", func(): _warp_to(&"prontera_town"), 130)
 
 	box.add_child(UITheme.separator())
@@ -522,6 +527,7 @@ func _warp_to(map_id: StringName) -> void:
 	if not Game.MAPS.has(map_id):
 		_say("ไม่มีแมพ %s" % map_id)
 		return
+	preload("res://scripts/world/chapter8_tower_data.gd").gm_test = String(map_id).begins_with("yggdrasil_")
 	hide_window()
 	Game.change_map(map_id, &"default")
 

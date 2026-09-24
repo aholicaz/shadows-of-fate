@@ -1,13 +1,16 @@
 extends Control
 const POSITIONS := {
+	&"jump_slash": Vector2(0,3),
 	&"runic_vessel":Vector2(0,0), &"rune_guard":Vector2(0,1), &"rune_lunge":Vector2(0,2),
 	# ★ รอบ 125 ★ ท่าโจมตีขึ้นหัวสาย · สกิลติดตัวย้ายไปเป็นทางเลือกท้ายสาย (เงื่อนไขอยู่ใน data/skills/*.tres)
 	&"rune_flurry":Vector2(1,0), &"unbroken_edge":Vector2(1,1), &"blade_rhythm":Vector2(1,2), &"keen_inscription":Vector2(1,3),
 	&"anvil_cleave":Vector2(2,0), &"faultline":Vector2(2,1), &"worldcleaver":Vector2(2,2), &"tempered_might":Vector2(2,3),
 	&"first_aid":Vector2(0,0), &"bash":Vector2(1,0), &"battle_cry":Vector2(0,1), &"slash":Vector2(1,1), &"magnum_break":Vector2(2,1),
 	&"sword_mastery":Vector2(0,2), &"hp_recovery":Vector2(1,2), &"endure":Vector2(2,2),
-	&"ninth_vessel":Vector2(0,0), &"named_edge":Vector2(1,0), &"wallbreaker_stance":Vector2(2,0),
-	&"twin_inscription":Vector2(0,1), &"erasing_cut":Vector2(1,1), &"ninth_inscription":Vector2(1,2)
+	# ★ รอบ 181 ★ ชุด Ninth Edge ใหม่
+	&"ninth_vessel":Vector2(0,0), &"named_edge":Vector2(1,0), &"erasing_step":Vector2(2,0),
+	&"oathchain":Vector2(0,1), &"ninefold_cyclone":Vector2(1,1), &"erasing_cut":Vector2(2,1),
+	&"twin_inscription":Vector2(0,2), &"ninth_inscription":Vector2(1,2)
 }
 const NODE_SIZE := Vector2(152,74)
 var nodes: Dictionary={}

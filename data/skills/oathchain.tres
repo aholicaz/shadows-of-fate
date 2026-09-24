@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/wallbreaker_stance.png" id="i"]
+
+[resource]
+script = ExtResource("s")
+id = &"oathchain"
+display_name = "โซ่พันธะ"
+description = "เหวี่ยงโซ่ไกล 800 ดึงศัตรูรอบเป้า (รัศมี 320) มากองตรงหน้า 150–350% ATK และสตัน 0.8 วินาที · บอสดึงไม่ไหว — ตัวเราถูกดึงพุ่งเข้าหาแทน · สร้างรูน 1 ดวง"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 96
+type = 0
+sp_cost_base = 18
+sp_cost_per_level = 0.0
+cooldown = 9.0
+cast_windup = 0.05
+damage_mult_base = 1.5
+damage_mult_per_level = 0.5
+required_skills = {}
+max_targets = 10
+range_x = 800.0
+range_y = 260.0
+sound = "skill_wave_eleven"

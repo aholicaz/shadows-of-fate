@@ -25,27 +25,27 @@ chance = 3.5
 [sub_resource type="Resource" id="Drop_radiant_alfr_3"]
 script = ExtResource("2_drop")
 item_id = &"conduit_edge"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_radiant_alfr_4"]
 script = ExtResource("2_drop")
 item_id = &"radiant_ring"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_radiant_alfr_5"]
 script = ExtResource("2_drop")
 item_id = &"elven_plate"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_radiant_alfr_6"]
 script = ExtResource("2_drop")
 item_id = &"light_crystal_sword"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_radiant_alfr_card"]
 script = ExtResource("2_drop")
 item_id = &"card_radiant_alfr"
-chance = 2.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Socket_shard"]
 script = ExtResource("2_drop")
@@ -65,9 +65,9 @@ display_name = "อัลฟ์เรืองรอง"
 sprite_frames = ExtResource("3_frames")
 hitbox_size = Vector2(100, 130)
 level = 84
-max_hp = 130000
-atk_min = 950
-atk_max = 1200
+max_hp = 190000
+atk_min = 1280
+atk_max = 1620
 def = 130
 mdef = 120
 hit = 190
@@ -92,7 +92,7 @@ job_exp_reward = 8880
 zeny_min = 1904
 zeny_max = 3536
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_radiant_alfr_0"), SubResource("Drop_radiant_alfr_1"), SubResource("Drop_radiant_alfr_2"), SubResource("Drop_radiant_alfr_3"), SubResource("Drop_radiant_alfr_4"), SubResource("Drop_radiant_alfr_5"), SubResource("Drop_radiant_alfr_6"), SubResource("Drop_radiant_alfr_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
-respawn_time = 600.0
+respawn_time = 240.0
 flying = true
 hover_height = 80.0
 flying_no_hop = true
@@ -101,11 +101,11 @@ boss_title = "ผู้ที่ทำตัวเองเป็นท่อ"
 skill_name = "ลำแสงจากบน"
 skill_anim = &"Skill"
 skill_range = 520.0
-skill_damage_mult = 2.2
+skill_damage_mult = 5.0
 skill_windup = 0.5
 skill_duration = 1.0
-skill_cooldown = 8.0
-skill_chance = 0.70
+skill_cooldown = 7.5
+skill_chance = 0.8
 skill_bolt_count = 3
 skill_bolt_start = 140.0
 skill_bolt_spacing = 150.0
@@ -123,7 +123,7 @@ ranged_attack = true
 ranged_attack_range = 720.0
 projectile_speed = 1000.0
 projectile_range = 1250.0
-projectile_height = 104.0
+projectile_height = 140.0
 projectile_hit_size = Vector2(48, 48)
 projectile_fire_effect = true
 projectile_orb_style = true
@@ -136,3 +136,5 @@ attack_duration = 1.8333333333333333
 skill_hand_projectiles = true
 projectile_down_angle = 29.39
 hp_bar_offset_y = -683.0
+skill_bolt_height = 660.0
+skill_bolt_hit_width = 112.0

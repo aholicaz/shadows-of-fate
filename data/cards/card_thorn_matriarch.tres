@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="CardData" format=3]
 
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" path="res://Sprites/items/placeholder/card_thorn_matriarch.png" id="2_icon"]
+
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_thorn_matriarch.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_thorn_matriarch.png" id="gold_icon"]
 
 [resource]
 script = ExtResource("1_card")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
 monster_id = &"thorn_matriarch"
 fits_slot = 2
 rarity = 5
@@ -12,7 +17,6 @@ monster_level = 57
 id = &"card_thorn_matriarch"
 display_name = "การ์ดราชินีหนาม"
 description = "หนามที่ปกป้องป่ามาก่อนมีเทพ"
-icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
@@ -24,3 +28,5 @@ def = 12
 percent_effects = {
 "max_hp_percent": 4.0
 }
+
+unique_equipped = true

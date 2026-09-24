@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_sun_plate.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_sun_plate"
+display_name = "เกราะหัวใจสุริยราช"
+description = "หัวใจเตาหลอมสุริยราชปกป้องผู้ที่กล้าเข้าประชิด ATK +45, ดาเมจคริติคอล +8% และ HP +500"
+drop_hint = "ผู้คุมอิกดราซิลชั้น 35 · โอกาสดรอป 8% · กลับล่าได้"
+icon = ExtResource("i")
+type = 2
+slot = 4
+required_level = 122
+max_stack = 1
+card_slots = 2
+refinable = true
+sell_price = 24000
+buy_price = 0
+def = 72
+max_hp = 500
+atk = 45
+crit_damage_percent = 8.0

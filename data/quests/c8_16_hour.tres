@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_80_clear"
+count = 1
+text = "ผ่านชั้น 80 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_16_hour"
+title = "ชั่วโมงสุดท้ายของโลก"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 80 (ผู้คุม: เอออน ผู้เฝ้าปลายกาล) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "ผู้คนเชื่อว่าราคนาร็อกคือวันสิ้นโลกที่ไม่มีใครเลี่ยงได้ แต่ถ้ามันเลี่ยงไม่ได้จริง... จะต้องมีใครเฝ้าเข็มนาฬิกาที่นับถอยหลังถึงมันทำไม\n\nเหนือลานหอกคือหอนาฬิกาปลายกาล เอออนเฝ้าเข็มที่นับถอยหลังสู่วันสิ้นโลกครั้งต่อไป ขึ้นไปถึงชั้น 80 แล้วดูว่าเข็มนั้นชี้ไปที่วันไหน"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 80 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "เข็มชี้ไปที่ \"เมื่อผู้คนเริ่มสงสัย\" ไม่ใช่วันไหนทั้งนั้น\n\nทุกครั้งที่มีคนถามคำถามมากพอ โลกก็จะถูกทำให้สิ้นอีกครั้ง แล้วเริ่มใหม่พร้อมพงศาวดารฉบับใหม่ เจ้าหยุดเข็มนั้นไว้ได้... อย่างน้อยก็ในรอบนี้"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_15_valkyrie"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 380000
+reward_job_exp = 40000
+reward_zeny = 110000

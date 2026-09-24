@@ -55,6 +55,8 @@ signal shop_opened(shop_item_ids: Array)
 signal storage_opened
 signal refine_npc_opened
 signal craft_npc_opened   # ★ รอบ 132 ★ เมนู «คราฟต์» ของช่างเหล็ก
+signal card_fusion_opened   # ★ รอบ 154 ★ เมนู «ย่อยการ์ด» ของพ่อค้า
+signal guild_rank_opened   # ★ รอบ 158 ★ หน้า «ขั้นกิลด์» (เมนูสถานะกิลด์ที่บอร์ดใบประกาศ)
 ## ★ รอบ 56 ★ เปิดหน้าเจาะรูการ์ด / ผลการเจาะ
 signal socket_npc_opened
 signal socket_result(success: bool, item_name: String, new_slots: int)

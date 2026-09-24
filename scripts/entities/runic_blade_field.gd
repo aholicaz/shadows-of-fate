@@ -17,10 +17,14 @@ var next_pulse := 0.0
 var pulse_count := 0
 var granted_rune := false
 var color := Color("#67dcff")
+var echo_style := false
+var echo_seal: Sprite2D
+var field_strokes: Array[AnimatedSprite2D] = []
 
 func configure(rb: Node2D, id: StringName, mult: float, at: Vector2, dir: int) -> void:
 	controller = rb
 	caster = rb.player
+	echo_style = preload("res://scripts/entities/runeblade_echo_art.gd").active(caster)
 	source = id
 	total_mult = mult
 	direction = dir
@@ -44,14 +48,34 @@ func configure(rb: Node2D, id: StringName, mult: float, at: Vector2, dir: int) -
 		add_child(rain)
 	if source==&"faultline":
 		weapon_visual=preload("res://scripts/entities/planted_weapon_visual.gd").new()
-		weapon_visual.configure(PlayerState.equipment.weapon())
+		weapon_visual.configure(PlayerState.equipment.weapon(), echo_style)
+		if echo_style: weapon_visual.scale = Vector2.ONE * 1.3
 		add_child(weapon_visual)
+	if echo_style and source == &"faultline":
+		echo_seal = Sprite2D.new()
+		echo_seal.texture = preload("res://scripts/entities/runeblade_echo_art.gd").RUNE
+		echo_seal.scale = Vector2(radius*1.6/760.0,0.14)
+		echo_seal.position.y = -3
+		echo_seal.z_index = -1
+		add_child(echo_seal)
+		# Symmetric cuts on both sides of the planted blade, independent of facing.
+		for i in range(4):
+			var side := -1 if i%2==0 else 1
+			var stroke := preload("res://scripts/entities/runeblade_echo_art.gd").slash_sprite(radius*(1.2 if i<2 else 0.7),side,"combo3" if i<2 else "flurry")
+			stroke.position = Vector2(side*radius*(0.25 if i<2 else 0.65),-85 if i<2 else -135)
+			stroke.rotation = side*(0.25 if i<2 else -0.45)
+			stroke.scale.y *= 0.65 if i<2 else 1.0
+			stroke.hide()
+			add_child(stroke)
+			field_strokes.append(stroke)
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(caster) or caster._dead:
 		queue_free()
 		return
 	elapsed += delta
+	if is_instance_valid(echo_seal):
+		echo_seal.modulate.a = clampf((0.16+pulses*interval+0.18-elapsed)/0.25,0,1)*0.35
 	if is_instance_valid(weapon_visual):
 		weapon_visual.position.y=-maxf(0,0.16-elapsed)*1700
 		weapon_visual.modulate.a=clampf((0.16+pulses*interval+0.18-elapsed)/0.25,0,1)
@@ -59,6 +83,7 @@ func _process(delta: float) -> void:
 		pulse_count += 1
 		next_pulse += interval
 		strike()
+	update_field_visual()
 	if elapsed > 0.16 + pulses * interval + 0.18:
 		queue_free()
 		return
@@ -83,7 +108,14 @@ func strike() -> void:
 		hits += 1
 		if hits >= target_cap: break
 
+func update_field_visual() -> void:
+	for i in range(field_strokes.size()):
+		var pulse_age := elapsed-(next_pulse-interval)-i*0.025
+		preload("res://scripts/entities/runeblade_echo_art.gd").slash_phase(field_strokes[i],pulse_age,0.30)
+		if pulse_count==0: field_strokes[i].hide()
+
 func _draw() -> void:
+	if echo_style: return
 	var life := 0.16 + pulses * interval + 0.18
 	var alpha := clampf((life - elapsed) / 0.25, 0.0, 1.0)
 	var tint := Color(color, alpha)

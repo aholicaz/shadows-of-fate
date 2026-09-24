@@ -1,0 +1,76 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bmu2bmum04ayl"]
+
+[ext_resource type="Texture2D" uid="uid://upn2t2r48iyl" path="res://Sprites/effects/thorn_matriarch/blood_thorn_wave.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="f0"]
+atlas = ExtResource("1")
+region = Rect2(0, 180, 255, 376)
+margin = Rect2(22.5, 0, 45, 0)
+
+[sub_resource type="AtlasTexture" id="f1"]
+atlas = ExtResource("1")
+region = Rect2(255, 180, 269, 376)
+margin = Rect2(15.5, 0, 31, 0)
+
+[sub_resource type="AtlasTexture" id="f2"]
+atlas = ExtResource("1")
+region = Rect2(524, 180, 277, 376)
+margin = Rect2(11.5, 0, 23, 0)
+
+[sub_resource type="AtlasTexture" id="f3"]
+atlas = ExtResource("1")
+region = Rect2(801, 180, 289, 376)
+margin = Rect2(5.5, 0, 11, 0)
+
+[sub_resource type="AtlasTexture" id="f4"]
+atlas = ExtResource("1")
+region = Rect2(1090, 180, 277, 376)
+margin = Rect2(11.5, 0, 23, 0)
+
+[sub_resource type="AtlasTexture" id="f5"]
+atlas = ExtResource("1")
+region = Rect2(1367, 180, 277, 376)
+margin = Rect2(11.5, 0, 23, 0)
+
+[sub_resource type="AtlasTexture" id="f6"]
+atlas = ExtResource("1")
+region = Rect2(1644, 180, 280, 376)
+margin = Rect2(10, 0, 20, 0)
+
+[sub_resource type="AtlasTexture" id="f7"]
+atlas = ExtResource("1")
+region = Rect2(1924, 180, 248, 376)
+margin = Rect2(26, 0, 52, 0)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("f7")
+}],
+"loop": 1,
+"name": &"wave",
+"speed": 14.0
+}]
+metadata/reverse_facing = true

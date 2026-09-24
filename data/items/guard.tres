@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_item")
 id = &"guard"
-display_name = "การ์ด"
+display_name = "โล่การ์ด"
 description = "โล่ขนาดเล็ก"
 icon = ExtResource("1_73fnn")
 type = 2

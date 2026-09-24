@@ -6,6 +6,8 @@ class_name CardData
 extends ItemData
 
 ## มอนสเตอร์เจ้าของการ์ดใบนี้ (ใช้ดึงรูปมาโชว์ในอัลบั้ม)
+@export var unique_equipped: bool = false
+
 @export var monster_id: StringName = &""
 
 ## ใส่ได้กับอุปกรณ์ช่องไหน
@@ -114,7 +116,7 @@ func describe() -> String:
 		"atk_percent": "ATK", "matk_percent": "MATK", "def_percent": "DEF",
 		"max_hp_percent": "MaxHP", "max_sp_percent": "MaxSP",
 		"aspd_percent": "ความเร็วโจมตี", "move_speed_percent": "ความเร็วเดิน",
-		"crit_damage_percent": "ดาเมจคริติคอล", "damage_percent": "ดาเมจ", "hp_drain_percent": "ดูดเลือด", "sp_drain_percent": "ดูดมานา",
+		"crit_damage_percent": "ดาเมจคริติคอล", "damage_percent": "ดาเมจ", "hp_drain_percent": "ดูดเลือด", "sp_drain_percent": "ดูดมานา", "skill_damage_percent": "ดาเมจสกิล", "cooldown_reduction_percent": "ลดคูลดาวน์",
 	}
 	for key in percent_effects.keys():
 		var label: String = PERCENT_LABELS.get(String(key), String(key))
@@ -125,6 +127,11 @@ func describe() -> String:
 	if sp_drain_percent != 0.0:
 		parts.append("ดูดมานา %s" % percent_text(sp_drain_percent, true))
 
+	if hp_drain_percent > 0 or float(percent_effects.get("hp_drain_percent",0)) > 0:
+		parts.append("ดูดเลือดจากการ์ดรวมสูงสุด 0.30% · ฟื้นจากดูดทุกแหล่งสูงสุด 2% MaxHP/วินาที")
+	if sp_drain_percent > 0 or float(percent_effects.get("sp_drain_percent",0)) > 0:
+		parts.append("ดูดมานาจากการ์ดรวมสูงสุด 0.15% · ฟื้นจากดูดทุกแหล่งสูงสุด 0.5% MaxSP/วินาที")
+	if unique_equipped: parts.append("การ์ดบอสชื่อเดียวกันให้ผลสูงสุด 1 ใบทั้งตัว")
 	if parts.is_empty():
 		return "ยังไม่มีคุณสมบัติ"
 	return "\n".join(parts)

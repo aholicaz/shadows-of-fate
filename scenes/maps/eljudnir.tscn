@@ -73,7 +73,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_river" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(4000, 820)
+position = Vector2(3510, 820)
 
 
 [node name="from_seat" type="Marker2D" parent="SpawnPoints"]
@@ -87,7 +87,7 @@ position = Vector2(3900, 820)
 
 
 [node name="ToShore" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"mist_shore"
 target_spawn_point = &"from_town"
 label_text = "← ฝั่งหมอกน้ำแข็ง"
@@ -95,7 +95,7 @@ destination_name = "ฝั่งหมอกน้ำแข็ง"
 
 
 [node name="ToRiver" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(4140, 880)
+position = Vector2(3650, 825)
 target_map = &"gjoll_river"
 target_spawn_point = &"from_town"
 label_text = "→ แม่น้ำเกียลล์"
@@ -108,36 +108,42 @@ destination_name = "แม่น้ำเกียลล์"
 [node name="Hunter_ghost" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(350, 820)
 npc_name = "นักล่าที่หายไป (ผี)"
+portrait_file = "res://Sprites/portraits/npcs/6b47b88c10f8.tres"
 has_bounty_board = true
 type = 0
-dialog = "ข้าคือนักล่าที่หายไปในป่าเงาลึก เจ้าอาจเคยเจอเป้ของข้า\n\nผู้กองสั่งห้ามเข้าป่า... ไม่ใช่เพราะมอน เพราะป่ากำลังโดนดูด ข้าเห็นแสงไหลลงดิน แล้วสายฟ้าก็ลงมาที่ข้า\n\nพงศาวดารเขียนว่าข้าตายเพราะหมาป่า"
+dialog = "ข้าคือนักล่าที่หายไปในป่าเงาลึก... พ่อของอิงกริด เจ้าคงเคยเจอสมุดของข้าแล้วสินะ\n\nผู้กองสั่งห้ามเข้าป่า ไม่ใช่เพราะมอน แต่เพราะป่ากำลังถูกดูดพลัง ข้าเห็นแสงไหลลงดิน... แล้วสายฟ้าก็ฟาดลงมาที่ข้า\n\nพงศาวดารเขียนว่าข้าตายเพราะหมาป่า"
 modulate = Color(1, 1, 1, 0.70)
 greeting = "...คนเป็น เจ้ามาจากมิดการ์ดใช่ไหม ข้าได้กลิ่นป่าเงาลึก"
 voice_id = "hunter_ghost"
-quest_ids = Array[StringName]([&"c6_4_captains_order"])
+quest_ids = Array[StringName]([&"c6_4_captains_order", &"c6_11_letter_home"])
+dialog_by_flag = {
+"ingrid_knows_truth": "เจ้าไปบอกนางแล้ว... ข้ารู้สึกได้ ที่นี่หนาวน้อยลงนิดหนึ่ง\n\nขอบใจ คนเป็น"
+}
 
 
 [node name="Gullveig_ghost" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(800, 820)
 npc_name = "กุลล์ไวก์ (ผี)"
+portrait_file = "res://Sprites/portraits/npcs/35815018570d.tres"
 type = 0
-dialog = "สามครั้งที่พวกเขาเผาข้า ข้าไม่ตาย เพราะข้าไม่ยอม\nครั้งที่สี่ เจ้าเผาข้าด้วยความจำเป็น ไม่ใช่ความเกลียด — ข้าเลยปล่อยได้\n\nข้าเห็นบ่อน้ำถูกดูดก่อนใคร ข้าพูด แล้วพวกเขาก็เผาข้า"
+dialog = "พวกเขาเผาข้าสามครั้ง ข้าไม่ตาย เพราะข้าไม่ยอมตาย\n\nครั้งที่สี่ เจ้าเผาข้าเพราะจำเป็น ไม่ใช่เพราะเกลียด — ข้าเลยปล่อยวางได้\n\nข้าเห็นบ่อน้ำถูกดูดก่อนใคร ข้าพูดออกไป... แล้วพวกเขาก็เผาข้า"
 modulate = Color(1, 1, 1, 0.70)
-greeting = "เจ้า... เจ้าเผาข้าครั้งที่สี่ ขอบใจ ครั้งนี้ข้าได้พัก"
+greeting = "เจ้า... เจ้าคือคนที่เผาข้าเป็นครั้งที่สี่ ขอบใจนะ ครั้งนี้ข้าได้พักจริง ๆ เสียที"
 voice_id = "gullveig_ghost"
 quest_ids = Array[StringName]([&"c6_2_fourth_burning", &"rb12_eighth_rune_ash"])
 dialog_by_flag = {
-"rb_rune_8": "ดวงที่แปดอยู่ในเถ้า... สิ่งที่เหลือหลังถูกเผา\n\nดวงที่เก้าไม่มีใครสลักได้ นอกจากคนที่ถือดาบ ไปโถงแห่งนาม เมื่อเจ้าไม่มีชื่อแล้ว"
+"rb_rune_8": "ดวงที่แปดคือ «เถ้า»... สิ่งที่เหลืออยู่หลังถูกเผา\n\nส่วนดวงที่เก้า ไม่มีใครสลักให้เจ้าได้ นอกจากตัวเจ้าเอง ไปที่โถงแห่งนาม เมื่อเจ้าไม่มีชื่อแล้ว"
 }
 
 
 [node name="Shieldbearer_ghost" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(1250, 820)
 npc_name = "ผู้ถือโล่ (ผี)"
+portrait_file = "res://Sprites/portraits/npcs/3d1cf888f779.tres"
 type = 0
-dialog = "ข้าเฝ้ากำแพงจากฝั่งเหนือ รอยักษ์บุก... ทั้งที่กำแพงแตกจากฝั่งใต้\nสามร้อยปี ข้าหันหน้าผิดทาง\n\nผู้ที่เฝ้าความจริงอยู่ที่ประตูการ์ม — เขาก็ถูกล่ามให้หันผิดทางเหมือนข้า"
+dialog = "ข้าเฝ้ากำแพงจากฝั่งเหนือ รอยักษ์บุก... ทั้งที่กำแพงแตกจากฝั่งใต้\nสามร้อยปี ข้าหันหน้าผิดทาง\n\nการ์ม สุนัขที่เฝ้าประตู ก็ถูกล่ามให้หันผิดทางเหมือนข้า — มันเฝ้าไม่ให้ความจริงออกไป แทนที่จะเฝ้าไม่ให้ภัยเข้ามา"
 modulate = Color(1, 1, 1, 0.70)
-greeting = "ข้ายืนผิดข้าง... ตอนนี้ข้าบอกได้แล้วว่าผิดยังไง"
+greeting = "ข้ายืนผิดข้าง... ตอนนี้ข้าบอกเจ้าได้แล้วว่าผิดยังไง"
 voice_id = "shieldbearer_ghost"
 quest_ids = Array[StringName]([&"c6_5_wrong_side"])
 
@@ -145,32 +151,35 @@ quest_ids = Array[StringName]([&"c6_5_wrong_side"])
 [node name="Forsaken_ghost" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(1600, 820)
 npc_name = "ผู้หลุดจากแสง (ผี)"
+portrait_file = "res://Sprites/portraits/npcs/32203eca1a28.tres"
 type = 0
 dialog = "ข้าไม่โกรธ ที่นี่ไม่มีแสงเลย... ข้าเลยจำได้ทุกอย่าง\n\nข้าเคยเห็นดาว มนุษย์ ตอนนี้ข้าเห็นมันทุกคืน — ที่นี่มีแต่คืน"
 modulate = Color(1, 1, 1, 0.70)
-greeting = "...เจ้า เจ้าคือคนที่จบข้า"
+greeting = "...เจ้า เจ้าคือคนที่จบชีวิตข้า"
 show_if_flag = &"killed_forsaken"
 
 
 [node name="Hel" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2050, 820)
 npc_name = "เฮล ผู้ปกครองผู้ตาย"
+portrait_file = "res://Sprites/portraits/npcs/26abc44019a1.tres"
 type = 0
-dialog = "ข้าเก็บทุกคน มนุษย์ แม้คนที่เจ้าเกลียด แม้คนที่เกลียดเจ้า\n\nผู้ตายจำเฉพาะสิ่งที่ทำให้ตาย ไม่ใช่ความจริงทั้งหมด — จำไว้ก่อนฟังพวกเขา"
-greeting = "คนเป็นในเมืองคนตาย... ข้าไม่ไล่ ข้าไม่เคยไล่ใคร"
+dialog = "ข้ารับทุกคนไว้ มนุษย์ ทั้งคนที่เจ้าเกลียด และคนที่เกลียดเจ้า\n\nผู้ตายจำได้แค่สิ่งที่ทำให้ตัวเองตาย ไม่ใช่ความจริงทั้งหมด — จำไว้ก่อนจะฟังพวกเขา"
+greeting = "คนเป็นมาเดินในเมืองคนตาย... ข้าไม่ไล่เจ้าหรอก ข้าไม่เคยไล่ใคร"
 voice_id = "hel"
 quest_ids = Array[StringName]([&"c6_1_those_who_remember", &"c6_6_name_beside_odin", &"c6_8_the_judge", &"c6_9_chains_of_lightning", &"c6_10_empty_seat", &"rb13_the_ninth_wall", &"rb14_edge_that_remembers"])
 dialog_by_flag = {
 "name_left": "เจ้าทิ้งชื่อไว้ที่สะพานแล้ว... ตอนนี้เจ้าเหมือนพวกเขา — ไม่มีชื่อ\n\nโถงแห่งนามเปิดให้เจ้าแล้ว",
-"saw_odin_name": "เจ้าเห็นชื่อนั้นแล้ว... โอดิน\n\nเขาไม่ได้หายไป มนุษย์ เขาอยู่ที่นี่ — เศษของเขา ที่บัลลังก์ว่างหลังประตูการ์ม",
+"saw_odin_name": "เจ้าเห็นชื่อนั้นแล้ว... โอดิน\n\nเขาไม่ได้หายไปไหน มนุษย์ เขาอยู่ที่นี่ — สิ่งที่เหลือของเขาอยู่ที่บัลลังก์ว่าง หลังประตูการ์ม",
 "job_ninth_edge": "ชื่อของเจ้า... สลักใหม่ในโถงที่ชื่อทุกชื่อถูกลบ\n\nข้าเก็บชื่อทุกชื่อ แต่ชื่อเจ้าข้าไม่ต้องเก็บ — มันไม่มีวันถูกลบแล้ว",
-"chapter6_done": "เจ้าได้ยินคำว่า «ลูกข้า» แล้ว... ข้าก็ได้ยิน\n\nมุสเปลเฮมอยู่ถัดไป ที่นั่นร้อน และเสียงดัง — ตรงข้ามกับที่นี่ทุกอย่าง มนุษย์ ระวังตัว"
+"chapter6_done": "เจ้าได้ยินคำว่า «ลูกข้า» แล้ว... ข้าก็ได้ยิน\n\nถัดไปคือมุสเปลเฮม ดินแดนแห่งไฟ ที่นั่นร้อนและเสียงดัง — ตรงข้ามกับที่นี่ทุกอย่าง ระวังตัวด้วย มนุษย์"
 }
 
 
 [node name="Hel_stone" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2500, 820)
 npc_name = "ศิลาแห่งเฮล"
+portrait_file = "res://Sprites/portraits/npcs/407068ea2595.tres"
 type = 4
 dialog = "ศิลาที่มี ★ ทั้งตราค้อนและรูนเก่าซ้อนกัน ★ — ธอร์มาถึงที่นี่แล้ว แต่สลักทับไม่สำเร็จ · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
 warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"ljosalf_city"])
@@ -179,8 +188,9 @@ warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_
 [node name="Nameless_merchant" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2950, 820)
 npc_name = "พ่อค้าไร้ชื่อ"
+portrait_file = "res://Sprites/portraits/npcs/f8781721a216.tres"
 type = 1
-dialog = "รับ «ชื่อที่ทิ้งไว้» เป็นเงินอีกสกุล — ผู้ข้ามฝั่งทิ้งไว้ที่สะพานเยอะ เอามาขายข้าได้\n\nข้าเคยมีชื่อ... ทิ้งไว้ที่สะพานเหมือนกัน แล้วไม่เคยกลับไปเอา"
+dialog = "ร้านข้ารับ «ชื่อที่ทิ้งไว้» แทนเงินได้ — พวกผู้ข้ามฝั่งที่แม่น้ำพกมันติดตัวไว้เยอะ ล่ามาได้เท่าไหร่ก็เอามาแลกของกับข้า\n\nข้าเคยมีชื่อ... ทิ้งไว้ที่สะพานเหมือนกัน แล้วไม่เคยกลับไปเอา"
 modulate = Color(1, 1, 1, 0.70)
 shop_items = Array[StringName]([&"wing_of_valkyrie", &"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"blue_potion_2", &"meat", &"phracon", &"emveretarcon", &"drowned_crown", &"bone_armor", &"prism_blade", &"ljosalf_circlet", &"crystal_cloak"])
 greeting = "ข้าไม่มีชื่อ ร้านข้าไม่มีชื่อ แต่ของมีราคา"
@@ -190,12 +200,13 @@ voice_id = "nameless"
 [node name="Bone_smith" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(3350, 820)
 npc_name = "ช่างกระดูก"
+portrait_file = "res://Sprites/portraits/npcs/52222926d68c.tres"
 type = 2
 dialog = "กระดูกยักษ์จากโยตุนเฮม... เจ้ามีไหม ข้าตีดาบจากมันได้\n\nที่นี่ไม่มีกลางวันกลางคืน มีแต่ตอนหมอกลงกับหมอกขึ้น ข้าตีได้เฉพาะตอนหมอกลง"
 modulate = Color(1, 1, 1, 0.70)
 has_socket = true
 has_refine = true
-greeting = "ตีบวกด้วยกระดูก ใช้ไขกระดูกแทนหินการันตี — แต่ทำได้เฉพาะตอนที่หมอกลง"
+greeting = "ข้าตีบวกด้วยกระดูก ใช้ไขกระดูกแทนหินการันตี... แต่ตีได้เฉพาะตอนหมอกลงเท่านั้นนะ"
 voice_id = "bone_smith"
 quest_ids = Array[StringName]([&"c6_7_night_forge"])
 
@@ -203,8 +214,9 @@ quest_ids = Array[StringName]([&"c6_7_night_forge"])
 [node name="Stranger" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(3900, 820)
 npc_name = "คนแปลกหน้า"
+portrait_file = "res://Sprites/portraits/npcs/109680a0c844.tres"
 type = 0
-dialog = "ผู้ตายทุกคนหันมองข้าตอนเดินผ่าน เจ้าเห็นไหม\n\nพวกเขาจำหน้าข้าได้ จำสิ่งที่ข้าพยายามทำได้ แค่จำชื่อไม่ได้ — เหมือนข้าเอง\n\nนี่ หน้าสุดท้ายของเล่มที่ 7 เจ้าเก็บครึ่งแรกไว้ใช่ไหม... ตอนนี้ครบแล้ว"
+dialog = "ผู้ตายทุกคนหันมองข้าตอนเดินผ่าน เจ้าเห็นไหม\n\nพวกเขาจำหน้าข้าได้ จำสิ่งที่ข้าพยายามทำได้ แค่จำชื่อไม่ได้ — เหมือนข้าเอง\n\nนี่ หน้าสุดท้ายของพงศาวดารเล่มที่ 7 เจ้าเก็บครึ่งแรกไว้ใช่ไหม... ทีนี้ก็ครบเล่มแล้ว"
 greeting = "...พวกเขาจำข้าได้ ทั้งที่ข้าไม่มีชื่อแล้ว"
 voice_id = "stranger"
 show_if_flag = &"s8_done"

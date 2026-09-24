@@ -3,11 +3,19 @@ signal finished
 const METEOR = preload("res://Sprites/effects/boss_skills/meteor_frames.tres")
 const JET = preload("res://Sprites/effects/boss_skills/flame_jet_frames.tres")
 const SCYTHE = preload("res://Sprites/effects/boss_skills/scythe_frames.tres")
-const GROUND = preload("res://Sprites/effects/boss_skills/burning_ground_frames.tres")
-const IMPACT_TIMES := [1.65, 1.85, 2.05]
+## ★ รอบ 175 ★ Meteor แบบไล่ตามผู้เล่น (เอาไฟที่พื้นออก · เดิมตก 3 จุดกระจายพร้อมกัน)
+## ลูกที่ i: วงเตือน "ตามตัว" ผู้เล่นช่วง METEOR_TRACK วินาที → ล็อกตำแหน่ง → ลูกไฟตกลงมา METEOR_LOCK วินาที → ระเบิด
+## ยืนนิ่ง = ลงจุดเดิมซ้ำจนครบ · วิ่งหนี = ลงตามตัว → ต้องวิ่ง/พุ่งหลบต่อเนื่อง
+const METEOR_COUNT := 5
+const METEOR_START := 0.35      ## ลูกแรกเริ่มเตือนหลังร่าย (วินาที)
+const METEOR_GAP := 0.7         ## ลูกถัดไปเริ่มเตือนห่างกันกี่วินาที
+const METEOR_TRACK := 0.55      ## วงเตือนวิ่งตามผู้เล่นนานเท่าไหร่
+const METEOR_LOCK := 0.45       ## ล็อกตำแหน่งแล้วลูกไฟตกใช้เวลาเท่าไหร่ (= เวลาให้พุ่งหลบ)
+const METEOR_RADIUS := 110.0
+const METEOR_MULT := 1.3        ## ตัวคูณดาเมจต่อ 1 ลูก (× skill_damage_mult ของบอส)
+const METEOR_FORCE := 90.0
 const SCYTHE_TIMES := [0.90, 1.32, 1.84]
 const JET_TIMES := [1.00, 1.50, 2.00]
-const BURN_SECONDS := 5.0
 var caster: Node2D
 var data: MonsterData
 var kind := ""
@@ -15,10 +23,8 @@ var direction := 1
 var elapsed := 0.0
 var points: Array[Vector2] = []
 var fired := 0
-var ticks := [0,0,0]
+var meteor_hits := 0            ## ★ รอบ 175 ★ โดนกี่ลูก (เทสต์ใช้)
 var cast_done := false
-var impact_hit := false
-var last_burn := -10.0
 var jet_origin := Vector2.ZERO
 
 static func cast(actor: Node2D, mode: String, facing: int) -> Node2D:
@@ -37,14 +43,10 @@ static func cast(actor: Node2D, mode: String, facing: int) -> Node2D:
 	var target := actor.get_tree().get_first_node_in_group("player")
 	var center: Vector2 = target.foot_position() if target != null and target.has_method("foot_position") else actor.foot_position() + Vector2(facing * 300,0)
 	if mode == "meteor":
-		for offset in [-240.0,0.0,240.0]:
-			var at := center + Vector2(offset,0)
-			var ray := PhysicsRayQueryParameters2D.create(at + Vector2(0,-80),at + Vector2(0,1600),1)
-			var ground := actor.get_world_2d().direct_space_state.intersect_ray(ray)
-			at.y = ground.position.y if not ground.is_empty() else actor.foot_position().y
-			fx.points.append(at)
+		for i in range(METEOR_COUNT):
+			fx.points.append(fx._ground_at(center, actor.foot_position().y))
 	var label := "Meteor • ฝนเพลิงกุลล์ไวก์" if mode == "meteor" else ("เพลิงพุ่งเผาผลาญ" if mode == "flame_jet" else "เคียวฟาดฟันสามคม")
-	Events.floating_text(actor.global_position + Vector2(0,actor.data.hp_bar_offset_y - 25), label, Color("ffb066"), 22, 0)
+	if not actor.get_meta("hide_skill_notice", false) and not actor.data.get_meta("hide_skill_notice", false): Events.floating_text(actor.global_position + Vector2(0,actor.data.hp_bar_offset_y - 25), label, Color("ffb066"), 22, 0)
 	return fx
 
 func _finish_cast() -> void:
@@ -59,15 +61,19 @@ func _physics_process(delta: float) -> void:
 		return
 	elapsed += delta
 	if kind == "meteor":
-		for i in range(3):
-			if fired == i and elapsed >= IMPACT_TIMES[i]:
+		var player := get_tree().get_first_node_in_group("player")
+		for i in range(METEOR_COUNT):
+			# ช่วงไล่ตาม: วงเตือนย้ายตามเท้าผู้เล่นทุกเฟรม
+			if elapsed >= meteor_start(i) and elapsed < meteor_lock(i) and player != null:
+				var foot: Vector2 = player.foot_position() if player.has_method("foot_position") else player.global_position
+				points[i] = _ground_at(foot, points[i].y)
+			if fired == i and elapsed >= meteor_impact(i):
 				fired += 1
-				if not impact_hit: impact_hit = _hit(points[i],120,260,2.6,90)
-			while ticks[i] < 5 and elapsed >= IMPACT_TIMES[i] + float(ticks[i] + 1):
-				ticks[i] += 1
-				if elapsed - last_burn >= 0.85 and _hit(points[i],120,55,0.35,0): last_burn = elapsed
-		if elapsed >= 2.25: _finish_cast()
-		if elapsed >= IMPACT_TIMES[2] + BURN_SECONDS + 0.05: queue_free()
+				if _hit(points[i], METEOR_RADIUS, 260, METEOR_MULT, METEOR_FORCE):
+					meteor_hits += 1
+		var last := meteor_impact(METEOR_COUNT - 1)
+		if elapsed >= last + 0.25: _finish_cast()
+		if elapsed >= last + 0.5: queue_free()
 	else:
 		var times: Array = SCYTHE_TIMES if kind == "scythe" else JET_TIMES
 		while fired < 3 and elapsed >= times[fired]:
@@ -88,11 +94,33 @@ func _hit(center: Vector2, radius: float, height: float, mult: float, force: flo
 	if player == null or PlayerState.is_dead(): return false
 	var point: Vector2 = player.foot_position() if player.has_method("foot_position") else player.global_position
 	if absf(point.x-center.x) > radius or absf(point.y-center.y) > height: return false
-	if player.has_method("is_invincible") and player.is_invincible(): return false
+	if player.has_method("is_invincible") and player.is_invincible():
+		if player.has_method("dodge_contact"): player.dodge_contact()   # ★ รอบ 182 ★ หลบพอดี
+		return false
 	var result := Combat.monster_skill_hits_player(data,PlayerState.stats,mult)
 	if result.miss: return false
 	player.take_damage(result.damage,force,signi(int(point.x-global_position.x)))
 	return true
+
+## ★ รอบ 175 ★ เวลาของลูกที่ i
+static func meteor_start(i: int) -> float:
+	return METEOR_START + METEOR_GAP * i
+
+
+static func meteor_lock(i: int) -> float:
+	return meteor_start(i) + METEOR_TRACK
+
+
+static func meteor_impact(i: int) -> float:
+	return meteor_lock(i) + METEOR_LOCK
+
+
+## จุดบนพื้นใต้ตำแหน่ง x นี้ (ยิงเรย์ลงหาพื้น · ไม่เจอ = ใช้ y เดิม)
+func _ground_at(at: Vector2, fallback_y: float) -> Vector2:
+	var ray := PhysicsRayQueryParameters2D.create(at + Vector2(0,-80), at + Vector2(0,1600), 1)
+	var ground := get_world_2d().direct_space_state.intersect_ray(ray) if is_inside_tree() else {}
+	return Vector2(at.x, ground.position.y if not ground.is_empty() else fallback_y)
+
 
 func _warn(at: Vector2, radius: float, progress: float) -> void:
 	draw_set_transform(at,0,Vector2(1,0.25))
@@ -100,6 +128,18 @@ func _warn(at: Vector2, radius: float, progress: float) -> void:
 	draw_arc(Vector2.ZERO,radius,0,TAU,64,Color(1,0.55,0.10,0.9),3,true)
 	draw_arc(Vector2.ZERO,radius*progress,0,TAU,64,Color(1,0.8,0.3,0.7),2,true)
 	draw_set_transform(Vector2.ZERO)
+
+## ★ รอบ 175 ★ วงเตือนช่วงไล่ตาม — จางกว่า เส้นประหมุน ให้รู้ว่ายังไม่ล็อก
+func _warn_track(at: Vector2, radius: float, progress: float) -> void:
+	draw_set_transform(at,0,Vector2(1,0.25))
+	draw_circle(Vector2.ZERO,radius,Color(1,0.45,0.05,0.08 + progress*0.06))
+	var segs := 16
+	for k in range(segs):
+		if k % 2 == 1: continue
+		var a0 := TAU * k / segs + elapsed * 3.0
+		draw_arc(Vector2.ZERO,radius,a0,a0 + TAU / segs,6,Color(1,0.7,0.2,0.85),3,true)
+	draw_set_transform(Vector2.ZERO)
+
 
 static func animation_frame(frames: SpriteFrames, age: float) -> int:
 	var index := maxi(0,int(floor(age * frames.get_animation_speed(&"default"))))
@@ -113,22 +153,22 @@ func _draw() -> void:
 	if kind == "meteor":
 		for i in range(points.size()):
 			var at := points[i]-global_position
-			var impact: float = IMPACT_TIMES[i]
+			var start := meteor_start(i)
+			var lock := meteor_lock(i)
+			var impact := meteor_impact(i)
+			if elapsed < start:
+				continue
 			if elapsed < impact:
-				_warn(at,120,clampf(elapsed/impact,0,1))
-				var fall := clampf((elapsed-(impact-0.45))/0.45,0,1)
-				if fall > 0:
+				if elapsed < lock:
+					_warn_track(at, METEOR_RADIUS, (elapsed-start)/METEOR_TRACK)   # ไล่ตาม = วงส้มจาง
+				else:
+					_warn(at, METEOR_RADIUS, clampf((elapsed-lock)/METEOR_LOCK,0,1))   # ล็อกแล้ว = วงแดงเต็ม
+					var fall := clampf((elapsed-lock)/METEOR_LOCK,0,1)
 					draw_texture_rect(_texture(METEOR,elapsed+i*0.1),Rect2(at+Vector2(-230,-440-(1-fall)*750),Vector2(460,460)),false)
-			elif elapsed <= impact+BURN_SECONDS:
+			elif elapsed <= impact + 0.35:
+				# ระเบิดตอนตก (ไม่มีไฟค้างที่พื้นแล้ว)
 				var age := elapsed-impact
-				var fade := minf(1.0,(BURN_SECONDS-age)*2.0)
-				var pulse := 1.0 + sin(elapsed*15+i)*0.02
-				var ground_age := age+i*0.1
-				var baselines: PackedFloat32Array = GROUND.get_meta("baseline_y")
-				var baseline := baselines[animation_frame(GROUND,ground_age)] / 444.0 * 290.0
-				draw_texture_rect(_texture(GROUND,ground_age),Rect2(at+Vector2(-145*pulse,15-baseline),Vector2(290*pulse,290)),false,Color(1,1,1,fade))
-				if age < 0.35:
-					_warn(at,120+age*150,1-age/0.35)
+				_warn(at, METEOR_RADIUS+age*150, 1-age/0.35)
 	else:
 		var warning := 0.9 if kind == "scythe" else 1.0
 		if elapsed < warning:

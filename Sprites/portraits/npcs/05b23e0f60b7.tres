@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter3/idle/leif_idle.png" id="1_2uuir"]
+
+[resource]
+atlas = ExtResource("1_2uuir")
+region = Rect2(167, 41, 189, 269)
+filter_clip = true

@@ -30,6 +30,7 @@ var _fill: ColorRect
 var _marks: Control
 var _hp_label: Label
 
+var tower_row := 0
 var _boss: Node = null
 var _chase_ratio := 1.0
 var _target_alpha := 0.0
@@ -42,6 +43,11 @@ func _ready() -> void:
 	modulate.a = 0.0
 	visible = false
 	_build()
+	if tower_row == 0:
+		var second := Control.new()
+		second.set_script(load("res://scripts/ui/boss_bar.gd"))
+		second.tower_row = 1
+		add_child(second)
 
 
 func _build() -> void:
@@ -110,6 +116,13 @@ func _rect(c: Color) -> ColorRect:
 # หาบอสที่ควรโชว์
 # =========================================================
 func _pick_boss() -> Node:
+	var tower_bosses: Array[Node] = []
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if is_instance_valid(enemy) and enemy.data != null and enemy.data.has_meta("tower_floor") and enemy.data.is_boss and enemy.hp > 0:
+			tower_bosses.append(enemy)
+	if not tower_bosses.is_empty():
+		return tower_bosses[tower_row] if tower_row < tower_bosses.size() else null
+	if tower_row > 0: return null
 	var player := get_tree().get_first_node_in_group("player")
 	var best: Node = null
 	var best_d := SHOW_RANGE
@@ -168,9 +181,12 @@ func _layout() -> void:
 	var screen := size
 	if screen.x <= 0.0:
 		screen = get_viewport_rect().size
-	var w: float = minf(screen.x * WIDTH_RATIO, MAX_WIDTH)
-	_box.size.x = w
-	_box.position = Vector2((screen.x - w) * 0.5, TOP_MARGIN)
+	var tower_mode: bool = is_instance_valid(_boss) and _boss.data.has_meta("tower_floor")
+	var w: float = minf(screen.x * (0.36 if tower_mode else WIDTH_RATIO), 520.0 if tower_mode else MAX_WIDTH)
+	_name_label.add_theme_font_size_override("font_size", 18 if tower_mode else 22)
+	if tower_mode: _title_label.hide()
+	_box.size = Vector2(w, 0)
+	_box.position = Vector2((screen.x - w) * 0.5, (85.0 + tower_row * 70.0) if tower_mode else TOP_MARGIN)
 	_bar_root.custom_minimum_size = Vector2(w, BAR_HEIGHT)
 	_bar_root.size = Vector2(w, BAR_HEIGHT)
 	_bg.size = Vector2(w, BAR_HEIGHT)

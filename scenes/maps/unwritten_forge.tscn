@@ -78,16 +78,16 @@ position = Vector2(280, 820)
 [node name="from_left" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(280, 820)
 [node name="from_right" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(3920, 820)
+position = Vector2(3410, 820)
 [node name="Portals" type="Node2D" parent="."]
 [node name="ToLeft" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(100, 880)
+position = Vector2(100, 825)
 target_map = &"chain_quarry"
 target_spawn_point = &"from_right"
 label_text = "← เหมืองโซ่คำสั่ง"
 destination_name = "เหมืองโซ่คำสั่ง"
 [node name="ToRight" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(4100, 880)
+position = Vector2(3550, 825)
 target_map = &"ash_procession"
 target_spawn_point = &"from_left"
 label_text = "→ ทางขบวนเถ้า"
@@ -113,9 +113,11 @@ locked_text = "ผู้เฝ้ายังขวางทางอยู่ �
 [node name="brynja" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(650, 825)
 script = ExtResource("c7npc")
-npc_name = "บรินยา ช่างปลดพันธะ"
+npc_name = "บรินยา ช่างปลดพันธะ"
+greeting = "ไฟในเตาข้าไม่เผาคน มันเผาแค่คำสั่งที่ถูกตอกไว้ในตัวคน... เข้ามาใกล้ ๆ ได้"
+portrait_file = "res://Sprites/portraits/npcs/68848c3c0d33.tres"
 type = 0
-dialog = "เราจะเก็บชื่อทุกชื่อไว้ และเผาเฉพาะคำสั่งที่ผูกมัน"
+dialog = "ช่างที่นี่ถือหลักข้อเดียว — ชื่อทุกชื่อต้องเก็บไว้ เผาได้เฉพาะคำสั่งที่ผูกมันไว้เท่านั้น"
 quest_ids = Array[StringName]([&"c7_4_ninth_edge", &"c7_5_chosen_cut", &"c7_7_warden"])
 has_refine = true
 has_socket = true

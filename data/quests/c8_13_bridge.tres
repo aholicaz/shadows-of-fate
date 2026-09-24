@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_65_clear"
+count = 1
+text = "ผ่านชั้น 65 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_13_bridge"
+title = "สะพานที่ไม่ยอมให้ข้าม"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 65 (ผู้คุม: ไอริส ผู้เฝ้าสะพานรุ้งร้าว) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "เหนือเมฆขึ้นไปคือสะพานรุ้ง — หรือสิ่งที่เหลืออยู่ของมัน\n\nไอริสเฝ้าสะพานไว้และให้ผ่านเฉพาะคนที่มีตราค้อน เจ้าไม่ได้ก้มหัวให้ค้อนมาตั้งแต่โยตุนเฮม สะพานจะไม่ยอมรับเจ้า ต้องผ่านไอริสไปถึงชั้น 65 ด้วยตัวเอง"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 65 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "สะพานร้าวทั้งเส้น แต่ยังยืนอยู่... เหมือนคนที่นี่\n\nไอริสบอกเจ้าก่อนล้มว่ารุ้งมีเจ็ดสี แต่ค้อนสั่งให้เหลือสีเดียว ข้าไม่แน่ใจว่าเธอหมายถึงสะพาน หรือหมายถึงพวกเรา"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_12_clouds"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 290000
+reward_job_exp = 34000
+reward_zeny = 95000

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RecipeData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/recipe_data.gd" id="s"]
+[resource]
+script = ExtResource("s")
+id = &"c8_rootbound_pendant"
+result_item_id = &"c8_rootbound_pendant"
+chapter = 8
+category = &"accessory"
+materials = {&"c8_root_heart": 1, &"c8_storm_bell": 1, &"c8_mirror_mask": 1, &"c8_name_seal": 1}
+zeny = 60000
+bonus_min = 0.0
+bonus_max = 0.0
+required_flag = &"c8_trial20_done"
+note = "สวาลาประกอบรอยจดจำของผู้คุมทั้งสี่ที่จุดพักราก"

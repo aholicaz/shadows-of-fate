@@ -14,22 +14,24 @@ script = ExtResource("2_obj")
 kind = 6
 target = &"crystal_stag|edge"
 count = 30
-text = "สกิลสาย Edge โดนกวางผลึก"
+text = "ท่าสายคมโดนกวางผลึก"
 
 [resource]
 script = ExtResource("1_quest")
 id = &"rb10_borrowed_light"
 title = "แสงที่ยืมมา"
-description = "ล่าผู้ดูแลสวน และใช้สกิลสาย Edge โดนกวางผลึก 30 ครั้ง"
+description = "ล่าผู้ดูแลสวน 10 ตน และใช้สกิลสายคม (ตีไว-คริ) โดนกวางผลึก 30 ครั้ง"
 giver_name = "ผู้เห็นแสงเอย์ร"
-dialog_offer = "รูนของเจ้าสว่างได้เพราะ «ยืมแสง» มนุษย์ ห้าดวงแรกยืมจากยักษ์ ดวงที่หกยืมจากที่นี่\n\nไปฟันกวางผลึกด้วยคมของเจ้า — Rune Flurry · Unbroken Edge — ให้ผลึกสะท้อนแสงเข้ารูน 30 ครั้ง แล้วล่าผู้ดูแลสวนที่กินแสงกวาง"
-dialog_progress = "ผู้ดูแลสวน 10 · สกิลสาย Edge โดนกวางผลึก 30 ครั้ง"
-dialog_complete = "«แสง» — ดวงที่หก ข้ามองไม่เห็น แต่ข้ารู้สึกได้ว่าดาบเจ้าอุ่นขึ้น\n\nดวงที่เจ็ดคือ «เงา» — เจ้าต้องไปอยู่ในร่างจางถึงจะสลักได้"
+dialog_offer = "รูนในดาบเจ้าสว่างได้เพราะ «ยืมแสง» มนุษย์ ห้าดวงแรกยืมพลังจากวานีร์กับยักษ์ ดวงที่หกต้องยืมจากที่นี่ — จากแสงของอัลฟ์เฮม\n\nใช้ท่าสายคมฟันกวางผลึก — หกคมอักขระ คมดาบไม่สิ้นสุด หรือท่าไหนก็ได้ในสายนั้น — ให้เขาผลึกสะท้อนแสงเข้ารูนสัก 30 ครั้ง แล้วจัดการผู้ดูแลสวนที่แอบกินแสงของกวางด้วย"
+dialog_progress = "ผู้ดูแลสวน 10 ตนที่สวนผลึก · ท่าสายคมโดนกวางผลึก 30 ครั้ง"
+dialog_complete = "«แสง» — รูนดวงที่หก ข้ามองไม่เห็นหรอก แต่ข้ารู้สึกได้ว่าดาบเจ้าอุ่นขึ้น\n\nดวงที่เจ็ดคือ «เงา» ตรงข้ามกับดวงนี้ เจ้าต้องมองโลกในร่างจางก่อน ถึงจะสลักมันได้"
 objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
 kill_monster_id = &""
 required_level = 76
 required_job = &"runeblade"
 required_quests = Array[StringName]([&"rb9_wall_that_held_the_sky", &"c5_4_child_who_never_saw_stars"])
 set_flag_on_complete = &"rb_rune_6"
-reward_zeny = 20000
-reward_exp = 120000
+reward_zeny = 2115
+reward_exp = 12690
+
+reward_job_exp = 8883

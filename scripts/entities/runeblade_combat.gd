@@ -28,11 +28,15 @@ var inscription_center := Vector2.ZERO
 var inscription_lv := 0
 var twin_seen: Dictionary = {}
 var named_marks: Dictionary = {}
+# ★ รอบ 181 ★ ไม่ต้องมีรูนก่อนใช้สกิลแล้ว — รูนที่สะสม = โบนัสดาเมจท่าใหญ่ ดวงละ +10% ใช้เองอัตโนมัติ · ไม่หายเองเมื่อหยุดตี
+const RUNE_SPENDERS := [&"worldcleaver", &"erasing_cut", &"ninefold_cyclone", &"ninth_inscription"]
+const RUNE_BONUS := 0.10
+var ninth: Node2D   ## ชุดสกิล Ninth Edge ใหม่ (ninth_edge_skills.gd)
 
 ## A mark is earned once per basic swing on each target, never per echo/multi-hit.
 ## Spend it only after a confirmed hit; misses must not erase the setup.
 func named_multiplier(target: Node, source: StringName) -> float:
-	if source != &"erasing_cut": return 1.0
+	if source not in [&"erasing_cut", &"ninth_inscription"]: return 1.0
 	var mark: Dictionary = named_marks.get(target.get_instance_id(), {})
 	if int(mark.get("until", 0)) < Time.get_ticks_msec() or int(mark.get("stacks", 0)) < 3: return 1.0
 	return 1.0 + 0.08 * PlayerState.skills.level_of(&"named_edge")
@@ -40,10 +44,10 @@ func named_multiplier(target: Node, source: StringName) -> float:
 func _mark_hit(target: Node, source: StringName) -> void:
 	if not is_instance_valid(target): return
 	var key := target.get_instance_id()
-	if source == &"erasing_cut":
+	if source in [&"erasing_cut", &"ninth_inscription"]:
 		if int(named_marks.get(key,{}).get("stacks",0))>=3:named_marks.erase(key)
 		return
-	if source not in [&"basic", &"basic_finisher"] or PlayerState.skills.level_of(&"named_edge") <= 0: return
+	if source not in [&"basic", &"basic_finisher", &"erasing_step", &"oathchain", &"ninefold_cyclone"] or PlayerState.skills.level_of(&"named_edge") <= 0: return
 	if target.has_method("is_dead") and target.is_dead():
 		named_marks.erase(key)
 		return
@@ -76,6 +80,12 @@ func _ready() -> void:
 	hud = UITheme.make_label("",18,Color("#ffd979"))
 	hud.position = Vector2(18,180)
 	layer.add_child(hud)
+	# ★ รอบ 181 ★ ชุดสกิล Ninth Edge ใหม่ · จังหวะคมดาบเลิกสะสมชั้น
+	ninth = preload("res://scripts/entities/ninth_edge_skills.gd").new()
+	add_child(ninth)
+	ninth.setup(self)
+	PlayerState.active_buffs.erase(&"rb_rhythm")
+	call_deferred("_migrate_r181")
 
 func _used(_id: StringName, _lv: int) -> void:
 	cast_serial += 1
@@ -84,7 +94,7 @@ func _used(_id: StringName, _lv: int) -> void:
 		if int(named_marks[key].get("until", 0)) < Time.get_ticks_msec(): named_marks.erase(key)
 
 func _hit(target: Node, source: StringName, _critical: bool) -> void:
-	if not PlayerState.is_rune_job() or source in [&"rune_echo", &"twin_echo", &"element_burn", &"element_chain"]: return
+	if not PlayerState.is_rune_job() or source in [&"rune_echo", &"twin_echo", &"mirror_echo", &"element_burn", &"element_chain"]: return
 	_mark_hit(target, source)
 	idle = 0
 	if source == &"rune_lunge": lunge_followup = 3.0
@@ -100,15 +110,13 @@ func _hit(target: Node, source: StringName, _critical: bool) -> void:
 		if last_basic == player._attack_seq: return
 		last_basic = player._attack_seq
 		rhythm_idle = 0
-		if PlayerState.skills.level_of(&"blade_rhythm") > 0:
-			rhythm = mini(5,rhythm+1)
-			_rhythm_buff()
+		# ★ รอบ 181 ★ จังหวะคมดาบเป็นพาสซีฟ ASPD ติดตัวแล้ว (ไม่สะสมชั้น ไม่มีตัวนับบนจอ)
 		if source == &"basic_finisher": _gain()
 		if edge_time > 0:
 			echo_count += 1
 			if echo_count%3 == 0 and is_instance_valid(target) and not target.is_dead():
 				target.take_damage_from_player(0.8,false,player.facing,0,0,&"rune_echo")
-	elif source not in [&"worldcleaver", &"unbroken_edge", &"faultline", &"erasing_cut", &"twin_inscription", &"ninth_inscription"] and charged_cast != cast_serial:
+	elif source not in [&"worldcleaver", &"unbroken_edge", &"faultline", &"erasing_cut", &"twin_inscription", &"ninth_inscription", &"ninefold_cyclone"] and charged_cast != cast_serial:
 		charged_cast = cast_serial
 		_gain()
 
@@ -116,6 +124,28 @@ func _gain() -> void:
 	if charge_lock > 0: return
 	charges = mini(max_charges(),charges+1)
 	charge_lock = 0.2
+
+## ★ รอบ 181 ★ ท่าใหญ่ใช้รูนที่มีทั้งหมดเป็นโบนัส (ไม่มีรูนก็กดได้ปกติ)
+func spend_runes(id: StringName) -> float:
+	if id not in RUNE_SPENDERS or charges <= 0: return 1.0
+	var mult := 1.0 + RUNE_BONUS * charges
+	Events.floating_text(player.global_position + Vector2(0,-170), "รูน ×%d  +%d%%" % [charges, roundi(RUNE_BONUS * charges * 100.0)], Color("#9fd4ff"), 18, 0)
+	charges = 0
+	return mult
+
+func refund_rune() -> void:
+	charges = mini(max_charges(), charges + 1)
+
+## ★ รอบ 181 ★ อ่านรอยพันธะรวมเข้าคมยืนยันนาม — คืนแต้มที่เคยลงไว้
+func _migrate_r181() -> void:
+	if PlayerState.skills == null or PlayerState.stats == null: return
+	var lv := PlayerState.skills.level_of(&"wallbreaker_stance")
+	if lv <= 0: return
+	PlayerState.stats.add_skill_points(&"ninth_edge", lv)
+	PlayerState.skills.learned.erase(&"wallbreaker_stance")
+	PlayerState.refresh()
+	Events.skills_changed.emit()
+	Events.say("อ่านรอยพันธะรวมเข้ากับคมยืนยันนามแล้ว — คืนแต้มสกิล %d แต้ม" % lv)
 
 func _rhythm_buff() -> void:
 	if rhythm > 0:
@@ -172,12 +202,7 @@ func _process(delta: float) -> void:
 		inscription_time -= delta
 		if inscription_time <= 0:
 			_inscription_burst()
-	if idle > 10:
-		decay += delta
-		if decay >= 3:
-			charges = maxi(0,charges-1)
-			decay = 0
-	else: decay = 0
+	# ★ รอบ 181 ★ รูนไม่ลดเองเมื่อหยุดตีแล้ว
 	if rhythm_idle > 3 and rhythm > 0:
 		rhythm_decay += delta
 		if rhythm_decay >= 1:
@@ -185,59 +210,56 @@ func _process(delta: float) -> void:
 			rhythm_decay = 0
 			_rhythm_buff()
 	else: rhythm_decay = 0
-	hud.text = "รูน  %s%s   จังหวะ %d/5%s%s" % ["◆".repeat(charges),"◇".repeat(max_charges()-charges),rhythm,"   โล่ %d"%shield if shield>0 else "",
-		("   อักขระคู่ %.1f" % twin_time if twin_time > 0 else "") + ("   ★ อักขระที่เก้า %.1f" % inscription_time if inscription_time > 0 else "")]
+	# ★ รอบ 181 ★ แถบเดียว: รูน (= โบนัสท่าใหญ่ถัดไป) · โล่ · ร่างเงา
+	hud.text = "รูน  %s%s%s%s" % ["◆".repeat(charges),"◇".repeat(max_charges()-charges),
+		("   ท่าใหญ่ถัดไป +%d%%" % roundi(charges * RUNE_BONUS * 100.0)) if charges > 0 else "", "   โล่ %d"%shield if shield>0 else ""]
+	if is_instance_valid(ninth) and ninth.shade_time > 0.0: hud.text += "   ร่างเงา %.1f" % ninth.shade_time
 	if lunge_followup > 0.0: hud.text += "   หกคม +20%%  %.1f" % lunge_followup
 
 func cast(id: StringName) -> void:
 	if casting or not PlayerState.is_rune_job(): return
+	# ★ รอบ 181 ★ ก้าวลบเงากดซ้ำฟรีภายใน 1.2 วิ (คูลดาวน์เริ่มไปแล้ว)
+	if is_instance_valid(ninth) and ninth.can_recast(id):
+		ninth.cast(id, GameData.get_skill(id), PlayerState.skills.level_of(id), 1.0, true)
+		return
 	var check := PlayerState.can_use_skill(id)
 	if not check.ok:
 		Events.say(check.reason)
 		return
-	# ★ รอบ 105 ★ ค่ารูนของแต่ละสกิล: อัลติเมต 3 · อักขระคู่ 2 · ฟันลบนาม 3 · อักขระที่เก้า 4
-	var rune_cost: int = {&"unbroken_edge": 3, &"worldcleaver": 3, &"twin_inscription": 2, &"erasing_cut": 3, &"ninth_inscription": 4}.get(id, 0)
-	var ultimate := rune_cost > 0
-	if ultimate and charges < rune_cost:
-		Events.say("ต้องมีตรารูนครบ %d ดวง" % rune_cost)
-		return
+	# ★ รอบ 181 ★ เลิกเงื่อนไข «ต้องมีรูนครบ» — ทุกสกิลกดได้ทันที ใช้แค่ SP + คูลดาวน์ (รูน = โบนัส)
 	var s := GameData.get_skill(id)
 	var lv := PlayerState.skills.level_of(id)
+	if is_instance_valid(ninth) and ninth.handles(id):
+		if not PlayerState.commit_skill_use(id): return
+		ninth.cast(id, s, lv, spend_runes(id))
+		return
+	var rune_mult := 1.0
 	var flurry_bonus := 1.2 if id == &"rune_flurry" and lunge_followup > 0.0 else 1.0
+	if id == &"jump_slash":
+		if not player.is_on_floor(): return
+		if not PlayerState.commit_skill_use(id): return
+		var leap := preload("res://scripts/entities/jump_slash.gd").new()
+		player.add_child(leap)
+		leap.start(player, s, lv)
+		return
 	if id != &"worldcleaver" and not PlayerState.commit_skill_use(id): return
 	if id == &"rune_flurry": lunge_followup = 0.0
 	if id == &"rune_guard":
+		player._play_support_sfx(id, "buff")
 		shield = int(PlayerState.stats.max_hp*(0.02+lv*0.02))
 		shield_time = 3
 		_flash(player.foot_position()-Vector2(0,110),130,Color("#83dce8"))
 		return
 	if id == &"unbroken_edge":
-		charges = 0
+		player._play_support_sfx(id, "buff")
 		edge_time = 8
 		echo_count = 0
 		PlayerState.active_buffs[id] = {"time_left":8.0,"values":{"aspd_percent":5.0*lv},"level":lv}
 		PlayerState.refresh()
+		if preload("res://scripts/entities/runeblade_echo_art.gd").active(player):
+			_flash(player.foot_position()-Vector2(0,100),100,Color("#ded5ff"))
 		return
-	# ★ รอบ 105 ★ อักขระคู่ — 6 วิ ทุกโจมตีมีเงาดาบตาม (ใช้ 2 รูน)
-	if id == &"twin_inscription":
-		charges -= 2
-		twin_time = 8.0
-		twin_seen.clear()
-		PlayerState.active_buffs[id] = {"time_left":8.0,"values":{},"level":lv}
-		PlayerState.refresh()
-		_flash(player.foot_position()-Vector2(0,110),150,Color("#b8a6ff"))
-		return
-	# ★ รอบ 105 ★ อักขระที่เก้า — สลักชื่อลงพื้นเป็นวง 3 วิ: ทุกโจมตีในวงคริ 100% + มองข้าม DEF · จบแล้วระเบิด 2000% (ใช้ 4 รูน)
-	if id == &"ninth_inscription":
-		charges -= 4
-		inscription_time = 5.0
-		inscription_lv = lv
-		inscription_center = player.foot_position()
-		PlayerState.active_buffs[id] = {"time_left":5.0,"values":{},"level":lv}
-		PlayerState.refresh()
-		_draw_inscription()
-		Events.floating_text(inscription_center + Vector2(0,-190), "★ อักขระที่เก้า — %s ★" % PlayerState.stats.job().display_name, Color("#ffd86b"), 26, 0)
-		return
+	# ★ รอบ 181 ★ อักขระคู่ / อักขระที่เก้าแบบเดิม ย้ายไปเป็น ร่างเงาสะท้อน / พิพากษานามที่เก้า (ninth_edge_skills.gd)
 	casting = true
 	player.is_attacking = true
 	player._attack_seq += 1
@@ -264,7 +286,7 @@ func cast(id: StringName) -> void:
 				player._start_dodge()
 				return
 		if not PlayerState.commit_skill_use(id): _finish(seq); return
-		charges = 0
+		rune_mult = spend_runes(id)
 		committed_heavy = true
 		await get_tree().create_timer(0.35).timeout
 	else:
@@ -293,16 +315,16 @@ func cast(id: StringName) -> void:
 	if id in [&"faultline", &"worldcleaver"]:
 		var center := field_center(s.field_offset, dir)
 		var field := preload("res://scripts/entities/runic_blade_field.gd").new()
-		field.configure(self, id, s.damage_mult(lv), center, dir)
+		field.configure(self, id, s.damage_mult(lv) * rune_mult, center, dir)
 		add_child(field)
 		player._play_skill_sfx(id)
 		await get_tree().create_timer(0.2).timeout
 		_finish(seq)
 		return
-	if id == &"erasing_cut": charges -= 3   # ★ รอบ 105 ★ ฟันลบนาม ใช้ 3 รูน ฟันหนักครั้งเดียว ลบโล่/บัฟของมอน
 	var reach := s.range_x
 	var cap := s.max_targets_at(lv)
 	var hits := 6 if id == &"rune_flurry" else 1
+	player._play_skill_sfx(id)
 	for i in range(hits):
 		if player._dead or seq != player._attack_seq: break
 		if id == &"rune_flurry" and player._uses_runeblade_visual():
@@ -313,13 +335,17 @@ func cast(id: StringName) -> void:
 		strike(id,s.damage_mult(lv)*flurry_bonus/hits,reach,cap,dir)
 		if id==&"erasing_cut":
 			preload("res://scripts/entities/ninth_edge_fx.gd").spawn(get_parent().get_parent(),player.foot_position(),dir,reach)
+		elif preload("res://scripts/entities/runeblade_echo_art.gd").active(player):
+			preload("res://scripts/entities/runeblade_echo_art.gd").cut(player,
+				player.foot_position()+Vector2(dir*reach*(0.38 if id==&"rune_flurry" else 0.48),-120 if id==&"rune_flurry" else 0),dir,
+				minf(reach*0.9,240.0 if id==&"rune_flurry" else 600.0),i if id==&"rune_flurry" else 2,0.0,false,
+				"flurry" if id==&"rune_flurry" else "slam")
 		else:_flash(player.foot_position()+Vector2(dir*reach*0.55,-100),reach*0.45,Color("#ffc766"))
 		if hits > 1: await get_tree().create_timer(flurry_interval).timeout
-	player._play_skill_sfx(id)
 	await get_tree().create_timer(0.18 if hits == 1 else 0.05).timeout
 	_finish(seq)
 
-func strike(id: StringName, mult: float, reach: float, cap: int, dir: int) -> void:
+func strike(id: StringName, mult: float, reach: float, cap: int, dir: int) -> Array:   # ★ รอบ 181 ★ คืนรายชื่อที่โดน
 	var origin: Vector2 = player.foot_position()
 	var skill := GameData.get_skill(id)
 	var height := skill.range_y
@@ -327,6 +353,7 @@ func strike(id: StringName, mult: float, reach: float, cap: int, dir: int) -> vo
 	var enemies := get_tree().get_nodes_in_group("enemy")
 	enemies.sort_custom(func(a,b): return absf(a.global_position.x-origin.x)<absf(b.global_position.x-origin.x))
 	var hit := 0
+	var hit_list: Array = []
 	for enemy in enemies:
 		if not enemy.has_method("take_damage_from_player") or (enemy.has_method("is_dead") and enemy.is_dead()): continue
 		if not box.intersects(player.enemy_rect(enemy)): continue
@@ -334,7 +361,9 @@ func strike(id: StringName, mult: float, reach: float, cap: int, dir: int) -> vo
 		if not get_world_2d().direct_space_state.intersect_ray(ray).is_empty(): continue
 		enemy.take_damage_from_player(mult,false,dir,0.15 if id in [&"anvil_cleave", &"erasing_cut"] else 0.0,5.0 if id == &"erasing_cut" else (4.0 if id == &"anvil_cleave" else 0.0),id)
 		hit += 1
+		hit_list.append(enemy)
 		if hit >= cap: break
+	return hit_list
 
 ## Called by the player's physics loop so movement respects walls and collision.
 func approach_step(delta: float) -> void:
@@ -402,6 +431,11 @@ func _inscription_burst() -> void:
 	preload("res://scripts/entities/ninth_edge_fx.gd").spawn(get_parent().get_parent(),inscription_center,1,INSCRIPTION_RADIUS,true)
 
 func _flash(at: Vector2, radius: float, color: Color) -> void:
+	if preload("res://scripts/entities/runeblade_echo_art.gd").active(player):
+		var seal := preload("res://scripts/entities/runeblade_echo_art.gd").seal(
+			player,player.to_local(at),Vector2.ONE*minf(radius,140),0.3)
+		seal.z_index = 1
+		return
 	var line := Line2D.new()
 	line.global_position = at
 	line.width = 6

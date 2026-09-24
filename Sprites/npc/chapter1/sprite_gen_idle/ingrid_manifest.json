@@ -1,0 +1,240 @@
+{
+  "characterId": "c1_ingrid",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": null,
+  "cell": {
+    "shape": "square",
+    "width": 512,
+    "height": 512,
+    "size": 512,
+    "safe_margin": 0
+  },
+  "chroma_key": null,
+  "animation": {
+    "cellWidth": 512,
+    "cellHeight": 512,
+    "columns": 24,
+    "rows": {
+      "Idle": {
+        "row": 0,
+        "frames": 24,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel",
+        "breathe": {
+          "anatomy": {
+            "width": 250,
+            "height": 426,
+            "axis_x": 121,
+            "neck_row": 191,
+            "neck_source": "bottleneck",
+            "rigid_row": 160,
+            "rigid_source": "manual",
+            "basis_row": 191,
+            "torso_half": 79,
+            "max_half": 128,
+            "torso_source": "auto",
+            "face": [
+              53,
+              145
+            ],
+            "warnings": [
+              "rigid-row-override: auto 191 -> manual 160"
+            ]
+          },
+          "matches_sidecar": true,
+          "sidecar_drift": null,
+          "warnings": [
+            "rigid-row-override: auto 191 -> manual 160"
+          ]
+        }
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 12288,
+    "sheetHeight": 512,
+    "cellWidth": 512,
+    "cellHeight": 512,
+    "rows": {
+      "Idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 1536,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 2048,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 2560,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 3072,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 3584,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 4096,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 4608,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 5120,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 5632,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 6144,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 6656,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 7168,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 7680,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 8192,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 8704,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 9216,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 9728,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 10240,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 10752,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 11264,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 11776,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        }
+      ]
+    }
+  }
+}

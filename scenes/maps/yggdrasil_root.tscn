@@ -1,0 +1,47 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/world/chapter8/root_memory_background.tscn" id="ch3_background"]
+
+[ext_resource type="Script" path="res://scripts/world/chapter8_floor.gd" id="c8_script"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="c8_player"]
+[ext_resource type="PackedScene" path="res://scenes/npc/npc.tscn" id="c8_npc"]
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/svala.png" id="c8_svala"]
+[ext_resource type="Script" path="res://scripts/world/chapter4_npc_idle.gd" id="c8_idle"]
+[sub_resource type="RectangleShape2D" id="c8_floor"]
+size = Vector2(6600, 240)
+[node name="TowerFloor" type="Node2D"]
+script = ExtResource("c8_script")
+map_id = &"yggdrasil_root"
+display_name = "อิกดราซิล จุดพักราก"
+chapter = 8
+region = "อิกดราซิล"
+map_bounds = Rect2(0, 0, 4200, 1160)
+clamp_bounds_to_art = false
+player_scene = ExtResource("c8_player")
+floor_number = 0
+[node name="Background" parent="." instance=ExtResource("ch3_background")]
+
+[node name="Terrain" type="Node2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2100, 1000)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("c8_floor")
+[node name="SpawnPoints" type="Node2D" parent="."]
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(300, 820)
+[node name="Svala" parent="." instance=ExtResource("c8_npc")]
+position = Vector2(1100, 889)
+npc_name = "สวาลา ผู้เก็บชื่อ"
+portrait_file = "res://Sprites/portraits/npcs/dd97004598a7.tres"
+type = 0
+dialog = "รากเหล่านี้จดจำการต่อสู้ของเจ้า จึงสร้างผู้เฝ้าจากความทรงจำเดิม แต่รายชื่อที่ติดอยู่ด้านบนเป็นคนจริง จงเปิดเส้นทางโดยไม่ตัดรากที่หล่อเลี้ยงพวกเขา"
+quest_ids = Array[StringName]([&"c8_1_roots", &"c8_2_storm", &"c8_3_reflections", &"c8_4_register", &"c8_5_hours", &"c8_6_tide", &"c8_7_sun", &"c8_8_stars", &"c8_9_void", &"c8_10_dawn", &"c8_11_thunder", &"c8_12_clouds", &"c8_13_bridge", &"c8_14_prison", &"c8_15_valkyrie", &"c8_16_hour", &"c8_17_chronicle", &"c8_18_roots", &"c8_19_lies", &"c8_20_gate"])
+ninth_mentor = true
+has_refine = true
+[node name="Sprite2D" parent="Svala" index="0"]
+script = ExtResource("c8_idle")
+centered = false
+position = Vector2(-73.7375, -309.1)
+scale = Vector2(0.425, 0.425)
+texture = ExtResource("c8_svala")

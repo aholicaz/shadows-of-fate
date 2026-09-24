@@ -5,7 +5,7 @@
 script = ExtResource("s")
 id = &"faultline"
 display_name = "ดาบปักอักขระ"
-description = "ดาบที่สวมอยู่ปักด้านหน้า 420 px วงอักขระหมุนฟัน 6 ครั้ง รัศมี 320 px รวม 720–1440% ATK สูงสุด 10 ตัวต่อครั้ง ไม่คริ เคลื่อนที่ต่อได้ สร้างรูนครั้งเดียว"
+description = "ดาบแสงปักด้านหน้า 420 px ปล่อยรอยฟันรอบดาบหลายทิศ 6 ครั้ง รัศมี 420 px รวม 720–1440% ATK สูงสุด 10 ตัวต่อครั้ง ไม่คริ เคลื่อนที่ต่อได้ สร้างรูนครั้งเดียว"
 icon = ExtResource("i")
 max_level = 10
 job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
@@ -19,12 +19,12 @@ damage_mult_per_level = 0.8
 required_skills = {"anvil_cleave": 5}
 
 max_targets = 10
-range_x = 320.0
+range_x = 420.0
 
 hit_count = 6
 
-range_y = 340.0
+range_y = 380.0
 
-field_radius = 320.0
+field_radius = 420.0
 
 field_offset = 420.0

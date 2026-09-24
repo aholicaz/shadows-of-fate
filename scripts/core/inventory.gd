@@ -4,6 +4,9 @@ extends RefCounted
 
 var size: int = 40
 var slots: Array = []   # ItemInstance หรือ null
+## ★ รอบ 155 ★ ไอเทมเควส (type QUEST) แยกเก็บ ไม่กินช่องกระเป๋า — เปิดเฉพาะกระเป๋าผู้เล่น (คลังไม่ใช้)
+var separate_quest := false
+var quest_items: Array = []   # ItemInstance (กองรวมตาม id)
 
 
 func _init(p_size: int = 40) -> void:
@@ -69,12 +72,36 @@ func can_add(inst: ItemInstance) -> bool:
 	var data := inst.data()
 	if data == null:
 		return false
+	if _is_quest_data(data):
+		return true
 	if data.is_stackable():
 		for i in range(size):
 			var s: ItemInstance = slots[i]
 			if s != null and s.same_kind_as(inst) and s.count < data.max_stack:
 				return true
 	return first_empty() >= 0
+
+
+## Pure capacity check, including slots freed by quest consumption. Emits no signals.
+func can_add_all(inst: ItemInstance, removals: Dictionary = {}) -> bool:
+	if inst == null or inst.count <= 0: return true
+	var data := inst.data()
+	if data == null: return false
+	if _is_quest_data(data): return true   # ★ รอบ 155 ★
+	var remaining := inst.count
+	var consume := removals.duplicate()
+	for slot: ItemInstance in slots:
+		var count := 0 if slot == null else slot.count
+		if slot != null:
+			var take := mini(count, int(consume.get(slot.item_id, 0)))
+			count -= take
+			consume[slot.item_id] = int(consume.get(slot.item_id, 0)) - take
+		if count == 0:
+			remaining -= data.max_stack if data.is_stackable() else 1
+		elif data.is_stackable() and slot.same_kind_as(inst):
+			remaining -= maxi(0, data.max_stack - count)
+		if remaining <= 0: return true
+	return false
 
 
 ## ใส่ของเข้ากระเป๋า คืนค่าจำนวนที่ใส่ไม่ได้ (0 = ใส่ได้หมด)
@@ -85,6 +112,13 @@ func add(inst: ItemInstance) -> int:
 	if data == null:
 		push_warning("[Inventory] ไม่รู้จักไอเทม: " + String(inst.item_id))
 		return inst.count
+
+	# ★ รอบ 155 ★ ไอเทมเควสไปหน้าแยก ไม่กินช่อง
+	if _is_quest_data(data):
+		_add_quest(inst)
+		Events.inventory_changed.emit()
+		Events.item_gained.emit(inst.item_id, inst.count)
+		return 0
 
 	var remaining := inst.count
 
@@ -135,6 +169,9 @@ func add_id(item_id: StringName, count: int = 1, refine: int = 0) -> int:
 
 func count_of(item_id: StringName) -> int:
 	var total := 0
+	for q: ItemInstance in quest_items:   # ★ รอบ 155 ★
+		if q.item_id == item_id:
+			total += q.count
 	for s: ItemInstance in slots:
 		if s != null and s.item_id == item_id:
 			total += s.count
@@ -150,7 +187,17 @@ func remove_id(item_id: StringName, count: int = 1) -> bool:
 	if not has(item_id, count):
 		return false
 	var remaining := count
+	for q: ItemInstance in quest_items.duplicate():   # ★ รอบ 155 ★ หักจากไอเทมเควสก่อน
+		if q.item_id != item_id or remaining <= 0:
+			continue
+		var qt: int = mini(remaining, q.count)
+		q.count -= qt
+		remaining -= qt
+		if q.count <= 0:
+			quest_items.erase(q)
 	for i in range(size):
+		if remaining <= 0:
+			break
 		var s: ItemInstance = slots[i]
 		if s == null or s.item_id != item_id:
 			continue
@@ -245,3 +292,48 @@ func from_array(arr: Array) -> void:
 		if d is Dictionary:
 			slots[i] = ItemInstance.from_dict(d)
 	Events.inventory_changed.emit()
+
+
+# =========================================================
+# ★★ รอบ 155 ★★ ไอเทมเควส — ไม่นับช่อง · ไม่โชว์ในหน้า «ทั้งหมด» · มีแท็บของตัวเอง
+# =========================================================
+func _is_quest_data(data: ItemData) -> bool:
+	return separate_quest and data != null and data.type == ItemData.Type.QUEST
+
+
+func _add_quest(inst: ItemInstance) -> void:
+	for q: ItemInstance in quest_items:
+		if q.item_id == inst.item_id:
+			q.count += inst.count
+			return
+	quest_items.append(ItemInstance.create(inst.item_id, inst.count, inst.refine))
+
+
+## เปิดโหมดแยกไอเทมเควส + ย้ายของเควสที่ค้างในช่องเดิม (เซฟเก่า) ออกมา
+func enable_quest_pocket() -> void:
+	separate_quest = true
+	var moved := false
+	for i in range(size):
+		var s: ItemInstance = slots[i]
+		if s != null and _is_quest_data(s.data()):
+			_add_quest(s)
+			slots[i] = null
+			moved = true
+	if moved:
+		Events.inventory_changed.emit()
+
+
+func quest_to_array() -> Array:
+	var out: Array = []
+	for q: ItemInstance in quest_items:
+		out.append(q.to_dict())
+	return out
+
+
+func quest_from_array(arr: Array) -> void:
+	quest_items.clear()
+	for d in arr:
+		if d is Dictionary:
+			var inst := ItemInstance.from_dict(d)
+			if inst != null and inst.data() != null:
+				_add_quest(inst)

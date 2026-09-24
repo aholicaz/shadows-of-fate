@@ -61,6 +61,8 @@ var storage: Inventory = Inventory.new(STORAGE_SIZE)
 var storage_zeny: int = 0
 ## ★ รอบ 128 ★ ใบประกาศล่าของกิลด์ (บอร์ดต่อเมือง · แต้ม · ขั้น)
 var bounties: BountyBoard = BountyBoard.new()
+## ★ รอบ 154 ★ การ์ดที่ฝังเข้าสมุดแล้ว (id การ์ด → true) — ให้โบนัสถาวร ดู CardAlbum
+var card_album: Dictionary = {}
 
 var _regen_timer := 0.0
 var _is_dead := false
@@ -179,15 +181,21 @@ func turn_in_quest(quest_id: StringName) -> bool:
 			(q.reward_job_map != &"" and current_map_id != q.reward_job_map)):   # ★ รอบ 105 ★
 		return false
 
-	# ต้องมีที่ว่างในกระเป๋าก่อน
+	var consumed := {}
+	for objective in q.steps():
+		if objective.kind == ObjectiveData.Kind.COLLECT and objective.consume:
+			consumed[objective.target] = int(consumed.get(objective.target, 0)) + objective.need()
+	for item_id in consumed:
+		if inventory.count_of(item_id) < int(consumed[item_id]): return false
+	var reward: ItemInstance
 	if q.reward_item_id != &"" and q.reward_item_count > 0:
-		var reward := ItemInstance.create(q.reward_item_id, q.reward_item_count)
-		if inventory.add(reward) > 0:
+		reward = ItemInstance.create(q.reward_item_id, q.reward_item_count)
+		if not inventory.can_add_all(reward, consumed):
 			Events.say("กระเป๋าเต็ม — เก็บของให้ว่างก่อนแล้วค่อยมาส่งเควส")
 			return false
-
-	if not quests.turn_in(quest_id):
-		return false
+	# Only commit after the entire reward fits. Quest consumption frees its slots first.
+	if not quests.turn_in(quest_id): return false
+	if reward != null: inventory.add(reward)
 
 	if q.reward_zeny > 0:
 		add_zeny(q.reward_zeny)
@@ -218,11 +226,23 @@ func turn_in_quest(quest_id: StringName) -> bool:
 # =========================================================
 # เริ่มเกมใหม่
 # =========================================================
+## ★ รอบ 166 ★ เวลาเล่นสะสม (วินาที · เซฟคีย์ play_time)
+var play_time: float = 0.0
+
+## "38:12 ชม." จากวินาที
+static func play_time_text(seconds: float) -> String:
+	var m := int(seconds / 60.0)
+	return "%d:%02d ชม." % [int(m / 60.0), m % 60]
+
+
 func new_game() -> void:
+	play_time = 0.0
+	_reset_drains()
 	respawn_town = &"prontera_town"
 	if is_instance_valid(SaveManager): SaveManager.end_session()
 	stats = PlayerStats.new()
 	inventory = Inventory.new(INVENTORY_SIZE)
+	inventory.enable_quest_pocket()   # ★ รอบ 155 ★
 	equipment = Equipment.new()
 	skills = SkillBook.new()
 	quests = QuestLog.new()
@@ -236,7 +256,9 @@ func new_game() -> void:
 	storage = Inventory.new(STORAGE_SIZE)   # ★ รอบ 122 ★
 	storage_zeny = 0
 	bounties = BountyBoard.new()   # ★ รอบ 128 ★
+	card_album.clear()   # ★ รอบ 154 ★
 	item_hotkeys = [&"red_potion", &"blue_potion"]
+	_reset_hotbar()   # ★ รอบ 168 ★
 	_is_dead = false
 	current_map_id = &"prontera_field"
 
@@ -290,6 +312,24 @@ func refresh(keep_ratio: bool = true) -> void:
 			else:
 				flat[k] = float(flat.get(k, 0)) + float(values[key])
 
+	# --- ★ รอบ 154 ★ โบนัสสมุดการ์ด (การ์ดที่ฝังแล้ว) ---
+	var album := CardAlbum.total(card_album)
+	for key in album.keys():
+		var k2 := StringName(key)
+		if String(k2).ends_with("_percent"):
+			percent[k2] = float(percent.get(k2, 0.0)) + float(album[key])
+		else:
+			flat[k2] = float(flat.get(k2, 0)) + float(album[key])
+
+	# --- ★ รอบ 158 ★ โบนัสชุดเซ็ตอุปกรณ์ (EquipSets) ---
+	var sets := EquipSets.total(equipment)
+	for key in sets.keys():
+		var k3 := StringName(key)
+		if String(k3).ends_with("_percent"):
+			percent[k3] = float(percent.get(k3, 0.0)) + float(sets[key])
+		else:
+			flat[k3] = float(flat.get(k3, 0)) + float(sets[key])
+
 	stats.flat_bonus = flat
 	stats.percent_bonus = percent
 	stats.weapon_atk = equipment.weapon_atk()
@@ -317,6 +357,7 @@ func _emit_all() -> void:
 # ฟื้นฟู HP/SP + นับเวลาบัฟและคูลดาวน์
 # =========================================================
 func _process(delta: float) -> void:
+	_drain_clock += delta
 	if stats == null:
 		return
 
@@ -328,6 +369,10 @@ func _process(delta: float) -> void:
 			finished_cd.append(sid)
 	for sid in finished_cd:
 		cooldowns.erase(sid)
+
+	# ★ รอบ 166 ★ นับเวลาเล่น (โชว์ในหน้าระบบ/ช่องเซฟ)
+	if not _is_dead and not get_tree().paused:
+		play_time += delta
 
 	# ★ รอบ 112 ★ คูลดาวน์ขอพร
 	if blessing_cd_left > 0.0:
@@ -386,29 +431,92 @@ func heal_hp(amount: int, show_text: bool = true, text_size: int = 24, text_suff
 				Events.floating_text(p.global_position, "+%d%s" % [stats.hp - before, text_suffix], Color("#5cff7a"), text_size, 0)
 
 
+# A rolling one-second recovery budget shared by all targets, hits and equipment.
+var _drain_clock := 0.0
+var _drain_events: Array = []
+var _sp_drain_remainder := 0.0
+
+func _reset_drains() -> void:
+	_drain_events.clear()
+	_sp_drain_remainder = 0.0
+	if stats != null: stats.hp_drain_remainder = 0.0
+
+func _drain_allowance(kind: String, requested: float, cap: float) -> float:
+	var used := 0.0
+	for i in range(_drain_events.size()-1, -1, -1):
+		if _drain_clock - float(_drain_events[i].time) >= 1.0:
+			_drain_events.remove_at(i)
+		elif _drain_events[i].kind == kind:
+			used += float(_drain_events[i].amount)
+	var granted := minf(maxf(0.0, requested), maxf(0.0, cap-used))
+	if granted > 0.0: _drain_events.append({"time":_drain_clock,"kind":kind,"amount":granted})
+	return granted
+
 func apply_hp_drain(damage: int) -> void:
-	if stats == null:
-		return
+	if stats == null: return
 	if _is_dead or stats.hp <= 0 or stats.hp >= stats.max_hp or stats.hp_drain_percent <= 0.0:
 		stats.hp_drain_remainder = 0.0
 		return
-	if damage <= 0:
+	stats.hp_drain_remainder += _drain_allowance("hp", float(maxi(0,damage))*stats.hp_drain_percent/100.0, stats.max_hp*0.02)
+	var gain := int(floor(stats.hp_drain_remainder+0.0000001))
+	stats.hp_drain_remainder = maxf(0.0,stats.hp_drain_remainder-gain)
+	if gain > 0: heal_hp(gain,true,18)
+
+func apply_sp_drain(damage: int) -> void:
+	if stats == null: return
+	if _is_dead or stats.hp <= 0 or stats.sp >= stats.max_sp or stats.sp_drain_percent <= 0.0:
+		_sp_drain_remainder = 0.0
 		return
-	stats.hp_drain_remainder += float(damage) * stats.hp_drain_percent / 100.0
-	var gain := int(floor(stats.hp_drain_remainder + 0.0000001))
-	stats.hp_drain_remainder = maxf(0.0, stats.hp_drain_remainder - gain)
-	heal_hp(gain, true, 18)   # ★ รอบ 121 ★ ผู้ใช้ขอให้เห็นตัวเลขดูดเลือดทุกครั้งที่ตี (เดิมซ่อน)
+	_sp_drain_remainder += _drain_allowance("sp",float(maxi(0,damage))*stats.sp_drain_percent/100.0,stats.max_sp*0.005)
+	var gain := int(floor(_sp_drain_remainder+0.0000001))
+	_sp_drain_remainder = maxf(0.0,_sp_drain_remainder-gain)
+	if gain > 0: restore_sp(gain,true)
+
+func _return_moved_cards() -> int:
+	var items: Array = inventory.slots.duplicate()
+	items.append_array(storage.slots)
+	items.append_array(equipment.slots.values())
+	var returned := 0
+	for inst in items:
+		if inst == null or inst.data() == null: continue
+		for i in range(inst.cards.size()-1,-1,-1):
+			var card := GameData.get_card(inst.cards[i])
+			if card == null or card.fits_slot == inst.data().slot: continue
+			# Expand only when full. Inventory.set_size preserves occupied overflow on refresh.
+			if not inventory.can_add(ItemInstance.create(card.id,1)):
+				inventory.set_size(inventory.size+1)
+			if inventory.add_id(card.id,1)==0:
+				inst.remove_card(i)
+				returned += 1
+	return returned
 
 
 func take_damage(amount: int) -> void:
-	if _is_dead:
+	if _is_dead or talk_truce():   # ★ รอบ 155 ★ กำลังคุย/อ่านป้ายในแมพทุ่ง = ไม่โดนตี
 		return
 	stats.hp = clampi(stats.hp - amount, 0, stats.max_hp)
 	Events.hp_changed.emit(stats.hp, stats.max_hp)
 	if stats.hp <= 0:
 		stats.hp_drain_remainder = 0.0
 		_is_dead = true
+		_apply_death_penalty()   # ★ รอบ 158 ★
 		Events.player_died.emit()
+
+
+## ★ รอบ 158 ★ ตาย = เสีย EXP 2% ของหลอดเลเวลนี้ (ไม่ลดเลเวล · EXP ไม่ติดลบ)
+const DEATH_EXP_LOSS := 0.02
+var last_death_exp_loss: int = 0
+
+func _apply_death_penalty() -> void:
+	last_death_exp_loss = 0
+	var need := stats.exp_to_next()
+	if need <= 0 or stats.exp_current <= 0:
+		return
+	var loss := mini(stats.exp_current, maxi(1, int(round(float(need) * DEATH_EXP_LOSS))))
+	stats.exp_current -= loss
+	last_death_exp_loss = loss
+	Events.exp_changed.emit(stats.exp_current, stats.exp_to_next())
+	Events.say("[ตาย] เสีย EXP %d (%d%% ของหลอดเลเวลนี้)" % [loss, int(DEATH_EXP_LOSS * 100)])
 
 
 ## ★ รอบ 121 ★ show_text = ลอยตัวเลข "+N SP" สีฟ้าที่ตัวละคร (ดูดมานาจากการ์ด/ไอเทม)
@@ -657,7 +765,7 @@ func gain_item(inst: ItemInstance) -> int:
 	if inst == null:
 		return 0
 	var d := inst.data()
-	var first_card: bool = d != null and d.is_card() and not owns_card(inst.item_id)
+	var first_card: bool = d != null and d.is_card() and not card_known(inst.item_id)   # ★ รอบ 154 ★ ฝังแล้วนับว่าเคยได้
 	var leftover := inventory.add(inst)
 	if first_card and leftover < inst.count:
 		Events.card_obtained.emit(inst.item_id)
@@ -701,9 +809,77 @@ func owns_card(card_id: StringName) -> bool:
 func cards_collected() -> int:
 	var n := 0
 	for cid in GameData.cards.keys():
-		if owns_card(cid):
+		if card_known(cid):   # ★ รอบ 154 ★ รวมใบที่ฝังเข้าสมุดแล้ว
 			n += 1
 	return n
+
+
+## ★ รอบ 155 ★ «พักรบตอนคุย» — กล่องบทสนทนาเปิดอยู่ในแมพทุ่ง (ไม่ใช่ลานบอส/หอ) → มอนหยุด ผู้เล่นไม่โดนตี
+## ปิดกล่องแล้วยังคุ้มกันต่ออีก TALK_TRUCE_GRACE วินาที จะได้ไม่โดนตีทันทีที่ปิด
+const TALK_TRUCE_GRACE := 0.8
+var _truce_until_msec: int = 0
+
+func talk_truce() -> bool:
+	if MapAtlas.kind_of(current_map_id) != MapAtlas.KIND_FIELD:
+		return false
+	var now := Time.get_ticks_msec()
+	if UI.dialogue != null and UI.dialogue.is_open():
+		_truce_until_msec = now + int(TALK_TRUCE_GRACE * 1000.0)
+		return true
+	return now < _truce_until_msec
+
+
+## ★ รอบ 154 ★ เคยได้การ์ดใบนี้ไหม (มีอยู่ หรือฝังเข้าสมุดแล้ว) — ใช้โชว์ในสมุด
+func card_known(card_id: StringName) -> bool:
+	return card_album.has(card_id) or owns_card(card_id)
+
+
+func card_deposited(card_id: StringName) -> bool:
+	return card_album.has(card_id)
+
+
+## ★ รอบ 154 ★ ฝังการ์ดเข้าสมุด — ใช้การ์ดในกระเป๋า 1 ใบ · ใบละ 1 ครั้ง · คืน {ok, reason}
+func deposit_card(card_id: StringName) -> Dictionary:
+	var card := GameData.get_card(card_id)
+	if card == null or not CardAlbum.can_deposit(card_id):
+		return {"ok": false, "reason": "การ์ดใบนี้ฝังเข้าสมุดไม่ได้"}
+	if card_album.has(card_id):
+		return {"ok": false, "reason": "ฝัง%sเข้าสมุดไปแล้ว" % card.display_name}
+	if inventory.count_of(card_id) <= 0:
+		return {"ok": false, "reason": "ต้องมี%sในกระเป๋า (ใบที่ใส่ในอุปกรณ์ต้องถอดก่อน)" % card.display_name}
+	card_album[card_id] = true
+	inventory.remove_id(card_id, 1)
+	refresh()
+	Events.say("[สมุดการ์ด] ฝัง%s — %s ถาวร" % [card.display_name, CardAlbum.describe(CardAlbum.bonus_of(card_id))])
+	# ★ รอบ 158 ★ ฝังใบสุดท้ายของบท = ปลดโบนัสครบชุด
+	var cs := CardAlbum.chapter_set_of(card_id)
+	if not cs.is_empty() and CardAlbum.chapter_done(cs, card_album):
+		Events.say("[สมุดการ์ด] ★ ครบชุดการ์ด%s! โบนัสเพิ่ม %s ถาวร" % [String(cs["name"]), CardAlbum.describe(cs["bonus"])])
+	return {"ok": true, "reason": ""}
+
+
+## ★ รอบ 154 ★ ย่อยการ์ด 5 ใบเกรดเดียวกัน → สุ่ม 1 ใบ · คืน {ok, reason, card_id, first}
+func fuse_cards(ids: Array) -> Dictionary:
+	var chk := CardAlbum.check_fusion(ids)
+	if not bool(chk.ok):
+		return {"ok": false, "reason": String(chk.reason)}
+	var need: Dictionary = {}
+	for cid in ids:
+		need[StringName(cid)] = int(need.get(StringName(cid), 0)) + 1
+	for cid in need.keys():
+		if inventory.count_of(cid) < int(need[cid]):
+			return {"ok": false, "reason": "การ์ดในกระเป๋าไม่พอ"}
+	var fee: int = int(chk.fee)
+	if zeny < fee:
+		return {"ok": false, "reason": "เงินไม่พอ — ค่าบริการ %d z" % fee}
+	var pool: Array = chk.pool
+	var result: CardData = pool[randi() % pool.size()]
+	for cid in need.keys():
+		inventory.remove_id(cid, int(need[cid]))
+	spend_zeny(fee)
+	var first := not card_known(result.id)
+	gain_item(ItemInstance.create(result.id, 1))
+	return {"ok": true, "reason": "", "card_id": result.id, "first": first}
 
 
 # =========================================================
@@ -719,20 +895,29 @@ static func potion_cooldown_for(amount: int) -> float:
 
 ## ยาชิ้นนี้ฟื้นเลือด/มานาเท่าไหร่ (คิดเปอร์เซ็นต์จากค่าสูงสุดปัจจุบันด้วย)
 ## คืน { "hp": int, "sp": int }
-func potion_heal_amounts(data: ItemData) -> Dictionary:
+## ★ รอบ 164 ★ boosted = true → รวมโบนัสพาสซีฟ First Aid (potion_heal_percent) แล้ว · false = ค่าฐานของยา (ใช้คิดคูลดาวน์)
+func potion_heal_amounts(data: ItemData, boosted: bool = true) -> Dictionary:
 	if data == null or stats == null:
 		return {"hp": 0, "sp": 0}
+	var mult := 1.0 + (potion_heal_bonus_percent() / 100.0 if boosted else 0.0)
 	return {
-		"hp": data.heal_hp + int(stats.max_hp * data.heal_hp_percent / 100.0),
-		"sp": data.heal_sp + int(stats.max_sp * data.heal_sp_percent / 100.0),
+		"hp": int(round((data.heal_hp + int(stats.max_hp * data.heal_hp_percent / 100.0)) * mult)),
+		"sp": int(round((data.heal_sp + int(stats.max_sp * data.heal_sp_percent / 100.0)) * mult)),
 	}
+
+
+## ★ รอบ 164 ★ ยาฟื้นแรงขึ้นกี่ % (พาสซีฟ First Aid 5%/เลเวล · key potion_heal_percent ใน passive_effects)
+func potion_heal_bonus_percent() -> float:
+	if skills == null:
+		return 0.0
+	return float(skills.passive_bonus().get(&"potion_heal_percent", 0.0))
 
 
 ## คูลดาวน์ที่ยาชิ้นนี้จะติดถ้ากินตอนนี้ (0 = ไม่ใช่ยาฟื้นพลัง)
 func potion_cooldown_of(data: ItemData) -> float:
 	if data != null and data.potion_cooldown > 0.0:   # ★ รอบ 115 ★ ยาที่กำหนดคูลดาวน์เองในไฟล์ไอเทม
 		return data.potion_cooldown
-	var h := potion_heal_amounts(data)
+	var h := potion_heal_amounts(data, false)   # ★ รอบ 164 ★ คูลดาวน์ตามปริมาณฐาน
 	return maxf(potion_cooldown_for(int(h.hp)), potion_cooldown_for(int(h.sp)))
 
 
@@ -839,7 +1024,8 @@ func use_item(inv_index: int) -> bool:
 		return false
 
 	inventory.take_from_slot(inv_index, 1)
-	start_potion_cooldown(heal, sp_heal, data.potion_cooldown)   # ★ รอบ 115 ★
+	var base_amt := potion_heal_amounts(data, false)   # ★ รอบ 164 ★ คูลดาวน์ตามปริมาณฐาน (โบนัส First Aid ไม่ทำให้รอนานขึ้น)
+	start_potion_cooldown(int(base_amt.hp), int(base_amt.sp), data.potion_cooldown)   # ★ รอบ 115 ★
 	if heal > 0:
 		heal_hp(heal)
 	if sp_heal > 0:
@@ -884,6 +1070,156 @@ func set_item_hotkey(index: int, item_id: StringName) -> void:
 			item_hotkeys[i] = &""
 	item_hotkeys[index] = item_id
 	Events.inventory_changed.emit()
+
+
+# =========================================================
+# ★ รอบ 168 ★ แถบลัด 8 ช่อง × 2 หน้า (แบบ A · คอม) — ช่องละ 1 สกิลหรือ 1 ไอเทม
+#   ช่อง i = หน้า × 8 + ปุ่ม (0-7 = ปุ่ม 1-8) · หน้า = skills.active_bank (Shift / T สลับ)
+#   ช่อง 1-4 ของแต่ละหน้า ซิงก์ไป skills.hotkeys (ปุ่มสกิล 4 วงบนมือถือยังทำงานเหมือนเดิม)
+# =========================================================
+const HOTBAR_PAGE := 8
+const HOTBAR_SIZE := 16
+var hotbar: Array = []
+
+
+func hotbar_page() -> int:
+	return skills.active_bank if skills != null else 0
+
+
+func hotbar_slot(i: int) -> Dictionary:
+	if i < 0 or i >= hotbar.size():
+		return {}
+	return hotbar[i]
+
+
+## ใส่สกิล/ไอเทมลงช่อง (id ว่าง = ล้างช่อง) · ของเดียวกันอยู่ได้ช่องเดียว
+func set_hotbar_slot(i: int, kind: String, id: StringName) -> void:
+	if i < 0 or i >= HOTBAR_SIZE:
+		return
+	if id == &"":
+		hotbar[i] = {}
+	else:
+		for j in range(HOTBAR_SIZE):
+			if j != i and String(hotbar[j].get("kind", "")) == kind and StringName(hotbar[j].get("id", &"")) == id:
+				hotbar[j] = {}
+		hotbar[i] = {"kind": kind, "id": id}
+	_sync_skill_hotkeys()
+	Events.skills_changed.emit()
+	Events.inventory_changed.emit()
+
+
+func swap_hotbar(a: int, b: int) -> void:
+	if a < 0 or b < 0 or a >= HOTBAR_SIZE or b >= HOTBAR_SIZE or a == b:
+		return
+	var t: Dictionary = hotbar[a]
+	hotbar[a] = hotbar[b]
+	hotbar[b] = t
+	_sync_skill_hotkeys()
+	Events.skills_changed.emit()
+
+
+## เรียกจาก SkillBook.set_hotkey (หน้าสกิลแบบเก่า/มือถือ) — ช่องลัดสกิล index 0-7 → แถบลัดหน้า index/4 ปุ่ม index%4
+func hotbar_from_skillbook(index: int, skill_id: StringName) -> void:
+	if hotbar.size() != HOTBAR_SIZE:
+		return
+	var i := int(index / 4) * HOTBAR_PAGE + index % 4
+	if skill_id != &"":
+		for j in range(HOTBAR_SIZE):
+			if String(hotbar[j].get("kind", "")) == "skill" and StringName(hotbar[j].get("id", &"")) == skill_id:
+				hotbar[j] = {}
+		hotbar[i] = {"kind": "skill", "id": skill_id}
+	elif String(hotbar[i].get("kind", "")) == "skill":
+		hotbar[i] = {}
+
+
+func _sync_skill_hotkeys() -> void:
+	if skills == null or hotbar.size() != HOTBAR_SIZE:
+		return
+	for p in range(2):
+		for j in range(4):
+			var e: Dictionary = hotbar[p * HOTBAR_PAGE + j]
+			var sid: StringName = StringName(e.get("id", &"")) if String(e.get("kind", "")) == "skill" else &""
+			skills.hotkeys[p * 4 + j] = sid
+
+
+func _reset_hotbar() -> void:
+	hotbar = []
+	for i in range(HOTBAR_SIZE):
+		hotbar.append({})
+	# เริ่มเกม: ยาแดงปุ่ม 6 · ยาน้ำเงินปุ่ม 7 (ตามภาพแบบ A)
+	hotbar[5] = {"kind": "item", "id": &"red_potion"}
+	hotbar[6] = {"kind": "item", "id": &"blue_potion"}
+	_sync_skill_hotkeys()
+
+
+func _hotbar_to_save() -> Array:
+	var out: Array = []
+	for e: Dictionary in hotbar:
+		out.append([String(e.get("kind", "")), String(e.get("id", ""))] if not e.is_empty() else [])
+	return out
+
+
+func _hotbar_from_save(raw) -> void:
+	hotbar = []
+	for i in range(HOTBAR_SIZE):
+		hotbar.append({})
+	if raw is Array:
+		for i in range(mini((raw as Array).size(), HOTBAR_SIZE)):
+			var r = raw[i]
+			if r is Array and (r as Array).size() >= 2 and String(r[1]) != "":
+				var kind := String(r[0])
+				var id := StringName(String(r[1]))
+				if kind == "skill":
+					var sk := GameData.get_skill(id)
+					if sk == null or sk.type == SkillData.SkillType.PASSIVE:
+						continue
+				elif kind == "item":
+					if GameData.get_item(id) == null:
+						continue
+				else:
+					continue
+				hotbar[i] = {"kind": kind, "id": id}
+	else:
+		# เซฟเก่า: ช่องลัดสกิล 8 (ชุด 1 → หน้า 1 ปุ่ม 1-4 · ชุด 2 → หน้า 2 ปุ่ม 1-4) + ยา Q/R → ปุ่ม 6/7
+		for k in range(mini(skills.hotkeys.size(), 8)):
+			var sid: StringName = skills.hotkeys[k]
+			if sid != &"":
+				hotbar[int(k / 4) * HOTBAR_PAGE + k % 4] = {"kind": "skill", "id": sid}
+		for q in range(ITEM_HOTKEY_COUNT):
+			if item_hotkeys[q] != &"":
+				hotbar[5 + q] = {"kind": "item", "id": item_hotkeys[q]}
+	_sync_skill_hotkeys()
+
+
+## คำอธิบายสั้นของช่อง (tooltip แถบลัด)
+func hotbar_tooltip(i: int) -> String:
+	var e := hotbar_slot(i)
+	if e.is_empty():
+		return "ช่องว่าง — ใส่สกิลจากหน้าสกิล (K) หรือไอเทมจากกระเป๋า (I)"
+	var id: StringName = e.id
+	if e.kind == "skill":
+		var sk := GameData.get_skill(id)
+		if sk == null:
+			return ""
+		var t := "%s  Lv.%d\n%s" % [sk.display_name, skills.level_of(id), sk.description]
+		if not skills.is_learned(id):
+			t += "\n(ยังไม่ได้เรียน)"
+		return t
+	var d := GameData.get_item(id)
+	if d == null:
+		return ""
+	var n := inventory.count_of(id) if inventory != null else 0
+	var t2 := "%s  (มี %d)" % [d.display_name, n]
+	if d.special_effect == &"warp_town":
+		t2 += "\nวาร์ปกลับเมืองที่บันทึกจุดเกิด → %s" % Game.map_display_name(saved_respawn_town())
+	elif d.buff_duration > 0.0:
+		var key := StringName("item_" + String(id))
+		t2 += "\nบัพ %d วินาที" % int(d.buff_duration)
+		if active_buffs.has(key):
+			t2 += " · ติดอยู่ อีก %d วินาที" % int(float(active_buffs[key].get("time_left", 0.0)))
+	elif d.description != "":
+		t2 += "\n" + d.description
+	return t2
 
 
 ## กดปุ่มยาด่วน
@@ -1070,7 +1406,8 @@ func buy(item_id: StringName, count: int = 1) -> bool:
 	var d := GameData.get_item(item_id)
 	if d == null:
 		return false
-	var total := d.buy_price * count
+	var unit := BountyBoard.guild_price(d.buy_price)   # ★ รอบ 158 ★ ส่วนลดขั้นกิลด์
+	var total := unit * count
 	if zeny < total:
 		Events.say("ซีนีไม่พอ")
 		return false
@@ -1082,7 +1419,7 @@ func buy(item_id: StringName, count: int = 1) -> bool:
 	if bought <= 0:
 		Events.say("กระเป๋าเต็ม")
 		return false
-	add_zeny(-d.buy_price * bought)
+	add_zeny(-unit * bought)
 	Events.say("ซื้อ %s x%d" % [d.display_name, bought])
 	return true
 
@@ -1182,11 +1519,13 @@ func to_dict() -> Dictionary:
 		"respawn_town": String(saved_respawn_town()),
 		"stats": stats.to_dict(),
 		"inventory": inventory.to_array(),
+		"quest_items": inventory.quest_to_array(),   # ★ รอบ 155 ★
 		"equipment": equipment.to_dict(),
 		"skills": skills.to_dict(),
 		"quests": quests.to_dict(),
 		"zeny": zeny,
 		"item_hotkeys": [String(item_hotkeys[0]), String(item_hotkeys[1])],
+		"hotbar": _hotbar_to_save(),   # ★ รอบ 168 ★
 		"map": String(current_map_id),
 		"flags": _flags_to_dict(),
 		"kills": _kills_to_dict(),
@@ -1194,12 +1533,21 @@ func to_dict() -> Dictionary:
 		"storage": storage.to_array(),     # ★ รอบ 122 ★
 		"storage_zeny": storage_zeny,
 		"bounties": bounties.to_dict(),   # ★ รอบ 128 ★
+		"card_album": _card_album_to_array(),   # ★ รอบ 154 ★
+		"play_time": int(play_time),   # ★ รอบ 166 ★ วินาที
 	}
 
 
 ## ★ รอบ 102 ★ เคยล้มมอนชนิดนี้ไปกี่ตัว (0 = ยังไม่เคยล้มเลย)
 func kill_count(monster_id: StringName) -> int:
 	return int(kills.get(monster_id, 0))
+
+
+func _card_album_to_array() -> Array:
+	var out: Array = []
+	for k in card_album.keys():
+		out.append(String(k))
+	return out
 
 
 func _kills_to_dict() -> Dictionary:
@@ -1217,6 +1565,7 @@ func _flags_to_dict() -> Dictionary:
 
 
 func from_dict(d: Dictionary) -> void:
+	_reset_drains()
 	stats = PlayerStats.new()
 	inventory = Inventory.new(INVENTORY_SIZE)
 	equipment = Equipment.new()
@@ -1229,12 +1578,18 @@ func from_dict(d: Dictionary) -> void:
 	storage = Inventory.new(STORAGE_SIZE)   # ★ รอบ 122 ★ คลัง (เซฟเก่าไม่มี = ว่าง)
 	storage.from_array(d.get("storage", []))
 	storage_zeny = int(d.get("storage_zeny", 0))
+	play_time = float(d.get("play_time", 0))   # ★ รอบ 166 ★ เซฟเก่า = เริ่มนับจาก 0
 	bounties = BountyBoard.new()   # ★ รอบ 128 ★ ต้องลงทะเบียนใบก่อนโหลดสมุดเควส
 	bounties.from_dict(d.get("bounties", {}))
+	card_album.clear()   # ★ รอบ 154 ★
+	for cid in d.get("card_album", []):
+		card_album[StringName(String(cid))] = true
 	_is_dead = false
 
 	stats.from_dict(d.get("stats", {}))
 	inventory.from_array(d.get("inventory", []))
+	inventory.quest_from_array(d.get("quest_items", []))   # ★ รอบ 155 ★
+	inventory.enable_quest_pocket()   # เซฟเก่า: ย้ายของเควสออกจากช่อง
 	equipment.from_dict(d.get("equipment", {}))
 	skills.from_dict(d.get("skills", {}))
 	for jid in JOB_STARTER_SKILL.keys():   # ★ รอบ 125 ★ เซฟเก่าที่เป็นอาชีพนี้แล้วก็ได้ท่าเริ่มต้น
@@ -1250,6 +1605,7 @@ func from_dict(d: Dictionary) -> void:
 	item_hotkeys = [&"red_potion", &"blue_potion"]
 	for i in range(mini(ih.size(), ITEM_HOTKEY_COUNT)):
 		item_hotkeys[i] = StringName(ih[i])
+	_hotbar_from_save(d.get("hotbar", null))   # ★ รอบ 168 ★ เซฟเก่า = สร้างจากช่องลัดสกิล 8 + ยา Q/R
 	current_map_id = StringName(d.get("map", "prontera_field"))
 
 	last_town = StringName(String(d.get("last_town", "prontera_town")))
@@ -1273,6 +1629,14 @@ func from_dict(d: Dictionary) -> void:
 		for k in fl.keys():
 			story_flags[StringName(k)] = fl[k]
 
+	# ★ รอบ 159 ★ เซฟเก่าที่ส่งใบประกาศไปแล้ว นับว่าผ่านเงื่อนไข «ใบประกาศใบแรก»
+	if bounties != null and bounties.total_turned_in > 0:
+		story_flags[BountyBoard.FIRST_BOUNTY_FLAG] = true
+	var returned_cards := _return_moved_cards()
+	if returned_cards > 0: Events.say("คืนการ์ดที่เปลี่ยนช่องสวมใส่ %d ใบเข้ากระเป๋าแล้ว" % returned_cards)
 	stats.migrate_job_progress(skills,story_flags)
+	var rank_gain := bounties.claim_rank_rewards()   # ★ รอบ 158 ★ เซฟเก่าที่ขั้นกิลด์สูงอยู่แล้ว = ได้แต้มสเตตัสย้อนหลัง
+	if rank_gain > 0:
+		Events.say("[กิลด์] ได้แต้มสเตตัสจากขั้นกิลด์ %s ย้อนหลัง +%d" % [bounties.rank_letter(), rank_gain])
 	refresh(false)
 	_emit_all()

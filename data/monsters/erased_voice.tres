@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/erased_voice_frames.tres" id="3_frames"]
 
+[ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="chapter6_orb"]
+
 [sub_resource type="Resource" id="Drop_erased_voice_0"]
 script = ExtResource("2_drop")
 item_id = &"erased_ink"
@@ -29,9 +31,9 @@ hitbox_size = Vector2(36, 40)
 hp_bar_offset_y = -144.0
 display_height = 140.0
 level = 90
-max_hp = 20000
-atk_min = 1100
-atk_max = 1380
+max_hp = 28000
+atk_min = 1375
+atk_max = 1725
 def = 60
 mdef = 140
 hit = 210
@@ -49,8 +51,6 @@ attack_range = 106.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
-attack_windup = 0.4
-attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 170.0
 exp_reward = 977
@@ -65,3 +65,26 @@ flying_no_hop = true
 tint = Color(1, 1, 1, 0.35)
 spawn_lines = PackedStringArray("...ซินดริ...", "...หรุงนีร์...", "...โซล...", "...กุลล์ไวก์...", "...น้อง... ของ...", "...[ลบ]...")
 death_lines = PackedStringArray("ชื่อข้าคือ... ซินดริ", "ชื่อข้าคือ... วาลี", "ชื่อข้าคือ... เอลิน", "ชื่อข้าคือ... [ลบ]")
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_anchors = Dictionary[StringName, Vector2]({})
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.23090129, &"Walk": 1.23090129, &"Attack": 1.22459436, &"Hit": 1.23301806, &"Die": 1.23301806, &"Run": 1.23090129, &"Skill": 1.22459436})
+attack_hit_frames = PackedInt32Array(8)
+attack_follow_anim = true
+attack_windup = 0.6666666666666666
+attack_duration = 1.1666666666666667
+ranged_attack = true
+ranged_attack_range = 650.0
+projectile_texture = ExtResource("chapter6_orb")
+projectile_speed = 1000.0
+projectile_range = 1200.0
+projectile_height = 65.0
+projectile_hit_size = Vector2(42, 42)
+projectile_fire_effect = true
+projectile_orb_style = true
+projectile_orb_color = Color(0.22, 0.66, 1.0, 1)
+projectile_aim_at_player = false
+projectile_down_angle = 0.0
+projectile_hand_positions = Dictionary[int, Vector2]({8: Vector2(444.75, 784.0)})
+skill_hand_projectiles = false

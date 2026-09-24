@@ -60,7 +60,50 @@ func point(at: Vector2, title: String, shape: String, action: Callable) -> Node2
 
 
 func _talk(pages: Array) -> int:
-	return await UI.talk(pages)
+	return await UI.talk(portrait_pages(pages))
+
+
+func portrait_pages(pages: Array) -> Array:
+	var result: Array = []
+	for original in pages:
+		var page: Dictionary = original.duplicate()
+		if not page.has("portrait"):
+			# Clear previous speaker art for narration and the deliberately unseen S6 voice.
+			page["portrait"] = null
+			var speaker := String(page.get("name", ""))
+			if speaker == STRANGER:
+				var path := "res://Sprites/portraits/npcs/109680a0c844.tres"
+				if String(map.map_id) == "broken_wall": path = "res://Sprites/portraits/npcs/stranger_winter.tres"
+				elif String(map.map_id) == "odin_seat": path = "res://Sprites/portraits/npcs/b68aa31bc058.tres"
+				page["portrait"] = load(path)
+			else:
+				for npc in get_tree().get_nodes_in_group("npc"):
+					if npc is NPC and npc.npc_name == speaker and npc.is_visible_in_tree():
+						page["portrait"] = npc.portrait_texture()
+						break
+		result.append(page)
+	return result
+
+
+func stranger_art(parent: Node2D, winter := false) -> Sprite2D:
+	var sprite := Sprite2D.new()
+	sprite.name = "StrangerArt"
+	sprite.texture = load("res://Sprites/npc/story/stranger_winter.png" if winter else "res://Sprites/npc/chapter6/idle/stranger.png")
+	var bounds := sprite.texture.get_image().get_used_rect()
+	var factor := 275.0 / bounds.size.y
+	sprite.centered = false
+	sprite.scale = Vector2.ONE * factor
+	sprite.position = Vector2(-bounds.get_center().x * factor, -60.0 - bounds.end.y * factor)
+	parent.add_child(sprite)
+	return sprite
+
+
+func visiting_stranger(at: Vector2) -> Node2D:
+	var visitor := Node2D.new()
+	visitor.position = at
+	add_child(visitor)
+	stranger_art(visitor)
+	return visitor
 
 
 func _wait_talk_end() -> void:
@@ -172,7 +215,10 @@ func _broken_wall() -> void:
 	var night: bool = map.get("is_variant") == true
 	_rest_point = point(Vector2(300, y), "[F] รอจนเช้า" if night else "[F] นั่งพักรอค่ำ", "camp", _toggle_night)
 	if night and PlayerState.quests.is_done(&"c4_8_shieldbearer"):
-		point(Vector2(3100, y), "[F] " + STRANGER, "figure", _s5)
+		var stranger := point(Vector2(3100, y), "[F] " + STRANGER, "figure", _s5)
+		stranger_art(stranger, true)
+		stranger.self_modulate.a = 0.0
+		stranger.label.position.y = -375
 
 
 func _toggle_night() -> void:
@@ -205,7 +251,18 @@ func _s5() -> void:
 func _ljosalf() -> void:
 	var y := 880.0
 	var dim: bool = map.get("is_variant") == true
-	point(Vector2(3700, y), "[F] ผลึกเงาใหญ่ — " + ("กลับสู่ร่างสว่าง" if dim else "มองผ่านร่างจาง"), "crystal", _toggle_shade)
+	var crystal := point(Vector2(3700, y), "[F] ผลึกเงาใหญ่ — " + ("กลับสู่ร่างสว่าง" if dim else "มองผ่านร่างจาง"), "crystal", _toggle_shade)
+	var art := Sprite2D.new()
+	art.name = "CrystalArt"
+	# Keep the crystal behind the player, but above the map scenery.
+	art.z_as_relative = false
+	art.z_index = -10
+	art.texture = load("res://Sprites/map/chapter5/organic/shade_crystal.png")
+	art.scale = Vector2.ONE * (285.0 / art.texture.get_height())
+	art.position = Vector2(0,-60-142.5)
+	crystal.add_child(art)
+	crystal.self_modulate.a = 0.0
+	crystal.label.position.y = -380
 
 
 func _toggle_shade() -> void:
@@ -221,6 +278,10 @@ func _toggle_shade() -> void:
 func _s8() -> void:
 	_busy = true
 	await _wait_talk_end()
+	var at := Vector2(3300,880)
+	for npc in get_tree().get_nodes_in_group("npc"):
+		if npc is NPC and npc.npc_name == "หมอน็อตต์": at = npc.position + Vector2(120,60)
+	var visitor := visiting_stranger(at)
 	await _talk([
 		{"name": STRANGER, "text": "(เขายืนอยู่ข้างหลังหมอ ไม่มีใครในเมืองเห็นเขา — ยกเว้นเจ้าที่มองผ่านร่างจาง)\n\nน็อตต์ แปลว่ากลางคืน"},
 		{"name": STRANGER, "text": "พวกเจ้าเคยมีมัน หมอ พวกเจ้าเคยหลับ เคยฝัน เคยตื่นมาแล้วเศร้า\n\nแล้วพวกเจ้าแลกมันไป"},
@@ -228,6 +289,7 @@ func _s8() -> void:
 		{"name": STRANGER, "text": "นี่ อีกครึ่งของเล่มที่ 7 หน้าที่พูดถึงสัญญาแห่งแสง\n\nชื่อคนที่คัดค้านสัญญาถูกลบ... เจ้าคงเดาได้แล้วว่าใคร"},
 	])
 	PlayerState.gain_item_id(&"book_seven_half_2", 1)
+	visitor.queue_free()
 	PlayerState.set_flag(&"s8_done")
 	Events.say("[เหตุการณ์ลับ S8] ชื่อที่หมอไม่รู้ความหมาย — ได้พงศาวดารเล่ม 7 อีกครึ่ง")
 	_busy = false
@@ -253,6 +315,7 @@ func try_rescue(amount: int) -> bool:
 
 func _s7_talk() -> void:
 	_busy = true
+	var visitor := visiting_stranger(map.player.foot_position() + Vector2(120,0))
 	if is_instance_valid(map.player):
 		map.player.velocity = Vector2.ZERO
 	await _talk([
@@ -260,6 +323,7 @@ func _s7_talk() -> void:
 		{"name": STRANGER, "text": "...ครั้งก่อน ๆ ข้าไม่เคยใกล้พอ\n\nลุกขึ้น เงาสะท้อนไม่รอ — และอย่าถามว่าข้าเป็นใคร ข้าตอบไม่ได้"},
 	])
 	Events.say("[เหตุการณ์ลับ S7] มือที่ดึงออกจากน้ำ — คนแปลกหน้าช่วยเจ้าเป็นครั้งแรก")
+	visitor.queue_free()
 	_busy = false
 
 
@@ -328,7 +392,7 @@ func _ninth_wall() -> void:
 		Events.floating_text(map.player.global_position + Vector2(0, -120), "★ ชื่อที่ไฟยังลบไม่ได้ ★", Color("#ffd86b"), 30, 0)
 		if map.player.has_method("_play_level_up"):
 			map.player._play_level_up(LevelUpEffect.Kind.JOB, PlayerState.stats.job_level)
-	Events.say("[เตรียมพิธี] เจ้าจำชื่อตัวเองได้แล้ว — ตามหาเตาหลอมไร้คำสั่งในบท 7 เพื่อเป็น Ninth Edge")
+	Events.say("[เตรียมพิธี] เจ้าจำชื่อตัวเองได้แล้ว — ตามหาเตาหลอมไร้คำสั่งที่มุสเปลเฮม เพื่อเป็น Ninth Edge")
 	for npc in get_tree().get_nodes_in_group("story_point"):
 		if npc.has_method("set_title") and npc.title.begins_with("[F] ผนังว่าง"):
 			npc.set_title("[F] ผนังที่เก้า — ชื่อของเจ้า")
@@ -388,6 +452,7 @@ func _garm_freed(garm: Node) -> void:
 		PlayerState.gain_exp(160000, 100000)
 		Events.say("การ์มเป็นอิสระ — มันเดินผ่านประตูไปทางบัลลังก์ว่าง ไม่หันกลับมา")
 		if is_instance_valid(garm):
+			await preload("res://scripts/world/garm_freed_departure.gd").play(garm)
 			garm.queue_free()
 	else:
 		Events.say("การ์มลุกขึ้น... มันรู้ว่าเจ้าเลือกอะไร — สู้!")

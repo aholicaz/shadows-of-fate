@@ -16,21 +16,21 @@ func _ready() -> void:
 	map = get_parent()
 	match String(map.map_id):
 		"nidavellir_town":
-			_add_quests("บรอกก์", [&"rb1_unsung_iron"])
+			_add_quests("บรอกก์", [&"rb1_unsung_iron", &"rb15_song_for_brokk"])
 		"vanir_town":
-			_add_quests("ผู้อาวุโสญอร์ดา", [&"rb1_unsung_iron",&"rb2_unbound_rune",&"rb3_beneath_marsh",&"rb4_edge_and_force",&"rb5_oath_eater",&"rb6_runeblade",&"rb7_ninth_inscription"])
+			_add_quests("ผู้อาวุโสญอร์ดา", [&"rb1_unsung_iron",&"rb2_unbound_rune",&"rb3_beneath_marsh",&"rb4_edge_and_force",&"rb5_oath_eater",&"rb6_runeblade",&"rb7_ninth_inscription",&"rb15_song_for_brokk"])
 			point(Vector2(740,900),"[F] ศิลาคำสัตย์",_ceremony)
 			point(Vector2(3100,900),"[F] ลานฝึกดาบ · บททดสอบ Runeblade",func():
 				if PlayerState.quests.is_active(&"rb4_edge_and_force"):
 					await Game.change_map(&"runeblade_training",&"default")
-				else: Events.say("รับเควส คมและแรง คมและแรงกับญอร์ดาก่อน"))
+				else: Events.say("รับเควส «คมและแรง» จากญอร์ดาก่อน แล้วค่อยมาฝึกที่นี่"))
 		"runeblade_training":
 			point(Vector2(200,900),"[F] กลับวานาเฮม",func(): await Game.change_map(&"vanir_town",&"from_training"))
 			point(Vector2(700,900),"[F] เริ่มบททดสอบ",_training)
 		"silver_marsh":
-			point(Vector2(1600,900),"[F] ศิลารูนแตก",func(): await _read(&"rb_clue_stone","รอยแตกบนศิลาตรงกับชิ้นรูน... มีรอยเขาสองข้าง\nเส้นอักขระขาดตรงทางคืนพลัง เหมือนวงจรที่บรอกก์พบใต้ภูเขา แต่รอยนี้ถูกสกัดออกด้วยมือผู้สร้าง"))
-			point(Vector2(2600,900),"[F] เงาในน้ำ",func(): await _read(&"rb_clue_shadow","ในน้ำมีเงารูปเขา แต่บนฝั่งไม่มีใครยืนอยู่\nเงาดึงแสงจากรูนเข้าหาตัว น้ำกลับนิ่งสนิท... สิ่งใต้บึงกำลังกินพลังที่ควรไหลคืนสู่ราก"))
-			point(Vector2(3760,900),"[F] กระดิ่งใต้ราก",func(): await _read(&"rb_clue_bell","เสียงกระดิ่งดังใต้บึง ทางลงอยู่ในซุ้มรากข้าง ๆ\nใต้ฐานกระดิ่งมีข้อความ: จงเลือกคำสัตย์ด้วยตนเอง ผู้มอบดาบแก่เสียงเรียก ย่อมเหลือเพียงเปลือก"))
+			point(Vector2(1600,900),"[F] ศิลารูนแตก",func(): await _read(&"rb_clue_stone","ศิลาแตกเป็นรูปเดียวกับชิ้นรูนของซินดริ และมีรอยเขาสัตว์ขนาดใหญ่ขูดไว้สองรอย\nเส้นคืนพลังบนศิลาถูกสกัดออก — แบบเดียวกับที่ถูกขูดออกจากค้อนของธอร์"))
+			point(Vector2(2600,900),"[F] เงาในน้ำ",func(): await _read(&"rb_clue_shadow","ในน้ำมีเงาของสิ่งที่มีเขา ทั้งที่บนฝั่งไม่มีใครยืนอยู่\nแสงจากรูนในมือเจ้าถูกดูดเข้าหาเงานั้น... มีบางอย่างใต้บึงกำลังกินพลังที่ควรไหลคืนสู่ราก"))
+			point(Vector2(3760,900),"[F] กระดิ่งใต้ราก",func(): await _read(&"rb_clue_bell","กระดิ่งของอัศวินดาบรูนยังดังอยู่ใต้บึง ทางลงอยู่ในซุ้มรากข้าง ๆ นี้\nใต้ฐานกระดิ่งสลักไว้ว่า «จงเลือกคำสัตย์ด้วยตัวเอง ผู้ที่ถือดาบเพียงเพราะมีคนสั่ง จะเหลือแค่เปลือก»"))
 			var entrance = point(Vector2(3450,900),"[F] วิหารเขาทมิฬใต้ราก",_entrance)
 			entrance.reveal_flag = &"rb_clues"
 
@@ -57,7 +57,7 @@ func _read(id: StringName, text: String) -> void:
 
 func _ceremony() -> void:
 	if PlayerState.stats.job_id == &"runeblade":
-		var pick: int = await UI.talk([{"name":"ศิลาคำสัตย์", "text":"วงจรรูนยังมีอักขระที่เก้า... เมื่อถึงเลเวล 90 เสียงจากแดนเหนือจะเรียกหาเจ้า เส้นทางขั้นถัดไปยังไม่เปิดในบทนี้\nคืนแต้มฟรีครั้งแรก หลังจากนั้น 10,000 z", "choices":["อ่านอักขระที่เก้า", "คืนแต้ม Runeblade", "ไว้ก่อน"]}])
+		var pick: int = await UI.talk([{"name":"ศิลาคำสัตย์", "text":"บรรทัดล่างสุดของศิลายังมีอักขระที่เก้าจาง ๆ อยู่... มันจะชัดขึ้นเมื่อเจ้าเดินทางไกลพอ\nคืนแต้มสกิล Runeblade: ครั้งแรกฟรี ครั้งต่อไป 10,000 z", "choices":["อ่านอักขระที่เก้า", "คืนแต้ม Runeblade", "ไว้ก่อน"]}])
 		if pick == 0:
 			PlayerState.quests.on_read(&"rb_ninth_inscription")
 			PlayerState.set_flag(&"rb_next_job_hint")
@@ -66,13 +66,13 @@ func _ceremony() -> void:
 			PlayerState.skills.reset_runeblade()
 		return
 	if PlayerState.quests.is_active(&"rb6_runeblade"):
-		await _read(&"rb_ceremony","ข้าจะเป็นผู้เลือกทิศทางของดาบด้วยตนเอง กลับไปหาญอร์ดาเพื่อรับอาชีพ Runeblade")
+		await _read(&"rb_ceremony","«ดาบเล่มนี้จะไปในทางที่ข้าเลือกเอง ไม่ใช่ทางที่ใครสั่ง» — ถ้อยคำสุดท้ายบนศิลา\n(กลับไปหาญอร์ดาเพื่อทำพิธีเป็น Runeblade)")
 	else:
-		await _read(&"rb_rune_tablet","คมที่ไร้จังหวะย่อมแตกหัก แรงที่ไร้การควบคุมย่อมย้อนคืน\nรูนเก้าดวง... มีเพียงสามดวงที่เรายังอ่านออก")
+		await _read(&"rb_rune_tablet","ศิลาคำสัตย์ของอัศวินดาบรูน — มีชื่อสลักเรียงกันหลายร้อยชื่อ ส่วนใหญ่ถูกขูดจนอ่านไม่ออก\nบรรทัดบนสุด: «คมที่ไร้จังหวะย่อมแตกหัก แรงที่ไร้การควบคุมย่อมย้อนคืน»\nบรรทัดล่างสุดเป็นวงรูนเก้าดวง... อ่านออกเพียงสามดวง")
 
 func _entrance() -> void:
 	if PlayerState.stats.level < 50 or not PlayerState.has_flag(&"rb_trials"):
-		await UI.talk([{"text":"ประตูต้องการรูนประสานจากเควสคมและแรง และผู้ถือเลเวล 50 ขึ้นไป"}])
+		await UI.talk([{"text":"ซุ้มรากไม่ยอมเปิด... รูนในมือเจ้ายังตื่นไม่พอ\n(ต้องผ่านเควส «คมและแรง» และเลเวล 50 ขึ้นไป)"}])
 		return
 	PlayerState.set_flag(&"rb_dungeon_open")
 	await Game.change_map(&"blackhorn_rootcrypt", &"default")
@@ -81,7 +81,7 @@ func _training() -> void:
 	if not PlayerState.quests.is_active(&"rb4_edge_and_force"):
 		await UI.talk([{"text":"รับเควส คมและแรง คมและแรงกับญอร์ดาก่อน แล้วกลับมาทดสอบที่นี่"}])
 		return
-	var pick: int = await UI.talk([{"text":"ทดสอบฟรี ฟื้น HP/SP เมื่อจบ หลีกแนวโจมตีสีแดงแล้วสวนในช่วงสีทอง", "choices":["จังหวะของคม: คอมโบครบ 3 ชุด", "น้ำหนักของดาบ: เปิดแผล แล้ว Bash ช่วงหุ่นเก็บท่า", "ออก"]}])
+	var pick: int = await UI.talk([{"text":"ลานฝึกของอัศวินดาบรูน — หุ่นจะฟาดใส่พื้นที่สีแดง หลบให้พ้นแล้วสวนกลับตอนวงสีทองขึ้น (ฝึกฟรี · จบแล้วฟื้น HP/SP)", "choices":["จังหวะของคม — คอมโบครบ 3 ชุด", "น้ำหนักของดาบ — เปิดแผล แล้วฟันแรงตอนวงสีทอง", "ออก"]}])
 	if pick < 0 or pick > 1: return
 	_begin_training(pick)
 

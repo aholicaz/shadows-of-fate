@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_35_clear"
+count = 1
+text = "ผ่านชั้น 35 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_7_sun"
+title = "ไฟที่ไม่เผาราก"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 35 (ผู้คุม: สุริยราช สิงห์เตาหลอม) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "ชั้น 31 ถึง 35 มีเตาหลอมที่ส่งความอบอุ่นไปเลี้ยงกิ่งทั้งต้น สุริยราช สิงห์เตาหลอม เฝ้ามันไว้ และคิดว่าเรามาเพื่อเผาหอ\n\nผ่านมันไปถึงชั้น 35 ให้ได้ แล้วพิสูจน์ว่าเราถือไฟมาเพื่อช่วยคน ไม่ใช่เพื่อเผา"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 35 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "เตาหลอมกลับมาส่งไออุ่นถึงรากอีกครั้ง... คนบนกิ่งจะไม่หนาวตายระหว่างรอเรา"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_6_tide"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 140000
+reward_job_exp = 22000
+reward_zeny = 65000
+set_flag_on_complete = &"c8_7_sun_done"

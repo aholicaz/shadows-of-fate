@@ -1,0 +1,249 @@
+{
+  "characterId": "brokk",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": null,
+  "cell": {
+    "shape": "square",
+    "width": 512,
+    "height": 512,
+    "size": 512,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ]
+  },
+  "animation": {
+    "cellWidth": 512,
+    "cellHeight": 512,
+    "columns": 24,
+    "rows": {
+      "Idle": {
+        "row": 0,
+        "frames": 24,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel",
+        "breathe": {
+          "anatomy": {
+            "width": 326,
+            "height": 427,
+            "axis_x": 160,
+            "neck_row": 21,
+            "neck_source": "shoulder-gradient",
+            "rigid_row": 160,
+            "rigid_source": "manual",
+            "basis_row": 160,
+            "torso_half": 127,
+            "max_half": 165,
+            "torso_source": "auto",
+            "face": null,
+            "warnings": [
+              "rigid-row-override: auto 21 -> manual 160",
+              "neck-absent: 폭 프로파일에 병목이 없어 어깨-기울기로 대체했다 (정규화 기준은 강체 경계 160 사용)",
+              "face-absent: 대칭 눈쌍을 못 찾아 목만으로 경계를 정했다"
+            ]
+          },
+          "matches_sidecar": true,
+          "sidecar_drift": null,
+          "warnings": [
+            "face-absent: 대칭 눈쌍을 못 찾아 목만으로 경계를 정했다",
+            "neck-absent: 폭 프로파일에 병목이 없어 어깨-기울기로 대체했다 (정규화 기준은 강체 경계 160 사용)",
+            "rigid-row-override: auto 21 -> manual 160"
+          ]
+        }
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 12288,
+    "sheetHeight": 512,
+    "cellWidth": 512,
+    "cellHeight": 512,
+    "rows": {
+      "Idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 1536,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 2048,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 2560,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 3072,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 3584,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 4096,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 4608,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 5120,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 5632,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 6144,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 6656,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 7168,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 7680,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 8192,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 8704,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 9216,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 9728,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 10240,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 10752,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 11264,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        },
+        {
+          "x": 11776,
+          "y": 0,
+          "w": 512,
+          "h": 512
+        }
+      ]
+    }
+  }
+}

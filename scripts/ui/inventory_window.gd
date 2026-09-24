@@ -61,6 +61,7 @@ const CATEGORIES := [
 	{"id": "armor",       "label": "เกราะ",    "glyph": "armor"},
 	{"id": "consumables", "label": "ของใช้",   "glyph": "consumables"},
 	{"id": "materials",   "label": "วัตถุดิบ", "glyph": "materials"},
+	{"id": "quest",       "label": "ไอเทมเควส", "glyph": "quest"},   # ★ รอบ 155 ★ ไม่กินช่อง ไม่โชว์ในทั้งหมด
 ]
 const SORT_MODES := ["ล่าสุด", "ชื่อ", "ชนิด", "ราคา"]
 const LEFT_SLOTS := [Equipment.EquipSlot.WEAPON, Equipment.EquipSlot.HEAD, Equipment.EquipSlot.ARMOR, Equipment.EquipSlot.GARMENT]
@@ -73,6 +74,7 @@ const SLOT_GLYPH := {
 }
 
 var _category := "all"
+var _quest_sel := -1   # ★ รอบ 155 ★ ไอเทมเควสที่เลือก (ลำดับใน inventory.quest_items)
 var _sort := 0
 var _search := ""
 var _cat_buttons: Dictionary = {}     # id -> Button
@@ -109,6 +111,8 @@ var _drop_button: Button
 var _potion_row: HBoxContainer
 var _set_q_button: Button
 var _set_r_button: Button
+var _hotbar_row: HBoxContainer          # ★ รอบ 168 ★ ใส่ของกินลงแถบลัด 1-8
+var _hotbar_btns: Array[Button] = []
 var _detail_empty: Label
 
 var _selected := -1          # ช่องจริงในกระเป๋า
@@ -322,6 +326,8 @@ func _build_middle() -> Control:
 		b.pressed.connect(func():
 			_category = id
 			_selected = -1
+			_quest_sel = -1
+			_selected_equip = -1
 			UI.hide_item_popup()
 			refresh())
 		cats.add_child(b)
@@ -564,6 +570,37 @@ func _build_right() -> Control:
 	_potion_row.add_child(_set_r_button)
 	_potion_row.hide()
 
+	# ★ รอบ 168 ★ แถบลัด 1-8 (หน้าปัจจุบัน) — ยา · ไอเทมบัพ · ปีกวาร์ป
+	_hotbar_row = HBoxContainer.new()
+	_hotbar_row.add_theme_constant_override("separation", 6)
+	box.add_child(_hotbar_row)
+	var hl := _label("แถบลัด", 12, C_TEXT_DIM)
+	hl.tooltip_text = "ใส่ไอเทมนี้ลงแถบลัดปุ่ม 1-8 (หน้าปัจจุบัน · Shift สลับหน้า)"
+	_hotbar_row.add_child(hl)
+	# ★ รอบ 175 ★ 2 แถว × 4 ปุ่ม — แถวเดียว 8 ปุ่มดันแผงรายละเอียดกว้างเกิน DETAIL_WIDTH (ปุ่มขวาโดนตัด)
+	var hgrid := GridContainer.new()
+	hgrid.columns = 4
+	hgrid.add_theme_constant_override("h_separation", 4)
+	hgrid.add_theme_constant_override("v_separation", 4)
+	hgrid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_hotbar_row.add_child(hgrid)
+	for k in range(PlayerState.HOTBAR_PAGE):
+		var hb := _cream_button(str(k + 1), 0)
+		hb.custom_minimum_size = Vector2(0, 28)
+		hb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		hb.add_theme_font_size_override("font_size", 13)
+		for st in ["normal", "hover", "pressed", "disabled", "focus"]:
+			var sb := hb.get_theme_stylebox(st)
+			if sb != null:
+				var s2 := sb.duplicate()
+				s2.content_margin_left = 2.0
+				s2.content_margin_right = 2.0
+				hb.add_theme_stylebox_override(st, s2)
+		hb.pressed.connect(_assign_hotbar.bind(k))
+		hgrid.add_child(hb)
+		_hotbar_btns.append(hb)
+	_hotbar_row.hide()
+
 	_use_button = UITheme.make_gold_button("สวมใส่")
 	_use_button.custom_minimum_size.y = 40
 	_use_button.pressed.connect(_use_selected)
@@ -618,6 +655,15 @@ static func _category_of(d: ItemData) -> String:
 
 func _on_slot_pressed(display_index: int) -> void:
 	var slot: int = _display_to_slot[display_index]
+	if slot <= -2:   # ★ รอบ 155 ★ ไอเทมเควส (เข้ารหัส -2 - ลำดับ)
+		if _card_mode:
+			_exit_card_mode()
+		_quest_sel = -2 - slot
+		_selected = -1
+		_selected_equip = -1
+		UI.hide_item_popup()
+		refresh()
+		return
 	if _card_mode:   # ★ รอบ 140 ★ โหมดใส่การ์ด: คลิกอุปกรณ์ในกระเป๋า = เป้า
 		if slot >= 0:
 			_card_mode_target(PlayerState.inventory.get_slot(slot))
@@ -797,6 +843,20 @@ func _assign_potion(slot: int) -> void:
 	refresh()
 
 
+## ★ รอบ 168 ★ ใส่ไอเทมที่เลือก (ของกินเท่านั้น) ลงแถบลัดช่อง k ของหน้าปัจจุบัน
+func _assign_hotbar(k: int) -> void:
+	if _selected < 0:
+		return
+	var inst := PlayerState.inventory.get_slot(_selected)
+	if inst == null or inst.data() == null or inst.data().type != ItemData.Type.CONSUMABLE:
+		Events.say("ใส่แถบลัดได้เฉพาะของกิน/ยา/ไอเทมบัพ/ปีกวาร์ป")
+		return
+	var slot := PlayerState.hotbar_page() * PlayerState.HOTBAR_PAGE + k
+	PlayerState.set_hotbar_slot(slot, "item", inst.item_id)
+	Events.say("ใส่ %s ไว้แถบลัดปุ่ม %d (หน้า %d) แล้ว" % [inst.data().display_name, k + 1, PlayerState.hotbar_page() + 1])
+	refresh()
+
+
 func _use_selected() -> void:
 	if _card_mode:   # ★ รอบ 140 ★ ปุ่มเดียวกันกลายเป็น «ยกเลิก»
 		_exit_card_mode()
@@ -868,8 +928,14 @@ func refresh() -> void:
 		b.add_theme_stylebox_override("pressed", _style(C_SLOT_SEL, C_SEL_EDGE, 4, 4))
 
 	# ---------- กรองช่องตามหมวด + คำค้น แล้วเรียง ----------
-	var shown: Array[int] = []
 	var q := _search.to_lower()
+	if _category == "quest":   # ★ รอบ 155 ★ หน้าไอเทมเควสแยก
+		_refresh_quest_grid(inv, q)
+		_refresh_left()
+		_apply_card_mode_visuals()
+		_refresh_detail()
+		return
+	var shown: Array[int] = []
 	for slot in range(inv.size):
 		var inst := inv.get_slot(slot)
 		if inst == null:
@@ -991,6 +1057,8 @@ func _refresh_detail() -> void:
 	_compare_button.disabled = not has or on_body
 	_drop_button.disabled = not has or on_body
 	_potion_row.visible = false
+	if _hotbar_row != null:
+		_hotbar_row.visible = false
 	if not has:
 		_use_button.text = "สวมใส่"
 		_compare_button.text = "เปรียบเทียบ"
@@ -1058,12 +1126,28 @@ func _refresh_detail() -> void:
 		_compare_button.text = "เลิกเปรียบเทียบ" if _comparing else "เปรียบเทียบ"
 		_compare_button.disabled = not d.is_equipment() or on_body
 
+	if d.type == ItemData.Type.QUEST:   # ★ รอบ 155 ★ ไอเทมเควส: ดูได้อย่างเดียว
+		_use_button.text = "ไอเทมเควส"
+		_use_button.disabled = true
+		_compare_button.disabled = true
+		_drop_button.disabled = true
+		var qnote := _label("ของสำคัญของเควส — ไม่กินช่องกระเป๋า · ขาย/ทิ้งไม่ได้", 11, C_TEXT_DIM)
+		qnote.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_detail_stats.add_child(qnote)
+
 	if d.type == ItemData.Type.CONSUMABLE:
 		_potion_row.visible = true
 		for i in range(PlayerState.ITEM_HOTKEY_COUNT):
 			var btn: Button = _set_q_button if i == 0 else _set_r_button
 			var base: String = "ตั้งช่อง Q" if i == 0 else "ตั้งช่อง R"
 			btn.text = ("★ " + base) if PlayerState.item_hotkey_at(i) == sel.item_id else base
+		if _hotbar_row != null:   # ★ รอบ 168 ★
+			_hotbar_row.visible = true
+			for k in range(_hotbar_btns.size()):
+				var e := PlayerState.hotbar_slot(PlayerState.hotbar_page() * PlayerState.HOTBAR_PAGE + k)
+				var mine := String(e.get("kind", "")) == "item" and StringName(e.get("id", &"")) == sel.item_id
+				_hotbar_btns[k].text = ("★" if mine else "") + str(k + 1)
+				_hotbar_btns[k].tooltip_text = "ปุ่ม %d: %s" % [k + 1, PlayerState.hotbar_tooltip(PlayerState.hotbar_page() * PlayerState.HOTBAR_PAGE + k).get_slice("\n", 0)]
 
 
 ## แถวค่าพลังของไอเทม [glyph, ชื่อ, ค่า, สี] — ถ้าเทียบอยู่ ค่าจะเป็น "ของใหม่ (±ต่างจากที่ใส่)"
@@ -1144,6 +1228,9 @@ func _tooltip(inst: ItemInstance) -> String:
 # =========================================================
 ## ของที่แผงขวากำลังโชว์: ของในกระเป๋า (_selected) หรือของที่สวมอยู่ (_selected_equip)
 func _detail_target() -> ItemInstance:
+	if _category == "quest":   # ★ รอบ 155 ★
+		var qi: Array = PlayerState.inventory.quest_items
+		return qi[_quest_sel] if _quest_sel >= 0 and _quest_sel < qi.size() else null
 	if _selected_equip >= 0:
 		return PlayerState.equipment.get_item(_selected_equip)
 	return PlayerState.inventory.get_slot(_selected) if _selected >= 0 else null
@@ -1323,3 +1410,41 @@ static func _hot_box() -> StyleBoxFlat:
 	s.shadow_color = Color(UITheme.GOLD_BRIGHT, 0.45)
 	s.shadow_size = 6
 	return s
+
+
+## ★ รอบ 155 ★ กริดหน้า «ไอเทมเควส» — ใช้ปุ่มช่องชุดเดิม เข้ารหัสลำดับเป็น -2 - k (ลากไม่ได้)
+func _refresh_quest_grid(inv: Inventory, q: String) -> void:
+	var list: Array = []
+	for k in range(inv.quest_items.size()):
+		var it: ItemInstance = inv.quest_items[k]
+		if q != "" and not it.display_name().to_lower().contains(q):
+			continue
+		list.append(k)
+	if _quest_sel >= inv.quest_items.size():
+		_quest_sel = -1
+	for i in range(_slot_buttons.size()):
+		var btn := _slot_buttons[i]
+		var art: TextureRect = _slot_icons[i]
+		var cnt: Label = _slot_counts[i]
+		var empty: Control = _slot_empties[i]
+		if btn is DragSlot:
+			(btn as DragSlot).slot_index = -1
+		if i >= list.size():
+			_display_to_slot[i] = -1
+			btn.text = ""
+			art.texture = null
+			cnt.text = ""
+			btn.tooltip_text = ""
+			empty.visible = true
+			btn.add_theme_stylebox_override("normal", _slot_box())
+			continue
+		var k: int = list[i]
+		var inst: ItemInstance = inv.quest_items[k]
+		_display_to_slot[i] = -2 - k
+		empty.visible = false
+		var d := inst.data()
+		art.texture = d.icon if d != null and d.icon != null else null
+		btn.text = "" if art.texture != null else _short_name(inst)
+		cnt.text = str(inst.count) if inst.count > 1 else ""
+		btn.tooltip_text = _tooltip(inst)
+		btn.add_theme_stylebox_override("normal", _slot_box(k == _quest_sel))

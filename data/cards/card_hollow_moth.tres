@@ -6,20 +6,20 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"hollow_moth"
-fits_slot = 5
 rarity = 3
 monster_level = 72
 id = &"card_hollow_moth"
 display_name = "การ์ดมอดกลวง"
-description = "ตัวเดียวกับผีเสื้อแสง — แค่มองอีกด้าน"
+description = "AGI +2, FLEE +6, ASPD +4%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 300
-flee = 6
 
-percent_effects = {
-"aspd_percent": 4.0
-}
+
+fits_slot = 5
+bonus_agi = 2
+flee = 6
+percent_effects = {"aspd_percent": 4.0}

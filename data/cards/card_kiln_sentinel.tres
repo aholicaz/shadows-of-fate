@@ -1,20 +1,26 @@
 [gd_resource type="Resource" script_class="CardData" format=3]
 [ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
-[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/card_kiln_sentinel.png" id="i"]
-[ext_resource type="Texture2D" path="res://Sprites/card/chapter7/card_kiln_sentinel.png" id="art_1"]
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_kiln_sentinel.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_kiln_sentinel.png" id="gold_icon"]
+
 [resource]
 script = ExtResource("s")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
 id = &"card_kiln_sentinel"
 display_name = "การ์ดผู้เฝ้าทั่งว่าง"
-description = "ถ่านชิ้นแรกที่ไฟเผาคำสั่งออกหมดโดยไม่ทำลายเนื้อเหล็ก บรินยาใช้พิสูจน์ว่าการปลดพันธะเป็นไปได้"
+description = "VIT +6, HP +250, DEF +6%"
 monster_id = &"kiln_sentinel"
-illustration = ExtResource("art_1")
 monster_level = 99
-fits_slot = 2
 rarity = 6
-icon = ExtResource("i")
 type = 5
 max_stack = 99
 sell_price = 400
-max_hp = 320
-def = 20
+
+fits_slot = 5
+bonus_vit = 6
+max_hp = 250
+percent_effects = {"def_percent": 6.0}
+
+unique_equipped = true

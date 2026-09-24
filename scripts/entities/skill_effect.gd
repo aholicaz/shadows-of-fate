@@ -39,6 +39,8 @@ var _hit_n: Dictionary = {}      # มอน -> ตีไปแล้วกี�
 var _next_hit: Dictionary = {}   # มอน -> อีกกี่วิถึงตีได้อีก
 var _ending := false
 var _delay := 0.0
+var _echo_cut: AnimatedSprite2D
+var _echo_age := 0.0
 
 
 ## สร้างเอฟเฟกต์จากสกิลของผู้เล่น
@@ -241,6 +243,11 @@ func _setup(cfg: Dictionary, caster: Node2D, facing: int) -> void:
 		_life = _anim_length(frames, StringName(anim)) / _anim_speed
 	if _life <= 0.0:
 		_life = 0.5
+	# Keep the original damage node, hitbox, travel and hit timers intact.
+	if preload("res://scripts/entities/runeblade_echo_art.gd").active(caster) and String(cfg.get("name","")) in ["bash","slash"]:
+		_sprite.hide()
+		_echo_cut = preload("res://scripts/entities/runeblade_echo_art.gd").slash_sprite(270.0, _dir, "combo3")
+		add_child(_echo_cut)
 
 	# ★★ หน่วงก่อนโผล่ ★★
 	# ห้ามสร้าง SceneTree timer ตรงนี้ — _setup() ถูกเรียก "ก่อน add_child"
@@ -274,6 +281,9 @@ func _process(delta: float) -> void:
 	# ★ ยังไม่ถึงเวลาโผล่ (Effect Delay) ★ ยังไม่ต้องวิ่ง ไม่ต้องทำดาเมจ
 	if not visible:
 		return
+	if is_instance_valid(_echo_cut):
+		_echo_age += delta
+		preload("res://scripts/entities/runeblade_echo_art.gd").slash_phase(_echo_cut, _echo_age)
 
 	if _follow != null and is_instance_valid(_follow):
 		global_position = _follow.global_position + _follow_offset

@@ -87,16 +87,16 @@ position = Vector2(280, 820)
 [node name="from_left" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(280, 820)
 [node name="from_right" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(5920, 820)
+position = Vector2(5410, 820)
 [node name="Portals" type="Node2D" parent="."]
 [node name="ToLeft" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(100, 880)
+position = Vector2(100, 825)
 target_map = &"cinder_crossing"
 target_spawn_point = &"from_right"
 label_text = "← ทางข้ามเถ้า"
 destination_name = "ทางข้ามเถ้า"
 [node name="ToRight" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(6100, 880)
+position = Vector2(5550, 825)
 target_map = &"chain_quarry"
 target_spawn_point = &"from_left"
 label_text = "→ เหมืองโซ่คำสั่ง"
@@ -106,9 +106,11 @@ required_flag = &""
 [node name="brynja" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(1000, 825)
 script = ExtResource("c7npc")
-npc_name = "บรินยา ช่างปลดพันธะ"
+npc_name = "บรินยา ช่างปลดพันธะ"
+greeting = "ไฟในเตาข้าไม่เผาคน มันเผาแค่คำสั่งที่ถูกตอกไว้ในตัวคน... เข้ามาใกล้ ๆ ได้"
+portrait_file = "res://Sprites/portraits/npcs/68848c3c0d33.tres"
 type = 0
-dialog = "เราจะเก็บชื่อทุกชื่อไว้ และเผาเฉพาะคำสั่งที่ผูกมัน"
+dialog = "ช่างที่นี่ถือหลักข้อเดียว — ชื่อทุกชื่อต้องเก็บไว้ เผาได้เฉพาะคำสั่งที่ผูกมันไว้เท่านั้น"
 quest_ids = Array[StringName]([&"c7_3_chains", &"c7_4_ninth_edge", &"c7_5_chosen_cut", &"c7_7_warden"])
 has_refine = true
 has_socket = true
@@ -125,10 +127,12 @@ script = ExtResource("shadow")
 [node name="svala" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2700, 825)
 script = ExtResource("c7npc")
-npc_name = "สวาลา ผู้เก็บชื่อ"
+npc_name = "สวาลา ผู้เก็บชื่อ"
+greeting = "ยินดีต้อนรับสู่อัมเบอร์เฮเวน... บอกชื่อเจ้ามาสิ ที่นี่เราจดชื่อทุกคนไว้"
+portrait_file = "res://Sprites/portraits/npcs/dd97004598a7.tres"
 has_bounty_board = true
 type = 0
-dialog = "เราจะเก็บชื่อทุกชื่อไว้ และเผาเฉพาะคำสั่งที่ผูกมัน"
+dialog = "ข้าจดชื่อของทุกคนที่หนีมาถึงเมืองนี้ ชื่อไหนที่วิหารลบไป ที่นี่เราเขียนมันกลับคืน"
 quest_ids = Array[StringName]([&"c7_1_refuge", &"c7_6_procession", &"c7_8_hundred"])
 ninth_mentor = true
 [node name="Sprite2D" parent="NPCs/svala" index="0"]
@@ -143,11 +147,13 @@ script = ExtResource("shadow")
 [node name="orm" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(3830, 825)
 script = ExtResource("c7npc")
-npc_name = "ออร์ม พ่อค้าผู้ลี้ภัย"
+npc_name = "ออร์ม พ่อค้าผู้ลี้ภัย"
+greeting = "ของทุกชิ้นในร้านข้าขนหนีไฟมากับมือ ราคาไม่ถูกหรอก แต่ของจริงทุกชิ้น"
+portrait_file = "res://Sprites/portraits/npcs/bb225d71d475.tres"
 type = 1
 dialog = "พักให้พร้อมก่อนออกเดินทาง ในเมืองนี้ไม่มีใครถูกสั่งให้ลืมชื่อตัวเอง"
 quest_ids = Array[StringName]([])
-shop_items = Array[StringName]([&"white_potion", &"blue_potion", &"blue_potion_2", &"wing_of_valkyrie", &"cinderward_coat"])
+shop_items = Array[StringName]([&"white_potion", &"blue_potion", &"blue_potion_2", &"wing_of_valkyrie", &"cinderward_coat", &"c7_slag_greaves", &"c7_ash_plate", &"c7_oracle_circlet"])
 [node name="Sprite2D" parent="NPCs/orm" index="0"]
 script = ExtResource("idle")
 texture_filter = 2
@@ -160,7 +166,9 @@ script = ExtResource("shadow")
 [node name="liv" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(5110, 825)
 script = ExtResource("c7npc")
-npc_name = "ลีฟ ผู้รักษาแผลไฟ"
+npc_name = "ลีฟ ผู้รักษาแผลไฟ"
+greeting = "แผลไฟต้องรักษาช้า ๆ... นั่งลงก่อน ข้าจะดูให้"
+portrait_file = "res://Sprites/portraits/npcs/df420c4e3ee7.tres"
 type = 3
 blessing_price = 50000
 dialog = "พักให้พร้อมก่อนออกเดินทาง ในเมืองนี้ไม่มีใครถูกสั่งให้ลืมชื่อตัวเอง"
@@ -178,6 +186,7 @@ script = ExtResource("shadow")
 [node name="Waystone" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(3350, 825)
 npc_name = "ศิลาพักนาม"
+portrait_file = "res://Sprites/portraits/npcs/b26c7c038618.tres"
 type = 4
 dialog = "พักชื่อไว้กับเมืองนี้ แล้วเลือกเส้นทางที่เจ้าอยากไป"
 warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"ljosalf_city", &"eljudnir"])
@@ -186,3 +195,13 @@ centered = false
 position = Vector2(-71.328125, -256.125)
 scale = Vector2(0.34375,0.34375)
 texture = ExtResource("waystone")
+
+[node name="from_chapter8" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1850, 820)
+[node name="ToYggdrasil" parent="Portals" instance=ExtResource("portal")]
+position = Vector2(1850, 825)
+target_map = &"yggdrasil_root"
+label_text = "↑ อิกดราซิล · หอราก 20 ชั้น"
+destination_name = "อิกดราซิล"
+required_flag = &"chapter7_done"
+locked_text = "ส่งทะเบียนหนึ่งร้อยชื่อให้สวาลาก่อน เราจึงจะเปิดทางขึ้นตามผังได้"

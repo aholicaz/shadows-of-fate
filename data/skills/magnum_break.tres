@@ -39,3 +39,5 @@ wave_release_frame = 15
 wound_duration = 5.0
 
 job_ids = Array[StringName]([&"swordsman", &"runeblade", &"ninth_edge"])
+
+sound = "skill_wave_eleven"

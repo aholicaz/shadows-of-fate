@@ -13,7 +13,7 @@ text = "ไปที่ป่าสนธยา"
 script = ExtResource("2_obj")
 kind = 4
 target = &"dead_monster"
-text = "ตรวจดูซากมอนสเตอร์ในป่าสนธยา"
+text = "ตรวจดูซากมอนสเตอร์"
 
 [resource]
 script = ExtResource("1_quest")

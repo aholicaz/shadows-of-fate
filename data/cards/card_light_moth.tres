@@ -6,17 +6,19 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"light_moth"
-fits_slot = 5
 rarity = 3
 monster_level = 72
 id = &"card_light_moth"
 display_name = "การ์ดผีเสื้อแสง"
-description = "ปีกที่เรืองได้เพราะยืมแสง"
+description = "FLEE +10, SP +60, ลดคูลดาวน์ +2%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 300
+
+fits_slot = 5
 flee = 10
-max_sp = 50
+max_sp = 60
+percent_effects = {"cooldown_reduction_percent": 2.0}

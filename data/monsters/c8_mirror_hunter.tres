@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="m"]
+[ext_resource type="SpriteFrames" path="res://data/sprites/monsters/c8_mirror_hunter_frames.tres" id="f"]
+[resource]
+script = ExtResource("m")
+id = &"c8_mirror_hunter"
+display_name = "อีรา ผู้ล่าหลังเงาสะท้อน"
+sprite_frames = ExtResource("f")
+display_height = 350.0
+hitbox_size = Vector2(90, 100)
+level = 125
+max_hp = 285000
+atk_min = 1716
+atk_max = 1950
+def = 170
+mdef = 127
+element = 8
+race = 7
+size = 2
+ai_type = 1
+move_speed = 95.0
+jump_while_chasing = false
+hop_while_wandering = false
+attack_range = 154.0
+attack_windup = 0.65
+attack_duration = 1.0
+attack_cooldown = 1.8
+is_boss = true
+boss_title = "อีรา ผู้ล่าหลังเงาสะท้อน"
+skill_name = "เงาไล่ล่า"
+skill_anim = &"Skill"
+skill_range = 2200.0
+skill_windup = 1.35
+skill_duration = 4.4
+skill_chance = 1.0

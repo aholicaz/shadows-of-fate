@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter7/c7_chainbreak_shield.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c7_chainbreak_shield"
+display_name = "โล่โซ่ขาด"
+description = "โซ่คำสั่งที่ถูกตีให้ขาดกลายเป็นขอบโล่ รับแรงกระแทกโดยไม่ผูกมัดผู้ถือ"
+drop_hint = "ยักษ์แบกโซ่ 3% · ผู้เฝ้าทั่งว่าง 8%"
+icon = ExtResource("i")
+type = 2
+slot = 2
+required_level = 100
+max_stack = 1
+buy_price = 0
+sell_price = 1800
+card_slots = 2
+refinable = true
+def = 55
+mdef = 12
+max_hp = 300
+bonus_vit = 5

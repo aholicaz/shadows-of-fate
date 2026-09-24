@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter2/sprite_gen_trial/dvalin_idle.png" id="1_edi5h"]
+
+[resource]
+atlas = ExtResource("1_edi5h")
+region = Rect2(114, 44, 289, 266)
+filter_clip = true

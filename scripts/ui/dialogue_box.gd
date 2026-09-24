@@ -28,11 +28,8 @@ extends Control
 
 signal finished(choice: int)
 
-## ความสูงแถบข้อความ (เฉพาะส่วนข้อความ — มีข้อความเสริม/ปุ่มตัวเลือกจะสูงขึ้นเอง)
+## Minimum dialogue height; actual height follows wrapped content.
 const BOX_HEIGHT := 150.0
-## ความสูงที่เพิ่มให้แถวข้อความเสริม / แถวปุ่มตัวเลือก
-const INFO_H := 58.0
-const CHOICE_H := 52.0
 ## ระยะจากขอบจอซ้าย-ขวาของ "ข้อความ" · ระยะจากขอบล่างของแถบ
 const BOX_MARGIN := 28.0
 const BOX_BOTTOM := 14.0
@@ -91,7 +88,7 @@ var _arrow_tween: Tween
 var _text: RichTextLabel
 var _info: Label
 var _hint: Label
-var _choice_row: HBoxContainer
+var _choice_row: GridContainer
 var _info_line: ColorRect
 var _portraits: Array[TextureRect] = []      # 0 = ซ้าย · 1 = ขวา
 
@@ -216,10 +213,11 @@ func _ready() -> void:
 	_info.visible = false
 	box.add_child(_info)
 
-	_choice_row = HBoxContainer.new()
+	_choice_row = GridContainer.new()
 	_choice_row.name = "Choices"
-	_choice_row.alignment = BoxContainer.ALIGNMENT_END
-	_choice_row.add_theme_constant_override("separation", 10)
+	_choice_row.custom_minimum_size.y = 38.0
+	_choice_row.add_theme_constant_override("h_separation", 10)
+	_choice_row.add_theme_constant_override("v_separation", 8)
 	_choice_row.visible = false
 	box.add_child(_choice_row)
 
@@ -320,7 +318,6 @@ func play(script: Array) -> int:
 		art.texture = null
 		art.visible = false
 	_hud_hint(false)
-	_layout()
 	_show_line()
 	return await finished
 
@@ -369,9 +366,15 @@ func _layout() -> void:
 			continue
 		var tex_size := art.texture.get_size()
 		var w: float = ph * (tex_size.x / maxf(1.0, tex_size.y))
-		art.size = Vector2(w, ph)
+		# Wide shields and landmarks must leave room for dialogue on mobile.
+		var display_height := ph
+		var max_width := vp.x * 0.32
+		if w > max_width:
+			display_height *= max_width / w
+			w = max_width
+		art.size = Vector2(w, display_height)
 		var x: float = BOX_MARGIN - 20.0 if i == 0 else vp.x - BOX_MARGIN - w + 20.0
-		art.position = Vector2(x, vp.y - ph + 2.0)
+		art.position = Vector2(x, vp.y - display_height + 2.0)
 		art_w[i] = w
 
 	# ข้อความเริ่มถัดจากรูป (รูปกว้างกว่าช่องมาตรฐานก็ขยับตาม — ทับขอบรูปได้นิดหน่อยเพราะขอบโปร่ง)
@@ -382,13 +385,32 @@ func _layout() -> void:
 	if right_on:
 		box_right = minf(vp.x - BOX_MARGIN - PORTRAIT_SLOT, _portraits[1].position.x + 8.0)
 
-	# ★ แถบสูงขึ้นตามของที่มีจริง ★ แล้วยึด "ขอบล่าง" ไว้เท่าเดิม
-	var box_h: float = BOX_HEIGHT
+	# Measure wrapped text at its actual width, including space for the name,
+	# reward text, wrapped choices and footer. Fixed heights clipped Thai lines.
+	var box_w: float = maxf(240.0, box_right - box_left)
+	var text_width := box_w - PAD_X * 2.0
+	_text.custom_minimum_size.x = text_width
+	_text.size.x = text_width
 	if _info.visible:
-		box_h += INFO_H
+		_info.custom_minimum_size.x = text_width
+		_info.size.x = text_width
 	if _choice_row.visible:
-		box_h += CHOICE_H
-	box_h = minf(box_h, vp.y * 0.62)
+		var button_width := 150.0
+		for button in _choice_row.get_children():
+			button_width = maxf(button_width, button.get_combined_minimum_size().x)
+		_choice_row.columns = maxi(1, int((text_width + 10.0) / (button_width + 10.0)))
+		_choice_row.size.x = text_width
+	var overhead := PAD_TOP + PAD_BOTTOM
+	if _name_panel.visible: overhead += NAME_H + NAME_GAP
+	if _info.visible: overhead += _info.get_minimum_size().y + 17.0
+	if _choice_row.visible: overhead += _choice_row.get_minimum_size().y + 8.0
+	if _hint.visible: overhead += _hint.get_minimum_size().y + 8.0
+	var needed_text := float(_text.get_content_height()) + 8.0
+	var box_h := minf(maxf(BOX_HEIGHT, overhead + needed_text), vp.y * 0.78)
+	_text.custom_minimum_size.y = maxf(FONT_TEXT + 12.0, minf(needed_text, box_h - overhead))
+	# Exceptionally long passages remain readable without shrinking the font.
+	_text.scroll_active = needed_text > box_h - overhead
+	_text.mouse_filter = Control.MOUSE_FILTER_STOP if _text.scroll_active else Control.MOUSE_FILTER_IGNORE
 	var box_top: float = vp.y - BOX_BOTTOM - box_h
 
 	# แถบมืดพาดเต็มจอ ยาวลงถึงขอบล่าง · เส้นแสงที่ขอบบน
@@ -397,9 +419,8 @@ func _layout() -> void:
 	_band_line.position = Vector2(0, box_top)
 	_band_line.size = Vector2(vp.x, 2)
 
-	var box_w: float = maxf(240.0, box_right - box_left)
 	# ★ ต้องบอกความกว้างให้ป้ายที่ตัดบรรทัดเองก่อน ★ (ไม่งั้นความสูงขั้นต่ำพุ่ง)
-	_info.custom_minimum_size.x = box_w - 44.0
+	if _info.visible: _info.custom_minimum_size.x = box_w - 44.0
 	_text.custom_minimum_size.x = box_w - 44.0
 
 	# ป้ายชื่ออยู่ในแถบ เหนือข้อความ → เว้นขอบบนให้ข้อความหลบป้าย
@@ -410,17 +431,18 @@ func _layout() -> void:
 	_panel.size = Vector2(box_w, box_h)
 
 	# ป้ายชื่อ: มุมบนซ้ายของพื้นที่ข้อความ (คนพูดอยู่ขวา → ชิดขวา)
-	_name_label.reset_size()
-	var name_w: float = maxf(140.0, _name_label.size.x * 2.6)
-	_name_panel.size = Vector2(name_w, NAME_H)
-	_name_bg.position = Vector2.ZERO
-	_name_bg.size = _name_panel.size
-	_name_label.position = Vector2(14.0, 0.0)
-	_name_label.size = Vector2(_name_label.size.x, NAME_H)
-	var name_x: float = box_left + PAD_X - 14.0
-	if _portraits[1].modulate.a > 0.9 and right_on and not left_on:
-		name_x = box_right - name_w
-	_name_panel.position = Vector2(name_x, box_top + PAD_TOP - 2.0)
+	if has_name:
+		_name_label.reset_size()
+		var name_w: float = maxf(140.0, _name_label.size.x * 2.6)
+		_name_panel.size = Vector2(name_w, NAME_H)
+		_name_bg.position = Vector2.ZERO
+		_name_bg.size = _name_panel.size
+		_name_label.position = Vector2(14.0, 0.0)
+		_name_label.size = Vector2(_name_label.size.x, NAME_H)
+		var name_x: float = box_left + PAD_X - 14.0
+		if _portraits[1].modulate.a > 0.9 and right_on and not left_on:
+			name_x = box_right - name_w
+		_name_panel.position = Vector2(name_x, box_top + PAD_TOP - 2.0)
 
 	# ▼ มุมขวาล่างของแถบ
 	_arrow.reset_size()
@@ -469,17 +491,19 @@ func _show_line() -> void:
 	# ---------- ชื่อผู้พูด ----------
 	var speaker := String(line.get("name", ""))
 	_name_panel.visible = speaker != ""
-	_name_label.text = speaker
+	_name_label.text = Loc.t(speaker)   # ★ รอบ 161 ★
 
 	# ---------- ข้อความ (ขึ้นทีละตัว) ----------
-	_full_text = String(line.get("text", ""))
+	_full_text = Loc.t(String(line.get("text", "")))   # ★ รอบ 161 ★ แปล + ตัด \r
+	_text.scroll_active = false
+	_text.custom_minimum_size.y = FONT_TEXT + 12.0
 	_text.text = _full_text
 	_text.visible_characters = 0
 	_reveal = 0.0
 	_revealing = _full_text != ""
 
 	# ---------- ข้อความเสริม ----------
-	var info := String(line.get("info", ""))
+	var info: String = Loc.t(String(line.get("info", "")))
 	_info.text = info
 	_info.visible = info != ""
 	_info_line.visible = info != ""
@@ -492,13 +516,16 @@ func _show_line() -> void:
 	if _waiting_choice:
 		for i in range(choices.size()):
 			var index := i
-			var btn := UITheme.make_button(String(choices[i]), 150)
+			var btn := UITheme.make_button(Loc.t(String(choices[i])), 150)
+			var states: Array = line.get("choice_states", [])
+			if i < states.size():
+				_style_quest_choice(btn, String(states[i]))
 			btn.focus_mode = Control.FOCUS_NONE
 			btn.custom_minimum_size.y = 38.0
 			btn.add_theme_font_size_override("font_size", 16)
 			btn.pressed.connect(func(): _pick(index))
 			_choice_row.add_child(btn)
-	_hint.text = "Esc = ยกเลิก" if _waiting_choice else ""
+	_hint.text = Loc.t("Esc = ยกเลิก") if _waiting_choice else ""
 	_hint.visible = _waiting_choice
 
 	_layout()
@@ -508,10 +535,12 @@ func _show_line() -> void:
 
 ## ขนาดขั้นต่ำของป้ายจะนิ่งหลังผ่านไป 1 เฟรม — จัดกล่องอีกรอบให้พอดีจริง ๆ
 func _settle() -> void:
-	await get_tree().process_frame
-	if _open:
+	# Containers first resolve width, then line wrapping and flow-row height.
+	for pass_index in range(3):
+		await get_tree().process_frame
+		if not is_inside_tree() or not _open: return
 		_layout()
-		_set_arrow(not _waiting_choice)
+	_set_arrow(not _waiting_choice)
 
 
 func _to_texture(value: Variant) -> Texture2D:
@@ -522,6 +551,30 @@ func _to_texture(value: Variant) -> Texture2D:
 		if ResourceLoader.exists(path):
 			return load(path) as Texture2D
 	return null
+
+
+func _style_quest_choice(btn: Button, state: String) -> void:
+	if state.is_empty(): return
+	var tint := Color("#7dffa8") if state == "ready" else Color("#ffe14a")
+	if state == "ritual": tint = Color("#7dc4ff")
+	var suffix := "ส่งเควส" if state == "ready" else "รับเควส"
+	if state == "ritual": suffix = "ดำเนินเควส"
+	if not btn.text.contains(suffix) and btn.text != "รับรางวัล": btn.text += " · " + suffix
+	for style_name in ["normal", "hover", "pressed", "focus"]:
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color(tint.r * 0.12, tint.g * 0.12, tint.b * 0.12, 0.96)
+		style.border_color = tint
+		style.set_border_width_all(2)
+		style.set_corner_radius_all(5)
+		style.content_margin_left = 14
+		style.content_margin_right = 14
+		style.content_margin_top = 8
+		style.content_margin_bottom = 8
+		style.shadow_color = Color(tint, 0.35 if style_name == "normal" else 0.6)
+		style.shadow_size = 6
+		btn.add_theme_stylebox_override(style_name, style)
+	btn.add_theme_color_override("font_color", tint)
+	btn.add_theme_color_override("font_hover_color", Color.WHITE)
 
 
 func _clear_choices() -> void:

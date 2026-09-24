@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter3/idle/root_warp_idle.png" id="1_y684w"]
+
+[resource]
+atlas = ExtResource("1_y684w")
+region = Rect2(91, 42, 331, 432)
+filter_clip = true

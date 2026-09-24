@@ -73,7 +73,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_wood" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(5200, 820)
+position = Vector2(4710, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -91,7 +91,7 @@ max_spawn_distance = 1700.0
 
 
 [node name="ToGarden" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"crystal_garden"
 target_spawn_point = &"from_lake"
 label_text = "← สวนผลึก"
@@ -99,7 +99,7 @@ destination_name = "สวนผลึก"
 
 
 [node name="ToWood" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(5340, 880)
+position = Vector2(4850, 825)
 target_map = &"dimming_wood"
 target_spawn_point = &"from_lake"
 label_text = "→ ป่าที่แสงจาง"
@@ -112,6 +112,7 @@ destination_name = "ป่าที่แสงจาง"
 [node name="LakeStone" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(600, 820)
 npc_name = "ศิลาริมทะเลสาบ"
+portrait_file = "res://Sprites/portraits/npcs/ead5ce32ada4.tres"
 type = 4
 dialog = "ศิลาเก่าริมน้ำ มีทั้งตราค้อนและรูนเอลฟ์ · เซฟได้แม้ในร่างจาง · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
 warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"eljudnir"])

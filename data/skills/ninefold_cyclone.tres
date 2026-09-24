@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/skill_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/skill_icons/rune_flurry.png" id="i"]
+
+[resource]
+script = ExtResource("s")
+id = &"ninefold_cyclone"
+display_name = "กงจักรนามเก้า"
+description = "หมุนดาบรอบตัว 2.5 วินาที เดินได้ 80% · ฟัน 9 ครั้ง ครั้งละ 110–190% ATK รัศมี 280 แล้วปิดท้าย 400–800% ATK · ดูดมอนรอบ ๆ เข้ามา · กดหลบเพื่อยกเลิกได้ · ใช้รูนที่สะสมไว้เป็นโบนัส +10%/ดวง"
+icon = ExtResource("i")
+max_level = 5
+job_ids = Array[StringName]([&"ninth_edge"])
+required_level = 96
+type = 1
+sp_cost_base = 30
+sp_cost_per_level = 0.0
+cooldown = 12.0
+cast_windup = 0.05
+damage_mult_base = 1.1
+damage_mult_per_level = 0.2
+hit_count = 9
+required_skills = {}
+max_targets = 12
+range_x = 280.0
+range_y = 320.0
+sound = "skill_flurry_eleven"

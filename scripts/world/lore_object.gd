@@ -60,6 +60,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_build_labels()
+	_build_quest_mark()   # ★ รอบ 156 ★
 	if no_kill_monster != &"":   # ★ รอบ 135 ★ จำยอดฆ่าตอนเข้าแมพ
 		_kills_at_entry = PlayerState.kill_count(no_kill_monster)
 
@@ -163,7 +164,7 @@ func read() -> void:
 		body = text_again
 
 	var pages: Array = []
-	for part in body.split("\n\n", false):
+	for part in Loc.clean(body).split("\n\n", false):
 		var t := String(part).strip_edges()
 		if t != "":
 			pages.append({"name": title, "text": t})
@@ -207,3 +208,36 @@ func _no_kill_failed() -> bool:
 	if relevant:
 		Events.say(no_kill_text)
 	return relevant
+
+
+# =========================================================
+# ★★ รอบ 156 ★★ เครื่องหมาย ! ฟ้า เหนือป้าย/เสาที่เควสสั่งให้มาอ่านเป็นขั้นถัดไป
+# =========================================================
+var _quest_mark: Label
+var _mark_t := 0.0
+
+func _build_quest_mark() -> void:
+	_quest_mark = UITheme.make_label("!", 48, Color("#7dc4ff"))
+	_quest_mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_quest_mark.add_theme_color_override("font_outline_color", Color(0.05, 0.06, 0.1, 0.95))
+	_quest_mark.add_theme_constant_override("outline_size", 12)
+	_quest_mark.custom_minimum_size = Vector2(60, 0)
+	_quest_mark.position = Vector2(-30, -270 if label_text != "" else -200)
+	_quest_mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_quest_mark.z_index = 20
+	_quest_mark.hide()
+	add_child(_quest_mark)
+	Events.quest_changed.connect(_refresh_quest_mark)
+	_refresh_quest_mark()
+
+
+func _refresh_quest_mark() -> void:
+	if _quest_mark == null or PlayerState.quests == null:
+		return
+	_quest_mark.visible = PlayerState.quests.step_waiting(ObjectiveData.Kind.READ, lore_id)
+
+
+func _process(delta: float) -> void:
+	if _quest_mark != null and _quest_mark.visible:
+		_mark_t += delta
+		_quest_mark.position.y = (-270.0 if label_text != "" else -200.0) + sin(_mark_t * 3.0) * 6.0

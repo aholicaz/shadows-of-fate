@@ -98,7 +98,7 @@ position = Vector2(200, 820)
 position = Vector2(200, 820)
 
 [node name="from_city" type="Marker2D" parent="SpawnPoints" unique_id=1818845457]
-position = Vector2(5000, 820)
+position = Vector2(4510, 820)
 
 [node name="Spawners" type="Node2D" parent="." unique_id=949290247]
 
@@ -117,14 +117,14 @@ max_spawn_distance = 1700.0
 [node name="Portals" type="Node2D" parent="." unique_id=1585921243]
 
 [node name="ToCrater" parent="Portals" unique_id=1565966861 instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"hrungnir_crater"
 target_spawn_point = &"from_shimmer"
 label_text = "↓ หลุมหัวใจสายฟ้า"
 destination_name = "หลุมหัวใจสายฟ้า"
 
 [node name="ToCity" parent="Portals" unique_id=454843347 instance=ExtResource("portal")]
-position = Vector2(5140, 880)
+position = Vector2(4650, 825)
 target_map = &"ljosalf_city"
 target_spawn_point = &"from_road"
 label_text = "→ ลโยซาลฟ์"

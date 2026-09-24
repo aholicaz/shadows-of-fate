@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="1_quest"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="2_obj"]
+
+[sub_resource type="Resource" id="Obj_0"]
+script = ExtResource("2_obj")
+kind = 2
+target = &"อิงกริด"
+count = 1
+text = "บอกความจริงกับอิงกริดที่พรอนเทรา"
+
+[resource]
+script = ExtResource("1_quest")
+id = &"c6_11_letter_home"
+title = "จดหมายที่ส่งไม่ถึง"
+description = "กลับไปพรอนเทรา บอกอิงกริดถึงความจริงเรื่องพ่อของนาง"
+giver_name = "นักล่าที่หายไป (ผี)"
+turn_in_name = "อิงกริด"
+dialog_offer = "เฮลบอกความจริงเรื่องผู้กองแล้ว... แต่ข้ายังมีเรื่องค้างอยู่เรื่องหนึ่ง อิงกริด ลูกสาวของข้า ยังรอข้าอยู่ที่พรอนเทรา\n\nพงศาวดารบอกนางว่าข้าตายเพราะหมาป่า นางคงโทษตัวเองที่ไม่ได้ห้ามข้าเข้าป่า\n\nคนตายข้ามกลับไปไม่ได้ แต่เจ้าไปได้ ไปบอกนางแทนข้าที ว่าข้าไม่ได้หลงทาง... และข้าไม่เคยโทษนางเลย"
+dialog_progress = "อิงกริดอยู่ที่พรอนเทรา ใช้เสาวาปกลับไปได้ บอกนางให้หมด อย่าให้นางต้องเดาเอาเองเหมือนที่ข้าเคยต้องเดา"
+dialog_complete = "พ่อ... ไม่ได้ตายเพราะหมาป่า\n\n(อิงกริดนิ่งไปนาน มือกำชายเสื้อไว้แน่น)\n\nตั้งแต่วันที่พ่อหายไป ข้าคิดมาตลอดว่าถ้าวันนั้นข้าห้ามพ่อไว้ พ่อคงยังอยู่ ขอบคุณที่เดินทางไกลมาบอกข้า\n\nข้าไม่มีอะไรให้มากนัก... รับเงินนี่ไว้เถอะ พ่อเก็บไว้ให้ข้า แต่ข้าคิดว่าพ่ออยากให้มันเป็นของคนที่พาข่าวนี้มา"
+objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0")])
+kill_monster_id = &""
+required_level = 87
+required_job = &""
+required_quests = Array[StringName]([&"c6_4_captains_order"])
+set_flag_on_complete = &"ingrid_knows_truth"
+reward_zeny = 5000
+reward_exp = 14000
+reward_job_exp = 9800

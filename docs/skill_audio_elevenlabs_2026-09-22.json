@@ -1,0 +1,54 @@
+{
+  "provider": "ElevenLabs Sound Effects",
+  "date": "2026-09-22",
+  "plan_at_generation": "Free",
+  "commercial_license_verified": false,
+  "integrated": {
+    "slash": {
+      "file": "Sprites\\sfx\\skill_slash_eleven.wav",
+      "variant": 4,
+      "duration_seconds": 2,
+      "sha256": "c8b3adc7f5f3a1b58fda10f345f4634157c80fd9775362bf6b142f607e2d844a",
+      "history_url": "https://elevenlabs.io/app/sound-effects/history?id=BjQw4xzlknSnRQGZggwQ"
+    },
+    "magnum_break": {
+      "file": "Sprites/sfx/skill_wave_eleven.wav",
+      "source_filename": "One_sweeping_crescen_#4-1790046929144.wav",
+      "variant": 4,
+      "duration_seconds": 2.0,
+      "sha256": "b596592ca3f5b23c045c5f1d2cfb474af0253e90cdd16640de1174ba85719322"
+    },
+    "erasing_cut": {
+      "file": "Sprites/sfx/skill_wave_eleven.wav",
+      "source_filename": "One_sweeping_crescen_#4-1790046929144.wav",
+      "variant": 4,
+      "duration_seconds": 2.0,
+      "sha256": "b596592ca3f5b23c045c5f1d2cfb474af0253e90cdd16640de1174ba85719322"
+    },
+    "rune_flurry": {
+      "file": "Sprites/sfx/skill_flurry_eleven.wav",
+      "source_filename": "A_rapid_six-hit_flur_#1-1790046907943.wav",
+      "variant": 1,
+      "duration_seconds": 2.0,
+      "sha256": "4fc2ee513a3839fc49bcd0e4dbbfb5780c8ccaf0010e5c92e9100fd880316f88"
+    },
+    "worldcleaver": {
+      "file": "Sprites/sfx/skill_rain_eleven.wav",
+      "source_filename": "Dark_fantasy_RPG_ult_#4-1790046890309.wav",
+      "variant": 4,
+      "duration_seconds": 2.0,
+      "sha256": "36df2e62db542df2195b053de0becceb33a9074b3553b604f817a56e56196f5f"
+    }
+  },
+  "pending_download": [
+    {
+      "purpose": "faultline / anvil_cleave",
+      "prompt_start": "Dark fantasy action RPG rune sword skill. One enormous enchanted steel blade slams point-first into stone"
+    },
+    {
+      "purpose": "rune_guard / rune buffs",
+      "prompt_start": "A protective rune shield activating in a dark fantasy RPG"
+    }
+  ],
+  "note": "User downloaded wave #4, flurry #1 and rain #4; integrated. Slash remains the explicitly selected #4; additional downloaded Slash #3 not substituted. Two groups still pending local downloads."
+}

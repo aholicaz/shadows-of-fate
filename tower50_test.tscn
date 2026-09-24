@@ -1,0 +1,4 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/tools/tower50_test.gd" id="s"]
+[node name="Tower50Test" type="Node"]
+script = ExtResource("s")

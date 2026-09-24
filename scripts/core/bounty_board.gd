@@ -48,6 +48,8 @@ const BOSS_EXTRAS := [[&"thunder_blessing", 1], [&"wing_of_valkyrie", 1]]
 const BOSS_EXCLUDE := [&"baphomet"]
 const POINTS_NORMAL := 1
 const POINTS_BOSS := 3
+## ★ รอบ 159 ★ ธงที่ตั้งเมื่อส่งใบประกาศใบแรก (เควสบท 1 «ใบประกาศใบแรก» ใช้เป็นเงื่อนไข)
+const FIRST_BOUNTY_FLAG := &"guild_first_bounty"
 
 ## ขั้นกิลด์: [ตัวอักษร, แต้มที่ต้องมี, ฉายา]
 const RANKS := [
@@ -60,6 +62,20 @@ const RANKS := [
 	["S", 800, "ตำนานแห่งกิลด์"],
 ]
 
+## ★ รอบ 158 ★ สิทธิพิเศษตามขั้นกิลด์ F..S — [ส่วนลด %, พรแห่งธอร์นานขึ้น (วินาที)]
+## ส่วนลดใช้กับ: ซื้อของร้าน · ค่าวาร์ป · ค่าขอพร · ค่ารักษา · ค่าย่อยการ์ด · ค่าตีบวก
+## เลื่อนขั้นทุกครั้ง = แต้มสเตตัสฟรี RANK_STAT_POINTS (เซฟเก่าที่ขั้นสูงอยู่แล้วได้ย้อนหลังตอนโหลด)
+const RANK_PERKS := [
+	[3, 30],
+	[5, 60],
+	[8, 90],
+	[12, 120],
+	[17, 180],
+	[23, 240],
+	[30, 300],
+]
+const RANK_STAT_POINTS := 10
+
 ## เมือง -> Array[Dictionary] (ใบ 3 ช่อง · ช่องที่ยังล็อกเป็น {} ว่าง)
 var boards: Dictionary = {}
 ## แต้มกิลด์สะสม
@@ -71,6 +87,8 @@ var total_turned_in: int = 0
 var serial: int = 0
 ## ★ รอบ 142 ★ "เมือง/ช่อง" -> unix time ที่ช่องนั้นออกใบใหม่ได้
 var cooldowns: Dictionary = {}
+## ★ รอบ 158 ★ แจกแต้มสเตตัสของขั้นกิลด์ไปถึงขั้น index ไหนแล้ว (กันแจกซ้ำ · เซฟคีย์ rank_rewarded)
+var rank_rewarded: int = 0
 
 
 # =========================================================
@@ -207,6 +225,7 @@ func on_turned_in(quest_id: StringName) -> void:
 	var before_rank := rank_index()
 	points += pts
 	total_turned_in += 1
+	PlayerState.set_flag(FIRST_BOUNTY_FLAG)   # ★ รอบ 159 ★ เควส m3_guild_bounty «ใบประกาศใบแรก»
 	if spec.get("kind", "") != "boss":
 		turned_in[town] = int(turned_in.get(town, 0)) + 1
 	# ใบประกาศไม่ค้างในรายการ "ทำเสร็จแล้ว" (ทำซ้ำได้เรื่อย ๆ)
@@ -218,7 +237,9 @@ func on_turned_in(quest_id: StringName) -> void:
 		cooldowns["%s/%d" % [String(town), int(spec["slot"])]] = Time.get_unix_time_from_system() + cooldown_of(String(spec.get("kind", "kill")))
 	_replace_slot_of(quest_id)
 	if rank_index() > before_rank:
-		Events.say("[กิลด์] เลื่อนขั้นเป็น %s — «%s»" % [rank_letter(), rank_title()])
+		var gain := claim_rank_rewards()   # ★ รอบ 158 ★
+		Events.say("[กิลด์] เลื่อนขั้นเป็น %s — «%s» · แต้มสเตตัส +%d · ส่วนลด %d%% · พรแห่งธอร์ +%s" % [
+			rank_letter(), rank_title(), gain, discount_percent(), bless_bonus_text(rank_index())])
 	elif town != &"" and boss_unlocked(town) and int(turned_in.get(town, 0)) == BOSS_UNLOCK_TURNINS and spec.get("kind", "") != "boss":
 		Events.say("[กิลด์] ใบล่าบอสของเมืองนี้เปิดแล้ว")
 	Events.quest_changed.emit()
@@ -260,6 +281,64 @@ func rank_title() -> String:
 func next_rank_points() -> int:
 	var i := rank_index()
 	return int(RANKS[i + 1][1]) if i + 1 < RANKS.size() else -1
+
+
+# =========================================================
+# ★ รอบ 158 ★ สิทธิพิเศษตามขั้น
+# =========================================================
+static func discount_of(idx: int) -> int:
+	return int(RANK_PERKS[clampi(idx, 0, RANK_PERKS.size() - 1)][0])
+
+
+static func bless_bonus_of(idx: int) -> float:
+	return float(RANK_PERKS[clampi(idx, 0, RANK_PERKS.size() - 1)][1])
+
+
+## แต้มสเตตัสฟรีรวมที่ขั้นนี้ให้ (F = 0 · E = 10 · … · S = 60)
+static func stat_points_of(idx: int) -> int:
+	return clampi(idx, 0, RANKS.size() - 1) * RANK_STAT_POINTS
+
+
+static func bless_bonus_text(idx: int) -> String:
+	var s := int(bless_bonus_of(idx))
+	if s < 60:
+		return "%d วินาที" % s
+	return ("%d นาที" % int(s / 60.0)) if s % 60 == 0 else ("%d:%02d นาที" % [int(s / 60.0), s % 60])
+
+
+func discount_percent() -> int:
+	return discount_of(rank_index())
+
+
+func bless_bonus_seconds() -> float:
+	return bless_bonus_of(rank_index())
+
+
+## ราคาหลังหักส่วนลดของขั้นนี้ (อย่างน้อย 1 z ถ้าของมีราคา)
+func discounted(cost: int) -> int:
+	if cost <= 0:
+		return cost
+	return maxi(1, int(round(float(cost) * float(100 - discount_percent()) / 100.0)))
+
+
+## ใช้จากที่ไหนก็ได้ — ยังไม่มีข้อมูลกิลด์ = ราคาเต็ม
+static func guild_price(cost: int) -> int:
+	if PlayerState == null or PlayerState.bounties == null:
+		return cost
+	return PlayerState.bounties.discounted(cost)
+
+
+## แจกแต้มสเตตัสของขั้นที่ยังไม่ได้รับ — คืนจำนวนแต้มที่แจก
+func claim_rank_rewards() -> int:
+	var idx := rank_index()
+	if idx <= rank_rewarded:
+		return 0
+	var gain := (idx - rank_rewarded) * RANK_STAT_POINTS
+	rank_rewarded = idx
+	if PlayerState != null and PlayerState.stats != null:
+		PlayerState.stats.stat_points += gain
+		Events.stats_changed.emit()
+	return gain
 
 
 # =========================================================
@@ -358,7 +437,7 @@ func _candidates(chapter: int, lv: int, avoid: StringName) -> Array:
 			if mon_id in seen or mon_id == avoid:
 				continue
 			seen.append(mon_id)
-			var m := GameData.get_monster(mon_id)
+			var m := GameData.get_monster_info(mon_id)
 			if m == null or m.is_boss:
 				continue
 			all.append(m)
@@ -381,7 +460,7 @@ func _pick_boss(chapter: int) -> MonsterData:
 		for mon_id in MapAtlas.monsters_of(mid):
 			if mon_id in BOSS_EXCLUDE:
 				continue
-			var m := GameData.get_monster(mon_id)
+			var m := GameData.get_monster_info(mon_id)
 			if m != null and m.is_boss and not (m in found):
 				found.append(m)
 	if found.is_empty():
@@ -412,7 +491,7 @@ func _register(spec: Dictionary) -> void:
 	var q := BountyQuest.new()
 	q.spec = spec
 	q.id = StringName(spec["id"])
-	var m := GameData.get_monster(StringName(spec["monster"]))
+	var m := GameData.get_monster_info(StringName(spec["monster"]))
 	var mname: String = m.display_name if m != null else String(spec["monster"])
 	var o := ObjectiveData.new()
 	match String(spec["kind"]):
@@ -458,7 +537,7 @@ func _unregister(quest_id: StringName) -> void:
 static func short_label(spec: Dictionary) -> String:
 	if spec.is_empty():
 		return "(ยังไม่มีใบ)"
-	var m := GameData.get_monster(StringName(spec.get("monster", &"")))
+	var m := GameData.get_monster_info(StringName(spec.get("monster", &"")))
 	var mname: String = m.display_name if m != null else String(spec.get("monster", ""))
 	match String(spec.get("kind", "kill")):
 		"collect":
@@ -485,7 +564,7 @@ func to_dict() -> Dictionary:
 	var cd: Dictionary = {}
 	for k in cooldowns.keys():
 		cd[String(k)] = float(cooldowns[k])
-	return {"boards": b, "points": points, "turned_in": t, "total": total_turned_in, "serial": serial, "cooldowns": cd}
+	return {"boards": b, "points": points, "turned_in": t, "total": total_turned_in, "serial": serial, "cooldowns": cd, "rank_rewarded": rank_rewarded}
 
 
 func from_dict(d: Dictionary) -> void:
@@ -497,6 +576,7 @@ func from_dict(d: Dictionary) -> void:
 		for k in cd.keys():
 			cooldowns[String(k)] = float(cd[k])
 	points = int(d.get("points", 0))
+	rank_rewarded = int(d.get("rank_rewarded", 0))   # ★ รอบ 158 ★ เซฟเก่า = 0 → โหลดแล้วได้แต้มย้อนหลัง
 	total_turned_in = int(d.get("total", 0))
 	serial = int(d.get("serial", 0))
 	var t = d.get("turned_in", {})

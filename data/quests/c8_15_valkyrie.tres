@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_75_clear"
+count = 1
+text = "ผ่านชั้น 75 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_15_valkyrie"
+title = "หอกที่หักกลางอากาศ"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 75 (ผู้คุม: เฮลกา วาลคีรีหอกหัก) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "วาลคีรีเคยเลือกนักรบที่ตายในสนามรบขึ้นไปเป็นทัพของเทพ เฮลกาเป็นหนึ่งในนั้น\n\nวันหนึ่งนางปฏิเสธคำสั่ง หอกของนางจึงหักกลางอากาศ และนางถูกตรึงไว้ที่ลานหอกตั้งแต่นั้น ไปถึงชั้น 75 ปลดนางจากหน้าที่ที่นางไม่ได้เลือก"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 75 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "เฮลกาบอกว่าคำสั่งที่นางปฏิเสธ คือให้เลือก \"คนเป็น\" ขึ้นไปแทนคนตาย — ผู้ถือค้อนต้องการทัพที่ไม่มีวันหมด\n\nหนึ่งร้อยชื่อในทะเบียน... นั่นคือทัพที่เขากำลังสร้าง"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_14_prison"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 350000
+reward_job_exp = 38000
+reward_zeny = 105000

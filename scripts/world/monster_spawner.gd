@@ -76,6 +76,9 @@ func _spawn_one() -> bool:
 
 	var monster := monster_scene.instantiate()
 	monster.data = data
+	# ★ รอบ 158 ★ มอนแชมเปี้ยน (เฉพาะแมพทุ่ง · ไม่ใช่บอส · มอนที่ให้ EXP)
+	if not as_corpse and _can_champion(data) and randf() < CHAMPION_CHANCE:
+		monster.set_meta(&"champion", true)
 
 	get_parent().add_child(monster)
 	monster.global_position = global_position + Vector2(
@@ -97,6 +100,15 @@ func _spawn_one() -> bool:
 
 	_alive.append(monster)
 	return true
+
+
+## ★ รอบ 158 ★ โอกาสเกิดเป็นมอนแชมเปี้ยน (ต่อตัวที่เกิด) — ค่าพลัง/รางวัลดู MonsterBase.CHAMPION_*
+const CHAMPION_CHANCE := 0.015
+
+func _can_champion(data: MonsterData) -> bool:
+	if data.is_boss or data.exp_reward <= 0 or data.uses_persistent_respawn():
+		return false
+	return MapAtlas.kind_of(PlayerState.current_map_id) == MapAtlas.KIND_FIELD
 
 
 func _on_monster_died(_monster: Node, data: MonsterData) -> void:

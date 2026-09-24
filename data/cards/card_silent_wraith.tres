@@ -8,20 +8,19 @@ script = ExtResource("1_card")
 monster_id = &"silent_wraith"
 illustration = ExtResource("art_1")
 icon = ExtResource("art_1")
-fits_slot = 7
 rarity = 4
 monster_level = 33
 id = &"card_silent_wraith"
 display_name = "การ์ดภูตไร้เสียง"
-description = "ไร้เสียง ไร้เงา ไร้ร่องรอย"
+description = "FLEE +6, CRIT +2, ดูดเลือด +0.03%"
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 120
+
+
+fits_slot = 7
 flee = 6
 crit = 2
-
-percent_effects = {
-"hp_drain_percent": 0.1
-}
+percent_effects = {"hp_drain_percent": 0.03}

@@ -4,16 +4,16 @@
 [resource]
 script = ExtResource("s")
 id = &"ninth_inscription"
-display_name = "ประกาศนามที่เก้า"
-description = "ใช้ 4 รูน · วงรัศมี 500 นาน 5 วินาที เพิ่มคริ 20–40 จุดและเจาะ DEF เพิ่ม 25% ในวง · จบแล้วระเบิด 1400–2200% ATK ไม่คริ · ต้องอยู่กับวงเพื่อรับผล ไม่ติดตามผู้ร่าย"
+display_name = "พิพากษานามที่เก้า"
+description = "อัลติ · วาร์ปฟันไล่เป้าในระยะ 900 รวม 9 ครั้ง ครั้งละ 260–380% ATK แล้วระเบิดรัศมี 500 1800–2800% ATK · อมตะตลอดท่า · ใช้รูนที่สะสมไว้เป็นโบนัส +10%/ดวง"
 icon = ExtResource("i")
 max_level = 5
 job_ids = Array[StringName]([&"ninth_edge"])
 required_level = 96
-type = 2
+type = 1
 sp_cost_base = 72
 sp_cost_per_level = 0.0
-cooldown = 45.0
+cooldown = 40.0
 damage_mult_base = 0.00
 damage_mult_per_level = 0.00
-required_skills = {"ninth_vessel": 1}
+required_skills = {"ninefold_cyclone": 1}

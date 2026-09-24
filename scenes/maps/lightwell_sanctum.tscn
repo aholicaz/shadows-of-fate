@@ -67,7 +67,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_shore" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(3100, 820)
+position = Vector2(2710, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -86,7 +86,7 @@ spawn_width = 160
 
 
 [node name="ToWood" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"dimming_wood"
 target_spawn_point = &"from_sanctum"
 label_text = "← ป่าที่แสงจาง"
@@ -94,7 +94,7 @@ destination_name = "ป่าที่แสงจาง"
 
 
 [node name="ToShore" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(3200, 880)
+position = Vector2(2850, 825)
 target_map = &"mist_shore"
 target_spawn_point = &"from_sanctum"
 label_text = "↓ ฝั่งหมอกน้ำแข็ง (บท 6)"

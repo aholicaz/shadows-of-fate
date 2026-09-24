@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/lake_stone.png" id="1_x1da6"]
+
+[resource]
+atlas = ExtResource("1_x1da6")
+region = Rect2(12, 12, 368, 640)
+filter_clip = true

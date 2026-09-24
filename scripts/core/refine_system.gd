@@ -48,7 +48,8 @@ static func zeny_cost(inst: ItemInstance) -> int:
 	var level := clampi(d.required_level if d != null else 1, 1, 99)
 	var tier := float(level - 1) / 98.0
 	var base := lerpf(1000.0, 20000.0, tier)
-	return clampi(int(round(base * (1.0 + 1.5 * clampi(inst.refine, 0, 9) / 9.0) / 100.0)) * 100, 1000, 50000)
+	var full := clampi(int(round(base * (1.0 + 1.5 * clampi(inst.refine, 0, 9) / 9.0) / 100.0)) * 100, 1000, 50000)
+	return BountyBoard.guild_price(full)   # ★ รอบ 158 ★ ส่วนลดขั้นกิลด์
 
 
 static func ore_needed(inst: ItemInstance) -> StringName:

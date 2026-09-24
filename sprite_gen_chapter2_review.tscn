@@ -1,0 +1,45 @@
+[gd_scene format=3]
+
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_trial/helga_idle.tres" id="1"]
+
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_trial/dvalin_idle.tres" id="2"]
+
+[ext_resource type="SpriteFrames" path="res://Sprites/npc/chapter2/sprite_gen_trial/brokk_idle.tres" id="3"]
+
+[node name="SpriteGenChapter2Review" type="Node2D"]
+
+[node name="helga" type="AnimatedSprite2D" parent="."]
+
+position = Vector2(240, 350)
+
+sprite_frames = ExtResource("1")
+
+animation = &"Idle"
+
+autoplay = "Idle"
+
+scale = Vector2(0.7, 0.7)
+
+[node name="dvalin" type="AnimatedSprite2D" parent="."]
+
+position = Vector2(640, 350)
+
+sprite_frames = ExtResource("2")
+
+animation = &"Idle"
+
+autoplay = "Idle"
+
+scale = Vector2(0.7, 0.7)
+
+[node name="brokk" type="AnimatedSprite2D" parent="."]
+
+position = Vector2(1040, 350)
+
+sprite_frames = ExtResource("3")
+
+animation = &"Idle"
+
+autoplay = "Idle"
+
+scale = Vector2(0.7, 0.7)

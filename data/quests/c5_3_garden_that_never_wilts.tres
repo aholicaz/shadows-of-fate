@@ -13,6 +13,7 @@ count = 12
 script = ExtResource("2_obj")
 kind = 4
 target = &"gardener_note"
+text = "ตรวจดูสมุดจด"
 count = 1
 
 [resource]
@@ -21,14 +22,15 @@ id = &"c5_3_garden_that_never_wilts"
 title = "สวนที่ไม่มีวันเหี่ยว"
 description = "ล่าดอกไม้กลืนแสงในสวนผลึก แล้วอ่านสมุดของคนสวน"
 giver_name = "แม่ค้าลอฟน์"
-dialog_offer = "ดอกไม้ในสวนบานเหมือนทุกวัน ☺ แต่ช่วงนี้มันกินแสงมากไป คนสวนบ่น... ไม่สิ คนสวนไม่บ่น ไม่มีใครบ่น\n\nไปตัดให้บาง แล้วดูสมุดของคนสวนหน่อย เขาจดอะไรทุกวัน"
+dialog_offer = "ดอกไม้ในสวนผลึกบานสวยเหมือนทุกวัน (ยิ้ม) แต่ช่วงนี้มันกินแสงมากเกินไป คนสวนบ่น... ไม่สิ คนสวนไม่บ่น ที่นี่ไม่มีใครบ่นหรอก\n\nช่วยลดดอกไม้พวกนั้นลงหน่อย แล้วแวะดูสมุดของคนสวนด้วย เขาจดอะไรบางอย่างไว้ทุกวัน"
 dialog_progress = "ดอกไม้กลืนแสง 12 แล้วหาสมุดจดที่ปลายสวน"
-dialog_complete = "«วันนี้ข้าลืมชื่อแม่»... ☺ ...ทำไมข้าถึงหยุดยิ้มไม่ได้\n\nเอาผ้าคลุมนี่ไป ราคาลงท้ายด้วยศูนย์ ฟรี"
+dialog_complete = "«วันนี้ข้าลืมชื่อแม่»... (ยังยิ้มอยู่) ...ทำไมข้าถึงหยุดยิ้มไม่ได้\n\nเอาผ้าคลุมนี่ไป ราคาลงท้ายด้วยศูนย์ — ศูนย์ซีนี ให้ฟรี"
 objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1")])
 kill_monster_id = &""
 required_level = 75
 required_quests = Array[StringName]([&"c5_2_gift_of_light"])
 reward_item_id = &"crystal_cloak"
 reward_item_count = 1
-reward_zeny = 15000
-reward_exp = 90000
+reward_zeny = 2002
+reward_exp = 12017
+reward_job_exp = 8411

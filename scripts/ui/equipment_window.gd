@@ -115,7 +115,7 @@ var _page_equip: Control
 var _page_shadow: Control
 var _tab_index := 0
 
-var _preview: TextureRect
+var _preview: Control
 var _preview_drop: DragSlot           # พื้นที่รับของ (ลากของมาวางที่ตัวละคร = สวมใส่)
 var _preview_hint: Label
 var _preview_caption: Label
@@ -491,10 +491,8 @@ func _make_preview() -> Control:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_preview_drop.add_child(box)
 
-	_preview = TextureRect.new()
+	_preview = preload("res://scripts/ui/equipment_character_preview.gd").new()
 	_preview.name = "CharacterPreview"
-	_preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_preview.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_preview.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -721,44 +719,13 @@ func _set_derived(key: StringName, text: String, boosted: bool) -> void:
 func _update_preview() -> void:
 	if _preview == null:
 		return
-	var tex := _player_frame()
-	_preview.texture = tex
-	_preview.visible = tex != null
+	var available := get_tree().get_first_node_in_group("player") != null
+	_preview.visible = available
+	_preview.refresh()
 	if _preview_hint != null:
-		_preview_hint.visible = tex == null
+		_preview_hint.visible = not available
 	if _preview_caption != null:
 		var s := PlayerState.stats
 		var job := GameData.get_job(s.job_id)
 		var job_name: String = job.display_name if job != null else ""
 		_preview_caption.text = ("Lv.%d  %s" % [s.level, job_name]).strip_edges()
-
-
-func _player_frame() -> Texture2D:
-	var p := get_tree().get_first_node_in_group("player")
-	if p == null:
-		return null
-	var spr = p.get("sprite")
-	if not (spr is AnimatedSprite2D):
-		return null
-	var frames: SpriteFrames = spr.sprite_frames
-	if frames == null:
-		return null
-	var faces_left = p.get("sprite_faces_left")
-	if faces_left != null:
-		_preview.flip_h = bool(faces_left)
-	var wanted: Array[String] = []
-	if p.has_method("weapon_suffix"):
-		var suffix: String = p.weapon_suffix()
-		if suffix != "":
-			wanted.append("Idle_" + suffix)
-	wanted.append("Idle")
-	wanted.append(String(spr.animation))
-	for want in wanted:
-		var real := want
-		if p.has_method("_real_anim"):
-			real = p._real_anim(want)
-		elif not frames.has_animation(want):
-			real = ""
-		if real != "" and frames.has_animation(real) and frames.get_frame_count(real) > 0:
-			return frames.get_frame_texture(real, 0)
-	return null

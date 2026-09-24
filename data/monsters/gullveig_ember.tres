@@ -25,27 +25,27 @@ max_count = 5
 [sub_resource type="Resource" id="Drop_gullveig_ember_4"]
 script = ExtResource("2_drop")
 item_id = &"ember_of_gullveig"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_5"]
 script = ExtResource("2_drop")
 item_id = &"ash_ring"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_6"]
 script = ExtResource("2_drop")
 item_id = &"sentinel_plate"
-chance = 15.0
+chance = 8.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_7"]
 script = ExtResource("2_drop")
 item_id = &"spring_amulet"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_gullveig_ember_card"]
 script = ExtResource("2_drop")
 item_id = &"card_gullveig_ember"
-chance = 2.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Socket_shard"]
 script = ExtResource("2_drop")
@@ -130,7 +130,7 @@ boss_title = "ผู้ถูกเผาสามครั้ง"
 skill_name = "เพลิงสามครั้ง"
 skill_anim = &"Skill"
 skill_range = 600.0
-skill_damage_mult = 2.5
+skill_damage_mult = 4.5
 skill_windup = 0.5
 skill_duration = 1.3
 skill_cooldown = 5.0
@@ -154,8 +154,10 @@ skill_wave_count = 3
 skill_wave_both_sides = true
 skill_wave_speed = 560.0
 skill_wave_range = 1000.0
-skill_wave_height = 160.0
+skill_wave_hit_width = 66.0
+skill_wave_hit_height = 112.0
+skill_wave_height = 250.0
 skill_wave_frames = ExtResource("4_wave")
-respawn_time = 600.0
+respawn_time = 180.0
 spawn_lines = null
 death_lines = null

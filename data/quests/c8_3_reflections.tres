@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_15_clear"
+count = 1
+text = "ผ่านชั้น 15 และกลับหาสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_3_reflections"
+title = "เงาที่ขโมยชื่อ"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 15 (ผู้คุม: อีรา ผู้ล่าหลังเงาสะท้อน) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "ชั้น 11 ถึง 15 คือสวนสะท้อนนาม เงาในสวนนั้นขโมยหน้าตาและชื่อของคนที่ติดอยู่ แล้วแกล้งร้องเรียกเรา\n\nอีรา ผู้ล่าหลังเงาสะท้อน เฝ้าอยู่ที่ชั้น 15 ผ่านเธอไปให้ได้ แล้วเราจะแยกออกว่าชื่อไหนเป็นของคนจริง ชื่อไหนเป็นของเงา"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 15 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "เงาเลียนหน้าคนได้ แต่ความทรงจำของคนที่รออยู่ข้างล่างยืนยันได้ว่าใครคือใคร... ชื่อในทะเบียนยังเป็นคนจริงทุกชื่อ"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_2_storm"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 39026
+reward_job_exp = 1365
+reward_zeny = 4390
+set_flag_on_complete = &"c8_3_reflections_done"

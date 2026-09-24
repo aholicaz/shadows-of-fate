@@ -115,7 +115,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_crater" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(5400, 820)
+position = Vector2(4910, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -142,7 +142,7 @@ spawn_width = 160
 
 
 [node name="ToHall" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"frozen_hall"
 target_spawn_point = &"from_wall"
 label_text = "← โถงภาพวาดน้ำแข็ง"
@@ -150,7 +150,7 @@ destination_name = "โถงภาพวาดน้ำแข็ง"
 
 
 [node name="ToCrater" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(5540, 880)
+position = Vector2(5050, 825)
 target_map = &"hrungnir_crater"
 target_spawn_point = &"from_wall"
 label_text = "→ หลุมหัวใจสายฟ้า"

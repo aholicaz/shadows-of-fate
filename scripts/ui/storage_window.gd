@@ -461,6 +461,12 @@ func show_window() -> void:
 	_clear_selection()
 	super.show_window()
 	_place()
+	# ★ รอบ 163 ★ เฟรมแรกขนาดขั้นต่ำของข้อความตัดบรรทัดยังไม่นิ่ง → หน้าต่างโตเกินจอ (สูง 978) → วางซ้ำ
+	for i in 2:
+		await get_tree().process_frame
+		if not is_instance_valid(self) or not visible:
+			return
+		_place()
 
 
 func fit_to_content() -> void:
@@ -472,6 +478,8 @@ func _place() -> void:
 		return
 	var viewport_size := get_viewport_rect().size
 	# ★ รอบ 124 ★ กว้าง ≤ 1320 · สูง ≤ 680 และไม่เกินจอ (ทุกส่วนข้างในเลื่อน/ยืดได้ จึงย่อลงมาได้)
+	size = Vector2(minf(1320.0, viewport_size.x - 40.0), minf(680.0, viewport_size.y - 40.0))
+	reset_size()   # ★ รอบ 163 ★ หดกลับก่อน แล้วค่อยตั้งขนาดใหม่ (Container ไม่หดเอง)
 	size = Vector2(minf(1320.0, viewport_size.x - 40.0), minf(680.0, viewport_size.y - 40.0))
 	position = ((viewport_size - size) * 0.5).floor()
 

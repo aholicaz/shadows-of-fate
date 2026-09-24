@@ -25,3 +25,5 @@ range_x = 400.0
 hit_count = 6
 
 range_y = 330.0
+
+sound = "skill_flurry_eleven"

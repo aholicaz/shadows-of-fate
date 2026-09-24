@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_eon_pendant.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_eon_pendant"
+display_name = "จี้เข็มปลายกาล"
+description = "เข็มนาฬิกาที่หยุดก่อนถึงวันสิ้นโลก HP +650, SP +130, VIT +8"
+drop_hint = "ผู้คุมอิกดราซิลชั้น 80 · โอกาสดรอป 8% · กลับล่าได้"
+icon = ExtResource("i")
+type = 2
+slot = 7
+required_level = 142
+max_stack = 1
+card_slots = 2
+refinable = true
+sell_price = 42000
+buy_price = 0
+max_hp = 650
+max_sp = 130
+bonus_vit = 8
+hp_drain_percent = 0.1

@@ -1,0 +1,222 @@
+{
+ "echo_wraith": {
+  "skill_wave_height": [
+   130,
+   240.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   75.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   133.0
+  ]
+ },
+ "ferryman": {
+  "skill_wave_height": [
+   140,
+   240.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   72.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   123.0
+  ]
+ },
+ "garden_keeper": {
+  "skill_wave_height": [
+   140,
+   240.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   72.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   123.0
+  ]
+ },
+ "gullveig_ember": {
+  "skill_wave_height": [
+   160,
+   250.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   66.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   112.0
+  ]
+ },
+ "light_forsaken": {
+  "skill_wave_height": [
+   150,
+   360.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   101.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   173.0
+  ],
+  "projectile_height": [
+   100.0,
+   130.0
+  ]
+ },
+ "mist_ghost": {
+  "skill_wave_height": [
+   130,
+   140.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   44.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   78.0
+  ]
+ },
+ "nidhogg_spawn": {
+  "skill_wave_height": [
+   140,
+   160.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   48.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   82.0
+  ]
+ },
+ "reflection": {
+  "skill_wave_height": [
+   130,
+   210.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   66.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   116.0
+  ]
+ },
+ "snow_mammoth": {
+  "skill_wave_height": [
+   130,
+   500.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   140.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   277.0
+  ]
+ },
+ "stone_soldier": {
+  "skill_wave_height": [
+   130,
+   340.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   110.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   188.0
+  ]
+ },
+ "thorn_matriarch": {
+  "skill_wave_height": [
+   140,
+   300.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   90.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   154.0
+  ]
+ },
+ "wall_shieldbearer": {
+  "skill_wave_height": [
+   150,
+   330.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   92.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   158.0
+  ]
+ },
+ "water_nymph": {
+  "skill_wave_height": [
+   130,
+   230.0
+  ],
+  "skill_wave_hit_width": [
+   42.0,
+   74.0
+  ],
+  "skill_wave_hit_height": [
+   72.0,
+   127.0
+  ]
+ },
+ "stone_hrungnir": {
+  "skill_bolt_height": [
+   560,
+   720.0
+  ],
+  "skill_bolt_hit_width": [
+   95,
+   122.0
+  ]
+ },
+ "radiant_alfr": {
+  "skill_bolt_height": [
+   560,
+   660.0
+  ],
+  "skill_bolt_hit_width": [
+   95,
+   112.0
+  ],
+  "projectile_height": [
+   104.0,
+   140.0
+  ]
+ },
+ "king_poring": {
+  "skill_projectile_height": [
+   110.0,
+   125.0
+  ],
+  "skill_explosion_height": [
+   225.0,
+   300.0
+  ]
+ }
+}

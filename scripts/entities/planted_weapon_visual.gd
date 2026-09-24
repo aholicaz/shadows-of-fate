@@ -3,7 +3,12 @@ const GEOMETRY = preload("res://scripts/entities/weapon_blade_geometry.gd")
 var weapon_id: StringName
 var blade: Sprite2D
 
-func configure(inst: ItemInstance) -> void:
+func configure(inst: ItemInstance, use_echo: bool = false) -> void:
+	if use_echo:
+		blade = preload("res://scripts/entities/runeblade_echo_art.gd").blade(230.0, true)
+		blade.rotation = -PI/2.0
+		add_child(blade)
+		return
 	var item := inst.data() if inst!=null else null
 	if item==null: return
 	weapon_id=item.id

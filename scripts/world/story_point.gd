@@ -28,6 +28,8 @@ func _ready() -> void:
 	label.add_theme_constant_override("outline_size", 4)
 	add_child(label)
 	preload("res://scripts/ui/quest_location_style.gd").apply(label)
+	if shape == "camp":
+		add_child(preload("res://scripts/world/snow_campfire.gd").new())
 	queue_redraw()
 
 
@@ -70,9 +72,7 @@ func _draw() -> void:
 			draw_colored_polygon(PackedVector2Array([Vector2(0, -190), Vector2(34, -100), Vector2(0, 0), Vector2(-34, -100)]), Color("#0e0c14"))
 			draw_polyline(PackedVector2Array([Vector2(0, -190), Vector2(34, -100), Vector2(0, 0), Vector2(-34, -100), Vector2(0, -190)]), Color("#6a5a9a"), 2, true)
 		"camp":
-			draw_circle(Vector2(0, -8), 26, Color("#3a2a1a"))
-			draw_colored_polygon(PackedVector2Array([Vector2(-14, -10), Vector2(0, -60), Vector2(14, -10)]), Color("#ff9a3c"))
-			draw_colored_polygon(PackedVector2Array([Vector2(-7, -10), Vector2(0, -38), Vector2(7, -10)]), Color("#ffe07a"))
+			pass # Animated snow campfire child supplies the art and warm light.
 		"hound":
 			draw_colored_polygon(PackedVector2Array([Vector2(-90, 0), Vector2(-80, -50), Vector2(-30, -70), Vector2(40, -60), Vector2(90, -30), Vector2(90, 0)]), Color("#1c1820"))
 			draw_circle(Vector2(70, -40), 22, Color("#1c1820"))

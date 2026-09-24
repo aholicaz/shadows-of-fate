@@ -18,6 +18,12 @@ const SCROLLBAR_ROOM := 16.0
 
 var _tab_album: Button
 var _tab_manage: Button
+var _tab_bonus: Button            # ★ รอบ 154 ★ โบนัสสมุด
+var _bonus_page: VBoxContainer
+var _bonus_list: VBoxContainer
+var _album_total: Label
+var _deposit_box: VBoxContainer
+var _mode_bonus := false
 var _album_page: HBoxContainer
 var _manage_page: VBoxContainer
 
@@ -39,6 +45,7 @@ func _ready() -> void:
 	custom_minimum_size = Vector2(640, 0)
 	Events.inventory_changed.connect(refresh)
 	Events.equipment_changed.connect(refresh)
+	Events.stats_changed.connect(refresh)   # ★ รอบ 154 ★ ฝังการ์ดแล้วโบนัสเปลี่ยน
 
 
 func _build_content() -> void:
@@ -55,12 +62,21 @@ func _build_content() -> void:
 	_tab_manage.pressed.connect(func(): _set_mode(false))
 	tabs.add_child(_tab_manage)
 
+	_tab_bonus = UITheme.make_button("โบนัสสมุด", 120)   # ★ รอบ 154 ★
+	_tab_bonus.pressed.connect(_set_bonus_mode)
+	tabs.add_child(_tab_bonus)
+
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	tabs.add_child(spacer)
 
 	_progress = UITheme.make_label("", 14, UITheme.ACCENT)
 	tabs.add_child(_progress)
+
+	# ★ รอบ 154 ★ แถบรวมโบนัสจากการ์ดที่ฝังเข้าสมุด
+	_album_total = UITheme.make_label("", 13, UITheme.TEXT)
+	_album_total.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	content.add_child(_album_total)
 
 	content.add_child(UITheme.separator())
 
@@ -97,6 +113,10 @@ func _build_content() -> void:
 	_card_view = CardView.new()
 	side.add_child(_card_view)
 
+	_deposit_box = VBoxContainer.new()   # ★ รอบ 154 ★ ฝังเข้าสมุด
+	_deposit_box.add_theme_constant_override("separation", 4)
+	side.add_child(_deposit_box)
+
 	_socket_box = VBoxContainer.new()
 	_socket_box.add_theme_constant_override("separation", 4)
 	side.add_child(_socket_box)
@@ -119,6 +139,23 @@ func _build_content() -> void:
 	_manage_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_manage_list.add_theme_constant_override("separation", 4)
 	mscroll.add_child(_manage_list)
+
+	# ---------- ★ รอบ 154 ★ หน้าโบนัสสมุด ----------
+	_bonus_page = VBoxContainer.new()
+	_bonus_page.add_theme_constant_override("separation", 6)
+	_bonus_page.hide()
+	content.add_child(_bonus_page)
+	_bonus_page.add_child(UITheme.make_label(
+		"ฝังการ์ดเข้าสมุด = ใช้การ์ด 1 ใบแลกโบนัสถาวร (ใบละ 1 ครั้ง) · เลือกการ์ดในแท็บอัลบั้มแล้วกด «ฝังเข้าสมุด»", 12, UITheme.TEXT_DIM))
+	var bscroll := ScrollContainer.new()
+	bscroll.custom_minimum_size.y = 330
+	bscroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	bscroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_bonus_page.add_child(bscroll)
+	_bonus_list = VBoxContainer.new()
+	_bonus_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_bonus_list.add_theme_constant_override("separation", 2)
+	bscroll.add_child(_bonus_list)
 
 
 ## ★★ รอบ 102 (รอบสอง) — ใบการ์ดยืดเต็มความกว้าง ★★
@@ -158,8 +195,19 @@ func _apply_cell() -> void:
 
 func _set_mode(album: bool) -> void:
 	_mode_album = album
+	_mode_bonus = false
 	_album_page.visible = album
 	_manage_page.visible = not album
+	_bonus_page.visible = false
+	refresh()
+
+
+func _set_bonus_mode() -> void:   # ★ รอบ 154 ★
+	_mode_album = false
+	_mode_bonus = true
+	_album_page.visible = false
+	_manage_page.visible = false
+	_bonus_page.visible = true
 	refresh()
 
 
@@ -169,11 +217,17 @@ func refresh() -> void:
 		return
 
 	var all := GameData.all_cards()
-	_progress.text = "เก็บได้ %d / %d ใบ" % [PlayerState.cards_collected(), all.size()]
+	_progress.text = "เก็บได้ %d / %d ใบ · ฝังแล้ว %d" % [PlayerState.cards_collected(), all.size(), PlayerState.card_album.size()]
 	_tab_album.add_theme_color_override("font_color", UITheme.ACCENT if _mode_album else UITheme.TEXT_DIM)
-	_tab_manage.add_theme_color_override("font_color", UITheme.TEXT_DIM if _mode_album else UITheme.ACCENT)
+	_tab_manage.add_theme_color_override("font_color", UITheme.ACCENT if (not _mode_album and not _mode_bonus) else UITheme.TEXT_DIM)
+	_tab_bonus.add_theme_color_override("font_color", UITheme.ACCENT if _mode_bonus else UITheme.TEXT_DIM)
+	var total_text := CardAlbum.describe(CardAlbum.total(PlayerState.card_album))
+	_album_total.text = "โบนัสสมุด: " + (total_text if total_text != "" else "ยังไม่ได้ฝังการ์ดใบไหน")
+	_album_total.add_theme_color_override("font_color", UITheme.GOLD_BRIGHT if total_text != "" else UITheme.TEXT_DIM)
 
-	if _mode_album:
+	if _mode_bonus:
+		_build_bonus_list(all)
+	elif _mode_album:
 		_build_album(all)
 	else:
 		_build_manage()
@@ -187,7 +241,7 @@ func _build_album(all: Array[CardData]) -> void:
 		return
 
 	for card in all:
-		var owned := PlayerState.owns_card(card.id)
+		var owned := PlayerState.card_known(card.id)   # ★ รอบ 154 ★ ฝังแล้วก็ยังโชว์ในสมุด
 
 		var cell := VBoxContainer.new()
 		cell.add_theme_constant_override("separation", 2)
@@ -210,6 +264,8 @@ func _build_album(all: Array[CardData]) -> void:
 		var art: TextureRect = UITheme.make_slot_icon(btn, 4.0)[0]
 		art.texture = CardView.card_texture(card)
 		art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		if PlayerState.card_deposited(card.id):   # ★ รอบ 154 ★ ป้าย «ฝังแล้ว»
+			btn.add_child(_seal_badge())
 
 		var name_label := UITheme.make_label(
 			card.display_name.replace("การ์ด", "").strip_edges() if owned else "???",
@@ -233,12 +289,14 @@ func _select(card_id: StringName) -> void:
 
 func _update_side() -> void:
 	var card := GameData.get_card(_selected)
-	var owned := card != null and PlayerState.owns_card(card.id)
+	var owned := card != null and PlayerState.card_known(card.id)
 	_card_view.show_card(card, owned)
 
 	GameWindow.clear_container(_socket_box)
+	GameWindow.clear_container(_deposit_box)
 	if card == null or not owned:
 		return
+	_build_deposit(card)
 
 	var in_bag := PlayerState.inventory.count_of(card.id)
 	if in_bag <= 0:
@@ -329,3 +387,113 @@ func _add_manage_row(inst: ItemInstance, where: String) -> void:
 		row.add_child(btn)
 
 		box.add_child(row)
+
+
+# =========================================================
+# ★★ รอบ 154 ★★ ฝังการ์ดเข้าสมุด
+# =========================================================
+func _seal_badge() -> Control:
+	var p := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = UITheme.ACCENT
+	sb.set_corner_radius_all(6)
+	sb.content_margin_left = 4
+	sb.content_margin_right = 4
+	p.add_theme_stylebox_override("panel", sb)
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.position = Vector2(-2, -4)
+	var l := UITheme.make_label("ฝังแล้ว", 9, UITheme.BG)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.add_child(l)
+	return p
+
+
+func _build_deposit(card: CardData) -> void:
+	var bonus := CardAlbum.bonus_of(card.id)
+	if bonus.is_empty():
+		return
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", UITheme.panel_style(Color("#1a2f23"), UITheme.ACCENT, 5))
+	_deposit_box.add_child(panel)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 2)
+	panel.add_child(box)
+	box.add_child(UITheme.make_label("★ ฝังเข้าสมุด (ถาวร · ใบละ 1 ครั้ง)", 11, UITheme.ACCENT))
+	box.add_child(UITheme.make_label(CardAlbum.describe(bonus), 15, UITheme.GOLD_BRIGHT))
+	if PlayerState.card_deposited(card.id):
+		box.add_child(UITheme.make_label("✓ ฝังแล้ว — ได้รับโบนัสนี้อยู่", 11, UITheme.GOOD))
+		return
+	var in_bag := PlayerState.inventory.count_of(card.id)
+	var btn := UITheme.make_gold_button("ฝังเข้าสมุด (ใช้การ์ด 1 ใบ)")
+	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn.disabled = in_bag <= 0
+	if in_bag <= 0:
+		btn.tooltip_text = "ต้องมีการ์ดใบนี้ในกระเป๋า (ใบที่ใส่ในอุปกรณ์ต้องถอดก่อน)"
+	btn.pressed.connect(_on_deposit_pressed.bind(card.id))
+	_deposit_box.add_child(btn)
+
+
+func _on_deposit_pressed(card_id: StringName) -> void:
+	var card := GameData.get_card(card_id)
+	if card == null:
+		return
+	var left := PlayerState.inventory.count_of(card_id) - 1
+	var ok: bool = await UI.ask("ฝังเข้าสมุด",
+		"ฝัง%sเข้าสมุด?\nการ์ด 1 ใบจะหายไป แลกกับ %s ถาวร\n(เหลือในกระเป๋า %d ใบ)" % [card.display_name, CardAlbum.describe(CardAlbum.bonus_of(card_id)), left],
+		"ฝังเลย", "ยกเลิก")
+	if not ok:
+		return
+	var res := PlayerState.deposit_card(card_id)
+	if not bool(res.get("ok", false)):
+		Events.say(String(res.get("reason", "ฝังไม่ได้")))
+	elif Game.sfx != null:
+		Game.sfx.play_first(["card_socket", "craft_success", "refine_success"])
+	refresh()
+
+
+func _build_bonus_list(all: Array[CardData]) -> void:
+	GameWindow.clear_container(_bonus_list)
+	# ★ รอบ 158 ★ โบนัสครบชุดต่อบท — ความคืบหน้า + โบนัส (ทองเมื่อครบ)
+	_bonus_list.add_child(UITheme.make_label("★ โบนัสฝังครบชุดบท (รวมการ์ดบอส)", 14, UITheme.GOLD_BRIGHT))
+	for s: Dictionary in CardAlbum.CHAPTER_SETS:
+		var have := CardAlbum.chapter_count(s, PlayerState.card_album)
+		var need := (s["cards"] as Array).size()
+		var done := have >= need
+		var srow := HBoxContainer.new()
+		srow.add_theme_constant_override("separation", 8)
+		var sn := UITheme.make_label("ครบชุด%s  %d/%d" % [String(s["name"]), have, need], 13, UITheme.GOLD_BRIGHT if done else UITheme.TEXT)
+		sn.custom_minimum_size.x = 250
+		srow.add_child(sn)
+		var sb := UITheme.make_label(CardAlbum.describe(s["bonus"]), 13, UITheme.GOLD_BRIGHT if done else UITheme.TEXT_DIM)
+		sb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		srow.add_child(sb)
+		var ss := UITheme.make_label("✓ ได้แล้ว" if done else "ยังไม่ครบ", 12, UITheme.GOOD if done else UITheme.TEXT_DIM)
+		ss.custom_minimum_size.x = 84
+		srow.add_child(ss)
+		var spad := Control.new()
+		spad.custom_minimum_size.x = 14
+		srow.add_child(spad)
+		_bonus_list.add_child(srow)
+	var sep := HSeparator.new()
+	_bonus_list.add_child(sep)
+	for card in all:
+		var known := PlayerState.card_known(card.id)
+		var deposited := PlayerState.card_deposited(card.id)
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 8)
+		var nm := UITheme.make_label(card.display_name if known else "???", 13, card.rarity_color() if known else UITheme.TEXT_DIM)
+		nm.custom_minimum_size.x = 250
+		nm.clip_text = true
+		row.add_child(nm)
+		var bonus_text := CardAlbum.describe(CardAlbum.bonus_of(card.id)) if known else "???"
+		var bl := UITheme.make_label(bonus_text, 13, UITheme.GOLD_BRIGHT if deposited else UITheme.TEXT)
+		bl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(bl)
+		var state := "✓ ฝังแล้ว" if deposited else ("มี %d ใบ" % PlayerState.inventory.count_of(card.id) if PlayerState.inventory.count_of(card.id) > 0 else ("เคยได้" if known else "ยังไม่เจอ"))
+		var st := UITheme.make_label(state, 12, UITheme.GOOD if deposited else UITheme.TEXT_DIM)
+		st.custom_minimum_size.x = 84
+		row.add_child(st)
+		var pad := Control.new()
+		pad.custom_minimum_size.x = 14   # เว้นที่ให้แถบเลื่อน
+		row.add_child(pad)
+		_bonus_list.add_child(row)

@@ -15,7 +15,7 @@ script = ExtResource("2_obj")
 kind = 4
 target = &"war_mural"
 count = 1
-text = "ดูภาพจิตรกรรมบนกำแพงราก"
+text = "ตรวจดูภาพวาดเก่า"
 
 [resource]
 script = ExtResource("1_quest")

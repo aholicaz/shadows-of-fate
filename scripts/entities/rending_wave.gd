@@ -14,9 +14,12 @@ var _fire_material: ShaderMaterial
 var _visual_scale := 1.0
 var _visual_offset := Vector2.ZERO
 var _art: AnimatedSprite2D
+var _echo_wave: Node2D
 
 func _process(delta: float) -> void:
 	_age += delta
+	if is_instance_valid(_echo_wave):
+		_echo_wave.modulate.a = clampf(_age/0.025,0,1)*clampf((_skill.wave_distance-_travel)/75.0,0,1)
 	if is_instance_valid(_art):
 		_art.self_modulate.a = clampf(_age / 0.035, 0.0, 1.0) * clampf((_skill.wave_distance - _travel) / 75.0, 0.0, 1.0)
 	if not _custom_visual:
@@ -60,6 +63,17 @@ func _setup_fire() -> void:
 	add_child(fire)
 
 func _setup_visual(book: PlayerSkillFX) -> void:
+	if preload("res://scripts/entities/runeblade_echo_art.gd").active(_caster):
+		_echo_wave = Node2D.new()
+		add_child(_echo_wave)
+		for i in range(3):
+			var blade := preload("res://scripts/entities/runeblade_echo_art.gd").blade(240.0)
+			blade.scale.x *= -_dir
+			blade.position = Vector2(-_dir*(110+i*32),i*3)
+			blade.modulate.a = 0.9 if i==0 else 0.18/float(i)
+			_echo_wave.add_child(blade)
+		_custom_visual = true
+		return
 	var frames: SpriteFrames = _skill.effect_frames
 	var anim: StringName = _skill.effect_anim
 	var height := _skill.effect_height

@@ -78,16 +78,16 @@ position = Vector2(280, 820)
 [node name="from_left" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(280, 820)
 [node name="from_right" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(3920, 820)
+position = Vector2(3410, 820)
 [node name="Portals" type="Node2D" parent="."]
 [node name="ToLeft" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(100, 880)
+position = Vector2(100, 825)
 target_map = &"unwritten_forge"
 target_spawn_point = &"from_right"
 label_text = "← เตาหลอมไร้คำสั่ง"
 destination_name = "เตาหลอมไร้คำสั่ง"
 [node name="ToRight" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(4100, 880)
+position = Vector2(3550, 825)
 target_map = &"oathbreak_crucible"
 target_spawn_point = &"from_left"
 label_text = "→ เบ้าหลอมคำสาบาน"

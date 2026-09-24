@@ -1,0 +1,54 @@
+[gd_scene format=3]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter8/mirror_garden_depth.png" id="depth"]
+[ext_resource type="Texture2D" path="res://Sprites/map/chapter8/mirror_garden_panorama.png" id="road"]
+[ext_resource type="Script" path="res://scripts/world/chapter8_parallax.gd" id="parallax"]
+[ext_resource type="Script" path="res://scripts/world/chapter8_floor.gd" id="floor"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="Shader" path="res://Sprites/shaders/prontera_distance_dof.gdshader" id="dof"]
+[sub_resource type="ShaderMaterial" id="distance_material"]
+shader = ExtResource("dof")
+shader_parameter/blur_pixels = 0.65
+[sub_resource type="RectangleShape2D" id="ground"]
+size = Vector2(6600,240)
+[node name="TowerFloor" type="Node2D"]
+script = ExtResource("floor")
+map_id = &"yggdrasil_62"
+display_name = "อิกดราซิล ชั้น 62"
+chapter = 8
+region = "อิกดราซิล"
+map_bounds = Rect2(0,0,4200,1160)
+clamp_bounds_to_art = false
+player_scene = ExtResource("player")
+floor_number = 62
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("parallax")
+anchor_x = 2100.0
+depth_speed = 0.144
+tower_theme = 2
+floor_variant = 1
+atmosphere = Color(1.0,0.74,0.92,0.24)
+mote_amount = 30
+mist_strength = 0.015
+rising = false
+[node name="Depth" type="Sprite2D" parent="Background"]
+z_index = -100
+texture = ExtResource("depth")
+material = SubResource("distance_material")
+[node name="OrganicRoad0" type="Sprite2D" parent="Background"]
+z_index = -40
+texture_filter = 2
+position = Vector2(0.00000,-24.97238)
+scale = Vector2(1.93370166,1.93370166)
+centered = false
+flip_h = false
+texture = ExtResource("road")
+[node name="Terrain" type="Node2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="Terrain"]
+position = Vector2(2100,1000)
+collision_layer = 1
+collision_mask = 0
+[node name="Shape" type="CollisionShape2D" parent="Terrain/Ground"]
+shape = SubResource("ground")
+[node name="SpawnPoints" type="Node2D" parent="."]
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(300,820)

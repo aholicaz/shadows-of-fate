@@ -21,6 +21,7 @@ text = "ถามน็อตต์ว่าโซลไปไหน"
 script = ExtResource("2_obj")
 kind = 3
 target = &"dimming_wood"
+text = "ไปที่ป่าที่แสงจาง"
 count = 1
 
 [resource]
@@ -29,13 +30,14 @@ id = &"c5_6_those_who_are_missing"
 title = "คนที่หายไป"
 description = "ถามลอฟน์กับน็อตต์ว่าโซลไปไหน แล้วตามไปที่ป่าที่แสงจาง"
 giver_name = "ผู้เห็นแสงเอย์ร"
-dialog_offer = "เจ้ากลับมาแล้วไม่เจอโซลที่ประตูใช่ไหม... ในร่างจาง เขาไม่อยู่\n\nไปถามลอฟน์ ถามน็อตต์ ว่าโซลไปไหน ฟังคำตอบให้ดี แล้วตามไปที่ป่าที่แสงจาง"
+dialog_offer = "สังเกตไหม ตอนเจ้ามองเมืองในร่างจาง โซลไม่ได้ยืนอยู่ที่ประตูแล้ว\n\nไปถามลอฟน์กับหมอน็อตต์ว่าโซลไปไหน ฟังคำตอบให้ดี แล้วตามไปที่ป่าที่แสงจาง เลยทะเลสาบกระจกไป"
 dialog_progress = "ถามลอฟน์และน็อตต์เรื่องโซล แล้วไปป่าที่แสงจาง (เลยทะเลสาบไป)"
-dialog_complete = "«โซลไหน» — ทั้งสองคนพูดเหมือนกัน\n\nเมืองลืมเขาแล้ว เพราะแสงกรองเขาออกไป ป่าจางคือที่ที่พวกเขาถูกทิ้ง เจ้าเจอเขาที่นั่นใช่ไหม"
+dialog_complete = "«โซลไหน» — ทั้งสองคนตอบเหมือนกันเป๊ะ\n\nเมืองลืมเขาไปแล้ว เพราะแสงกรองเขาทิ้ง ป่าที่แสงจางคือที่ที่เอลฟ์แบบเขาถูกส่งไปทิ้ง... เจ้าเจอเขาที่นั่นใช่ไหม"
 objectives = Array[ExtResource("2_obj")]([SubResource("Obj_0"), SubResource("Obj_1"), SubResource("Obj_2")])
 kill_monster_id = &""
 required_level = 79
 required_quests = Array[StringName]([&"c5_5_thing_in_the_water"])
 set_flag_on_complete = &"knows_exile"
-reward_zeny = 15000
-reward_exp = 100000
+reward_zeny = 1391
+reward_exp = 9278
+reward_job_exp = 6494

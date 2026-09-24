@@ -287,6 +287,20 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "",
 			% ["#7dffa8" if ok else "#ff7d7d", d.required_level,
 			"" if ok else "  (ยังไม่ถึง — เลเวลคุณ %d)" % lv])
 
+	# Cards inherit ItemData stat fields, so showing those fields and describe()
+	# printed every bonus twice. Give cards a compact, dedicated detail layout.
+	if d is CardData:
+		var card := d as CardData
+		var slot_icon := _slot_glyph(card.fits_slot)
+		lines.append("[color=#9aa7bd]ใส่ใน :[/color] [img=18x18]%s[/img] %s" % [slot_icon, card.slot_name()])
+		lines.append("[color=#9aa7bd]โบนัสการ์ด :[/color]")
+		for effect in card.describe().split("\n"):
+			var icon := _effect_glyph(effect)
+			lines.append("[img=16x16]%s[/img] [color=#7dffa8]%s[/color]" % [icon, effect])
+		lines.append("[color=#9aa7bd]ความหายาก :[/color] %s" % card.rarity_name())
+		lines.append("[color=#9aa7bd]ราคาขาย :[/color] [color=#ffe9a0]%d z[/color]" % d.sell_price if d.sellable else "[color=#9aa7bd]ขายให้ร้านค้าไม่ได้[/color]")
+		return "\n".join(lines)
+
 	# ---------- ค่าพลัง ----------
 	var stats: Array[String] = []
 	var atk: int = inst.total_atk() if inst != null else d.atk
@@ -327,6 +341,11 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "",
 		stats.append("ฟื้น HP %d (+%.0f%%)" % [d.heal_hp, d.heal_hp_percent])
 	if d.heal_sp != 0 or d.heal_sp_percent != 0.0:
 		stats.append("ฟื้น SP %d (+%.0f%%)" % [d.heal_sp, d.heal_sp_percent])
+	# ★ รอบ 164 ★ พาสซีฟ First Aid
+	var pot_bonus: float = PlayerState.potion_heal_bonus_percent() if (d.heal_hp != 0 or d.heal_sp != 0 or d.heal_hp_percent != 0.0 or d.heal_sp_percent != 0.0) else 0.0
+	if pot_bonus > 0.0:
+		var real := PlayerState.potion_heal_amounts(d)
+		stats.append("[color=#7dffa8]ปฐมพยาบาล +%.0f%% → ฟื้นจริง HP %d · SP %d[/color]" % [pot_bonus, int(real.hp), int(real.sp)])
 	# ★ รอบ 65 — คูลดาวน์ยา ★ ยาฟื้นเยอะยิ่งรอนาน (5-10 วิ)
 	var pot_cd := PlayerState.potion_cooldown_of(d)
 	if pot_cd > 0.0:
@@ -386,6 +405,13 @@ static func describe(d: ItemData, inst: ItemInstance = null, extra: String = "",
 		lines.append("[color=#9aa7bd]ใส่ใน :[/color] %s" % c.slot_name())
 		lines.append("[color=#7dffa8]%s[/color]" % c.describe())
 
+	# ---------- ★ รอบ 158 ★ ชุดเซ็ต ----------
+	if not (d is CardData):
+		var set_text := EquipSets.describe_for_item(d.id, PlayerState.equipment if PlayerState != null else null)
+		if set_text != "":
+			lines.append("")
+			lines.append(set_text)
+
 	# ---------- คำอธิบาย ----------
 	if d.description != "":
 		lines.append("")
@@ -413,6 +439,31 @@ static func _type_name(d: ItemData) -> String:
 		ItemData.Type.CARD:
 			return "การ์ดมอนสเตอร์"
 	return "ไอเทม"
+
+
+static func _slot_glyph(slot: int) -> String:
+	var id := "slot_weapon"
+	match slot:
+		ItemData.Slot.OFFHAND: id = "slot_offhand"
+		ItemData.Slot.HEAD: id = "slot_head"
+		ItemData.Slot.ARMOR: id = "slot_armor"
+		ItemData.Slot.GARMENT: id = "slot_garment"
+		ItemData.Slot.SHOES: id = "slot_shoes"
+		ItemData.Slot.ACCESSORY: id = "slot_accessory"
+	return "res://Sprites/ui/petrol/glyphs/%s.png" % id
+
+
+static func _effect_glyph(effect: String) -> String:
+	var value := effect.to_lower()
+	var id := "emblem"
+	if "matk" in value or "สกิล" in value: id = "skill_swap"
+	elif "atk" in value or "โจมตี" in value or "พลังโจมตี" in value: id = "attack"
+	elif "def" in value or "ป้องกัน" in value: id = "defense"
+	elif "เลือด" in value or "hp" in value: id = "hp"
+	elif "มานา" in value or value.begins_with("sp ") or value.begins_with("sp+"): id = "sp"
+	elif "คริ" in value or "crit" in value: id = "crit"
+	elif "ความเร็ว" in value or "aspd" in value: id = "speed"
+	return "res://Sprites/ui/petrol/glyphs/%s.png" % id
 
 
 static func _slot_name(slot: int) -> String:

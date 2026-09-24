@@ -1,0 +1,83 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c8gbppuk3eisp"]
+
+[ext_resource type="Texture2D" uid="uid://cguadcm0kg2s0" path="res://Sprites/effects/snow_campfire/campfire_sheet.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="F0"]
+atlas = ExtResource("1")
+region = Rect2(51, 81, 343, 352)
+margin = Rect2(52, 78, 105, 96)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F1"]
+atlas = ExtResource("1")
+region = Rect2(494, 44, 343, 389)
+margin = Rect2(52, 41, 105, 59)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F2"]
+atlas = ExtResource("1")
+region = Rect2(936, 49, 344, 384)
+margin = Rect2(52, 46, 104, 64)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F3"]
+atlas = ExtResource("1")
+region = Rect2(1379, 77, 344, 356)
+margin = Rect2(52, 74, 104, 92)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F4"]
+atlas = ExtResource("1")
+region = Rect2(51, 481, 343, 366)
+margin = Rect2(52, 64, 105, 82)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F5"]
+atlas = ExtResource("1")
+region = Rect2(494, 500, 344, 347)
+margin = Rect2(52, 83, 104, 101)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F6"]
+atlas = ExtResource("1")
+region = Rect2(937, 497, 343, 350)
+margin = Rect2(52, 80, 105, 98)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F7"]
+atlas = ExtResource("1")
+region = Rect2(1379, 502, 344, 345)
+margin = Rect2(52, 85, 104, 103)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("F0")
+}, {
+"duration": 1.0,
+"texture": SubResource("F1")
+}, {
+"duration": 1.0,
+"texture": SubResource("F2")
+}, {
+"duration": 1.0,
+"texture": SubResource("F3")
+}, {
+"duration": 1.0,
+"texture": SubResource("F4")
+}, {
+"duration": 1.0,
+"texture": SubResource("F5")
+}, {
+"duration": 1.0,
+"texture": SubResource("F6")
+}, {
+"duration": 1.0,
+"texture": SubResource("F7")
+}],
+"loop": 1,
+"name": &"burn",
+"speed": 10.0
+}]

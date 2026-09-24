@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter3/idle/arvid_idle.png" id="1_ra5l7"]
+
+[resource]
+atlas = ExtResource("1_ra5l7")
+region = Rect2(157, 43, 215, 272)
+filter_clip = true

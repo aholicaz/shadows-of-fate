@@ -6,20 +6,20 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"light_eater_bloom"
-fits_slot = 4
 rarity = 4
 monster_level = 76
 id = &"card_light_eater_bloom"
 display_name = "การ์ดดอกไม้กลืนแสง"
-description = "กลีบที่กินแสง... และมานา"
+description = "INT +3, SP +60, ดูดมานา +0.05%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 300
-max_sp = 80
 
-percent_effects = {
-"sp_drain_percent": 0.3
-}
+
+fits_slot = 7
+bonus_int = 3
+max_sp = 60
+percent_effects = {"sp_drain_percent": 0.05}

@@ -6,18 +6,19 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"erased_voice"
-fits_slot = 7
 rarity = 5
 monster_level = 90
 id = &"card_erased_voice"
 display_name = "การ์ดเสียงที่ถูกลบ"
-description = "ชื่อที่ถูกลบ ยังพยายามพูด"
+description = "CRIT +5, ดาเมจคริ +8%, MDEF +10"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 360
-crit = 6
+
+fits_slot = 7
+crit = 5
 mdef = 10
-bonus_int = 3
+percent_effects = {"crit_damage_percent": 8.0}

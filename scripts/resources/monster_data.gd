@@ -332,6 +332,32 @@ enum AIType {
 @export var skill_hand_projectiles: bool = false
 @export var projectile_aim_at_player: bool = false
 
+@export_group("โจมตีระยะไกล — เลเซอร์จากมือ (รอบ 178)")
+## ★ เปิดแล้วท่าโจมตีปกติจะ "ยิงเลเซอร์" ออกจากมือแทนการตีติดตัว ★ (เช่น ราชินีหนาม)
+## ยิงตามเฟรมใน Attack Hit Frames · จุดปล่อย = Projectile Hand Positions ของเฟรมนั้น
+## ยืนยิงจากไกลเหมือนมอนยิงกระสุน (ใช้ Ranged Attack / Ranged Attack Range)
+@export var attack_laser: bool = false
+## ยาวสุดกี่พิกเซล (ชนพื้น/ผนังก่อนจะหยุดตรงนั้น)
+@export var laser_length: float = 1000.0
+## ความหนาของลำแสง (พิกเซล)
+@export var laser_width: float = 30.0
+## ความสูงช่วงที่โดนผู้เล่น (ยิ่งมากยิ่งโดนง่าย)
+@export var laser_hit_height: float = 56.0
+## ใช้เวลากี่วินาทีจนพุ่งสุดทาง (น้อย = เร็ว) — พุ่งแนวนอนตามภาพท่าตีก่อน
+@export var laser_extend_time: float = 0.06
+## แล้วฟาดลงหาตัวผู้เล่นภายในกี่วินาที (0 = เล็งตรงไปหาเลยตั้งแต่แรก)
+@export var laser_sweep_time: float = 0.08
+## ลำแสงค้างกี่วินาที (ช่วงนี้เดินเข้ามาก็ยังโดน)
+@export var laser_hold_time: float = 0.12
+## จางหายกี่วินาที
+@export var laser_fade_time: float = 0.22
+## ฟาดเอียงลงหา/ขึ้นหาผู้เล่นได้สูงสุดกี่องศา (0 = ยิงตรงแนวนอนเสมอ)
+@export_range(0.0, 80.0) var laser_max_angle: float = 60.0
+@export var laser_color: Color = Color(0.93, 0.25, 0.42)
+@export var laser_core_color: Color = Color(1.0, 0.95, 0.98)
+## เสียงตอนยิง (ชื่อไฟล์ใน Sprites/sfx/ ไม่ต้องใส่นามสกุล · ว่าง = ไม่มีเสียง)
+@export var laser_sfx: String = ""
+
 @export_group("สกิล — บอลโค้งตกพื้นระเบิด (รอบ 36)")
 ## ★ ใส่รูปแล้วสกิลจะ "ขว้างบอลโค้ง" ไปตกที่ตำแหน่งผู้เล่น แล้วระเบิดทำดาเมจรอบ ๆ ★
 ## ดาเมจ/รัศมี/กระเด็นใช้ค่า Skill Damage Mult · Skill Radius X/Y · Skill Knockback ตามเดิม
@@ -505,7 +531,7 @@ func attack_hit_count() -> int:
 
 ## ★ รอบ 66 ★ มอนตัวนี้ "ยิงจากไกล" ไหม (ใส่รูปกระสุน + เปิด Ranged Attack)
 func is_ranged() -> bool:
-	return ranged_attack and projectile_texture != null
+	return ranged_attack and (projectile_texture != null or attack_laser)   # ★ รอบ 178 ★ เลเซอร์ก็นับเป็นยิงไกล
 
 
 ## ระยะที่มอนยิงถึง — ใช้แทน Attack Range สำหรับมอนยิงไกล

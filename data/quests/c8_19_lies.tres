@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_95_clear"
+count = 1
+text = "ผ่านชั้น 95 และกลับรายงานสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_19_lies"
+title = "ฟ้าที่ถักจากคำโกหก"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 95 (ผู้คุม: ลุกเนอร์ ผู้ถักคำโกหก) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "แสงสีทองที่ผู้คนเห็นบนท้องฟ้าทุกเช้า และเรียกว่าพรจากแอสการ์ด...\n\nลุกเนอร์ถักมันขึ้นจากคำโกหก ทีละเส้น ทุกคืน ใยนั้นทำให้มองไม่เห็นว่าเหนือหอมีอะไร ขึ้นไปถึงชั้น 95 ตัดท้องฟ้าผืนนั้นให้ขาด"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 95 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "เช้านี้ฟ้าเหนืออัมเบอร์เฮเวนเป็นสีเทา ไม่มีแสงทอง ผู้คนตกใจกันทั้งเมือง... แต่เป็นครั้งแรกที่เราเห็นท้องฟ้าจริง\n\nและเห็นประตูบานใหญ่บนยอดหอ ที่ไม่เคยมีใครรู้ว่ามีอยู่"
+required_flag = &"chapter7_done"
+required_quests = Array[StringName]([&"c8_18_roots"])
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 500000
+reward_job_exp = 46000
+reward_zeny = 125000

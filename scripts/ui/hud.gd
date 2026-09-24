@@ -58,6 +58,8 @@ var quest_lines: VBoxContainer
 ## ขวาล่าง
 var clock_label: Label
 var _portrait: Control
+var _rank_badge: TextureRect   # ★ รอบ 164 ★ ตราขั้นกิลด์ข้างรูปหน้า
+var _rank_badge_letter := ""
 var _notice_timer := 0.0
 var _clock_timer := 0.0
 
@@ -86,6 +88,8 @@ func _ready() -> void:
 	Events.notice.connect(show_notice)
 	Events.map_changed.connect(func(_id): _refresh_map())
 	Events.quest_changed.connect(_refresh_quest)
+	Events.quest_changed.connect(_refresh_rank_badge)   # ★ รอบ 164 ★ ส่งใบประกาศ = อาจเลื่อนขั้น
+	Events.stats_changed.connect(_refresh_rank_badge)
 	Events.quest_changed.connect(_refresh_level)   # ★ รอบ 105 ★ ธง name_left เปลี่ยน → อัปเดตชื่อ
 	Events.quest_accepted.connect(func(_q): _refresh_quest())
 	Events.quest_progress.connect(func(_q, _c, _n): _refresh_quest())
@@ -119,15 +123,21 @@ func _build_top_left() -> void:
 	_portrait.position = Vector2.ZERO
 	_portrait.size = Vector2(PORTRAIT_D, PORTRAIT_D)
 	top_panel.add_child(_portrait)
-	# ตราอาชีพเม็ดเล็กมุมล่างซ้ายของรูป
-	var emblem_bg := PetrolWidgets.portrait_ring(28.0)
-	emblem_bg.position = Vector2(-2, PORTRAIT_D - 30)
-	emblem_bg.size = Vector2(28, 28)
-	top_panel.add_child(emblem_bg)
-	var emblem := PetrolWidgets.glyph("emblem", 18.0, UITheme.ACCENT)
-	emblem.position = Vector2(3, PORTRAIT_D - 25)
-	emblem.size = Vector2(18, 18)
-	top_panel.add_child(emblem)
+	# ★ รอบ 164 ★ ตราขั้นกิลด์ (F-S) มุมล่างซ้ายของรูป แทนตราวงกลมเดิม · คลิก = เปิดหน้าขั้นกิลด์
+	_rank_badge = TextureRect.new()
+	_rank_badge.name = "GuildRankBadge"
+	_rank_badge.position = Vector2(-8, PORTRAIT_D - 38)
+	_rank_badge.size = Vector2(40, 40)
+	_rank_badge.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_rank_badge.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_rank_badge.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	_rank_badge.mouse_filter = Control.MOUSE_FILTER_STOP
+	_rank_badge.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_rank_badge.gui_input.connect(func(ev: InputEvent):
+		if (ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT) or (ev is InputEventScreenTouch and ev.pressed):
+			Events.guild_rank_opened.emit())
+	top_panel.add_child(_rank_badge)
+	_refresh_rank_badge()
 
 	# ---------- ข้อความ + หลอด ----------
 	var box := VBoxContainer.new()
@@ -144,13 +154,10 @@ func _build_top_left() -> void:
 	level_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 	level_label.add_theme_constant_override("outline_size", 3)
 	top.add_child(level_label)
-	var spacer := Control.new()
-	spacer.custom_minimum_size.x = 14
-	top.add_child(spacer)
-	top.add_child(PetrolWidgets.glyph("coin", 16.0))
+	# ★ รอบ 170 ★ เอาซีนีออกจากมุมซ้ายบน (ดูได้ในกระเป๋า/ร้าน/หน้าระบบ) — เหลือที่ให้แถบลัด
+	# ยังสร้าง zeny_label ไว้ (ซ่อน) ให้โค้ดเดิมที่อัปเดตตัวเลขไม่พัง
 	zeny_label = UITheme.make_label("0", 14, UITheme.GOLD_BRIGHT)
-	zeny_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
-	zeny_label.add_theme_constant_override("outline_size", 3)
+	zeny_label.visible = false
 	top.add_child(zeny_label)
 
 	var hp_pair := _bar_row(UITheme.HP, 170.0, 10.0)
@@ -282,67 +289,169 @@ func _refresh_quest() -> void:
 	if quest_block == null:
 		return
 	var log: QuestLog = PlayerState.quests if "quests" in PlayerState else null
-	if log == null or log.active.is_empty():
-		_show_next_quest_hint(log)   # ★ รอบ 116 ★ ไม่มีเควสค้าง → บอกว่าต้องไปหาใคร/เลเวลเท่าไหร่
-		return
-	quest_title.add_theme_color_override("font_color", UITheme.TEXT)
-	# ติดตามเควสที่รับล่าสุด (ใช้ตัวท้ายสุดของรายการ)
-	var qid: StringName = log.active[log.active.size() - 1]
-	var q := GameData.get_quest(qid)
-	if q == null:
+	_ensure_side_block()
+	if log == null:
 		quest_block.visible = false
 		return
-	quest_block.visible = true
-	quest_title.text = q.title
-	GameWindow.clear_container(quest_lines)
-	var lines := log.progress_lines(qid)
+	# ★ รอบ 163 ★ เควสหลัก (เนื้อเรื่อง) อยู่บนเสมอ · เควสรอง (ใบประกาศล่า/เควสเสริม/Runeblade) อยู่ใต้ ตัวเล็กกว่า
+	var main_id := _latest_active(log, false)
+	var side_id := _latest_active(log, true)
+	var main_shown := false
+	if main_id != &"":
+		main_shown = _show_active(log, main_id, quest_title, quest_lines, 24, 20, 3, "")
+	if not main_shown:
+		main_shown = _show_next_quest_hint(log)
+	var side_shown := false
+	if side_id != &"":
+		side_shown = _show_active(log, side_id, _side_title, _side_lines, 18, 16, 2, "เควสรอง · ")
+	elif not main_shown or not _side_hint_only_when_idle():
+		side_shown = _show_side_hint(log)
+	_side_row.visible = side_shown
+	if not main_shown and side_shown:
+		# ไม่มีเควสหลักให้ทำ → ซ่อนหัวเควสหลัก ให้เควสรองขึ้นแทน
+		quest_title.text = ""
+		GameWindow.clear_container(quest_lines)
+	_main_row.visible = main_shown
+	quest_block.visible = main_shown or side_shown
+
+
+## ★ รอบ 163 ★ คำใบ้เควสรองที่ยังไม่รับ (เช่น «ใบประกาศใบแรก») โชว์ก็ต่อเมื่อไม่มีเควสหลักให้ทำ → false = โชว์คู่กันเสมอ
+func _side_hint_only_when_idle() -> bool:
+	return false
+
+
+## ★ รอบ 163 ★ เควสรอง = ใบประกาศล่า · สาย Runeblade (rb*) · เควสเสริมในรายชื่อ SIDE_QUESTS
+const SIDE_QUESTS := [&"m3_guild_bounty", &"rb15_song_for_brokk", &"c6_11_letter_home"]
+
+
+static func is_side_quest(qid: StringName) -> bool:
+	var sid := String(qid)
+	return sid.begins_with("bounty_") or sid.begins_with("rb") or qid in SIDE_QUESTS
+
+
+## เควสที่รับล่าสุดของกลุ่มนั้น (&"" = ไม่มี)
+func _latest_active(log: QuestLog, side: bool) -> StringName:
+	for i in range(log.active.size() - 1, -1, -1):
+		var qid: StringName = log.active[i]
+		if is_side_quest(qid) == side and GameData.get_quest(qid) != null:
+			return qid
+	return &""
+
+
+func _show_active(log: QuestLog, qid: StringName, title: Label, lines_box: VBoxContainer,
+		title_size: int, line_size: int, max_lines: int, prefix: String) -> bool:
+	var q := GameData.get_quest(qid)
+	if q == null:
+		return false
+	title.text = prefix + q.title
+	title.add_theme_font_size_override("font_size", title_size)
+	title.add_theme_color_override("font_color", UITheme.TEXT)
+	GameWindow.clear_container(lines_box)
 	var shown := 0
-	for line in lines:
+	for line in log.progress_lines(qid):
 		# ★ รอบ 102 ★ เดิมใช้ TEXT_DIM (#81958a) ทับฉากสว่าง ๆ แล้วแทบมองไม่เห็น
-		var l := UITheme.make_label(String(line).replace("[x]", "✓").replace("[ ]", "").strip_edges(), 20, QUEST_LINE)
+		var l := UITheme.make_label(String(line).replace("[x]", "✓").replace("[ ]", "").strip_edges(), line_size, QUEST_LINE)
 		l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
 		l.add_theme_constant_override("outline_size", 4)
 		l.custom_minimum_size.x = 380
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		quest_lines.add_child(l)
+		lines_box.add_child(l)
 		shown += 1
-		if shown >= 3:
+		if shown >= max_lines:
 			break
 	if log.is_ready(qid):
-		var done := UITheme.make_label("ครบแล้ว — กลับไปส่งเควส", 20, UITheme.GOOD)
+		var done := UITheme.make_label("ครบแล้ว — กลับไปส่งเควส", line_size, UITheme.GOOD)
 		done.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 		done.add_theme_constant_override("outline_size", 3)
-		quest_lines.add_child(done)
+		lines_box.add_child(done)
+	return true
 
 
 ## ★ รอบ 116 ★ ป้าย «ภารกิจถัดไป» — ผู้เล่นส่งเควสครบ/ยังไม่ถึงเลเวล จะได้รู้ว่าต้องทำอะไรต่อ
-func _show_next_quest_hint(log: QuestLog) -> void:
+## ★ รอบ 163 ★ นับเฉพาะเควสหลัก (เควสรองไปอยู่ป้ายล่าง) · คืน true ถ้ามีป้ายให้โชว์
+func _show_next_quest_hint(log: QuestLog) -> bool:
 	var q := _next_quest(log)
 	if q == null:
-		quest_block.visible = false
-		return
-	quest_block.visible = true
+		return false
 	quest_title.text = "ภารกิจถัดไป"
+	quest_title.add_theme_font_size_override("font_size", 24)
 	quest_title.add_theme_color_override("font_color", NEXT_TITLE)
 	GameWindow.clear_container(quest_lines)
+	quest_lines.add_child(_hint_label(q, 20))
+	return true
+
+
+## ★ รอบ 163 ★ เควสรองที่รับได้ตอนนี้ (ถึงเลเวลแล้ว) → ป้ายล่าง «เควสรอง · …»
+func _show_side_hint(log: QuestLog) -> bool:
+	var q := _next_quest(log, true)
+	if q == null or PlayerState.stats.level < q.required_level:
+		return false
+	_side_title.text = "เควสรอง · ภารกิจแนะนำ"
+	_side_title.add_theme_font_size_override("font_size", 18)
+	_side_title.add_theme_color_override("font_color", NEXT_TITLE)
+	GameWindow.clear_container(_side_lines)
+	_side_lines.add_child(_hint_label(q, 16))
+	return true
+
+
+func _hint_label(q: QuestData, size: int) -> Label:
 	var where := NpcDirectory.map_name_of(q.giver_name, _quest_chapter(q.id))
 	var who: String = q.giver_name if where == "" else "%s (%s)" % [q.giver_name, where]
-	var lv: int = PlayerState.stats.level
 	var text: String
-	if lv < q.required_level:
+	if PlayerState.stats.level < q.required_level:
 		text = "บรรลุ Lv %d แล้วไปคุยกับ %s เพื่อรับภารกิจ" % [q.required_level, who]
 	else:
 		text = "ไปคุยกับ %s เพื่อรับภารกิจ «%s»" % [who, q.title]
-	var l := UITheme.make_label(text, 20, NEXT_LINE)
+	var l := UITheme.make_label(text, size, NEXT_LINE)
 	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
 	l.add_theme_constant_override("outline_size", 4)
 	l.custom_minimum_size.x = 380
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	quest_lines.add_child(l)
+	return l
 
 
-## เควสถัดไปที่ "เปิดให้รับได้แล้วหรือรอแค่เลเวล" — เนื้อเรื่องหลัก (m*/c*) มาก่อน · เลเวลต่ำสุดก่อน · ไม่นับสาย Runeblade (rb*)
-func _next_quest(log: QuestLog) -> QuestData:
+## ★ รอบ 163 ★ แถวเควสรอง (สร้างครั้งแรกที่ใช้ — ต่อท้ายกล่องเควสเดิม)
+var _main_row: Control
+var _side_row: HBoxContainer
+var _side_title: Label
+var _side_lines: VBoxContainer
+
+
+func _ensure_side_block() -> void:
+	if _side_row != null:
+		return
+	_main_row = quest_block.get_child(0) as Control
+	_side_row = HBoxContainer.new()
+	_side_row.name = "SideQuest"
+	_side_row.add_theme_constant_override("separation", 8)
+	_side_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	quest_block.add_child(_side_row)
+	var g := PetrolWidgets.glyph("quest", 16.0, UITheme.TEXT_DIM)
+	g.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	g.custom_minimum_size = Vector2(22, 16)
+	_side_row.add_child(g)
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 0)
+	_side_row.add_child(col)
+	var gap := Control.new()
+	gap.custom_minimum_size.y = 6
+	col.add_child(gap)
+	_side_title = UITheme.make_label("", 18, UITheme.TEXT)
+	_side_title.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+	_side_title.add_theme_constant_override("outline_size", 3)
+	_side_title.custom_minimum_size.x = 380
+	_side_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	col.add_child(_side_title)
+	_side_lines = VBoxContainer.new()
+	_side_lines.add_theme_constant_override("separation", 0)
+	col.add_child(_side_lines)
+	if not Events.quest_changed.is_connected(_refresh_quest):
+		Events.quest_changed.connect(_refresh_quest)
+
+
+## เควสถัดไปที่ "เปิดให้รับได้แล้วหรือรอแค่เลเวล" — เลเวลต่ำสุดก่อน · ไม่นับใบประกาศ/ทำซ้ำ
+## ★ รอบ 163 ★ side = false → เฉพาะเควสหลัก · side = true → เฉพาะเควสรอง (รวม rb*)
+func _next_quest(log: QuestLog, side: bool = false) -> QuestData:
 	var best: QuestData = null
 	var best_key: Array = []
 	var lv: int = PlayerState.stats.level
@@ -350,7 +459,7 @@ func _next_quest(log: QuestLog) -> QuestData:
 		if q == null or q.repeatable:
 			continue
 		var sid := String(q.id)
-		if sid.begins_with("rb"):
+		if is_side_quest(q.id) != side:
 			continue
 		if log.is_active(q.id) or log.is_done(q.id):
 			continue
@@ -366,8 +475,7 @@ func _next_quest(log: QuestLog) -> QuestData:
 		if q.required_job != &"" and PlayerState.stats.job_id != q.required_job \
 				and not (q.reward_job != &"" and PlayerState.stats.has_profession(q.reward_job)):
 			continue
-		var main := sid.begins_with("m") or sid.begins_with("c")
-		var key: Array = [0 if lv >= q.required_level else 1, 0 if main else 1, q.required_level, sid]
+		var key: Array = [0 if lv >= q.required_level else 1, q.required_level, sid]
 		if best == null or key < best_key:
 			best = q
 			best_key = key
@@ -488,19 +596,19 @@ func _layout() -> void:
 	# EXP ล่างสุด ยาวเต็มจอ
 	var exp_row := get_node_or_null("ExpRow") as Control
 	if exp_row != null:
-		exp_row.position = Vector2(MARGIN, vp.y - 80)
+		exp_row.position = Vector2(MARGIN, vp.y - 30)
 	if exp_bar != null:
-		exp_bar.position = Vector2(MARGIN, vp.y - 62)
+		exp_bar.position = Vector2(MARGIN, vp.y - 12)
 		exp_bar.size = Vector2(vp.x - MARGIN * 2.0, 4)
 		var mid := get_node_or_null("ExpDiamond") as Control
 		if mid != null:
-			mid.position = Vector2(vp.x * 0.5 - 12, vp.y - 67)
+			mid.position = Vector2(vp.x * 0.5 - 12, vp.y - 17)
 			mid.size = Vector2(24, 14)
 	var clock_row := get_node_or_null("ClockRow") as Control
 	if clock_row != null:
 		clock_row.reset_size()
 		var w: float = maxf(clock_row.size.x, clock_row.get_combined_minimum_size().x)
-		clock_row.position = Vector2((vp.x - w) * 0.5, vp.y - 90)
+		clock_row.position = Vector2((vp.x - w) * 0.5, vp.y - 40)
 	# ชื่อแมพ: ชิดขวา ใต้แถบเมนู (แถบเมนูสูง ~70)
 	if map_block != null:
 		map_block.reset_size()
@@ -581,7 +689,10 @@ func _refresh_level() -> void:
 	var job_name: String = s.job().display_name
 	if PlayerState.has_flag(&"name_left") and not PlayerState.has_flag(&"chapter6_done") and s.job_id != &"ninth_edge":
 		job_name = "— ไร้นาม —"
-	level_label.text = "Lv.%d  %s  (Job %d)" % [s.level, job_name, s.job_level]
+	# ★ รอบ 170 ★ สั้นลง «Lv. 74 / Job 57 Runeblade» — ชื่ออาชีพภาษาอังกฤษจาก id (swordsman → Swordsman)
+	if job_name != "— ไร้นาม —":
+		job_name = String(s.job_id).capitalize()
+	level_label.text = "Lv. %d / Job %d %s" % [s.level, s.job_level, job_name]
 	level_label.add_theme_color_override("font_color", Color("#ffd86b") if s.job_id == &"ninth_edge" else UITheme.TEXT)
 
 
@@ -645,3 +756,15 @@ static func _comma(value: int) -> String:
 		if count % 3 == 0 and i > 0:
 			out = "," + out
 	return ("-" if value < 0 else "") + out
+
+
+## ★ รอบ 164 ★ ตราขั้นกิลด์ข้างรูปหน้า — เปลี่ยนภาพเฉพาะตอนขั้นเปลี่ยน
+func _refresh_rank_badge() -> void:
+	if _rank_badge == null or PlayerState.bounties == null:
+		return
+	var letter := PlayerState.bounties.rank_letter()
+	if letter == _rank_badge_letter:
+		return
+	_rank_badge_letter = letter
+	_rank_badge.texture = GuildRankWindow.rank_icon(letter)
+	_rank_badge.tooltip_text = "ขั้นกิลด์ %s «%s» — คลิกดูสิทธิ์พิเศษ" % [letter, PlayerState.bounties.rank_title()]

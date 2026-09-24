@@ -1,0 +1,83 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://q6vdxwpx73ur"]
+
+[ext_resource type="Texture2D" uid="uid://dn233o35cs5al" path="res://Sprites/effects/hrungnir/stone_fangs_sheet.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="F0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 443.5, 475)
+margin = Rect2(0, 17, 0, 25)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F1"]
+atlas = ExtResource("1")
+region = Rect2(443.5, 0, 443.5, 475)
+margin = Rect2(0, 16, 0, 25)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F2"]
+atlas = ExtResource("1")
+region = Rect2(887, 0, 443.5, 475)
+margin = Rect2(0, 17, 0, 25)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F3"]
+atlas = ExtResource("1")
+region = Rect2(1330.5, 0, 443.5, 475)
+margin = Rect2(0, 17, 0, 25)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F4"]
+atlas = ExtResource("1")
+region = Rect2(0, 475, 443.5, 365)
+margin = Rect2(0, 129, 0, 135)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F5"]
+atlas = ExtResource("1")
+region = Rect2(443.5, 475, 443.5, 365)
+margin = Rect2(0, 128, 0, 135)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F6"]
+atlas = ExtResource("1")
+region = Rect2(887, 475, 443.5, 365)
+margin = Rect2(0, 129, 0, 135)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F7"]
+atlas = ExtResource("1")
+region = Rect2(1330.5, 475, 443.5, 365)
+margin = Rect2(0, 130, 0, 135)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("F0")
+}, {
+"duration": 1.0,
+"texture": SubResource("F1")
+}, {
+"duration": 1.0,
+"texture": SubResource("F2")
+}, {
+"duration": 1.0,
+"texture": SubResource("F3")
+}, {
+"duration": 1.0,
+"texture": SubResource("F4")
+}, {
+"duration": 1.0,
+"texture": SubResource("F5")
+}, {
+"duration": 1.0,
+"texture": SubResource("F6")
+}, {
+"duration": 1.0,
+"texture": SubResource("F7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 12.0
+}]

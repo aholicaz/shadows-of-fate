@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dvhbmyjw4ksbk" path="res://scripts/resources/monster_data.gd" id="1_monster"]
 [ext_resource type="Script" uid="uid://lfvvfifv5f84" path="res://scripts/resources/drop_entry.gd" id="2_drop"]
 [ext_resource type="SpriteFrames" uid="uid://c1sbevjtngcld" path="res://data/sprites/monsters/war_wraith_frames.tres" id="3_frames"]
+[ext_resource type="SpriteFrames" path="res://Sprites/effects/war_wraith/spectral_war_lightning_frames.tres" id="4_vfx"]
 
 [sub_resource type="Resource" id="Drop_war_wraith_0"]
 script = ExtResource("2_drop")
@@ -86,6 +87,7 @@ zeny_min = 161
 zeny_max = 299
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_war_wraith_0"), SubResource("Drop_war_wraith_1"), SubResource("Drop_war_wraith_2"), SubResource("Drop_war_wraith_3"), SubResource("Drop_war_wraith_4"), SubResource("Drop_war_wraith_card")])
 skill_name = "สายฟ้าสงคราม"
+skill_bolt_frames = ExtResource("4_vfx")
 skill_anim = &"Skill"
 skill_range = 520.0
 skill_damage_mult = 1.4

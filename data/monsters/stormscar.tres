@@ -17,41 +17,41 @@ chance = 30.0
 [sub_resource type="Resource" id="Drop_stormscar_card"]
 script = ExtResource("2_drop")
 item_id = &"card_stormscar"
-chance = 2.31
+chance = 5.0
 
 [sub_resource type="Resource" id="Resource_dwxqo"]
 script = ExtResource("2_drop")
 item_id = &"katana"
-chance = 15.0
+chance = 5.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_4lp3a"]
 script = ExtResource("2_drop")
 item_id = &"ring"
-chance = 15.0
+chance = 5.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_dwirs"]
 script = ExtResource("2_drop")
 item_id = &"boots"
-chance = 15.0
+chance = 8.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Resource_fjn7p"]
 script = ExtResource("2_drop")
 item_id = &"buckler"
-chance = 15.0
+chance = 8.0
 metadata/_custom_type_script = "uid://lfvvfifv5f84"
 
 [sub_resource type="Resource" id="Balance_storm_runeblade"]
 script = ExtResource("2_drop")
 item_id = &"storm_runeblade"
-chance = 18.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Balance_storm_pendant"]
 script = ExtResource("2_drop")
 item_id = &"storm_pendant"
-chance = 22.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_stormscar_phracon"]
 script = ExtResource("2_drop")
@@ -115,7 +115,7 @@ skill_anim = &"Skill"
 skill_range = 520.0
 skill_radius_x = 360.0
 skill_radius_y = 200.0
-skill_damage_mult = 2.0
+skill_damage_mult = 3.0
 skill_windup = 0.9
 skill_duration = 2.7
 skill_cooldown = 11.0
@@ -125,7 +125,7 @@ skill_bolt_count = 5
 skill_bolt_telegraph = 0.32
 skill_bolt_delay = 0.9
 skill_bolt_max_hits = 5
-skill_bolt_damage_mult = 2.0
-respawn_time = 300.0
+skill_bolt_damage_mult = 3.0
+respawn_time = 120.0
 spawn_lines = null
 death_lines = null

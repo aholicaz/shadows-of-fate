@@ -12,6 +12,9 @@ func shot(name: String) -> void:
 	get_viewport().get_texture().get_image().save_png("res://output/rune_upgrade_" + name + ".png")
 
 func _ready() -> void:
+	if preload("res://scripts/entities/runeblade_echo_art.gd").ENABLED:
+		get_tree().change_scene_to_file.call_deferred("res://runeblade_echo_review.tscn")
+		return
 	get_window().size = Vector2i(1400, 1000)
 	get_window().content_scale_size = Vector2i(1400, 1000)
 	RenderingServer.set_default_clear_color(Color("#111b29"))

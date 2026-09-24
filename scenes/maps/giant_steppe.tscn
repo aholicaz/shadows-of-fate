@@ -110,7 +110,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_hall" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(5200, 820)
+position = Vector2(4710, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -136,7 +136,7 @@ max_spawn_distance = 1700.0
 
 
 [node name="ToTown" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"utgard_town"
 target_spawn_point = &"from_steppe"
 label_text = "← อุทการ์ด"
@@ -144,7 +144,7 @@ destination_name = "อุทการ์ด นครแห่งยักษ�
 
 
 [node name="ToHall" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(5340, 880)
+position = Vector2(4850, 825)
 target_map = &"frozen_hall"
 target_spawn_point = &"from_steppe"
 label_text = "→ โถงภาพวาดน้ำแข็ง"

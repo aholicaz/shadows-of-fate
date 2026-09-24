@@ -13,6 +13,7 @@ var item_popup: ItemInfoPopup
 var dialogue: DialogueBox
 ## ★ ปุ่มจอสัมผัสสำหรับมือถือ ★
 var touch: TouchControls
+var hotbar: HotbarBar   # ★ รอบ 168 ★
 ## ★ แผนที่ย่อมุมขวาบน ★
 ## ★ แถบปุ่มไอคอนใต้มินิแมพ ★
 var menu_bar: IconMenuBar
@@ -76,6 +77,8 @@ func _ready() -> void:
 	_add_window(&"shop", ShopWindow.new(), Vector2(500, 70))
 	_add_window(&"refine", RefineWindow.new(), Vector2(500, 70))
 	_add_window(&"craft", CraftWindow.new(), Vector2(110, 16))   # ★ รอบ 132 ★ คราฟต์
+	_add_window(&"card_fusion", CardFusionWindow.new(), Vector2(110, 16))   # ★ รอบ 154 ★ ย่อยการ์ด
+	_add_window(&"guild_rank", GuildRankWindow.new(), Vector2(130, 40))   # ★ รอบ 158 ★ ขั้นกิลด์
 	_add_window(&"socket", SocketWindow.new(), Vector2(520, 90))
 	_add_window(&"storage", StorageWindow.new(), Vector2(500, 70))   # ★ รอบ 122 ★ คลัง
 	_add_window(&"cards", CardAlbumWindow.new(), Vector2(300, 60))
@@ -86,7 +89,13 @@ func _ready() -> void:
 	# มินิแมพมุมจอยังอยู่เหมือนเดิม กด M เปิด/ปิดได้ · MapPage เดิมยังอยู่ในโปรเจกต์ ไม่ได้ลบ
 	_add_window(&"map", WorldMapPage.new(), Vector2(300, 60))
 	# ★ รอบ 80 — ห้องเครื่องมือ GM (F10) ★ ไม่มีปุ่มในเมนู เปิดด้วยปุ่มลัดอย่างเดียว
-	_add_window(&"gm", GMWindow.new(), Vector2(340, 60))
+	if OS.is_debug_build(): _add_window(&"gm", GMWindow.new(), Vector2(340, 60))
+	# ★ รอบ 163 ★ โรงตีเหล็ก (ตีบวก · เจาะรู · รูที่ 3 · คราฟต์ ในหน้าต่างเดียว) — ย้ายหน้าคราฟต์เดิมเข้าไปเป็นแท็บ
+	var smith := BlacksmithWindow.new()
+	_add_window(&"blacksmith", smith, Vector2(80, 40))
+	smith.host_craft(windows[&"craft"] as CraftWindow)
+	# ★ รอบ 163 ★ บอร์ดใบประกาศล่า (แทนเมนูในกล่องสนทนา)
+	_add_window(&"bounty", BountyBoardWindow.new(), Vector2(110, 40))
 
 	# ★ รอบ 98 ★ ย้ายหน้าต่างที่เป็นแท็บเข้าไปในหน้าต่างรวม
 	for tab in SHELL_TABS.keys():
@@ -108,6 +117,9 @@ func _ready() -> void:
 	# อยู่ใต้กล่องสนทนา/หน้าต่าง แต่เหนือเกม
 	touch = TouchControls.new()
 	layer.add_child(touch)
+	# ★ รอบ 168 ★ แถบลัด 8 ช่อง (คอม) — โชว์เมื่อไม่ได้ใช้ปุ่มจอสัมผัส
+	hotbar = HotbarBar.new()
+	layer.add_child(hotbar)
 
 	# ---------- ★ กล่องสนทนา ★ ----------
 	# ใส่ที่ CanvasLayer โดยตรง จะได้อ้างขนาด "จอ" ตรง ๆ (กล่องกินเต็มจอ)
@@ -130,6 +142,8 @@ func _ready() -> void:
 	Events.shop_opened.connect(_on_shop_opened)
 	Events.refine_npc_opened.connect(_on_refine_opened)
 	Events.craft_npc_opened.connect(_on_craft_opened)   # ★ รอบ 132 ★
+	Events.card_fusion_opened.connect(_on_card_fusion_opened)   # ★ รอบ 154 ★
+	Events.guild_rank_opened.connect(_on_guild_rank_opened)   # ★ รอบ 158 ★
 	Events.socket_npc_opened.connect(_on_socket_opened)
 	Events.storage_opened.connect(_on_storage_opened)   # ★ รอบ 122 ★
 	Events.toggle_window.connect(toggle)
@@ -209,8 +223,10 @@ func is_point_over_ui(point: Vector2) -> bool:
 	# แตะปุ่มบนจอ = ไม่ใช่การสั่งตีมอน
 	if touch != null and touch.is_over(point):
 		return true
+	if hotbar != null and hotbar.is_over(point):   # ★ รอบ 168 ★ คลิกแถบลัด = ไม่ใช่การสั่งตีมอน
+		return true
 	for w: GameWindow in windows.values():
-		if w.visible and w.get_global_rect().has_point(point):
+		if w.is_visible_in_tree() and w.get_global_rect().has_point(point):   # ★ รอบ 163 ★
 			return true
 	if item_popup != null and item_popup.visible \
 			and item_popup.get_global_rect().has_point(point):
@@ -293,6 +309,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func toggle(id: StringName) -> void:
+	if id == &"gm" and not OS.is_debug_build(): return
 	if shell != null and shell.is_tab(String(id)):
 		shell.toggle_tab(String(id))
 		return
@@ -303,6 +320,10 @@ func toggle(id: StringName) -> void:
 
 
 func open(id: StringName) -> void:
+	if id == &"craft":   # ★ รอบ 163 ★ หน้าคราฟต์อยู่ในโรงตีเหล็กแล้ว
+		open_blacksmith("craft")
+		return
+	if id == &"gm" and not OS.is_debug_build(): return
 	if shell != null and shell.is_tab(String(id)):
 		shell.open_tab(String(id))
 		return
@@ -338,7 +359,7 @@ func is_any_window_open() -> bool:
 	if shell != null and shell.visible:
 		return true
 	for w: GameWindow in windows.values():
-		if w.visible:
+		if w.is_visible_in_tree():   # ★ รอบ 163 ★ หน้าคราฟต์ฝังอยู่ในโรงตีเหล็ก (visible แต่พ่อซ่อน)
 			return true
 	return false
 
@@ -355,17 +376,46 @@ func _on_shop_opened(item_ids: Array) -> void:
 
 
 func _on_refine_opened() -> void:
-	open(&"refine")
+	open_blacksmith("refine")   # ★ รอบ 163 ★ เดิม open(&"refine")
+
+
+## ★ รอบ 163 ★ เปิดโรงตีเหล็กที่แท็บ refine · socket · third · craft
+func open_blacksmith(tab_id: String) -> void:
+	close_all()
+	var w := windows.get(&"blacksmith") as BlacksmithWindow
+	if w != null:
+		w.open_tab(tab_id)
+
+
+## ★ รอบ 163 ★ บอร์ดใบประกาศของเมือง (NPC ที่ติ๊ก has_bounty_board)
+func open_bounty_board(town: StringName) -> void:
+	close_all()
+	var w := windows.get(&"bounty") as BountyBoardWindow
+	if w != null:
+		w.open_board(town)
 
 
 ## ★ รอบ 132 ★ คราฟต์ — หน้าต่างใหญ่ ปิดหน้าอื่นก่อนเหมือนคลัง
 func _on_craft_opened() -> void:
+	open_blacksmith("craft")   # ★ รอบ 163 ★ คราฟต์เป็นแท็บในโรงตีเหล็ก
+
+
+## ★ รอบ 154 ★ ย่อยการ์ด — หน้าต่างใหญ่ ปิดหน้าอื่นก่อน
+func _on_guild_rank_opened() -> void:   # ★ รอบ 158 ★
 	close_all()
-	open(&"craft")
+	open(&"guild_rank")
+
+
+func _on_card_fusion_opened() -> void:
+	close_all()
+	var w = windows.get(&"card_fusion")
+	if w != null and w.has_method("reset_for_open"):
+		w.reset_for_open()
+	open(&"card_fusion")
 
 
 func _on_socket_opened() -> void:
-	open(&"socket")
+	open_blacksmith("socket")   # ★ รอบ 163 ★
 
 
 ## ★ รอบ 122 ★ คลัง — ปิดหน้าต่างอื่นก่อนเหมือนร้านค้า

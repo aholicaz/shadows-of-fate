@@ -6,21 +6,19 @@
 [resource]
 script = ExtResource("1_card")
 monster_id = &"nidhogg_spawn"
-fits_slot = 1
 rarity = 5
 monster_level = 93
 id = &"card_nidhogg_spawn"
 display_name = "การ์ดงูนิดฮ็อกก์เล็ก"
-description = "สิ่งที่แทะรากอยู่ข้างล่าง"
+description = "STR +5, ATK +5%, ดูดเลือด +0.15%"
 icon = ExtResource("2_icon")
 type = 5
 slot = 0
 max_stack = 99
 buy_price = 0
 sell_price = 360
-bonus_str = 5
 
-percent_effects = {
-"atk_percent": 5.0,
-"hp_drain_percent": 0.4
-}
+
+fits_slot = 1
+bonus_str = 5
+percent_effects = {"atk_percent": 5.0, "hp_drain_percent": 0.15}

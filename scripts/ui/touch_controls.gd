@@ -411,7 +411,7 @@ func set_mode(new_mode: Mode) -> void:
 func mode_text() -> String:
 	match mode:
 		Mode.ON: return "เปิดตลอด"
-		Mode.OFF: return "ปิด"
+		Mode.OFF: return Loc.on_off(false)
 	return "อัตโนมัติ"
 
 
@@ -436,7 +436,8 @@ func _refresh_visible() -> void:
 		_layout()
 	for z in _zones:
 		var node: Control = z.node
-		var on: bool = want_all and (String(z.group) != "walk" or walk_visible)
+		# ★ รอบ 168 ★ คอม (ไม่ใช้จอสัมผัส) ใช้แถบลัด HotbarBar แทนวงปุ่มสู้ → ซ่อนทั้งกลุ่ม
+		var on: bool = want_all and walk_visible
 		node.visible = on
 		if z.has("pill"):
 			(z.pill as Control).visible = on

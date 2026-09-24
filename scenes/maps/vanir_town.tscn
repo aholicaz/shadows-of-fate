@@ -94,22 +94,17 @@ position = Vector2(0, -88)
 [node name="Njorda" parent="NPCs" unique_id=636926805 instance=ExtResource("npc")]
 position = Vector2(380.0, 784.6800)
 npc_name = "ผู้อาวุโสญอร์ดา"
+portrait_file = "res://Sprites/portraits/npcs/9a6286775435.tres"
 type = 0
 dialog = "ที่นี่คือวานาเฮม นครแห่งราก
 
 เมื่อก่อนน้ำในบ่อกลางเมืองล้นจนไหลออกไปเลี้ยงทั้งโลก
 ตอนนี้เหลือแค่ก้นบ่อ... และไม่มีใครถามว่าทำไม"
 dialog_by_flag = {
-"chapter3_done": "เจ้าเห็นแล้วว่าใต้บ่อน้ำมีอะไร
-
-สงครามครั้งนั้นไม่ได้จบ... มันแค่เปลี่ยนจากดาบเป็นรูน
-
-ไปเถอะ ทางเหนือยังมีคนที่ต้องรู้เรื่องนี้",
-"saw_dry_spring": "น้ำไม่ได้แห้งเอง เจ้าก็เห็นแล้ว
-
-มันถูก «ดึง» ขึ้นไป... ไปทางที่ต้นไม้ยักษ์ยืนอยู่"
+"chapter3_done": "เจ้าเห็นแล้วว่าใต้บ่อน้ำมีอะไร\n\nสงครามครั้งนั้นไม่เคยจบ... มันแค่เปลี่ยนจากดาบ มาเป็นรูนที่ดูดชีวิตเราไปอย่างเงียบ ๆ\n\nไปเถอะ ทางเหนือยังมีคนที่ต้องรู้เรื่องนี้",
+"saw_dry_spring": "น้ำไม่ได้แห้งเอง เจ้าก็เห็นแล้ว\n\nมันถูก «ดึง» ขึ้นไป... ไปทางที่ต้นไม้ยักษ์ยืนอยู่"
 }
-greeting = "แขกจากใต้ภูเขา... นั่งก่อน รากไม่รีบ"
+greeting = "แขกจากใต้ภูเขาสินะ... นั่งก่อน ที่นี่ไม่มีใครรีบ ต้นไม้ก็ไม่รีบ"
 voice_id = "njorda"
 quest_ids = Array[StringName]([&"c3_1_open_gate", &"c3_4_song_of_child", &"c3_6_withering", &"c3_10_flame_that_never_dies"])
 
@@ -124,6 +119,7 @@ autoplay = "Idle"
 [node name="Eskil" parent="NPCs" unique_id=1781619277 instance=ExtResource("npc")]
 position = Vector2(1300.0, 789.0000)
 npc_name = "นักบันทึกเอสกิล"
+portrait_file = "res://Sprites/portraits/npcs/9b26ab9cc8b6.tres"
 type = 0
 dialog = "ข้าเอสกิล นักบันทึกแห่งวิหาร ถูกส่งมาเขียนพงศาวดารวานาเฮมฉบับสมบูรณ์
 
@@ -153,6 +149,7 @@ autoplay = "Idle"
 [node name="Sifa" parent="NPCs" unique_id=1534251735 instance=ExtResource("npc")]
 position = Vector2(1650.0, 784.6800)
 npc_name = "แม่ค้าซิฟา"
+portrait_file = "res://Sprites/portraits/npcs/62e31263494d.tres"
 dialog = "แม่ค้าประจำนคร ของทุกชิ้นปลูกเองเก็บเอง
 
 ปีนี้เก็บได้น้อยลงอีก... ต้นไม้ให้ผลน้อยลงทุกปีตั้งแต่บ่อน้ำเริ่มแห้ง"
@@ -172,6 +169,7 @@ autoplay = "Idle"
 [node name="Galla" parent="NPCs" unique_id=24761630 instance=ExtResource("npc")]
 position = Vector2(2000.0, 789.0000)
 npc_name = "ช่างรากไม้กัลลา"
+portrait_file = "res://Sprites/portraits/npcs/62ffdcd6a31f.tres"
 type = 2
 dialog = "ช่างของนครนี้ตีเหล็กด้วยไฟจากรากไม้ ไม่ใช่ถ่านหิน
 
@@ -192,6 +190,7 @@ autoplay = "Idle"
 [node name="SavePoint" parent="NPCs" unique_id=1672309599 instance=ExtResource("npc")]
 position = Vector2(2380.0, 820.7750)
 npc_name = "เสาวาปแห่งราก"
+portrait_file = "res://Sprites/portraits/npcs/f877566e1865.tres"
 type = 4
 dialog = "เสาหินพันด้วยรากไม้ ลายเถาวัลย์เก่าแก่... แต่บนยอดมีตราค้อนสลักทับไว้ใหม่ ๆ"
 warp_targets = Array[StringName]([&"nidavellir_town", &"prontera_town", &"utgard_town", &"ljosalf_city", &"eljudnir"])
@@ -207,6 +206,7 @@ autoplay = "Idle"
 [node name="Leif" parent="NPCs" unique_id=849759889 instance=ExtResource("npc")]
 position = Vector2(3800.0, 784.6800)
 npc_name = "หมอสมุนไพรลีฟ"
+portrait_file = "res://Sprites/portraits/npcs/05b23e0f60b7.tres"
 type = 3
 blessing_price = 5000
 dialog = "สมุนไพรที่นี่ยังใช้ได้ แต่ต้องเดินไปเก็บไกลขึ้นทุกปี
@@ -227,6 +227,7 @@ autoplay = "Idle"
 [node name="Arvid" parent="NPCs" unique_id=642464448 instance=ExtResource("npc")]
 position = Vector2(4600.0, 795.4800)
 npc_name = "ทหารยามอาร์วิด"
+portrait_file = "res://Sprites/portraits/npcs/db0b3161d359.tres"
 has_bounty_board = true
 type = 0
 dialog = "ข้ายามของนคร... ยามที่ไม่มีอะไรให้เฝ้า
@@ -247,6 +248,7 @@ autoplay = "Idle"
 [node name="Frida" parent="NPCs" unique_id=1925434179 instance=ExtResource("npc")]
 position = Vector2(4240.0, 803.4400)
 npc_name = "เด็กหญิงฟรีดา"
+portrait_file = "res://Sprites/portraits/npcs/ec5faa7b92d7.tres"
 type = 0
 dialog = "♪ น้ำล้นบ่อ รากเลื้อยไกล ♪
 ♪ เทพจากเหนือ ขี่พายุมา ♪

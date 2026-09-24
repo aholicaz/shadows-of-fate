@@ -76,7 +76,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_garden" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(3800, 820)
+position = Vector2(2960, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -86,7 +86,7 @@ position = Vector2(3800, 820)
 
 
 [node name="ToRoad" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"shimmer_road"
 target_spawn_point = &"from_city"
 label_text = "← ทางประกายแสง"
@@ -94,7 +94,7 @@ destination_name = "ทางประกายแสง"
 
 
 [node name="ToGarden" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(3940, 880)
+position = Vector2(3100, 825)
 target_map = &"crystal_garden"
 target_spawn_point = &"from_city"
 label_text = "→ สวนผลึก"
@@ -107,9 +107,10 @@ destination_name = "สวนผลึก"
 [node name="Sol" parent="NPCs" instance=ExtResource("npc") groups=["light_only"]]
 position = Vector2(330, 820)
 npc_name = "ทหารยามโซล"
+portrait_file = "res://Sprites/portraits/npcs/48d5d79debc8.tres"
 type = 0
-dialog = "ข้าเฝ้าประตูมา... นานเท่าไหร่นะ ไม่สำคัญหรอก ทุกวันเหมือนกัน ☺\n\nกลางคืน? กลางคืนคืออะไร"
-greeting = "ยินดีต้อนรับสู่ลโยซาลฟ์ ☺ ที่นี่ไม่มีใครขาดอะไร"
+dialog = "ข้าเฝ้าประตูนี้มา... นานเท่าไหร่แล้วนะ ช่างเถอะ ไม่สำคัญหรอก ทุกวันเหมือนกันหมด (ยิ้ม)\n\nกลางคืน? กลางคืนคืออะไรหรือ"
+greeting = "(ยิ้มกว้าง) ยินดีต้อนรับสู่ลโยซาลฟ์ นครแห่งแสง ที่นี่ไม่มีใครขาดอะไรเลย"
 voice_id = "sol"
 quest_ids = Array[StringName]([&"c5_5_thing_in_the_water"])
 
@@ -117,6 +118,7 @@ quest_ids = Array[StringName]([&"c5_5_thing_in_the_water"])
 [node name="Sol_hollow" parent="NPCs" instance=ExtResource("npc") groups=["dim_only"]]
 position = Vector2(330, 820)
 npc_name = "เอลฟ์กลวง (โซล)"
+portrait_file = "res://Sprites/portraits/npcs/76312a6e907c.tres"
 type = 0
 dialog = "ข้าเคยยืนตรงนี้... เฝ้าอะไรสักอย่าง\n\nแสงไปไหน ทำไมทุกคนยังยิ้ม"
 visible = false
@@ -127,14 +129,15 @@ greeting = "...หนาว"
 [node name="Eir" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(700, 820)
 npc_name = "ผู้เห็นแสงเอย์ร"
+portrait_file = "res://Sprites/portraits/npcs/94241bbee0c8.tres"
 has_bounty_board = true
 type = 0
-dialog = "ข้าตาบอดเพราะมองแสงตรง ๆ นานเกินไป — ตอนนั้นข้าเห็นว่าแสงไหลไปทางไหน\n\nขึ้น มนุษย์ แสงของเมืองนี้ไหลขึ้นราก ไม่ใช่ลงมาจากฟ้า"
-greeting = "เจ้าไม่ยิ้ม... ดี ที่นี่มีแค่ข้าคนเดียวที่ไม่ยิ้ม"
+dialog = "ข้าตาบอดเพราะมองแสงตรง ๆ นานเกินไป — ตอนนั้นข้าเห็นว่าแสงไหลไปทางไหน\n\nแสงของเมืองนี้ไม่ได้ส่องลงมาจากฟ้าหรอก มนุษย์ มันไหลย้อน «ขึ้น» ไปตามราก"
+greeting = "เจ้าไม่ยิ้ม... ดีแล้ว ทั้งเมืองนี้มีแค่ข้าคนเดียวที่ไม่ยิ้ม"
 voice_id = "eir"
 quest_ids = Array[StringName]([&"c5_1_city_without_night", &"c5_4_child_who_never_saw_stars", &"c5_6_those_who_are_missing", &"c5_10_the_conduit", &"rb10_borrowed_light", &"rb11_shadow_of_the_blade"])
 dialog_by_flag = {
-"has_shade_crystal": "เจ้าได้ผลึกเงาแล้ว... ไปที่ผลึกใหญ่กลางเมือง สลับร่างได้ตามใจ\n\nเห็นแล้วใช่ไหม ว่าใครหายไป",
+"has_shade_crystal": "เจ้าได้ผลึกเงาแล้ว... ไปแตะผลึกใหญ่ท้ายเมือง มันจะสลับให้เจ้าเห็นเมืองในร่างสว่างหรือร่างจาง ตามที่เจ้าต้องการ\n\nเห็นแล้วใช่ไหม ว่าใครหายไป",
 "chapter5_done": "เมืองมืด... หรือสว่าง เจ้าเลือกแล้ว ข้าไม่ตัดสิน\n\nทางลงนิฟล์เฮมอยู่ที่วิหารบ่อแสง ตรงท่อราก ที่นั่นไม่มีแสงเลย มนุษย์ — และคนตายพูดได้"
 }
 
@@ -142,39 +145,42 @@ dialog_by_flag = {
 [node name="Dagr" parent="NPCs" instance=ExtResource("npc") groups=["light_only"]]
 position = Vector2(1200, 820)
 npc_name = "เจ้าเมืองดาเกอร์"
+portrait_file = "res://Sprites/portraits/npcs/c5672683c8bc.tres"
 type = 0
-dialog = "ลโยซาลฟ์สงบมาพันปี ไม่มีสงคราม ไม่มีความเศร้า ไม่มีใครแก่\n\nเจ้าอยากได้แบบนี้บ้างไหม ☺"
-greeting = "ยินดีต้อนรับ ☺ ไม่มีอะไรผิดปกติที่นี่ ไม่เคยมี"
+dialog = "ลโยซาลฟ์สงบมาพันปี ไม่มีสงคราม ไม่มีความเศร้า ไม่มีใครแก่\n\nเจ้าอยากได้ชีวิตแบบนี้บ้างไหม (ยิ้ม)"
+greeting = "(ยิ้ม) ยินดีต้อนรับ ที่นี่ไม่มีอะไรผิดปกติ ไม่เคยมีเลย"
 voice_id = "dagr"
 quest_ids = Array[StringName]([&"c5_2_gift_of_light", &"c5_8_forsaken"])
 hide_if_flag = &"dagr_left"
 dialog_by_flag = {
-"knows_exile": "เจ้าไปป่าจางมาแล้ว... ☺ ที่นั่นไม่มีอะไรหรอก ไม่มีใครอยู่ที่นั่น ☺ ☺"
+"knows_exile": "เจ้าไปป่าที่แสงจางมาแล้ว... (ยิ้ม) ที่นั่นไม่มีอะไรหรอก ไม่มีใครอยู่ที่นั่นทั้งนั้น (ยิ้มค้าง)"
 }
 
 
 [node name="Lofn" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(1650, 820)
 npc_name = "แม่ค้าลอฟน์"
+portrait_file = "res://Sprites/portraits/npcs/0f7c0ed160fd.tres"
 type = 1
-dialog = "ข้าขายของมา... ตั้งแต่จำความได้ ทุกคนซื้อของเดิม ทุกวัน ☺\n\nกลางคืน? เจ้าเป็นคนที่สองที่ถามข้าวันนี้... ไม่สิ คนแรก ไม่มีใครถาม"
+dialog = "ข้าขายของมา... ตั้งแต่จำความได้ ทุกคนซื้อของเดิม ทุกวัน (ยิ้ม)\n\nกลางคืน? เจ้าเป็นคนที่สองที่ถามข้าวันนี้... ไม่สิ คนแรก ไม่มีใครถาม"
 shop_items = Array[StringName]([&"wing_of_valkyrie", &"red_potion", &"orange_potion", &"white_potion", &"blue_potion", &"blue_potion_2", &"meat", &"phracon", &"emveretarcon", &"prism_blade", &"ljosalf_circlet", &"crystal_cloak", &"wall_shield"])
-greeting = "ราคาทุกอย่างลงท้ายด้วยศูนย์ ไม่มีการต่อรอง ☺ ที่นี่ไม่มีใครขาดอะไร"
+greeting = "ราคาทุกอย่างลงท้ายด้วยศูนย์ ไม่มีการต่อรอง (ยิ้ม) ที่นี่ไม่มีใครขาดอะไร"
 voice_id = "lofn"
 quest_ids = Array[StringName]([&"c5_3_garden_that_never_wilts"])
 dialog_by_flag = {
-"knows_exile": "โซล? โซลไหน ☺ ที่นี่ไม่มีใครชื่อโซล"
+"knows_exile": "โซล? โซลไหน (ยิ้ม) ที่นี่ไม่มีใครชื่อโซล"
 }
 
 
 [node name="Volundr" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2050, 820)
 npc_name = "ช่างแสงโวลุนด์"
+portrait_file = "res://Sprites/portraits/npcs/93bca6507a98.tres"
 type = 2
-dialog = "ของที่สมบูรณ์แบบไม่มีรอยตีค้อน\n\nราคาของความสมบูรณ์แบบคือ ถ้าไม่สมบูรณ์ ก็ไม่มีอยู่เลย ☺"
+dialog = "ของที่สมบูรณ์แบบไม่มีรอยตีค้อน\n\nราคาของความสมบูรณ์แบบคือ ถ้ามันไม่สมบูรณ์ ก็ไม่มีอยู่เลย (ยิ้ม)"
 has_socket = true
 has_refine = true
-greeting = "ข้าตีบวกด้วยแสง สำเร็จบ่อยกว่าค้อน ☺ แต่ถ้าพัง — หายไปทั้งชิ้น ไม่เหลือซาก"
+greeting = "ข้าตีบวกด้วยแสง สำเร็จบ่อยกว่าใช้ค้อน (ยิ้ม) แต่ถ้าพังเมื่อไหร่ ของหายไปทั้งชิ้น ไม่เหลือแม้แต่ซาก"
 voice_id = "volundr"
 quest_ids = Array[StringName]([&"c5_7_light_that_breaks"])
 
@@ -182,14 +188,15 @@ quest_ids = Array[StringName]([&"c5_7_light_that_breaks"])
 [node name="Nott" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(2450, 820)
 npc_name = "หมอน็อตต์"
+portrait_file = "res://Sprites/portraits/npcs/bd2c5176a945.tres"
 type = 3
 blessing_price = 20000
-dialog = "ที่นี่ไม่มีใครป่วย ข้าเลยรักษาแต่คนนอก\n\nเจ้าดูเหนื่อย... เหนื่อยคืออะไรนะ ☺"
+dialog = "ที่นี่ไม่มีใครป่วย ข้าเลยรักษาแต่คนนอก\n\nเจ้าดูเหนื่อย... เหนื่อยคืออะไรนะ (ยิ้ม)"
 heal_price = 2500
-greeting = "ข้าชื่อน็อตต์ ☺ ไม่รู้แปลว่าอะไร ไม่มีใครรู้"
+greeting = "ข้าชื่อน็อตต์ (ยิ้ม) ไม่รู้หรอกว่าแปลว่าอะไร ไม่มีใครรู้"
 voice_id = "nott"
 dialog_by_flag = {
-"knows_exile": "โซล... ☺ ข้าไม่รู้จัก ทำไมข้าถึงรู้สึกว่าควรรู้จัก",
+"knows_exile": "โซล... (ยิ้ม) ข้าไม่รู้จัก แต่ทำไมข้าถึงรู้สึกว่าควรรู้จักนะ",
 "s8_done": "น็อตต์... แปลว่ากลางคืน\n\nข้า... ข้าเคยมีมัน ข้าจำได้แล้ว ข้าเคยหลับ"
 }
 
@@ -197,6 +204,7 @@ dialog_by_flag = {
 [node name="LightWell_small" parent="NPCs" instance=ExtResource("npc") groups=["light_only"]]
 position = Vector2(2850, 820)
 npc_name = "บ่อแสงเล็ก"
+portrait_file = "res://Sprites/portraits/npcs/be03acda24dc.tres"
 type = 4
 dialog = "บ่อแสงเล็กกลางเมือง · เซฟด้วยแสง · เลือกปลายทางแล้วก้าวเข้าไปได้เลย"
 warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_town", &"utgard_town", &"eljudnir"])
@@ -205,15 +213,16 @@ warp_targets = Array[StringName]([&"prontera_town", &"nidavellir_town", &"vanir_
 [node name="Ylva" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(3350, 820)
 npc_name = "เด็กเอลฟ์อิลวา"
+portrait_file = "res://Sprites/portraits/npcs/8ad1aa476143.tres"
 type = 0
 dialog = "อิลวาไม่เคยออกจากเมือง ทุกคนบอกว่าข้างนอกไม่มีอะไร\n\nพี่รู้จัก «ดาว» ไหม ในหนังสือเก่ามีคำนี้ แต่ไม่มีใครรู้ว่าคืออะไร"
-greeting = "พี่มาจากข้างนอกเหรอ ☺ ข้างนอกมีอะไร"
+greeting = "(ยิ้ม) พี่มาจากข้างนอกเหรอ ข้างนอกมีอะไรบ้าง"
 voice_id = "ylva"
 dialog_by_flag = {
 "has_frida_song": "พี่มีกระดาษเพลง... ร้องให้อิลวาฟังหน่อยได้ไหม\n\n(อิลวาฟังเพลงของฟรีดาจนจบ ท่อนสุดท้ายพูดถึงดาว... ตาเธอเปียก)\n\nนี่คืออะไร ทำไมน้ำไหลจากตา",
 "ylva_cried": "...น้ำที่ไหลจากตา นี่คืออะไร\n\nเพลงของฟรีดา... เด็กคนนั้นเห็นดาวจริง ๆ เหรอ อิลวาอยากเห็น",
 "let_dark": "พี่! อิลวาเห็นแล้ว! จุดสว่างเล็ก ๆ บนฟ้ามืด... นั่นคือดาวใช่ไหม\n\nอิลวาร้องไห้อีกแล้ว แต่ครั้งนี้ไม่เหมือนครั้งแรก",
-"restore_light": "แสงกลับมาแล้ว... ☺ อิลวาเกือบได้เห็นดาว\n\nไม่เป็นไร อิลวาจำได้ว่ามันมีอยู่ แค่นั้นก็พอ"
+"restore_light": "แสงกลับมาแล้ว... (ยิ้ม) อิลวาเกือบได้เห็นดาวแล้วแท้ ๆ\n\nไม่เป็นไร อิลวาจำได้ว่ามันมีอยู่ แค่นั้นก็พอ"
 }
 
 [node name="Depth" type="Sprite2D" parent="Background"]

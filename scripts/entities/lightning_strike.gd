@@ -100,7 +100,11 @@ func _run(dir: int) -> void:
 		var y := _ground_offset_at(x)
 		# วงเตือนขึ้นก่อน แล้วค่อยฟาด
 		if d.skill_bolt_telegraph > 0.0:
-			_marks.append({"x": x, "y": y, "left": d.skill_bolt_telegraph, "total": d.skill_bolt_telegraph})
+			if d.skill_bolt_frames != null and d.skill_bolt_frames.has_animation(&"warning"):
+				_spawn_visual(x,y,"warning")
+			# Hrungnir uses rune pillars without warning circles; retain cast timing.
+			if d.id != &"stone_hrungnir":
+				_marks.append({"x": x, "y": y, "left": d.skill_bolt_telegraph, "total": d.skill_bolt_telegraph})
 			queue_redraw()
 			await get_tree().create_timer(d.skill_bolt_telegraph).timeout
 			if not is_instance_valid(self):
@@ -155,33 +159,7 @@ func _ground_offset_at(x: float) -> float:
 func _strike(x: float, y: float = 0.0) -> void:
 	var d := _data
 
-	# ---------- ภาพ ----------
-	var frames: SpriteFrames = d.skill_bolt_frames
-	if frames == null and ResourceLoader.exists(DEFAULT_FRAMES):
-		frames = load(DEFAULT_FRAMES)
-	if frames != null:
-		var sp := AnimatedSprite2D.new()
-		sp.sprite_frames = frames
-		var anim := BOLT_ANIM
-		if not frames.has_animation(anim):
-			var names := frames.get_animation_names()
-			anim = String(names[0]) if names.size() > 0 else ""
-		if anim != "":
-			# ★ จุดตกอยู่ขอบล่างของภาพ ★ เลยต้องยกภาพขึ้นครึ่งหนึ่งของความสูง
-			var tex := frames.get_frame_texture(anim, 0)
-			var k := 1.0
-			if tex != null and d.skill_bolt_height > 0.0:
-				k = d.skill_bolt_height / maxf(1.0, tex.get_size().y)
-			sp.scale = Vector2(k, k)
-			if tex != null:
-				sp.position = Vector2(x, y - tex.get_size().y * k * 0.5)
-			else:
-				sp.position = Vector2(x, y - d.skill_bolt_height * 0.5)
-			sp.animation = anim
-			sp.z_index = 0
-			add_child(sp)
-			sp.play(anim)
-			sp.animation_finished.connect(sp.queue_free)
+	_spawn_visual(x,y)
 
 	# ---------- เสียง ----------
 	if d.skill_bolt_sfx != "" and Game.sfx != null:
@@ -210,3 +188,45 @@ func _strike(x: float, y: float = 0.0) -> void:
 		# กระเด็นออกจากจุดที่ฟ้าลง
 		var kb_dir: int = 1 if pf.x >= hit_center.x else -1
 		player.take_damage(damage, d.skill_knockback, kb_dir)
+
+func _spawn_visual(x: float, y: float, requested_anim: String = BOLT_ANIM) -> void:
+	var d := _data
+	# ---------- ภาพ ----------
+	var frames: SpriteFrames = d.skill_bolt_frames
+	if frames == null and ResourceLoader.exists(DEFAULT_FRAMES):
+		frames = load(DEFAULT_FRAMES)
+	if frames != null:
+		var sp := AnimatedSprite2D.new()
+		sp.sprite_frames = frames
+		var anim := requested_anim
+		if not frames.has_animation(anim):
+			var names := frames.get_animation_names()
+			anim = String(names[0]) if names.size() > 0 else ""
+		if anim != "":
+			# ★ จุดตกอยู่ขอบล่างของภาพ ★ เลยต้องยกภาพขึ้นครึ่งหนึ่งของความสูง
+			var tex := frames.get_frame_texture(anim, 0)
+			var k := 1.0
+			if tex != null and d.skill_bolt_height > 0.0:
+				k = d.skill_bolt_height / maxf(1.0, tex.get_size().y)
+			sp.scale = Vector2(k, k)
+			if tex != null:
+				sp.position = Vector2(x, y - tex.get_size().y * k * 0.5)
+			else:
+				sp.position = Vector2(x, y - d.skill_bolt_height * 0.5)
+			sp.animation = anim
+			sp.z_index = 0
+			add_child(sp)
+			if frames.has_meta("baseline_y"):
+				var baselines: PackedFloat32Array = frames.get_meta("baseline_y")
+				var anchor_scale := k
+				var anchor_y := y
+				var apply_anchor := func():
+					var current := frames.get_frame_texture(anim,sp.frame)
+					sp.position.y = anchor_y + (current.get_height()*0.5-baselines[sp.frame])*anchor_scale
+					sp.modulate.a = 0.25 if sp.frame == frames.get_frame_count(anim)-1 else 1.0
+				sp.frame_changed.connect(apply_anchor)
+				apply_anchor.call()
+			sp.play(anim)
+			if anim == "warning": sp.speed_scale = (float(frames.get_frame_count(anim))/frames.get_animation_speed(anim))/maxf(0.01,d.skill_bolt_telegraph)
+			sp.animation_finished.connect(sp.queue_free)
+

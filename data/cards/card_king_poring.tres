@@ -1,22 +1,29 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://b837a2n682dxt"]
 
 [ext_resource type="Script" uid="uid://b3076eptxjrrr" path="res://scripts/resources/card_data.gd" id="1_card"]
-[ext_resource type="Texture2D" uid="uid://bc3pgkjxtdrvy" path="res://Sprites/card/card_king_poring.webp" id="art_1"]
+
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_king_poring.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_king_poring.png" id="gold_icon"]
 
 [resource]
 script = ExtResource("1_card")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
 monster_id = &"king_poring"
-fits_slot = 5
-illustration = ExtResource("art_1")
 rarity = 4
 monster_level = 15
 id = &"card_king_poring"
 display_name = "การ์ดคิงโพริง"
-description = "การ์ดจากราชาแห่งก้อนวุ้น หายากมาก ผู้ถือครองจะโชคดีผิดปกติ"
-icon = ExtResource("art_1")
+description = "AGI +2, LUK +2, FLEE +6, HP +3%"
 type = 5
 buy_price = 0
 sell_price = 180
-flee = 6
+
+fits_slot = 5
 bonus_agi = 2
 bonus_luk = 2
+flee = 6
+percent_effects = {"max_hp_percent": 3.0}
+
+unique_equipped = true

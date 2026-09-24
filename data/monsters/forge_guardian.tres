@@ -18,22 +18,22 @@ max_count = 2
 [sub_resource type="Resource" id="Drop_forge_guardian_3"]
 script = ExtResource("2_drop")
 item_id = &"dwarven_mail"
-chance = 15.0
+chance = 8.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_4"]
 script = ExtResource("2_drop")
 item_id = &"mirror_shield"
-chance = 15.0
+chance = 8.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_5"]
 script = ExtResource("2_drop")
 item_id = &"forge_saber"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_card"]
 script = ExtResource("2_drop")
 item_id = &"card_forge_guardian"
-chance = 2.12
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_ring"]
 script = ExtResource("2_drop")
@@ -43,7 +43,7 @@ chance = 5.0
 [sub_resource type="Resource" id="Balance_forge_core_pendant"]
 script = ExtResource("2_drop")
 item_id = &"forge_core_pendant"
-chance = 22.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_forge_guardian_phracon"]
 script = ExtResource("2_drop")
@@ -117,10 +117,10 @@ skill_anim = &"Skill"
 skill_range = 380.0
 skill_radius_x = 340.0
 skill_radius_y = 200.0
-skill_damage_mult = 1.15
+skill_damage_mult = 3.0
 skill_windup = 0.9
 skill_duration = 0.9
 skill_knockback = 65.0
-respawn_time = 60.0
+respawn_time = 150.0
 spawn_lines = null
 death_lines = null

@@ -62,10 +62,10 @@ func live_progress() -> int:
 ## ข้อความที่โชว์ในสมุดเควส
 func describe() -> String:
 	if text != "":
-		return text
+		return Loc.t(text)   # ★ รอบ 161 ★
 	match kind:
 		Kind.KILL:
-			var m := GameData.get_monster(target)
+			var m := GameData.get_monster_info(target)
 			return "ล่า %s" % (m.display_name if m != null else String(target))
 		Kind.COLLECT:
 			var it := GameData.get_item(target)
@@ -73,13 +73,13 @@ func describe() -> String:
 		Kind.TALK:
 			return "คุยกับ %s" % String(target)
 		Kind.VISIT:
-			return "ไปที่ %s" % String(target)
+			return "ไปที่ %s" % Game.map_display_name(target)
 		Kind.READ:
 			return "ตรวจดู %s" % String(target)
 		Kind.FLAG:
 			return String(target)
 		Kind.SKILL_HIT:
-			var m2 := GameData.get_monster(skill_hit_monster())
+			var m2 := GameData.get_monster_info(skill_hit_monster())
 			var who := "มอนตัวไหนก็ได้" if skill_hit_monster() == &"*" else (m2.display_name if m2 != null else String(skill_hit_monster()))
 			return "ใช้%s โดน %s" % [skill_hit_label(), who]
 	return String(target)
@@ -92,7 +92,7 @@ func describe() -> String:
 const SKILL_GROUPS := {
 	"sunder": [&"anvil_cleave", &"faultline", &"worldcleaver"],
 	"edge": [&"rune_flurry", &"unbroken_edge", &"rune_echo"],
-	"ninth": [&"erasing_cut", &"ninth_inscription", &"twin_inscription", &"twin_echo"],
+	"ninth": [&"erasing_cut", &"ninth_inscription", &"twin_inscription", &"twin_echo", &"erasing_step", &"oathchain", &"ninefold_cyclone", &"mirror_echo"],   # ★ รอบ 181 ★
 }
 const SKILL_GROUP_NAMES := {"sunder": "สกิลสาย Sunder (ดาบหนัก)", "edge": "สกิลสาย Edge (คม)", "ninth": "สกิล Ninth Edge"}
 

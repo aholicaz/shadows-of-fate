@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter7/idle/svala.png" id="1_06l7k"]
+
+[resource]
+atlas = ExtResource("1_06l7k")
+region = Rect2(12, 12, 312, 397)
+filter_clip = true

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/item_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/items/chapter8/c8_rootbound_pendant.png" id="i"]
+[resource]
+script = ExtResource("s")
+id = &"c8_rootbound_pendant"
+display_name = "จี้ผูกรากสี่คำสัตย์"
+description = "สวาลาผูกรอยจดจำของผู้คุมทั้งสี่ให้คุ้มครองผู้ขึ้นหอ"
+icon = ExtResource("i")
+type = 2
+sellable = false
+can_drop = false
+buy_price = 0
+sell_price = 0
+slot = 7
+required_level = 110
+max_stack = 1
+max_hp = 400
+max_sp = 60
+bonus_vit = 5
+bonus_dex = 5
+
+card_slots = 1

@@ -66,7 +66,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_nastrond" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(4800, 820)
+position = Vector2(4310, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -84,7 +84,7 @@ max_spawn_distance = 1700.0
 
 
 [node name="ToRiver" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"gjoll_river"
 target_spawn_point = &"from_hall"
 label_text = "← แม่น้ำเกียลล์"
@@ -92,7 +92,7 @@ destination_name = "แม่น้ำเกียลล์"
 
 
 [node name="ToNastrond" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(4940, 880)
+position = Vector2(4450, 825)
 target_map = &"nastrond"
 target_spawn_point = &"from_hall"
 label_text = "→ นาสตรอนด์"

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_name_eater.png" id="gold_art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_name_eater.png" id="gold_icon"]
+
+[resource]
+script = ExtResource("s")
+illustration = ExtResource("gold_art")
+icon = ExtResource("gold_icon")
+id = &"card_c8_name_eater"
+display_name = "การ์ดนามสูญ ผู้กลืนทะเบียน"
+description = "STR +6, ดาเมจสกิล +6%, ดูดมานา +0.10%"
+type = 5
+monster_id = &"c8_name_eater"
+monster_level = 130
+rarity = 5
+sellable = false
+can_drop = false
+
+fits_slot = 5
+bonus_str = 6
+percent_effects = {"skill_damage_percent": 6.0, "sp_drain_percent": 0.1}
+
+unique_equipped = true

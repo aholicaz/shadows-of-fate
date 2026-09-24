@@ -69,7 +69,7 @@ position = Vector2(200, 820)
 
 
 [node name="ToGate" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"garm_gate"
 target_spawn_point = &"from_seat"
 label_text = "← ประตูของการ์ม"
@@ -77,7 +77,7 @@ destination_name = "ประตูของการ์ม"
 
 
 [node name="ToChapter7" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(2340, 880)
+position = Vector2(1850, 825)
 target_map = &"cinder_crossing"
 target_spawn_point = &"from_left"
 label_text = "→ มุสเปลเฮม — บท 7"
@@ -86,7 +86,7 @@ required_flag = &"chapter6_done"
 locked_text = "ฟังเรื่องราวที่บัลลังก์ว่างให้จบก่อนเดินทางสู่มุสเปลเฮม"
 
 [node name="from_chapter7" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(2150, 820)
+position = Vector2(1710, 820)
 
 
 [node name="NPCs" type="Node2D" parent="."]
@@ -95,6 +95,7 @@ position = Vector2(2150, 820)
 [node name="Stranger_seat" parent="NPCs" instance=ExtResource("npc")]
 position = Vector2(1300, 820)
 npc_name = "คนแปลกหน้า"
+portrait_file = "res://Sprites/portraits/npcs/b68aa31bc058.tres"
 type = 0
 dialog = "(เขานั่งอยู่ที่ขั้นบันไดของบัลลังก์ว่าง ไม่หันมา)"
 greeting = "..."

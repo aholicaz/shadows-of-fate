@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3]
+[ext_resource type="Texture2D" path="res://Sprites/effects/war_wraith/spectral_war_lightning.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="F0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 190, 793)
+margin = Rect2(21, 25, 66, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F1"]
+atlas = ExtResource("1")
+region = Rect2(190, 0, 165, 793)
+margin = Rect2(42, 25, 91, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F2"]
+atlas = ExtResource("1")
+region = Rect2(355, 0, 190, 793)
+margin = Rect2(30, 25, 66, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F3"]
+atlas = ExtResource("1")
+region = Rect2(545, 0, 230, 793)
+margin = Rect2(16, 25, 26, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F4"]
+atlas = ExtResource("1")
+region = Rect2(775, 0, 221, 793)
+margin = Rect2(29, 25, 35, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F5"]
+atlas = ExtResource("1")
+region = Rect2(996, 0, 209, 793)
+margin = Rect2(29, 25, 47, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F6"]
+atlas = ExtResource("1")
+region = Rect2(1205, 0, 195, 793)
+margin = Rect2(37, 25, 61, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F7"]
+atlas = ExtResource("1")
+region = Rect2(1400, 0, 195, 793)
+margin = Rect2(32, 25, 61, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F8"]
+atlas = ExtResource("1")
+region = Rect2(1595, 0, 190, 793)
+margin = Rect2(30, 25, 66, 27)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="F9"]
+atlas = ExtResource("1")
+region = Rect2(1785, 0, 198, 793)
+margin = Rect2(35, 25, 58, 27)
+filter_clip = true
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("F0")},{"duration": 1.0, "texture": SubResource("F1")}], "loop": false, "name": &"warning", "speed": 6.666667}, {"frames": [{"duration": 1.0, "texture": SubResource("F2")},{"duration": 1.0, "texture": SubResource("F3")},{"duration": 1.0, "texture": SubResource("F4")},{"duration": 1.0, "texture": SubResource("F5")},{"duration": 1.0, "texture": SubResource("F6")},{"duration": 1.0, "texture": SubResource("F7")},{"duration": 1.0, "texture": SubResource("F8")},{"duration": 1.0, "texture": SubResource("F9")}], "loop": false, "name": &"bolt", "speed": 12.0}]
+metadata/baseline_y = PackedFloat32Array(735,735,735,735,735,735,735,735)

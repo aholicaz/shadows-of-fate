@@ -1,6 +1,7 @@
 extends RefCounted
 # Actual blade-tip and grip pixels, read from existing equipped weapon art.
 const POINTS := {
+	"res://Sprites/items/placeholder/bone_greatsword.png": Vector4(15, 236, 199.7, 56.3),
 	"res://Sprites/equip/aesir_warblade_hand.png": Vector4(17, 236, 200.0, 56.0),
 	"res://Sprites/equip/bastard_sword_hand.png": Vector4(1246, 8, 300.0, 963.0),
 	"res://Sprites/equip/claymore_hand.png": Vector4(49, 1228, 1020.0, 230.0),

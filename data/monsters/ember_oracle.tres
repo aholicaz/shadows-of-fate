@@ -2,6 +2,8 @@
 [ext_resource type="Script" path="res://scripts/resources/monster_data.gd" id="s"]
 [ext_resource type="Script" path="res://scripts/resources/drop_entry.gd" id="d"]
 [ext_resource type="SpriteFrames" path="res://data/sprites/monsters/ember_oracle_frames.tres" id="f"]
+[ext_resource type="Texture2D" path="res://data/sprites/gullveig_fireball_texture.tres" id="sep23_orb"]
+
 [sub_resource type="Resource" id="material"]
 script = ExtResource("d")
 item_id = &"ember_lens"
@@ -20,6 +22,10 @@ script = ExtResource("d")
 item_id = &"emveretarcon"
 chance = 0.8
 
+[sub_resource type="Resource" id="equipment_c7_oracle_circlet"]
+script = ExtResource("d")
+item_id = &"c7_oracle_circlet"
+chance = 3.0
 [resource]
 script = ExtResource("s")
 id = &"ember_oracle"
@@ -29,9 +35,9 @@ display_height = 285.0
 hitbox_size = Vector2(90, 100)
 align_feet = true
 level = 106
-max_hp = 54000
-atk_min = 1452
-atk_max = 1650
+max_hp = 72900
+atk_min = 1960
+atk_max = 2230
 def = 150
 mdef = 107
 hit = 235
@@ -46,11 +52,42 @@ attack_range = 155.0
 leash_range = 1300.0
 jump_while_chasing = false
 hop_while_wandering = false
-attack_windup = 0.65
-attack_duration = 0.95
-attack_cooldown = 2.1
-exp_reward = 7000
-job_exp_reward = 4900
+attack_cooldown = 1.85
+exp_reward = 3345
+job_exp_reward = 2342
 zeny_min = 475
 zeny_max = 775
-drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion"), SubResource("Drop_ember_oracle_emveretarcon")])
+drops = Array[ExtResource("d")]([SubResource("material"), SubResource("card"), SubResource("potion"), SubResource("Drop_ember_oracle_emveretarcon"), SubResource("equipment_c7_oracle_circlet")])
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_anchors = Dictionary[StringName, Vector2]({})
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.00094251, &"Walk": 1.00094251, &"Attack": 0.99812030, &"Hit": 1.00000000, &"Die": 1.00000000, &"Run": 1.00094251, &"Skill": 0.99812030, &"Death": 1.00000000})
+attack_hit_frames = PackedInt32Array(12)
+attack_follow_anim = true
+attack_windup = 1.0
+attack_duration = 1.3333333333333333
+attack_hit_damage_mult = 1.0
+ranged_attack = true
+ranged_attack_range = 650.0
+projectile_texture = ExtResource("sep23_orb")
+projectile_speed = 1000.0
+projectile_range = 1200.0
+projectile_height = 65.0
+projectile_hit_size = Vector2(42, 42)
+projectile_fire_effect = true
+projectile_orb_style = true
+projectile_orb_color = Color(1.0, 0.43, 0.055, 1)
+projectile_aim_at_player = false
+projectile_down_angle = 0.0
+projectile_hand_positions = Dictionary[int, Vector2]({12: Vector2(488.75, 710.0)})
+skill_hand_projectiles = false
+skill_name = "นิมิตเถ้าถ่าน"
+skill_range = 460.0
+skill_damage_mult = 1.8
+skill_windup = 1.2
+skill_duration = 1.7
+skill_cooldown = 10.0
+skill_chance = 0.5
+skill_knockback = 340.0
+skill_slam_radius = 360.0

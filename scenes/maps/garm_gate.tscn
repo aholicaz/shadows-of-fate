@@ -63,7 +63,7 @@ position = Vector2(200, 820)
 
 
 [node name="from_seat" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(3200, 820)
+position = Vector2(2710, 820)
 
 
 [node name="Spawners" type="Node2D" parent="."]
@@ -82,7 +82,7 @@ spawn_width = 160
 
 
 [node name="ToNastrond" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(60, 880)
+position = Vector2(60, 825)
 target_map = &"nastrond"
 target_spawn_point = &"from_gate"
 label_text = "← นาสตรอนด์"
@@ -90,7 +90,7 @@ destination_name = "นาสตรอนด์ ฝั่งศพ"
 
 
 [node name="ToSeat" parent="Portals" instance=ExtResource("portal")]
-position = Vector2(3300, 880)
+position = Vector2(2850, 825)
 target_map = &"odin_seat"
 target_spawn_point = &"from_gate"
 label_text = "→ บัลลังก์ว่าง"

@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter6/idle/bone_smith.png" id="1_5ws56"]
+
+[resource]
+atlas = ExtResource("1_5ws56")
+region = Rect2(118, 12, 377, 397)
+filter_clip = true

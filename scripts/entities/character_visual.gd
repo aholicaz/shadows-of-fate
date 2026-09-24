@@ -18,6 +18,7 @@ extends Node2D
 const BLADE_HAND_TRACK = preload("res://scripts/entities/blade_hand_track.gd")
 const RUNE_HAND_TRACK = preload("res://scripts/entities/runeblade_hand_track.gd")
 
+
 ## ลำดับการวาด (ตัวแรก = อยู่หลังสุด)
 const LAYER_ORDER := [
 	Equipment.EquipSlot.GARMENT,

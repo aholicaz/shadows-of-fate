@@ -2,6 +2,7 @@
 class_name NpcDirectory
 
 const MAP_NAMES := {
+	&"yggdrasil_root": "อิกดราซิล จุดพักราก",
 	&"asgard_forest_2": "ป่าสนธยา",
 	&"ash_procession": "ทางขบวนเถ้า",
 	&"blackhorn_rootcrypt": "วิหารเขาทมิฬใต้ราก",
@@ -86,7 +87,7 @@ const NPC_MAPS := {
 	"ศิลาริมทะเลสาบ": [&"mirror_lake"],
 	"ศิลาแห่งเฮล": [&"eljudnir"],
 	"ศิลาแห่งโยตุน": [&"utgard_town"],
-	"สวาลา ผู้เก็บชื่อ": [&"emberhaven"],
+	"สวาลา ผู้เก็บชื่อ": [&"emberhaven", &"yggdrasil_root"],
 	"หมอคนแคระเฮดิน": [&"nidavellir_town"],
 	"หมอน็อตต์": [&"ljosalf_city"],
 	"หมอสมุนไพรลีฟ": [&"vanir_town"],

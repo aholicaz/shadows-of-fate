@@ -29,27 +29,27 @@ chance = 4.0
 [sub_resource type="Resource" id="Drop_chained_garm_4"]
 script = ExtResource("2_drop")
 item_id = &"garm_fang"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_chained_garm_5"]
 script = ExtResource("2_drop")
 item_id = &"odin_ring"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_chained_garm_6"]
 script = ExtResource("2_drop")
 item_id = &"hel_half_plate"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_chained_garm_7"]
 script = ExtResource("2_drop")
 item_id = &"name_blade"
-chance = 15.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Drop_chained_garm_card"]
 script = ExtResource("2_drop")
 item_id = &"card_chained_garm"
-chance = 2.0
+chance = 5.0
 
 [sub_resource type="Resource" id="Socket_shard"]
 script = ExtResource("2_drop")
@@ -70,9 +70,9 @@ hitbox_size = Vector2(130, 140)
 hp_bar_offset_y = -414.0
 display_height = 460.0
 level = 96
-max_hp = 180000
-atk_min = 1300
-atk_max = 1650
+max_hp = 252000
+atk_min = 1625
+atk_max = 2060
 def = 140
 mdef = 120
 hit = 226
@@ -90,8 +90,6 @@ attack_range = 200.0
 leash_range = 800.0
 wander_range = 260.0
 hop_while_wandering = false
-attack_windup = 0.4
-attack_duration = 0.5
 attack_cooldown = 1.8
 knockback_force = 440.0
 exp_reward = 16348
@@ -99,19 +97,28 @@ job_exp_reward = 11444
 zeny_min = 2156
 zeny_max = 4004
 drops = Array[ExtResource("2_drop")]([SubResource("Drop_chained_garm_0"), SubResource("Drop_chained_garm_1"), SubResource("Drop_chained_garm_2"), SubResource("Drop_chained_garm_3"), SubResource("Drop_chained_garm_4"), SubResource("Drop_chained_garm_5"), SubResource("Drop_chained_garm_6"), SubResource("Drop_chained_garm_7"), SubResource("Drop_chained_garm_card"), SubResource("Socket_shard"), SubResource("Socket_stone")])
-respawn_time = 600.0
+respawn_time = 270.0
 is_boss = true
 boss_title = "สิ่งที่เฝ้าความจริง"
 skill_name = "สายฟ้าจากโซ่"
 skill_anim = &"Skill"
 skill_range = 520.0
-skill_damage_mult = 2.2
+skill_damage_mult = 5.5
 skill_windup = 0.5
 skill_duration = 1.0
 skill_cooldown = 7.0
-skill_chance = 0.70
+skill_chance = 0.8
 skill_bolt_count = 4
 skill_bolt_start = 140.0
 skill_bolt_spacing = 160.0
 skill_bolt_delay = 0.35
 death_lines = PackedStringArray("...หอน... เสียงสุดท้าย... ไปถึงบัลลังก์...")
+fit_fixed_anchor_enabled = true
+fit_fixed_anchor = Vector2(800, 1100)
+fit_uniform_scale = true
+fit_animation_anchors = Dictionary[StringName, Vector2]({})
+fit_animation_scales = Dictionary[StringName, float]({&"Idle": 1.23050260, &"Walk": 1.23050260, &"Attack": 1.24125874, &"Hit": 1.20543294, &"Die": 1.20543294, &"Run": 1.23050260, &"Skill": 1.24125874})
+attack_hit_frames = PackedInt32Array(16)
+attack_follow_anim = true
+attack_windup = 1.3333333333333333
+attack_duration = 1.0

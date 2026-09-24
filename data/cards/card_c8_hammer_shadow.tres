@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_hammer_shadow.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_hammer_shadow.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_hammer_shadow"
+display_name = "การ์ดเงาแห่งค้อน ผู้เฝ้าประตูทอง"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 100"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_hammer_shadow"
+monster_level = 210
+rarity = 5
+fits_slot = 2
+unique_equipped = true
+sell_price = 50000
+max_hp = 800
+def = 30
+bonus_str = 6

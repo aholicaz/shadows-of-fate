@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="s"]
+[ext_resource type="Texture2D" path="res://Sprites/card/boss_gold/card_c8_crown_seraph.png" id="art"]
+[ext_resource type="Texture2D" path="res://Sprites/items/boss_gold/card_c8_crown_seraph.png" id="icon"]
+[resource]
+script = ExtResource("s")
+id = &"card_c8_crown_seraph"
+display_name = "การ์ดออโรรา ผู้พิทักษ์มงกุฎ"
+description = "บันทึกความทรงจำผู้คุมอิกดราซิลชั้น 50"
+illustration = ExtResource("art")
+icon = ExtResource("icon")
+type = 5
+monster_id = &"c8_crown_seraph"
+monster_level = 160
+rarity = 5
+fits_slot = 2
+unique_equipped = true
+sell_price = 50000
+max_hp = 600
+defense_percent = 7.0

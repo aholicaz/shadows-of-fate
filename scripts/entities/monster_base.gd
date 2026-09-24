@@ -19,7 +19,7 @@ const AGGRO_MEMORY := 8.0
 const DAMAGE_FONT_SIZE := 32
 const DAMAGE_FONT_CRIT := 40
 ## ★ รอบ 146 ★ เอฟเฟกต์คริ: แฉกทองเดิม (ปิด) · สโลว์เมื่อคริกิน ≥ x ของ MaxHP มอน · ช้าเหลือกี่เท่า · นานกี่วิ (เวลาจริง)
-const CRIT_GOLD_BURST := false
+const CRIT_GOLD_BURST := true
 ## ★ รอบ 150 ★ เดิม 10% ของ MaxHP → มอนธรรมดาโดนคริแทบทุกทีก็เข้าเงื่อนไข สกิลหลายฮิตยิ่งต่อกันเป็นสโลว์ยาว (ผู้ใช้: "เหมือนโดนสโล")
 ## ตอนนี้: ต้องกิน ≥25% MaxHP · มอนเลเวลไม่ต่ำกว่าผู้เล่นเกิน 8 · เว้นอย่างน้อย CRIT_SLOWMO_COOLDOWN วิ · ช้าแค่ 0.65 เท่า 0.12 วิ
 const CRIT_SLOWMO_HP_FRACTION := 0.25
@@ -97,9 +97,13 @@ func _ready() -> void:
 		set_physics_process(false)
 		return
 
+	if get_meta(&"champion", false):   # ★ รอบ 158 ★ สปอว์นเนอร์สุ่มให้เป็นแชมเปี้ยน
+		_make_champion()
 	hp = data.max_hp
 	_apply_visual()
 	_create_hp_bar()
+	if is_champion:
+		_attach_champion_fx()
 	preload("res://scripts/entities/foot_shadow.gd").attach(self)
 	_aggro = data.ai_type == MonsterData.AIType.AGGRESSIVE and not _calmed()
 	# กันบอสร่ายสกิลใส่ทันทีที่เห็นหน้า
@@ -109,6 +113,194 @@ func _ready() -> void:
 		sprite.modulate = data.tint
 	if not data.spawn_lines.is_empty():
 		_say_line(data.spawn_lines[randi() % data.spawn_lines.size()], Color("#c9d6ff"))
+
+
+# =========================================================
+# ★ รอบ 158 ★ มอนแชมเปี้ยน — สปอว์นเนอร์สุ่ม MonsterSpawner.CHAMPION_CHANCE ในแมพทุ่ง (ไม่ใช่บอส)
+# ตัวใหญ่ขึ้น + ป้ายชื่อทอง + ออร่าใต้เท้า (ไม่ย้อมสี) · เก่งขึ้น ~3 เท่า · EXP/ซีนี ×3 · ทอยดรอป 2 รอบ
+# =========================================================
+const CHAMPION_HP := 3.0
+const CHAMPION_ATK := 1.5
+const CHAMPION_DEF := 1.2
+const CHAMPION_REWARD := 3.0
+const CHAMPION_SCALE := 1.3
+var is_champion := false
+
+# ★ รอบ 182 ★ ตราทองของแชมเปี้ยน (ระบบ B บท 9) — สุ่ม 1 อย่าง (Lv < 60) หรือ 1-2 อย่าง ตอนเกิด · ชื่อตราโชว์ใต้ป้ายแชมเปี้ยน
+## ตั้งเองได้ก่อน add_child: set_meta("gold_marks", [..]) · กันบางตรา: set_meta("gold_mark_exclude", [..])
+const GOLD_MARK_NAMES := {&"gold_shield": "โล่ทอง", &"haste": "เร่งรีบ", &"split": "แตกร่าง",
+	&"reflect": "สะท้อน", &"warden": "ผู้พิทักษ์", &"regen": "ฟื้นฟู"}
+const GOLD_SHIELD_CUT := 0.6      ## โล่ทอง: ตีธรรมดาเข้าแค่ 40% · โดนสกิล 1 ที = โล่แตก
+const GOLD_SHIELD_BACK := 8.0     ## โล่แตกแล้วกลับมาใน 8 วิ
+const GOLD_HASTE := 1.35          ## เร่งรีบ: เดินเร็ว ×1.35 · ตีถี่ขึ้น (คูลดาวน์ ÷1.35)
+const GOLD_WARDEN_RANGE := 420.0  ## ผู้พิทักษ์: มอนตัวอื่นในระยะนี้รับดาเมจ -30%
+const GOLD_WARDEN_CUT := 0.3
+const GOLD_REFLECT := 0.1         ## สะท้อน: โดนคริ → เด้งกลับ 10% ของดาเมจ (ไม่เกิน 5% HP สูงสุดผู้เล่น · 0.5 วิ/ครั้ง)
+const GOLD_REFLECT_CAP := 0.05
+const GOLD_REGEN := 0.015         ## ฟื้นฟู: ไม่โดนตี 3 วิ → ฟื้น 1.5% HP/วิ
+const GOLD_SPLIT_HP := 0.2        ## แตกร่าง: ตายแล้วแยก 2 ตัวเล็ก HP 20% (ไม่มี EXP/ของ/นับเควส)
+var gold_marks: Array[StringName] = []
+var gold_shield_up := false
+var _gold_shield_back := 0.0
+var _gold_regen_idle := 0.0
+var _gold_regen_acc := 0.0
+var _gold_reflect_cd := 0.0
+
+
+static func roll_gold_marks(level: int, exclude: Array = []) -> Array[StringName]:
+	var pool: Array = GOLD_MARK_NAMES.keys().filter(func(k): return not exclude.has(k))
+	pool.shuffle()
+	var n := 1 if level < 60 else randi_range(1, 2)
+	var out: Array[StringName] = []
+	for i in range(mini(n, pool.size())):
+		out.append(pool[i])
+	return out
+
+
+func gold_mark_text() -> String:
+	var names: Array[String] = []
+	for m in gold_marks:
+		names.append(String(GOLD_MARK_NAMES.get(m, m)))
+	return " · ".join(names)
+
+
+func gold_regenerating() -> bool:
+	return &"regen" in gold_marks and _gold_regen_idle >= 3.0 and data != null and hp < data.max_hp
+
+
+func _make_champion() -> void:
+	is_champion = true
+	var d: MonsterData = data.duplicate()
+	d.max_hp = int(d.max_hp * CHAMPION_HP)
+	d.atk_min = int(round(d.atk_min * CHAMPION_ATK))
+	d.atk_max = int(round(d.atk_max * CHAMPION_ATK))
+	d.def = int(round(d.def * CHAMPION_DEF))
+	d.exp_reward = int(round(d.exp_reward * CHAMPION_REWARD))
+	d.job_exp_reward = int(round(d.job_exp_reward * CHAMPION_REWARD))
+	d.zeny_min = int(round(d.zeny_min * CHAMPION_REWARD))
+	d.zeny_max = int(round(d.zeny_max * CHAMPION_REWARD))
+	if d.display_height > 0.0:
+		d.display_height *= CHAMPION_SCALE
+	else:
+		d.sprite_scale *= CHAMPION_SCALE
+	d.hp_bar_offset_y *= CHAMPION_SCALE
+	SkillFxScale.apply(d, CHAMPION_SCALE)   # ★ รอบ 172 ★ ตัวใหญ่ขึ้น = ภาพสกิลใหญ่ตาม
+	# ★ รอบ 182 ★ ตราทอง
+	if has_meta(&"gold_marks"):
+		gold_marks.assign(get_meta(&"gold_marks"))
+	else:
+		gold_marks = roll_gold_marks(d.level, get_meta(&"gold_mark_exclude", []))
+	if &"haste" in gold_marks:
+		d.move_speed *= GOLD_HASTE
+		d.attack_cooldown /= GOLD_HASTE
+	gold_shield_up = &"gold_shield" in gold_marks
+	if &"warden" in gold_marks:
+		add_to_group(&"gold_warden")
+	data = d
+
+
+func _attach_champion_fx() -> void:
+	var aura = preload("res://scripts/entities/champion_aura.gd").new()
+	aura.name = "ChampionAura"
+	aura.radius = maxf(60.0, hit_width() * 0.75)
+	add_child(aura)
+	aura.position = foot_position() - global_position
+	var tag := Label.new()
+	tag.name = "ChampionTag"
+	tag.text = "★ แชมเปี้ยน ★"
+	if not gold_marks.is_empty():   # ★ รอบ 182 ★ ชื่อตราทองบรรทัดที่สอง
+		tag.text += "\n" + gold_mark_text()
+	tag.add_theme_font_size_override("font_size", 16)
+	tag.add_theme_color_override("font_color", Color("#ffd86a"))
+	tag.add_theme_color_override("font_outline_color", Color("#3a2408"))
+	tag.add_theme_constant_override("outline_size", 5)
+	tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tag.size = Vector2(200, 22 if gold_marks.is_empty() else 52)
+	tag.position = Vector2(-100, data.hp_bar_offset_y - (26 if gold_marks.is_empty() else 60))
+	tag.z_index = 101
+	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(tag)
+	Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y - 50), "แชมเปี้ยนปรากฏตัว!", Color("#ffd86a"), 20, 0)
+	if not gold_marks.is_empty():   # ★ รอบ 182 ★
+		var fx = preload("res://scripts/entities/gold_mark_fx.gd").new()
+		fx.name = "GoldMarkFX"
+		fx.monster = self
+		add_child(fx)
+
+
+# ★ รอบ 182 ★ ตราทอง — ปรับดาเมจที่ผู้เล่นทำ (โล่ทอง · ผู้พิทักษ์ใกล้ ๆ · สะท้อน)
+func _gold_mark_damage(dmg: int, source: StringName, crit: bool) -> int:
+	var out := float(dmg)
+	if gold_shield_up:
+		if source not in [&"", &"basic", &"basic_finisher"]:
+			gold_shield_up = false
+			_gold_shield_back = GOLD_SHIELD_BACK
+			Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y - hover_lift() - 40), "โล่ทองแตก!", Color("#ffe27a"), 22, 0)
+		else:
+			out *= 1.0 - GOLD_SHIELD_CUT
+	if _gold_warden_near():
+		out *= 1.0 - GOLD_WARDEN_CUT
+	_gold_regen_idle = 0.0
+	if crit and &"reflect" in gold_marks and _gold_reflect_cd <= 0.0:
+		_gold_reflect_cd = 0.5
+		var p := get_tree().get_first_node_in_group("player")
+		if p != null and p.has_method("take_damage") and not PlayerState.is_dead():
+			var back := mini(int(out * GOLD_REFLECT), int(PlayerState.stats.max_hp * GOLD_REFLECT_CAP))
+			if back > 0:
+				p.take_damage(back, 0.0, signi(int(p.global_position.x - global_position.x)))
+	return maxi(1, int(round(out)))
+
+
+func _gold_warden_near() -> bool:
+	for w in get_tree().get_nodes_in_group(&"gold_warden"):
+		if w != self and is_instance_valid(w) and not w.is_dead() and w.global_position.distance_to(global_position) <= GOLD_WARDEN_RANGE:
+			return true
+	return false
+
+
+func _tick_gold_marks(delta: float) -> void:
+	_gold_reflect_cd -= delta
+	if &"gold_shield" in gold_marks and not gold_shield_up:
+		_gold_shield_back -= delta
+		if _gold_shield_back <= 0.0:
+			gold_shield_up = true
+	if &"regen" in gold_marks:
+		_gold_regen_idle += delta
+		if gold_regenerating():
+			_gold_regen_acc += data.max_hp * GOLD_REGEN * delta
+			var add := int(_gold_regen_acc)
+			if add > 0:
+				_gold_regen_acc -= add
+				hp = mini(data.max_hp, hp + add)
+				_update_hp_bar()
+
+
+## แตกร่าง — ตัวเล็ก 2 ตัว (ไม่มีรางวัล ไม่นับเควส)
+func _gold_split() -> void:
+	if scene_file_path == "" or get_parent() == null:
+		return
+	var scene: PackedScene = load(scene_file_path)
+	for side in [-1, 1]:
+		var d: MonsterData = data.duplicate()
+		d.max_hp = maxi(1, int(data.max_hp * GOLD_SPLIT_HP))
+		d.atk_min = int(data.atk_min * 0.5)
+		d.atk_max = int(data.atk_max * 0.5)
+		d.exp_reward = 0
+		d.job_exp_reward = 0
+		d.zeny_min = 0
+		d.zeny_max = 0
+		d.drops = d.drops.duplicate()
+		d.drops.clear()
+		if d.display_height > 0.0:
+			d.display_height *= 0.6
+		else:
+			d.sprite_scale *= 0.6
+		d.hp_bar_offset_y *= 0.6
+		var m = scene.instantiate()
+		m.data = d
+		m.set_meta(&"split_child", true)
+		m.position = position + Vector2(side * 70.0, 0.0)
+		get_parent().add_child.call_deferred(m)
 
 
 # =========================================================
@@ -376,6 +568,8 @@ func _apply_hover(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	_tick_wound(delta)
 	_tick_burn(delta)
+	if not gold_marks.is_empty() and state != State.DEAD:
+		_tick_gold_marks(delta)   # ★ รอบ 182 ★
 	_check_boss_intro()
 	if state == State.DEAD:
 		return
@@ -402,8 +596,23 @@ func _physics_process(delta: float) -> void:
 		_aggro_locked = false
 		_aggro = data.ai_type == MonsterData.AIType.AGGRESSIVE
 
+	# ★ รอบ 181 ★ โดนโซ่พันธะ (Ninth Edge) — ยืนนิ่งช่วงสั้น ไม่เดิน ไม่เริ่มท่าใหม่ (บอสไม่โดน)
+	if Time.get_ticks_msec() < int(get_meta("rb_stun_until", 0)):
+		velocity.x = move_toward(velocity.x, 0.0, data.move_speed * 4.0 * delta)
+		move_and_slide()
+		return
+
 	if state == State.ATTACK or state == State.HURT:
 		velocity.x = move_toward(velocity.x, 0.0, data.move_speed * 4.0 * delta)
+		move_and_slide()
+		return
+
+	# ★ รอบ 155 ★ ผู้เล่นกำลังคุย/อ่านป้ายในแมพทุ่ง → ยืนรอเฉย ๆ ไม่เดินเข้าหา ไม่ตี
+	if PlayerState.has_method("talk_truce") and PlayerState.call("talk_truce"):
+		velocity.x = move_toward(velocity.x, 0.0, data.move_speed * 4.0 * delta)
+		if state != State.IDLE:
+			state = State.IDLE
+			_play("Idle")
 		move_and_slide()
 		return
 
@@ -769,8 +978,55 @@ func _try_skill(distance: float, to_player_x: float) -> bool:
 		return false
 	velocity.x = 0.0
 	_face_to(to_player_x)
-	_cast_skill()
+	if BossSkillSet.has_set(self):   # ★ รอบ 158 ★ บอสบท 5-7 หมุนเวียน 3 ท่า
+		_cast_rotation_skill()
+	else:
+		_cast_skill()
 	return true
+
+
+# =========================================================
+# ★ รอบ 158 ★ บอสสกิล 3 ท่า (ตาราง BossSkillSet) — ท่า 1 = สกิลเดิมใน .tres
+# =========================================================
+var _rotation_index := 0
+var _variant_cache: Dictionary = {}
+
+func _cast_rotation_skill() -> void:
+	var slot := _rotation_index % 3
+	_rotation_index += 1
+	var skill := BossSkillSet.skill_of(data.id, slot)
+	if slot == 0 or skill.is_empty():
+		_cast_skill()
+		return
+	if String(skill.get("type", "")) == "variant":
+		# ใช้ระบบสกิลเดิมทั้งหมด แค่สลับค่าบางช่องชั่วคราว (ชื่อ/จำนวนสายฟ้า ฯลฯ)
+		var base := data
+		if not _variant_cache.has(slot):
+			var v: MonsterData = data.duplicate()
+			var changes: Dictionary = skill.get("set", {})
+			for k in changes.keys():
+				v.set(StringName(k), changes[k])
+			v.skill_name = String(skill.get("name", v.skill_name))
+			_variant_cache[slot] = v
+		data = _variant_cache[slot]
+		await _cast_skill()
+		if is_instance_valid(self) and state != State.DEAD:
+			data = base
+		return
+	state = State.ATTACK
+	velocity.x = 0.0
+	_skill_cd = data.skill_cooldown
+	if _play("Skill", true) == "":
+		_play("Attack", true)
+	if not get_meta("hide_skill_notice", false) and not data.get_meta("hide_skill_notice", false):
+		Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y - 26 - hover_lift()),
+			String(skill.get("name", "")), Color("#ff9a4a"), 22, 0)
+	var fx = preload("res://scripts/entities/boss_zone_skill.gd").cast(self, skill, int(_rotation_index / 3.0))
+	await fx.finished
+	if not is_instance_valid(self) or state == State.DEAD:
+		return
+	state = State.IDLE
+	_attack_timer = maxf(_attack_timer, data.attack_cooldown * 0.5)
 
 
 func _cast_skill() -> void:
@@ -788,6 +1044,15 @@ func _cast_skill() -> void:
 	if played == "":
 		played = _play("Attack", true)
 
+	if data.id == &"stone_hrungnir":
+		_special_cast_count += 1
+		if _special_cast_count % 2 == 1:
+			var earthbreak = preload("res://scripts/entities/hrungnir_earthbreak.gd").cast(self)
+			await earthbreak.finished
+			if state != State.DEAD:
+				state = State.IDLE
+				_attack_timer = maxf(_attack_timer, data.attack_cooldown * 0.5)
+			return
 	if data.id == &"gullveig_ember" or (data.id == &"baphomet" and _special_cast_count % 2 == 0):
 		var kind := "meteor" if data.id == &"gullveig_ember" and _special_cast_count % 2 == 0 else "flame_jet"
 		if data.id == &"baphomet": kind = "scythe"
@@ -800,7 +1065,7 @@ func _cast_skill() -> void:
 		return
 	if data.id == &"baphomet": _special_cast_count += 1
 
-	if data.skill_name != "":
+	if data.skill_name != "" and not get_meta("hide_skill_notice", false) and not data.get_meta("hide_skill_notice", false):
 		Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y - 26 - hover_lift()),
 			data.skill_name, Color("#ff9a4a"), 22, 0)
 
@@ -1012,6 +1277,11 @@ func _attack_hit(hits: int = 1, release_frame: int = -1, cast_mult: float = 1.0,
 	if hits > 1 and data.attack_hit_damage_mult > 0.0:
 		mult = data.attack_hit_damage_mult
 
+	# ★ รอบ 178 ★ เลเซอร์จากมือ (ราชินีหนาม) — พุ่งเร็ว ยาวไกล
+	if data.attack_laser:
+		_fire_laser(release_frame, mult * cast_mult)
+		return
+
 	# ★ โจมตีระยะไกล (รอบ 36) ★ ใส่รูปกระสุนไว้ = ยิงบอลแทนตีติดตัว
 	if data.projectile_texture != null:
 		if data.projectile_aim_at_player and is_instance_valid(_player):
@@ -1041,6 +1311,28 @@ func _attack_hit(hits: int = 1, release_frame: int = -1, cast_mult: float = 1.0,
 		return
 	var dir := signi(int(_player.global_position.x - global_position.x))
 	_player.take_damage(maxi(1, int(round(result.damage * mult))), data.knockback_force, dir)
+
+
+## ★ รอบ 178 ★ ยิงเลเซอร์จากมือ — เล็งหาตัวผู้เล่น (เอียงได้ไม่เกิน Laser Max Angle) ถ้าผู้เล่นอยู่ด้านหน้า
+func _fire_laser(release_frame: int, mult: float) -> MonsterLaserFX:
+	var from := projectile_origin(release_frame)
+	var aim := Vector2(float(facing), 0.0)
+	if is_instance_valid(_player) and not PlayerState.is_dead():
+		var col := _player.get_node_or_null("CollisionShape2D") as CollisionShape2D
+		var tp: Vector2 = (col.global_transform * col.shape.get_rect()).get_center() \
+			if col != null and col.shape != null else _player.global_position
+		if (tp.x - from.x) * float(facing) > 0.0:
+			var lim := deg_to_rad(data.laser_max_angle)
+			var ang := clampf(atan2(tp.y - from.y, absf(tp.x - from.x)), -lim, lim)
+			aim = Vector2(cos(ang) * float(facing), sin(ang))
+	var fx := MonsterLaserFX.fire(self, from, aim, _player, mult)
+	if not data.laser_sfx.is_empty() and Game.sfx != null:
+		var gain := 0.6
+		if is_instance_valid(_player):
+			gain *= 1.0 - smoothstep(700.0, 1600.0, from.distance_to(_player.global_position))
+		if gain > 0.001:
+			Game.sfx.play(data.laser_sfx, gain, 0.05)
+	return fx
 
 
 func projectile_origin(release_frame: int = -1) -> Vector2:
@@ -1113,6 +1405,7 @@ func _anim_time_to_frame(anim: String, idx: int) -> float:
 # =========================================================
 func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, from_dir: int = 0,
 		wound_bonus: float = 0.0, wound_duration: float = 0.0, source: StringName = &"") -> void:
+	if get_meta("encounter_locked", false): return
 	if state == State.DEAD:
 		return
 
@@ -1125,7 +1418,8 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 	# ★ รอบ 105 ★ Ninth Edge — คมที่มีชื่อ (มองข้าม DEF) · ท่ายืนทลายกำแพง (DEF ≥ 100) · อักขระที่เก้า (วงคริ 100%)
 	var ignore_def := mastery * 0.05 + PlayerState.skills.level_of(&"named_edge") * 0.04
 	var can_crit := not heavy and source not in [&"rune_echo", &"twin_echo", &"ninth_inscription"]
-	var wb := PlayerState.skills.level_of(&"wallbreaker_stance")
+	# ★ รอบ 181 ★ อ่านรอยพันธะรวมเข้าคมยืนยันนาม (ใช้ระดับที่สูงกว่า ไม่ทบกัน)
+	var wb := maxi(PlayerState.skills.level_of(&"wallbreaker_stance"), PlayerState.skills.level_of(&"named_edge"))
 	if wb > 0:
 		physical_bonus *= 1.0 + minf(0.04 * wb, maxf(0.0, data.def) * 0.0002 * wb)
 	# ★ รอบ 105 ★ ดาบนาม (บท 6): ดาเมจ +1% ต่อ «ชื่อที่ทิ้งไว้» ในกระเป๋า สูงสุด +20%
@@ -1147,7 +1441,7 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 
 	# ★ โหมด GM ตีทีเดียวตาย (รอบ 80) ★ ตีปุ๊บตายปั๊บ ไม่พลาด ไม่สนธาตุ/เกราะ
 	# ใช้ไล่เก็บดรอป/ดูท่าตาย/เทสต์เควสฆ่ามอนเร็ว ๆ — เปิดจากหน้าต่าง GM (F10) เท่านั้น
-	if PlayerState.gm_one_hit:
+	if OS.is_debug_build() and PlayerState.gm_one_hit:
 		take_damage(maxi(1, hp), true, from_dir)
 		return
 
@@ -1156,8 +1450,11 @@ func take_damage_from_player(skill_mult: float = 1.0, use_matk: bool = false, fr
 		_set_aggro()
 		return
 
-	var dealt := mini(hp, maxi(1, int(result.damage)))
-	take_damage(maxi(1, int(result.damage)), bool(result.crit), from_dir)
+	var final_damage := maxi(1, int(result.damage))
+	if not gold_marks.is_empty() or get_tree().has_group(&"gold_warden"):   # ★ รอบ 182 ★ ตราทอง
+		final_damage = _gold_mark_damage(final_damage, source, bool(result.crit))
+	var dealt := mini(hp, final_damage)
+	take_damage(final_damage, bool(result.crit), from_dir)
 	_drain_to_player(dealt)
 	if source not in [&"rune_echo", &"twin_echo", &"element_burn", &"element_chain"]:
 		_apply_weapon_element(element, dealt, from_dir)
@@ -1262,20 +1559,19 @@ func _drain_to_player(damage: int) -> void:
 	if st == null:
 		return
 	PlayerState.apply_hp_drain(damage)
-	if st.sp_drain_percent > 0.0:
-		var sp_gain := int(damage * st.sp_drain_percent / 100.0)
-		PlayerState.restore_sp(sp_gain, true)   # ★ รอบ 121 ★ โชว์ "+N SP" ที่ตัวละคร
+	PlayerState.apply_sp_drain(damage)   # ★ รอบ 121 ★ โชว์ "+N SP" ที่ตัวละคร
 
 
 ## ทำดาเมจตรง ๆ (ใช้กับกับดัก/สกิลพิเศษ)
 func take_damage(amount: int, is_crit: bool = false, from_dir: int = 0) -> void:
+	if get_meta("encounter_locked", false): return
 	if state == State.DEAD:
 		return
 
 	hp = maxi(0, hp - amount)
 	_set_aggro()
 	if is_crit and amount > 0:
-		# ★ รอบ 146 ★ คริ = ลายร้าวขาวบนตัวมอน (แทนแฉกทองเดิม · เปิดคืนได้ที่ CRIT_GOLD_BURST)
+		# Painted silver critical sparkle plus the existing crack overlay.
 		if CRIT_GOLD_BURST:
 			preload("res://scripts/entities/critical_burst_fx.gd").spawn(self)
 		preload("res://scripts/entities/crack_overlay_fx.gd").spawn(self)
@@ -1368,9 +1664,10 @@ func _die() -> void:
 		PlayerState.add_zeny(zeny)
 
 	# ★ EXP กับ Job EXP อยู่บรรทัดเดียวกัน และลอยแยกทางกับตัวเลขดาเมจ ★
-	Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y + sprite.position.y),
-		"+%d EXP   +%d JOB" % [rewards.base, job_exp], Color("#8ad6ff"), 18, 4)
-	Events.monster_killed.emit(data.id, data.level)
+	if not get_meta(&"split_child", false):   # ★ รอบ 182 ★ ร่างที่แตกจากตราทองไม่นับเควส/ไม่มีรางวัล
+		Events.floating_text(global_position + Vector2(0, data.hp_bar_offset_y + sprite.position.y),
+			"+%d EXP   +%d JOB" % [rewards.base, job_exp], Color("#8ad6ff"), 18, 4)
+		Events.monster_killed.emit(data.id, data.level)
 
 	# ★ ล้มบอส = ป้าย MVP เหนือหัวผู้เล่น + ตั้งธงเนื้อเรื่อง killed_<id> (รอบ 38) ★
 	# ธงนี้ใช้ปลดล็อก LoreObject / เควส เช่น killed_forge_guardian เปิดแบบร่างค้อน
@@ -1379,6 +1676,8 @@ func _die() -> void:
 		PlayerState.set_flag(StringName("killed_" + String(data.id)))
 
 	_spawn_drops()
+	if &"split" in gold_marks:   # ★ รอบ 182 ★
+		_gold_split()
 	died.emit(self, data)
 
 	# ★ ท่าตาย ★
@@ -1520,6 +1819,8 @@ func _process_corpse(_delta: float) -> void:
 
 func _spawn_drops() -> void:
 	var drops := data.roll_drops()
+	if is_champion:   # ★ รอบ 158 ★ แชมเปี้ยนทอยดรอป 2 รอบ
+		drops.append_array(data.roll_drops())
 	if drops.is_empty():
 		return
 
@@ -1568,7 +1869,7 @@ func _create_hp_bar() -> void:
 	_hp_bar.add_theme_stylebox_override("background", bg)
 
 	var fill := StyleBoxFlat.new()
-	fill.bg_color = Color(0.2, 0.85, 0.3)
+	fill.bg_color = Color(1.0, 0.78, 0.22) if is_champion else Color(0.2, 0.85, 0.3)   # ★ รอบ 158 ★ แชมเปี้ยน = หลอดทอง
 	fill.set_corner_radius_all(3)
 	_hp_bar.add_theme_stylebox_override("fill", fill)
 
@@ -1582,7 +1883,7 @@ func _update_hp_bar() -> void:
 	var ratio := float(hp) / maxf(1.0, float(data.max_hp))
 	var fill := _hp_bar.get_theme_stylebox("fill") as StyleBoxFlat
 	if fill != null:
-		fill.bg_color = Color(0.9, 0.2, 0.2) if ratio < 0.3 else Color(0.2, 0.85, 0.3)
+		fill.bg_color = Color(0.9, 0.2, 0.2) if ratio < 0.3 else (Color(1.0, 0.78, 0.22) if is_champion else Color(0.2, 0.85, 0.3))
 
 
 # =========================================================

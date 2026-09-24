@@ -39,6 +39,10 @@ movie_writer/ogv/encoding_speed=1
 movie_writer/movie_file="C:/Users/peeco/Downloads/Game Dev Rag/โปรเจกต์เกมใหม่/movie/test2.avi"
 movie_writer/fps=48
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/export_metadata/plugin.cfg")
+
 [gui]
 
 theme/custom_font="res://fonts/NotoSansThai-Regular.ttf"

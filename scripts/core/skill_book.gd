@@ -20,9 +20,10 @@ static func profession_of(id: StringName) -> StringName:
 	return &"swordsman"
 
 ## Skills of the secret profession are available after its promotion.
-const NINTH_SKILLS := [&"ninth_vessel",&"named_edge",&"twin_inscription",&"wallbreaker_stance",&"erasing_cut",&"ninth_inscription"]
-const RUNE_SKILLS := [&"runic_vessel",&"rune_guard",&"blade_rhythm",&"keen_inscription",&"rune_flurry", &"rune_lunge",&"unbroken_edge",&"tempered_might",&"anvil_cleave",&"faultline",&"worldcleaver",
-	&"ninth_vessel",&"named_edge",&"twin_inscription",&"wallbreaker_stance",&"erasing_cut",&"ninth_inscription"]
+## ★ รอบ 181 ★ เพิ่ม ก้าวลบเงา · โซ่พันธะ · กงจักรนามเก้า (อ่านรอยพันธะยังอยู่ในรายการเพื่อคืนแต้มเซฟเก่า)
+const NINTH_SKILLS := [&"ninth_vessel",&"named_edge",&"erasing_step",&"oathchain",&"ninefold_cyclone",&"twin_inscription",&"wallbreaker_stance",&"erasing_cut",&"ninth_inscription"]
+const RUNE_SKILLS := [&"jump_slash",&"runic_vessel",&"rune_guard",&"blade_rhythm",&"keen_inscription",&"rune_flurry", &"rune_lunge",&"unbroken_edge",&"tempered_might",&"anvil_cleave",&"faultline",&"worldcleaver",
+	&"ninth_vessel",&"named_edge",&"erasing_step",&"oathchain",&"ninefold_cyclone",&"twin_inscription",&"wallbreaker_stance",&"erasing_cut",&"ninth_inscription"]
 ## Each profession owns its Job EXP and skill-point bank (caps 50/80/100).
 ## และไม่มีเควสล็อกสกิล (rb_rune_5 / rb_rune_7 / ninth_inscription_unlocked เป็นธงเนื้อเรื่องอย่างเดียว)
 ## เงื่อนไขเรียน = อาชีพ + เลเวลตัวละคร + สกิลก่อนหน้า เหมือนสกิลนักดาบทุกประการ
@@ -141,6 +142,9 @@ func reset(stats: PlayerStats) -> void:
 func set_hotkey(index: int, skill_id: StringName) -> void:
 	if index < 0 or index >= HOTKEY_COUNT:
 		return
+	# ★ รอบ 168 ★ ซิงก์ไปแถบลัด 8 ช่อง (เฉพาะสมุดสกิลของผู้เล่นจริง ไม่ใช่สำเนาในเทสต์)
+	if PlayerState != null and PlayerState.skills == self and PlayerState.has_method("hotbar_from_skillbook"):
+		PlayerState.hotbar_from_skillbook(index, skill_id)
 	# ถ้าสกิลนี้อยู่ปุ่มอื่นอยู่แล้ว ให้เอาออกก่อน
 	for i in range(HOTKEY_COUNT):
 		if hotkeys[i] == skill_id:
@@ -188,4 +192,8 @@ func from_dict(d: Dictionary) -> void:
 	var h: Array = d.get("hotkeys", [])
 	for i in range(mini(h.size(), HOTKEY_COUNT)):
 		hotkeys[i] = StringName(h[i])
+		# ★ รอบ 164 ★ สกิลที่กลายเป็นพาสซีฟ (First Aid) ผูกปุ่มไม่ได้แล้ว
+		var hs := GameData.get_skill(hotkeys[i]) if hotkeys[i] != &"" else null
+		if hs != null and hs.type == SkillData.SkillType.PASSIVE:
+			hotkeys[i] = &""
 	Events.skills_changed.emit()

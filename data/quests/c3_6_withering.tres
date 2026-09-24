@@ -14,7 +14,7 @@ script = ExtResource("2_obj")
 kind = 4
 target = &"dry_spring_grove"
 count = 1
-text = "ดูลำธารที่แห้งขอด"
+text = "ตรวจดูลำธารแห้ง"
 
 [resource]
 script = ExtResource("1_quest")

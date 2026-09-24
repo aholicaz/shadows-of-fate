@@ -5,7 +5,7 @@
 script = ExtResource("s")
 id = &"anvil_cleave"
 display_name = "ดาบฟาดทั่ง"
-description = "ฟาดกวาดระยะ 440 px รวม 500–1040% ATK สูงสุด 8 ตัว ไม่คริ เปิดแผลรับดาเมจเพิ่ม 15% นาน 4 วิ"
+description = "ฟาดกวาดระยะ 660 px รวม 500–1040% ATK สูงสุด 8 ตัว ไม่คริ เปิดแผลรับดาเมจเพิ่ม 15% นาน 4 วิ"
 icon = ExtResource("i")
 max_level = 10
 job_ids = Array[StringName]([&"runeblade", &"ninth_edge"])
@@ -19,6 +19,6 @@ damage_mult_per_level = 0.6
 required_skills = {}
 
 max_targets = 8
-range_x = 440.0
+range_x = 660.0
 
-range_y = 340.0
+range_y = 400.0

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="QuestData" format=3]
+[ext_resource type="Script" path="res://scripts/resources/quest_data.gd" id="s"]
+[ext_resource type="Script" path="res://scripts/resources/objective_data.gd" id="o"]
+[sub_resource type="Resource" id="goal"]
+script = ExtResource("o")
+kind = 5
+target = &"c8_floor_05_clear"
+count = 1
+text = "ผ่านชั้น 5 และกลับหาสวาลา"
+[resource]
+script = ExtResource("s")
+id = &"c8_1_roots"
+title = "รากที่จดจำ"
+description = "ขึ้นหออิกดราซิลจนผ่านชั้น 5 (ผู้คุม: เวอร์ดัน ผู้คุมรากพันธนาการ) แล้วกลับมาหาสวาลา"
+giver_name = "สวาลา ผู้เก็บชื่อ"
+dialog_offer = "คนที่ถูกส่งขึ้นหอยังมีชีวิตอยู่ แต่ทางขึ้นถูกล็อกไว้ทีละห้าชั้น แต่ละช่วงมีผู้คุมเฝ้าอยู่\n\nด่านแรกคือเวอร์ดัน ผู้คุมรากพันธนาการ มันผูกทางขึ้นไว้กับรากหลักของต้นไม้ ไปเปิดทางถึงชั้น 5 ให้ได้ — แต่จำไว้ คมของเจ้ามีไว้เปิดทาง ไม่ใช่ทำลายทุกอย่างที่ขวาง"
+dialog_progress = "ขึ้นหอไปให้ถึงชั้น 5 แล้วกลับมาหาข้า — เลือกชั้นเริ่มได้ที่ศิลาราก"
+dialog_complete = "เจ้ากลับมาแล้ว และหอยังตั้งอยู่... เจ้าพิสูจน์แล้วว่าคมดาบเปิดทางได้ โดยไม่ต้องทำลายทุกสิ่ง"
+required_flag = &"chapter7_done"
+objectives = Array[ExtResource("o")]([SubResource("goal")])
+reward_exp = 39026
+reward_job_exp = 1300
+reward_zeny = 4553
+set_flag_on_complete = &"c8_1_roots_done"

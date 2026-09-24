@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3]
+
+[ext_resource type="Texture2D" path="res://Sprites/npc/chapter5/idle/sol.png" id="1_ecvtw"]
+
+[resource]
+atlas = ExtResource("1_ecvtw")
+region = Rect2(33, 12, 254, 397)
+filter_clip = true
